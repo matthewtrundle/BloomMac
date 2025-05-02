@@ -1,0 +1,37 @@
+{
+  "name": "nextjs",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "next": "15.3.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tailwind-merge": "^3.2.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.52.0",
+    "@radix-ui/react-accordion": "^1.2.8",
+    "@radix-ui/react-dialog": "^1.1.11",
+    "@radix-ui/react-navigation-menu": "^1.2.10",
+    "@storybook/react": "^8.6.12",
+    "@tailwindcss/typography": "^0.5.16",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "autoprefixer": "^10.4.21",
+    "class-variance-authority": "^0.7.1",
+    "framer-motion": "^12.9.4",
+    "lottie-react": "^2.4.1",
+    "playwright": "^1.52.0",
+    "postcss": "^8.5.3",
+    "storybook": "^8.6.12",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5"
+  }
+}
