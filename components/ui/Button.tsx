@@ -26,9 +26,9 @@ const variantClasses = {
   primary: 'btn-primary',
   accent: 'btn-accent',
   outline: 'btn-outline',
-  ghost: 'text-bloom hover:text-bloom-accent transition-colors duration-300',
-  pink: 'btn-pink',
-  'pink-outline': 'btn-pink-outline'
+  ghost: 'text-bloom hover:text-bloompink transition-colors duration-300',
+  pink: 'bg-bloompink hover:bg-[#B03979] text-white font-bold shadow-md transition',
+  'pink-outline': 'border-2 border-bloompink text-bloompink hover:bg-bloompink/5 transition'
 };
 
 const sizeClasses = {

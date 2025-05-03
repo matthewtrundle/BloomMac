@@ -1,5 +1,6 @@
+'use client';
+
 import React from 'react';
-import { Metadata } from 'next';
 import Image from 'next/image';
 
 // UI Components
@@ -8,14 +9,7 @@ import OrganicShape from '@/components/ui/OrganicShape';
 import GlassmorphismPanel from '@/components/ui/GlassmorphismPanel';
 import Button from '@/components/ui/Button';
 
-// ISR revalidation (60 seconds)
-export const revalidate = 60;
-
-export const metadata: Metadata = {
-  title: 'Contact Us',
-  description: 'Schedule your free consultation or reach out with questions. Located in North Austin at 13706 N Highway 183, Suite 114.',
-  keywords: 'contact, appointment, therapy, consultation, Austin therapist, location',
-};
+// Metadata is now in a separate file: metadata.ts
 
 export default function ContactPage() {
   return (
@@ -63,7 +57,7 @@ export default function ContactPage() {
               <GlassmorphismPanel variant="medium" className="p-8 md:p-10 h-full">
                 <h2 className="font-playfair text-2xl text-bloom mb-6">Get in Touch</h2>
                 
-                <form className="space-y-6">
+                <form id="contactForm" className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                       <label htmlFor="firstName" className="block text-bloom mb-2 text-sm">First Name</label>
@@ -121,7 +115,7 @@ export default function ContactPage() {
                       <option value="moms">Therapy for Moms</option>
                       <option value="parent">Parent Support</option>
                       <option value="anxiety">Anxiety & Stress Management</option>
-                      <option value="telehealth">Telehealth Sessions</option>
+                      {/* Telehealth option removed as this service is no longer offered */}
                       <option value="postpartum">Postpartum Depression Support</option>
                       <option value="other">Other (Please specify)</option>
                     </select>

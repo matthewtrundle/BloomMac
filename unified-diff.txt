@@ -1,0 +1,24 @@
+# Bloom Psychology Website Updates
+
+## Changes Made
+
+1. Added standardized bloompink color: #C6478A
+2. Added text-shadow plugin and utilities
+3. Removed Telehealth service entirely
+4. Added Blog link to header
+5. Removed Client Success Stories sections
+6. Changed about page to use Hero2.png
+7. Updated hero section with watercolor backdrop
+8. Applied Framer Motion animations to hero elements
+
+## Affected Files
+
+- tailwind.config.js
+- app/page.tsx
+- app/about/page.tsx
+- components/layout/Header.tsx
+- lib/data/services.ts
+- app/(services)/services/[slug]/page.tsx
+- components/ui/Button.tsx
+- app/globals.css
+- tailwind-plugins/text-shadow.js (new file)

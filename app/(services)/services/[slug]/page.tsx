@@ -42,8 +42,8 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-// ISR revalidation (60 seconds)
-export const revalidate = 60;
+// Client components can't use the revalidate export
+// Use route handlers for data revalidation instead
 
 export default async function ServicePage({ params }: { params: { slug: string } }) {
   const slug = await Promise.resolve(params.slug);
@@ -208,57 +208,7 @@ export default async function ServicePage({ params }: { params: { slug: string }
         </div>
       </section>
       
-      {/* Case Study Section */}
-      <section className="py-20 bg-white relative overflow-hidden">
-        <OrganicShape
-          variant="blob-2"
-          color="var(--bloom-accent)"
-          size="lg"
-          position="bottom-left"
-          opacity={0.05}
-          rotate={180}
-        />
-        <OrganicShape
-          variant="blob-1"
-          color="var(--bloom-blush)"
-          size="md"
-          position="top-right"
-          opacity={0.04}
-          rotate={45}
-        />
-        
-        <div className="container mx-auto px-6">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <KineticTypography as="h2" animation="word-by-word" className="font-playfair text-bloom mb-4">
-                Client Success Story
-              </KineticTypography>
-              
-              <div className="w-32 h-1 bg-gradient-to-r from-bloom-blush to-bloom-accent mx-auto rounded-full"></div>
-            </div>
-            
-            <GlassmorphismPanel variant="pink-prominent" className="p-8 md:p-12">
-              <h3 className="font-playfair text-2xl text-bloom mb-6">{service.caseStudy.title}</h3>
-              
-              <blockquote className="text-xl italic text-bloom/80 mb-6">
-                "{service.caseStudy.quote}"
-              </blockquote>
-              
-              <div className="flex items-center mb-8">
-                <div className="w-12 h-12 rounded-full bg-bloom-blush/30 flex items-center justify-center text-bloom-blush mr-4">
-                  <span className="font-playfair text-lg">{service.caseStudy.author.charAt(0)}</span>
-                </div>
-                <p className="font-medium text-bloom/90">{service.caseStudy.author}</p>
-              </div>
-              
-              <div className="p-4 bg-gradient-to-br from-white to-bloom-blush/5 rounded-lg shadow-pink-sm">
-                <h4 className="text-bloom font-medium mb-2">Outcome:</h4>
-                <p className="text-bloom/80">{service.caseStudy.outcome}</p>
-              </div>
-            </GlassmorphismPanel>
-          </div>
-        </div>
-      </section>
+      {/* Client Success Stories Section Removed */}
       
       {/* FAQ Section */}
       <section className="py-20 bg-gray-50 relative overflow-hidden">

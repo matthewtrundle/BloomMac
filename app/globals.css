@@ -278,6 +278,18 @@
     text-wrap: balance;
   }
   
+  .text-shadow-sm {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  }
+  
+  .text-shadow {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+  
+  .text-shadow-lg {
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  }
+  
   .animate-fade-in {
     animation: fadeIn 1s ease-in-out forwards;
   }
@@ -288,6 +300,47 @@
   
   .animate-pulse-subtle {
     animation: pulsateSubtle 3s infinite;
+  }
+  
+  /* Scroll Triggered Effects */
+  .scroll-greyscale {
+    transition: filter 700ms ease-in-out;
+  }
+  
+  .grayscale-0 {
+    filter: grayscale(0);
+  }
+  
+  .grayscale-100 {
+    filter: grayscale(1);
+  }
+  
+  .scroll-reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+  
+  .scroll-reveal.reveal {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .scroll-fade {
+    opacity: 0;
+    transition: opacity 0.8s ease-out;
+  }
+  
+  .scroll-fade.reveal {
+    opacity: 1;
+  }
+  
+  /* Parallax scrolling effect for images */
+  .parallax-bg {
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
   }
 }
 

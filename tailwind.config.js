@@ -15,6 +15,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        bloompink: "#C6478A",
         bloom: {
           DEFAULT: '#2C3E50',
           accent: '#A3D8F4',
@@ -41,6 +42,12 @@ module.exports = {
       },
       fontFamily: {
         playfair: ['var(--font-playfair)', 'serif'],
+        inter: ['var(--font-inter)', 'Inter', 'sans-serif'],
+      },
+      textShadow: {
+        sm: '0 1px 2px rgba(0, 0, 0, 0.2)',
+        DEFAULT: '0 2px 4px rgba(0, 0, 0, 0.3)',
+        lg: '0 4px 8px rgba(0, 0, 0, 0.4)',
       },
       boxShadow: {
         'pink-sm': '0 1px 2px 0 rgba(244, 194, 194, 0.05)',
@@ -52,6 +59,10 @@ module.exports = {
         'float': 'float 6s ease-in-out infinite',
         'pulse-subtle': 'pulse-subtle 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         'shimmer': 'shimmer 2s linear infinite',
+        'reveal-up': 'reveal-up 0.6s ease-out forwards',
+        'fade-in': 'fade-in 0.8s ease-out forwards',
+        'slide-in-left': 'slide-in-left 0.8s ease-out forwards',
+        'slide-in-right': 'slide-in-right 0.8s ease-out forwards',
       },
       keyframes: {
         float: {
@@ -66,11 +77,30 @@ module.exports = {
           '0%': { backgroundPosition: '-200% 0' },
           '100%': { backgroundPosition: '200% 0' },
         },
+        'reveal-up': {
+          '0%': { transform: 'translateY(20px)', opacity: 0 },
+          '100%': { transform: 'translateY(0)', opacity: 1 },
+        },
+        'fade-in': {
+          '0%': { opacity: 0 },
+          '100%': { opacity: 1 },
+        },
+        'slide-in-left': {
+          '0%': { transform: 'translateX(-30px)', opacity: 0 },
+          '100%': { transform: 'translateX(0)', opacity: 1 },
+        },
+        'slide-in-right': {
+          '0%': { transform: 'translateX(30px)', opacity: 0 },
+          '100%': { transform: 'translateX(0)', opacity: 1 },
+        },
       },
       backdropBlur: {
         xs: '2px',
       },
     },
   },
-  plugins: [require('@tailwindcss/typography')],
+  plugins: [
+    require('@tailwindcss/typography'),
+    require('./tailwind-plugins/text-shadow.js')
+  ],
 }

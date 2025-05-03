@@ -9,8 +9,8 @@ import GlassmorphismPanel from '@/components/ui/GlassmorphismPanel';
 import Button from '@/components/ui/Button';
 import ParallaxContainer from '@/components/ui/ParallaxContainer';
 
-// ISR revalidation (60 seconds)
-export const revalidate = 60;
+// Client components can't use the revalidate export 
+// Use route handlers for data revalidation instead
 
 export const metadata: Metadata = {
   title: 'About Us',
@@ -21,8 +21,19 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <>
-      {/* Hero Section */}
+      {/* Hero Section with Hero2.png */}
       <section className="pt-20 pb-10 bg-white relative overflow-hidden">
+        <div className="absolute inset-0 z-0 h-[50vh] overflow-hidden">
+          <Image
+            src="/images/Hero/Hero2.png"
+            alt="Bloom Psychology hero"
+            fill
+            className="object-cover"
+            objectPosition="center"
+            priority
+          />
+          <div className="absolute inset-0 bg-white/40"></div>
+        </div>
         <OrganicShape
           variant="blob-1"
           color="var(--bloom-accent)"
