@@ -6,12 +6,7 @@ module.exports = {
     './components/**/*.{ts,tsx}',
     './layouts/**/*.{ts,tsx}',
   ],
-  safelist: [
-    {
-      pattern: /(bg|text|border)-(bloom|accent|blush)-(100|200|300|400|500|600|700)/,
-      variants: ['hover', 'focus'],
-    },
-  ],
+  // Removed safelist pattern as it wasn't matching any actual classes
   theme: {
     extend: {
       colors: {
@@ -43,6 +38,7 @@ module.exports = {
       fontFamily: {
         playfair: ['var(--font-playfair)', 'serif'],
         inter: ['var(--font-inter)', 'Inter', 'sans-serif'],
+        poppins: ['var(--font-poppins)', 'Poppins', 'sans-serif'],
       },
       textShadow: {
         sm: '0 1px 2px rgba(0, 0, 0, 0.2)',

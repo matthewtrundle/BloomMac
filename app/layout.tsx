@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Inter, Playfair_Display } from 'next/font/google';
+import { Inter, Playfair_Display, Poppins } from 'next/font/google';
 import './globals.css';
 
 // Import layout components
@@ -17,6 +17,13 @@ const playfair = Playfair_Display({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-playfair'
+});
+
+const poppins = Poppins({
+  weight: ['400', '500', '600', '700', '800', '900'],
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-poppins'
 });
 
 export const metadata: Metadata = {
@@ -39,7 +46,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
+    <html lang="en" className={`${inter.variable} ${playfair.variable} ${poppins.variable}`}>
       <body className="bg-white text-bloom min-h-screen">
         <Header />
         <main className="pt-24">

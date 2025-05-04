@@ -41,7 +41,7 @@ export default function Home() {
   const servicePanelRefs = useRef<Array<HTMLDivElement | null>>([]);
   
   // Use the specified hero image
-  const heroImage = '/images/Hero/Hero11.png';
+  const heroImage = '/images/Hero/hero15.png';
   
   // Apply scroll effects
   useEffect(() => {
@@ -138,8 +138,7 @@ export default function Home() {
               src={heroImage}
               alt="Bloom Psychology hero"
               fill
-              className="object-cover relative z-10"
-              objectPosition="top"
+              className="object-cover object-top relative z-10"
               priority
               quality={85}
             />
@@ -184,19 +183,21 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="relative z-10 max-w-3xl ml-4 md:ml-8 lg:ml-16 mr-auto px-4 pt-28 lg:pt-36 text-white"
+            className="relative z-10 max-w-3xl ml-4 md:ml-8 lg:ml-16 mr-auto pt-28 lg:pt-36"
           >
-            <h1 className="font-playfair text-5xl md:text-6xl lg:text-7xl mb-6 text-shadow-sm">
-              <span className="text-bloompink">Bloom</span> <span className="text-gray-800">Psychology</span>
-            </h1>
-            
-            <KineticTypography 
-              as="p"
-              animation="fade-in" 
-              className="text-xl md:text-2xl mb-8 text-white font-inter text-shadow-sm"
-            >
-              Specialized mental health care for women, moms, and families in North Austin.
-            </KineticTypography>
+            <div className="bg-white/20 backdrop-blur-sm rounded-lg p-6">
+              <h1 className="font-poppins font-extrabold text-4xl sm:text-5xl md:text-6xl lg:text-7xl mb-6 tracking-tight leading-tight text-white drop-shadow-lg">
+                <span className="text-bloompink">Bloom</span> Psychology
+              </h1>
+              
+              <KineticTypography 
+                as="p"
+                animation="fade-in" 
+                className="text-lg sm:text-xl md:text-2xl mb-8 text-gray-100 font-inter font-semibold drop-shadow-md"
+              >
+                Specialized mental health care for women, moms, and families in North Austin.
+              </KineticTypography>
+            </div>
             
             <div className="flex flex-col sm:flex-row gap-4 mt-10">
               <motion.a 
@@ -212,7 +213,7 @@ export default function Home() {
                 href="#services" 
                 whileHover={{ scale: 1.03 }} 
                 transition={{ type: "spring", stiffness: 300 }}
-                className="bg-white bg-opacity-10 backdrop-blur-sm border border-white/20 text-gray-100 font-inter font-medium px-6 py-3 rounded-md hover:bg-white/20 transition text-center"
+                className="bg-white border border-white text-gray-800 font-inter font-medium px-6 py-3 rounded-md hover:bg-gray-50 transition text-center"
               >
                 Explore Our Services
               </motion.a>

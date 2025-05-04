@@ -16,13 +16,18 @@ import { ServiceSchema, FaqSchema } from '@/components/seo/JsonLd';
 
 // Generate static paths for all services
 export function generateStaticParams() {
-  return getAllServiceSlugs().map(slug => ({ slug }));
+  return getAllServiceSlugs().map((slug) => ({
+    slug,
+  }));
 }
 
 // Generate metadata for each service page
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const slug = await Promise.resolve(params.slug);
-  const service = getServiceBySlug(slug);
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
+  const service = getServiceBySlug(params.slug);
   
   if (!service) {
     return {
@@ -42,12 +47,12 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-// Client components can't use the revalidate export
-// Use route handlers for data revalidation instead
-
-export default async function ServicePage({ params }: { params: { slug: string } }) {
-  const slug = await Promise.resolve(params.slug);
-  const service = getServiceBySlug(slug);
+export default function ServicePage({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const service = getServiceBySlug(params.slug);
   
   // Handle 404
   if (!service) {
@@ -207,8 +212,6 @@ export default async function ServicePage({ params }: { params: { slug: string }
           </div>
         </div>
       </section>
-      
-      {/* Client Success Stories Section Removed */}
       
       {/* FAQ Section */}
       <section className="py-20 bg-gray-50 relative overflow-hidden">
