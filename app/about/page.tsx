@@ -51,20 +51,22 @@ export default function AboutPage() {
           rotate={45}
         />
         
-        <div className="container mx-auto px-6">
+        <div className="container mx-auto px-6 relative z-10">
           <div className="text-center mb-12">
-            <h1 className="font-playfair text-bloom text-4xl md:text-5xl lg:text-6xl mb-6">
+            <KineticTypography as="h1" animation="fade-in" className="font-playfair text-bloom-dark text-4xl md:text-5xl lg:text-6xl mb-6 text-shadow-lg">
               About Bloom Psychology
-            </h1>
+            </KineticTypography>
             
-            <div className="w-20 h-1 bg-bloom-accent mx-auto mb-8"></div>
+            <div className="w-20 h-1 bg-bloom-pink mx-auto mb-8"></div>
             
-            <p className="text-bloom/70 max-w-2xl mx-auto">
+            <p className="text-bloom-dark/90 max-w-2xl mx-auto font-medium text-shadow">
               Dedicated to providing compassionate, evidence-based mental health care for women, mothers, and families in North Austin.
             </p>
           </div>
         </div>
       </section>
+      
+      {/* About text is in the hero section above */}
       
       {/* Meet Dr. Rundle Section */}
       <section className="py-16 bg-white relative overflow-hidden">
