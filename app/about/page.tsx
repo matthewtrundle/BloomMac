@@ -25,7 +25,7 @@ export default function AboutPage() {
       <section className="pt-20 pb-10 bg-white relative overflow-hidden">
         <div className="absolute inset-0 z-0 h-[50vh] overflow-hidden">
           <Image
-            src="/images/Hero/Hero2.png"
+            src="/images/Hero/ABoutHero.png"
             alt="Bloom Psychology hero"
             fill
             className="object-cover"
@@ -53,9 +53,9 @@ export default function AboutPage() {
         
         <div className="container mx-auto px-6">
           <div className="text-center mb-12">
-            <KineticTypography as="h1" animation="letter-by-letter" className="font-playfair text-bloom text-4xl md:text-5xl lg:text-6xl mb-6">
+            <h1 className="font-playfair text-bloom text-4xl md:text-5xl lg:text-6xl mb-6">
               About Bloom Psychology
-            </KineticTypography>
+            </h1>
             
             <div className="w-20 h-1 bg-bloom-accent mx-auto mb-8"></div>
             
@@ -77,23 +77,19 @@ export default function AboutPage() {
               
               <div className="w-20 h-1 bg-bloom-accent mb-8"></div>
               
-              <div className="space-y-6 text-bloom/80">
-                <p>
-                  Dr. Jana Rundle is a licensed clinical psychologist with over 10 years of experience specializing in women's mental health, maternal wellness, and family therapy.
+              <GlassmorphismPanel variant="medium" className="p-8 space-y-6">
+                <p className="text-bloom/80">
+                  Dr. Jana Rundle is a licensed clinical psychologist with over 10 years of experience specializing in women's mental health, maternal wellness, and parent support.
                 </p>
                 
-                <p>
-                  After completing her doctoral training at the University of Texas at Austin and her internship at Dell Children's Medical Center, Dr. Rundle developed a passion for supporting women through life transitions, particularly those related to motherhood and family dynamics.
+                <p className="text-bloom/80">
+                  After having her own children and seeing just how little support moms receive, Dr. Rundle developed a passion for supporting women through life transitions, particularly those related to motherhood and family dynamics. Dr. Rundle is certified in perinatal mental health, and brings both professional expertise and personal understanding to her work with clients navigating the complex terrain of modern womanhood and parenthood.
                 </p>
                 
-                <p>
-                  Her approach integrates evidence-based practices including Cognitive Behavioral Therapy (CBT), Acceptance and Commitment Therapy (ACT), and attachment-focused interventions, all delivered with warmth, empathy, and cultural sensitivity.
+                <p className="text-bloom/80">
+                  Her approach integrates evidence-based practices including Cognitive Behavioral Therapy (CBT), Interpersonal Therapy (IPT), and psychodynamically focused interventions, all delivered with warmth, empathy, humor, and cultural sensitivity. In her spare time, Dr. Rundle enjoys traveling, hiking, a good cup of coffee, and volunteering for local non-profits.
                 </p>
-                
-                <p>
-                  As a mother herself, Dr. Rundle brings both professional expertise and personal understanding to her work with clients navigating the complex terrain of modern womanhood and parenthood.
-                </p>
-              </div>
+              </GlassmorphismPanel>
               
               <div className="mt-8 flex flex-wrap gap-4">
                 <div className="bg-bloom-accent/10 px-4 py-2 rounded-md text-bloom">
@@ -119,13 +115,15 @@ export default function AboutPage() {
                   }
                 ]}
               >
-                <div className="aspect-[3/4] w-full overflow-hidden rounded-lg shadow-xl relative z-10">
-                  <Image
-                    src="/images/Team/Jana Rundle.jpg"
-                    alt="Dr. Jana Rundle"
-                    fill
-                    className="object-cover"
-                  />
+                <div className="h-full w-full">
+                  <div className="relative w-full aspect-[3/4] overflow-hidden shadow-md">
+                    <Image 
+                      src="/images/Team/Jana Rundle.jpg" 
+                      alt="Dr. Jana Rundle" 
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
                 </div>
                 
                 {/* Decorative elements */}
@@ -160,46 +158,10 @@ export default function AboutPage() {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <GlassmorphismPanel variant="medium" className="p-8 h-full" hoverEffect="lift">
-              <div className="text-bloom-accent mb-6">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                </svg>
-              </div>
-              
-              <h3 className="font-playfair text-xl text-bloom mb-4">Evidence-Based Practices</h3>
-              
-              <p className="text-bloom/70">
-                We integrate proven therapeutic techniques from CBT, ACT, mindfulness, and attachment theory to provide effective, research-supported treatments customized to your specific needs.
-              </p>
-            </GlassmorphismPanel>
-            
-            <GlassmorphismPanel variant="prominent" className="p-8 h-full" hoverEffect="lift">
-              <div className="text-bloom-accent mb-6">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-                </svg>
-              </div>
-              
-              <h3 className="font-playfair text-xl text-bloom mb-4">Whole-Person Approach</h3>
-              
-              <p className="text-bloom/70">
-                We recognize that mental health is connected to physical, social, and spiritual wellbeing. Our therapy considers all aspects of your life to support comprehensive healing and growth.
-              </p>
-            </GlassmorphismPanel>
-            
-            <GlassmorphismPanel variant="medium" className="p-8 h-full" hoverEffect="lift">
-              <div className="text-bloom-accent mb-6">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                </svg>
-              </div>
-              
-              <h3 className="font-playfair text-xl text-bloom mb-4">Compassionate Care</h3>
-              
-              <p className="text-bloom/70">
-                We create a warm, non-judgmental space where you can feel safe exploring difficult emotions and experiences. Our relationship-based approach emphasizes empathy, understanding, and genuine connection.
+          <div className="max-w-3xl mx-auto">
+            <GlassmorphismPanel variant="medium" className="p-8">
+              <p className="text-bloom/80">
+                At Bloom Psychology, we believe lasting change happens when expertise meets empathy. I partner with you—sharing both professional insight and real-world experience—to guide your journey toward a more balanced, joyful life. Every session is tailored to your unique story, weaving together evidence-based practices (like CBT, IPT, and psychodynamic tools) with warmth, humor, and genuine care.
               </p>
             </GlassmorphismPanel>
           </div>
@@ -227,146 +189,69 @@ export default function AboutPage() {
             </div>
             
             <div className="space-y-12">
-              <div className="flex flex-col md:flex-row gap-6">
-                <div className="md:w-16 flex-shrink-0 flex justify-center md:justify-start">
-                  <div className="w-12 h-12 rounded-full bg-bloom-accent/20 flex items-center justify-center text-bloom-accent">
-                    <span className="font-playfair text-lg">1</span>
+              <GlassmorphismPanel variant="medium" className="p-8 space-y-12">
+                <div className="flex flex-col md:flex-row gap-6">
+                  <div className="md:w-16 flex-shrink-0 flex justify-center md:justify-start">
+                    <div className="w-12 h-12 rounded-full bg-bloom-accent/20 flex items-center justify-center text-bloom-accent">
+                      <span className="font-playfair text-lg">1</span>
+                    </div>
+                  </div>
+                  <div>
+                    <h3 className="font-playfair text-xl text-bloom mb-3 text-center md:text-left">Connection</h3>
+                    <p className="text-bloom/80">
+                      You're never alone in this process. We build a trusting, collaborative space where your voice always matters.
+                    </p>
                   </div>
                 </div>
-                <div>
-                  <h3 className="font-playfair text-xl text-bloom mb-3 text-center md:text-left">Authenticity</h3>
-                  <p className="text-bloom/70">
-                    We value genuine connections and believe that honest, transparent relationships are essential for effective therapy. We create a space where you can be your true self without fear of judgment.
-                  </p>
-                </div>
-              </div>
-              
-              <div className="flex flex-col md:flex-row gap-6">
-                <div className="md:w-16 flex-shrink-0 flex justify-center md:justify-start">
-                  <div className="w-12 h-12 rounded-full bg-bloom-accent/20 flex items-center justify-center text-bloom-accent">
-                    <span className="font-playfair text-lg">2</span>
+                
+                <div className="flex flex-col md:flex-row gap-6">
+                  <div className="md:w-16 flex-shrink-0 flex justify-center md:justify-start">
+                    <div className="w-12 h-12 rounded-full bg-bloom-accent/20 flex items-center justify-center text-bloom-accent">
+                      <span className="font-playfair text-lg">2</span>
+                    </div>
+                  </div>
+                  <div>
+                    <h3 className="font-playfair text-xl text-bloom mb-3 text-center md:text-left">Compassion</h3>
+                    <p className="text-bloom/80">
+                      Life is messy—and that's okay. I'm here to meet you where you are, with kindness, curiosity, and a judgment-free ear.
+                    </p>
                   </div>
                 </div>
-                <div>
-                  <h3 className="font-playfair text-xl text-bloom mb-3 text-center md:text-left">Growth</h3>
-                  <p className="text-bloom/70">
-                    We believe in your inherent capacity for growth and resilience. Our therapy focuses on identifying strengths, building new skills, and fostering personal development throughout life's challenges.
-                  </p>
-                </div>
-              </div>
-              
-              <div className="flex flex-col md:flex-row gap-6">
-                <div className="md:w-16 flex-shrink-0 flex justify-center md:justify-start">
-                  <div className="w-12 h-12 rounded-full bg-bloom-accent/20 flex items-center justify-center text-bloom-accent">
-                    <span className="font-playfair text-lg">3</span>
+                
+                <div className="flex flex-col md:flex-row gap-6">
+                  <div className="md:w-16 flex-shrink-0 flex justify-center md:justify-start">
+                    <div className="w-12 h-12 rounded-full bg-bloom-accent/20 flex items-center justify-center text-bloom-accent">
+                      <span className="font-playfair text-lg">3</span>
+                    </div>
+                  </div>
+                  <div>
+                    <h3 className="font-playfair text-xl text-bloom mb-3 text-center md:text-left">Authenticity</h3>
+                    <p className="text-bloom/80">
+                      Your story is one-of-a-kind. Together, we uncover what really matters to you and honor your strengths every step of the way.
+                    </p>
                   </div>
                 </div>
-                <div>
-                  <h3 className="font-playfair text-xl text-bloom mb-3 text-center md:text-left">Inclusivity</h3>
-                  <p className="text-bloom/70">
-                    We are committed to creating a welcoming environment for people of all backgrounds, identities, and experiences. We continuously educate ourselves about diverse perspectives and provide culturally responsive care.
-                  </p>
-                </div>
-              </div>
-              
-              <div className="flex flex-col md:flex-row gap-6">
-                <div className="md:w-16 flex-shrink-0 flex justify-center md:justify-start">
-                  <div className="w-12 h-12 rounded-full bg-bloom-accent/20 flex items-center justify-center text-bloom-accent">
-                    <span className="font-playfair text-lg">4</span>
+                
+                <div className="flex flex-col md:flex-row gap-6">
+                  <div className="md:w-16 flex-shrink-0 flex justify-center md:justify-start">
+                    <div className="w-12 h-12 rounded-full bg-bloom-accent/20 flex items-center justify-center text-bloom-accent">
+                      <span className="font-playfair text-lg">4</span>
+                    </div>
+                  </div>
+                  <div>
+                    <h3 className="font-playfair text-xl text-bloom mb-3 text-center md:text-left">Growth</h3>
+                    <p className="text-bloom/80">
+                      Small steps lead to big change. I'll help you set realistic goals, celebrate every win, and learn from each challenge—so you can thrive long after our work together.
+                    </p>
                   </div>
                 </div>
-                <div>
-                  <h3 className="font-playfair text-xl text-bloom mb-3 text-center md:text-left">Balance</h3>
-                  <p className="text-bloom/70">
-                    We recognize the importance of finding harmony among the different aspects of your life. Our therapy helps you develop sustainable practices that honor your needs while meeting your responsibilities.
-                  </p>
-                </div>
-              </div>
+              </GlassmorphismPanel>
             </div>
           </div>
         </div>
       </section>
       
-      {/* Office Environment Section */}
-      <section className="py-20 bg-gray-50 relative overflow-hidden">
-        <OrganicShape
-          variant="circle"
-          color="var(--bloom-accent)"
-          size="md"
-          position="bottom-left"
-          opacity={0.05}
-        />
-        
-        <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div>
-              <KineticTypography as="h2" animation="word-by-word" className="font-playfair text-bloom text-3xl md:text-4xl mb-6">
-                Our Welcoming Space
-              </KineticTypography>
-              
-              <div className="w-20 h-1 bg-bloom-accent mb-8"></div>
-              
-              <div className="space-y-6 text-bloom/80">
-                <p>
-                  Located in North Austin, our office provides a calm, comfortable environment designed to help you feel at ease from the moment you arrive.
-                </p>
-                
-                <p>
-                  Our thoughtfully designed space features private therapy rooms with comfortable seating, soft lighting, and soothing décor that promotes relaxation and openness.
-                </p>
-                
-                <p>
-                  For parents with young children, we offer a family-friendly setting with child-appropriate spaces and resources. Parents with babies are always welcome to bring their little ones to sessions.
-                </p>
-              </div>
-              
-              <div className="mt-8">
-                <Button href="/contact" variant="primary">
-                  Schedule a Visit
-                </Button>
-              </div>
-            </div>
-            
-            <div className="grid grid-cols-2 gap-4">
-              <div className="aspect-square w-full overflow-hidden rounded-lg shadow-md">
-                <Image
-                  src="/images/Home/Cozy Sunlit movie room.png"
-                  alt="Bloom Psychology office space"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              
-              <div className="aspect-square w-full overflow-hidden rounded-lg shadow-md mt-8">
-                <Image
-                  src="/images/Services/Empty Armchair.png"
-                  alt="Therapy room"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              
-              <div className="aspect-square w-full overflow-hidden rounded-lg shadow-md">
-                <Image
-                  src="/images/Services/Symbolic Shoes.png"
-                  alt="Office detail"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              
-              <div className="aspect-square w-full overflow-hidden rounded-lg shadow-md mt-8">
-                <Image
-                  src="/images/Services/Hopeful Hands.png"
-                  alt="Therapy tools"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Office Environment Section removed as requested */}
       
       {/* CTA Section */}
       <section className="py-16 bg-bloom relative overflow-hidden">
@@ -389,7 +274,7 @@ export default function AboutPage() {
           
           <Button 
             href="/contact" 
-            variant="accent" 
+            variant="pink" 
             size="lg" 
             className="inline-block"
             pulseOnView
