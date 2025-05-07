@@ -15,6 +15,8 @@ module.exports = {
           DEFAULT: '#2C3E50',
           accent: '#A3D8F4',
           blush: '#F4C2C2',
+          grey: '#C8C0BB',
+          darkGrey: '#7A6F6A',
           // Add more pink variants
           pink: {
             50: '#fdf2f4',
@@ -39,6 +41,7 @@ module.exports = {
         playfair: ['var(--font-playfair)', 'serif'],
         inter: ['var(--font-inter)', 'Inter', 'sans-serif'],
         poppins: ['var(--font-poppins)', 'Poppins', 'sans-serif'],
+        raleway: ['Raleway', 'sans-serif'],
       },
       textShadow: {
         sm: '0 1px 2px rgba(0, 0, 0, 0.2)',

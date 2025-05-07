@@ -116,7 +116,7 @@ export default function Home() {
         name="Bloom Psychology North Austin"
         url="https://bloompsychologynorthaustin.com"
         logo="https://bloompsychologynorthaustin.com/images/Logo/logo.jpg"
-        description="Specialized therapy for women, moms, parents, and families in North Austin. Evidence-based approaches for anxiety, stress, and postpartum support."
+        description="Specialized therapy for women, moms, and parents in North Austin."
         address={{
           streetAddress: "13706 N Highway 183, Suite 114",
           addressLocality: "Austin",
@@ -126,7 +126,7 @@ export default function Home() {
         }}
         telephone="+15128989510"
         email="jana@bloompsychologynorthaustin.com"
-        sameAs={["https://instagram.com", "https://linkedin.com"]}
+        sameAs={["https://www.instagram.com/bloompsychology.atx/", "https://www.linkedin.com/company/bloom-psychology-atx/"]}
       />
       
       {/* Hero Section */}
@@ -158,62 +158,39 @@ export default function Home() {
           </div>
         </div>
         
-        {/* Circular logo removed as requested */}
-        
-        {/* Organic shapes for decoration */}
-        <OrganicShape
-          variant="blob-1"
-          color="var(--bloom-accent)"
-          size="xl"
-          position="bottom-left"
-          opacity={0.2}
-        />
-        
-        <OrganicShape
-          variant="blob-3"
-          color="var(--bloom-blush)"
-          size="lg"
-          position="top-right"
-          opacity={0.2}
-          rotate={45}
-        />
-        
         <div className="container mx-auto px-4 relative z-10 h-screen">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="relative z-10 max-w-3xl ml-4 md:ml-8 lg:ml-16 mr-auto pt-28 lg:pt-36"
+            className="relative z-10 max-w-3xl ml-4 md:ml-8 lg:ml-16 mr-auto pt-32 lg:pt-40"
           >
-            <div className="bg-white/20 backdrop-blur-sm rounded-lg p-6">
-              <h1 className="font-poppins font-extrabold text-4xl sm:text-5xl md:text-6xl lg:text-7xl mb-6 tracking-tight leading-tight text-white drop-shadow-lg">
-                <span className="text-bloompink">Bloom</span> Psychology
+            <div className="bg-white/60 backdrop-blur-sm rounded-lg p-8">
+              <h1 className="font-raleway text-center text-3xl sm:text-4xl md:text-5xl lg:text-[3.3rem] mb-6 tracking-tight leading-tight text-shadow">
+                <span className="font-light text-bloompink">Bloom</span>
+                <span className="font-extralight text-bloom-darkGrey">Psychology</span>
               </h1>
               
-              <KineticTypography 
-                as="p"
-                animation="fade-in" 
-                className="text-lg sm:text-xl md:text-2xl mb-8 text-gray-100 font-inter font-semibold drop-shadow-md"
-              >
-                Specialized mental health care for women, moms, and families in North Austin.
-              </KineticTypography>
+              <p className="font-raleway font-normal text-lg sm:text-xl md:text-[1.25rem] mb-8 text-bloom-darkGrey text-center max-w-[600px] mx-auto text-shadow-sm">
+                Specialized mental health care for women and moms in North Austin.
+              </p>
             </div>
             
             <div className="flex flex-col sm:flex-row gap-4 mt-10">
               <motion.a 
                 href="#consult" 
-                whileHover={{ scale: 1.03 }} 
+                whileHover={{ scale: 1.03, y: -2 }} 
                 transition={{ type: "spring", stiffness: 300 }}
-                className="bg-bloompink hover:bg-[#B03979] text-white font-bold font-inter px-6 py-3 rounded-md shadow-md transition text-center"
+                className="bg-bloompink hover:bg-[#B03979] text-white font-bold font-inter px-6 py-3 rounded-md shadow-md transition-all duration-300 text-center"
               >
                 Book a FREE Consult Call →
               </motion.a>
               
               <motion.a 
                 href="#services" 
-                whileHover={{ scale: 1.03 }} 
+                whileHover={{ scale: 1.03, y: -2 }} 
                 transition={{ type: "spring", stiffness: 300 }}
-                className="bg-white border border-white text-gray-800 font-inter font-medium px-6 py-3 rounded-md hover:bg-gray-50 transition text-center"
+                className="bg-bloompink hover:bg-[#B03979] text-white font-bold font-inter px-6 py-3 rounded-md shadow-md transition-all duration-300 text-center"
               >
                 Explore Our Services
               </motion.a>
@@ -232,65 +209,47 @@ export default function Home() {
           opacity={0.03}
         />
         
-        <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div className="relative">
-              <div className="aspect-square w-full overflow-hidden rounded-lg shadow-xl" ref={teamImageRef}>
-                <Image
-                  src="/images/Team/Jana Rundle.jpg"
-                  alt="Dr. Jana Rundle"
-                  fill
-                  className="object-cover"
-                />
-              </div>
+        <OrganicShape
+          variant="blob-2"
+          color="var(--bloom-blush)"
+          size="sm"
+          position="top-right"
+          opacity={0.04}
+          rotate={30}
+        />
+        
+        <div className="container mx-auto px-6 max-w-4xl">
+          <div className="text-center mb-8">
+            <div ref={welcomeTitleRef}>
+              <KineticTypography as="h2" animation="word-by-word" className="font-playfair text-bloom text-3xl md:text-5xl mb-6">
+                Welcome to Bloom Psychology North Austin
+              </KineticTypography>
               
-              {/* Decorative elements */}
-              <div className="absolute -bottom-8 -right-8 w-40 h-40 bg-bloom-blush/10 rounded-full -z-10"></div>
-              <div className="absolute -top-8 -left-8 w-32 h-32 bg-bloom-accent/10 rounded-full -z-10"></div>
+              <div className="w-32 h-1 bg-[#C63780] mx-auto mb-12"></div>
             </div>
+          </div>
+          
+          <div className="space-y-8 text-bloom/80 text-center md:text-lg max-w-3xl mx-auto">
+            <p ref={paragraph1Ref} className="font-medium">
+              At Bloom Psychology, we believe in providing compassionate, evidence-based therapy tailored to the unique needs of women, mothers, parents, and families.
+            </p>
             
-            <div>
-              <div ref={welcomeTitleRef}>
-                <KineticTypography as="h2" animation="word-by-word" className="font-playfair text-bloom text-3xl md:text-4xl mb-6">
-                  Welcome to Bloom Psychology North Austin
-                </KineticTypography>
-                
-                <div className="w-20 h-1 bg-bloom-accent mb-8"></div>
-              </div>
-              
-              <div className="space-y-6 text-bloom/80">
-                <p ref={paragraph1Ref}>
-                  At Bloom Psychology, we believe in providing compassionate, evidence-based therapy tailored to the unique needs of women, mothers, parents, and families.
-                </p>
-                
-                <p ref={paragraph2Ref}>
-                  Led by Dr. Jana Rundle, our practice specializes in addressing anxiety, stress, parenting challenges, and postpartum mental health in a warm, non-judgmental environment.
-                </p>
-                
-                <p ref={paragraph3Ref}>
-                  Whether you're seeking individual therapy, parent support, or help with specific challenges, we're here to support your journey toward healing and growth.
-                </p>
-                
-                <div className="pt-4">
-                  <Button href="/about" variant="outline">
-                    Learn More About Us
-                  </Button>
-                </div>
-              </div>
+            <p ref={paragraph2Ref}>
+              Led by Dr. Jana Rundle, our practice specializes in addressing anxiety, stress, parenting challenges, and postpartum mental health in a warm, non-judgmental environment.
+            </p>
+            
+            <p ref={paragraph3Ref}>
+              Whether you're seeking individual therapy, parent support, or help with specific challenges, we're here to support your journey toward healing and growth.
+            </p>
+            
+            <div className="pt-8 flex justify-center">
+              <Button href="/about" variant="outline" size="md">
+                Learn More About Us
+              </Button>
             </div>
           </div>
         </div>
       </section>
-      
-      {/* Scrolling Ticker for Postpartum Journey */}
-      <ScrollingTicker 
-        words={["HEALING", "SUPPORT", "GROWTH", "RESILIENCE", "RECOVERY", "HOPE", "CONNECTION", "STRENGTH"]} 
-        separator="•" 
-        bgColor="bg-gradient-to-r from-bloom-blush/10 to-bloom-pink-100/20" 
-        textColor="text-bloom-pink-700" 
-        speed={30}
-        className="border-y border-bloom-blush/10"
-      />
       
       {/* Services Section */}
       <section id="services" className="py-20 bg-gray-50 relative overflow-hidden">
@@ -317,7 +276,7 @@ export default function Home() {
                 Our Services
               </KineticTypography>
               
-              <div className="w-32 h-1 bg-gradient-to-r from-bloom-blush to-bloom-accent mx-auto mb-8 rounded-full"></div>
+              <div className="w-32 h-1 bg-[#C63780] mx-auto mb-8 rounded-full"></div>
             </div>
             
             <p className="text-bloom/70 max-w-2xl mx-auto" ref={serviceDescRef}>

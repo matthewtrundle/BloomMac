@@ -23,12 +23,11 @@ const Footer = () => {
               </div>
             </div>
             <p className="text-sm text-white/80 mt-4 max-w-xs">
-              Specialized therapy for women, moms, parents, and families in North Austin.
-              Evidence-based approaches for anxiety, stress, and postpartum support.
+              Specialized therapy for women, moms, and parents in North Austin.
             </p>
             <div className="flex space-x-4 mt-4">
               <a 
-                href="https://instagram.com" 
+                href="https://www.instagram.com/bloompsychology.atx/" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="text-white hover:text-bloom-accent transition duration-300"
@@ -39,7 +38,7 @@ const Footer = () => {
                 </svg>
               </a>
               <a 
-                href="https://linkedin.com" 
+                href="https://www.linkedin.com/company/bloom-psychology-atx/" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="text-white hover:text-bloom-accent transition duration-300"

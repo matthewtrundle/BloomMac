@@ -1,3 +1,5 @@
+/* Fonts are loaded via next/font in layout.tsx - no need for additional imports */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

@@ -13,61 +13,135 @@ export const metadata: Metadata = {
 };
 
 export default function BlogPage() {
-  // TODO: Replace with actual blog post data from CMS or data file
+  // Blog post data 
   const placeholderPosts = [
     {
       id: 1,
-      title: 'Supporting New Mothers Through Postpartum Challenges',
-      date: 'May 15, 2025',
-      excerpt: 'Navigating the challenging early days of motherhood can be overwhelming. Here are evidence-based strategies to support mental wellbeing during postpartum...',
-      // TODO: Add actual image path
+      title: 'New Research on Postpartum Depression Treatment Options',
+      date: 'May 15, 2025', // Future date as specified
+      excerpt: 'A groundbreaking study from Harvard Medical School reveals promising new treatment approaches for postpartum depression, combining traditional therapy with innovative mindfulness techniques...',
       image: '/images/Home/new-mom.png',
-      slug: 'supporting-new-mothers',
+      slug: 'postpartum-depression-treatments',
     },
     {
       id: 2,
+      title: 'Understanding the Maternal Mental Health Crisis',
+      date: 'May 9, 2025', // Thursday
+      excerpt: 'Recent CDC data shows a concerning rise in maternal mental health issues following the pandemic, emphasizing the need for expanded access to specialized care for new mothers...',
+      image: '/images/Services/AnxietyManagement1.png',
+      slug: 'maternal-mental-health-crisis',
+    },
+    {
+      id: 3,
+      title: 'The Connection Between Sleep Deprivation and Postpartum Anxiety',
+      date: 'May 2, 2025', // Thursday
+      excerpt: 'New research published in the Journal of Women\'s Health explores how sleep disruption affects anxiety levels in new mothers and provides practical strategies for improving sleep quality...',
+      image: '/images/Services/New Mothers.png',
+      slug: 'sleep-postpartum-anxiety',
+    },
+    {
+      id: 4,
+      title: 'Supporting Partners of Women with Postpartum Depression',
+      date: 'April 25, 2025', // Thursday
+      excerpt: 'Partners play a crucial role in recovery from postpartum depression, yet often receive little guidance. Learn effective support strategies based on recent clinical findings...',
+      image: '/images/Services/Hopeful Hands.png',
+      slug: 'supporting-partners-ppd',
+    },
+    {
+      id: 5,
+      title: 'The Hidden Symptoms of Perinatal Anxiety Disorders',
+      date: 'April 18, 2025', // Thursday
+      excerpt: 'Beyond excessive worry: recognizing the less-discussed physical symptoms of perinatal anxiety disorders that are frequently overlooked by healthcare providers...',
+      image: '/images/Services/AnxietyManagement2.png',
+      slug: 'hidden-perinatal-anxiety',
+    },
+    {
+      id: 6,
+      title: 'Breaking the Stigma: Maternal Mental Health Among Diverse Communities',
+      date: 'April 11, 2025', // Thursday
+      excerpt: 'Cultural factors significantly impact how women experience and seek help for maternal mental health issues. Recent research highlights the importance of culturally-sensitive approaches...',
+      image: '/images/Services/Walking through fields.png',
+      slug: 'diverse-maternal-mental-health',
+    },
+    {
+      id: 7,
+      title: 'Digital Therapeutics: New Apps for Maternal Mental Health',
+      date: 'April 4, 2025', // Thursday
+      excerpt: 'Evaluation of emerging digital tools designed to support women experiencing postpartum depression and anxiety, with insights on effectiveness and accessibility...',
+      image: '/images/Services/Empty Armchair.png',
+      slug: 'digital-maternal-mental-health',
+    },
+    {
+      id: 8,
+      title: 'Hormonal Fluctuations and Anxiety: What Women Need to Know',
+      date: 'March 28, 2025', // Thursday
+      excerpt: 'New research explores the complex relationship between hormonal changes throughout women\'s lives and the development or exacerbation of anxiety symptoms...',
+      image: '/images/Home/Confident Women.png',
+      slug: 'hormones-anxiety-women',
+    },
+    {
+      id: 9,
+      title: 'Preventative Approaches to Postpartum Depression',
+      date: 'March 21, 2025', // Thursday
+      excerpt: 'Early intervention strategies shown to reduce the risk of developing postpartum depression, based on a new longitudinal study following women from pregnancy through the first year postpartum...',
+      image: '/images/Services/Symbolic Shoes.png',
+      slug: 'preventing-postpartum-depression',
+    },
+    {
+      id: 10,
+      title: 'Postpartum Rage: The Anger No One Talks About',
+      date: 'March 14, 2025', // Thursday
+      excerpt: 'Understanding the phenomenon of postpartum rage as a symptom of postpartum depression and anxiety, with therapeutic approaches for managing these intense emotions...',
+      image: '/images/Services/Experienced Parents.png',
+      slug: 'postpartum-rage',
+    },
+    {
+      id: 11,
       title: 'Managing Anxiety in Uncertain Times',
-      date: 'April 28, 2025',
+      date: 'March 7, 2025', // Thursday
       excerpt: 'Practical techniques and mindfulness practices to help manage anxiety symptoms and build resilience during periods of stress or uncertainty...',
-      // TODO: Add actual image path
       image: '/images/Services/AnxietyManagement1.png',
       slug: 'managing-anxiety',
     },
     {
-      id: 3,
+      id: 12,
       title: 'Building Healthy Parent-Child Relationships',
-      date: 'April 10, 2025',
+      date: 'February 28, 2025', // Thursday
       excerpt: 'Explore attachment-based strategies for creating secure, nurturing connections with your children that support their emotional development...',
-      // TODO: Add actual image path
       image: '/images/Services/Experienced Parents.png',
       slug: 'parent-child-relationships',
     },
     {
-      id: 4,
+      id: 13,
       title: 'Self-Care Practices for Busy Parents',
-      date: 'March 22, 2025',
+      date: 'February 21, 2025', // Thursday
       excerpt: 'Finding time for self-care can seem impossible for busy parents. Discover practical, brief self-care routines that can fit into your daily life...',
-      // TODO: Add actual image path
       image: '/images/Services/Symbolic Shoes.png',
       slug: 'self-care-for-parents',
     },
     {
-      id: 5,
+      id: 14,
       title: 'Understanding Therapy: What to Expect',
-      date: 'March 8, 2025',
+      date: 'February 14, 2025', // Thursday
       excerpt: 'Starting therapy can feel intimidating if you\'ve never experienced it before. Learn about the process, what to expect, and how to get the most from your sessions...',
-      // TODO: Add actual image path
       image: '/images/Services/Empty Armchair.png',
       slug: 'understanding-therapy',
     },
     {
-      id: 6,
+      id: 15,
       title: 'Navigating Major Life Transitions',
-      date: 'February 20, 2025',
+      date: 'February 7, 2025', // Thursday
       excerpt: 'Whether it\'s becoming a parent, changing careers, or moving to a new city, major life transitions can trigger stress and anxiety. Here\'s how to cope...',
-      // TODO: Add actual image path
       image: '/images/Services/Walking through fields.png',
       slug: 'navigating-transitions',
+    },
+    {
+      id: 16,
+      title: 'Supporting New Mothers Through Postpartum Challenges',
+      date: 'January 31, 2025', // Thursday
+      excerpt: 'Navigating the challenging early days of motherhood can be overwhelming. Here are evidence-based strategies to support mental wellbeing during postpartum...',
+      image: '/images/Home/new-mom.png',
+      slug: 'supporting-new-mothers',
     },
   ];
 
@@ -94,7 +168,7 @@ export default function BlogPage() {
         
         <h1 className="font-playfair text-4xl text-bloom mb-4">Blog</h1>
         <p className="mt-2 text-lg text-bloom/60">Insights for women, moms & families</p>
-        <div className="w-24 h-1 bg-bloompink mx-auto mt-6 rounded-full"></div>
+        <div className="w-24 h-1 bg-[#C63780] mx-auto mt-6 rounded-full"></div>
       </section>
       
       {/* Posts Grid */}

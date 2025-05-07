@@ -57,7 +57,7 @@ export default function AboutPage() {
               About Bloom Psychology
             </KineticTypography>
             
-            <div className="w-20 h-1 bg-bloom-pink mx-auto mb-8"></div>
+            <div className="w-20 h-1 bg-[#C63780] mx-auto mb-8"></div>
             
             <p className="text-bloom-dark/90 max-w-2xl mx-auto font-medium text-shadow">
               Dedicated to providing compassionate, evidence-based mental health care for women, mothers, and families in North Austin.
@@ -77,7 +77,7 @@ export default function AboutPage() {
                 Meet Dr. Jana Rundle
               </KineticTypography>
               
-              <div className="w-20 h-1 bg-bloom-accent mb-8"></div>
+              <div className="w-20 h-1 bg-[#C63780] mb-8"></div>
               
               <GlassmorphismPanel variant="medium" className="p-8 space-y-6">
                 <p className="text-bloom/80">
@@ -153,7 +153,7 @@ export default function AboutPage() {
               Our Approach
             </KineticTypography>
             
-            <div className="w-20 h-1 bg-bloom-accent mx-auto mb-8"></div>
+            <div className="w-20 h-1 bg-[#C63780] mx-auto mb-8"></div>
             
             <p className="text-bloom/70 max-w-2xl mx-auto">
               At Bloom Psychology, we believe in providing holistic, compassionate care tailored to each individual's unique needs and circumstances.
@@ -187,7 +187,7 @@ export default function AboutPage() {
                 Our Core Values
               </KineticTypography>
               
-              <div className="w-20 h-1 bg-bloom-accent mx-auto"></div>
+              <div className="w-20 h-1 bg-[#C63780] mx-auto"></div>
             </div>
             
             <div className="space-y-12">

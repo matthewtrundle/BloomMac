@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Inter, Playfair_Display, Poppins } from 'next/font/google';
+import { Inter, Playfair_Display, Poppins, Raleway } from 'next/font/google';
 import './globals.css';
 
 // Import layout components
@@ -26,6 +26,13 @@ const poppins = Poppins({
   variable: '--font-poppins'
 });
 
+const raleway = Raleway({
+  weight: ['100', '200', '300', '400', '500', '600', '700'],
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-raleway'
+});
+
 export const metadata: Metadata = {
   title: {
     template: '%s | Bloom Psychology North Austin',
@@ -46,7 +53,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${playfair.variable} ${poppins.variable}`}>
+    <html lang="en" className={`${inter.variable} ${playfair.variable} ${poppins.variable} ${raleway.variable}`}>
       <body className="bg-white text-bloom min-h-screen">
         <Header />
         <main className="pt-24">
