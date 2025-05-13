@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState, FormEvent } from 'react';
 import Image from 'next/image';
 
 // UI Components
@@ -12,6 +12,52 @@ import Button from '@/components/ui/Button';
 // Metadata is now in a separate file: metadata.ts
 
 export default function ContactPage() {
+  // Form state
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [service, setService] = useState('');
+  const [message, setMessage] = useState('');
+  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+
+  // Form submission handler
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setStatus('sending');
+
+    try {
+      const res = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          firstName,
+          lastName,
+          email,
+          phone,
+          service,
+          message
+        }),
+      });
+
+      if (!res.ok) {
+        throw new Error(await res.text());
+      }
+
+      setStatus('success');
+      // Clear form fields on success
+      setFirstName('');
+      setLastName('');
+      setEmail('');
+      setPhone('');
+      setService('');
+      setMessage('');
+    } catch (error) {
+      console.error('Error sending email:', error);
+      setStatus('error');
+    }
+  };
+
   return (
     <>
       {/* Hero Section */}
@@ -57,7 +103,22 @@ export default function ContactPage() {
               <GlassmorphismPanel variant="medium" className="p-8 md:p-10 h-full">
                 <h2 className="font-playfair text-2xl text-bloom mb-6">Get in Touch</h2>
                 
-                <form id="contactForm" className="space-y-6">
+                {/* Form submission status messages */}
+                {status === 'success' && (
+                  <div className="mb-6 p-4 bg-green-50 border border-green-200 text-green-800 rounded-md">
+                    <p className="font-medium">Thank you for your message!</p>
+                    <p>We'll get back to you as soon as possible.</p>
+                  </div>
+                )}
+                
+                {status === 'error' && (
+                  <div className="mb-6 p-4 bg-red-50 border border-red-200 text-red-800 rounded-md">
+                    <p className="font-medium">Oops! Something went wrong.</p>
+                    <p>Please try again or contact us directly by phone.</p>
+                  </div>
+                )}
+                
+                <form id="contactForm" className="space-y-6" onSubmit={handleSubmit}>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                       <label htmlFor="firstName" className="block text-bloom mb-2 text-sm">First Name</label>
@@ -65,6 +126,8 @@ export default function ContactPage() {
                         type="text"
                         id="firstName"
                         name="firstName"
+                        value={firstName}
+                        onChange={(e) => setFirstName(e.target.value)}
                         className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-bloom-accent/50"
                         required
                       />
@@ -76,6 +139,8 @@ export default function ContactPage() {
                         type="text"
                         id="lastName"
                         name="lastName"
+                        value={lastName}
+                        onChange={(e) => setLastName(e.target.value)}
                         className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-bloom-accent/50"
                         required
                       />
@@ -88,6 +153,8 @@ export default function ContactPage() {
                       type="email"
                       id="email"
                       name="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
                       className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-bloom-accent/50"
                       required
                     />
@@ -99,6 +166,8 @@ export default function ContactPage() {
                       type="tel"
                       id="phone"
                       name="phone"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
                       className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-bloom-accent/50"
                     />
                   </div>
@@ -108,6 +177,8 @@ export default function ContactPage() {
                     <select
                       id="service"
                       name="service"
+                      value={service}
+                      onChange={(e) => setService(e.target.value)}
                       className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-bloom-accent/50"
                     >
                       <option value="">Select a service</option>
@@ -127,14 +198,22 @@ export default function ContactPage() {
                       id="message"
                       name="message"
                       rows={5}
+                      value={message}
+                      onChange={(e) => setMessage(e.target.value)}
                       className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-bloom-accent/50"
                       placeholder="Please share any specific concerns or questions you have..."
+                      required
                     ></textarea>
                   </div>
                   
                   <div className="pt-2">
-                    <Button type="submit" variant="primary" fullWidth>
-                      Send Message
+                    <Button 
+                      type="submit" 
+                      variant="primary" 
+                      fullWidth
+                      disabled={status === 'sending'}
+                    >
+                      {status === 'sending' ? 'Sending...' : 'Send Message'}
                     </Button>
                   </div>
                   
