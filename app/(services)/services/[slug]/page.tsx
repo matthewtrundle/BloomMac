@@ -35,12 +35,15 @@ export async function generateMetadata({
     };
   }
   
+  // Remove any line breaks for metadata
+  const cleanTitle = service.title.replace('\n', ' ');
+
   return {
-    title: service.title,
+    title: cleanTitle,
     description: service.description,
-    keywords: `therapy, ${service.title.toLowerCase()}, Austin, mental health, counseling, psychology`,
+    keywords: `therapy, ${cleanTitle.toLowerCase()}, Austin, mental health, counseling, psychology`,
     openGraph: {
-      title: service.title,
+      title: cleanTitle,
       description: service.shortDescription,
       images: [service.heroImage],
     },
@@ -63,7 +66,7 @@ export default function ServicePage({
     <>
       {/* SEO Schema */}
       <ServiceSchema
-        name={service.title}
+        name={service.title.replace('\n', ' ')}
         url={`https://bloompsychologynorthaustin.com/services/${service.slug}`}
         description={service.description}
         provider={{
@@ -94,9 +97,20 @@ export default function ServicePage({
         <div className="container mx-auto px-6 py-24 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="order-2 lg:order-1">
-              <KineticTypography as="h1" animation="letter-by-letter" className="font-playfair text-bloom mb-6">
-                {service.title}
-              </KineticTypography>
+              <h1 className="font-playfair text-bloom text-3xl lg:text-4xl xl:text-5xl mb-6 max-w-[90%] lg:max-w-[95%]">
+                {service.title.split('\n').map((line, i) => (
+                  <React.Fragment key={i}>
+                    {i === 0 ? (
+                      <KineticTypography animation="letter-by-letter">{line}</KineticTypography>
+                    ) : (
+                      <>
+                        <br />
+                        <KineticTypography animation="letter-by-letter">{line}</KineticTypography>
+                      </>
+                    )}
+                  </React.Fragment>
+                ))}
+              </h1>
               
               <KineticTypography as="p" animation="fade-in" className="text-lg text-bloom/80 mb-8">
                 {service.description}
@@ -231,7 +245,7 @@ export default function ServicePage({
             
             <div className="w-20 h-1 bg-bloom-accent mx-auto mb-6"></div>
             <p className="text-bloom/70 max-w-2xl mx-auto">
-              We're here to answer your questions about {service.title.toLowerCase()}.
+              We're here to answer your questions about this service.
             </p>
           </div>
           

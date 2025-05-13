@@ -297,7 +297,13 @@ export default function Home() {
                   hoverEffect="lift"
                 >
                   {/* Free accent removed as requested */}
-                  <h3 className="font-playfair text-xl text-bloom mb-4">{service.title}</h3>
+                  <h3 className="font-playfair text-xl text-bloom mb-4 min-h-[4rem] flex flex-col justify-center">
+                    {service.title.split('\n').map((line, i) => (
+                      <div key={i}>
+                        {line}
+                      </div>
+                    ))}
+                  </h3>
                   <p className="text-bloom/70 mb-6 flex-grow">{service.shortDescription}</p>
                   <Button 
                     href={`/services/${service.slug}`} 

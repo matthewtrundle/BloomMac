@@ -20,6 +20,7 @@ export default function ContactPage() {
   const [service, setService] = useState('');
   const [message, setMessage] = useState('');
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
 
   // Form submission handler
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -40,9 +41,14 @@ export default function ContactPage() {
         }),
       });
 
+      const result = await res.json();
+
       if (!res.ok) {
-        throw new Error(await res.text());
+        console.error('Form submission error:', result);
+        throw new Error(result.error || 'Form submission failed');
       }
+
+      console.log('Form submission successful:', result);
 
       setStatus('success');
       // Clear form fields on success
@@ -55,6 +61,7 @@ export default function ContactPage() {
     } catch (error) {
       console.error('Error sending email:', error);
       setStatus('error');
+      setErrorMessage(error instanceof Error ? error.message : 'An unexpected error occurred');
     }
   };
 
@@ -114,7 +121,7 @@ export default function ContactPage() {
                 {status === 'error' && (
                   <div className="mb-6 p-4 bg-red-50 border border-red-200 text-red-800 rounded-md">
                     <p className="font-medium">Oops! Something went wrong.</p>
-                    <p>Please try again or contact us directly by phone.</p>
+                    <p>{errorMessage || 'Please try again or contact us directly by phone.'}</p>
                   </div>
                 )}
                 

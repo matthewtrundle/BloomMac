@@ -2,8 +2,8 @@ import { Resend } from 'resend';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 // Log API key presence (truncated for security)
-console.log('API key loaded:', process.env.RESEND_API_KEY ?
-  `${process.env.RESEND_API_KEY.substring(0, 3)}...${process.env.RESEND_API_KEY.substring(process.env.RESEND_API_KEY.length - 3)}` :
+console.log('API key loaded:', process.env.RESEND_API_KEY ? 
+  `${process.env.RESEND_API_KEY.substring(0, 3)}...${process.env.RESEND_API_KEY.substring(process.env.RESEND_API_KEY.length - 3)}` : 
   'undefined/missing');
 
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -15,7 +15,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
   
   // Extract form data
-  const { name, email, message, firstName, lastName, phone, service } = req.body;
+  const { name, email, phone, message } = req.body;
   
   // Validate required fields
   if (!email) {
@@ -23,15 +23,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
   
   try {
-    // Determine which form the submission came from
-    const formSource = req.headers.referer?.includes('postpartum-start') 
-      ? 'Postpartum Landing Page' 
-      : 'Contact Page';
-    
-    // Build email content based on available fields
-    const displayName = name || (firstName && lastName ? `${firstName} ${lastName}` : firstName || lastName || 'Anonymous');
-    
-    // Create a more stylized HTML email
+    // Create a stylized HTML email
     const emailContent = `
 <!DOCTYPE html>
 <html>
@@ -50,14 +42,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 <body>
   <div class="container">
     <div class="header">
-      <h1>New Contact Form Submission</h1>
-      <p>From: ${formSource}</p>
+      <h1>New Postpartum Support Lead</h1>
+      <p>From: Postpartum Landing Page</p>
     </div>
     
     <table cellpadding="5" cellspacing="0" border="0" width="100%">
       <tr>
         <td class="field-name">Name:</td>
-        <td>${displayName}</td>
+        <td>${name || 'Not provided'}</td>
       </tr>
       <tr>
         <td class="field-name">Email:</td>
@@ -67,12 +59,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       <tr>
         <td class="field-name">Phone:</td>
         <td>${phone}</td>
-      </tr>
-      ` : ''}
-      ${service ? `
-      <tr>
-        <td class="field-name">Service:</td>
-        <td>${service}</td>
       </tr>
       ` : ''}
       ${message ? `
@@ -86,7 +72,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     </table>
     
     <div class="footer">
-      <p>This email was sent automatically from your Bloom Psychology website.</p>
+      <p>This email was sent automatically from your Bloom Psychology website's postpartum landing page.</p>
     </div>
   </div>
 </body>
@@ -98,7 +84,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const emailCC = isDevMode ? [] : ['matt@bloompsychologynorthaustin.com'];
 
     console.log('Attempting to send email to:', emailTo, isDevMode ? '(development mode)' : '');
-
+    
     try {
       // Use the variables defined above
 
@@ -106,10 +92,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         from: 'onboarding@resend.dev', // Will need to change to verified domain later
         to: emailTo,
         cc: emailCC,
-        subject: `${isDevMode ? '[TEST] ' : ''}New contact from ${displayName}`,
+        subject: `${isDevMode ? '[TEST] ' : ''}New postpartum support lead from ${name || 'Website Visitor'}`,
         html: emailContent,
       });
-
+      
       console.log('Email sent successfully:', data);
       return res.status(200).json({ success: true, data });
     } catch (error) {
@@ -117,7 +103,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(500).json({ error: 'Email send failed', details: error });
     }
   } catch (err) {
-    console.error('Resend error:', err);
-    return res.status(500).json({ error: 'Email send failed' });
+    console.error('Server error:', err);
+    return res.status(500).json({ error: 'Server error' });
   }
 }

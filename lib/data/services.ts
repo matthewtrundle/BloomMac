@@ -260,7 +260,7 @@ export const services: Service[] = [
   {
     id: 'anxiety',
     slug: 'anxiety-stress-management',
-    title: 'Anxiety & Stress Management',
+    title: 'Anxiety &\nStress Management',
     description: 'Custom anxiety management using CBT, DBT, and somatic exercises to reduce stress, improve daily functioning, and restore balance.',
     shortDescription: 'Specialized treatment for anxiety, panic, and chronic stress using proven therapeutic approaches.',
     heroImage: '/images/Services/AnxietyManagement1.png',
@@ -336,7 +336,7 @@ export const services: Service[] = [
   {
     id: 'postpartum',
     slug: 'postpartum-depression-support',
-    title: 'Postpartum Depression Support',
+    title: 'Postpartum Depression\nSupport',
     description: 'Evidence-based support for moms navigating postpartum mood changes—combining talk therapy, guided mindfulness, and peer support groups.',
     shortDescription: 'Specialized treatment for postpartum depression, anxiety, and mood disorders with compassionate, judgment-free support.',
     heroImage: '/images/Services/Symbolic Shoes.png',
@@ -406,6 +406,86 @@ export const services: Service[] = [
       {
         question: 'What if I\'m having thoughts of harming myself or my baby?',
         answer: 'If you\'re experiencing these thoughts, please call us immediately for an emergency appointment. These symptoms can be successfully treated with prompt intervention. If you\'re in crisis outside of business hours, we provide emergency contact information for immediate assistance.'
+      }
+    ]
+  },
+  {
+    id: 'postpartum-anxiety',
+    slug: 'postpartum-anxiety-support',
+    title: 'Postpartum Anxiety\nSupport',
+    description: 'Postpartum anxiety can create intrusive thoughts, fears, and unwanted sensations leaving you feeling stuck. Feeling this way while also trying to care for a baby can make you wonder if something is really wrong or if you\'re a bad mom. At Bloom, we create a safe space where you feel seen and heard to help you explore, address, and overcome your anxieties.',
+    shortDescription: 'Specialized treatment for anxiety, intrusive thoughts, or worries so that you can feel more like yourself again.',
+    heroImage: '/images/Services/AnxietyManagement2.png',
+    secondaryImage: '/images/Services/Hopeful Hands.png',
+    howItWorks: {
+      title: 'Your Journey to Calm',
+      steps: [
+        {
+          title: 'Personalized Assessment',
+          description: 'Begin with a comprehensive evaluation of your anxiety symptoms, triggers, and how they\'re affecting your daily life and relationship with your baby.'
+        },
+        {
+          title: 'Customized Treatment Plan',
+          description: 'Receive a tailored approach combining cognitive-behavioral techniques, mindfulness practices, and maternal-focused strategies.'
+        },
+        {
+          title: 'Ongoing Support',
+          description: 'Experience continued guidance as you implement new skills, with adjustments to address emerging challenges throughout your postpartum journey.'
+        }
+      ]
+    },
+    benefits: [
+      {
+        title: 'Reduced Worry',
+        description: 'Learn to manage excessive concerns about your baby\'s health, safety, and development.'
+      },
+      {
+        title: 'Intrusive Thought Management',
+        description: 'Develop techniques to cope with and reduce distressing or unwanted thoughts.'
+      },
+      {
+        title: 'Sleep Improvement',
+        description: 'Address anxiety-related sleep difficulties even within the constraints of newborn care.'
+      },
+      {
+        title: 'Physical Symptom Relief',
+        description: 'Reduce physical manifestations of anxiety like tension, racing heart, and shortness of breath.'
+      },
+      {
+        title: 'Confident Decision-Making',
+        description: 'Move past analysis-paralysis to make parenting decisions with greater ease.'
+      },
+      {
+        title: 'Present-Moment Connection',
+        description: 'Develop the ability to be fully present with your baby rather than caught in anxiety spirals.'
+      }
+    ],
+    caseStudy: {
+      title: 'Alicia\'s Transformation',
+      quote: 'I couldn\'t stop checking if my baby was breathing. My mind would spiral with worst-case scenarios. With Dr. Rundle\'s help, I\'ve learned to manage these anxious thoughts and actually enjoy time with my daughter.',
+      author: 'Alicia, 33',
+      outcome: 'Through targeted therapy, Alicia reduced her anxious checking behaviors by 80%, learned to recognize and interrupt catastrophic thinking patterns, and developed a toolkit of quick anxiety management techniques she could use while caring for her baby.'
+    },
+    faqs: [
+      {
+        question: 'Is postpartum anxiety different from regular anxiety?',
+        answer: 'Yes, postpartum anxiety often features specific concerns related to infant care, maternal competence, and the enormous life change of becoming a mother. Treatment is tailored to address these unique aspects while recognizing the physiological and hormonal factors involved.'
+      },
+      {
+        question: 'Are intrusive thoughts normal or do they mean I\'m a bad mother?',
+        answer: 'Intrusive thoughts are extremely common in new mothers and do NOT reflect your character or mothering abilities. These unwanted thoughts are a symptom of anxiety, not an indication of your true desires or future actions. With proper treatment, their frequency and intensity can be significantly reduced.'
+      },
+      {
+        question: 'I fear that I\'m a bad mom because I\'m not feeling like myself or I\'m worried all the time. Is this true?',
+        answer: 'Absolutely not. These feelings are very common and are symptoms of postpartum anxiety, not a reflection of your mothering abilities. The fact that you\'re concerned about being a good mom actually demonstrates how much you care. Worry and anxiety can make you feel disconnected from yourself and your baby, but this doesn\'t mean you\'re failing as a mother. With support, you can reconnect with your authentic self and enjoy motherhood more fully.'
+      },
+      {
+        question: 'How quickly can I expect relief?',
+        answer: 'Many mothers experience some immediate relief simply from understanding that their symptoms are common and treatable. More substantial improvement typically begins within 3-4 sessions as you implement initial coping strategies. A full course of treatment usually spans 8-12 sessions.'
+      },
+      {
+        question: 'Can I bring my baby to therapy sessions?',
+        answer: 'Absolutely. Our office is baby-friendly, and having your baby present can actually be beneficial as we can observe interactions and practice techniques in real time. However, we can also work around nap times or when you have childcare if you prefer focused adult time.'
       }
     ]
   }

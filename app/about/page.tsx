@@ -81,15 +81,23 @@ export default function AboutPage() {
               
               <GlassmorphismPanel variant="medium" className="p-8 space-y-6">
                 <p className="text-bloom/80">
-                  Dr. Jana Rundle is a licensed clinical psychologist with over 10 years of experience specializing in women's mental health, maternal wellness, and parent support.
+                  Hi! I'm glad you're here! I am a licensed clinical psychologist with over 10 years of experience specializing in women's mental health, maternal wellness, and parent support.
                 </p>
-                
+
                 <p className="text-bloom/80">
-                  After having her own children and seeing just how little support moms receive, Dr. Rundle developed a passion for supporting women through life transitions, particularly those related to motherhood and family dynamics. Dr. Rundle is certified in perinatal mental health, and brings both professional expertise and personal understanding to her work with clients navigating the complex terrain of modern womanhood and parenthood.
+                  Being a woman in today's world is difficult. The demands and expectations that society places on us to be all things to all people can become a huge burden. Perhaps you are someone who is feeling overwhelmed with trying to "do it all." If so, you're in the right place.
                 </p>
-                
+
                 <p className="text-bloom/80">
-                  Her approach integrates evidence-based practices including Cognitive Behavioral Therapy (CBT), Interpersonal Therapy (IPT), and psychodynamically focused interventions, all delivered with warmth, empathy, humor, and cultural sensitivity. In her spare time, Dr. Rundle enjoys traveling, hiking, a good cup of coffee, and volunteering for local non-profits.
+                  After having my own children and seeing just how little support moms receive, I developed a passion for supporting women through life transitions, particularly those related to motherhood and family dynamics. I am certified in perinatal mental health, and I bring both professional expertise and personal understanding to my work with clients navigating the complex terrain of modern womanhood and parenthood.
+                </p>
+
+                <p className="text-bloom/80">
+                  Typically my work with clients focuses on reducing stress, improving social connection, while also improving family dynamics so they feel like the best version of themselves. I have specialized training in Interpersonal Psychotherapy (IPT), an evidenced-based therapy for women with perinatal mood disorders. I also integrate practices of Cognitive Behavioral Therapy (CBT) and psychodynamically focussed interventions to help clients go from "survive" to "thrive."
+                </p>
+
+                <p className="text-bloom/80">
+                  In my spare time, I enjoy traveling, hiking, a good cup of coffee, and volunteering for local non-profits. Reach out to see how I might be able to help you!
                 </p>
               </GlassmorphismPanel>
               

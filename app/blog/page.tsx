@@ -18,7 +18,7 @@ export default function BlogPage() {
     {
       id: 1,
       title: 'New Research on Postpartum Depression Treatment Options',
-      date: 'May 15, 2025', // Future date as specified
+      date: 'May 12, 2025', // Updated date
       excerpt: 'A groundbreaking study from Harvard Medical School reveals promising new treatment approaches for postpartum depression, combining traditional therapy with innovative mindfulness techniques...',
       image: '/images/Home/new-mom.png',
       slug: 'postpartum-depression-treatments',
