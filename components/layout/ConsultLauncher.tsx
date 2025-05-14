@@ -12,7 +12,7 @@ const ConsultLauncher = () => {
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      setHasScrolled(scrollTop > 300);
+      setHasScrolled(scrollTop > 100); // Reduced from 300 to show after less scrolling
     };
     
     window.addEventListener('scroll', handleScroll);
@@ -111,7 +111,7 @@ const ConsultLauncher = () => {
             </motion.div>
             
             <motion.p className="text-sm text-bloom/80 mb-4" variants={itemVariants}>
-              Take the first step towards healing and growth. Book your free 15-minute consultation today.
+              Ready to begin your journey? Book your free 15-minute consultation online today.
             </motion.p>
             
             <motion.div className="space-y-3" variants={itemVariants}>
@@ -122,15 +122,10 @@ const ConsultLauncher = () => {
                 Book Consultation
               </Link>
               
-              <a
-                href="tel:+15128989510"
-                className="btn-outline w-full block text-center text-sm"
-              >
-                Call (512) 898-9510
-              </a>
+              {/* Phone number removed as requested */}
               
               <p className="text-xs text-bloom/70 text-center mt-3">
-                Or email us at <a href="mailto:jana@bloompsychologynorthaustin.com" className="text-bloom underline hover:text-bloom-accent transition duration-300">jana@bloompsychologynorthaustin.com</a>
+                Email us at <a href="mailto:jana@bloompsychologynorthaustin.com" className="text-bloom underline hover:text-bloom-accent transition duration-300">jana@bloompsychologynorthaustin.com</a>
               </p>
             </motion.div>
           </motion.div>

@@ -36,13 +36,13 @@ const raleway = Raleway({
 export const metadata: Metadata = {
   title: {
     template: '%s | Bloom Psychology North Austin',
-    default: 'Bloom Psychology North Austin | Women\'s and Family Mental Health'
+    default: 'Bloom Psychology North Austin | Women\'s Mental Health'
   },
-  description: 'Bloom Psychology North Austin offers specialized therapy for women, moms, parents, and families. Evidence-based support for anxiety, stress, postpartum depression, and more.',
+  description: 'Bloom Psychology North Austin offers specialized therapy for women, moms, and parents. Evidence-based support for anxiety, stress, postpartum depression, and more.',
   keywords: 'therapy, psychologist, mental health, women\'s therapy, mom therapy, parent support, anxiety, Austin, telehealth, postpartum depression',
   openGraph: {
     title: 'Bloom Psychology North Austin',
-    description: 'Specialized therapy for women, moms, parents, and families in North Austin.',
+    description: 'Specialized therapy for women, moms, and parents in North Austin.',
     images: ['/images/Logo/logo.jpg'],
   },
 };

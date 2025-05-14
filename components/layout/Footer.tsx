@@ -8,7 +8,7 @@ const Footer = () => {
   
   return (
     <footer className="bg-bloom text-white">
-      <div className="container mx-auto px-4 py-12 md:py-16">
+      <div className="container mx-auto px-4 py-12 md:py-16 pb-0">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Logo and Brief Info */}
           <div className="flex flex-col space-y-4">
@@ -147,7 +147,9 @@ const Footer = () => {
           </div>
         </div>
         
-        <div className="border-t border-white/20 mt-10 pt-6 text-center text-white/60 text-sm">
+      </div>
+      <div className="border-t border-white/20 mt-10 pt-6 text-center text-white/60 text-sm w-full">
+        <div className="container mx-auto px-4">
           <p>© {currentYear} Bloom Psychology North Austin. All rights reserved.</p>
         </div>
       </div>

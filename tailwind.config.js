@@ -62,6 +62,8 @@ module.exports = {
         'fade-in': 'fade-in 0.8s ease-out forwards',
         'slide-in-left': 'slide-in-left 0.8s ease-out forwards',
         'slide-in-right': 'slide-in-right 0.8s ease-out forwards',
+        'gradient-text': 'gradient-text 3s ease-in-out infinite',
+        'width': 'width 0.8s ease-out forwards',
       },
       keyframes: {
         float: {
@@ -91,6 +93,22 @@ module.exports = {
         'slide-in-right': {
           '0%': { transform: 'translateX(30px)', opacity: 0 },
           '100%': { transform: 'translateX(0)', opacity: 1 },
+        },
+        'gradient-text': {
+          '0%, 100%': { 
+            backgroundSize: '200% 200%',
+            backgroundPosition: 'left center',
+            textShadow: '0 2px 4px rgba(198, 71, 138, 0.3)'
+          },
+          '50%': { 
+            backgroundSize: '200% 200%',
+            backgroundPosition: 'right center',
+            textShadow: '0 2px 6px rgba(198, 71, 138, 0.4)'
+          },
+        },
+        'width': {
+          '0%': { width: '0', opacity: 0 },
+          '100%': { width: '10rem', opacity: 1 },
         },
       },
       backdropBlur: {

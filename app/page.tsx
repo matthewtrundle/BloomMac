@@ -113,7 +113,7 @@ export default function Home() {
     <>
       {/* SEO Schema */}
       <OrganizationSchema
-        name="Bloom Psychology North Austin"
+        name="Bloom Psychology"
         url="https://bloompsychologynorthaustin.com"
         logo="https://bloompsychologynorthaustin.com/images/Logo/logo.jpg"
         description="Specialized therapy for women, moms, and parents in North Austin."
@@ -221,17 +221,17 @@ export default function Home() {
         <div className="container mx-auto px-6 max-w-4xl">
           <div className="text-center mb-8">
             <div ref={welcomeTitleRef}>
-              <KineticTypography as="h2" animation="word-by-word" className="font-playfair text-bloom text-3xl md:text-5xl mb-6">
-                Welcome to Bloom Psychology North Austin
-              </KineticTypography>
+              <h2 className="font-playfair text-bloom text-3xl md:text-5xl mb-6 animate-fade-in">
+                Welcome to <span className="font-semibold bg-gradient-to-r from-bloompink to-pink-400 bg-clip-text text-transparent animate-gradient-text">Bloom Psychology</span>
+              </h2>
               
-              <div className="w-32 h-1 bg-[#C63780] mx-auto mb-12"></div>
+              <div className="w-40 h-1 bg-gradient-to-r from-[#C63780] to-[#FF9CB9] mx-auto mb-12 rounded-full animate-width"></div>
             </div>
           </div>
           
           <div className="space-y-8 text-bloom/80 text-center md:text-lg max-w-3xl mx-auto">
             <p ref={paragraph1Ref} className="font-medium">
-              At Bloom Psychology, we believe in providing compassionate, evidence-based therapy tailored to the unique needs of women, mothers, parents, and families.
+              At Bloom Psychology, we believe in providing compassionate, evidence-based therapy tailored to the unique needs of women, mothers, and parents.
             </p>
             
             <p ref={paragraph2Ref}>
@@ -272,15 +272,15 @@ export default function Home() {
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <div ref={serviceTitleRef}>
-              <KineticTypography as="h2" animation="word-by-word" className="font-playfair text-bloom text-3xl md:text-4xl mb-4">
+              <h2 className="font-playfair text-bloom text-3xl md:text-4xl mb-4">
                 Our Services
-              </KineticTypography>
+              </h2>
               
               <div className="w-32 h-1 bg-[#C63780] mx-auto mb-8 rounded-full"></div>
             </div>
             
             <p className="text-bloom/70 max-w-2xl mx-auto" ref={serviceDescRef}>
-              We offer a range of specialized mental health services designed to support women, mothers, and families at every stage of life.
+              We offer a range of specialized mental health services designed to support women, mothers, and parents at every stage of life.
             </p>
           </div>
           
@@ -323,19 +323,12 @@ export default function Home() {
       
       {/* CTA Section */}
       <section className="py-16 bg-bloom relative overflow-hidden">
-        <OrganicShape
-          variant="wave"
-          color="#FFFFFF"
-          size="full"
-          position="bottom-right"
-          opacity={0.03}
-        />
         
         <div className="container mx-auto px-6 text-center">
           <div ref={ctaTitleRef}>
-            <KineticTypography as="h2" animation="fade-in" className="font-playfair text-white text-3xl md:text-4xl mb-6">
+            <h2 className="font-playfair text-white text-3xl md:text-4xl mb-6">
               Begin Your Healing Journey Today
-            </KineticTypography>
+            </h2>
           </div>
           
           <p className="text-white/90 max-w-2xl mx-auto mb-10" ref={ctaTextRef}>
