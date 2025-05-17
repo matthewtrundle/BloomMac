@@ -229,22 +229,73 @@ export default function Home() {
             </div>
           </div>
           
-          <div className="space-y-8 text-bloom/80 text-center md:text-lg max-w-3xl mx-auto">
-            <p ref={paragraph1Ref} className="font-medium">
-              At Bloom Psychology, we believe in providing compassionate, evidence-based therapy tailored to the unique needs of women, mothers, and parents.
-            </p>
-            
-            <p ref={paragraph2Ref}>
+          <div className="space-y-6 text-bloom/80 md:text-lg max-w-3xl mx-auto">
+            <p ref={paragraph1Ref} className="font-medium text-center">
               Led by Dr. Jana Rundle, our practice specializes in addressing anxiety, stress, parenting challenges, and postpartum mental health in a warm, non-judgmental environment.
             </p>
             
-            <p ref={paragraph3Ref}>
-              Whether you're seeking individual therapy, parent support, or help with specific challenges, we're here to support your journey toward healing and growth.
+            {/* Bullet Points with flower markers */}
+            <div className="space-y-4 text-left mt-12">
+              <div className="flex items-start">
+                <Image 
+                  src="/images/Flower with black 2.svg" 
+                  alt="Bloom flower" 
+                  width={24} 
+                  height={24} 
+                  className="mr-3 mt-0.5 flex-shrink-0"
+                />
+                <p className="text-lg">Are you struggling with keeping up with it all?</p>
+              </div>
+              
+              <div className="flex items-start">
+                <Image 
+                  src="/images/Flower with black 2.svg" 
+                  alt="Bloom flower" 
+                  width={24} 
+                  height={24} 
+                  className="mr-3 mt-0.5 flex-shrink-0"
+                />
+                <p className="text-lg">Are you starting to feel like you may be failing at everything?</p>
+              </div>
+              
+              <div className="flex items-start">
+                <Image 
+                  src="/images/Flower with black 2.svg" 
+                  alt="Bloom flower" 
+                  width={24} 
+                  height={24} 
+                  className="mr-3 mt-0.5 flex-shrink-0"
+                />
+                <p className="text-lg">Are you feeling burned out?</p>
+              </div>
+              
+              <div className="flex items-start">
+                <Image 
+                  src="/images/Flower with black 2.svg" 
+                  alt="Bloom flower" 
+                  width={24} 
+                  height={24} 
+                  className="mr-3 mt-0.5 flex-shrink-0"
+                />
+                <p className="text-lg">Are you wondering if you may be a good mom?</p>
+              </div>
+            </div>
+            
+            <p ref={paragraph2Ref} className="font-medium text-center text-lg pt-4">
+              Are you ready to stop feeling overwhelmed and start feeling more in control of your life?
+            </p>
+            
+            <p ref={paragraph3Ref} className="text-xl font-semibold text-center pt-6">
+              Your life could look <span className="underline text-bloompink">very different</span> six months from now!
             </p>
             
             <div className="pt-8 flex justify-center">
-              <Button href="/about" variant="outline" size="md">
-                Learn More About Us
+              <Button 
+                href="https://calendly.com/bloompsychology/15-minute" 
+                variant="pink" 
+                size="lg"
+              >
+                Book Now
               </Button>
             </div>
           </div>

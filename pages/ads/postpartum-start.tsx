@@ -106,13 +106,13 @@ export default function PostpartumPage() {
                   <div className="relative w-32 h-32 rounded-full overflow-hidden border-3 border-bloompink/30 shadow-lg">
                     <Image
                       src="/images/Team/Jana Rundle.jpg"
-                      alt="Jana Rundle, Licensed Therapist"
+                      alt="Dr. Jana Rundle, Psychologist"
                       width={128}
                       height={128}
                       className="object-cover"
                     />
                   </div>
-                  <p className="text-md text-bloom mt-2 font-medium">Jana Rundle, <span className="text-bloompink">LPC</span></p>
+                  <p className="text-md text-bloom mt-2 font-medium"><span className="text-bloompink">Dr.</span> Jana Rundle</p>
                 </div>
                 <h1 className="font-playfair text-3xl md:text-4xl text-bloom mb-4 leading-tight">
                   Find Relief from Postpartum Anxiety
