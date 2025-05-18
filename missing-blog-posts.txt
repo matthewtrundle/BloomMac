@@ -1,0 +1,23 @@
+Based on comparing the blog posts listed on the blog page (app/blog/page.tsx) with the actual blog posts available in lib/data/blog-posts.ts:
+
+EXISTING BLOG POSTS (in blog-posts.ts):
+✓ postpartum-depression-treatments
+✓ maternal-mental-health-crisis
+✓ sleep-postpartum-anxiety
+✓ supporting-partners-ppd
+✓ hidden-perinatal-anxiety
+
+MISSING BLOG POSTS (need to be written):
+1. diverse-maternal-mental-health
+2. digital-maternal-mental-health
+3. hormones-anxiety-women
+4. preventing-postpartum-depression
+5. postpartum-rage
+6. managing-anxiety
+7. parent-child-relationships
+8. self-care-for-parents
+9. understanding-therapy
+10. navigating-transitions
+11. supporting-new-mothers
+
+These 11 blog posts are displayed on the blog listing page but haven't been implemented in the blog-posts.ts file yet.

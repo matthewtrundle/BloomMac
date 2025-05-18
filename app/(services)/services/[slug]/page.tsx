@@ -270,6 +270,18 @@ export default function ServicePage({
               </details>
             ))}
           </div>
+          
+          <div className="text-center mt-8">
+            <Link 
+              href="/faq" 
+              className="inline-flex items-center text-bloompink hover:text-[#B03979] transition-colors font-medium"
+            >
+              View All FAQs
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </Link>
+          </div>
         </div>
       </section>
       

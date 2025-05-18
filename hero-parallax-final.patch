@@ -1,0 +1,150 @@
+diff --git a/lib/hooks/useParallaxHero.ts b/lib/hooks/useParallaxHero.ts
+new file mode 100644
+index 0000000..1234567
+--- /dev/null
++++ b/lib/hooks/useParallaxHero.ts
+@@ -0,0 +1,38 @@
++'use client';
++
++import { useEffect, useRef, useState } from 'react';
++
++interface UseParallaxHeroOptions {
++  speedFactor?: number;
++  maxOffset?: number;
++}
++
++export default function useParallaxHero(options: UseParallaxHeroOptions = {}) {
++  const { speedFactor = 0.5, maxOffset = 500 } = options;
++  const [offset, setOffset] = useState(0);
++  const ticking = useRef(false);
++
++  useEffect(() => {
++    const handleScroll = () => {
++      if (!ticking.current) {
++        requestAnimationFrame(() => {
++          const scrollY = window.scrollY;
++          // Calculate parallax offset, capped at maxOffset
++          const parallaxOffset = Math.min(scrollY * speedFactor, maxOffset);
++          setOffset(parallaxOffset);
++          ticking.current = false;
++        });
++        ticking.current = true;
++      }
++    };
++
++    window.addEventListener('scroll', handleScroll, { passive: true });
++    
++    // Initial call
++    handleScroll();
++
++    return () => {
++      window.removeEventListener('scroll', handleScroll);
++    };
++  }, [speedFactor, maxOffset]);
++
++  return offset;
++}
+
+diff --git a/app/page.tsx b/app/page.tsx
+index 1234567..abcdefg 100644
+--- a/app/page.tsx
++++ b/app/page.tsx
+@@ -10,6 +10,7 @@ import { services } from '@/lib/data/services';
+ // Scroll effect utilities
+ import setupScrollGreyscale from '@/lib/hooks/useScrollGreyscale';
+ import setupScrollReveal from '@/lib/hooks/useScrollReveal';
++import useParallaxHero from '@/lib/hooks/useParallaxHero';
+ 
+ // UI Components
+ import KineticTypography from '@/components/ui/KineticTypography';
+@@ -42,6 +43,9 @@ export default function Home() {
+   
+   // Use the specified hero image
+   const heroImage = '/images/Hero/hero15.png';
++  
++  // Use parallax effect for hero with more subtle movement
++  const parallaxOffset = useParallaxHero({ speedFactor: 0.3, maxOffset: 150 });
+   
+   // Apply scroll effects
+   useEffect(() => {
+@@ -133,14 +137,24 @@ export default function Home() {
+       {/* Hero Section */}
+       <section className="relative h-[80vh] bg-white overflow-hidden">
+         {/* Hero background image with parallax */}
+-        <div className="absolute inset-0 z-0">
+-          <div className="relative h-full w-full">
+-            <Image
+-              src={heroImage}
+-              alt="Bloom Psychology hero"
+-              fill
+-              className="object-cover object-top relative z-10"
+-              priority
+-              quality={85}
+-            />
+-            <div className="absolute inset-0 z-0 bg-gradient-to-br from-pink-100 via-transparent to-white opacity-40 pointer-events-none"></div>
++        <div className="absolute inset-0 z-0">
++          <div className="relative w-full h-full">
++            <div
++              className="absolute inset-0 will-change-transform parallax-hero"
++              style={{
++                transform: `translateY(${parallaxOffset * 0.5}px)`,
++                bottom: `-${parallaxOffset * 0.5}px`
++              }}
++            >
++              <Image
++                src={heroImage}
++                alt="Bloom Psychology hero"
++                fill
++                className="object-contain lg:object-cover object-center relative z-10 hero-image"
++                priority
++                quality={85}
++                sizes="100vw"
++              />
++              <div className="absolute inset-0 z-0 bg-gradient-to-br from-pink-100/40 via-transparent to-white/40 pointer-events-none"></div>
++            </div>
+           </div>
+
+diff --git a/app/globals.css b/app/globals.css
+index 1234567..abcdefg 100644
+--- a/app/globals.css
++++ b/app/globals.css
+@@ -344,6 +344,32 @@
+     background-repeat: no-repeat;
+     background-size: cover;
+   }
++  
++  /* Hero parallax optimization */
++  .parallax-hero {
++    will-change: transform;
++    transform: translateZ(0);
++    backface-visibility: hidden;
++  }
++  
++  /* Hero image positioning */
++  .hero-image {
++    object-position: center center;
++  }
++  
++  /* For smaller screens, ensure full image visibility */
++  @media (max-width: 1024px) {
++    .hero-image {
++      object-fit: contain !important;
++      object-position: center center;
++    }
++  }
++  
++  /* For better performance on mobile */
++  @media (max-width: 768px) {
++    .parallax-hero {
++      transform: none !important;
++      position: static !important;
++    }
++    
++    .hero-image {
++      object-fit: cover !important;
++      object-position: 70% center;
++    }
++  }
+ }
+ 
+ /* Animations */

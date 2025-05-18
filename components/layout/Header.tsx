@@ -91,6 +91,9 @@ const Header = () => {
               <Link href="/contact" className="text-bloom font-medium hover:text-bloom-blush transition duration-300">
                 CONTACT
               </Link>
+              <Link href="/faq" className="text-bloom font-medium hover:text-bloom-blush transition duration-300">
+                FAQ
+              </Link>
               <Link 
                 href="/blog" 
                 className="text-bloom font-medium hover:text-bloom-blush transition duration-300"
@@ -209,6 +212,14 @@ const Header = () => {
                 className="px-3 py-2 text-bloom hover:text-bloom-blush transition duration-300 border-b border-gray-100 pb-2"
               >
                 CONTACT
+              </Link>
+              
+              <Link 
+                href="/faq"
+                onClick={() => setIsMenuOpen(false)}
+                className="px-3 py-2 text-bloom hover:text-bloom-blush transition duration-300 border-b border-gray-100 pb-2"
+              >
+                FAQ
               </Link>
               
               <Link 

@@ -344,6 +344,39 @@
     background-repeat: no-repeat;
     background-size: cover;
   }
+  
+  /* Hero parallax optimization */
+  .parallax-hero {
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+  
+  /* Hero image positioning */
+  .hero-image {
+    object-position: center center;
+  }
+  
+  /* For smaller screens, ensure full image visibility */
+  @media (max-width: 1024px) {
+    .hero-image {
+      object-fit: contain !important;
+      object-position: center center;
+    }
+  }
+  
+  /* For better performance on mobile */
+  @media (max-width: 768px) {
+    .parallax-hero {
+      transform: none !important;
+      position: static !important;
+    }
+    
+    .hero-image {
+      object-fit: cover !important;
+      object-position: 70% center;
+    }
+  }
 }
 
 /* Animations */
@@ -367,4 +400,84 @@
   0% { transform: scale(1); }
   50% { transform: scale(1.05); }
   100% { transform: scale(1); }
+}
+
+/* FAQ Accordion Styles */
+details[open] summary ~ * {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+details summary::-webkit-details-marker {
+  display: none;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Smooth transitions for FAQ accordion */
+details {
+  transition: all 0.3s ease;
+}
+
+details[open] {
+  transition: all 0.3s ease;
+}
+
+/* FAQ Search Input Styles */
+.faq-search {
+  transition: all 0.3s ease;
+}
+
+.faq-search:focus {
+  box-shadow: 0 0 0 3px rgba(244, 194, 194, 0.1);
+}
+
+/* Fixed Background Parallax Effect */
+.fixed-hero-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 75vh;
+  z-index: -1;
+}
+
+/* Hero image sizing */
+.hero-section img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Ensure sections after hero have proper background */
+section:not(.hero-section) {
+  position: relative;
+  z-index: 1;
+}
+
+/* Prevent fixed background from showing through transparent sections */
+.hero-section + * {
+  position: relative;
+  z-index: 10;
+}
+
+/* Mobile optimization for fixed background */
+@media (max-width: 768px) {
+  .hero-section {
+    /* On mobile, sometimes fixed backgrounds can be problematic */
+    background-attachment: scroll;
+  }
+}
+
+/* Ensure content visibility over fixed background */
+.hero-section .container {
+  position: relative;
+  z-index: 10;
 }

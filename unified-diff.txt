@@ -1,24 +1,302 @@
-# Bloom Psychology Website Updates
-
-## Changes Made
-
-1. Added standardized bloompink color: #C6478A
-2. Added text-shadow plugin and utilities
-3. Removed Telehealth service entirely
-4. Added Blog link to header
-5. Removed Client Success Stories sections
-6. Changed about page to use Hero2.png
-7. Updated hero section with watercolor backdrop
-8. Applied Framer Motion animations to hero elements
-
-## Affected Files
-
-- tailwind.config.js
-- app/page.tsx
-- app/about/page.tsx
-- components/layout/Header.tsx
-- lib/data/services.ts
-- app/(services)/services/[slug]/page.tsx
-- components/ui/Button.tsx
-- app/globals.css
-- tailwind-plugins/text-shadow.js (new file)
+--- a/app/page.tsx
++++ b/app/page.tsx
+@@ -135,139 +135,193 @@ export default function Home() {
+       
+       {/* Hero Section with Welcome Card */}
+       <section className="relative min-h-screen bg-white overflow-hidden">
+-        {/* Hero background image with parallax */}
++        {/* Hero background image with parallax - restored to previous state */}
+         <div className="absolute inset-0 z-0">
+           <div className="relative w-full h-full">
+             <div
+               className="absolute inset-0 will-change-transform parallax-hero"
+               style={{
+                 transform: `translateY(${parallaxOffset * 0.5}px)`,
+                 bottom: `-${parallaxOffset * 0.5}px`
+               }}
+             >
+               <Image
+                 src={heroImage}
+                 alt="Bloom Psychology hero"
+                 fill
+                 className="object-contain lg:object-cover object-center relative z-10 hero-image"
+                 priority
+                 quality={85}
+                 sizes="100vw"
+               />
+               <div className="absolute inset-0 z-0 bg-gradient-to-br from-pink-100/40 via-transparent to-white/40 pointer-events-none"></div>
+             </div>
+           </div>
+           
+           {/* Add tech grid/network overlay */}
+           <div className="absolute inset-0 mix-blend-soft-light opacity-20">
+             <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+               <defs>
+                 <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                   <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" strokeWidth="0.5"/>
+                 </pattern>
+               </defs>
+               <rect width="100%" height="100%" fill="url(#grid)" />
+             </svg>
+           </div>
+         </div>
+         
+         <div className="container mx-auto px-4 relative z-10 flex items-center justify-center min-h-screen py-20">
+-          {/* Card containing Welcome section */}
+-          <div className="bg-white bg-opacity-90 backdrop-blur-sm shadow-2xl rounded-2xl p-10 max-w-3xl mx-auto">
++          <div className="max-w-3xl mx-auto">
+             {/* Logo and tagline */}
+             <div className="text-center mb-8">
+               <h1 className="font-raleway text-3xl sm:text-4xl md:text-5xl lg:text-[3.3rem] mb-4 tracking-tight leading-tight">
+                 <span className="font-light text-bloompink">Bloom</span>
+                 <span className="font-extralight text-bloom-darkGrey">Psychology</span>
+               </h1>
+               
+               <p className="font-raleway font-normal text-lg sm:text-xl md:text-[1.25rem] text-bloom-darkGrey text-center max-w-[600px] mx-auto">
+                 Specialized mental health care for women and moms in North Austin.
+               </p>
+             </div>
+             
+-            {/* Welcome section content */}
+-            <div ref={welcomeTitleRef} className="text-center">
+-              <h2 className="font-playfair text-bloom text-4xl md:text-6xl font-bold text-center mb-4">
+-                Welcome to Bloom Psychology
+-              </h2>
+-              
+-              <hr className="w-16 border-4 border-pink-400 rounded mx-auto mt-4 mb-8" />
++            {/* Call to action buttons */}
++            <div className="flex flex-col sm:flex-row gap-4 justify-center">
++              <motion.a 
++                href="#consult" 
++                whileHover={{ scale: 1.03, y: -2 }} 
++                transition={{ type: "spring", stiffness: 300 }}
++                className="bg-bloompink hover:bg-[#B03979] text-white font-bold font-inter px-6 py-3 rounded-md shadow-md transition-all duration-300 text-center"
++              >
++                Book a FREE Consult Call →
++              </motion.a>
++              
++              <motion.a 
++                href="#services" 
++                whileHover={{ scale: 1.03, y: -2 }} 
++                transition={{ type: "spring", stiffness: 300 }}
++                className="bg-bloompink hover:bg-[#B03979] text-white font-bold font-inter px-6 py-3 rounded-md shadow-md transition-all duration-300 text-center"
++              >
++                Explore Our Services
++              </motion.a>
+             </div>
+-            
+-            <div className="space-y-6 text-bloom/80 text-lg md:text-xl">
+-              <p ref={paragraph1Ref} className="font-medium text-center">
+-                Led by Dr. Jana Rundle, our practice specializes in addressing anxiety, stress, parenting challenges, and postpartum mental health in a warm, non-judgmental environment.
+-              </p>
+-              
+-              {/* Bullet Points with flower markers */}
+-              <div className="space-y-4 text-left mt-12">
+-                <div className="flex items-start">
+-                  <Image 
+-                    src="/images/flower no stem.svg" 
+-                    alt="Bloom flower" 
+-                    width={24} 
+-                    height={24} 
+-                    className="mr-3 mt-0.5 flex-shrink-0"
+-                  />
+-                  <p className="text-lg">Are you struggling with keeping up with it all?</p>
+-                </div>
+-                
+-                <div className="flex items-start">
+-                  <Image 
+-                    src="/images/flower no stem.svg" 
+-                    alt="Bloom flower" 
+-                    width={24} 
+-                    height={24} 
+-                    className="mr-3 mt-0.5 flex-shrink-0"
+-                  />
+-                  <p className="text-lg">Are you starting to feel like you may be failing at everything?</p>
+-                </div>
+-                
+-                <div className="flex items-start">
+-                  <Image 
+-                    src="/images/flower no stem.svg" 
+-                    alt="Bloom flower" 
+-                    width={24} 
+-                    height={24} 
+-                    className="mr-3 mt-0.5 flex-shrink-0"
+-                  />
+-                  <p className="text-lg">Are you feeling burned out?</p>
+-                </div>
+-                
+-                <div className="flex items-start">
+-                  <Image 
+-                    src="/images/flower no stem.svg" 
+-                    alt="Bloom flower" 
+-                    width={24} 
+-                    height={24} 
+-                    className="mr-3 mt-0.5 flex-shrink-0"
+-                  />
+-                  <p className="text-lg">Are you wondering if you may be a good mom?</p>
+-                </div>
+-              </div>
+-              
+-              <p ref={paragraph2Ref} className="font-medium text-center text-lg pt-4">
+-                Are you ready to stop feeling overwhelmed and start feeling more in control of your life?
+-              </p>
+-              
+-              <p ref={paragraph3Ref} className="text-xl font-semibold text-center pt-6">
+-                Your life could look <span className="underline text-bloompink">very different</span> six months from now!
+-              </p>
+-              
+-              {/* Book Now button - moved inside the card */}
+-              <div className="mt-8 flex justify-center">
+-                <Button 
+-                  href="https://calendly.com/bloompsychology/15-minute" 
+-                  variant="pink" 
+-                  size="lg"
+-                >
+-                  Book Now
+-                </Button>
+-              </div>
++          </div>
++        </div>
++      </section>
++      
++      {/* Welcome Section with Card Wrapper */}
++      <section className="py-20 bg-gray-50 relative overflow-hidden">
++        <div className="container mx-auto px-4">
++          {/* Card wrapper with specific styling */}
++          <div className="bg-white bg-opacity-90 backdrop-blur-sm shadow-2xl rounded-2xl p-10 max-w-3xl mx-auto mb-16">
++            {/* Centered heading */}
++            <h2 className="text-center text-3xl text-primary mb-4 bloom-font">
++              Welcome to Bloom Psychology
++            </h2>
++            
++            {/* Bloom pink accent stripe */}
++            <hr className="w-16 border-4 border-pink-400 rounded mx-auto mt-4 mb-8" />
++            
++            {/* Content */}
++            <p className="font-medium text-center text-primary bloom-font mb-8">
++              Led by Dr. Jana Rundle, our practice specializes in addressing anxiety, stress, parenting challenges, and postpartum mental health in a warm, non-judgmental environment.
++            </p>
++            
++            {/* Bullet Points with flower markers */}
++            <div className="space-y-4 text-left mt-12">
++              <div className="flex items-start">
++                <Image 
++                  src="/images/flower-no-stem.svg" 
++                  alt="Bloom flower" 
++                  width={24} 
++                  height={24} 
++                  className="mr-3 mt-0.5 flex-shrink-0"
++                />
++                <p className="text-lg">Are you struggling with keeping up with it all?</p>
++              </div>
++              
++              <div className="flex items-start">
++                <Image 
++                  src="/images/flower-no-stem.svg" 
++                  alt="Bloom flower" 
++                  width={24} 
++                  height={24} 
++                  className="mr-3 mt-0.5 flex-shrink-0"
++                />
++                <p className="text-lg">Are you starting to feel like you may be failing at everything?</p>
++              </div>
++              
++              <div className="flex items-start">
++                <Image 
++                  src="/images/flower-no-stem.svg" 
++                  alt="Bloom flower" 
++                  width={24} 
++                  height={24} 
++                  className="mr-3 mt-0.5 flex-shrink-0"
++                />
++                <p className="text-lg">Are you feeling burned out?</p>
++              </div>
++              
++              <div className="flex items-start">
++                <Image 
++                  src="/images/flower-no-stem.svg" 
++                  alt="Bloom flower" 
++                  width={24} 
++                  height={24} 
++                  className="mr-3 mt-0.5 flex-shrink-0"
++                />
++                <p className="text-lg">Are you wondering if you may be a good mom?</p>
++              </div>
+             </div>
+             
+-            {/* Call to action buttons */}
+-            <div className="flex flex-col sm:flex-row gap-4 mt-10 justify-center">
+-              <motion.a 
+-                href="#consult" 
+-                whileHover={{ scale: 1.03, y: -2 }} 
+-                transition={{ type: "spring", stiffness: 300 }}
+-                className="bg-bloompink hover:bg-[#B03979] text-white font-bold font-inter px-6 py-3 rounded-md shadow-md transition-all duration-300 text-center"
+-              >
+-                Book a FREE Consult Call →
+-              </motion.a>
+-              
+-              <motion.a 
+-                href="#services" 
+-                whileHover={{ scale: 1.03, y: -2 }} 
+-                transition={{ type: "spring", stiffness: 300 }}
+-                className="bg-bloompink hover:bg-[#B03979] text-white font-bold font-inter px-6 py-3 rounded-md shadow-md transition-all duration-300 text-center"
+-              >
+-                Explore Our Services
+-              </motion.a>
++            <p className="font-medium text-center text-lg pt-4">
++              Are you ready to stop feeling overwhelmed and start feeling more in control of your life?
++            </p>
++            
++            <p className="text-xl font-semibold text-center pt-6">
++              Your life could look <span className="underline text-bloompink">very different</span> six months from now!
++            </p>
++            
++            {/* Book Now button */}
++            <div className="mt-8 flex justify-center">
++              <Button 
++                href="https://calendly.com/bloompsychology/15-minute" 
++                variant="pink" 
++                size="lg"
++              >
++                Book Now
++              </Button>
+             </div>
+           </div>
+         </div>
+       </section>
+       
+       {/* Services Section */}
+-      <section id="services" className="py-20 bg-gray-50 relative overflow-hidden">
++      <section id="services" className="py-20 bg-white relative overflow-hidden">
+         <OrganicShape
+           variant="blob-2"
+           color="var(--bloom-blush)"
+           size="lg"
+           position="top-right"
+           opacity={0.08}
+         />
+         <OrganicShape
+           variant="blob-3"
+           color="var(--bloom-accent)"
+           size="md"
+           position="bottom-left"
+           opacity={0.05}
+           rotate={120}
+         />
+         
+         <div className="container mx-auto px-6">
+           <div className="text-center mb-16">
+             <div ref={serviceTitleRef}>
+               <h2 className="font-playfair text-bloom text-3xl md:text-4xl mb-4">
+                 Our Services
+               </h2>
+               
+               <div className="w-32 h-1 bg-[#C63780] mx-auto mb-8 rounded-full"></div>
+             </div>
+             
+             <p className="text-bloom/70 max-w-2xl mx-auto" ref={serviceDescRef}>
+               We offer a range of specialized mental health services designed to support women, mothers, and parents at every stage of life.
+             </p>
+           </div>
+           
+           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

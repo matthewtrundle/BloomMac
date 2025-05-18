@@ -9,6 +9,7 @@ import { services } from '@/lib/data/services';
 // Scroll effect utilities
 import setupScrollGreyscale from '@/lib/hooks/useScrollGreyscale';
 import setupScrollReveal from '@/lib/hooks/useScrollReveal';
+import useParallaxHero from '@/lib/hooks/useParallaxHero';
 
 // UI Components
 import KineticTypography from '@/components/ui/KineticTypography';
@@ -42,6 +43,12 @@ export default function Home() {
   
   // Use the specified hero image
   const heroImage = '/images/Hero/hero15.png';
+  
+  // Use parallax effect for hero with more subtle movement
+  const parallaxOffset = useParallaxHero({ speedFactor: 0.3, maxOffset: 150 });
+  
+  // Optional parallax for welcome section background - more pronounced
+  const welcomeParallaxOffset = useParallaxHero({ speedFactor: 0.4, maxOffset: 200 });
   
   // Apply scroll effects
   useEffect(() => {
@@ -130,19 +137,21 @@ export default function Home() {
       />
       
       {/* Hero Section */}
-      <section className="relative h-[80vh] bg-white overflow-hidden">
-        {/* Hero background image with parallax */}
-        <div className="absolute inset-0 z-0">
-          <div className="relative h-full w-full">
+      <section className="relative h-[75vh] hero-section">
+        {/* Fixed hero background image */}
+        <div className="fixed inset-x-0 top-0 h-[75vh] w-full" style={{ zIndex: -1 }}>
+          <div className="relative w-full h-full">
             <Image
               src={heroImage}
               alt="Bloom Psychology hero"
               fill
-              className="object-cover object-top relative z-10"
+              className="object-cover"
+              style={{ objectPosition: '50% 20%' }}
               priority
               quality={85}
+              sizes="100vw"
             />
-            <div className="absolute inset-0 z-0 bg-gradient-to-br from-pink-100 via-transparent to-white opacity-40 pointer-events-none"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-pink-100/40 via-transparent to-white/40 pointer-events-none"></div>
           </div>
           
           {/* Add tech grid/network overlay */}
@@ -158,33 +167,30 @@ export default function Home() {
           </div>
         </div>
         
-        <div className="container mx-auto px-4 relative z-10 h-screen">
+        <div className="container mx-auto px-4 relative z-10 h-full">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="relative z-10 max-w-3xl ml-4 md:ml-8 lg:ml-16 mr-auto pt-32 lg:pt-40"
+            className="relative z-10 max-w-3xl ml-4 md:ml-8 lg:ml-16 mr-auto pt-24 lg:pt-32"
           >
-            <div className="bg-white/60 backdrop-blur-sm rounded-lg p-8">
+            <div className="bg-white/60 backdrop-blur-sm rounded-lg p-6">
               <h1 className="font-raleway text-center text-3xl sm:text-4xl md:text-5xl lg:text-[3.3rem] mb-6 tracking-tight leading-tight text-shadow">
                 <span className="font-light text-bloompink">Bloom</span>
                 <span className="font-extralight text-bloom-darkGrey">Psychology</span>
               </h1>
               
-              <p className="font-raleway font-normal text-lg sm:text-xl md:text-[1.25rem] mb-8 text-bloom-darkGrey text-center max-w-[600px] mx-auto text-shadow-sm">
+              <p className="font-raleway font-normal text-lg sm:text-xl md:text-[1.25rem] mb-6 text-bloom-darkGrey text-center max-w-[600px] mx-auto text-shadow-sm">
                 Specialized mental health care for women and moms in North Austin.
               </p>
             </div>
             
-            <div className="flex flex-col sm:flex-row gap-4 mt-10">
-              <motion.a 
-                href="#consult" 
-                whileHover={{ scale: 1.03, y: -2 }} 
-                transition={{ type: "spring", stiffness: 300 }}
-                className="bg-bloompink hover:bg-[#B03979] text-white font-bold font-inter px-6 py-3 rounded-md shadow-md transition-all duration-300 text-center"
-              >
-                Book a FREE Consult Call →
-              </motion.a>
+            <div className="flex flex-col sm:flex-row gap-4 mt-6">
+              <Link href="/contact" className="z-10">
+                <button className="bg-bloompink hover:bg-[#B03979] text-white font-bold font-inter px-6 py-3 rounded-md shadow-md transition-all duration-300 text-center cursor-pointer hover:scale-105 active:scale-95">
+                  Book a FREE Consult Call →
+                </button>
+              </Link>
               
               <motion.a 
                 href="#services" 
@@ -199,111 +205,178 @@ export default function Home() {
         </div>
       </section>
       
-      {/* Introduction Section */}
-      <section className="py-20 bg-white relative overflow-hidden">
-        <OrganicShape
-          variant="wave"
-          color="var(--bloom-accent)"
-          size="full"
-          position="bottom-left"
-          opacity={0.03}
-        />
+      {/* Introduction Section with solid background to cover fixed image */}
+      <section className="py-20 relative z-10" style={{ background: 'linear-gradient(to bottom right, rgb(252, 231, 243), rgb(254, 240, 241), white)' }}>
+        {/* Parallax background layer */}
+        <div 
+          className="absolute inset-0 will-change-transform"
+          style={{ transform: `translateY(${welcomeParallaxOffset}px)` }}
+        >
+          {/* Background pattern overlay */}
+          <div className="absolute inset-0 opacity-[0.03]">
+            <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <pattern id="welcome-dots" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                  <circle cx="2" cy="2" r="1.5" fill="currentColor" className="text-bloompink" />
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#welcome-dots)" />
+            </svg>
+          </div>
+        </div>
         
-        <OrganicShape
-          variant="blob-2"
-          color="var(--bloom-blush)"
-          size="sm"
-          position="top-right"
-          opacity={0.04}
-          rotate={30}
-        />
+        <div 
+          className="absolute inset-0 will-change-transform"
+          style={{ transform: `translateY(${welcomeParallaxOffset * 0.6}px)` }}
+        >
+          <OrganicShape
+            variant="wave"
+            color="var(--bloom-blush)"
+            size="full"
+            position="bottom-left"
+            opacity={0.1}
+          />
+          
+          <OrganicShape
+            variant="blob-2"
+            color="var(--bloom-blush)"
+            size="sm"
+            position="top-right"
+            opacity={0.04}
+            rotate={30}
+          />
+        </div>
         
         <div className="container mx-auto px-6 max-w-4xl">
           <div className="text-center mb-8">
-            <div ref={welcomeTitleRef}>
+            <motion.div 
+              ref={welcomeTitleRef}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
               <h2 className="font-playfair text-bloom text-3xl md:text-5xl mb-6 animate-fade-in">
-                Welcome to <span className="font-semibold bg-gradient-to-r from-bloompink to-pink-400 bg-clip-text text-transparent animate-gradient-text">Bloom Psychology</span>
+                Welcome to <span className="font-semibold bg-gradient-to-r from-bloompink to-pink-400 bg-clip-text text-transparent animate-gradient-text hover:from-pink-400 hover:to-bloompink transition-all duration-300">Bloom Psychology</span>
               </h2>
               
-              <div className="w-40 h-1 bg-gradient-to-r from-[#C63780] to-[#FF9CB9] mx-auto mb-12 rounded-full animate-width"></div>
-            </div>
+              <div className="w-40 h-1 bg-gradient-to-r from-[#C63780] to-[#FF9CB9] mx-auto mb-12 rounded-full animate-width hover:w-48 transition-all duration-300"></div>
+            </motion.div>
           </div>
           
-          <div className="space-y-6 text-bloom/80 md:text-lg max-w-3xl mx-auto">
-            <p ref={paragraph1Ref} className="font-medium text-center">
+          <div className="space-y-6 text-bloom max-w-3xl mx-auto">
+            <p ref={paragraph1Ref} className="text-lg md:text-xl font-medium text-center leading-relaxed text-gray-700">
               Led by Dr. Jana Rundle, our practice specializes in addressing anxiety, stress, parenting challenges, and postpartum mental health in a warm, non-judgmental environment.
             </p>
             
             {/* Bullet Points with flower markers */}
             <div className="space-y-4 text-left mt-12">
-              <div className="flex items-start">
-                <Image 
-                  src="/images/Flower with black 2.svg" 
-                  alt="Bloom flower" 
-                  width={24} 
-                  height={24} 
+              <motion.div 
+                className="flex items-start group cursor-pointer"
+                whileHover={{ x: 10 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              >
+                <motion.div
+                  whileHover={{ scale: 1.3, rotate: 360 }}
+                  transition={{ duration: 0.6, ease: "easeInOut" }}
                   className="mr-3 mt-0.5 flex-shrink-0"
-                />
-                <p className="text-lg">Are you struggling with keeping up with it all?</p>
-              </div>
+                >
+                  <Image 
+                    src="/images/flower no stem.svg" 
+                    alt="Bloom flower" 
+                    width={24} 
+                    height={24} 
+                    className="transition-transform duration-300"
+                  />
+                </motion.div>
+                <p className="text-lg text-bloom group-hover:text-bloompink transition-colors duration-300">Are you struggling with keeping up with it all?</p>
+              </motion.div>
               
-              <div className="flex items-start">
-                <Image 
-                  src="/images/Flower with black 2.svg" 
-                  alt="Bloom flower" 
-                  width={24} 
-                  height={24} 
+              <motion.div 
+                className="flex items-start group cursor-pointer"
+                whileHover={{ x: 10 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              >
+                <motion.div
+                  whileHover={{ scale: 1.3, rotate: 360 }}
+                  transition={{ duration: 0.6, ease: "easeInOut" }}
                   className="mr-3 mt-0.5 flex-shrink-0"
-                />
-                <p className="text-lg">Are you starting to feel like you may be failing at everything?</p>
-              </div>
+                >
+                  <Image 
+                    src="/images/flower no stem.svg" 
+                    alt="Bloom flower" 
+                    width={24} 
+                    height={24} 
+                    className="transition-transform duration-300"
+                  />
+                </motion.div>
+                <p className="text-lg text-bloom group-hover:text-bloompink transition-colors duration-300">Are you starting to feel like you may be failing at everything?</p>
+              </motion.div>
               
-              <div className="flex items-start">
-                <Image 
-                  src="/images/Flower with black 2.svg" 
-                  alt="Bloom flower" 
-                  width={24} 
-                  height={24} 
+              <motion.div 
+                className="flex items-start group cursor-pointer"
+                whileHover={{ x: 10 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              >
+                <motion.div
+                  whileHover={{ scale: 1.3, rotate: 360 }}
+                  transition={{ duration: 0.6, ease: "easeInOut" }}
                   className="mr-3 mt-0.5 flex-shrink-0"
-                />
-                <p className="text-lg">Are you feeling burned out?</p>
-              </div>
+                >
+                  <Image 
+                    src="/images/flower no stem.svg" 
+                    alt="Bloom flower" 
+                    width={24} 
+                    height={24} 
+                    className="transition-transform duration-300"
+                  />
+                </motion.div>
+                <p className="text-lg text-bloom group-hover:text-bloompink transition-colors duration-300">Are you feeling burned out?</p>
+              </motion.div>
               
-              <div className="flex items-start">
-                <Image 
-                  src="/images/Flower with black 2.svg" 
-                  alt="Bloom flower" 
-                  width={24} 
-                  height={24} 
+              <motion.div 
+                className="flex items-start group cursor-pointer"
+                whileHover={{ x: 10 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              >
+                <motion.div
+                  whileHover={{ scale: 1.3, rotate: 360 }}
+                  transition={{ duration: 0.6, ease: "easeInOut" }}
                   className="mr-3 mt-0.5 flex-shrink-0"
-                />
-                <p className="text-lg">Are you wondering if you may be a good mom?</p>
-              </div>
+                >
+                  <Image 
+                    src="/images/flower no stem.svg" 
+                    alt="Bloom flower" 
+                    width={24} 
+                    height={24} 
+                    className="transition-transform duration-300"
+                  />
+                </motion.div>
+                <p className="text-lg text-bloom group-hover:text-bloompink transition-colors duration-300">Are you wondering if you may be a good mom?</p>
+              </motion.div>
             </div>
             
-            <p ref={paragraph2Ref} className="font-medium text-center text-lg pt-4">
+            <p ref={paragraph2Ref} className="font-medium text-center text-lg md:text-xl pt-4 text-gray-700 leading-relaxed">
               Are you ready to stop feeling overwhelmed and start feeling more in control of your life?
             </p>
             
-            <p ref={paragraph3Ref} className="text-xl font-semibold text-center pt-6">
+            <p ref={paragraph3Ref} className="text-xl md:text-2xl font-semibold text-center pt-6 text-bloom">
               Your life could look <span className="underline text-bloompink">very different</span> six months from now!
             </p>
             
-            <div className="pt-8 flex justify-center">
-              <Button 
-                href="https://calendly.com/bloompsychology/15-minute" 
-                variant="pink" 
-                size="lg"
+            <div className="pt-8 flex justify-center relative z-10">
+              <a 
+                href="/contact"
+                className="inline-block px-8 py-4 bg-gradient-to-r from-bloompink to-pink-500 hover:from-pink-500 hover:to-bloompink text-white font-bold rounded-md shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer hover:scale-105 active:scale-95"
               >
                 Book Now
-              </Button>
+              </a>
             </div>
           </div>
         </div>
       </section>
       
       {/* Services Section */}
-      <section id="services" className="py-20 bg-gray-50 relative overflow-hidden">
+      <section id="services" className="py-20 bg-gray-50 relative overflow-hidden z-10">
         <OrganicShape
           variant="blob-2"
           color="var(--bloom-blush)"
@@ -370,10 +443,129 @@ export default function Home() {
         </div>
       </section>
       
-      {/* Sections removed as requested */}
+      {/* Why Choose Bloom Psychology Section */}
+      <section className="py-20 bg-gradient-to-br from-gray-50 via-white to-bloom-blush/5 relative overflow-hidden z-10">
+        {/* Background pattern with simple wave */}
+        <div className="absolute inset-0 opacity-[0.03]">
+          <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+            <path d="M0,50 Q250,0 500,50 T1000,50 L1000,100 L0,100 Z" 
+                  fill="currentColor" 
+                  className="text-bloom-blush" 
+                  opacity="0.5"/>
+          </svg>
+        </div>
+        
+        {/* Organic shapes */}
+        <div className="absolute inset-0">
+          <OrganicShape
+            variant="blob-2"
+            color="var(--bloom-blush)"
+            size="md"
+            position="top-right"
+            opacity={0.03}
+          />
+          <OrganicShape
+            variant="wave"
+            color="var(--bloom-blush)"
+            size="sm"
+            position="bottom-left"
+            opacity={0.02}
+          />
+        </div>
+        
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+            {/* Image column with overlap effect */}
+            <div className="relative lg:-mr-16 z-20">
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8 }}
+                viewport={{ once: true }}
+                className="relative"
+              >
+                {/* Image container with enhanced styling */}
+                <div className="relative group">
+                  {/* Subtle border effect */}
+                  <div className="absolute -inset-1 bg-gradient-to-r from-bloompink to-pink-300 rounded-2xl opacity-50 group-hover:opacity-70 transition duration-300"></div>
+                  
+                  <div className="relative">
+                    <Image
+                      src="/images/Team/Jana Rundle.jpg"
+                      alt="Dr. Jana Rundle"
+                      width={500}
+                      height={600}
+                      className="rounded-2xl shadow-xl object-cover relative z-10 transition-all duration-300 group-hover:scale-[1.01]"
+                    />
+                    
+                    {/* Flower accent with gentle float */}
+                    <motion.div
+                      animate={{ y: [0, -10, 0] }}
+                      transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                      className="absolute -top-4 -right-4 z-20"
+                    >
+                      <Image
+                        src="/images/flower no stem.svg"
+                        alt="Flower accent"
+                        width={60}
+                        height={60}
+                        className="opacity-70"
+                      />
+                    </motion.div>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+            
+            {/* Content column with glass card */}
+            <div className="lg:pl-8">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                viewport={{ once: true }}
+                className="bg-white/80 backdrop-blur-sm shadow-2xl rounded-2xl p-8 lg:p-10"
+              >
+                {/* Headline */}
+                <h2 className="font-playfair text-4xl md:text-5xl mb-6 text-bloom">
+                  Why Choose <span className="text-bloompink font-semibold">Bloom Psychology</span>
+                </h2>
+                
+                {/* Simple divider */}
+                <div className="w-20 h-1 bg-bloompink rounded-full mb-8"></div>
+                
+                {/* First paragraph with drop cap */}
+                <p className="text-lg text-gray-700 mb-6 leading-relaxed first-letter:text-6xl first-letter:font-playfair first-letter:text-bloompink first-letter:float-left first-letter:mr-3 first-letter:leading-none">
+                  When life feels overwhelming and you're struggling to keep up, we understand. At Bloom Psychology, we specialize in helping women and mothers transform from feeling burned out and exhausted to finding renewed energy and purpose.
+                </p>
+                
+                {/* Second paragraph */}
+                <p className="text-lg text-gray-700 mb-8 leading-relaxed">
+                  Our evidence-based approach combines compassionate support with proven therapeutic techniques. We create a safe, judgment-free space where you can explore your challenges and develop practical strategies for lasting change.
+                </p>
+                
+                {/* Pink accent text */}
+                <p className="text-bloompink text-xl md:text-2xl font-semibold mb-8 italic">
+                  "We help you find meaning and purpose in the chaos of modern motherhood."
+                </p>
+                
+                {/* Simple button */}
+                <Link href="/about">
+                  <button className="bg-bloompink hover:bg-[#B03979] text-white font-bold px-8 py-4 rounded-full shadow-md hover:shadow-lg transition-all duration-300 flex items-center group">
+                    Learn More
+                    <span className="ml-2 group-hover:translate-x-1 transition-transform duration-300">
+                      →
+                    </span>
+                  </button>
+                </Link>
+              </motion.div>
+            </div>
+          </div>
+        </div>
+      </section>
       
       {/* CTA Section */}
-      <section className="py-16 bg-bloom relative overflow-hidden">
+      <section className="py-16 bg-bloom relative overflow-hidden z-10">
         
         <div className="container mx-auto px-6 text-center">
           <div ref={ctaTitleRef}>
