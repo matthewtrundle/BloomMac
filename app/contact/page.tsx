@@ -1,12 +1,25 @@
 'use client';
 
 import React from 'react';
-import { InlineWidget } from 'react-calendly';
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 
 // UI Components
 import OrganicShape from '@/components/ui/OrganicShape';
 import GlassmorphismPanel from '@/components/ui/GlassmorphismPanel';
+
+// Dynamic import for Calendly widget
+const InlineWidget = dynamic(
+  () => import('react-calendly').then(mod => mod.InlineWidget),
+  {
+    loading: () => (
+      <div className="h-[680px] w-full flex items-center justify-center">
+        <p className="text-bloom/50 text-lg">Loading scheduling calendar...</p>
+      </div>
+    ),
+    ssr: false
+  }
+);
 
 // Metadata is now in a separate file: metadata.ts
 

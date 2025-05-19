@@ -4,6 +4,7 @@ import React, { useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import { services } from '@/lib/data/services';
 
 // Scroll effect utilities
@@ -11,14 +12,16 @@ import setupScrollGreyscale from '@/lib/hooks/useScrollGreyscale';
 import setupScrollReveal from '@/lib/hooks/useScrollReveal';
 import useParallaxHero from '@/lib/hooks/useParallaxHero';
 
-// UI Components
-import KineticTypography from '@/components/ui/KineticTypography';
+// UI Components - Dynamically import non-critical components
 import OrganicShape from '@/components/ui/OrganicShape';
 import Button from '@/components/ui/Button';
-import GlassmorphismPanel from '@/components/ui/GlassmorphismPanel';
-import SimpleParallaxContainer from '@/components/ui/SimpleParallaxContainer';
-import ScrollingTicker from '@/components/ui/ScrollingTicker';
-import CardAccent from '@/components/ui/CardAccent';
+
+// Dynamic imports for components not immediately visible
+const KineticTypography = dynamic(() => import('@/components/ui/KineticTypography'));
+const GlassmorphismPanel = dynamic(() => import('@/components/ui/GlassmorphismPanel'));
+const SimpleParallaxContainer = dynamic(() => import('@/components/ui/SimpleParallaxContainer'));
+const ScrollingTicker = dynamic(() => import('@/components/ui/ScrollingTicker'));
+const CardAccent = dynamic(() => import('@/components/ui/CardAccent'));
 
 // SEO Components
 import { OrganizationSchema } from '@/components/seo/JsonLd';
@@ -149,6 +152,7 @@ export default function Home() {
               style={{ objectPosition: '50% 20%' }}
               quality={85}
               sizes="100vw"
+              priority
             />
             <div className="absolute inset-0 bg-gradient-to-br from-pink-100/40 via-transparent to-white/40 pointer-events-none"></div>
           </div>

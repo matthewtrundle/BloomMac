@@ -1,9 +1,22 @@
 import React, { FormEvent, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { InlineWidget } from 'react-calendly';
+import dynamic from 'next/dynamic';
 import Button from '@/components/ui/Button';
 import AdPageLayout from '@/components/layout/AdPageLayout';
+
+// Dynamic import for Calendly widget
+const InlineWidget = dynamic(
+  () => import('react-calendly').then(mod => mod.InlineWidget),
+  {
+    loading: () => (
+      <div className="h-[600px] w-full flex items-center justify-center">
+        <p className="text-gray-500">Loading scheduling calendar...</p>
+      </div>
+    ),
+    ssr: false
+  }
+);
 
 export default function PostpartumPage() {
   const [name, setName] = useState('');
