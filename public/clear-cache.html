@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Clear Cache - Bloom Psychology</title>
+</head>
+<body>
+    <h1>Clear Chrome Cache for Bloom Psychology</h1>
+    <p>This page will help clear any cached data that might be causing issues.</p>
+    
+    <button onclick="clearCache()">Clear Site Data</button>
+    
+    <p id="status"></p>
+    
+    <script>
+    async function clearCache() {
+        const status = document.getElementById('status');
+        
+        try {
+            // Clear service workers
+            if ('serviceWorker' in navigator) {
+                const registrations = await navigator.serviceWorker.getRegistrations();
+                for(let registration of registrations) {
+                    registration.unregister();
+                }
+                status.innerHTML += '<br>Service workers cleared';
+            }
+            
+            // Clear caches
+            if ('caches' in window) {
+                const cacheNames = await caches.keys();
+                await Promise.all(
+                    cacheNames.map(name => caches.delete(name))
+                );
+                status.innerHTML += '<br>Caches cleared';
+            }
+            
+            // Clear local storage
+            localStorage.clear();
+            sessionStorage.clear();
+            status.innerHTML += '<br>Storage cleared';
+            
+            status.innerHTML += '<br><br><strong>All cache cleared! Please close this tab and reload the main site.</strong>';
+            
+            // Reload after a short delay
+            setTimeout(() => {
+                window.location.href = '/';
+            }, 2000);
+            
+        } catch (error) {
+            status.innerHTML = 'Error: ' + error.message;
+        }
+    }
+    </script>
+</body>
+</html>

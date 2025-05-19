@@ -327,7 +327,7 @@ export default function FAQPage() {
               size="lg"
               className="inline-block"
             >
-              Schedule Your Free Consultation
+              Book Now
             </Button>
           </GlassmorphismPanel>
         </div>

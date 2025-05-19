@@ -54,9 +54,20 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${inter.variable} ${playfair.variable} ${poppins.variable} ${raleway.variable}`}>
+      <head>
+        {/* Favicon */}
+        <link rel="icon" href="/favicon.ico" />
+        
+        {/* Resource hints for external resources */}
+        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://calendly.com" />
+      </head>
       <body className="bg-white text-bloom min-h-screen">
         <Header />
-        <main className="pt-24">
+        <main className="pt-20">
           {children}
         </main>
         <Footer />

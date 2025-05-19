@@ -174,7 +174,7 @@ export default function BlogPage() {
       {/* Posts Grid */}
       <section className="max-w-7xl mx-auto px-6 pb-20">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {placeholderPosts.map((post) => (
+          {placeholderPosts.map((post, index) => (
             <article key={post.id} className="bg-white rounded-lg shadow-sm overflow-hidden glass-panel">
               {/* TODO: Replace with actual post images */}
               <div className="h-48 bg-gray-100 relative">
@@ -183,6 +183,9 @@ export default function BlogPage() {
                   alt={post.title}
                   fill
                   className="object-cover"
+                  loading={index < 3 ? "eager" : "lazy"}
+                  placeholder={index < 3 ? undefined : "blur"}
+                  blurDataURL={index < 3 ? undefined : "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAn/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="}
                 />
               </div>
               <div className="p-6">

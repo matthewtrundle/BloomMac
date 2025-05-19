@@ -118,8 +118,8 @@ export default function ServicePage({
               </KineticTypography>
               
               <div className="flex flex-col sm:flex-row gap-4 mt-8">
-                <Button href="/contact" variant="primary" pulseOnView>
-                  Schedule Consultation
+                <Button href="/contact" variant="pink" pulseOnView>
+                  Book Now
                 </Button>
                 <Button href="#how-it-works" variant="outline">
                   Learn How It Works
@@ -307,12 +307,12 @@ export default function ServicePage({
           
           <Button 
             href="/contact" 
-            variant="accent" 
+            variant="pink" 
             size="lg" 
             className="inline-block"
             pulseOnView
           >
-            Schedule Your Consultation
+            Book Now
           </Button>
         </div>
       </section>
@@ -328,6 +328,9 @@ export default function ServicePage({
                   alt={`Additional information about ${service.title}`}
                   fill
                   className="object-cover"
+                  loading="lazy"
+                  placeholder="blur"
+                  blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAn/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
                 />
               </div>
               

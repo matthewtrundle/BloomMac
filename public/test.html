@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Page - Bloom Psychology</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .status { color: green; }
+        .error { color: red; }
+    </style>
+</head>
+<body>
+    <h1>Bloom Psychology Test Page</h1>
+    <p>This is a simple HTML page to test if the server is working.</p>
+    
+    <h2>JavaScript Test</h2>
+    <p id="js-test">JavaScript is disabled</p>
+    
+    <h2>React Test</h2>
+    <div id="react-root">React will mount here</div>
+    
+    <h2>Console Output</h2>
+    <pre id="console"></pre>
+    
+    <script>
+        // Basic JS test
+        document.getElementById('js-test').textContent = 'JavaScript is working!';
+        document.getElementById('js-test').className = 'status';
+        
+        // Console capture
+        const consoleEl = document.getElementById('console');
+        const originalLog = console.log;
+        const originalError = console.error;
+        
+        console.log = function(...args) {
+            originalLog.apply(console, args);
+            consoleEl.textContent += 'LOG: ' + args.join(' ') + '\n';
+        };
+        
+        console.error = function(...args) {
+            originalError.apply(console, args);
+            consoleEl.textContent += 'ERROR: ' + args.join(' ') + '\n';
+            consoleEl.className = 'error';
+        };
+        
+        // Try to detect React
+        setTimeout(() => {
+            if (window.React) {
+                console.log('React is loaded');
+            } else {
+                console.log('React is not loaded');
+            }
+            
+            if (window.next) {
+                console.log('Next.js is loaded');
+            } else {
+                console.log('Next.js is not loaded');
+            }
+        }, 1000);
+    </script>
+</body>
+</html>

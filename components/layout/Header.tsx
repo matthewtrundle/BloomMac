@@ -28,7 +28,7 @@ const Header = () => {
   return (
     <header className="fixed w-full z-50">
       {/* Top Announcement Bar */}
-      <div className="bg-pink-200 text-pink-900 text-center py-2 px-4 shadow-sm">
+      <div className="bg-pink-200 text-pink-900 text-center py-1 px-4 shadow-sm">
         <div className="container mx-auto flex flex-wrap justify-center md:justify-between items-center">
           <p className="text-sm font-medium md:text-base">
             Now accepting new clients with same-week appointments
@@ -37,13 +37,13 @@ const Header = () => {
             href="/contact" 
             className="hidden md:inline-block text-sm font-medium hover:underline ml-2 text-bloom"
           >
-            Book a FREE Consult Call →
+            Book Now →
           </Link>
         </div>
       </div>
       
       {/* Main Navigation */}
-      <div className={`transition-all duration-300 ${isScrolled ? 'py-4 bg-white shadow-md' : 'py-6 bg-white'}`}>
+      <div className={`transition-all duration-300 ${isScrolled ? 'py-3 bg-white shadow-md' : 'py-4 bg-white'}`}>
         <div className="container mx-auto px-4 md:px-6">
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center justify-between">
@@ -75,7 +75,7 @@ const Header = () => {
             
             {/* Center Logo */}
             <Link href="/" className="absolute left-1/2 transform -translate-x-1/2">
-              <div className="relative h-16 w-36">
+              <div className="relative h-14 w-32">
                 <Image 
                   src="/images/Logo/logo2.png" 
                   alt="Bloom Psychology North Austin" 
@@ -128,7 +128,7 @@ const Header = () => {
                 size="sm"
                 className="ml-4"
               >
-                Schedule Consultation
+                Book Now
               </Button>
             </nav>
           </div>
@@ -137,7 +137,7 @@ const Header = () => {
           <div className="flex md:hidden items-center justify-between py-2">
             {/* Logo */}
             <Link href="/" className="flex items-center">
-              <div className="relative h-12 w-32 mr-2">
+              <div className="relative h-10 w-28 mr-2">
                 <Image 
                   src="/images/Logo/logo2.png" 
                   alt="Bloom Psychology North Austin" 
@@ -263,7 +263,7 @@ const Header = () => {
                 onClick={() => setIsMenuOpen(false)}
                 className="btn-pink text-center mx-3 my-4"
               >
-                Schedule Consultation
+                Book Now
               </Link>
               
               <Link 
@@ -271,7 +271,7 @@ const Header = () => {
                 onClick={() => setIsMenuOpen(false)}
                 className="text-center text-sm text-bloom font-medium mx-3"
               >
-                Book a FREE Consult Call →
+                Book Now →
               </Link>
             </nav>
           </div>

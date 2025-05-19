@@ -42,7 +42,7 @@ export default function Home() {
   const servicePanelRefs = useRef<Array<HTMLDivElement | null>>([]);
   
   // Use the specified hero image
-  const heroImage = '/images/Hero/hero15.png';
+  const heroImage = '/images/Hero/herooptimzed.png';
   
   // Use parallax effect for hero with more subtle movement
   const parallaxOffset = useParallaxHero({ speedFactor: 0.3, maxOffset: 150 });
@@ -147,7 +147,6 @@ export default function Home() {
               fill
               className="object-cover"
               style={{ objectPosition: '50% 20%' }}
-              priority
               quality={85}
               sizes="100vw"
             />
@@ -186,11 +185,14 @@ export default function Home() {
             </div>
             
             <div className="flex flex-col sm:flex-row gap-4 mt-6">
-              <Link href="/contact" className="z-10">
-                <button className="bg-bloompink hover:bg-[#B03979] text-white font-bold font-inter px-6 py-3 rounded-md shadow-md transition-all duration-300 text-center cursor-pointer hover:scale-105 active:scale-95">
-                  Book a FREE Consult Call →
-                </button>
-              </Link>
+              <Button 
+                href="/contact" 
+                variant="pink" 
+                size="md" 
+                className="z-10"
+              >
+                Book Now →
+              </Button>
               
               <motion.a 
                 href="#services" 
@@ -364,12 +366,14 @@ export default function Home() {
             </p>
             
             <div className="pt-8 flex justify-center relative z-10">
-              <a 
-                href="/contact"
-                className="inline-block px-8 py-4 bg-gradient-to-r from-bloompink to-pink-500 hover:from-pink-500 hover:to-bloompink text-white font-bold rounded-md shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer hover:scale-105 active:scale-95"
+              <Button 
+                href="/contact" 
+                variant="pink" 
+                size="lg" 
+                className="shadow-lg hover:shadow-xl"
               >
                 Book Now
-              </a>
+              </Button>
             </div>
           </div>
         </div>
@@ -496,6 +500,9 @@ export default function Home() {
                       width={500}
                       height={600}
                       className="rounded-2xl shadow-xl object-cover relative z-10 transition-all duration-300 group-hover:scale-[1.01]"
+                      loading="lazy"
+                      placeholder="blur"
+                      blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAn/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
                     />
                     
                     {/* Flower accent with gentle float */}
@@ -580,12 +587,12 @@ export default function Home() {
           
           <Button 
             href="/contact" 
-            variant="accent" 
+            variant="pink" 
             size="lg" 
             className="inline-block"
             pulseOnView
           >
-            Schedule Your Consultation
+            Book Now
           </Button>
         </div>
       </section>

@@ -61,7 +61,7 @@ const Footer = () => {
                 className="inline-block mt-4"
               >
                 <Button variant="pink" size="sm">
-                  Schedule Consultation
+                  Book Now
                 </Button>
               </Link>
             </div>

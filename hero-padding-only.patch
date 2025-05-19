@@ -1,0 +1,35 @@
+--- a/app/page.tsx
++++ b/app/page.tsx
+@@ -137,17 +137,16 @@ export default function Home() {
+       />
+       
+       {/* Hero Section */}
+-      <section className="relative h-[75vh] hero-section">
++      <section className="relative h-[85vh] pt-16 hero-section">
+         {/* Fixed hero background image */}
+-        <div className="fixed inset-x-0 top-0 h-[75vh] w-full" style={{ zIndex: -1 }}>
++        <div className="fixed inset-x-0 top-0 h-[85vh] w-full" style={{ zIndex: -1 }}>
+           <div className="relative w-full h-full">
+             <Image
+               src={heroImage}
+               alt="Bloom Psychology hero"
+               fill
+               className="object-cover"
+-              style={{ objectPosition: '50% 20%' }}
+-              priority
++              style={{ objectPosition: '50% 5%' }}
+               quality={85}
+               sizes="100vw"
+             />
+@@ -186,11 +185,14 @@ export default function Home() {
+             </div>
+             
+             <div className="flex flex-col sm:flex-row gap-4 mt-6">
+-              <Link href="/contact" className="z-10">
+-                <button className="bg-bloompink hover:bg-[#B03979] text-white font-bold font-inter px-6 py-3 rounded-md shadow-md transition-all duration-300 text-center cursor-pointer hover:scale-105 active:scale-95">
+-                </button>
+-              </Link>
++              <Button 
++                href="/contact" 
++                variant="pink" 
++                size="md" 
