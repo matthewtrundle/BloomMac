@@ -62,6 +62,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  // Root layout for Bloom Psychology
   return (
     <html lang="en" className={`${inter.variable} ${playfair.variable} ${poppins.variable} ${raleway.variable}`}>
       <head>
