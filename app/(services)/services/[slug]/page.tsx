@@ -13,7 +13,7 @@ import Button from '@/components/ui/Button';
 import ParallaxContainer from '@/components/ui/ParallaxContainer';
 
 // SEO Components
-import { ServiceSchema, FaqSchema } from '@/components/seo/JsonLd';
+import { ServiceSchema, FAQSchema } from '@/components/seo/JsonLd';
 
 // Generate static paths for all services
 export function generateStaticParams() {
@@ -77,7 +77,7 @@ export default function ServicePage({
         serviceType="MentalHealthService"
       />
       
-      <FaqSchema questions={service.faqs} />
+      <FAQSchema faqs={service.faqs} />
       
       {/* Hero Section */}
       <ParallaxContainer

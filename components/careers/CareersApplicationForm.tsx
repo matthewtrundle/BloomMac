@@ -13,11 +13,6 @@ const openPositions = [
     title: "Licensed Professional Counselor (LPC)",
     type: "Part-time", 
     location: "Austin, TX (Hybrid)",
-  },
-  {
-    title: "Administrative Assistant",
-    type: "Part-time",
-    location: "Austin, TX (In-person)",
   }
 ];
 

@@ -71,26 +71,6 @@ const openPositions = [
       "Participate in case consultations",
       "Contribute to program development"
     ]
-  },
-  {
-    title: "Administrative Assistant",
-    type: "Part-time",
-    location: "Austin, TX (In-person)",
-    description: "Support our growing practice with administrative tasks, client communication, and office management.",
-    requirements: [
-      "High school diploma or equivalent",
-      "1+ years administrative experience",
-      "Healthcare experience preferred",
-      "Excellent communication skills",
-      "Proficiency with office software"
-    ],
-    responsibilities: [
-      "Manage client scheduling and communications",
-      "Handle insurance verification and billing",
-      "Maintain client records and files",
-      "Coordinate office operations",
-      "Assist with marketing and outreach"
-    ]
   }
 ];
 
@@ -291,6 +271,32 @@ export default function CareersPage() {
         </div>
       </section>
 
+      {/* General Applications CTA */}
+      <section className="py-12 bg-bloom-accent/5">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-center">
+            <div className="bg-white rounded-2xl p-8 shadow-sm border border-bloom-accent/10">
+              <h3 className="text-2xl font-bold text-bloom mb-4">
+                Don't See Your Perfect Role?
+              </h3>
+              <p className="text-gray-600 text-lg mb-6 max-w-2xl mx-auto">
+                We're always interested in connecting with talented mental health professionals who share our 
+                passion for supporting women, mothers, and families. Submit a general application and we'll 
+                keep you in mind for future opportunities.
+              </p>
+              <Button 
+                href="#application" 
+                variant="pink"
+                size="md"
+                className="inline-flex items-center"
+              >
+                Submit General Application
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Application Form */}
       <section id="application" className="py-16 bg-white">
         <div className="container mx-auto px-4">
@@ -300,7 +306,8 @@ export default function CareersPage() {
                 Apply to Join Our Team
               </h2>
               <p className="text-gray-600 text-lg">
-                We'd love to hear from you! Please fill out the application below.
+                Whether you're applying for a specific position or expressing general interest, 
+                we'd love to hear from you! Please fill out the application below.
               </p>
             </div>
 

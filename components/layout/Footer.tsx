@@ -114,6 +114,14 @@ const Footer = () => {
                 </li>
                 <li>
                   <Link 
+                    href="/careers"
+                    className="text-white/80 hover:text-bloom-accent hover:translate-x-1 inline-block transition-all duration-300"
+                  >
+                    Careers
+                  </Link>
+                </li>
+                <li>
+                  <Link 
                     href="/privacy-policy"
                     className="text-white/80 hover:text-bloom-accent hover:translate-x-1 inline-block transition-all duration-300"
                   >
