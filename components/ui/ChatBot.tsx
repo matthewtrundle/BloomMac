@@ -66,25 +66,30 @@ const ChatBot: React.FC<ChatBotProps> = ({ enabled = true }) => {
 
   const handleBotAction = (action: { type: string; target: string; guidance?: string }) => {
     if (action.type === 'redirect' && typeof window !== 'undefined') {
-      // Open the target page in a new tab/window to keep chat open
-      window.open(action.target, '_blank');
-      
-      // Add a guidance message to the chat
+      // Don't actually redirect - just show the guidance message with a link
       if (action.guidance) {
+        // Modify the guidance to include a clickable link instead
+        const linkText = action.target.includes('/book') ? 'Click here to book' : 
+                        action.target.includes('/contact') ? 'Click here to contact us' :
+                        action.target.includes('/services') ? 'Click here to view services' :
+                        'Click here to learn more';
+        
+        const guidanceWithLink = `${action.guidance} ${linkText}: ${window.location.origin}${action.target}`;
+        
         setTimeout(() => {
           const guidanceMessage: Message = {
             id: Date.now().toString() + '_guidance',
-            text: action.guidance!,
+            text: guidanceWithLink,
             isBot: true,
             timestamp: new Date()
           };
           setMessages(prev => [...prev, guidanceMessage]);
-        }, 1000); // Small delay to let the redirect happen first
+        }, 500); // Small delay for natural conversation flow
       }
 
       // Fire analytics event
       if (window.gtag) {
-        window.gtag('event', 'chatbot_redirect', {
+        window.gtag('event', 'chatbot_suggested_link', {
           event_category: 'engagement',
           event_label: action.target
         });

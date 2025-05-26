@@ -19,11 +19,11 @@ const predefinedResponses: { [key: string]: { response: string; action?: { type:
   },
   'postpartum': { 
     response: 'Our postpartum depression support helps new mothers navigate the challenges of early motherhood. We offer both virtual and in-person sessions with licensed perinatal specialists. Would you like to book a free consultation?',
-    action: { type: 'redirect', target: '/services/postpartum-depression-support', guidance: 'I\'ve opened our postpartum support page for you. You can learn more about the service and book directly from there!' }
+    action: { type: 'redirect', target: '/services/postpartum-depression-support', guidance: 'You can learn more about the service and book directly from our postpartum support page.' }
   },
   'anxiety': { 
     response: 'We specialize in anxiety and stress management using evidence-based approaches. Our therapists understand the unique pressures facing women and mothers. Schedule a free consultation to learn more about how we can help.',
-    action: { type: 'redirect', target: '/services/anxiety-stress-management', guidance: 'Check out our anxiety support page that just opened - you can book a consultation right from there!' }
+    action: { type: 'redirect', target: '/services/anxiety-stress-management', guidance: 'You can book a consultation from our anxiety support page.' }
   },
   'therapy': { 
     response: 'We provide specialized therapy services for women, moms, and parents. All our therapists are licensed and have specialized training in perinatal mental health.' 
@@ -31,47 +31,47 @@ const predefinedResponses: { [key: string]: { response: string; action?: { type:
   
   // Booking & Contact
   'appointment': { 
-    response: 'Perfect! I\'m opening our booking page for you right now. You can schedule your free 15-minute consultation directly - we offer same-week appointments and both virtual and in-person sessions.',
-    action: { type: 'redirect', target: '/book', guidance: 'The booking page is now open! You can select your preferred time and session type. Feel free to ask me any questions while you\'re booking.' }
+    response: 'Perfect! You can schedule your free 15-minute consultation directly - we offer same-week appointments and both virtual and in-person sessions.',
+    action: { type: 'redirect', target: '/book', guidance: 'You can select your preferred time and session type there.' }
   },
   'book': { 
-    response: 'Absolutely! Let me open our booking page for you. You can schedule your free consultation right away.',
-    action: { type: 'redirect', target: '/book', guidance: 'Here\'s our booking page! Choose your preferred appointment type and time. I\'m here if you need any help during the process.' }
+    response: 'Absolutely! You can schedule your free consultation right away.',
+    action: { type: 'redirect', target: '/book', guidance: 'You can choose your preferred appointment type and time there.' }
   },
   'cost': { 
-    response: 'Dr. Rundle is an out-of-network provider on all insurance panels. We provide Super Bills for reimbursement if you have out-of-network benefits, and offer a sliding-fee scale for those who need it. Let me show you more details about our rates and payment options.',
-    action: { type: 'redirect', target: '/contact', guidance: 'I\'ve opened our contact page where you can find detailed pricing information and reach out about our sliding-fee scale options.' }
+    response: 'Dr. Rundle is an out-of-network provider on all insurance panels. We provide Super Bills for reimbursement if you have out-of-network benefits, and offer a sliding-fee scale for those who need it.',
+    action: { type: 'redirect', target: '/contact', guidance: 'You can find detailed pricing information and reach out about our sliding-fee scale options on our contact page.' }
   },
   'insurance': { 
-    response: 'I\'ll show you exactly how our insurance process works! Dr. Rundle is considered an out-of-network provider on all insurance panels. We can provide a Super Bill for you to submit to insurance for reimbursement if you have out-of-network benefits. We also offer a sliding-fee scale.',
-    action: { type: 'redirect', target: '/faq', guidance: 'Check out our FAQ page that just opened - it has detailed insurance information and examples of how reimbursement works!' }
+    response: 'Dr. Rundle is considered an out-of-network provider on all insurance panels. We can provide a Super Bill for you to submit to insurance for reimbursement if you have out-of-network benefits. We also offer a sliding-fee scale.',
+    action: { type: 'redirect', target: '/faq', guidance: 'Our FAQ page has detailed insurance information and examples of how reimbursement works.' }
   },
   
   // Location & Logistics
   'location': { 
     response: 'We\'re located at 13706 N Highway 183, Suite 114, Austin, TX 78750. We offer both in-person sessions at our North Austin office and virtual sessions.',
-    action: { type: 'redirect', target: '/contact', guidance: 'I\'ve opened our contact page with our full address, directions, and office details!' }
+    action: { type: 'redirect', target: '/contact', guidance: 'You can find our full address, directions, and office details on our contact page.' }
   },
   'virtual': { 
     response: 'Yes! We offer secure virtual therapy sessions that are just as effective as in-person sessions. Many of our clients prefer the convenience, especially new moms.' 
   },
   'hours': { 
     response: 'Our office hours are Monday through Friday, 9:00 AM to 6:00 PM. We also offer some weekend appointments upon request.',
-    action: { type: 'redirect', target: '/book', guidance: 'Here\'s our booking page where you can see real-time availability and schedule during our office hours!' }
+    action: { type: 'redirect', target: '/book', guidance: 'You can see real-time availability and schedule during our office hours on our booking page.' }
   },
   
   // About the practice
   'doctor': { 
     response: 'Dr. Jana Rundle is our lead psychologist with specialized training in perinatal mental health. She has extensive experience helping women and mothers through various life transitions.',
-    action: { type: 'redirect', target: '/about', guidance: 'Learn more about Dr. Rundle\'s background, training, and approach on our About page that just opened!' }
+    action: { type: 'redirect', target: '/about', guidance: 'You can learn more about Dr. Rundle\'s background, training, and approach on our About page.' }
   },
   'experience': { 
     response: 'Our team has years of experience in women\'s mental health and perinatal psychology. We understand the unique challenges facing women, especially during motherhood.',
-    action: { type: 'redirect', target: '/about', guidance: 'Check out our About page for detailed information about our experience and specializations!' }
+    action: { type: 'redirect', target: '/about', guidance: 'Our About page has detailed information about our experience and specializations.' }
   },
   'approach': { 
     response: 'We use evidence-based therapeutic approaches tailored to each client\'s needs. Our focus is on creating a safe, supportive environment where you can heal and grow.',
-    action: { type: 'redirect', target: '/about', guidance: 'Our About page has more details about our therapeutic approach and philosophy!' }
+    action: { type: 'redirect', target: '/about', guidance: 'You can find more details about our therapeutic approach and philosophy on our About page.' }
   },
   
   // Emergency
@@ -148,7 +148,7 @@ const findBestResponse = (message: string): ChatResponse => {
       lowerMessage.includes('should I take') || lowerMessage.includes('what medicine')) {
     return { 
       response: "I can't provide medical advice or discuss symptoms. For personalized care and clinical questions, please book a consultation with Dr. Rundle who can properly assess and help you. If you're in crisis, please call 988 or text HOME to 741741.",
-      action: { type: 'redirect', target: '/book', guidance: 'I\'ve opened our booking page so you can schedule a consultation with Dr. Rundle for personalized care!' }
+      action: { type: 'redirect', target: '/book', guidance: 'You can schedule a consultation with Dr. Rundle for personalized care.' }
     };
   }
   
