@@ -7,6 +7,10 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import ConsultLauncher from '@/components/layout/ConsultLauncher';
 
+// Import engagement components
+import ScrollConsultationBanner from '@/components/ui/ScrollConsultationBanner';
+import ChatBot from '@/components/ui/ChatBot';
+
 const inter = Inter({ 
   subsets: ['latin'],
   display: 'swap',
@@ -40,13 +44,13 @@ const raleway = Raleway({
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.bloompsychologynorthaustin.com'),
   title: {
-    template: '%s | Bloom Psychology North Austin',
-    default: 'Bloom Psychology North Austin | Women\'s Mental Health'
+    template: '%s | Bloom Psychology',
+    default: 'Bloom Psychology | Women\'s Mental Health'
   },
-  description: 'Bloom Psychology North Austin offers specialized therapy for women, moms, and parents. Evidence-based support for anxiety, stress, postpartum depression, and more.',
+  description: 'Bloom Psychology offers specialized therapy for women, moms, and parents. Evidence-based support for anxiety, stress, postpartum depression, and more.',
   keywords: 'therapy, psychologist, mental health, women\'s therapy, mom therapy, parent support, anxiety, Austin, telehealth, postpartum depression',
   openGraph: {
-    title: 'Bloom Psychology North Austin',
+    title: 'Bloom Psychology',
     description: 'Specialized therapy for women, moms, and parents in North Austin.',
     images: ['/images/Logo/logo.jpg'],
   },
@@ -60,8 +64,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${playfair.variable} ${poppins.variable} ${raleway.variable}`}>
       <head>
-        {/* Favicon */}
-        <link rel="icon" href="/favicon.ico" />
+        {/* Favicon - Multiple sizes and formats */}
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="manifest" href="/manifest.json" />
         
         {/* Resource hints for external resources */}
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
@@ -85,6 +92,8 @@ export default function RootLayout({
         </main>
         <Footer />
         <ConsultLauncher />
+        <ScrollConsultationBanner enabled={true} scrollThreshold={70} delay={8000} />
+        <ChatBot enabled={true} />
       </body>
     </html>
   );

@@ -133,7 +133,7 @@ export default function FAQPage() {
           question: 'How do I know if I should see a therapist?',
           answer: (
             <>
-              If you're not sure, it does not hurt to <Link href="/contact" className="text-blue-600 hover:underline">schedule a free consultation call</Link> to see if you may benefit from individualized treatment.
+              If you're not sure, it does not hurt to <Link href="/book" className="text-blue-600 hover:underline">schedule a free consultation call</Link> to see if you may benefit from individualized treatment.
             </>
           )
         },
@@ -322,7 +322,7 @@ export default function FAQPage() {
             </p>
             
             <Button 
-              href="/contact" 
+              href="/book" 
               variant="pink" 
               size="lg"
               className="inline-block"

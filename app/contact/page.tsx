@@ -1,29 +1,67 @@
 'use client';
 
-import React from 'react';
-import dynamic from 'next/dynamic';
+import React, { useState, FormEvent } from 'react';
 import Link from 'next/link';
 
 // UI Components
 import OrganicShape from '@/components/ui/OrganicShape';
 import GlassmorphismPanel from '@/components/ui/GlassmorphismPanel';
 
-// Dynamic import for Calendly widget
-const InlineWidget = dynamic(
-  () => import('react-calendly').then(mod => mod.InlineWidget),
-  {
-    loading: () => (
-      <div className="h-[680px] w-full flex items-center justify-center">
-        <p className="text-bloom/50 text-lg">Loading scheduling calendar...</p>
-      </div>
-    ),
-    ssr: false
-  }
-);
-
 // Metadata is now in a separate file: metadata.ts
 
 export default function ContactPage() {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    service: '',
+    message: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitError('');
+
+    try {
+      const res = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await res.json();
+
+      if (!res.ok) {
+        throw new Error(result.error || 'Form submission failed');
+      }
+
+      setSubmitSuccess(true);
+      setFormData({ name: '', email: '', phone: '', service: '', message: '' });
+      
+      // Fire GA4 event if available
+      if (typeof window !== 'undefined' && window.gtag) {
+        window.gtag('event', 'contact_form_submit', {
+          event_category: 'lead',
+          event_label: 'contact_page'
+        });
+      }
+    } catch (error) {
+      console.error('Error sending email:', error);
+      setSubmitError('Failed to submit form. Please try again or email us directly.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-[#FCFCFF]">
       {/* Header area with decorative elements */}
@@ -56,13 +94,13 @@ export default function ContactPage() {
           {/* Left side - title and contact info */}
           <div className="lg:w-1/3 sticky top-24">
             <h1 className="font-playfair text-bloom text-3xl md:text-4xl mb-6 animate-fade-in">
-              Book Your <span className="text-bloompink font-semibold bg-gradient-to-r from-bloompink to-pink-400 bg-clip-text text-transparent">Free Consultation</span>
+              Get In <span className="text-bloompink font-semibold bg-gradient-to-r from-bloompink to-pink-400 bg-clip-text text-transparent">Touch</span>
             </h1>
             
             <div className="w-32 h-1 bg-gradient-to-r from-[#C63780] to-[#FF9CB9] mb-6 rounded-full"></div>
             
             <p className="text-bloom/70 mb-10">
-              Schedule directly using the calendar or reach out through one of our other contact methods.
+              Send us a message and we'll get back to you within 24 hours. For immediate scheduling, use our booking page.
             </p>
 
             {/* Contact card */}
@@ -119,6 +157,14 @@ export default function ContactPage() {
               </div>
             </GlassmorphismPanel>
 
+            {/* Booking Link */}
+            <Link href="/book" className="inline-flex items-center text-bloompink hover:text-[#B03979] transition-colors font-medium mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              Book Your Free Consultation
+            </Link>
+
             {/* FAQ Link */}
             <Link href="/faq" className="inline-flex items-center text-bloompink hover:text-[#B03979] transition-colors font-medium mb-6">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -139,40 +185,152 @@ export default function ContactPage() {
                   allowFullScreen={false}
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  title="Bloom Psychology North Austin office location"
+                  title="Bloom Psychology office location"
                 ></iframe>
               </div>
             </div>
           </div>
           
-          {/* Right side - Calendly widget */}
+          {/* Right side - Contact Form */}
           <div className="lg:w-2/3">
-            <div className="bg-white rounded-xl shadow-xl overflow-hidden">
-              <div className="relative">
-                {/* Calendly component */}
-                <InlineWidget 
-                  url="https://calendly.com/bloompsychology/15-minute?hide_gdpr_banner=1&primary_color=C63780&hide_landing_page_details=1&hide_event_type_details=1"
-                  styles={{
-                    height: '580px',
-                    width: '100%',
-                  }}
-                />
-                
-                {/* Fallback in case the Calendly widget fails to load */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center z-[-1] p-8 bg-white">
-                  <p className="text-bloom-dark/70 text-lg mb-4">
-                    If the scheduling calendar doesn't appear, please click the button below:
-                  </p>
-                  <a 
-                    href="https://calendly.com/bloompsychology/15-minute"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="bg-bloompink hover:bg-[#B03979] text-white font-bold font-inter px-6 py-3 rounded-md shadow-md transition-all duration-300 text-center"
+            <div className="bg-white rounded-xl shadow-xl overflow-hidden p-8">
+              {submitSuccess ? (
+                <div className="text-center py-12">
+                  <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <h3 className="text-xl font-playfair text-bloom mb-2">Thank you for your message!</h3>
+                  <p className="text-bloom/70 mb-6">We'll get back to you within 24 hours.</p>
+                  <button 
+                    onClick={() => setSubmitSuccess(false)}
+                    className="text-bloompink hover:text-[#B03979] transition-colors font-medium"
                   >
-                    Open Scheduling Calendar
-                  </a>
+                    Send another message
+                  </button>
                 </div>
-              </div>
+              ) : (
+                <>
+                  <h2 className="font-playfair text-2xl text-bloom mb-2">Send us a message</h2>
+                  <p className="text-bloom/60 mb-6">Fill out the form below and we'll get back to you soon.</p>
+                  
+                  <form onSubmit={handleSubmit} className="space-y-6">
+                    {/* Name Field */}
+                    <div>
+                      <label htmlFor="name" className="block text-sm font-medium text-bloom mb-2">
+                        Name *
+                      </label>
+                      <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleInputChange}
+                        required
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-bloompink focus:border-transparent transition-colors"
+                        placeholder="Your full name"
+                      />
+                    </div>
+
+                    {/* Email Field */}
+                    <div>
+                      <label htmlFor="email" className="block text-sm font-medium text-bloom mb-2">
+                        Email *
+                      </label>
+                      <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        required
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-bloompink focus:border-transparent transition-colors"
+                        placeholder="your.email@example.com"
+                      />
+                    </div>
+
+                    {/* Phone Field */}
+                    <div>
+                      <label htmlFor="phone" className="block text-sm font-medium text-bloom mb-2">
+                        Phone (optional)
+                      </label>
+                      <input
+                        type="tel"
+                        id="phone"
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-bloompink focus:border-transparent transition-colors"
+                        placeholder="(555) 123-4567"
+                      />
+                    </div>
+
+                    {/* Service Field */}
+                    <div>
+                      <label htmlFor="service" className="block text-sm font-medium text-bloom mb-2">
+                        Service of Interest (optional)
+                      </label>
+                      <select
+                        id="service"
+                        name="service"
+                        value={formData.service}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-bloompink focus:border-transparent transition-colors"
+                      >
+                        <option value="">Select a service</option>
+                        <option value="Postpartum Depression Support">Postpartum Depression Support</option>
+                        <option value="Anxiety & Stress Management">Anxiety & Stress Management</option>
+                        <option value="Therapy for Women">Therapy for Women</option>
+                        <option value="Therapy for Moms">Therapy for Moms</option>
+                        <option value="Parent Support">Parent Support</option>
+                        <option value="General Inquiry">General Inquiry</option>
+                      </select>
+                    </div>
+
+                    {/* Message Field */}
+                    <div>
+                      <label htmlFor="message" className="block text-sm font-medium text-bloom mb-2">
+                        Message *
+                      </label>
+                      <textarea
+                        id="message"
+                        name="message"
+                        value={formData.message}
+                        onChange={handleInputChange}
+                        required
+                        rows={5}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-bloompink focus:border-transparent transition-colors resize-vertical"
+                        placeholder="Tell us how we can help you..."
+                      />
+                    </div>
+
+                    {/* Error Message */}
+                    {submitError && (
+                      <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
+                        <p className="text-red-600 text-sm">{submitError}</p>
+                      </div>
+                    )}
+
+                    {/* Submit Button */}
+                    <button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="w-full bg-bloompink hover:bg-[#B03979] disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 font-inter"
+                    >
+                      {isSubmitting ? 'Sending...' : 'Send Message'}
+                    </button>
+
+                    <p className="text-xs text-center text-bloom/50 mt-4">
+                      By submitting this form, you agree to our{' '}
+                      <Link href="/privacy-policy" className="text-bloompink hover:underline">
+                        privacy policy
+                      </Link>
+                      . Your information is secure and confidential.
+                    </p>
+                  </form>
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -191,11 +349,18 @@ export default function ContactPage() {
               allowFullScreen={false}
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              title="Bloom Psychology North Austin office location"
+              title="Bloom Psychology office location"
             ></iframe>
           </div>
         </div>
       </div>
     </div>
   );
+}
+
+// Add global gtag type definition
+declare global {
+  interface Window {
+    gtag?: (command: string, action: string, params: object) => void;
+  }
 }

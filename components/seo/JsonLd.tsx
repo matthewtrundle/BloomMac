@@ -114,23 +114,90 @@ export const ServiceSchema: React.FC<ServiceSchemaProps> = ({
   );
 };
 
-interface FaqSchemaProps {
-  questions: Array<{
+// Course Schema for educational programs
+interface CourseSchemaProps {
+  name: string;
+  description: string;
+  provider: {
+    name: string;
+    url: string;
+  };
+  offers: {
+    price: string;
+    priceCurrency: string;
+    availability: string;
+    url: string;
+  };
+  courseMode: string;
+  duration: string;
+  instructor: {
+    name: string;
+    description: string;
+  };
+}
+
+export const CourseSchema: React.FC<CourseSchemaProps> = ({ 
+  name, 
+  description, 
+  provider, 
+  offers, 
+  courseMode, 
+  duration, 
+  instructor 
+}) => {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'Course',
+    name,
+    description,
+    provider: {
+      '@type': 'Organization',
+      ...provider
+    },
+    offers: {
+      '@type': 'Offer',
+      ...offers
+    },
+    courseMode,
+    duration,
+    instructor: {
+      '@type': 'Person',
+      '@id': `${provider.url}/#instructor`,
+      ...instructor
+    }
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+};
+
+// FAQ Schema - supports both 'faqs' and 'questions' props
+interface FAQSchemaProps {
+  faqs?: Array<{
+    question: string;
+    answer: string;
+  }>;
+  questions?: Array<{
     question: string;
     answer: string;
   }>;
 }
 
-export const FaqSchema: React.FC<FaqSchemaProps> = ({ questions }) => {
+export const FAQSchema: React.FC<FAQSchemaProps> = ({ faqs, questions }) => {
+  const items = faqs || questions || [];
   const schema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": questions.map(q => ({
-      "@type": "Question",
-      "name": q.question,
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": q.answer
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: items.map(item => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.answer
       }
     }))
   };
@@ -146,5 +213,7 @@ export const FaqSchema: React.FC<FaqSchemaProps> = ({ questions }) => {
 export default {
   OrganizationSchema,
   ServiceSchema,
-  FaqSchema
+  CourseSchema,
+  FAQSchema,
+  FaqSchema: FAQSchema // For backwards compatibility
 };

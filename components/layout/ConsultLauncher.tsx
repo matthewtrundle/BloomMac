@@ -116,7 +116,7 @@ const ConsultLauncher = () => {
             
             <motion.div className="space-y-3" variants={itemVariants}>
               <Link
-                href="/contact"
+                href="/book"
                 className="btn-primary w-full block text-center"
               >
                 Book Consultation

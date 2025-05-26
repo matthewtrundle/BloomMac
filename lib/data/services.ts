@@ -93,7 +93,7 @@ export const services: Service[] = [
       },
       {
         question: 'Do you accept insurance?',
-        answer: 'Yes, we accept most major insurance plans and offer out-of-network benefits. We also provide superbills for reimbursement and sliding scale options.'
+        answer: 'Dr. Rundle is considered an out-of-network provider on all insurance panels. We can provide a Super Bill for you to submit to insurance for reimbursement if you have out-of-network benefits. Dr. Rundle also offers a sliding-fee scale for those who need it.'
       },
       {
         question: 'What if I\'m not sure what I need help with?',
@@ -261,7 +261,7 @@ export const services: Service[] = [
     id: 'anxiety',
     slug: 'anxiety-stress-management',
     title: 'Anxiety &\nStress Management',
-    description: 'Custom anxiety management using CBT, DBT, and somatic exercises to reduce stress, improve daily functioning, and restore balance.',
+    description: 'Custom anxiety management using CBT, ERP, and somatic exercises to reduce stress, improve daily functioning, and restore balance.',
     shortDescription: 'Specialized treatment for anxiety, panic, and chronic stress using proven therapeutic approaches.',
     heroImage: '/images/Services/AnxietyManagement1.png',
     secondaryImage: '/images/Services/AnxietyManagement2.png',

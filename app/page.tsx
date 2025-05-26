@@ -22,6 +22,7 @@ const GlassmorphismPanel = dynamic(() => import('@/components/ui/GlassmorphismPa
 const SimpleParallaxContainer = dynamic(() => import('@/components/ui/SimpleParallaxContainer'));
 const ScrollingTicker = dynamic(() => import('@/components/ui/ScrollingTicker'));
 const CardAccent = dynamic(() => import('@/components/ui/CardAccent'));
+const NewsletterSignup = dynamic(() => import('@/components/ui/NewsletterSignup'));
 
 // SEO Components
 import { OrganizationSchema } from '@/components/seo/JsonLd';
@@ -189,13 +190,22 @@ export default function Home() {
             </div>
             
             <div className="flex flex-col sm:flex-row gap-4 mt-6">
-              <Button 
-                href="/contact" 
-                variant="pink" 
-                size="md" 
-                className="z-10"
+              <motion.a 
+                href="/book" 
+                whileHover={{ scale: 1.03, y: -2 }} 
+                transition={{ type: "spring", stiffness: 300 }}
+                className="bg-bloompink hover:bg-[#B03979] text-white font-bold font-inter px-6 py-3 rounded-md shadow-md transition-all duration-300 text-center"
               >
                 Book Now →
+              </motion.a>
+              
+              <Button 
+                href="/new-mom-program" 
+                variant="outline" 
+                size="md" 
+                className="z-10 bg-white/80 hover:bg-white"
+              >
+                New Mom Program
               </Button>
               
               <motion.a 
@@ -371,7 +381,7 @@ export default function Home() {
             
             <div className="pt-8 flex justify-center relative z-10">
               <Button 
-                href="/contact" 
+                href="/book" 
                 variant="pink" 
                 size="lg" 
                 className="shadow-lg hover:shadow-xl"
@@ -448,6 +458,17 @@ export default function Home() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+      
+      {/* Newsletter Signup Section */}
+      <section className="py-16 bg-white relative overflow-hidden z-10">
+        <div className="container mx-auto px-4">
+          <NewsletterSignup 
+            variant="banner"
+            source="homepage_banner"
+            className="max-w-4xl mx-auto"
+          />
         </div>
       </section>
       
@@ -590,7 +611,7 @@ export default function Home() {
           </p>
           
           <Button 
-            href="/contact" 
+            href="/book" 
             variant="pink" 
             size="lg" 
             className="inline-block"

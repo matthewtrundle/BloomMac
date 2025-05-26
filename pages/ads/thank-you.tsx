@@ -17,8 +17,8 @@ export default function ThankYouPage() {
 
   return (
     <AdPageLayout
-      title="Thank You | Bloom Psychology North Austin"
-      description="Thank you for your interest in postpartum therapy services at Bloom Psychology North Austin."
+      title="Thank You | Bloom Psychology"
+      description="Thank you for your interest in postpartum therapy services at Bloom Psychology."
     >
       {/* Page Container */}
       <div className="flex flex-col">
@@ -75,7 +75,7 @@ export default function ThankYouPage() {
         <footer className="py-4 bg-bloom text-white text-sm">
           <div className="container mx-auto px-4 text-center">
             <p className="text-white/70 text-xs">
-              Bloom Psychology North Austin • 13706 N Highway 183, Suite 114, Austin, TX 78750 • (512) 898-9510
+              Bloom Psychology • 13706 N Highway 183, Suite 114, Austin, TX 78750 • (512) 898-9510
             </p>
             <Link href="/privacy-policy" className="text-xs text-white/50 hover:text-white mt-2 inline-block">
               Privacy Policy

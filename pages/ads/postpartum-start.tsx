@@ -83,7 +83,7 @@ export default function PostpartumPage() {
   return (
     <AdPageLayout
       title="Postpartum Therapy in North Austin | Bloom Psychology"
-      description="Get same-week virtual or in-person support from licensed perinatal specialists at Bloom Psychology North Austin."
+      description="Get same-week virtual or in-person support from licensed perinatal specialists at Bloom Psychology."
     >
       {/* Page Container */}
       <div className="flex flex-col">
@@ -451,7 +451,7 @@ export default function PostpartumPage() {
               Schedule Your Free 15-Minute Consultation
             </Button>
             <p className="text-white/70 text-xs">
-              Bloom Psychology North Austin • 13706 N Highway 183, Suite 114, Austin, TX 78750
+              Bloom Psychology • 13706 N Highway 183, Suite 114, Austin, TX 78750
             </p>
             <p className="text-white/50 text-xs mt-2">
               <Link href="/" className="hover:text-white/80 mr-4">

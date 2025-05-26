@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { services } from '@/lib/data/services';
 import Button from '@/components/ui/Button';
+import NewsletterSignup from '@/components/ui/NewsletterSignup';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -23,7 +24,7 @@ const Footer = () => {
                 <div className="relative h-14 w-36 bg-white rounded-md overflow-hidden shadow-md">
                   <Image 
                     src="/images/Logo/logo.jpg" 
-                    alt="Bloom Psychology North Austin" 
+                    alt="Bloom Psychology" 
                     fill
                     className="object-contain p-2"
                   />
@@ -57,7 +58,7 @@ const Footer = () => {
                 </a>
               </div>
               <Link 
-                href="/contact"
+                href="/book"
                 className="inline-block mt-4"
               >
                 <Button variant="pink" size="sm">
@@ -171,13 +172,75 @@ const Footer = () => {
           </div>
         </div>
         
+        {/* Newsletter Section - Redesigned to be wider and less tall */}
+        <div className="border-t border-white/10 py-8 bg-gradient-to-r from-bloom-dark/20 to-bloom/30">
+          <div className="container mx-auto px-4">
+            <div className="max-w-5xl mx-auto">
+              {/* Single row layout with all elements */}
+              <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 shadow-xl">
+                <div className="flex flex-col lg:flex-row items-center gap-6">
+                  {/* Left side - Text content */}
+                  <div className="flex-1 text-center lg:text-left">
+                    <h3 className="text-xl font-playfair font-medium text-white mb-2">
+                      Stay Connected & Flourish
+                    </h3>
+                    <p className="text-white/80 text-sm">
+                      Weekly insights on mental health, parenting tips, and tools to help you bloom.
+                    </p>
+                    {/* Trust indicators inline */}
+                    <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 mt-3 text-white/60 text-xs">
+                      <div className="flex items-center space-x-1">
+                        <svg className="w-3 h-3 text-bloom-accent" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        </svg>
+                        <span>Weekly insights</span>
+                      </div>
+                      <span className="text-white/40">•</span>
+                      <div className="flex items-center space-x-1">
+                        <svg className="w-3 h-3 text-bloom-accent" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        </svg>
+                        <span>No spam</span>
+                      </div>
+                      <span className="text-white/40">•</span>
+                      <div className="flex items-center space-x-1">
+                        <svg className="w-3 h-3 text-bloom-accent" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        </svg>
+                        <span>500+ subscribers</span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Right side - Form */}
+                  <div className="w-full lg:w-auto">
+                    <NewsletterSignup 
+                      variant="footer"
+                      source="footer"
+                      className="!bg-transparent !border-0 !shadow-none !p-0"
+                    />
+                  </div>
+                </div>
+                
+                {/* Social proof inline at bottom */}
+                <div className="text-center mt-4 pt-4 border-t border-white/10">
+                  <p className="text-white/50 text-xs italic">
+                    "These weekly insights have been a game-changer for my mental health journey." - Sarah M.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
         {/* Copyright Bar */}
         <div className="bg-bloom-dark/10 backdrop-blur-sm border-t border-white/10">
           <div className="container mx-auto px-4 py-6 flex flex-col sm:flex-row justify-between items-center text-white/60 text-sm">
-            <p className="mb-3 sm:mb-0">© {currentYear} Bloom Psychology North Austin. All rights reserved.</p>
+            <p className="mb-3 sm:mb-0">© {currentYear} Bloom Psychology. All rights reserved.</p>
             <div className="flex space-x-6">
               <Link href="/privacy-policy" className="hover:text-white transition duration-300">Privacy</Link>
               <Link href="/terms-of-service" className="hover:text-white transition duration-300">Terms</Link>
+              <Link href="/careers" className="hover:text-white transition duration-300">Careers</Link>
               <Link href="/faq" className="hover:text-white transition duration-300">FAQ</Link>
             </div>
           </div>

@@ -7,7 +7,7 @@ export default function PrivacyPolicy() {
   return (
     <AdPageLayout
       title="Privacy Policy | Bloom Psychology"
-      description="Privacy policy for Bloom Psychology North Austin. Learn about how we protect your information."
+      description="Privacy policy for Bloom Psychology. Learn about how we protect your information."
     >
       <div className="flex flex-col">
         {/* Privacy Policy Content */}
@@ -89,7 +89,7 @@ export default function PrivacyPolicy() {
                   If you have any questions about this Privacy Policy, please contact us at:
                 </p>
                 <p className="mt-2">
-                  Bloom Psychology North Austin<br />
+                  Bloom Psychology<br />
                   13706 N Highway 183, Suite 114<br />
                   Austin, TX 78750<br />
                   (512) 898-9510<br />

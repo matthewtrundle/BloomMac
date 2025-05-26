@@ -71,7 +71,7 @@ export default function ServicePage({
         url={`https://bloompsychologynorthaustin.com/services/${service.slug}`}
         description={service.description}
         provider={{
-          name: 'Bloom Psychology North Austin',
+          name: 'Bloom Psychology',
           url: 'https://bloompsychologynorthaustin.com'
         }}
         serviceType="MentalHealthService"
@@ -118,7 +118,7 @@ export default function ServicePage({
               </KineticTypography>
               
               <div className="flex flex-col sm:flex-row gap-4 mt-8">
-                <Button href="/contact" variant="pink" pulseOnView>
+                <Button href="/book" variant="pink" pulseOnView>
                   Book Now
                 </Button>
                 <Button href="#how-it-works" variant="outline">
@@ -306,7 +306,7 @@ export default function ServicePage({
           </p>
           
           <Button 
-            href="/contact" 
+            href="/book" 
             variant="pink" 
             size="lg" 
             className="inline-block"

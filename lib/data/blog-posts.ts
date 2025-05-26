@@ -22,7 +22,7 @@ export const blogPosts: BlogPost[] = [
     date: 'May 12, 2025',
     readingTime: 8,
     excerpt: 'A groundbreaking study from Harvard Medical School reveals promising new treatment approaches for postpartum depression, combining traditional therapy with innovative mindfulness techniques...',
-    image: '/images/Home/new-mom.png',
+    image: '/images/biff01_imagine_new_mother_holding_baby_peaceful_nursery_soft__1142a756-4014-4606-aced-81dd4005e812_0.png',
     slug: 'postpartum-depression-treatments',
     content: `
       <h2>Promising New Research on Postpartum Depression Treatment</h2>
@@ -102,7 +102,7 @@ export const blogPosts: BlogPost[] = [
     date: 'May 9, 2025',
     readingTime: 7,
     excerpt: 'Recent CDC data shows a concerning rise in maternal mental health issues following the pandemic, emphasizing the need for expanded access to specialized care for new mothers...',
-    image: '/images/Services/AnxietyManagement1.png',
+    image: '/images/biff01_imagine_woman_in_meditation_pose_serene_environment_br_1f66e17b-a951-4d9f-b895-127fabc89208_1.png',
     slug: 'maternal-mental-health-crisis',
     content: `
       <h2>The Maternal Mental Health Crisis: A Growing Concern</h2>
@@ -192,7 +192,7 @@ export const blogPosts: BlogPost[] = [
     date: 'May 2, 2025',
     readingTime: 6,
     excerpt: 'New research published in the Journal of Women\'s Health explores how sleep disruption affects anxiety levels in new mothers and provides practical strategies for improving sleep quality...',
-    image: '/images/Services/New Mothers.png',
+    image: '/images/biff01_imagine_new_mother_holding_baby_peaceful_nursery_soft__1c12cc3c-cebd-47e2-ad9b-66b9bbca6480_0.png',
     slug: 'sleep-postpartum-anxiety',
     content: `
       <h2>The Vicious Cycle: Sleep Deprivation and Postpartum Anxiety</h2>
@@ -282,7 +282,7 @@ export const blogPosts: BlogPost[] = [
     date: 'April 25, 2025',
     readingTime: 7,
     excerpt: 'Partners play a crucial role in recovery from postpartum depression, yet often receive little guidance. Learn effective support strategies based on recent clinical findings...',
-    image: '/images/Services/Hopeful Hands.png',
+    image: '/images/biff01_imagine_parent_and_child_connection_playful_interactio_052891a2-ca43-43be-b8ef-bc2b96e01f05_1.png',
     slug: 'supporting-partners-ppd',
     content: `
       <h2>The Forgotten Supporters: Partners of Women with Postpartum Depression</h2>
@@ -395,7 +395,7 @@ export const blogPosts: BlogPost[] = [
     date: 'April 18, 2025',
     readingTime: 6,
     excerpt: 'Beyond excessive worry: recognizing the less-discussed physical symptoms of perinatal anxiety disorders that are frequently overlooked by healthcare providers...',
-    image: '/images/Services/AnxietyManagement2.png',
+    image: '/images/biff01_imagine_woman_in_meditation_pose_serene_environment_br_1f66e17b-a951-4d9f-b895-127fabc89208_3.png',
     slug: 'hidden-perinatal-anxiety',
     content: `
       <h2>Beyond Excessive Worry: The Hidden Symptoms of Perinatal Anxiety</h2>
@@ -533,7 +533,7 @@ export const blogPosts: BlogPost[] = [
     date: 'April 11, 2025',
     readingTime: 8,
     excerpt: 'Cultural factors significantly impact how women experience and seek help for maternal mental health issues. Recent research highlights the importance of culturally-sensitive approaches...',
-    image: '/images/Services/Walking through fields.png',
+    image: '/images/biff01_imagine_new_mother_holding_baby_peaceful_nursery_soft__398f4fdc-0cf7-49c6-9999-2bad6ee68990_0.png',
     slug: 'diverse-maternal-mental-health',
     content: `
       <h2>Cultural Perspectives on Maternal Mental Health</h2>
@@ -694,7 +694,7 @@ export const blogPosts: BlogPost[] = [
     date: 'April 4, 2025',
     readingTime: 7,
     excerpt: 'Evaluation of emerging digital tools designed to support women experiencing postpartum depression and anxiety, with insights on effectiveness and accessibility...',
-    image: '/images/Services/Empty Armchair.png',
+    image: '/images/biff01_imagine_cozy_therapy_office_comfortable_armchair_warm__87ea8e1d-e48f-4436-a390-728d4d6d8640_3.png',
     slug: 'digital-maternal-mental-health',
     content: `
       <h2>The Digital Revolution in Maternal Mental Health Care</h2>
@@ -848,7 +848,7 @@ export const blogPosts: BlogPost[] = [
     date: 'March 28, 2025',
     readingTime: 8,
     excerpt: 'Understanding the complex relationship between hormonal changes and anxiety throughout different life stages, with evidence-based strategies for managing symptoms naturally...',
-    image: '/images/Services/AnxietyManagement1.png',
+    image: '/images/biff01_imagine_woman_in_meditation_pose_serene_environment_br_43b6047c-916a-43b2-afc2-5449ec040f7c_1.png',
     slug: 'hormones-anxiety-women',
     content: `
       <h2>The Intricate Dance: How Hormones Influence Women's Anxiety</h2>
@@ -1059,7 +1059,7 @@ export const blogPosts: BlogPost[] = [
     date: 'March 21, 2025',
     readingTime: 9,
     excerpt: 'Evidence-based strategies for preventing postpartum depression before it starts, including risk assessment, early intervention techniques, and creating a supportive environment...',
-    image: '/images/Services/Symbolic Shoes.png',
+    image: '/images/biff01_imagine_new_mother_holding_baby_peaceful_nursery_soft__50517b23-5b36-4135-b2d1-db7a7c23ff79_1.png',
     slug: 'preventing-postpartum-depression',
     content: `
       <h2>Proactive Prevention: Strategies to Reduce Postpartum Depression Risk</h2>
@@ -1323,7 +1323,7 @@ export const blogPosts: BlogPost[] = [
     date: 'March 14, 2025',
     readingTime: 6,
     excerpt: 'Exploring the often-hidden symptom of postpartum rage, its causes, impact on relationships, and effective strategies for managing intense anger after childbirth...',
-    image: '/images/Services/Experienced Parents.png',
+    image: '/images/biff01_imagine_parent_and_child_connection_playful_interactio_b5f4a5f6-bb82-40c5-b2c8-2afa9175b6d4_0.png',
     slug: 'postpartum-rage',
     content: `
       <h2>Understanding Postpartum Rage: When Anger Takes Over</h2>
@@ -1419,7 +1419,7 @@ export const blogPosts: BlogPost[] = [
     date: 'March 7, 2025',
     readingTime: 7,
     excerpt: 'Practical strategies for coping with anxiety during periods of uncertainty, including mindfulness techniques, cognitive strategies, and building resilience...',
-    image: '/images/Services/AnxietyManagement1.png',
+    image: '/images/biff01_imagine_new_mother_holding_baby_peaceful_nursery_soft__72d992a9-06a2-4aaa-b638-c60672b45c5f_3.png',
     slug: 'managing-anxiety',
     content: `
       <h2>Navigating Anxiety When the Future Feels Uncertain</h2>
@@ -1503,7 +1503,7 @@ export const blogPosts: BlogPost[] = [
     date: 'February 28, 2025',
     readingTime: 6,
     excerpt: 'Expert guidance on fostering strong bonds with your children through different developmental stages, including communication strategies and attachment principles...',
-    image: '/images/Services/Experienced Parents.png',
+    image: '/images/biff01_imagine_parent_and_child_connection_playful_interactio_b5f4a5f6-bb82-40c5-b2c8-2afa9175b6d4_3.png',
     slug: 'parent-child-relationships',
     content: `
       <h2>Foundations of Strong Parent-Child Relationships</h2>
@@ -1596,7 +1596,7 @@ export const blogPosts: BlogPost[] = [
     date: 'February 21, 2025',
     readingTime: 6,
     excerpt: 'Realistic self-care strategies for parents juggling multiple responsibilities, including micro-practices, boundary setting, and guilt-free approaches to personal wellbeing...',
-    image: '/images/Services/Symbolic Shoes.png',
+    image: '/images/biff01_imagine_new_mother_holding_baby_peaceful_nursery_soft__7deac91b-3809-41a0-bb6f-16208062f916_3.png',
     slug: 'self-care-for-parents',
     content: `
       <h2>Redefining Self-Care for Real Parents in Real Life</h2>
@@ -1697,7 +1697,7 @@ export const blogPosts: BlogPost[] = [
     date: 'February 14, 2025',
     readingTime: 7,
     excerpt: 'Demystifying the therapy process for first-time clients, including what happens in sessions, different therapy types, and how to make the most of your therapeutic journey...',
-    image: '/images/Services/Empty Armchair.png',
+    image: '/images/biff01_imagine_cozy_therapy_office_comfortable_armchair_warm__94d6aae4-5275-4cd2-82da-84152a031c82_0.png',
     slug: 'understanding-therapy',
     content: `
       <h2>Your Guide to Beginning Therapy: Demystifying the Process</h2>
@@ -2006,7 +2006,7 @@ export const blogPosts: BlogPost[] = [
     date: 'February 7, 2025',
     readingTime: 5,
     excerpt: 'When it feels like your entire life is changing at once, here\'s how to navigate the chaos with grace (and sanity intact)...',
-    image: '/images/Services/Walking through fields.png',
+    image: '/images/biff01_imagine_cozy_therapy_office_comfortable_armchair_warm__b76c10ee-01e1-4a2a-8894-42d53f2a1be5_2.png',
     slug: 'navigating-transitions',
     content: `
       <p>Last week, three different clients said the same thing: "I feel like I'm falling apart."</p>
@@ -2110,7 +2110,7 @@ export const blogPosts: BlogPost[] = [
     date: 'January 31, 2025',
     readingTime: 6,
     excerpt: 'Navigating the challenging early days of motherhood can be overwhelming. Here are evidence-based strategies to support mental wellbeing during postpartum...',
-    image: '/images/Home/new-mom.png',
+    image: '/images/biff01_imagine_new_mother_holding_baby_peaceful_nursery_soft__88b8f795-1dd3-43df-890e-8511aed40d43_2.png',
     slug: 'supporting-new-mothers',
     content: `
         <li>Sadness for what's ending</li>
@@ -2660,6 +2660,338 @@ export const blogPosts: BlogPost[] = [
         slug: 'self-care-for-parents',
         image: '/images/Services/Symbolic Shoes.png',
         date: 'February 21, 2025'
+      }
+    ]
+  },
+  {
+    id: 11,
+    title: 'The Power of Micro-Moments: Finding Joy in Early Motherhood',
+    date: 'May 19, 2025',
+    readingTime: 6,
+    excerpt: 'Discover how capturing and savoring small moments of joy can transform your experience of early motherhood, even during the most challenging days...',
+    image: '/images/Home/new-mom.png',
+    slug: 'micro-moments-motherhood-joy',
+    content: `
+      <h2>Finding Light in the Everyday: The Power of Micro-Moments</h2>
+      <p>When you're in the thick of early motherhood—sleep-deprived, overwhelmed, and perhaps struggling with your sense of self—the idea of "finding joy" might feel impossible or even insulting. But what if joy didn't require grand gestures or perfect days? What if it could be found in moments as brief as a breath?</p>
+      
+      <p>New research in positive psychology is revealing the profound impact of what scientists call "micro-moments of positivity"—brief experiences of connection, pleasure, or meaning that last just seconds but can significantly impact our overall wellbeing. For new mothers, learning to notice and savor these moments can be transformative.</p>
+      
+      <h3>What Are Micro-Moments?</h3>
+      <p>Micro-moments are tiny pockets of positive experience that occur throughout our day. They might include:</p>
+      
+      <ul>
+        <li>The weight of your baby's head on your chest</li>
+        <li>The first sip of (finally) hot coffee</li>
+        <li>A text from a friend checking in</li>
+        <li>Sunlight streaming through the nursery window</li>
+        <li>Your baby's grip on your finger</li>
+        <li>A moment of quiet after the baby falls asleep</li>
+        <li>The scent of your baby's hair after a bath</li>
+        <li>A genuine smile from a stranger at the grocery store</li>
+      </ul>
+      
+      <p>These moments are fleeting—lasting anywhere from a few seconds to a minute—but their impact can ripple throughout your day and beyond.</p>
+      
+      <h3>The Science Behind Micro-Moments</h3>
+      <p>Dr. Barbara Fredrickson's research on positive emotions shows that these brief experiences of joy, gratitude, or connection create an "upward spiral" in our wellbeing. They broaden our awareness, build psychological resources, and help buffer against stress and depression.</p>
+      
+      <p>For new mothers, this is particularly significant. Studies show that mothers who practice noticing positive micro-moments report:</p>
+      
+      <ul>
+        <li>Lower levels of postpartum depression symptoms</li>
+        <li>Increased feelings of competence in their parenting</li>
+        <li>Better stress management</li>
+        <li>Stronger bonding with their babies</li>
+        <li>More satisfaction in their daily experiences</li>
+      </ul>
+      
+      <h3>Why Micro-Moments Matter in Motherhood</h3>
+      <p>Early motherhood can feel like an endless cycle of tasks: feeding, changing, soothing, cleaning, repeat. When we're focused solely on getting through these tasks, we miss the small beauties woven throughout our days. Micro-moments don't erase the challenges, but they provide essential balance.</p>
+      
+      <p>"I realized I was so focused on 'surviving' each day that I was missing these tiny, perfect moments," shares Sarah, a mother of six-month-old twins. "Once I started noticing them, I felt like I could breathe again. The hard parts were still hard, but there was sweetness too."</p>
+      
+      <h3>Cultivating Awareness of Micro-Moments</h3>
+      <p>Noticing micro-moments isn't about forced positivity or denying difficulties. It's about expanding your awareness to include the full spectrum of your experience. Here's how to begin:</p>
+      
+      <h4>1. Start with Sensory Awareness</h4>
+      <p>Use your senses as anchors for positive moments:</p>
+      <ul>
+        <li><strong>Touch:</strong> The softness of your baby's skin</li>
+        <li><strong>Sound:</strong> Your baby's contented sighs</li>
+        <li><strong>Sight:</strong> How the light catches your baby's eyelashes</li>
+        <li><strong>Smell:</strong> Fresh laundry or your favorite lotion</li>
+        <li><strong>Taste:</strong> A piece of chocolate or perfectly ripe fruit</li>
+      </ul>
+      
+      <h4>2. Create Micro-Moment Cues</h4>
+      <p>Link awareness to routine activities:</p>
+      <ul>
+        <li>Each time you pick up your baby, pause for one breath to notice their weight</li>
+        <li>When washing bottles, feel the warm water on your hands</li>
+        <li>During feedings, choose one thing to appreciate</li>
+        <li>Before bed, recall one micro-moment from the day</li>
+      </ul>
+      
+      <h4>3. Use Technology Mindfully</h4>
+      <p>Set gentle reminders on your phone to pause and notice something positive. Take photos not just for social media, but to capture moments that made you smile.</p>
+      
+      <h4>4. Share Micro-Moments</h4>
+      <p>Text a friend about a sweet moment. Share with your partner. This amplifies the positive experience and strengthens connections.</p>
+      
+      <h3>Common Obstacles and Solutions</h3>
+      <p><strong>Obstacle:</strong> "I'm too exhausted to notice anything positive."</p>
+      <p><strong>Solution:</strong> Start incredibly small. Notice one thing. Even noticing your exhaustion with compassion counts.</p>
+      
+      <p><strong>Obstacle:</strong> "This feels like toxic positivity."</p>
+      <p><strong>Solution:</strong> This isn't about denying struggles. It's about noticing that even difficult days contain moments of sweetness. Both can be true.</p>
+      
+      <p><strong>Obstacle:</strong> "I forget to do this."</p>
+      <p><strong>Solution:</strong> Link it to something you already do regularly, like feeding your baby or changing diapers.</p>
+      
+      <h3>Micro-Moments and Mental Health</h3>
+      <p>While noticing positive micro-moments is beneficial, it's not a substitute for professional help if you're struggling with postpartum depression or anxiety. Think of it as one tool in your wellness toolkit—a gentle practice that supports but doesn't replace other forms of care.</p>
+      
+      <p>At Bloom Psychology, we incorporate positive psychology practices like micro-moment awareness into our work with new mothers. We've seen how these small shifts in attention can create meaningful changes in daily experience.</p>
+      
+      <h3>A Practice for Today</h3>
+      <p>Right now, in this moment, what small thing could you appreciate? Perhaps it's the fact that you're taking time to read this, investing in your wellbeing. Perhaps it's the quiet (or even the chaos) around you. Perhaps it's simply your next breath.</p>
+      
+      <p>Start there. Start small. Let the micro-moments find you.</p>
+      
+      <p>Remember: Joy in motherhood doesn't require perfect days or Instagram-worthy moments. Sometimes it's found in the weight of a sleeping baby, the steam from a cup of tea, or the simple fact that you made it through another day. These micro-moments of light, strung together, can illuminate even the most challenging season of motherhood.</p>
+    `,
+    relatedPosts: [
+      {
+        title: 'Self-Care Practices for Busy Parents',
+        slug: 'self-care-for-parents',
+        image: '/images/Services/Symbolic Shoes.png',
+        date: 'February 21, 2025'
+      },
+      {
+        title: 'Building Mental Resilience in Motherhood',
+        slug: 'maternal-resilience',
+        image: '/images/Services/Walking through fields.png',
+        date: 'April 5, 2025'
+      },
+      {
+        title: 'The Hidden Symptoms of Perinatal Anxiety Disorders',
+        slug: 'hidden-perinatal-anxiety',
+        image: '/images/Services/AnxietyManagement2.png',
+        date: 'April 28, 2025'
+      }
+    ]
+  },
+  {
+    id: 12,
+    title: 'Navigating the Return to Work After Baby: Mental Health Strategies',
+    date: 'May 26, 2025',
+    readingTime: 8,
+    excerpt: 'Returning to work after maternity leave can trigger a complex mix of emotions. Learn evidence-based strategies for managing this transition while protecting your mental health...',
+    image: '/images/Services/Experienced Parents.png',
+    slug: 'return-to-work-after-baby',
+    content: `
+      <h2>The Emotional Complexity of Returning to Work After Baby</h2>
+      <p>The end of maternity leave marks a significant transition that many mothers find more emotionally challenging than anticipated. Whether you're eager to return to work, dreading it, or feeling a confusing mix of both, you're not alone. Research shows that up to 80% of mothers experience significant emotional distress during the return-to-work transition, yet this remains an under-discussed aspect of postpartum life.</p>
+      
+      <p>Today, we're exploring evidence-based strategies for navigating this transition while protecting your mental health and nurturing your evolving identity as both a professional and a mother.</p>
+      
+      <h3>Understanding the Emotional Landscape</h3>
+      <p>Returning to work after baby involves navigating multiple, often conflicting emotions:</p>
+      
+      <ul>
+        <li><strong>Guilt:</strong> About leaving your baby, about feeling excited to return, about not feeling excited to return</li>
+        <li><strong>Anxiety:</strong> About childcare, pumping logistics, performance expectations, missing milestones</li>
+        <li><strong>Relief:</strong> At returning to adult interaction and professional identity</li>
+        <li><strong>Grief:</strong> Over the end of exclusive time with your baby</li>
+        <li><strong>Excitement:</strong> About reconnecting with work you find meaningful</li>
+        <li><strong>Resentment:</strong> About societal pressures, financial necessities, or lack of choice</li>
+        <li><strong>Inadequacy:</strong> Feeling like you're failing at both work and motherhood</li>
+      </ul>
+      
+      <p>Dr. Amy Henderson, researcher and author of "Tending: Parenthood and the Future of Work," notes: "The return to work represents a fundamental identity renegotiation. You're not the same person who left for maternity leave, and pretending otherwise creates unnecessary psychological strain."</p>
+      
+      <h3>Pre-Return Strategies: Preparing Your Mind</h3>
+      <p>The mental preparation for returning to work should ideally begin several weeks before your first day back:</p>
+      
+      <h4>1. Acknowledge the Transition</h4>
+      <p>Give yourself permission to have mixed feelings. Journal about your emotions without judgment. Consider prompts like:</p>
+      <ul>
+        <li>What am I most worried about?</li>
+        <li>What am I looking forward to?</li>
+        <li>What parts of my identity feel in conflict?</li>
+        <li>What do I need to feel supported?</li>
+      </ul>
+      
+      <h4>2. Practice Gradual Separation</h4>
+      <p>If possible, practice leaving your baby for increasing periods before your return. This helps both of you adjust gradually rather than facing an abrupt all-day separation.</p>
+      
+      <h4>3. Visit Your Workplace</h4>
+      <p>If feasible, visit your workplace before your official return. This can help reduce first-day anxiety and allow you to visualize your new routine.</p>
+      
+      <h4>4. Negotiate Flexibility</h4>
+      <p>Have honest conversations with your employer about potential accommodations:</p>
+      <ul>
+        <li>Phased return (starting part-time)</li>
+        <li>Flexible hours</li>
+        <li>Work-from-home options</li>
+        <li>Dedicated pumping time and space</li>
+        <li>Adjusted travel expectations</li>
+      </ul>
+      
+      <h3>The First Month: Survival Strategies</h3>
+      <p>The first month back is often the hardest. Here's how to navigate it:</p>
+      
+      <h4>Lower Your Expectations</h4>
+      <p>You're managing a major life transition. Expect:</p>
+      <ul>
+        <li>To cry (probably multiple times)</li>
+        <li>To feel overwhelmed</li>
+        <li>To be less productive than pre-baby</li>
+        <li>To question your decisions</li>
+        <li>To be exhausted</li>
+      </ul>
+      
+      <p>This is all normal and temporary.</p>
+      
+      <h4>Create Transition Rituals</h4>
+      <p>Develop rituals that help you transition between roles:</p>
+      <ul>
+        <li><strong>Morning ritual:</strong> A special goodbye routine with your baby</li>
+        <li><strong>Commute ritual:</strong> Use this time to transition mentally (podcast, music, or silence)</li>
+        <li><strong>Reunion ritual:</strong> A consistent way to reconnect with your baby after work</li>
+      </ul>
+      
+      <h4>Manage the Pumping Challenge</h4>
+      <p>If you're breastfeeding, pumping at work adds another layer of complexity:</p>
+      <ul>
+        <li>Block pump times in your calendar as "meetings"</li>
+        <li>Have backup supplies at work</li>
+        <li>Find a pumping buddy if possible</li>
+        <li>Be flexible with your feeding goals</li>
+        <li>Remember: Your worth as a mother isn't measured in ounces</li>
+      </ul>
+      
+      <h3>Long-Term Mental Health Strategies</h3>
+      <p>As you settle into your new normal, these strategies support ongoing mental health:</p>
+      
+      <h4>1. Redefine Success</h4>
+      <p>Your definition of professional success may need updating. Consider:</p>
+      <ul>
+        <li>Quality over quantity in work output</li>
+        <li>Efficiency over long hours</li>
+        <li>Setting boundaries as strength, not weakness</li>
+        <li>Modeling work-life integration for others</li>
+      </ul>
+      
+      <h4>2. Build Your Village at Work</h4>
+      <p>Seek out other working parents:</p>
+      <ul>
+        <li>Join or create a working parents group</li>
+        <li>Find a mentor who's navigated this transition</li>
+        <li>Be open about your needs and challenges</li>
+        <li>Support other parents in return</li>
+      </ul>
+      
+      <h4>3. Protect Your Energy</h4>
+      <p>Energy is your most precious resource:</p>
+      <ul>
+        <li>Learn to say no to non-essential commitments</li>
+        <li>Delegate where possible (at work and home)</li>
+        <li>Batch similar tasks</li>
+        <li>Take actual lunch breaks</li>
+        <li>Use vacation days without guilt</li>
+      </ul>
+      
+      <h4>4. Address Mom Guilt Head-On</h4>
+      <p>Mom guilt about working is pervasive but not productive:</p>
+      <ul>
+        <li>Challenge guilty thoughts with facts (your child is safe and loved)</li>
+        <li>Focus on quality time over quantity</li>
+        <li>Remember you're modeling important values</li>
+        <li>Consider the benefits your child gains (socialization, routine, multiple caregivers)</li>
+        <li>Talk to a therapist if guilt becomes overwhelming</li>
+      </ul>
+      
+      <h3>Warning Signs to Watch For</h3>
+      <p>While adjustment challenges are normal, these signs suggest you may need additional support:</p>
+      
+      <ul>
+        <li>Persistent anxiety that interferes with sleep or eating</li>
+        <li>Crying spells that don't improve after the first few weeks</li>
+        <li>Inability to concentrate at work beyond normal adjustment</li>
+        <li>Intrusive thoughts about harm coming to your baby</li>
+        <li>Feeling disconnected from your baby or partner</li>
+        <li>Physical symptoms like headaches, stomach issues, or chest pain</li>
+        <li>Thoughts of quitting without a plan</li>
+        <li>Substance use to cope</li>
+      </ul>
+      
+      <h3>Creating Sustainable Integration</h3>
+      <p>The goal isn't perfect balance—it's sustainable integration:</p>
+      
+      <h4>Weekend Wisdom</h4>
+      <ul>
+        <li>Prep what you can (meals, clothes, bags)</li>
+        <li>But also rest and connect</li>
+        <li>Say no to non-essential weekend commitments</li>
+        <li>Create phone-free family time</li>
+      </ul>
+      
+      <h4>Morning Efficiency</h4>
+      <ul>
+        <li>Prep the night before</li>
+        <li>Keep routines simple</li>
+        <li>Build in buffer time</li>
+        <li>Have backup plans</li>
+      </ul>
+      
+      <h4>Evening Connection</h4>
+      <ul>
+        <li>Transition time before diving into bedtime</li>
+        <li>Simplify dinner expectations</li>
+        <li>Protect bedtime routines</li>
+        <li>Connect with your partner after kids are asleep</li>
+      </ul>
+      
+      <h3>The Path Forward</h3>
+      <p>Remember that returning to work after baby is a process, not a destination. Your feelings will evolve. What feels impossible today may feel manageable in a month. What works for another mother may not work for you, and that's okay.</p>
+      
+      <p>"I wish someone had told me that it was okay to love being back at work," shares Maria, mother of two. "I felt so guilty for enjoying my job and missing my baby at the same time. Now I know both feelings can coexist."</p>
+      
+      <h3>Seeking Support</h3>
+      <p>If you're struggling with the return-to-work transition, support is available:</p>
+      
+      <ul>
+        <li>Individual therapy to process complex emotions</li>
+        <li>Support groups for working mothers</li>
+        <li>Career coaching with a parental lens</li>
+        <li>Couples therapy to navigate relationship changes</li>
+        <li>Lactation consultation for pumping challenges</li>
+      </ul>
+      
+      <p>At Bloom Psychology, we specialize in supporting mothers through all transitions, including the return to work. We understand the unique challenges this phase brings and offer evidence-based strategies tailored to your specific situation.</p>
+      
+      <p>Remember: There's no "right" way to be a working mother. Your path is unique, your feelings are valid, and with support and self-compassion, you can create a life that honors both your professional aspirations and your role as a mother.</p>
+    `,
+    relatedPosts: [
+      {
+        title: 'Managing Mom Guilt: Evidence-Based Strategies',
+        slug: 'managing-mom-guilt',
+        image: '/images/Services/New Mothers.png',
+        date: 'March 30, 2025'
+      },
+      {
+        title: 'Building Mental Resilience in Motherhood',
+        slug: 'maternal-resilience',
+        image: '/images/Services/Walking through fields.png',
+        date: 'April 5, 2025'
+      },
+      {
+        title: 'The Power of Micro-Moments: Finding Joy in Early Motherhood',
+        slug: 'micro-moments-motherhood-joy',
+        image: '/images/Home/new-mom.png',
+        date: 'May 19, 2025'
       }
     ]
   }

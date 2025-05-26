@@ -14,7 +14,7 @@ import ParallaxContainer from '@/components/ui/ParallaxContainer';
 
 export const metadata: Metadata = {
   title: 'About Us',
-  description: 'Meet Dr. Jana Rundle and the Bloom Psychology North Austin team. Learn about our approach to mental health care for women, mothers, and parents.',
+  description: 'Meet Dr. Jana Rundle and the Bloom Psychology team. Learn about our approach to mental health care for women, mothers, and parents.',
   keywords: 'about, therapist, psychologist, Jana Rundle, women therapy, approach, philosophy',
 };
 
@@ -286,7 +286,7 @@ export default function AboutPage() {
           </p>
           
           <Button 
-            href="/contact" 
+            href="/book" 
             variant="pink" 
             size="lg" 
             className="inline-block"

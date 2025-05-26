@@ -34,7 +34,7 @@ const Header = () => {
             Now accepting new clients with same-week appointments
           </p>
           <Link 
-            href="/contact" 
+            href="/book" 
             className="hidden md:inline-block text-sm font-medium hover:underline ml-2 text-bloom"
           >
             Book Now →
@@ -78,7 +78,7 @@ const Header = () => {
               <div className="relative h-14 w-32">
                 <Image 
                   src="/images/Logo/logo2.png" 
-                  alt="Bloom Psychology North Austin" 
+                  alt="Bloom Psychology" 
                   fill
                   className="object-contain"
                   priority
@@ -123,7 +123,7 @@ const Header = () => {
                 </svg>
               </Link>
               <Button 
-                href="/contact"
+                href="/book"
                 variant="pink"
                 size="sm"
                 className="ml-4"
@@ -140,7 +140,7 @@ const Header = () => {
               <div className="relative h-10 w-28 mr-2">
                 <Image 
                   src="/images/Logo/logo2.png" 
-                  alt="Bloom Psychology North Austin" 
+                  alt="Bloom Psychology" 
                   fill
                   className="object-contain"
                   priority
@@ -259,7 +259,7 @@ const Header = () => {
               </Link>
               
               <Link 
-                href="/contact"
+                href="/book"
                 onClick={() => setIsMenuOpen(false)}
                 className="btn-pink text-center mx-3 my-4"
               >
@@ -267,7 +267,7 @@ const Header = () => {
               </Link>
               
               <Link 
-                href="/contact"
+                href="/book"
                 onClick={() => setIsMenuOpen(false)}
                 className="text-center text-sm text-bloom font-medium mx-3"
               >
