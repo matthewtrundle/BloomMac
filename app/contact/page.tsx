@@ -7,6 +7,9 @@ import Link from 'next/link';
 import OrganicShape from '@/components/ui/OrganicShape';
 import GlassmorphismPanel from '@/components/ui/GlassmorphismPanel';
 
+// Analytics
+import { analytics } from '@/lib/analytics';
+
 // Metadata is now in a separate file: metadata.ts
 
 export default function ContactPage() {
@@ -46,6 +49,9 @@ export default function ContactPage() {
 
       setSubmitSuccess(true);
       setFormData({ name: '', email: '', phone: '', service: '', message: '' });
+      
+      // Track successful form submission
+      analytics.trackContactForm('/contact', formData.service);
       
       // Fire GA4 event if available
       if (typeof window !== 'undefined' && window.gtag) {

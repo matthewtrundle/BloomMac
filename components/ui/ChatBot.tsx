@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { analytics } from '@/lib/analytics';
 
 interface Message {
   id: string;
@@ -87,6 +88,9 @@ const ChatBot: React.FC<ChatBotProps> = ({ enabled = true }) => {
         }, 500); // Small delay for natural conversation flow
       }
 
+      // Track chatbot interaction
+      analytics.trackChatbotInteraction(window.location.pathname, `suggested_${action.type}`);
+      
       // Fire analytics event
       if (window.gtag) {
         window.gtag('event', 'chatbot_suggested_link', {
@@ -151,6 +155,9 @@ const ChatBot: React.FC<ChatBotProps> = ({ enabled = true }) => {
         handleBotAction(data.action);
       }
 
+      // Track chatbot message
+      analytics.trackChatbotInteraction(window.location.pathname, 'message_sent');
+      
       // Fire GA4 event
       if (typeof window !== 'undefined' && window.gtag) {
         window.gtag('event', 'chatbot_interaction', {
@@ -181,11 +188,15 @@ const ChatBot: React.FC<ChatBotProps> = ({ enabled = true }) => {
   };
 
   const toggleChat = () => {
-    setIsOpen(!isOpen);
+    const newState = !isOpen;
+    setIsOpen(newState);
+    
+    // Track chatbot interaction
+    analytics.trackChatbotInteraction(window.location.pathname, newState ? 'opened' : 'closed');
     
     // Fire GA4 event
     if (typeof window !== 'undefined' && window.gtag) {
-      window.gtag('event', isOpen ? 'chatbot_closed' : 'chatbot_opened', {
+      window.gtag('event', newState ? 'chatbot_opened' : 'chatbot_closed', {
         event_category: 'engagement',
         event_label: 'chatbot_toggle'
       });

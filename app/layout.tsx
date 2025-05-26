@@ -6,6 +6,7 @@ import './globals.css';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import ConsultLauncher from '@/components/layout/ConsultLauncher';
+import { AnalyticsProvider } from '@/components/AnalyticsProvider';
 
 // Import engagement components
 import ScrollConsultationBanner from '@/components/ui/ScrollConsultationBanner';
@@ -86,14 +87,16 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://cdn.calendly.com" />
       </head>
       <body className="bg-white text-bloom min-h-screen">
-        <Header />
-        <main className="pt-20">
-          {children}
-        </main>
-        <Footer />
-        <ConsultLauncher />
-        <ScrollConsultationBanner enabled={true} scrollThreshold={70} delay={8000} />
-        <ChatBot enabled={true} />
+        <AnalyticsProvider>
+          <Header />
+          <main className="pt-20">
+            {children}
+          </main>
+          <Footer />
+          <ConsultLauncher />
+          <ScrollConsultationBanner enabled={true} scrollThreshold={70} delay={8000} />
+          <ChatBot enabled={true} />
+        </AnalyticsProvider>
       </body>
     </html>
   );

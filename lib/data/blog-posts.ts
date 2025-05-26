@@ -22,7 +22,7 @@ export const blogPosts: BlogPost[] = [
     date: 'May 12, 2025',
     readingTime: 8,
     excerpt: 'A groundbreaking study from Harvard Medical School reveals promising new treatment approaches for postpartum depression, combining traditional therapy with innovative mindfulness techniques...',
-    image: '/images/biff01_imagine_Latina_mother_playing_peek-a-boo_with_laughing_9f91dae6-b308-42f4-935f-8c0bb0a6d485_0.png',
+    image: '/images/optimized/biff01_imagine_Latina_mother_playing_peek-a-boo_with_laughing_9f91dae6-b308-42f4-935f-8c0bb0a6d485_0.webp',
     slug: 'postpartum-depression-treatments',
     content: `
       <h2>Promising New Research on Postpartum Depression Treatment</h2>
@@ -79,19 +79,19 @@ export const blogPosts: BlogPost[] = [
       {
         title: 'Understanding the Maternal Mental Health Crisis',
         slug: 'maternal-mental-health-crisis',
-        image: '/images/biff01_imagine_calming_therapy_office_waiting_room_comfortabl_c7ddc6f2-21ca-462c-9f36-f7e006d516f8_0.png',
+        image: '/images/optimized/biff01_imagine_calming_therapy_office_waiting_room_comfortabl_c7ddc6f2-21ca-462c-9f36-f7e006d516f8_0.webp',
         date: 'May 9, 2025'
       },
       {
         title: 'Preventative Approaches to Postpartum Depression',
         slug: 'preventing-postpartum-depression',
-        image: '/images/biff01_imagine_mother_doing_gentle_yoga_while_baby_plays_on_m_f02d29cf-d33c-474c-bc39-c589f0768d8d_1.png',
+        image: '/images/optimized/biff01_imagine_mother_doing_gentle_yoga_while_baby_plays_on_m_f02d29cf-d33c-474c-bc39-c589f0768d8d_1.webp',
         date: 'March 21, 2025'
       },
       {
         title: 'Supporting New Mothers Through Postpartum Challenges',
         slug: 'supporting-new-mothers',
-        image: '/images/biff01_imagine_confident_single_mother_holding_baby_standing__b3179601-8cbf-4af3-9b29-bedcbc4946a3_3.png',
+        image: '/images/optimized/biff01_imagine_confident_single_mother_holding_baby_standing__b3179601-8cbf-4af3-9b29-bedcbc4946a3_3.webp',
         date: 'January 31, 2025'
       }
     ]
@@ -102,7 +102,7 @@ export const blogPosts: BlogPost[] = [
     date: 'May 9, 2025',
     readingTime: 7,
     excerpt: 'Recent CDC data shows a concerning rise in maternal mental health issues following the pandemic, emphasizing the need for expanded access to specialized care for new mothers...',
-    image: '/images/biff01_imagine_cozy_therapy_office_comfortable_armchair_warm__87ea8e1d-e48f-4436-a390-728d4d6d8640_3.png',
+    image: '/images/optimized/biff01_imagine_cozy_therapy_office_comfortable_armchair_warm__87ea8e1d-e48f-4436-a390-728d4d6d8640_3.webp',
     slug: 'maternal-mental-health-crisis',
     content: `
       <h2>The Maternal Mental Health Crisis: A Growing Concern</h2>
@@ -169,19 +169,19 @@ export const blogPosts: BlogPost[] = [
       {
         title: 'New Research on Postpartum Depression Treatment Options',
         slug: 'postpartum-depression-treatments',
-        image: '/images/biff01_imagine_new_mother_holding_baby_peaceful_nursery_soft__398f4fdc-0cf7-49c6-9999-2bad6ee68990_0.png',
+        image: '/images/optimized/biff01_imagine_new_mother_holding_baby_peaceful_nursery_soft__398f4fdc-0cf7-49c6-9999-2bad6ee68990_0.webp',
         date: 'May 15, 2025'
       },
       {
         title: 'Breaking the Stigma: Maternal Mental Health Among Diverse Communities',
         slug: 'diverse-maternal-mental-health',
-        image: '/images/biff01_imagine_cozy_therapy_office_comfortable_armchair_warm__b76c10ee-01e1-4a2a-8894-42d53f2a1be5_2.png',
+        image: '/images/optimized/biff01_imagine_cozy_therapy_office_comfortable_armchair_warm__b76c10ee-01e1-4a2a-8894-42d53f2a1be5_2.webp',
         date: 'April 11, 2025'
       },
       {
         title: 'Postpartum Rage: The Anger No One Talks About',
         slug: 'postpartum-rage',
-        image: '/images/biff01_imagine_cozy_therapy_office_comfortable_armchair_warm__da0354fc-70ec-4bb0-90f7-96e8eb17f2e7_0.png',
+        image: '/images/optimized/biff01_imagine_cozy_therapy_office_comfortable_armchair_warm__da0354fc-70ec-4bb0-90f7-96e8eb17f2e7_0.webp',
         date: 'March 14, 2025'
       }
     ]
@@ -192,7 +192,7 @@ export const blogPosts: BlogPost[] = [
     date: 'May 2, 2025',
     readingTime: 6,
     excerpt: 'New research published in the Journal of Women\'s Health explores how sleep disruption affects anxiety levels in new mothers and provides practical strategies for improving sleep quality...',
-    image: '/images/biff01_imagine_supportive_womens_group_therapy_session_circle_41bd705b-5dd8-4957-a199-b2fa0530b46f_3.png',
+    image: '/images/optimized/biff01_imagine_supportive_womens_group_therapy_session_circle_41bd705b-5dd8-4957-a199-b2fa0530b46f_3.webp',
     slug: 'sleep-postpartum-anxiety',
     content: `
       <h2>The Vicious Cycle: Sleep Deprivation and Postpartum Anxiety</h2>
@@ -259,19 +259,19 @@ export const blogPosts: BlogPost[] = [
       {
         title: 'Postpartum Anxiety Support',
         slug: 'postpartum-anxiety-support',
-        image: '/images/biff01_imagine_exhausted_but_loving_mother_with_twins_double__b2ac5580-9b28-4752-a4b3-c61a524b828d_2.png',
+        image: '/images/optimized/biff01_imagine_exhausted_but_loving_mother_with_twins_double__b2ac5580-9b28-4752-a4b3-c61a524b828d_2.webp',
         date: 'April 18, 2025'
       },
       {
         title: 'Self-Care Practices for Busy Parents',
         slug: 'self-care-for-parents',
-        image: '/images/biff01_imagine_mixed-race_parents_with_newborn_tender_family__1caa7f06-30ca-47c7-a1cd-038dc0cea487_3.png',
+        image: '/images/optimized/biff01_imagine_mixed-race_parents_with_newborn_tender_family__1caa7f06-30ca-47c7-a1cd-038dc0cea487_3.webp',
         date: 'February 21, 2025'
       },
       {
         title: 'Supporting New Mothers Through Postpartum Challenges',
         slug: 'supporting-new-mothers',
-        image: '/images/biff01_imagine_mixed-race_parents_with_newborn_tender_family__1caa7f06-30ca-47c7-a1cd-038dc0cea487_1.png',
+        image: '/images/optimized/biff01_imagine_mixed-race_parents_with_newborn_tender_family__1caa7f06-30ca-47c7-a1cd-038dc0cea487_1.webp',
         date: 'January 31, 2025'
       }
     ]
@@ -282,7 +282,7 @@ export const blogPosts: BlogPost[] = [
     date: 'April 25, 2025',
     readingTime: 7,
     excerpt: 'Partners play a crucial role in recovery from postpartum depression, yet often receive little guidance. Learn effective support strategies based on recent clinical findings...',
-    image: '/images/biff01_imagine_mother_doing_gentle_yoga_while_baby_plays_on_m_f02d29cf-d33c-474c-bc39-c589f0768d8d_1.png',
+    image: '/images/optimized/biff01_imagine_mother_doing_gentle_yoga_while_baby_plays_on_m_f02d29cf-d33c-474c-bc39-c589f0768d8d_1.webp',
     slug: 'supporting-partners-ppd',
     content: `
       <h2>The Forgotten Supporters: Partners of Women with Postpartum Depression</h2>
@@ -372,19 +372,19 @@ export const blogPosts: BlogPost[] = [
       {
         title: 'Postpartum Depression Support',
         slug: 'postpartum-depression-support',
-        image: '/images/biff01_imagine_new_mother_holding_baby_peaceful_nursery_soft__1142a756-4014-4606-aced-81dd4005e812_0.png',
+        image: '/images/optimized/biff01_imagine_new_mother_holding_baby_peaceful_nursery_soft__1142a756-4014-4606-aced-81dd4005e812_0.webp',
         date: 'March 21, 2025'
       },
       {
         title: 'Building Healthy Parent-Child Relationships',
         slug: 'parent-child-relationships',
-        image: '/images/biff01_imagine_new_mother_holding_baby_peaceful_nursery_soft__1c12cc3c-cebd-47e2-ad9b-66b9bbca6480_0.png',
+        image: '/images/optimized/biff01_imagine_new_mother_holding_baby_peaceful_nursery_soft__1c12cc3c-cebd-47e2-ad9b-66b9bbca6480_0.webp',
         date: 'February 28, 2025'
       },
       {
         title: 'New Research on Postpartum Depression Treatment Options',
         slug: 'postpartum-depression-treatments',
-        image: '/images/biff01_imagine_new_mother_holding_baby_peaceful_nursery_soft__1c12cc3c-cebd-47e2-ad9b-66b9bbca6480_2.png',
+        image: '/images/optimized/biff01_imagine_new_mother_holding_baby_peaceful_nursery_soft__1c12cc3c-cebd-47e2-ad9b-66b9bbca6480_2.webp',
         date: 'May 15, 2025'
       }
     ]
@@ -395,7 +395,7 @@ export const blogPosts: BlogPost[] = [
     date: 'April 18, 2025',
     readingTime: 6,
     excerpt: 'Beyond excessive worry: recognizing the less-discussed physical symptoms of perinatal anxiety disorders that are frequently overlooked by healthcare providers...',
-    image: '/images/biff01_imagine_new_mother_holding_baby_peaceful_nursery_soft__398f4fdc-0cf7-49c6-9999-2bad6ee68990_0.png',
+    image: '/images/optimized/biff01_imagine_new_mother_holding_baby_peaceful_nursery_soft__398f4fdc-0cf7-49c6-9999-2bad6ee68990_0.webp',
     slug: 'hidden-perinatal-anxiety',
     content: `
       <h2>Beyond Excessive Worry: The Hidden Symptoms of Perinatal Anxiety</h2>
@@ -510,19 +510,19 @@ export const blogPosts: BlogPost[] = [
       {
         title: 'The Connection Between Sleep Deprivation and Postpartum Anxiety',
         slug: 'sleep-postpartum-anxiety',
-        image: '/images/biff01_imagine_new_mother_holding_baby_peaceful_nursery_soft__88b8f795-1dd3-43df-890e-8511aed40d43_2.png',
+        image: '/images/optimized/biff01_imagine_new_mother_holding_baby_peaceful_nursery_soft__88b8f795-1dd3-43df-890e-8511aed40d43_2.webp',
         date: 'May 2, 2025'
       },
       {
         title: 'Postpartum Anxiety Support',
         slug: 'postpartum-anxiety-support',
-        image: '/images/biff01_imagine_parent_and_child_connection_playful_interactio_b5f4a5f6-bb82-40c5-b2c8-2afa9175b6d4_0.png',
+        image: '/images/optimized/biff01_imagine_parent_and_child_connection_playful_interactio_b5f4a5f6-bb82-40c5-b2c8-2afa9175b6d4_0.webp',
         date: 'Current'
       },
       {
         title: 'Managing Anxiety in Uncertain Times',
         slug: 'managing-anxiety',
-        image: '/images/biff01_imagine_woman_in_meditation_pose_serene_environment_br_1f66e17b-a951-4d9f-b895-127fabc89208_3.png',
+        image: '/images/optimized/biff01_imagine_woman_in_meditation_pose_serene_environment_br_1f66e17b-a951-4d9f-b895-127fabc89208_3.webp',
         date: 'March 7, 2025'
       }
     ]
@@ -533,7 +533,7 @@ export const blogPosts: BlogPost[] = [
     date: 'April 11, 2025',
     readingTime: 8,
     excerpt: 'Cultural factors significantly impact how women experience and seek help for maternal mental health issues. Recent research highlights the importance of culturally-sensitive approaches...',
-    image: '/images/biff01_imagine_new_mother_holding_baby_peaceful_nursery_soft__50517b23-5b36-4135-b2d1-db7a7c23ff79_1.png',
+    image: '/images/optimized/biff01_imagine_new_mother_holding_baby_peaceful_nursery_soft__50517b23-5b36-4135-b2d1-db7a7c23ff79_1.webp',
     slug: 'diverse-maternal-mental-health',
     content: `
       <h2>Cultural Perspectives on Maternal Mental Health</h2>
@@ -671,19 +671,19 @@ export const blogPosts: BlogPost[] = [
       {
         title: 'Understanding the Maternal Mental Health Crisis',
         slug: 'maternal-mental-health-crisis',
-        image: '/images/biff01_imagine_Latina_mother_playing_peek-a-boo_with_laughing_9f91dae6-b308-42f4-935f-8c0bb0a6d485_0.png',
+        image: '/images/optimized/biff01_imagine_Latina_mother_playing_peek-a-boo_with_laughing_9f91dae6-b308-42f4-935f-8c0bb0a6d485_0.webp',
         date: 'May 9, 2025'
       },
       {
         title: 'Supporting Partners of Women with Postpartum Depression',
         slug: 'supporting-partners-ppd',
-        image: '/images/biff01_imagine_new_mother_holding_baby_peaceful_nursery_soft__fe9419f0-6fe7-4ed9-9888-c062989a9600_1.png',
+        image: '/images/optimized/biff01_imagine_new_mother_holding_baby_peaceful_nursery_soft__fe9419f0-6fe7-4ed9-9888-c062989a9600_1.webp',
         date: 'April 25, 2025'
       },
       {
         title: 'The Hidden Symptoms of Perinatal Anxiety Disorders',
         slug: 'hidden-perinatal-anxiety',
-        image: '/images/biff01_imagine_woman_walking_in_nature_path_trees_and_flowers_dc53f2ba-0c3a-4b5a-a758-62679e547b70_1.png',
+        image: '/images/optimized/biff01_imagine_woman_walking_in_nature_path_trees_and_flowers_dc53f2ba-0c3a-4b5a-a758-62679e547b70_1.webp',
         date: 'April 18, 2025'
       }
     ]
@@ -694,7 +694,7 @@ export const blogPosts: BlogPost[] = [
     date: 'April 4, 2025',
     readingTime: 7,
     excerpt: 'Evaluation of emerging digital tools designed to support women experiencing postpartum depression and anxiety, with insights on effectiveness and accessibility...',
-    image: '/images/biff01_imagine_new_mother_holding_baby_peaceful_nursery_soft__72d992a9-06a2-4aaa-b638-c60672b45c5f_3.png',
+    image: '/images/optimized/biff01_imagine_new_mother_holding_baby_peaceful_nursery_soft__72d992a9-06a2-4aaa-b638-c60672b45c5f_3.webp',
     slug: 'digital-maternal-mental-health',
     content: `
       <h2>The Digital Revolution in Maternal Mental Health Care</h2>
@@ -825,19 +825,19 @@ export const blogPosts: BlogPost[] = [
       {
         title: 'The Hidden Symptoms of Perinatal Anxiety Disorders',
         slug: 'hidden-perinatal-anxiety',
-        image: '/images/biff01_imagine_parent_and_child_connection_playful_interactio_b5f4a5f6-bb82-40c5-b2c8-2afa9175b6d4_3.png',
+        image: '/images/optimized/biff01_imagine_parent_and_child_connection_playful_interactio_b5f4a5f6-bb82-40c5-b2c8-2afa9175b6d4_3.webp',
         date: 'April 18, 2025'
       },
       {
         title: 'The Connection Between Sleep Deprivation and Postpartum Anxiety',
         slug: 'sleep-postpartum-anxiety',
-        image: '/images/biff01_imagine_cozy_therapy_office_comfortable_armchair_warm__da0354fc-70ec-4bb0-90f7-96e8eb17f2e7_1.png',
+        image: '/images/optimized/biff01_imagine_cozy_therapy_office_comfortable_armchair_warm__da0354fc-70ec-4bb0-90f7-96e8eb17f2e7_1.webp',
         date: 'May 2, 2025'
       },
       {
         title: 'New Research on Postpartum Depression Treatment Options',
         slug: 'postpartum-depression-treatments',
-        image: '/images/biff01_imagine_two_mothers_with_their_baby_rainbow_subtle_ele_a05a6c20-728d-4ccc-93f4-400a990a192e_1.png',
+        image: '/images/optimized/biff01_imagine_two_mothers_with_their_baby_rainbow_subtle_ele_a05a6c20-728d-4ccc-93f4-400a990a192e_1.webp',
         date: 'May 12, 2025'
       }
     ]
@@ -848,7 +848,7 @@ export const blogPosts: BlogPost[] = [
     date: 'March 28, 2025',
     readingTime: 8,
     excerpt: 'Understanding the complex relationship between hormonal changes and anxiety throughout different life stages, with evidence-based strategies for managing symptoms naturally...',
-    image: '/images/biff01_imagine_two_mothers_with_their_baby_rainbow_subtle_ele_a05a6c20-728d-4ccc-93f4-400a990a192e_2.png',
+    image: '/images/optimized/biff01_imagine_two_mothers_with_their_baby_rainbow_subtle_ele_a05a6c20-728d-4ccc-93f4-400a990a192e_2.webp',
     slug: 'hormones-anxiety-women',
     content: `
       <h2>The Intricate Dance: How Hormones Influence Women's Anxiety</h2>
@@ -1036,19 +1036,19 @@ export const blogPosts: BlogPost[] = [
       {
         title: 'Managing Anxiety in Uncertain Times',
         slug: 'managing-anxiety',
-        image: '/images/biff01_imagine_warm_modern_therapy_office_two_women_in_conver_1b19f253-c5eb-4b43-b05c-cabfbbf7c66b_3.png',
+        image: '/images/optimized/biff01_imagine_warm_modern_therapy_office_two_women_in_conver_1b19f253-c5eb-4b43-b05c-cabfbbf7c66b_3.webp',
         date: 'March 7, 2025'
       },
       {
         title: 'The Hidden Symptoms of Perinatal Anxiety Disorders',
         slug: 'hidden-perinatal-anxiety',
-        image: '/images/biff01_imagine_cozy_therapy_office_comfortable_armchair_warm__da0354fc-70ec-4bb0-90f7-96e8eb17f2e7_1.png',
+        image: '/images/optimized/biff01_imagine_cozy_therapy_office_comfortable_armchair_warm__da0354fc-70ec-4bb0-90f7-96e8eb17f2e7_1.webp',
         date: 'April 18, 2025'
       },
       {
         title: 'The Connection Between Sleep Deprivation and Postpartum Anxiety',
         slug: 'sleep-postpartum-anxiety',
-        image: '/images/biff01_imagine_woman_in_meditation_pose_serene_environment_br_1f66e17b-a951-4d9f-b895-127fabc89208_1.png',
+        image: '/images/optimized/biff01_imagine_woman_in_meditation_pose_serene_environment_br_1f66e17b-a951-4d9f-b895-127fabc89208_1.webp',
         date: 'May 2, 2025'
       }
     ]
@@ -1059,7 +1059,7 @@ export const blogPosts: BlogPost[] = [
     date: 'March 21, 2025',
     readingTime: 9,
     excerpt: 'Evidence-based strategies for preventing postpartum depression before it starts, including risk assessment, early intervention techniques, and creating a supportive environment...',
-    image: '/images/biff01_imagine_new_mother_holding_baby_peaceful_nursery_soft__7deac91b-3809-41a0-bb6f-16208062f916_3.png',
+    image: '/images/optimized/biff01_imagine_new_mother_holding_baby_peaceful_nursery_soft__7deac91b-3809-41a0-bb6f-16208062f916_3.webp',
     slug: 'preventing-postpartum-depression',
     content: `
       <h2>Proactive Prevention: Strategies to Reduce Postpartum Depression Risk</h2>
@@ -1300,19 +1300,19 @@ export const blogPosts: BlogPost[] = [
       {
         title: 'New Research on Postpartum Depression Treatment Options',
         slug: 'postpartum-depression-treatments',
-        image: '/images/biff01_imagine_woman_in_meditation_pose_serene_environment_br_43b6047c-916a-43b2-afc2-5449ec040f7c_1.png',
+        image: '/images/optimized/biff01_imagine_woman_in_meditation_pose_serene_environment_br_43b6047c-916a-43b2-afc2-5449ec040f7c_1.webp',
         date: 'May 12, 2025'
       },
       {
         title: 'Supporting New Mothers Through Postpartum Challenges',
         slug: 'supporting-new-mothers',
-        image: '/images/biff01_imagine_woman_on_laptop_in_cozy_home_setting_having_vi_65b5942f-d2fb-4103-84e6-722269d37e3b_0.png',
+        image: '/images/optimized/biff01_imagine_woman_on_laptop_in_cozy_home_setting_having_vi_65b5942f-d2fb-4103-84e6-722269d37e3b_0.webp',
         date: 'January 31, 2025'
       },
       {
         title: 'The Connection Between Sleep Deprivation and Postpartum Anxiety',
         slug: 'sleep-postpartum-anxiety',
-        image: '/images/biff01_imagine_woman_on_laptop_in_cozy_home_setting_having_vi_65b5942f-d2fb-4103-84e6-722269d37e3b_2.png',
+        image: '/images/optimized/biff01_imagine_woman_on_laptop_in_cozy_home_setting_having_vi_65b5942f-d2fb-4103-84e6-722269d37e3b_2.webp',
         date: 'May 2, 2025'
       }
     ]
@@ -1323,7 +1323,7 @@ export const blogPosts: BlogPost[] = [
     date: 'March 14, 2025',
     readingTime: 6,
     excerpt: 'Exploring the often-hidden symptom of postpartum rage, its causes, impact on relationships, and effective strategies for managing intense anger after childbirth...',
-    image: '/images/biff01_imagine_parent_and_child_connection_playful_interactio_052891a2-ca43-43be-b8ef-bc2b96e01f05_1.png',
+    image: '/images/optimized/biff01_imagine_parent_and_child_connection_playful_interactio_052891a2-ca43-43be-b8ef-bc2b96e01f05_1.webp',
     slug: 'postpartum-rage',
     content: `
       <h2>Understanding Postpartum Rage: When Anger Takes Over</h2>
@@ -1396,19 +1396,19 @@ export const blogPosts: BlogPost[] = [
       {
         title: 'Understanding the Maternal Mental Health Crisis',
         slug: 'maternal-mental-health-crisis',
-        image: '/images/biff01_imagine_woman_writing_in_journal_therapy_workbook_peac_7f6a2636-e20e-44c3-9edf-8de89e48ffc7_0.png',
+        image: '/images/optimized/biff01_imagine_woman_writing_in_journal_therapy_workbook_peac_7f6a2636-e20e-44c3-9edf-8de89e48ffc7_0.webp',
         date: 'May 9, 2025'
       },
       {
         title: 'The Hidden Symptoms of Perinatal Anxiety Disorders',
         slug: 'hidden-perinatal-anxiety',
-        image: '/images/biff01_imagine_new_mother_holding_baby_peaceful_nursery_soft__1c12cc3c-cebd-47e2-ad9b-66b9bbca6480_2.png',
+        image: '/images/optimized/biff01_imagine_new_mother_holding_baby_peaceful_nursery_soft__1c12cc3c-cebd-47e2-ad9b-66b9bbca6480_2.webp',
         date: 'April 18, 2025'
       },
       {
         title: 'Supporting Partners of Women with Postpartum Depression',
         slug: 'supporting-partners-ppd',
-        image: '/images/biff01_imagine_young_mother_studying_while_baby_sleeps_textbo_dd1e3c54-b3dc-4365-91df-eb056f7834db_0.png',
+        image: '/images/optimized/biff01_imagine_young_mother_studying_while_baby_sleeps_textbo_dd1e3c54-b3dc-4365-91df-eb056f7834db_0.webp',
         date: 'April 25, 2025'
       }
     ]
@@ -1419,7 +1419,7 @@ export const blogPosts: BlogPost[] = [
     date: 'March 7, 2025',
     readingTime: 7,
     excerpt: 'Practical strategies for coping with anxiety during periods of uncertainty, including mindfulness techniques, cognitive strategies, and building resilience...',
-    image: '/images/biff01_imagine_new_mother_holding_baby_peaceful_nursery_soft__ca82a7b6-001d-4c7b-b403-35ee7f2d1300_2.png',
+    image: '/images/optimized/biff01_imagine_new_mother_holding_baby_peaceful_nursery_soft__ca82a7b6-001d-4c7b-b403-35ee7f2d1300_2.webp',
     slug: 'managing-anxiety',
     content: `
       <h2>Navigating Anxiety When the Future Feels Uncertain</h2>
@@ -1480,19 +1480,19 @@ export const blogPosts: BlogPost[] = [
       {
         title: 'Hormonal Fluctuations and Anxiety: What Women Need to Know',
         slug: 'hormones-anxiety-women',
-        image: '/images/biff01_imagine_calming_therapy_office_waiting_room_comfortabl_c7ddc6f2-21ca-462c-9f36-f7e006d516f8_0.png',
+        image: '/images/optimized/biff01_imagine_calming_therapy_office_waiting_room_comfortabl_c7ddc6f2-21ca-462c-9f36-f7e006d516f8_0.webp',
         date: 'March 28, 2025'
       },
       {
         title: 'The Hidden Symptoms of Perinatal Anxiety Disorders',
         slug: 'hidden-perinatal-anxiety',
-        image: '/images/biff01_imagine_confident_single_mother_holding_baby_standing__b3179601-8cbf-4af3-9b29-bedcbc4946a3_0.png',
+        image: '/images/optimized/biff01_imagine_confident_single_mother_holding_baby_standing__b3179601-8cbf-4af3-9b29-bedcbc4946a3_0.webp',
         date: 'April 18, 2025'
       },
       {
         title: 'The Connection Between Sleep Deprivation and Postpartum Anxiety',
         slug: 'sleep-postpartum-anxiety',
-        image: '/images/biff01_imagine_confident_single_mother_holding_baby_standing__b3179601-8cbf-4af3-9b29-bedcbc4946a3_3.png',
+        image: '/images/optimized/biff01_imagine_confident_single_mother_holding_baby_standing__b3179601-8cbf-4af3-9b29-bedcbc4946a3_3.webp',
         date: 'May 2, 2025'
       }
     ]
@@ -1503,7 +1503,7 @@ export const blogPosts: BlogPost[] = [
     date: 'February 28, 2025',
     readingTime: 6,
     excerpt: 'Expert guidance on fostering strong bonds with your children through different developmental stages, including communication strategies and attachment principles...',
-    image: '/images/biff01_imagine_confident_single_mother_holding_baby_standing__b3179601-8cbf-4af3-9b29-bedcbc4946a3_0.png',
+    image: '/images/optimized/biff01_imagine_confident_single_mother_holding_baby_standing__b3179601-8cbf-4af3-9b29-bedcbc4946a3_0.webp',
     slug: 'parent-child-relationships',
     content: `
       <h2>Foundations of Strong Parent-Child Relationships</h2>
@@ -1573,19 +1573,19 @@ export const blogPosts: BlogPost[] = [
       {
         title: 'Supporting Partners of Women with Postpartum Depression',
         slug: 'supporting-partners-ppd',
-        image: '/images/biff01_imagine_cozy_therapy_office_comfortable_armchair_warm__94d6aae4-5275-4cd2-82da-84152a031c82_0.png',
+        image: '/images/optimized/biff01_imagine_cozy_therapy_office_comfortable_armchair_warm__94d6aae4-5275-4cd2-82da-84152a031c82_0.webp',
         date: 'April 25, 2025'
       },
       {
         title: 'Self-Care Practices for Busy Parents',
         slug: 'self-care-for-parents',
-        image: '/images/biff01_imagine_cozy_therapy_office_comfortable_armchair_warm__b76c10ee-01e1-4a2a-8894-42d53f2a1be5_2.png',
+        image: '/images/optimized/biff01_imagine_cozy_therapy_office_comfortable_armchair_warm__b76c10ee-01e1-4a2a-8894-42d53f2a1be5_2.webp',
         date: 'February 21, 2025'
       },
       {
         title: 'Supporting New Mothers Through Postpartum Challenges',
         slug: 'supporting-new-mothers',
-        image: '/images/biff01_imagine_cozy_therapy_office_comfortable_armchair_warm__da0354fc-70ec-4bb0-90f7-96e8eb17f2e7_0.png',
+        image: '/images/optimized/biff01_imagine_cozy_therapy_office_comfortable_armchair_warm__da0354fc-70ec-4bb0-90f7-96e8eb17f2e7_0.webp',
         date: 'January 31, 2025'
       }
     ]
@@ -1596,7 +1596,7 @@ export const blogPosts: BlogPost[] = [
     date: 'February 21, 2025',
     readingTime: 6,
     excerpt: 'Realistic self-care strategies for parents juggling multiple responsibilities, including micro-practices, boundary setting, and guilt-free approaches to personal wellbeing...',
-    image: '/images/biff01_imagine_woman_doing_morning_skincare_routine_bathroom__ee80f468-185d-4a1e-bc41-4400f6cec9b8_0.png',
+    image: '/images/optimized/biff01_imagine_woman_doing_morning_skincare_routine_bathroom__ee80f468-185d-4a1e-bc41-4400f6cec9b8_0.webp',
     slug: 'self-care-for-parents',
     content: `
       <h2>Redefining Self-Care for Real Parents in Real Life</h2>
@@ -1674,19 +1674,19 @@ export const blogPosts: BlogPost[] = [
       {
         title: 'Building Healthy Parent-Child Relationships',
         slug: 'parent-child-relationships',
-        image: '/images/biff01_imagine_exhausted_but_loving_mother_with_twins_double__b2ac5580-9b28-4752-a4b3-c61a524b828d_2.png',
+        image: '/images/optimized/biff01_imagine_exhausted_but_loving_mother_with_twins_double__b2ac5580-9b28-4752-a4b3-c61a524b828d_2.webp',
         date: 'February 28, 2025'
       },
       {
         title: 'The Connection Between Sleep Deprivation and Postpartum Anxiety',
         slug: 'sleep-postpartum-anxiety',
-        image: '/images/biff01_imagine_mixed-race_parents_with_newborn_tender_family__1caa7f06-30ca-47c7-a1cd-038dc0cea487_1.png',
+        image: '/images/optimized/biff01_imagine_mixed-race_parents_with_newborn_tender_family__1caa7f06-30ca-47c7-a1cd-038dc0cea487_1.webp',
         date: 'May 2, 2025'
       },
       {
         title: 'Supporting New Mothers Through Postpartum Challenges',
         slug: 'supporting-new-mothers',
-        image: '/images/biff01_imagine_mixed-race_parents_with_newborn_tender_family__1caa7f06-30ca-47c7-a1cd-038dc0cea487_3.png',
+        image: '/images/optimized/biff01_imagine_mixed-race_parents_with_newborn_tender_family__1caa7f06-30ca-47c7-a1cd-038dc0cea487_3.webp',
         date: 'January 31, 2025'
       }
     ]
@@ -1697,7 +1697,7 @@ export const blogPosts: BlogPost[] = [
     date: 'February 14, 2025',
     readingTime: 7,
     excerpt: 'Demystifying the therapy process for first-time clients, including what happens in sessions, different therapy types, and how to make the most of your therapeutic journey...',
-    image: '/images/biff01_imagine_cozy_therapy_office_comfortable_armchair_warm__87ea8e1d-e48f-4436-a390-728d4d6d8640_3.png',
+    image: '/images/optimized/biff01_imagine_cozy_therapy_office_comfortable_armchair_warm__87ea8e1d-e48f-4436-a390-728d4d6d8640_3.webp',
     slug: 'understanding-therapy',
     content: `
       <h2>Your Guide to Beginning Therapy: Demystifying the Process</h2>
@@ -1983,19 +1983,19 @@ export const blogPosts: BlogPost[] = [
       {
         title: 'Managing Anxiety in Uncertain Times',
         slug: 'managing-anxiety',
-        image: '/images/biff01_imagine_new_mother_holding_baby_peaceful_nursery_soft__1142a756-4014-4606-aced-81dd4005e812_0.png',
+        image: '/images/optimized/biff01_imagine_new_mother_holding_baby_peaceful_nursery_soft__1142a756-4014-4606-aced-81dd4005e812_0.webp',
         date: 'March 7, 2025'
       },
       {
         title: 'Supporting New Mothers Through Postpartum Challenges',
         slug: 'supporting-new-mothers',
-        image: '/images/biff01_imagine_new_mother_holding_baby_peaceful_nursery_soft__1c12cc3c-cebd-47e2-ad9b-66b9bbca6480_0.png',
+        image: '/images/optimized/biff01_imagine_new_mother_holding_baby_peaceful_nursery_soft__1c12cc3c-cebd-47e2-ad9b-66b9bbca6480_0.webp',
         date: 'January 31, 2025'
       },
       {
         title: 'Navigating Major Life Transitions',
         slug: 'navigating-transitions',
-        image: '/images/biff01_imagine_woman_writing_in_journal_therapy_workbook_peac_7f6a2636-e20e-44c3-9edf-8de89e48ffc7_2.png',
+        image: '/images/optimized/biff01_imagine_woman_writing_in_journal_therapy_workbook_peac_7f6a2636-e20e-44c3-9edf-8de89e48ffc7_2.webp',
         date: 'February 7, 2025'
       }
     ]
@@ -2006,7 +2006,7 @@ export const blogPosts: BlogPost[] = [
     date: 'February 7, 2025',
     readingTime: 5,
     excerpt: 'When it feels like your entire life is changing at once, here\'s how to navigate the chaos with grace (and sanity intact)...',
-    image: '/images/biff01_imagine_cozy_therapy_office_comfortable_armchair_warm__94d6aae4-5275-4cd2-82da-84152a031c82_0.png',
+    image: '/images/optimized/biff01_imagine_cozy_therapy_office_comfortable_armchair_warm__94d6aae4-5275-4cd2-82da-84152a031c82_0.webp',
     slug: 'navigating-transitions',
     content: `
       <p>Last week, three different clients said the same thing: "I feel like I'm falling apart."</p>
@@ -2087,19 +2087,19 @@ export const blogPosts: BlogPost[] = [
       {
         title: 'Supporting New Mothers Through Postpartum Challenges',
         slug: 'supporting-new-mothers',
-        image: '/images/biff01_imagine_new_mother_holding_baby_peaceful_nursery_soft__50517b23-5b36-4135-b2d1-db7a7c23ff79_1.png',
+        image: '/images/optimized/biff01_imagine_new_mother_holding_baby_peaceful_nursery_soft__50517b23-5b36-4135-b2d1-db7a7c23ff79_1.webp',
         date: 'January 31, 2025'
       },
       {
         title: 'Managing Anxiety in Uncertain Times',
         slug: 'managing-anxiety',
-        image: '/images/biff01_imagine_new_mother_holding_baby_peaceful_nursery_soft__72d992a9-06a2-4aaa-b638-c60672b45c5f_3.png',
+        image: '/images/optimized/biff01_imagine_new_mother_holding_baby_peaceful_nursery_soft__72d992a9-06a2-4aaa-b638-c60672b45c5f_3.webp',
         date: 'March 7, 2025'
       },
       {
         title: 'Self-Care Practices for Busy Parents',
         slug: 'self-care-for-parents',
-        image: '/images/biff01_imagine_new_mother_holding_baby_peaceful_nursery_soft__7deac91b-3809-41a0-bb6f-16208062f916_3.png',
+        image: '/images/optimized/biff01_imagine_new_mother_holding_baby_peaceful_nursery_soft__7deac91b-3809-41a0-bb6f-16208062f916_3.webp',
         date: 'February 21, 2025'
       }
     ]
@@ -2110,7 +2110,7 @@ export const blogPosts: BlogPost[] = [
     date: 'January 31, 2025',
     readingTime: 6,
     excerpt: 'Navigating the challenging early days of motherhood can be overwhelming. Here are evidence-based strategies to support mental wellbeing during postpartum...',
-    image: '/images/biff01_imagine_new_mother_holding_baby_peaceful_nursery_soft__88b8f795-1dd3-43df-890e-8511aed40d43_2.png',
+    image: '/images/optimized/biff01_imagine_new_mother_holding_baby_peaceful_nursery_soft__88b8f795-1dd3-43df-890e-8511aed40d43_2.webp',
     slug: 'supporting-new-mothers',
     content: `
         <li>Sadness for what's ending</li>
@@ -2323,19 +2323,19 @@ export const blogPosts: BlogPost[] = [
       {
         title: 'Managing Anxiety in Uncertain Times',
         slug: 'managing-anxiety',
-        image: '/images/biff01_imagine_new_mother_holding_baby_peaceful_nursery_soft__ca82a7b6-001d-4c7b-b403-35ee7f2d1300_2.png',
+        image: '/images/optimized/biff01_imagine_new_mother_holding_baby_peaceful_nursery_soft__ca82a7b6-001d-4c7b-b403-35ee7f2d1300_2.webp',
         date: 'March 7, 2025'
       },
       {
         title: 'Understanding Therapy: What to Expect',
         slug: 'understanding-therapy',
-        image: '/images/biff01_imagine_new_mother_holding_baby_peaceful_nursery_soft__fe9419f0-6fe7-4ed9-9888-c062989a9600_1.png',
+        image: '/images/optimized/biff01_imagine_new_mother_holding_baby_peaceful_nursery_soft__fe9419f0-6fe7-4ed9-9888-c062989a9600_1.webp',
         date: 'February 14, 2025'
       },
       {
         title: 'Self-Care Practices for Busy Parents',
         slug: 'self-care-for-parents',
-        image: '/images/biff01_imagine_parent_and_child_connection_playful_interactio_052891a2-ca43-43be-b8ef-bc2b96e01f05_1.png',
+        image: '/images/optimized/biff01_imagine_parent_and_child_connection_playful_interactio_052891a2-ca43-43be-b8ef-bc2b96e01f05_1.webp',
         date: 'February 21, 2025'
       }
     ]
@@ -2346,7 +2346,7 @@ export const blogPosts: BlogPost[] = [
     date: 'January 31, 2025',
     readingTime: 8,
     excerpt: 'Comprehensive guide for families and friends on how to provide meaningful support to new mothers, including practical help, emotional support, and recognizing warning signs...',
-    image: '/images/biff01_imagine_parent_and_child_connection_playful_interactio_b5f4a5f6-bb82-40c5-b2c8-2afa9175b6d4_0.png',
+    image: '/images/optimized/biff01_imagine_parent_and_child_connection_playful_interactio_b5f4a5f6-bb82-40c5-b2c8-2afa9175b6d4_0.webp',
     slug: 'supporting-new-mothers',
     content: `
       <h2>How to Really Support New Mothers: A Guide for Families and Friends</h2>
@@ -2646,19 +2646,19 @@ export const blogPosts: BlogPost[] = [
       {
         title: 'Preventative Approaches to Postpartum Depression',
         slug: 'preventing-postpartum-depression',
-        image: '/images/biff01_imagine_parent_and_child_connection_playful_interactio_b5f4a5f6-bb82-40c5-b2c8-2afa9175b6d4_3.png',
+        image: '/images/optimized/biff01_imagine_parent_and_child_connection_playful_interactio_b5f4a5f6-bb82-40c5-b2c8-2afa9175b6d4_3.webp',
         date: 'March 21, 2025'
       },
       {
         title: 'The Connection Between Sleep Deprivation and Postpartum Anxiety',
         slug: 'sleep-postpartum-anxiety',
-        image: '/images/biff01_imagine_supportive_womens_group_therapy_session_circle_41bd705b-5dd8-4957-a199-b2fa0530b46f_3.png',
+        image: '/images/optimized/biff01_imagine_supportive_womens_group_therapy_session_circle_41bd705b-5dd8-4957-a199-b2fa0530b46f_3.webp',
         date: 'May 2, 2025'
       },
       {
         title: 'Self-Care Practices for Busy Parents',
         slug: 'self-care-for-parents',
-        image: '/images/biff01_imagine_two_mothers_with_their_baby_rainbow_subtle_ele_a05a6c20-728d-4ccc-93f4-400a990a192e_1.png',
+        image: '/images/optimized/biff01_imagine_two_mothers_with_their_baby_rainbow_subtle_ele_a05a6c20-728d-4ccc-93f4-400a990a192e_1.webp',
         date: 'February 21, 2025'
       }
     ]
@@ -2669,7 +2669,7 @@ export const blogPosts: BlogPost[] = [
     date: 'May 19, 2025',
     readingTime: 6,
     excerpt: 'Discover how capturing and savoring small moments of joy can transform your experience of early motherhood, even during the most challenging days...',
-    image: '/images/biff01_imagine_two_mothers_with_their_baby_rainbow_subtle_ele_a05a6c20-728d-4ccc-93f4-400a990a192e_2.png',
+    image: '/images/optimized/biff01_imagine_two_mothers_with_their_baby_rainbow_subtle_ele_a05a6c20-728d-4ccc-93f4-400a990a192e_2.webp',
     slug: 'micro-moments-motherhood-joy',
     content: `
       <h2>Finding Light in the Everyday: The Power of Micro-Moments</h2>
@@ -2765,19 +2765,19 @@ export const blogPosts: BlogPost[] = [
       {
         title: 'Self-Care Practices for Busy Parents',
         slug: 'self-care-for-parents',
-        image: '/images/biff01_imagine_warm_modern_therapy_office_two_women_in_conver_1b19f253-c5eb-4b43-b05c-cabfbbf7c66b_3.png',
+        image: '/images/optimized/biff01_imagine_warm_modern_therapy_office_two_women_in_conver_1b19f253-c5eb-4b43-b05c-cabfbbf7c66b_3.webp',
         date: 'February 21, 2025'
       },
       {
         title: 'Building Mental Resilience in Motherhood',
         slug: 'maternal-resilience',
-        image: '/images/biff01_imagine_woman_doing_morning_skincare_routine_bathroom__ee80f468-185d-4a1e-bc41-4400f6cec9b8_0.png',
+        image: '/images/optimized/biff01_imagine_woman_doing_morning_skincare_routine_bathroom__ee80f468-185d-4a1e-bc41-4400f6cec9b8_0.webp',
         date: 'April 5, 2025'
       },
       {
         title: 'The Hidden Symptoms of Perinatal Anxiety Disorders',
         slug: 'hidden-perinatal-anxiety',
-        image: '/images/biff01_imagine_woman_in_meditation_pose_serene_environment_br_1f66e17b-a951-4d9f-b895-127fabc89208_1.png',
+        image: '/images/optimized/biff01_imagine_woman_in_meditation_pose_serene_environment_br_1f66e17b-a951-4d9f-b895-127fabc89208_1.webp',
         date: 'April 28, 2025'
       }
     ]
@@ -2788,7 +2788,7 @@ export const blogPosts: BlogPost[] = [
     date: 'May 26, 2025',
     readingTime: 8,
     excerpt: 'Returning to work after maternity leave can trigger a complex mix of emotions. Learn evidence-based strategies for managing this transition while protecting your mental health...',
-    image: '/images/biff01_imagine_woman_in_meditation_pose_serene_environment_br_1f66e17b-a951-4d9f-b895-127fabc89208_3.png',
+    image: '/images/optimized/biff01_imagine_woman_in_meditation_pose_serene_environment_br_1f66e17b-a951-4d9f-b895-127fabc89208_3.webp',
     slug: 'return-to-work-after-baby',
     content: `
       <h2>The Emotional Complexity of Returning to Work After Baby</h2>
@@ -2978,19 +2978,19 @@ export const blogPosts: BlogPost[] = [
       {
         title: 'Managing Mom Guilt: Evidence-Based Strategies',
         slug: 'managing-mom-guilt',
-        image: '/images/biff01_imagine_woman_in_meditation_pose_serene_environment_br_43b6047c-916a-43b2-afc2-5449ec040f7c_1.png',
+        image: '/images/optimized/biff01_imagine_woman_in_meditation_pose_serene_environment_br_43b6047c-916a-43b2-afc2-5449ec040f7c_1.webp',
         date: 'March 30, 2025'
       },
       {
         title: 'Building Mental Resilience in Motherhood',
         slug: 'maternal-resilience',
-        image: '/images/biff01_imagine_woman_on_laptop_in_cozy_home_setting_having_vi_65b5942f-d2fb-4103-84e6-722269d37e3b_0.png',
+        image: '/images/optimized/biff01_imagine_woman_on_laptop_in_cozy_home_setting_having_vi_65b5942f-d2fb-4103-84e6-722269d37e3b_0.webp',
         date: 'April 5, 2025'
       },
       {
         title: 'The Power of Micro-Moments: Finding Joy in Early Motherhood',
         slug: 'micro-moments-motherhood-joy',
-        image: '/images/biff01_imagine_woman_on_laptop_in_cozy_home_setting_having_vi_65b5942f-d2fb-4103-84e6-722269d37e3b_2.png',
+        image: '/images/optimized/biff01_imagine_woman_on_laptop_in_cozy_home_setting_having_vi_65b5942f-d2fb-4103-84e6-722269d37e3b_2.webp',
         date: 'May 19, 2025'
       }
     ]

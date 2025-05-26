@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
+import { analytics } from '@/lib/analytics';
 
 const ConsultLauncher = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -118,6 +119,7 @@ const ConsultLauncher = () => {
               <Link
                 href="/book"
                 className="btn-primary w-full block text-center"
+                onClick={() => analytics.trackBookingClick(window.location.pathname, 'consult_launcher')}
               >
                 Book Consultation
               </Link>

@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Button from './Button';
+import { analytics } from '@/lib/analytics';
 
 interface NewsletterSignupProps {
   variant?: 'banner' | 'inline' | 'modal' | 'footer';
@@ -49,6 +50,9 @@ const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
       setIsSuccess(true);
       setEmail('');
       setFirstName('');
+      
+      // Track newsletter signup
+      analytics.trackNewsletterSignup(window.location.pathname);
       
       // Fire analytics event
       if (typeof window !== 'undefined' && window.gtag) {

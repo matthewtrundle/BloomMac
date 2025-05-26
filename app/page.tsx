@@ -45,8 +45,8 @@ export default function Home() {
   // Service panel refs stored in an array
   const servicePanelRefs = useRef<Array<HTMLDivElement | null>>([]);
   
-  // Use the specified hero image
-  const heroImage = '/images/Hero/herooptimzed.png';
+  // Use the optimized hero image
+  const heroImage = '/images/Hero-optimized/herooptimzed.webp';
   
   // Use parallax effect for hero with more subtle movement
   const parallaxOffset = useParallaxHero({ speedFactor: 0.3, maxOffset: 150 });

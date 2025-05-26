@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { Resend } from 'resend';
+import { welcomeEmailTemplate } from '@/lib/email-templates/welcome';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -129,92 +130,14 @@ export default async function handler(
 }
 
 const sendWelcomeEmail = async (subscriber: NewsletterSubscriber) => {
-  const welcomeHtml = `
-    <!DOCTYPE html>
-    <html>
-    <head>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Welcome to Bloom Psychology Newsletter</title>
-    </head>
-    <body style="margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333;">
-      <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff;">
-        <!-- Header -->
-        <div style="background: linear-gradient(135deg, #6B21A8 0%, #A855F7 100%); padding: 40px 20px; text-align: center;">
-          <img src="https://bloompsychologynorthaustin.com/images/Logo/logo.jpg" alt="Bloom Psychology" style="max-width: 150px; height: auto; margin-bottom: 20px; background: white; padding: 10px; border-radius: 8px;">
-          <h1 style="color: white; margin: 0; font-size: 24px; font-weight: 600;">Welcome to Our Newsletter!</h1>
-          <p style="color: #E9D5FF; margin: 10px 0 0 0; font-size: 16px;">Weekly insights for mental wellness</p>
-        </div>
-
-        <!-- Main Content -->
-        <div style="padding: 40px 30px;">
-          <h2 style="color: #6B21A8; margin-bottom: 20px; font-size: 20px;">
-            ${subscriber.firstName ? `Hi ${subscriber.firstName}` : 'Hello'},
-          </h2>
-          
-          <p style="margin-bottom: 20px; font-size: 16px; color: #4B5563;">
-            Thank you for joining our mental health community! You're now subscribed to receive weekly insights, tips, and resources to support your wellness journey.
-          </p>
-
-          <div style="background-color: #F3F4F6; padding: 25px; border-radius: 8px; margin: 25px 0;">
-            <h3 style="color: #6B21A8; margin-top: 0; font-size: 18px;">What to expect:</h3>
-            <ul style="margin: 15px 0; padding-left: 20px; color: #4B5563;">
-              <li style="margin-bottom: 8px;">Weekly blog posts on mental health topics</li>
-              <li style="margin-bottom: 8px;">Evidence-based wellness tips and strategies</li>
-              <li style="margin-bottom: 8px;">Resources for women, mothers, and parents</li>
-              <li style="margin-bottom: 8px;">Updates on our services and workshops</li>
-            </ul>
-          </div>
-
-          <div style="text-align: center; margin: 30px 0;">
-            <a href="https://bloompsychologynorthaustin.com/blog" 
-               style="display: inline-block; background-color: #A855F7; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: 500; font-size: 16px;">
-              Read Our Latest Blog Posts
-            </a>
-          </div>
-
-          <p style="margin-bottom: 20px; font-size: 16px; color: #4B5563;">
-            If you have any questions or topics you'd like us to cover, feel free to reply to this email. We love hearing from our community!
-          </p>
-
-          <p style="margin-bottom: 0; font-size: 16px; color: #4B5563;">
-            Warm regards,<br>
-            <strong style="color: #6B21A8;">Dr. Jana Rundle & The Bloom Psychology Team</strong>
-          </p>
-        </div>
-
-        <!-- Footer -->
-        <div style="background-color: #F9FAFB; padding: 30px; text-align: center; border-top: 1px solid #E5E7EB;">
-          <div style="margin-bottom: 20px;">
-            <p style="margin: 0; color: #6B7280; font-size: 14px;">
-              <strong>Bloom Psychology</strong><br>
-              13706 N Highway 183, Suite 114<br>
-              Austin, TX 78750<br>
-              (512) 898-9510
-            </p>
-          </div>
-          
-          <div style="margin-bottom: 20px;">
-            <a href="https://bloompsychologynorthaustin.com" style="color: #A855F7; text-decoration: none; margin: 0 10px;">Website</a>
-            <a href="https://bloompsychologynorthaustin.com/book" style="color: #A855F7; text-decoration: none; margin: 0 10px;">Book Consultation</a>
-            <a href="https://bloompsychologynorthaustin.com/contact" style="color: #A855F7; text-decoration: none; margin: 0 10px;">Contact</a>
-          </div>
-          
-          <p style="margin: 0; color: #9CA3AF; font-size: 12px;">
-            You're receiving this because you signed up for our newsletter. 
-            <a href="mailto:jana@bloompsychologynorthaustin.com?subject=Unsubscribe" style="color: #9CA3AF;">Unsubscribe</a>
-          </p>
-        </div>
-      </div>
-    </body>
-    </html>
-  `;
-
+  const { subject, html, text } = welcomeEmailTemplate(subscriber.firstName || '');
+  
   await resend.emails.send({
     from: 'Bloom Psychology <noreply@bloompsychologynorthaustin.com>',
     to: subscriber.email,
-    subject: 'Welcome to Bloom Psychology Newsletter 🌸',
-    html: welcomeHtml,
+    subject,
+    html,
+    text
   });
 };
 
