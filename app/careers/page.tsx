@@ -351,7 +351,7 @@ export default function CareersPage() {
               <div className="relative">
                 <div className="aspect-square rounded-2xl overflow-hidden bg-gradient-to-br from-bloom-blush/20 to-bloom-accent/20">
                   <Image
-                    src="/images/Team/Jana Rundle.jpg"
+                    src="/images/optimized/Team/Jana Rundle.webp"
                     alt="Bloom Psychology team culture"
                     fill
                     className="object-cover"

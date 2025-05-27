@@ -46,7 +46,7 @@ export default function Home() {
   const servicePanelRefs = useRef<Array<HTMLDivElement | null>>([]);
   
   // Use the optimized hero image
-  const heroImage = '/images/Hero-optimized/herooptimzed.webp';
+  const heroImage = '/images/optimized/Hero/herooptimzed.webp';
   
   // Use parallax effect for hero with more subtle movement
   const parallaxOffset = useParallaxHero({ speedFactor: 0.3, maxOffset: 150 });
@@ -152,8 +152,11 @@ export default function Home() {
               className="object-cover"
               style={{ objectPosition: '50% 20%' }}
               quality={85}
-              sizes="100vw"
+              sizes="(max-width: 640px) 100vw, (max-width: 1200px) 100vw, 100vw"
               priority
+              placeholder="blur"
+              blurDataURL="data:image/webp;base64,UklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoBAAEAAwA0JaQAA3AA/vuUAAA="
+              loading="eager"
             />
             <div className="absolute inset-0 bg-gradient-to-br from-pink-100/40 via-transparent to-white/40 pointer-events-none"></div>
           </div>
@@ -520,7 +523,7 @@ export default function Home() {
                   
                   <div className="relative">
                     <Image
-                      src="/images/Team/Jana Rundle.jpg"
+                      src="/images/optimized/Team/Jana Rundle.webp"
                       alt="Dr. Jana Rundle"
                       width={500}
                       height={600}

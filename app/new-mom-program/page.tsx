@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: '/images/Team/Jana Rundle.jpg',
+        url: '/images/optimized/Team/Jana Rundle.webp',
         width: 500,
         height: 600,
         alt: 'Dr. Jana Rundle - Bloom Psychology',

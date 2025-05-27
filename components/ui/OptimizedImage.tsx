@@ -14,20 +14,20 @@ interface OptimizedImageProps {
 
 // Map old image paths to optimized versions
 const imageMap: Record<string, string> = {
-  '/images/Hero/herooptimzed.png': '/images/Hero-optimized/herooptimzed.webp',
-  '/images/Hero/hero15.png': '/images/Hero-optimized/hero15.webp',
-  '/images/Team/Jana Rundle.jpg': '/images/Team-optimized/Jana Rundle.webp',
-  '/images/Home/new-mom.png': '/images/Home-optimized/new-mom.webp',
-  '/images/Home/Confident Women.png': '/images/Home-optimized/Confident Women.webp',
-  '/images/Home/Cozy Sunlit movie room.png': '/images/Home-optimized/Cozy Sunlit movie room.webp',
-  '/images/Services/AnxietyManagement1.png': '/images/Services-optimized/AnxietyManagement1.webp',
-  '/images/Services/AnxietyManagement2.png': '/images/Services-optimized/AnxietyManagement2.webp',
-  '/images/Services/New Mothers.png': '/images/Services-optimized/New Mothers.webp',
-  '/images/Services/Experienced Parents.png': '/images/Services-optimized/Experienced Parents.webp',
-  '/images/Services/Walking through fields.png': '/images/Services-optimized/Walking through fields.webp',
-  '/images/Services/Symbolic Shoes.png': '/images/Services-optimized/Symbolic Shoes.webp',
-  '/images/Services/Hopeful Hands.png': '/images/Services-optimized/Hopeful Hands.webp',
-  '/images/Services/Empty Armchair.png': '/images/Services-optimized/Empty Armchair.webp',
+  '/images/optimized/Hero/herooptimzed.webp': '/images/Hero-optimized/herooptimzed.webp',
+  '/images/optimized/Hero/hero15.webp': '/images/Hero-optimized/hero15.webp',
+  '/images/optimized/Team/Jana Rundle.webp': '/images/Team-optimized/Jana Rundle.webp',
+  '/images/optimized/Home/new-mom.webp': '/images/Home-optimized/new-mom.webp',
+  '/images/optimized/Home/Confident Women.webp': '/images/Home-optimized/Confident Women.webp',
+  '/images/optimized/Home/Cozy Sunlit movie room.webp': '/images/Home-optimized/Cozy Sunlit movie room.webp',
+  '/images/optimized/Services/AnxietyManagement1.webp': '/images/Services-optimized/AnxietyManagement1.webp',
+  '/images/optimized/Services/AnxietyManagement2.webp': '/images/Services-optimized/AnxietyManagement2.webp',
+  '/images/optimized/Services/New Mothers.webp': '/images/Services-optimized/New Mothers.webp',
+  '/images/optimized/Services/Experienced Parents.webp': '/images/Services-optimized/Experienced Parents.webp',
+  '/images/optimized/Services/Walking through fields.webp': '/images/Services-optimized/Walking through fields.webp',
+  '/images/optimized/Services/Symbolic Shoes.webp': '/images/Services-optimized/Symbolic Shoes.webp',
+  '/images/optimized/Services/Hopeful Hands.webp': '/images/Services-optimized/Hopeful Hands.webp',
+  '/images/optimized/Services/Empty Armchair.webp': '/images/Services-optimized/Empty Armchair.webp',
 };
 
 export default function OptimizedImage({

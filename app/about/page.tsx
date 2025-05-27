@@ -25,7 +25,7 @@ export default function AboutPage() {
       <section className="pt-20 pb-10 bg-white relative overflow-hidden">
         <div className="absolute inset-0 z-0 h-[50vh] overflow-hidden">
           <Image
-            src="/images/Hero/ABoutHero.png"
+            src="/images/optimized/Hero/ABoutHero.webp"
             alt="Bloom Psychology hero"
             fill
             className="object-cover"
@@ -128,7 +128,7 @@ export default function AboutPage() {
                 <div className="h-full w-full">
                   <div className="relative w-full aspect-[3/4] overflow-hidden shadow-md">
                     <Image 
-                      src="/images/Team/Jana Rundle.jpg" 
+                      src="/images/optimized/Team/Jana Rundle.webp" 
                       alt="Dr. Jana Rundle" 
                       fill
                       className="object-cover"

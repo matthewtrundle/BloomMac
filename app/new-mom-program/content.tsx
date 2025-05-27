@@ -446,7 +446,7 @@ export default function NewMomProgramContent() {
               <div className="relative">
                 <div className="aspect-square rounded-2xl overflow-hidden bg-gradient-to-br from-bloom-blush/20 to-bloom-accent/20">
                   <Image
-                    src="/images/Team/Jana Rundle.jpg"
+                    src="/images/optimized/Team/Jana Rundle.webp"
                     alt="Dr. Jana Rundle - Licensed Clinical Psychologist and Perinatal Mental Health Specialist"
                     fill
                     className="object-cover"

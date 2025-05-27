@@ -16,14 +16,16 @@ const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-inter',
-  preload: true
+  preload: true,
+  adjustFontFallback: true
 });
 
 const playfair = Playfair_Display({ 
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-playfair',
-  preload: true
+  preload: true,
+  adjustFontFallback: true
 });
 
 const poppins = Poppins({
@@ -31,7 +33,8 @@ const poppins = Poppins({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-poppins',
-  preload: true
+  preload: true,
+  adjustFontFallback: true
 });
 
 const raleway = Raleway({
@@ -39,7 +42,8 @@ const raleway = Raleway({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-raleway',
-  preload: true
+  preload: true,
+  adjustFontFallback: true
 });
 
 export const metadata: Metadata = {
@@ -80,7 +84,7 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://calendly.com" />
         
         {/* Preload critical resources */}
-        <link rel="preload" href="/images/Hero/herooptimzed.png" as="image" fetchPriority="high" />
+        <link rel="preload" href="/images/optimized/Hero/herooptimzed.webp" as="image" fetchPriority="high" />
         
         {/* Preconnect to external domains */}
         <link rel="preconnect" href="https://calendly.com" />

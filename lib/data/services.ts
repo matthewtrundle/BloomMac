@@ -36,7 +36,7 @@ export const services: Service[] = [
     title: 'Therapy for Women',
     description: 'Are you feeling the stress of "doing it all"? Whether you\'re a young adult finding yourself or a new mom navigating motherhood, Dr. Rundle helps you move from overwhelm to fulfillment and connection.',
     shortDescription: 'Custom therapy for women at all life stages, specializing in overwhelm, identity, and life transitions.',
-    heroImage: '/images/Home/Confident Women.png',
+    heroImage: '/images/optimized/Home/Confident Women.webp',
     howItWorks: {
       title: 'Your Path to Fulfillment',
       steps: [
@@ -111,8 +111,8 @@ export const services: Service[] = [
     title: 'Therapy for Moms',
     description: 'Comprehensive care for expecting, new, and seasoned moms—available in-home to reduce stress. If you suspect postpartum depression or anxiety, you\'re not alone; we bring support to you.',
     shortDescription: 'Specialized therapy for mothers at all stages, with flexible options including in-home sessions.',
-    heroImage: '/images/Home/new-mom.png',
-    secondaryImage: '/images/Services/New Mothers.png',
+    heroImage: '/images/optimized/Home/new-mom.webp',
+    secondaryImage: '/images/optimized/Services/New Mothers.webp',
     howItWorks: {
       title: 'Motherhood Support System',
       steps: [
@@ -187,8 +187,8 @@ export const services: Service[] = [
     title: 'Parent Support',
     description: 'Parenting is the hardest job you\'ll ever do. We help you pinpoint sticking points, align on values, and build a healthy family system that thrives at every stage.',
     shortDescription: 'Evidence-based guidance for parents navigating challenges from toddler tantrums to teen independence.',
-    heroImage: '/images/Services/Experienced Parents.png',
-    secondaryImage: '/images/Services/Walking through fields.png',
+    heroImage: '/images/optimized/Services/Experienced Parents.webp',
+    secondaryImage: '/images/optimized/Services/Walking through fields.webp',
     howItWorks: {
       title: 'Building Your Parenting Toolkit',
       steps: [
@@ -263,8 +263,8 @@ export const services: Service[] = [
     title: 'Anxiety &\nStress Management',
     description: 'Custom anxiety management using CBT, ERP, and somatic exercises to reduce stress, improve daily functioning, and restore balance.',
     shortDescription: 'Specialized treatment for anxiety, panic, and chronic stress using proven therapeutic approaches.',
-    heroImage: '/images/Services/AnxietyManagement1.png',
-    secondaryImage: '/images/Services/AnxietyManagement2.png',
+    heroImage: '/images/optimized/Services/AnxietyManagement1.webp',
+    secondaryImage: '/images/optimized/Services/AnxietyManagement2.webp',
     howItWorks: {
       title: 'Your Path to Calm',
       steps: [
@@ -339,8 +339,8 @@ export const services: Service[] = [
     title: 'Postpartum Depression\nSupport',
     description: 'Evidence-based support for moms navigating postpartum mood changes—combining talk therapy, guided mindfulness, and peer support groups.',
     shortDescription: 'Specialized treatment for postpartum depression, anxiety, and mood disorders with compassionate, judgment-free support.',
-    heroImage: '/images/Services/Symbolic Shoes.png',
-    secondaryImage: '/images/Services/Hopeful Hands.png',
+    heroImage: '/images/optimized/Services/Symbolic Shoes.webp',
+    secondaryImage: '/images/optimized/Services/Hopeful Hands.webp',
     howItWorks: {
       title: 'Your Path to Recovery',
       steps: [
@@ -415,8 +415,8 @@ export const services: Service[] = [
     title: 'Postpartum Anxiety\nSupport',
     description: 'Postpartum anxiety can create intrusive thoughts, fears, and unwanted sensations leaving you feeling stuck. Feeling this way while also trying to care for a baby can make you wonder if something is really wrong or if you\'re a bad mom. At Bloom, we create a safe space where you feel seen and heard to help you explore, address, and overcome your anxieties.',
     shortDescription: 'Specialized treatment for anxiety, intrusive thoughts, or worries so that you can feel more like yourself again.',
-    heroImage: '/images/Services/AnxietyManagement2.png',
-    secondaryImage: '/images/Services/Hopeful Hands.png',
+    heroImage: '/images/optimized/Services/AnxietyManagement2.webp',
+    secondaryImage: '/images/optimized/Services/Hopeful Hands.webp',
     howItWorks: {
       title: 'Your Journey to Calm',
       steps: [

@@ -121,7 +121,7 @@ export default function BlogPostPage({
               <div className="flex-shrink-0 mr-4">
                 <div className="w-12 h-12 rounded-full overflow-hidden relative">
                   <Image 
-                    src="/images/Team/Jana Rundle.jpg" 
+                    src="/images/optimized/Team/Jana Rundle.webp" 
                     alt="Dr. Jana Rundle"
                     fill
                     className="object-cover"
