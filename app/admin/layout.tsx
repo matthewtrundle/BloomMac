@@ -12,7 +12,8 @@ import {
   LogOut,
   Home,
   Shield,
-  Sparkles
+  Sparkles,
+  Archive
 } from 'lucide-react';
 
 export default function AdminLayout({
@@ -30,6 +31,7 @@ export default function AdminLayout({
     { name: 'Email Testing', href: '/admin/email-test', icon: TestTube },
     { name: 'Image Prompts', href: '/admin/image-prompts', icon: Image },
     { name: 'Career Applications', href: '/admin/careers', icon: FileText },
+    { name: 'Backup & Export', href: '/admin/backup', icon: Archive },
   ];
 
   const isActive = (href: string) => pathname === href;

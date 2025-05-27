@@ -8,18 +8,21 @@ import OrganicShape from '@/components/ui/OrganicShape';
 import Button from '@/components/ui/Button';
 import NewsletterSignup from '@/components/ui/NewsletterSignup';
 
-// Import actual blog posts data
-import { blogPosts } from '@/lib/data/blog-posts';
+// Server-side data fetching
+import { loadBlogPosts } from '@/lib/blog-storage';
 
 export const metadata: Metadata = {
   title: 'Blog | Bloom Psychology',
   description: 'Insights and articles for women, moms, and families from Bloom Psychology.',
 };
 
-export default function BlogPage() {
+export default async function BlogPage() {
+  // Load blog posts from storage
+  const blogPosts = await loadBlogPosts();
+  
   // Sort blog posts by date (newest first)
   const sortedPosts = [...blogPosts].sort((a, b) => {
-    return new Date(b.date).getTime() - new Date(a.date).getTime();
+    return new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime();
   });
 
   return (
@@ -52,11 +55,11 @@ export default function BlogPage() {
       <section className="max-w-7xl mx-auto px-6 pb-20">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {sortedPosts.map((post, index) => (
-            <article key={post.id} className="bg-white rounded-lg shadow-sm overflow-hidden glass-panel">
+            <article key={post.slug} className="bg-white rounded-lg shadow-sm overflow-hidden glass-panel">
               <div className="h-48 bg-gray-100 relative">
                 <Image 
                   src={post.image} 
-                  alt={post.title}
+                  alt={post.imageAlt}
                   fill
                   className="object-cover"
                   loading={index < 3 ? "eager" : "lazy"}
@@ -65,8 +68,22 @@ export default function BlogPage() {
                 />
               </div>
               <div className="p-6">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-xs font-medium text-bloom-accent bg-bloom-accent/10 px-2 py-1 rounded-full">
+                    {post.category}
+                  </span>
+                  {post.featured && (
+                    <span className="text-xs font-medium text-yellow-600 bg-yellow-100 px-2 py-1 rounded-full">
+                      Featured
+                    </span>
+                  )}
+                </div>
                 <h3 className="text-xl font-playfair font-semibold text-bloom">{post.title}</h3>
-                <p className="text-sm text-bloom/50 mt-1">{post.date}</p>
+                <p className="text-sm text-bloom/50 mt-1">
+                  {new Date(post.publishedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+                  <span className="mx-2">•</span>
+                  {post.readTime} min read
+                </p>
                 <p className="mt-4 text-bloom/70">{post.excerpt}</p>
                 <Link 
                   href={`/blog/${post.slug}`} 

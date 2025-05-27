@@ -76,6 +76,13 @@ export default function AdminDashboard() {
       color: 'text-blue-600 bg-blue-100'
     },
     {
+      title: 'Blog Posts',
+      description: 'Create, edit, and manage blog content',
+      href: '/admin/blog',
+      icon: Activity,
+      color: 'text-indigo-600 bg-indigo-100'
+    },
+    {
       title: 'Email Captures',
       description: 'Review contact form submissions',
       href: '/admin/email',

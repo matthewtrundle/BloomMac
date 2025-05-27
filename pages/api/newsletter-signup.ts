@@ -18,9 +18,28 @@ export interface NewsletterSubscriber {
   userAgent?: string;
 }
 
-// In-memory storage for this implementation
-// In production, you would use a database
-let newsletterSubscribers: NewsletterSubscriber[] = [];
+// Import file storage functions
+import fs from 'fs/promises';
+import path from 'path';
+
+const SUBSCRIBERS_FILE = path.join(process.cwd(), 'data', 'subscribers.json');
+
+// Load subscribers from file
+async function loadSubscribers(): Promise<NewsletterSubscriber[]> {
+  try {
+    const data = await fs.readFile(SUBSCRIBERS_FILE, 'utf-8');
+    return JSON.parse(data);
+  } catch {
+    return []; // Return empty array if file doesn't exist
+  }
+}
+
+// Save subscribers to file
+async function saveSubscribers(subscribers: NewsletterSubscriber[]): Promise<void> {
+  const dataDir = path.dirname(SUBSCRIBERS_FILE);
+  await fs.mkdir(dataDir, { recursive: true });
+  await fs.writeFile(SUBSCRIBERS_FILE, JSON.stringify(subscribers, null, 2));
+}
 
 interface SignupRequest {
   email: string;
@@ -53,6 +72,9 @@ export default async function handler(
       return res.status(400).json({ error: 'Valid email address is required' });
     }
 
+    // Load subscribers from file
+    const newsletterSubscribers = await loadSubscribers();
+    
     // Check if email already exists
     const existingSubscriber = newsletterSubscribers.find(sub => sub.email.toLowerCase() === email.toLowerCase());
     
@@ -68,6 +90,9 @@ export default async function handler(
         existingSubscriber.status = 'active';
         existingSubscriber.timestamp = new Date().toISOString();
         existingSubscriber.signupSource = source as any;
+        
+        // Save updated subscribers list
+        await saveSubscribers(newsletterSubscribers);
         
         return res.status(200).json({
           success: true,
@@ -94,6 +119,9 @@ export default async function handler(
     };
 
     newsletterSubscribers.push(newSubscriber);
+    
+    // Save subscribers to file
+    await saveSubscribers(newsletterSubscribers);
 
     // Send welcome email
     try {
@@ -258,12 +286,13 @@ const sendAdminNotification = async (subscriber: NewsletterSubscriber) => {
 };
 
 // Export function to get subscribers for admin use
-export const getNewsletterSubscribers = (): NewsletterSubscriber[] => {
-  return newsletterSubscribers;
+export const getNewsletterSubscribers = async (): Promise<NewsletterSubscriber[]> => {
+  return await loadSubscribers();
 };
 
 // Export function to send newsletter to all subscribers
 export const sendNewsletter = async (subject: string, content: string): Promise<{ sent: number; failed: number }> => {
+  const newsletterSubscribers = await loadSubscribers();
   const activeSubscribers = newsletterSubscribers.filter(sub => sub.status === 'active');
   let sent = 0;
   let failed = 0;

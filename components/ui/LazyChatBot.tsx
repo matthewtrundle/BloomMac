@@ -12,10 +12,15 @@ export default function LazyChatBot() {
   const [shouldLoad, setShouldLoad] = useState(false);
 
   useEffect(() => {
-    // Load ChatBot after 2 seconds (gives time for critical content to load first)
+    // Check if mobile
+    const isMobile = window.innerWidth < 768;
+    
+    // Load ChatBot after delay (longer on mobile)
+    const delay = isMobile ? 5000 : 2000; // 5 seconds on mobile, 2 seconds on desktop
+    
     const timer = setTimeout(() => {
       setShouldLoad(true);
-    }, 2000);
+    }, delay);
 
     return () => clearTimeout(timer);
   }, []);

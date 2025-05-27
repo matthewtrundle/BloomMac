@@ -51,7 +51,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
 const getNewsletterStats = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
-    const subscribers = getNewsletterSubscribers();
+    const subscribers = await getNewsletterSubscribers();
     const activeSubscribers = subscribers.filter(sub => sub.status === 'active');
     const unsubscribed = subscribers.filter(sub => sub.status === 'unsubscribed');
     

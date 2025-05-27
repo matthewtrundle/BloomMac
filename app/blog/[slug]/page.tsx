@@ -9,13 +9,14 @@ import OrganicShape from '@/components/ui/OrganicShape';
 import Button from '@/components/ui/Button';
 import KineticTypography from '@/components/ui/KineticTypography';
 
-// Blog posts data
-import { getBlogPostBySlug, getAllBlogSlugs } from '@/lib/data/blog-posts';
+// Blog storage
+import { loadBlogPosts, getBlogPost } from '@/lib/blog-storage';
 
 // Generate static paths for all blog posts
-export function generateStaticParams() {
-  return getAllBlogSlugs().map((slug) => ({
-    slug,
+export async function generateStaticParams() {
+  const posts = await loadBlogPosts();
+  return posts.map((post) => ({
+    slug: post.slug,
   }));
 }
 
@@ -25,7 +26,7 @@ export async function generateMetadata({
 }: {
   params: { slug: string };
 }): Promise<Metadata> {
-  const post = getBlogPostBySlug(params.slug);
+  const post = await getBlogPost(params.slug);
   
   if (!post) {
     return {
@@ -35,7 +36,8 @@ export async function generateMetadata({
   
   return {
     title: `${post.title} | Bloom Psychology Blog`,
-    description: post.excerpt,
+    description: post.metaDescription || post.excerpt,
+    keywords: post.keywords,
     openGraph: {
       title: post.title,
       description: post.excerpt,
@@ -44,17 +46,23 @@ export async function generateMetadata({
   };
 }
 
-export default function BlogPostPage({
+export default async function BlogPostPage({
   params,
 }: {
   params: { slug: string };
 }) {
-  const post = getBlogPostBySlug(params.slug);
+  const post = await getBlogPost(params.slug);
   
   // Handle 404
   if (!post) {
     notFound();
   }
+  
+  // Get related posts from the same category
+  const allPosts = await loadBlogPosts();
+  const relatedPosts = allPosts
+    .filter(p => p.slug !== post.slug && p.category === post.category)
+    .slice(0, 3);
   
   return (
     <>
@@ -91,7 +99,13 @@ export default function BlogPostPage({
             {post.title}
           </KineticTypography>
           
-          <p className="text-bloom/60 mb-6">{post.date} • {post.readingTime} min read</p>
+          <div className="text-bloom/60 mb-6">
+            <span>{new Date(post.publishedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
+            <span className="mx-2">•</span>
+            <span>{post.readTime} min read</span>
+            <span className="mx-2">•</span>
+            <span className="text-bloom-accent">{post.category}</span>
+          </div>
         </div>
       </section>
       
@@ -101,7 +115,7 @@ export default function BlogPostPage({
           <div className="relative h-[40vh] md:h-[50vh] rounded-lg overflow-hidden shadow-md">
             <Image 
               src={post.image} 
-              alt={post.title}
+              alt={post.imageAlt}
               fill
               className="object-cover"
               priority
@@ -121,16 +135,16 @@ export default function BlogPostPage({
               <div className="flex-shrink-0 mr-4">
                 <div className="w-12 h-12 rounded-full overflow-hidden relative">
                   <Image 
-                    src="/images/optimized/Team/Jana Rundle.webp" 
-                    alt="Dr. Jana Rundle"
+                    src={post.author.image || "/images/Team/Jana Rundle.jpg"} 
+                    alt={post.author.name}
                     fill
                     className="object-cover"
                   />
                 </div>
               </div>
               <div>
-                <p className="font-medium text-bloom">Dr. Jana Rundle</p>
-                <p className="text-sm text-bloom/60">Licensed Clinical Psychologist</p>
+                <p className="font-medium text-bloom">{post.author.name}</p>
+                <p className="text-sm text-bloom/60">{post.author.title}</p>
               </div>
             </div>
           </div>
@@ -143,25 +157,31 @@ export default function BlogPostPage({
           <h2 className="font-playfair text-2xl text-bloom mb-8 text-center">Related Articles</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {post.relatedPosts.map((relatedPost, index) => (
-              <div key={index} className="bg-white rounded-lg shadow-sm overflow-hidden">
-                <div className="h-40 bg-gray-100 relative">
-                  <Image 
-                    src={relatedPost.image} 
-                    alt={relatedPost.title}
-                    fill
-                    className="object-cover"
-                  />
+            {relatedPosts.length > 0 ? (
+              relatedPosts.map((relatedPost) => (
+                <div key={relatedPost.slug} className="bg-white rounded-lg shadow-sm overflow-hidden">
+                  <div className="h-40 bg-gray-100 relative">
+                    <Image 
+                      src={relatedPost.image} 
+                      alt={relatedPost.imageAlt}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  <div className="p-4">
+                    <h3 className="text-lg font-medium text-bloom">{relatedPost.title}</h3>
+                    <p className="text-sm text-bloom/50 mt-1">
+                      {new Date(relatedPost.publishedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+                    </p>
+                    <Link href={`/blog/${relatedPost.slug}`} className="text-bloompink text-sm mt-2 inline-block hover:underline">
+                      Read More →
+                    </Link>
+                  </div>
                 </div>
-                <div className="p-4">
-                  <h3 className="text-lg font-medium text-bloom">{relatedPost.title}</h3>
-                  <p className="text-sm text-bloom/50 mt-1">{relatedPost.date}</p>
-                  <Link href={`/blog/${relatedPost.slug}`} className="text-bloompink text-sm mt-2 inline-block hover:underline">
-                    Read More →
-                  </Link>
-                </div>
-              </div>
-            ))}
+              ))
+            ) : (
+              <p className="col-span-3 text-center text-bloom/60">No related articles found.</p>
+            )}
           </div>
         </div>
       </section>

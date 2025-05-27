@@ -481,3 +481,51 @@ section:not(.hero-section) {
   position: relative;
   z-index: 10;
 }
+
+/* Performance optimizations */
+.contain-layout {
+  contain: layout;
+}
+
+.contain-paint {
+  contain: paint;
+}
+
+.contain-strict {
+  contain: strict;
+}
+
+/* Mobile-specific performance optimizations */
+@media (max-width: 768px) {
+  /* Reduce animation complexity on mobile */
+  * {
+    animation-duration: 0.2s !important;
+    transition-duration: 0.2s !important;
+  }
+  
+  /* Disable parallax on mobile for better performance */
+  .hero-section {
+    position: relative !important;
+  }
+  
+  .hero-section > div:first-child {
+    position: relative !important;
+  }
+  
+  /* Simplify shadows on mobile */
+  .glass-panel {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Reduce blur effects on mobile */
+  .glass-panel,
+  .glass-panel-subtle,
+  .glass-panel-prominent {
+    backdrop-filter: blur(4px);
+  }
+  
+  /* Use will-change sparingly */
+  .parallax-hero {
+    will-change: auto;
+  }
+}

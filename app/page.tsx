@@ -141,7 +141,7 @@ export default function Home() {
       />
       
       {/* Hero Section */}
-      <section className="relative h-[75vh] hero-section">
+      <section className="relative h-[75vh] hero-section contain-layout">
         {/* Fixed hero background image */}
         <div className="fixed inset-x-0 top-0 h-[75vh] w-full" style={{ zIndex: -1 }}>
           <div className="relative w-full h-full">
@@ -152,7 +152,7 @@ export default function Home() {
               className="object-cover"
               style={{ objectPosition: '50% 20%' }}
               quality={85}
-              sizes="(max-width: 640px) 100vw, (max-width: 1200px) 100vw, 100vw"
+              sizes="(max-width: 640px) 640px, (max-width: 768px) 768px, (max-width: 1024px) 1024px, 100vw"
               priority
               placeholder="blur"
               blurDataURL="data:image/webp;base64,UklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoBAAEAAwA0JaQAA3AA/vuUAAA="

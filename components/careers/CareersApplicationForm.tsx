@@ -3,18 +3,6 @@
 import React, { useState } from 'react';
 import Button from '@/components/ui/Button';
 
-const openPositions = [
-  {
-    title: "Licensed Clinical Social Worker (LCSW)",
-    type: "Full-time",
-    location: "Austin, TX (Hybrid)",
-  },
-  {
-    title: "Licensed Professional Counselor (LPC)",
-    type: "Part-time", 
-    location: "Austin, TX (Hybrid)",
-  }
-];
 
 const CareersApplicationForm: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -223,10 +211,13 @@ const CareersApplicationForm: React.FC = () => {
             disabled={isSubmitting}
             className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-bloompink focus:border-transparent disabled:opacity-50"
           >
-            <option value="">Select a position</option>
-            {openPositions.map((pos, index) => (
-              <option key={index} value={pos.title}>{pos.title}</option>
-            ))}
+            <option value="">Select a position type</option>
+            <option value="Licensed Clinical Social Worker (LCSW)">Licensed Clinical Social Worker (LCSW)</option>
+            <option value="Licensed Professional Counselor (LPC)">Licensed Professional Counselor (LPC)</option>
+            <option value="Psychologist (PhD/PsyD)">Psychologist (PhD/PsyD)</option>
+            <option value="Marriage and Family Therapist (LMFT)">Marriage and Family Therapist (LMFT)</option>
+            <option value="Psychiatric Nurse Practitioner">Psychiatric Nurse Practitioner</option>
+            <option value="Administrative/Support Staff">Administrative/Support Staff</option>
             <option value="Other">Other</option>
           </select>
         </div>

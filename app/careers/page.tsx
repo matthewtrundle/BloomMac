@@ -31,48 +31,6 @@ export const metadata: Metadata = {
   },
 };
 
-const openPositions = [
-  {
-    title: "Licensed Clinical Social Worker (LCSW)",
-    type: "Full-time",
-    location: "Austin, TX (Hybrid)",
-    description: "Join our team to provide individual and group therapy focusing on women's mental health, postpartum support, and family therapy.",
-    requirements: [
-      "Licensed Clinical Social Worker in Texas",
-      "2+ years of clinical experience",
-      "Experience with women's mental health preferred",
-      "Trauma-informed care background",
-      "Strong communication and empathy skills"
-    ],
-    responsibilities: [
-      "Provide individual therapy sessions",
-      "Lead group therapy programs",
-      "Collaborate with multidisciplinary team",
-      "Maintain detailed clinical documentation",
-      "Participate in team meetings and training"
-    ]
-  },
-  {
-    title: "Licensed Professional Counselor (LPC)",
-    type: "Part-time",
-    location: "Austin, TX (Hybrid)",
-    description: "Seeking an LPC to provide specialized therapy for anxiety, depression, and life transitions with focus on maternal mental health.",
-    requirements: [
-      "Licensed Professional Counselor in Texas",
-      "Experience with anxiety and mood disorders",
-      "Perinatal mental health training preferred",
-      "Group therapy experience a plus",
-      "Flexible schedule availability"
-    ],
-    responsibilities: [
-      "Conduct individual therapy sessions",
-      "Develop treatment plans",
-      "Provide crisis intervention when needed",
-      "Participate in case consultations",
-      "Contribute to program development"
-    ]
-  }
-];
 
 const benefits = [
   {
@@ -148,22 +106,14 @@ export default function CareersPage() {
               mothers, and families through their wellness journeys.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex justify-center">
               <Button 
-                href="#positions" 
+                href="#application" 
                 variant="pink" 
                 size="lg"
                 className="inline-flex items-center"
               >
-                View Open Positions
-              </Button>
-              <Button 
-                href="#application" 
-                variant="outline" 
-                size="lg"
-                className="inline-flex items-center"
-              >
-                Apply Now
+                Submit General Application
               </Button>
             </div>
           </div>
@@ -196,101 +146,45 @@ export default function CareersPage() {
         </div>
       </section>
 
-      {/* Open Positions */}
-      <section id="positions" className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-bloom mb-4">
-                Current Openings
-              </h2>
-              <p className="text-gray-600 text-lg">
-                Explore opportunities to join our growing practice
-              </p>
-            </div>
 
-            <div className="space-y-8">
-              {openPositions.map((position, index) => (
-                <div key={index} className="bg-white rounded-xl p-8 shadow-sm border border-gray-100">
-                  <div className="flex flex-wrap items-start justify-between mb-6">
-                    <div>
-                      <h3 className="text-2xl font-bold text-bloom mb-2">{position.title}</h3>
-                      <div className="flex flex-wrap gap-3">
-                        <span className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-bloom-accent/10 text-bloom-accent">
-                          {position.type}
-                        </span>
-                        <span className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-gray-100 text-gray-700">
-                          📍 {position.location}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <p className="text-gray-600 mb-6">{position.description}</p>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div>
-                      <h4 className="font-semibold text-bloom mb-3">Requirements</h4>
-                      <ul className="space-y-2">
-                        {position.requirements.map((req, reqIndex) => (
-                          <li key={reqIndex} className="flex items-start text-sm text-gray-600">
-                            <span className="w-1.5 h-1.5 bg-bloom-accent rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                            {req}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    <div>
-                      <h4 className="font-semibold text-bloom mb-3">Responsibilities</h4>
-                      <ul className="space-y-2">
-                        {position.responsibilities.map((resp, respIndex) => (
-                          <li key={respIndex} className="flex items-start text-sm text-gray-600">
-                            <span className="w-1.5 h-1.5 bg-bloom-accent rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                            {resp}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-
-                  <div className="mt-6 pt-6 border-t border-gray-100">
-                    <Button 
-                      href="#application" 
-                      variant="pink"
-                      size="sm"
-                      className="inline-flex items-center"
-                    >
-                      Apply for This Position
-                    </Button>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* General Applications CTA */}
-      <section className="py-12 bg-bloom-accent/5">
+      {/* Join Our Team CTA */}
+      <section className="py-16 bg-bloom-accent/5">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <div className="bg-white rounded-2xl p-8 shadow-sm border border-bloom-accent/10">
-              <h3 className="text-2xl font-bold text-bloom mb-4">
-                Don't See Your Perfect Role?
-              </h3>
-              <p className="text-gray-600 text-lg mb-6 max-w-2xl mx-auto">
+            <div className="bg-white rounded-2xl p-10 shadow-sm border border-bloom-accent/10">
+              <h2 className="text-3xl font-bold text-bloom mb-4">
+                Join Our Growing Team
+              </h2>
+              <p className="text-gray-600 text-lg mb-8 max-w-2xl mx-auto">
                 We're always interested in connecting with talented mental health professionals who share our 
-                passion for supporting women, mothers, and families. Submit a general application and we'll 
-                keep you in mind for future opportunities.
+                passion for supporting women, mothers, and families. Whether you're a licensed therapist, 
+                counselor, or psychologist, we'd love to hear from you about potential opportunities to 
+                collaborate.
               </p>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div className="text-center">
+                  <div className="text-3xl mb-2">🎓</div>
+                  <h3 className="font-semibold text-bloom mb-1">Licensed Professionals</h3>
+                  <p className="text-sm text-gray-600">LCSW, LPC, PhD, PsyD</p>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl mb-2">💖</div>
+                  <h3 className="font-semibold text-bloom mb-1">Our Focus</h3>
+                  <p className="text-sm text-gray-600">Women's & Maternal Mental Health</p>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl mb-2">🌱</div>
+                  <h3 className="font-semibold text-bloom mb-1">Growth Opportunities</h3>
+                  <p className="text-sm text-gray-600">Professional Development & Support</p>
+                </div>
+              </div>
               <Button 
                 href="#application" 
                 variant="pink"
-                size="md"
+                size="lg"
                 className="inline-flex items-center"
               >
-                Submit General Application
+                Submit Your Application
               </Button>
             </div>
           </div>
