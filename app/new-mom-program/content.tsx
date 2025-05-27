@@ -67,7 +67,7 @@ const programIncludes = [
   {
     icon: "📝",
     title: "Personalized Check-ins",
-    description: "Custom journaling prompts and worksheets"
+    description: "Customized support between sessions"
   },
   {
     icon: "✉️",
@@ -88,8 +88,8 @@ const faqData = [
     answer: "Becoming Mom is an 8-week 1:1 support program designed for pregnant and postpartum women. It provides weekly private sessions with Dr. Jana Rundle, personalized guidance, and practical tools to help you navigate the transition into motherhood with less overwhelm and more grounding."
   },
   {
-    question: "How much does the program cost?",
-    answer: "The investment is $960 for the full 8-week program, or you can choose weekly payments of $120. This is priced below our standard hourly rate to make comprehensive support more accessible."
+    question: "How do I learn more about the program?",
+    answer: "The best way to learn more is to schedule a free discovery call where we can discuss your specific needs and how the program can support you."
   },
   {
     question: "Can I join if I'm still pregnant?",
@@ -106,8 +106,6 @@ const faqData = [
 ];
 
 export default function NewMomProgramContent() {
-  const [showJournalingPrompts, setShowJournalingPrompts] = useState(false);
-
   return (
     <>
       {/* SEO Schema */}
@@ -119,8 +117,6 @@ export default function NewMomProgramContent() {
           url: "https://bloompsychologynorthaustin.com"
         }}
         offers={{
-          price: "960",
-          priceCurrency: "USD",
           availability: "https://schema.org/InStock",
           url: "https://bloompsychologynorthaustin.com/new-mom-program"
         }}
@@ -340,19 +336,12 @@ export default function NewMomProgramContent() {
                 I know what this season feels like — emotionally, logistically, and financially.
               </p>
               <p className="text-gray-600 mb-8">
-                That's why <span className="font-semibold">Becoming Mom</span> is priced below my standard hourly rate of $175, 
-                but gives you so much more than just 8 sessions.
+                That's why <span className="font-semibold">Becoming Mom</span> gives you so much more than just 8 sessions.
               </p>
               <p className="text-gray-700 mb-8">
                 It's a container of support, healing, and space to just be you again — with 1:1 guidance, 
                 in-between session support, and a path that meets you wherever you are.
               </p>
-              
-              <div className="bg-bloom-blush/10 rounded-xl p-6 mb-8">
-                <h3 className="text-2xl font-semibold text-bloom mb-4">Your Investment:</h3>
-                <p className="text-3xl font-bold text-bloompink mb-2">💳 $960</p>
-                <p className="text-gray-600">(or weekly payments of $120)</p>
-              </div>
 
               <Button 
                 href="/book" 
@@ -367,76 +356,6 @@ export default function NewMomProgramContent() {
         </div>
       </section>
 
-      {/* Journaling Prompts Toggle Section */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-8">
-              <h2 className="text-3xl font-bold text-bloom mb-4">📝 Journaling Support</h2>
-              <p className="text-gray-600 mb-6">
-                Each week includes custom journaling prompts and worksheets to deepen your self-discovery
-              </p>
-              <Button
-                variant="outline"
-                onClick={() => setShowJournalingPrompts(!showJournalingPrompts)}
-                className="inline-flex items-center"
-              >
-                {showJournalingPrompts ? 'Hide' : 'View'} Weekly Prompts & Worksheets
-                <svg 
-                  className={`ml-2 w-4 h-4 transition-transform ${showJournalingPrompts ? 'rotate-180' : ''}`} 
-                  fill="none" 
-                  stroke="currentColor" 
-                  viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </Button>
-            </div>
-
-            {showJournalingPrompts && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.3 }}
-                className="space-y-8 mt-8"
-              >
-                {weeklyBreakdown.map((week) => (
-                  <div key={week.week} className="bg-gray-50 rounded-xl p-6 border border-gray-200">
-                    <h3 className="text-xl font-semibold text-bloom mb-4">
-                      Week {week.week}: {week.theme}
-                    </h3>
-                    <div className="space-y-4">
-                      <div>
-                        <h4 className="font-medium text-bloompink mb-2">Journaling Prompts:</h4>
-                        <ul className="space-y-2 text-gray-700">
-                          {getJournalingPrompts(week.week).map((prompt, index) => (
-                            <li key={index} className="flex items-start">
-                              <span className="text-bloom-accent mr-2">•</span>
-                              <span>{prompt}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                      <div>
-                        <h4 className="font-medium text-bloompink mb-2">Worksheet Ideas:</h4>
-                        <ul className="space-y-2 text-gray-700">
-                          {getWorksheetIdeas(week.week).map((worksheet, index) => (
-                            <li key={index} className="flex items-start">
-                              <span className="text-bloom-accent mr-2">•</span>
-                              <span>{worksheet}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </motion.div>
-            )}
-          </div>
-        </div>
-      </section>
 
       {/* About Section */}
       <section className="py-16 bg-gray-50">
@@ -524,89 +443,4 @@ export default function NewMomProgramContent() {
       </section>
     </>
   );
-}
-
-// Helper functions for journaling prompts and worksheets
-function getJournalingPrompts(week: number): string[] {
-  const prompts: { [key: number]: string[] } = {
-    1: [
-      "What are five things you're carrying right now that no one sees?",
-      "When do you feel most mentally overloaded?",
-      "What would it feel like to put something down, even temporarily?"
-    ],
-    2: [
-      "What parts of 'you' feel the same since becoming a mom? What feels different?",
-      "If your life was a timeline, how would you describe the 'before' and 'after'?",
-      "What do you miss? What do you not miss?"
-    ],
-    3: [
-      "What does overwhelm feel like in your body?",
-      "What helps you feel grounded — even for a moment?",
-      "What stories do you tell yourself when anxiety shows up?"
-    ],
-    4: [
-      "Where in your life do you feel resentful? What might that be telling you?",
-      "What would it feel like to say no without guilt?",
-      "Who are you afraid of disappointing?"
-    ],
-    5: [
-      "What's something you know doesn't matter — but still makes you feel guilty?",
-      "Whose expectations are you trying to meet?",
-      "What would it look like to be a 'good enough' mom?"
-    ],
-    6: [
-      "What kind of connection are you craving right now?",
-      "What do you wish your partner (or support person) understood about you?",
-      "When was the last time you felt truly like yourself?"
-    ],
-    7: [
-      "What small moments of joy have you experienced this week?",
-      "When do you feel most like yourself?",
-      "What would a restful day look like — even in 15-minute pockets?"
-    ],
-    8: [
-      "Who are the people who really see you? Who might you reach out to more?",
-      "What do you want to carry forward from this program?",
-      "What does support look like for the version of you you're becoming?"
-    ]
-  };
-  return prompts[week] || [];
-}
-
-function getWorksheetIdeas(week: number): string[] {
-  const worksheets: { [key: number]: string[] } = {
-    1: [
-      "'What I Carry' Exercise: List tasks you do daily (seen + unseen)",
-      "Invisible Load Audit: Break down tasks into Mental, Emotional, Logistical categories"
-    ],
-    2: [
-      "Then vs. Now Reflection: Who I was before / Who I am now / Who I'm becoming",
-      "Identity Mapping: Draw circles showing roles and how full each feels"
-    ],
-    3: [
-      "What's in My Control?: I can control / I can't control / I can influence",
-      "My Soothing Toolkit: List calming activities and add 3 new ones to try"
-    ],
-    4: [
-      "Boundary Script Builder: Situation / My need / How to express it / Support needed",
-      "Ask for Help Tracker: Track one small ask this week and how it felt"
-    ],
-    5: [
-      "Guilt Reframe Exercise: What I felt guilty about / Why / A gentler truth",
-      "Perfection Check: List 5 ways perfection shows up and how it helps vs. hurts"
-    ],
-    6: [
-      "Love Languages in Motherhood: Identify your current love language and changes",
-      "Check-In Template: What's been hard / What's been good / What I need more of"
-    ],
-    7: [
-      "Joy Menu: Build a list of micro-moments that bring you joy",
-      "Rest Ritual Plan: Create one 10-minute daily ritual for rest or peace"
-    ],
-    8: [
-      "Support Map: List emotional, practical, and emergency support contacts",
-      "Life After This Planner: Choose 3 habits or insights to carry forward"
-    ]
-  };
-  return worksheets[week] || [];
 }

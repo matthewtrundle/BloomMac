@@ -1,5 +1,6 @@
 import { Resend } from 'resend';
 import { NextApiRequest, NextApiResponse } from 'next';
+import { supabaseAdmin } from '../../lib/supabase';
 
 // Log API key presence (truncated for security)
 console.log('API key loaded:', process.env.RESEND_API_KEY ?
@@ -111,6 +112,47 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       });
 
       console.log('Email sent successfully:', data);
+      
+      // Save contact submission to Supabase
+      try {
+        const contactData = {
+          name: displayName,
+          email,
+          phone: phone || null,
+          service: service || null,
+          message: message || null,
+          source: formSource.toLowerCase().replace(/ /g, '_'),
+          page: req.headers.referer || 'unknown'
+        };
+        
+        const { error: dbError } = await supabaseAdmin
+          .from('contact_submissions')
+          .insert(contactData);
+          
+        if (dbError) {
+          console.error('Error saving to database:', dbError);
+          // Don't fail the whole request if DB save fails
+        } else {
+          console.log('Contact submission saved to database');
+        }
+        
+        // Also track as analytics event
+        await supabaseAdmin
+          .from('analytics_events')
+          .insert({
+            type: 'contact_form',
+            page: req.headers.referer || '/contact',
+            data: { 
+              source: formSource,
+              service: service || null
+            }
+          });
+          
+      } catch (dbError) {
+        console.error('Database error:', dbError);
+        // Continue even if DB operations fail
+      }
+      
       return res.status(200).json({ success: true, data });
     } catch (error) {
       console.error('Resend API error:', error);

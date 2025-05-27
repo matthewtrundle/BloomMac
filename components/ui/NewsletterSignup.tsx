@@ -141,7 +141,7 @@ const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex-1 text-center sm:text-left">
             <h3 className="font-semibold text-bloom text-lg mb-1">
-              Weekly Mental Health Insights 🌸
+              Monthly Mental Health Insights 🌸
             </h3>
             <p className="text-sm text-gray-600">
               Evidence-based tips for women, mothers & parents. Join 500+ subscribers.
@@ -210,10 +210,10 @@ const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
     <div className={`bg-white rounded-xl shadow-lg border border-gray-200 p-6 ${className}`}>
       <div className="text-center mb-6">
         <h3 className="text-2xl font-bold text-bloom mb-2">
-          Weekly Mental Health Insights
+          Monthly Mental Health Insights
         </h3>
         <p className="text-gray-600">
-          Join our community of 500+ women, mothers, and parents receiving evidence-based wellness tips every week.
+          Join our community of 500+ women, mothers, and parents receiving evidence-based wellness tips every month.
         </p>
       </div>
 
@@ -263,7 +263,7 @@ const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
               <ul className="text-sm text-gray-600 space-y-1">
                 <li className="flex items-center">
                   <span className="w-2 h-2 bg-bloom-accent rounded-full mr-2"></span>
-                  Weekly blog posts on mental health topics
+                  Monthly blog posts on mental health topics
                 </li>
                 <li className="flex items-center">
                   <span className="w-2 h-2 bg-bloom-accent rounded-full mr-2"></span>

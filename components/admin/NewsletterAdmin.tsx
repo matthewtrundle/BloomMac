@@ -104,9 +104,9 @@ const NewsletterAdmin: React.FC = () => {
     }
   };
 
-  const loadTemplate = (templateType: 'weekly_blog' | 'tips' | 'announcement') => {
+  const loadTemplate = (templateType: 'monthly_blog' | 'tips' | 'announcement') => {
     const templates = {
-      weekly_blog: {
+      monthly_blog: {
         subject: 'Weekly Insights: [Blog Post Title] 🌸',
         preview: 'This week we explore [topic] and share practical strategies for [specific benefit]',
         content: `
@@ -290,7 +290,7 @@ const NewsletterAdmin: React.FC = () => {
             </label>
             <div className="flex gap-2">
               <button
-                onClick={() => loadTemplate('weekly_blog')}
+                onClick={() => loadTemplate('monthly_blog')}
                 className="px-3 py-2 bg-blue-100 text-blue-700 rounded-md text-sm hover:bg-blue-200 transition-colors"
               >
                 Weekly Blog
@@ -320,7 +320,7 @@ const NewsletterAdmin: React.FC = () => {
                 id="subject"
                 value={subject}
                 onChange={(e) => setSubject(e.target.value)}
-                placeholder="Weekly Mental Health Insights..."
+                placeholder="Monthly Mental Health Insights..."
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-bloompink focus:border-transparent"
               />
             </div>

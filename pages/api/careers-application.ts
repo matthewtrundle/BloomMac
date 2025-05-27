@@ -3,6 +3,7 @@ import { Resend } from 'resend';
 import formidable, { IncomingForm, File } from 'formidable';
 import fs from 'fs';
 import path from 'path';
+import { supabaseAdmin } from '../../lib/supabase';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -88,6 +89,51 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         // Clean up temporary file
         fs.unlinkSync(resumeFile.filepath);
       }
+    }
+
+    // Save application to Supabase
+    try {
+      const applicationRecord = {
+        first_name: applicationData.firstName,
+        last_name: applicationData.lastName,
+        email: applicationData.email,
+        phone: applicationData.phone,
+        position: applicationData.position,
+        experience: applicationData.experience,
+        availability: applicationData.availability,
+        motivation: applicationData.motivation,
+        additional_info: applicationData.additionalInfo || null,
+        has_resume: !!resumeAttachment,
+        resume_filename: resumeAttachment?.filename || null,
+        status: 'new'
+      };
+      
+      const { error: dbError } = await supabaseAdmin
+        .from('career_applications')
+        .insert(applicationRecord);
+        
+      if (dbError) {
+        console.error('Error saving to database:', dbError);
+        // Don't fail the whole request if DB save fails
+      } else {
+        console.log('Career application saved to database');
+      }
+      
+      // Also track as analytics event
+      await supabaseAdmin
+        .from('analytics_events')
+        .insert({
+          type: 'contact_form',
+          page: req.headers.referer || '/careers',
+          data: { 
+            action: 'career_application',
+            position: applicationData.position
+          }
+        });
+        
+    } catch (dbError) {
+      console.error('Database error:', dbError);
+      // Continue even if DB operations fail
     }
 
     // Send application email to the practice

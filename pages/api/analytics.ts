@@ -1,27 +1,45 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import fs from 'fs/promises';
-import path from 'path';
-import { AnalyticsEvent } from './track-event';
+import { supabaseAdmin } from '../../lib/supabase';
 
-const ANALYTICS_FILE = path.join(process.cwd(), 'data', 'analytics.json');
+interface AnalyticsEvent {
+  id: string;
+  type: string;
+  page: string;
+  timestamp: string;
+  sessionId?: string;
+  session_id?: string;
+  created_at?: string;
+  data?: Record<string, any>;
+}
 
-async function getAnalyticsData(): Promise<AnalyticsEvent[]> {
-  try {
-    const data = await fs.readFile(ANALYTICS_FILE, 'utf-8');
-    return JSON.parse(data);
-  } catch {
+async function getAnalyticsData(days: number): Promise<AnalyticsEvent[]> {
+  const cutoffDate = new Date(Date.now() - days * 24 * 60 * 60 * 1000).toISOString();
+  
+  const { data, error } = await supabaseAdmin
+    .from('analytics_events')
+    .select('*')
+    .gte('created_at', cutoffDate)
+    .order('created_at', { ascending: false });
+    
+  if (error) {
+    console.error('Error fetching analytics:', error);
     return [];
   }
+  
+  // Map database fields to expected format
+  return (data || []).map(event => ({
+    ...event,
+    timestamp: event.created_at || event.timestamp,
+    sessionId: event.session_id || event.sessionId
+  }));
 }
 
 // Calculate real analytics from tracked events
 const generateRealAnalytics = async (range: string) => {
   const days = range === '24h' ? 1 : range === '7d' ? 7 : range === '30d' ? 30 : 90;
-  const cutoffDate = new Date(Date.now() - days * 24 * 60 * 60 * 1000);
   
-  // Get all events
-  const allEvents = await getAnalyticsData();
-  const events = allEvents.filter(e => new Date(e.timestamp) > cutoffDate);
+  // Get events from Supabase
+  const events = await getAnalyticsData(days);
 
   // Calculate metrics
   const pageViews = events.filter(e => e.type === 'page_view');

@@ -1,6 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import fs from 'fs/promises';
-import path from 'path';
+import { supabaseAdmin } from '../../lib/supabase';
 
 export interface AnalyticsEvent {
   id: string;
@@ -19,38 +18,6 @@ export interface AnalyticsEvent {
   };
 }
 
-// File-based storage for analytics (in production, use a proper database)
-const ANALYTICS_FILE = path.join(process.cwd(), 'data', 'analytics.json');
-
-async function ensureDataDirectory() {
-  const dataDir = path.join(process.cwd(), 'data');
-  try {
-    await fs.access(dataDir);
-  } catch {
-    await fs.mkdir(dataDir, { recursive: true });
-  }
-}
-
-async function getAnalyticsData(): Promise<AnalyticsEvent[]> {
-  try {
-    await ensureDataDirectory();
-    const data = await fs.readFile(ANALYTICS_FILE, 'utf-8');
-    return JSON.parse(data);
-  } catch {
-    return [];
-  }
-}
-
-async function saveAnalyticsData(events: AnalyticsEvent[]): Promise<void> {
-  await ensureDataDirectory();
-  
-  // Keep only last 30 days of data to prevent file from growing too large
-  const cutoffDate = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
-  const recentEvents = events.filter(e => new Date(e.timestamp) > cutoffDate);
-  
-  await fs.writeFile(ANALYTICS_FILE, JSON.stringify(recentEvents, null, 2));
-}
-
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
@@ -65,11 +32,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(400).json({ error: 'Missing required fields: type and page' });
     }
 
-    // Create full event
-    const fullEvent: AnalyticsEvent = {
-      ...event,
-      id: Date.now().toString(36) + Math.random().toString(36).substr(2),
-      timestamp: new Date().toISOString(),
+    // Create event data for Supabase
+    const eventData = {
+      type: event.type,
+      page: event.page,
+      session_id: event.sessionId || null,
+      user_id: event.userId || null,
       data: {
         ...event.data,
         userAgent: req.headers['user-agent'],
@@ -77,23 +45,28 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
     };
 
-    // Get existing events and add new one
-    const events = await getAnalyticsData();
-    events.push(fullEvent);
+    // Save to Supabase
+    const { data: savedEvent, error } = await supabaseAdmin
+      .from('analytics_events')
+      .insert(eventData)
+      .select()
+      .single();
 
-    // Save updated events
-    await saveAnalyticsData(events);
+    if (error) {
+      console.error('Error saving analytics event:', error);
+      return res.status(500).json({ error: 'Failed to track event' });
+    }
 
     // Log for debugging
     console.log('Analytics event tracked:', {
-      type: fullEvent.type,
-      page: fullEvent.page,
-      timestamp: fullEvent.timestamp
+      type: savedEvent.type,
+      page: savedEvent.page,
+      timestamp: savedEvent.timestamp
     });
 
     return res.status(200).json({ 
       success: true, 
-      eventId: fullEvent.id 
+      eventId: savedEvent.id 
     });
 
   } catch (error) {

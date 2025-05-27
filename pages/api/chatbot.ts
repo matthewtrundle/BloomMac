@@ -1,4 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
+import { supabaseAdmin } from '../../lib/supabase';
 
 // For now, we'll use a simple rule-based response system
 // Replace this with OpenAI API integration once you add your API key
@@ -244,7 +245,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     return res.status(405).json({ error: 'Method Not Allowed' });
   }
 
-  const { message } = req.body;
+  const { message, sessionId, conversationId } = req.body;
 
   if (!message || typeof message !== 'string') {
     return res.status(400).json({ error: 'Message is required' });
@@ -256,6 +257,72 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     const chatResponse = await callOpenAI(message);
     
     console.log('Chatbot response:', chatResponse);
+    
+    // Save conversation to Supabase
+    try {
+      let convId = conversationId;
+      
+      // If no conversation ID, create a new conversation
+      if (!convId) {
+        const { data: newConv, error: convError } = await supabaseAdmin
+          .from('chat_conversations')
+          .insert({
+            session_id: sessionId || null,
+            source_page: req.headers.referer || 'unknown',
+            status: 'active'
+          })
+          .select()
+          .single();
+          
+        if (!convError && newConv) {
+          convId = newConv.id;
+        }
+      }
+      
+      // Add messages to conversation
+      if (convId) {
+        const messages = [
+          {
+            conversation_id: convId,
+            role: 'user',
+            content: message
+          },
+          {
+            conversation_id: convId,
+            role: 'assistant',
+            content: chatResponse.response,
+            action_type: chatResponse.action?.type || null,
+            action_target: chatResponse.action?.target || null
+          }
+        ];
+        
+        await supabaseAdmin
+          .from('chat_conversations')
+          .update({ 
+            messages: supabaseAdmin.sql`
+              COALESCE(messages, '[]'::jsonb) || ${JSON.stringify(messages)}::jsonb
+            `,
+            last_message_at: new Date().toISOString()
+          })
+          .eq('id', convId);
+          
+        // Track analytics event
+        await supabaseAdmin
+          .from('analytics_events')
+          .insert({
+            type: 'chatbot_interaction',
+            page: req.headers.referer || '/unknown',
+            session_id: sessionId || null,
+            data: { 
+              action: 'chat_message',
+              has_action: !!chatResponse.action
+            }
+          });
+      }
+    } catch (dbError) {
+      console.error('Error saving to database:', dbError);
+      // Don't fail the request if DB save fails
+    }
     
     return res.status(200).json(chatResponse);
 

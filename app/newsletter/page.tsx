@@ -9,7 +9,7 @@ import Button from '@/components/ui/Button';
 
 export const metadata: Metadata = {
   title: 'Newsletter | Mental Health Insights',
-  description: 'Join 500+ women, mothers, and parents receiving weekly evidence-based mental health insights, wellness tips, and resources from Bloom Psychology.',
+  description: 'Join 500+ women, mothers, and parents receiving monthly evidence-based mental health insights, wellness tips, and resources from Bloom Psychology.',
   keywords: [
     'mental health newsletter',
     'women\'s wellness tips',
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     'therapy insights austin'
   ],
   openGraph: {
-    title: 'Weekly Mental Health Insights | Bloom Psychology Newsletter',
+    title: 'Monthly Mental Health Insights | Bloom Psychology Newsletter',
     description: 'Evidence-based wellness tips and resources for women, mothers, and parents. Join our community today.',
     url: 'https://bloompsychologynorthaustin.com/newsletter',
     siteName: 'Bloom Psychology',
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Weekly Mental Health Insights | Bloom Psychology Newsletter',
+    title: 'Monthly Mental Health Insights | Bloom Psychology Newsletter',
     description: 'Evidence-based wellness tips and resources for women, mothers, and parents. Join our community today.',
   },
   robots: {
@@ -64,13 +64,13 @@ export default function NewsletterPage() {
                 <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
                 <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
               </svg>
-              Free Weekly Newsletter
+              Free Monthly Newsletter
             </div>
             
             <h1 className="text-4xl md:text-5xl font-bold text-bloom mb-6">
               Mental Health Insights
               <span className="text-bloom-accent block mt-2">
-                Delivered Weekly
+                Delivered Monthly
               </span>
             </h1>
             
@@ -315,7 +315,7 @@ export default function NewsletterPage() {
           </h2>
           <p className="text-xl mb-8 text-white/90 max-w-2xl mx-auto">
             Join hundreds of women, mothers, and parents who are taking charge of their mental health 
-            with our weekly evidence-based insights.
+            with our monthly evidence-based insights.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 

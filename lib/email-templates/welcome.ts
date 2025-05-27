@@ -121,7 +121,7 @@ export const welcomeEmailTemplate = (firstName: string) => ({
             <div class="section">
               <h2>What You Can Expect From Us</h2>
               <ul class="tips-list">
-                <li><strong>Weekly Insights:</strong> Evidence-based tips for managing anxiety, stress, and life transitions</li>
+                <li><strong>Monthly Insights:</strong> Evidence-based tips for managing anxiety, stress, and life transitions</li>
                 <li><strong>Resource Spotlights:</strong> Helpful tools, exercises, and techniques you can use right away</li>
                 <li><strong>Community Stories:</strong> Inspiring journeys from women just like you (anonymously shared)</li>
                 <li><strong>Exclusive Content:</strong> First access to workshops, group sessions, and special offers</li>

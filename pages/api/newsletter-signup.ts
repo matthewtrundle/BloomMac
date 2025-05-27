@@ -1,45 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { Resend } from 'resend';
 import { welcomeEmailTemplate } from '@/lib/email-templates/welcome';
+import { supabaseAdmin } from '@/lib/supabase';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
-
-export interface NewsletterSubscriber {
-  id: string;
-  email: string;
-  firstName?: string;
-  lastName?: string;
-  signupSource: 'banner' | 'landing_page' | 'footer' | 'popup' | 'other';
-  interests: string[];
-  timestamp: string;
-  status: 'active' | 'unsubscribed' | 'pending';
-  confirmed: boolean;
-  ipAddress?: string;
-  userAgent?: string;
-}
-
-// Import file storage functions
-import fs from 'fs/promises';
-import path from 'path';
-
-const SUBSCRIBERS_FILE = path.join(process.cwd(), 'data', 'subscribers.json');
-
-// Load subscribers from file
-async function loadSubscribers(): Promise<NewsletterSubscriber[]> {
-  try {
-    const data = await fs.readFile(SUBSCRIBERS_FILE, 'utf-8');
-    return JSON.parse(data);
-  } catch {
-    return []; // Return empty array if file doesn't exist
-  }
-}
-
-// Save subscribers to file
-async function saveSubscribers(subscribers: NewsletterSubscriber[]): Promise<void> {
-  const dataDir = path.dirname(SUBSCRIBERS_FILE);
-  await fs.mkdir(dataDir, { recursive: true });
-  await fs.writeFile(SUBSCRIBERS_FILE, JSON.stringify(subscribers, null, 2));
-}
 
 interface SignupRequest {
   email: string;
@@ -53,6 +17,25 @@ interface SignupResponse {
   success: boolean;
   message: string;
   subscriberId?: string;
+}
+
+// Send welcome email to new subscriber
+async function sendWelcomeEmail(subscriber: any) {
+  const firstName = subscriber.first_name || 'Friend';
+  const emailTemplate = welcomeEmailTemplate(firstName);
+  
+  try {
+    await resend.emails.send({
+      from: 'Bloom Psychology <hello@bloompsychologynorthaustin.com>',
+      to: subscriber.email,
+      subject: emailTemplate.subject,
+      html: emailTemplate.html
+    });
+    console.log('Welcome email sent to:', subscriber.email);
+  } catch (error) {
+    console.error('Failed to send welcome email:', error);
+    // Don't throw - we still want to save the subscriber even if email fails
+  }
 }
 
 export default async function handler(
@@ -72,245 +55,113 @@ export default async function handler(
       return res.status(400).json({ error: 'Valid email address is required' });
     }
 
-    // Load subscribers from file
-    const newsletterSubscribers = await loadSubscribers();
-    
-    // Check if email already exists
-    const existingSubscriber = newsletterSubscribers.find(sub => sub.email.toLowerCase() === email.toLowerCase());
+    // Check if email already exists in Supabase
+    const { data: existingSubscriber } = await supabaseAdmin
+      .from('subscribers')
+      .select('*')
+      .eq('email', email.toLowerCase())
+      .single();
     
     if (existingSubscriber) {
       if (existingSubscriber.status === 'active') {
-        return res.status(200).json({
-          success: true,
-          message: 'You\'re already subscribed to our newsletter! Thank you for your continued interest.',
-          subscriberId: existingSubscriber.id
+        return res.status(409).json({ 
+          error: 'This email address is already subscribed to our newsletter.' 
         });
-      } else if (existingSubscriber.status === 'unsubscribed') {
-        // Reactivate the subscription
-        existingSubscriber.status = 'active';
-        existingSubscriber.timestamp = new Date().toISOString();
-        existingSubscriber.signupSource = source as any;
+      } else {
+        // Reactivate unsubscribed user
+        const { data: reactivated, error: reactivateError } = await supabaseAdmin
+          .from('subscribers')
+          .update({ 
+            status: 'active',
+            updated_at: new Date().toISOString()
+          })
+          .eq('id', existingSubscriber.id)
+          .select()
+          .single();
         
-        // Save updated subscribers list
-        await saveSubscribers(newsletterSubscribers);
+        if (reactivateError) {
+          throw reactivateError;
+        }
         
         return res.status(200).json({
           success: true,
-          message: 'Welcome back! Your newsletter subscription has been reactivated.',
-          subscriberId: existingSubscriber.id
+          message: 'Welcome back! You\'ve been resubscribed to our newsletter.',
+          subscriberId: reactivated.id
         });
       }
     }
 
-    // Create new subscriber
-    const subscriberId = Date.now().toString(36) + Math.random().toString(36).substr(2);
-    const newSubscriber: NewsletterSubscriber = {
-      id: subscriberId,
-      email: email.toLowerCase().trim(),
-      firstName: firstName?.trim(),
-      lastName: lastName?.trim(),
-      signupSource: source as any,
-      interests: interests || ['mental-health', 'postpartum-support'],
-      timestamp: new Date().toISOString(),
+    // Create new subscriber in Supabase
+    const newSubscriber = {
+      email: email.toLowerCase(),
+      first_name: firstName,
+      last_name: lastName,
       status: 'active',
-      confirmed: true, // Auto-confirm for now
-      ipAddress: req.headers['x-forwarded-for'] as string || req.connection.remoteAddress,
-      userAgent: req.headers['user-agent']
+      tags: [],
+      signup_source: source,
+      interests: interests,
+      metadata: {},
+      ip_address: req.headers['x-forwarded-for'] as string || req.connection.remoteAddress,
+      user_agent: req.headers['user-agent'],
+      referrer: req.headers.referer,
+      confirmed: true // Auto-confirm for now
     };
 
-    newsletterSubscribers.push(newSubscriber);
+    const { data: subscriber, error: insertError } = await supabaseAdmin
+      .from('subscribers')
+      .insert(newSubscriber)
+      .select()
+      .single();
     
-    // Save subscribers to file
-    await saveSubscribers(newsletterSubscribers);
+    if (insertError) {
+      throw insertError;
+    }
 
     // Send welcome email
     try {
-      await sendWelcomeEmail(newSubscriber);
+      await sendWelcomeEmail(subscriber);
     } catch (emailError) {
       console.error('Failed to send welcome email:', emailError);
-      // Don't fail the signup if email fails
+      // Continue - subscriber is still saved
     }
 
-    // Send notification email to admin
-    try {
-      await sendAdminNotification(newSubscriber);
-    } catch (emailError) {
-      console.error('Failed to send admin notification:', emailError);
-      // Don't fail the signup if notification fails
-    }
+    // Log admin activity
+    await supabaseAdmin
+      .from('admin_activity_log')
+      .insert({
+        action: 'newsletter_signup',
+        entity_type: 'subscriber',
+        entity_id: subscriber.id,
+        details: {
+          email: subscriber.email,
+          source: source,
+          interests: interests
+        }
+      });
 
-    console.log('Newsletter signup successful:', {
-      email: newSubscriber.email,
-      source: newSubscriber.signupSource,
-      subscriberId: newSubscriber.id
-    });
+    // Track analytics event
+    await supabaseAdmin
+      .from('analytics_events')
+      .insert({
+        type: 'newsletter_signup',
+        page: req.headers.referer || 'unknown',
+        data: {
+          email: email,
+          source: source
+        }
+      });
 
     return res.status(200).json({
       success: true,
-      message: 'Thank you for subscribing! You\'ll receive weekly insights on mental health and wellness.',
-      subscriberId: newSubscriber.id
+      message: 'Thank you for subscribing! You\'ll receive monthly insights on mental health and wellness.',
+      subscriberId: subscriber.id
     });
 
   } catch (error) {
     console.error('Newsletter signup error:', error);
-    return res.status(500).json({ error: 'Failed to process newsletter signup' });
+    
+    return res.status(500).json({ 
+      error: 'Something went wrong. Please try again later.' 
+    });
   }
 }
-
-const sendWelcomeEmail = async (subscriber: NewsletterSubscriber) => {
-  const { subject, html, text } = welcomeEmailTemplate(subscriber.firstName || '');
-  
-  await resend.emails.send({
-    from: 'Bloom Psychology <noreply@bloompsychologynorthaustin.com>',
-    to: subscriber.email,
-    subject,
-    html,
-    text
-  });
-};
-
-const sendAdminNotification = async (subscriber: NewsletterSubscriber) => {
-  const notificationHtml = `
-    <!DOCTYPE html>
-    <html>
-    <head>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>New Newsletter Subscriber</title>
-    </head>
-    <body style="margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333;">
-      <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff;">
-        <!-- Header -->
-        <div style="background: linear-gradient(135deg, #6B21A8 0%, #A855F7 100%); padding: 30px 20px; text-align: center;">
-          <h1 style="color: white; margin: 0; font-size: 24px; font-weight: 600;">🎉 New Newsletter Subscriber!</h1>
-        </div>
-
-        <!-- Main Content -->
-        <div style="padding: 30px;">
-          <h2 style="color: #6B21A8; margin-bottom: 20px; font-size: 20px;">
-            You have a new newsletter subscriber!
-          </h2>
-          
-          <div style="background-color: #F3F4F6; padding: 20px; border-radius: 8px; margin: 20px 0;">
-            <h3 style="color: #6B21A8; margin-top: 0; font-size: 16px;">Subscriber Details:</h3>
-            <table style="width: 100%; border-collapse: collapse;">
-              <tr>
-                <td style="padding: 8px 0; color: #4B5563; font-weight: 600;">Email:</td>
-                <td style="padding: 8px 0; color: #4B5563;">${subscriber.email}</td>
-              </tr>
-              ${subscriber.firstName ? `
-              <tr>
-                <td style="padding: 8px 0; color: #4B5563; font-weight: 600;">First Name:</td>
-                <td style="padding: 8px 0; color: #4B5563;">${subscriber.firstName}</td>
-              </tr>
-              ` : ''}
-              ${subscriber.lastName ? `
-              <tr>
-                <td style="padding: 8px 0; color: #4B5563; font-weight: 600;">Last Name:</td>
-                <td style="padding: 8px 0; color: #4B5563;">${subscriber.lastName}</td>
-              </tr>
-              ` : ''}
-              <tr>
-                <td style="padding: 8px 0; color: #4B5563; font-weight: 600;">Signup Source:</td>
-                <td style="padding: 8px 0; color: #4B5563;">${subscriber.signupSource}</td>
-              </tr>
-              <tr>
-                <td style="padding: 8px 0; color: #4B5563; font-weight: 600;">Interests:</td>
-                <td style="padding: 8px 0; color: #4B5563;">${subscriber.interests.join(', ')}</td>
-              </tr>
-              <tr>
-                <td style="padding: 8px 0; color: #4B5563; font-weight: 600;">Date/Time:</td>
-                <td style="padding: 8px 0; color: #4B5563;">${new Date(subscriber.timestamp).toLocaleString('en-US', { 
-                  timeZone: 'America/Chicago',
-                  weekday: 'long',
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric',
-                  hour: '2-digit',
-                  minute: '2-digit'
-                })}</td>
-              </tr>
-              <tr>
-                <td style="padding: 8px 0; color: #4B5563; font-weight: 600;">Subscriber ID:</td>
-                <td style="padding: 8px 0; color: #4B5563; font-family: monospace; font-size: 12px;">${subscriber.id}</td>
-              </tr>
-            </table>
-          </div>
-
-          <div style="background-color: #F0F9FF; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #3B82F6;">
-            <h4 style="color: #1E40AF; margin-top: 0; margin-bottom: 10px; font-size: 16px;">📊 Quick Stats:</h4>
-            <p style="margin: 5px 0; color: #1E40AF;">
-              Total Active Subscribers: <strong>${newsletterSubscribers.filter(s => s.status === 'active').length}</strong>
-            </p>
-            <p style="margin: 5px 0; color: #1E40AF;">
-              Subscribers Today: <strong>${newsletterSubscribers.filter(s => 
-                new Date(s.timestamp).toDateString() === new Date().toDateString()
-              ).length}</strong>
-            </p>
-            <p style="margin: 5px 0; color: #1E40AF;">
-              This Week: <strong>${newsletterSubscribers.filter(s => {
-                const subDate = new Date(s.timestamp);
-                const weekAgo = new Date();
-                weekAgo.setDate(weekAgo.getDate() - 7);
-                return subDate > weekAgo;
-              }).length}</strong>
-            </p>
-          </div>
-
-          <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #E5E7EB;">
-            <p style="color: #6B7280; font-size: 14px; margin: 0;">
-              This is an automated notification. The subscriber has already received a welcome email.
-            </p>
-          </div>
-        </div>
-
-        <!-- Footer -->
-        <div style="background-color: #F9FAFB; padding: 20px; text-align: center; border-top: 1px solid #E5E7EB;">
-          <p style="margin: 0; color: #9CA3AF; font-size: 12px;">
-            Bloom Psychology Newsletter System<br>
-            <a href="https://bloompsychologynorthaustin.com/admin/newsletter" style="color: #A855F7;">View All Subscribers</a>
-          </p>
-        </div>
-      </div>
-    </body>
-    </html>
-  `;
-
-  // Send notification to admin email
-  await resend.emails.send({
-    from: 'Bloom Newsletter System <noreply@bloompsychologynorthaustin.com>',
-    to: 'jana@bloompsychologynorthaustin.com',
-    subject: `🎉 New Newsletter Subscriber: ${subscriber.email}`,
-    html: notificationHtml,
-  });
-};
-
-// Export function to get subscribers for admin use
-export const getNewsletterSubscribers = async (): Promise<NewsletterSubscriber[]> => {
-  return await loadSubscribers();
-};
-
-// Export function to send newsletter to all subscribers
-export const sendNewsletter = async (subject: string, content: string): Promise<{ sent: number; failed: number }> => {
-  const newsletterSubscribers = await loadSubscribers();
-  const activeSubscribers = newsletterSubscribers.filter(sub => sub.status === 'active');
-  let sent = 0;
-  let failed = 0;
-
-  for (const subscriber of activeSubscribers) {
-    try {
-      await resend.emails.send({
-        from: 'Dr. Jana Rundle <jana@bloompsychologynorthaustin.com>',
-        to: subscriber.email,
-        subject: subject,
-        html: content,
-      });
-      sent++;
-    } catch (error) {
-      console.error(`Failed to send newsletter to ${subscriber.email}:`, error);
-      failed++;
-    }
-  }
-
-  return { sent, failed };
-};

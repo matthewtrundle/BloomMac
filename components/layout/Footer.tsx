@@ -128,14 +128,6 @@ const Footer = () => {
                     Privacy Policy
                   </Link>
                 </li>
-                <li>
-                  <Link 
-                    href="/terms-of-service"
-                    className="text-white/80 hover:text-bloom-accent hover:translate-x-1 inline-block transition-all duration-300"
-                  >
-                    Terms of Service
-                  </Link>
-                </li>
               </ul>
             </div>
             
@@ -201,7 +193,7 @@ const Footer = () => {
                         <svg className="w-3 h-3 text-bloom-accent" fill="currentColor" viewBox="0 0 20 20">
                           <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                         </svg>
-                        <span>Weekly insights</span>
+                        <span>Monthly insights</span>
                       </div>
                       <span className="text-white/40">•</span>
                       <div className="flex items-center space-x-1">
@@ -247,7 +239,6 @@ const Footer = () => {
             <p className="mb-3 sm:mb-0">© {currentYear} Bloom Psychology. All rights reserved.</p>
             <div className="flex space-x-6">
               <Link href="/privacy-policy" className="hover:text-white transition duration-300">Privacy</Link>
-              <Link href="/terms-of-service" className="hover:text-white transition duration-300">Terms</Link>
               <Link href="/careers" className="hover:text-white transition duration-300">Careers</Link>
               <Link href="/faq" className="hover:text-white transition duration-300">FAQ</Link>
             </div>

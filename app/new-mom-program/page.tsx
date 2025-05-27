@@ -4,7 +4,7 @@ import NewMomProgramContent from './content';
 
 export const metadata: Metadata = {
   title: 'Becoming Mom Program | 8-Week Postpartum Support | Bloom Psychology',
-  description: 'Private 1:1 support program for new mothers navigating the transition into motherhood. 8 weekly sessions with personalized guidance, journaling prompts, and emotional support. $960 investment.',
+  description: 'Private 1:1 support program for new mothers navigating the transition into motherhood. 8 weekly sessions with personalized guidance and emotional support.',
   keywords: [
     'becoming mom program',
     'postpartum support program', 
