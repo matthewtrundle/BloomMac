@@ -10,7 +10,7 @@ import { AnalyticsProvider } from '@/components/AnalyticsProvider';
 
 // Import engagement components
 import ScrollConsultationBanner from '@/components/ui/ScrollConsultationBanner';
-import ChatBot from '@/components/ui/ChatBot';
+import LazyChatBot from '@/components/ui/LazyChatBot';
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -96,7 +96,7 @@ export default function RootLayout({
           <Footer />
           <ConsultLauncher />
           <ScrollConsultationBanner enabled={true} scrollThreshold={70} delay={8000} />
-          <ChatBot enabled={true} />
+          <LazyChatBot />
         </AnalyticsProvider>
       </body>
     </html>

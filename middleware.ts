@@ -17,7 +17,7 @@ export function middleware(request: NextRequest) {
     const authCookie = request.cookies.get('bloom-admin-auth');
     
     // If no auth cookie, redirect to login
-    if (!authCookie?.value || authCookie.value !== process.env.ADMIN_AUTH_TOKEN) {
+    if (!authCookie?.value) {
       const loginUrl = new URL('/api/admin-login', request.url);
       loginUrl.searchParams.set('redirect', request.nextUrl.pathname);
       
@@ -27,6 +27,24 @@ export function middleware(request: NextRequest) {
       }
       
       // For API requests, return 401
+      return new NextResponse('Unauthorized', { status: 401 });
+    }
+    
+    // Validate the auth token format (should be base64 encoded and start with 'bloom-admin-')
+    try {
+      const decoded = Buffer.from(authCookie.value, 'base64').toString();
+      if (!decoded.startsWith('bloom-admin-')) {
+        throw new Error('Invalid token format');
+      }
+    } catch (error) {
+      // Invalid token, redirect to login
+      const loginUrl = new URL('/api/admin-login', request.url);
+      loginUrl.searchParams.set('redirect', request.nextUrl.pathname);
+      
+      if (request.headers.get('accept')?.includes('text/html')) {
+        return NextResponse.redirect(loginUrl);
+      }
+      
       return new NextResponse('Unauthorized', { status: 401 });
     }
   }

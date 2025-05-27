@@ -329,6 +329,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       range
     });
 
+    // Set caching headers - cache for 5 minutes
+    res.setHeader('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=600');
+
     return res.status(200).json(analyticsData);
 
   } catch (error) {
