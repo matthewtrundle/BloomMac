@@ -38,15 +38,30 @@ export default function AdminDashboard() {
 
   const fetchDashboardData = async () => {
     try {
-      // In a real implementation, this would fetch from your analytics API
+      // Fetch real analytics data
+      const analyticsRes = await fetch('/api/analytics?range=24h');
+      const analyticsData = await analyticsRes.json();
+      
+      // Fetch newsletter subscribers count
+      const newsletterRes = await fetch('/api/newsletter-admin');
+      const newsletterData = await newsletterRes.json();
+      
+      // Calculate real stats
       setStats({
-        todayVisitors: 47,
-        weeklyConversions: 8,
-        activeSubscribers: 234,
-        pendingApplications: 3
+        todayVisitors: analyticsData.visitors || 0,
+        weeklyConversions: (analyticsData.contactForms || 0) + (analyticsData.newsletterSignups || 0) + (analyticsData.newMomSignups || 0),
+        activeSubscribers: newsletterData.subscribers?.length || 0,
+        pendingApplications: 0 // This would come from careers API if implemented
       });
     } catch (error) {
       console.error('Error fetching dashboard data:', error);
+      // Set to zeros on error
+      setStats({
+        todayVisitors: 0,
+        weeklyConversions: 0,
+        activeSubscribers: 0,
+        pendingApplications: 0
+      });
     } finally {
       setLoading(false);
     }
@@ -83,12 +98,60 @@ export default function AdminDashboard() {
     }
   ];
 
-  const recentActivity = [
-    { type: 'signup', message: 'New newsletter subscriber', time: '2 hours ago', icon: Users },
-    { type: 'contact', message: 'Contact form submission', time: '5 hours ago', icon: Mail },
-    { type: 'visit', message: 'Site traffic spike detected', time: '1 day ago', icon: TrendingUp },
-    { type: 'application', message: 'New career application', time: '2 days ago', icon: CheckCircle }
-  ];
+  const [recentActivity, setRecentActivity] = useState<any[]>([]);
+
+  // Fetch recent activity from analytics
+  useEffect(() => {
+    const fetchRecentActivity = async () => {
+      try {
+        const res = await fetch('/api/recent-activity?limit=5');
+        if (res.ok) {
+          const events = await res.json();
+          const activities = events.map((event: any) => {
+            const time = new Date(event.timestamp);
+            const now = new Date();
+            const diff = now.getTime() - time.getTime();
+            const hours = Math.floor(diff / (1000 * 60 * 60));
+            const days = Math.floor(hours / 24);
+            
+            let timeAgo = 'just now';
+            if (days > 0) {
+              timeAgo = `${days} day${days > 1 ? 's' : ''} ago`;
+            } else if (hours > 0) {
+              timeAgo = `${hours} hour${hours > 1 ? 's' : ''} ago`;
+            }
+            
+            const typeMap: any = {
+              'newsletter_signup': { message: 'New newsletter subscriber', icon: Users },
+              'contact_form': { message: 'Contact form submission', icon: Mail },
+              'page_view': { message: `Page view: ${event.page}`, icon: Activity },
+              'booking_click': { message: 'Booking button clicked', icon: Calendar },
+              'new_mom_signup': { message: 'New Mom Program signup', icon: CheckCircle }
+            };
+            
+            const activityInfo = typeMap[event.type] || { message: event.type, icon: Activity };
+            
+            return {
+              type: event.type,
+              message: activityInfo.message,
+              time: timeAgo,
+              icon: activityInfo.icon
+            };
+          }).slice(0, 4);
+          
+          setRecentActivity(activities);
+        }
+      } catch (error) {
+        console.error('Error fetching recent activity:', error);
+        // Set default if error
+        setRecentActivity([
+          { type: 'info', message: 'No recent activity', time: 'N/A', icon: AlertCircle }
+        ]);
+      }
+    };
+    
+    fetchRecentActivity();
+  }, []);
 
   return (
     <div>
@@ -105,10 +168,22 @@ export default function AdminDashboard() {
             <CardTitle className="text-sm font-medium text-gray-600">Today's Visitors</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-gray-900">{stats.todayVisitors}</div>
+            <div className="text-2xl font-bold text-gray-900">
+              {loading ? (
+                <span className="inline-block w-12 h-6 bg-gray-200 animate-pulse rounded"></span>
+              ) : (
+                stats.todayVisitors
+              )}
+            </div>
             <p className="text-xs text-gray-500 mt-1 flex items-center">
-              <TrendingUp className="w-3 h-3 mr-1 text-green-500" />
-              +12% from yesterday
+              {stats.todayVisitors > 0 ? (
+                <>
+                  <TrendingUp className="w-3 h-3 mr-1 text-green-500" />
+                  <span>Active tracking</span>
+                </>
+              ) : (
+                <span>No data yet</span>
+              )}
             </p>
           </CardContent>
         </Card>
