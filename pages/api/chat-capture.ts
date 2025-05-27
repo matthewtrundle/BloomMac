@@ -1,4 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
+import { supabaseAdmin } from '../../lib/supabase';
 
 export interface ChatConversation {
   id: string;
@@ -24,10 +25,6 @@ interface ChatCaptureResponse {
   conversationId: string;
 }
 
-// In-memory storage for this implementation
-// In production, you would use a database
-let chatConversations: ChatConversation[] = [];
-
 export default async function handler(
   req: NextApiRequest, 
   res: NextApiResponse<ChatCaptureResponse | { error: string }>
@@ -44,26 +41,45 @@ export default async function handler(
       return res.status(400).json({ error: 'Invalid conversation data' });
     }
 
-    // Add conversation to storage
-    const existingIndex = chatConversations.findIndex(c => c.id === conversation.id);
-    
-    if (existingIndex >= 0) {
-      // Update existing conversation
-      chatConversations[existingIndex] = {
-        ...conversation,
-        timestamp: new Date().toISOString()
-      };
-    } else {
-      // Add new conversation
-      chatConversations.push({
-        ...conversation,
-        timestamp: new Date().toISOString()
-      });
-    }
+    // Check if conversation exists in Supabase
+    const { data: existingConv } = await supabaseAdmin
+      .from('chat_conversations')
+      .select('id')
+      .eq('id', conversation.id)
+      .single();
 
-    // Keep only last 200 conversations to prevent memory overflow
-    if (chatConversations.length > 200) {
-      chatConversations = chatConversations.slice(-200);
+    if (existingConv) {
+      // Update existing conversation
+      const { error: updateError } = await supabaseAdmin
+        .from('chat_conversations')
+        .update({
+          messages: conversation.messages,
+          last_message_at: new Date().toISOString(),
+          status: conversation.resolved ? 'resolved' : 'active'
+        })
+        .eq('id', conversation.id);
+
+      if (updateError) {
+        console.error('Error updating conversation:', updateError);
+        throw updateError;
+      }
+    } else {
+      // Create new conversation
+      const { error: insertError } = await supabaseAdmin
+        .from('chat_conversations')
+        .insert({
+          id: conversation.id,
+          session_id: conversation.sessionId,
+          messages: conversation.messages,
+          source_page: conversation.page || 'unknown',
+          user_agent: conversation.userAgent,
+          status: conversation.resolved ? 'resolved' : 'active'
+        });
+
+      if (insertError) {
+        console.error('Error inserting conversation:', insertError);
+        throw insertError;
+      }
     }
 
     console.log('Chat conversation captured:', {
@@ -83,7 +99,32 @@ export default async function handler(
   }
 }
 
-// Export function to get conversations for analytics
-export const getChatConversations = (): ChatConversation[] => {
-  return chatConversations;
+// Export function to get conversations for analytics from Supabase
+export const getChatConversations = async (): Promise<ChatConversation[]> => {
+  try {
+    const { data, error } = await supabaseAdmin
+      .from('chat_conversations')
+      .select('*')
+      .order('created_at', { ascending: false })
+      .limit(200);
+    
+    if (error) {
+      console.error('Error fetching conversations:', error);
+      return [];
+    }
+    
+    // Transform Supabase data to match ChatConversation interface
+    return (data || []).map(conv => ({
+      id: conv.id,
+      timestamp: conv.created_at,
+      messages: conv.messages || [],
+      sessionId: conv.session_id || '',
+      userAgent: conv.user_agent,
+      page: conv.source_page,
+      resolved: conv.status === 'resolved'
+    }));
+  } catch (error) {
+    console.error('Error in getChatConversations:', error);
+    return [];
+  }
 };
