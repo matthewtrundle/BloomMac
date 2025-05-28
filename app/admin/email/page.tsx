@@ -10,6 +10,14 @@ const EmailAdminPage: React.FC = () => {
   const [emailAnalytics, setEmailAnalytics] = useState<any>(null);
   const [automationData, setAutomationData] = useState<any>(null);
   const [loading, setLoading] = useState(false);
+  const [showSequenceBuilder, setShowSequenceBuilder] = useState(false);
+  const [newSequence, setNewSequence] = useState({
+    name: '',
+    trigger: 'newsletter_signup',
+    emails: [
+      { subject: '', content: '', delay_days: 0, delay_hours: 0 }
+    ]
+  });
 
   useEffect(() => {
     if (activeTab === 'analytics') {
@@ -22,7 +30,18 @@ const EmailAdminPage: React.FC = () => {
   const fetchEmailAnalytics = async () => {
     setLoading(true);
     try {
-      const res = await fetch('/api/email-analytics?range=30d');
+      const res = await fetch('/api/email-analytics?range=30d', {
+        credentials: 'include'
+      });
+      
+      if (!res.ok) {
+        console.error('Email analytics fetch failed:', res.status, res.statusText);
+        if (res.status === 401) {
+          window.location.href = '/admin/login';
+          return;
+        }
+      }
+      
       const data = await res.json();
       setEmailAnalytics(data);
     } catch (error) {
@@ -34,7 +53,18 @@ const EmailAdminPage: React.FC = () => {
   const fetchAutomationData = async () => {
     setLoading(true);
     try {
-      const res = await fetch('/api/email-automations');
+      const res = await fetch('/api/email-automations', {
+        credentials: 'include'
+      });
+      
+      if (!res.ok) {
+        console.error('Email automations fetch failed:', res.status, res.statusText);
+        if (res.status === 401) {
+          window.location.href = '/admin/login';
+          return;
+        }
+      }
+      
       const data = await res.json();
       setAutomationData(data);
     } catch (error) {
@@ -43,12 +73,36 @@ const EmailAdminPage: React.FC = () => {
     setLoading(false);
   };
 
+  const createSequence = async () => {
+    try {
+      const res = await fetch('/api/email-automations', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ sequence: newSequence })
+      });
+      
+      if (res.ok) {
+        setShowSequenceBuilder(false);
+        setNewSequence({
+          name: '',
+          trigger: 'newsletter_signup',
+          emails: [{ subject: '', content: '', delay_days: 0, delay_hours: 0 }]
+        });
+        fetchAutomationData();
+      }
+    } catch (error) {
+      console.error('Error creating sequence:', error);
+    }
+  };
+
   const toggleSequenceStatus = async (sequenceId: string, currentStatus: string) => {
     const newStatus = currentStatus === 'active' ? 'paused' : 'active';
     try {
       await fetch('/api/email-automations', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({ sequenceId, status: newStatus })
       });
       fetchAutomationData();
@@ -160,7 +214,10 @@ const EmailAdminPage: React.FC = () => {
                   <CardHeader>
                     <div className="flex justify-between items-center">
                       <CardTitle>Email Sequences</CardTitle>
-                      <button className="flex items-center space-x-2 text-sm bg-bloom-primary text-white px-4 py-2 rounded-lg hover:bg-bloom-primary/90 transition-colors">
+                      <button 
+                        onClick={() => setShowSequenceBuilder(true)}
+                        className="flex items-center space-x-2 text-sm bg-bloom-primary text-white px-4 py-2 rounded-lg hover:bg-bloom-primary/90 transition-colors"
+                      >
                         <Plus className="w-4 h-4" />
                         <span>New Sequence</span>
                       </button>
@@ -425,6 +482,142 @@ const EmailAdminPage: React.FC = () => {
           </div>
         )}
       </div>
+
+      {/* Sequence Builder Modal */}
+      {showSequenceBuilder && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg p-6 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <h2 className="text-2xl font-bold mb-4">Create Email Sequence</h2>
+            
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Sequence Name
+                </label>
+                <input
+                  type="text"
+                  value={newSequence.name}
+                  onChange={(e) => setNewSequence({...newSequence, name: e.target.value})}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-bloom-primary focus:border-transparent"
+                  placeholder="e.g., Welcome Series"
+                />
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Trigger
+                </label>
+                <select
+                  value={newSequence.trigger}
+                  onChange={(e) => setNewSequence({...newSequence, trigger: e.target.value})}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-bloom-primary focus:border-transparent"
+                >
+                  <option value="newsletter_signup">Newsletter Signup</option>
+                  <option value="contact_form">Contact Form Submission</option>
+                  <option value="new_mom_program">New Mom Program Inquiry</option>
+                  <option value="manual">Manual Trigger</option>
+                </select>
+              </div>
+              
+              <div className="border-t pt-4">
+                <h3 className="font-semibold mb-3">Email Sequence</h3>
+                {newSequence.emails.map((email, index) => (
+                  <div key={index} className="mb-4 p-4 border rounded-lg">
+                    <div className="flex justify-between items-start mb-3">
+                      <h4 className="font-medium">Email {index + 1}</h4>
+                      {index > 0 && (
+                        <button
+                          onClick={() => {
+                            const updatedEmails = newSequence.emails.filter((_, i) => i !== index);
+                            setNewSequence({...newSequence, emails: updatedEmails});
+                          }}
+                          className="text-red-600 text-sm hover:underline"
+                        >
+                          Remove
+                        </button>
+                      )}
+                    </div>
+                    
+                    <div className="space-y-3">
+                      <input
+                        type="text"
+                        value={email.subject}
+                        onChange={(e) => {
+                          const updatedEmails = [...newSequence.emails];
+                          updatedEmails[index].subject = e.target.value;
+                          setNewSequence({...newSequence, emails: updatedEmails});
+                        }}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-bloom-primary focus:border-transparent"
+                        placeholder="Email subject"
+                      />
+                      
+                      <div className="flex gap-2">
+                        <div className="flex-1">
+                          <label className="text-xs text-gray-600">Delay (days)</label>
+                          <input
+                            type="number"
+                            min="0"
+                            value={email.delay_days}
+                            onChange={(e) => {
+                              const updatedEmails = [...newSequence.emails];
+                              updatedEmails[index].delay_days = parseInt(e.target.value) || 0;
+                              setNewSequence({...newSequence, emails: updatedEmails});
+                            }}
+                            className="w-full px-3 py-1 border border-gray-300 rounded-lg focus:ring-2 focus:ring-bloom-primary focus:border-transparent"
+                          />
+                        </div>
+                        <div className="flex-1">
+                          <label className="text-xs text-gray-600">Delay (hours)</label>
+                          <input
+                            type="number"
+                            min="0"
+                            max="23"
+                            value={email.delay_hours}
+                            onChange={(e) => {
+                              const updatedEmails = [...newSequence.emails];
+                              updatedEmails[index].delay_hours = parseInt(e.target.value) || 0;
+                              setNewSequence({...newSequence, emails: updatedEmails});
+                            }}
+                            className="w-full px-3 py-1 border border-gray-300 rounded-lg focus:ring-2 focus:ring-bloom-primary focus:border-transparent"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+                
+                <button
+                  onClick={() => {
+                    setNewSequence({
+                      ...newSequence,
+                      emails: [...newSequence.emails, { subject: '', content: '', delay_days: 0, delay_hours: 0 }]
+                    });
+                  }}
+                  className="text-bloom-primary text-sm hover:underline"
+                >
+                  + Add Another Email
+                </button>
+              </div>
+            </div>
+            
+            <div className="flex justify-end space-x-3 mt-6">
+              <button
+                onClick={() => setShowSequenceBuilder(false)}
+                className="px-4 py-2 text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={createSequence}
+                disabled={!newSequence.name || newSequence.emails.some(e => !e.subject)}
+                className="px-4 py-2 bg-bloom-primary text-white rounded-lg hover:bg-bloom-primary/90 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Create Sequence
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

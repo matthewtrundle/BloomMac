@@ -87,13 +87,19 @@ export default function AdminAnalyticsPage() {
   const fetchData = async () => {
     setLoading(true);
     try {
-      // Fetch business analytics
-      const businessRes = await fetch(`/api/analytics?range=${timeRange}`);
+      // Fetch business analytics - force fresh data
+      const businessRes = await fetch(`/api/analytics?range=${timeRange}&t=${Date.now()}`, {
+        credentials: 'include',
+        cache: 'no-store'
+      });
       const businessData = await businessRes.json();
       setBusinessData(businessData);
 
       // Fetch chat analytics
-      const chatRes = await fetch(`/api/chat-analytics?range=${timeRange}`);
+      const chatRes = await fetch(`/api/chat-analytics?range=${timeRange}`, {
+        credentials: 'include',
+        cache: 'no-store'
+      });
       const chatData = await chatRes.json();
       setChatData(chatData);
     } catch (error) {

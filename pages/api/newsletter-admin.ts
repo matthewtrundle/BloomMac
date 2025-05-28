@@ -5,11 +5,12 @@ import { supabaseAdmin } from '@/lib/supabase';
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  // Simple auth check
-  const authHeader = req.headers.authorization;
-  const adminKey = process.env.ADMIN_API_KEY;
+  // Auth is handled by middleware - check headers
+  const userId = req.headers['x-user-id'];
+  const userEmail = req.headers['x-user-email'];
+  const userRole = req.headers['x-user-role'];
   
-  if (!authHeader || authHeader !== `Bearer ${adminKey}`) {
+  if (!userId || !userEmail) {
     return res.status(401).json({ error: 'Unauthorized' });
   }
 
@@ -24,7 +25,64 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         
         if (error) throw error;
         
-        return res.status(200).json(subscribers || []);
+        // Calculate stats
+        const allSubscribers = subscribers || [];
+        const activeSubscribers = allSubscribers.filter(s => s.status === 'active');
+        const unsubscribed = allSubscribers.filter(s => s.status === 'unsubscribed');
+        
+        // Recent signups (last 30 days)
+        const thirtyDaysAgo = new Date();
+        thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+        const recentSignups = allSubscribers.filter(s => 
+          new Date(s.created_at) > thirtyDaysAgo
+        ).length;
+        
+        // Group by source
+        const sourceMap = new Map();
+        allSubscribers.forEach(s => {
+          const source = s.source || 'website';
+          sourceMap.set(source, (sourceMap.get(source) || 0) + 1);
+        });
+        
+        const signupSources = Array.from(sourceMap.entries()).map(([source, count]) => ({
+          source,
+          count,
+          percentage: Math.round((count / allSubscribers.length) * 100)
+        }));
+        
+        // Growth trend (mock data for now)
+        const growthTrend = [];
+        for (let i = 29; i >= 0; i--) {
+          const date = new Date();
+          date.setDate(date.getDate() - i);
+          growthTrend.push({
+            date: date.toISOString().split('T')[0],
+            subscribers: Math.max(0, allSubscribers.length - (i * 2))
+          });
+        }
+        
+        // Format subscribers for the component
+        const formattedSubscribers = allSubscribers.map(s => ({
+          id: s.id,
+          email: s.email,
+          firstName: s.first_name || '',
+          lastName: s.last_name || '',
+          signupSource: s.source || 'website',
+          timestamp: s.created_at,
+          interests: s.interests || []
+        }));
+        
+        return res.status(200).json({
+          stats: {
+            total_subscribers: allSubscribers.length,
+            active_subscribers: activeSubscribers.length,
+            unsubscribed: unsubscribed.length,
+            recent_signups: recentSignups,
+            signup_sources: signupSources,
+            growth_trend: growthTrend
+          },
+          subscribers: formattedSubscribers
+        });
       } catch (error) {
         console.error('Error fetching subscribers:', error);
         return res.status(500).json({ 

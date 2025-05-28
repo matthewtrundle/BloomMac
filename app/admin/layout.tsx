@@ -13,7 +13,9 @@ import {
   Home,
   Shield,
   Sparkles,
-  Archive
+  Archive,
+  Activity,
+  Settings
 } from 'lucide-react';
 
 export default function AdminLayout({
@@ -25,12 +27,10 @@ export default function AdminLayout({
 
   const navigation = [
     { name: 'Analytics Dashboard', href: '/admin/analytics', icon: BarChart },
-    { name: 'Email Captures', href: '/admin/email', icon: Mail },
-    { name: 'Newsletter Subscribers', href: '/admin/newsletter', icon: Users },
-    { name: 'Email Sequences', href: '/admin/email-sequences', icon: Sparkles },
-    { name: 'Email Testing', href: '/admin/email-test', icon: TestTube },
-    { name: 'Image Prompts', href: '/admin/image-prompts', icon: Image },
+    { name: 'Email Management', href: '/admin/email', icon: Mail },
     { name: 'Career Applications', href: '/admin/careers', icon: FileText },
+    { name: 'Activity Log', href: '/admin/activity', icon: Activity },
+    { name: 'Site Settings', href: '/admin/settings', icon: Settings },
     { name: 'Backup & Export', href: '/admin/backup', icon: Archive },
   ];
 
@@ -54,13 +54,16 @@ export default function AdminLayout({
                 <Home className="w-4 h-4" />
                 <span>Back to Site</span>
               </Link>
-              <Link 
-                href="/api/admin-logout" 
+              <button 
+                onClick={async () => {
+                  await fetch('/api/admin/logout', { method: 'POST' });
+                  window.location.href = '/admin/login';
+                }}
                 className="text-sm text-red-600 hover:text-red-700 flex items-center space-x-2"
               >
                 <LogOut className="w-4 h-4" />
                 <span>Logout</span>
-              </Link>
+              </button>
             </div>
           </div>
         </div>

@@ -169,34 +169,27 @@ function generateCampaignData(emails: any[]): EmailAnalytics['campaigns'] {
 }
 
 function generateEngagementData(emails: any[]): EmailAnalytics['engagement'] {
-  // Generate hourly distribution
+  // Generate hourly distribution with zeros for now (no real data yet)
   const hourlyData = new Array(24).fill(0).map((_, hour) => ({
     hour,
-    opens: Math.floor(Math.random() * 20) + 5
+    opens: 0
   }));
   
-  // Peak hours are typically 9-11am and 3-5pm
-  hourlyData[9].opens = 45;
-  hourlyData[10].opens = 50;
-  hourlyData[11].opens = 40;
-  hourlyData[15].opens = 35;
-  hourlyData[16].opens = 38;
-  
-  // Generate daily distribution
+  // Generate daily distribution with zeros
   const dailyData = [
-    { day: 'Mon', opens: 85 },
-    { day: 'Tue', opens: 120 },
-    { day: 'Wed', opens: 95 },
-    { day: 'Thu', opens: 110 },
-    { day: 'Fri', opens: 75 },
-    { day: 'Sat', opens: 45 },
-    { day: 'Sun', opens: 40 }
+    { day: 'Mon', opens: 0 },
+    { day: 'Tue', opens: 0 },
+    { day: 'Wed', opens: 0 },
+    { day: 'Thu', opens: 0 },
+    { day: 'Fri', opens: 0 },
+    { day: 'Sat', opens: 0 },
+    { day: 'Sun', opens: 0 }
   ];
   
   return {
     byHour: hourlyData,
     byDay: dailyData,
-    bestSendTime: 'Tuesday at 10:00 AM'
+    bestSendTime: 'Not enough data'
   };
 }
 
@@ -207,10 +200,6 @@ function calculateGrowthRate(newSubs: number, unsubs: number): number {
 }
 
 function getMostEngagedSubscribers(emails: any[]): any[] {
-  // In production, track actual engagement per subscriber
-  return [
-    { email: 'sarah***@gmail.com', opens: 12, clicks: 8 },
-    { email: 'emma***@yahoo.com', opens: 10, clicks: 6 },
-    { email: 'mike***@outlook.com', opens: 9, clicks: 5 }
-  ];
+  // Return empty array until we have real engagement data
+  return [];
 }

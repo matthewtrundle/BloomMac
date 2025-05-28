@@ -52,14 +52,15 @@ const NewsletterAdmin: React.FC = () => {
   const fetchNewsletterData = async () => {
     try {
       const response = await fetch('/api/newsletter-admin', {
-        headers: {
-          'Authorization': 'Bearer admin-token-123'
-        }
+        credentials: 'include'
       });
 
       if (response.ok) {
         const result = await response.json();
         setData(result);
+      } else if (response.status === 401) {
+        // Redirect to login if unauthorized
+        window.location.href = '/admin/login';
       }
     } catch (error) {
       console.error('Failed to fetch newsletter data:', error);
@@ -81,9 +82,9 @@ const NewsletterAdmin: React.FC = () => {
       const response = await fetch('/api/newsletter-admin', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer admin-token-123'
+          'Content-Type': 'application/json'
         },
+        credentials: 'include',
         body: JSON.stringify({ subject, content, preview })
       });
 
