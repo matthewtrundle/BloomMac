@@ -12,6 +12,9 @@ import { AnalyticsProvider } from '@/components/AnalyticsProvider';
 import ScrollConsultationBanner from '@/components/ui/ScrollConsultationBanner';
 import LazyChatBot from '@/components/ui/LazyChatBot';
 
+// Import tracking
+import HeatmapTracker from '@/components/HeatmapTracker';
+
 const inter = Inter({ 
   subsets: ['latin'],
   display: 'swap',
@@ -101,6 +104,7 @@ export default function RootLayout({
           <ConsultLauncher />
           <ScrollConsultationBanner enabled={true} scrollThreshold={70} delay={8000} />
           <LazyChatBot />
+          <HeatmapTracker />
         </AnalyticsProvider>
       </body>
     </html>

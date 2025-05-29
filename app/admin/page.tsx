@@ -76,16 +76,16 @@ export default function AdminDashboard() {
       color: 'text-blue-600 bg-blue-100'
     },
     {
-      title: 'Blog Posts',
-      description: 'Create, edit, and manage blog content',
-      href: '/admin/blog',
+      title: 'Click Heatmap',
+      description: 'Visualize user click patterns',
+      href: '/admin/heatmap',
       icon: Activity,
-      color: 'text-indigo-600 bg-indigo-100'
+      color: 'text-red-600 bg-red-100'
     },
     {
-      title: 'Email Captures',
-      description: 'Review contact form submissions',
-      href: '/admin/email',
+      title: 'Contact Submissions',
+      description: 'View and manage contact form submissions',
+      href: '/admin/contacts',
       icon: Mail,
       color: 'text-green-600 bg-green-100'
     },
@@ -95,6 +95,13 @@ export default function AdminDashboard() {
       href: '/admin/newsletter',
       icon: Users,
       color: 'text-purple-600 bg-purple-100'
+    },
+    {
+      title: 'Blog Posts',
+      description: 'Create, edit, and manage blog content',
+      href: '/admin/blog',
+      icon: Activity,
+      color: 'text-indigo-600 bg-indigo-100'
     },
     {
       title: 'Test Emails',

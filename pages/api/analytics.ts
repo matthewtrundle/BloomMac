@@ -101,6 +101,12 @@ function calculatePagePerformance(events: AnalyticsEvent[]) {
     
     const conversionRate = views > 0 ? (conversions / views) * 100 : 0;
     
+    // Calculate real average time on page
+    const avgTimeSeconds = calculateAverageTimeOnPage(events, page);
+    const minutes = Math.floor(avgTimeSeconds / 60);
+    const seconds = Math.round(avgTimeSeconds % 60);
+    const avgTime = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+    
     // Assign grades based on conversion rate
     let grade = 'F';
     if (conversionRate >= 10) grade = 'A';
@@ -111,7 +117,7 @@ function calculatePagePerformance(events: AnalyticsEvent[]) {
     return {
       page,
       views,
-      avgTime: `${Math.floor(Math.random() * 2) + 1}:${Math.floor(Math.random() * 60).toString().padStart(2, '0')}`,
+      avgTime,
       grade
     };
   }).filter(p => p.views > 0);
@@ -241,6 +247,60 @@ function calculateAvgTimeOnSite(events: AnalyticsEvent[]): string {
   const seconds = Math.round(avgSeconds % 60);
   
   return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+}
+
+function calculateAverageTimeOnPage(events: AnalyticsEvent[], page: string): number {
+  // Group events by session
+  const sessions = new Map<string, AnalyticsEvent[]>();
+  
+  events.forEach(event => {
+    if (event.page === page) {
+      const sessionId = event.sessionId || event.id;
+      const sessionEvents = sessions.get(sessionId) || [];
+      sessionEvents.push(event);
+      sessions.set(sessionId, sessionEvents);
+    }
+  });
+  
+  // Calculate time spent on this specific page
+  let totalTime = 0;
+  let pageViewCount = 0;
+  
+  sessions.forEach(sessionPageEvents => {
+    // Sort events by timestamp
+    const sortedEvents = sessionPageEvents.sort((a, b) => 
+      new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
+    );
+    
+    // Find page view events and calculate time to next event
+    for (let i = 0; i < sortedEvents.length; i++) {
+      if (sortedEvents[i].type === 'page_view') {
+        pageViewCount++;
+        
+        // Find next event in session (any page)
+        let nextEventTime = null;
+        for (let j = i + 1; j < sortedEvents.length; j++) {
+          nextEventTime = new Date(sortedEvents[j].timestamp).getTime();
+          break;
+        }
+        
+        if (nextEventTime) {
+          const currentTime = new Date(sortedEvents[i].timestamp).getTime();
+          const timeOnPage = (nextEventTime - currentTime) / 1000; // seconds
+          
+          // Only count reasonable durations (up to 10 minutes)
+          if (timeOnPage > 0 && timeOnPage < 600) {
+            totalTime += timeOnPage;
+          }
+        } else {
+          // Default time for last page in session
+          totalTime += 30; // 30 seconds default
+        }
+      }
+    }
+  });
+  
+  return pageViewCount > 0 ? totalTime / pageViewCount : 60; // Default 1 minute
 }
 
 function calculateBounceRate(events: AnalyticsEvent[]): string {

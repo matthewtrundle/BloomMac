@@ -15,7 +15,9 @@ import {
   Sparkles,
   Archive,
   Activity,
-  Settings
+  Settings,
+  MessageSquare,
+  MousePointerClick
 } from 'lucide-react';
 
 export default function AdminLayout({
@@ -26,11 +28,17 @@ export default function AdminLayout({
   const pathname = usePathname();
 
   const navigation = [
-    { name: 'Analytics Dashboard', href: '/admin/analytics', icon: BarChart },
+    { name: 'Dashboard', href: '/admin', icon: Home },
+    { name: 'Analytics', href: '/admin/analytics', icon: BarChart },
+    { name: 'Click Heatmap', href: '/admin/heatmap', icon: MousePointerClick },
+    { name: 'Contact Submissions', href: '/admin/contacts', icon: MessageSquare },
     { name: 'Email Management', href: '/admin/email', icon: Mail },
+    { name: 'Email Testing', href: '/admin/email-test', icon: TestTube },
+    { name: 'Newsletter', href: '/admin/newsletter', icon: Users },
+    { name: 'Blog Posts', href: '/admin/blog', icon: FileText },
     { name: 'Career Applications', href: '/admin/careers', icon: FileText },
     { name: 'Activity Log', href: '/admin/activity', icon: Activity },
-    { name: 'Site Settings', href: '/admin/settings', icon: Settings },
+    { name: 'Settings', href: '/admin/settings', icon: Settings },
     { name: 'Backup & Export', href: '/admin/backup', icon: Archive },
   ];
 
