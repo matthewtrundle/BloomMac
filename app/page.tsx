@@ -141,9 +141,9 @@ export default function Home() {
       />
       
       {/* Hero Section */}
-      <section className="relative h-[75vh] hero-section contain-layout">
+      <section className="relative h-auto md:h-[75vh] min-h-[75vh] hero-section contain-layout">
         {/* Fixed hero background image */}
-        <div className="fixed inset-x-0 top-0 h-[75vh] w-full" style={{ zIndex: -1 }}>
+        <div className="fixed md:fixed absolute inset-x-0 top-0 h-[75vh] w-full" style={{ zIndex: -1 }}>
           <div className="relative w-full h-full">
             <Image
               src={heroImage}
@@ -179,7 +179,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="relative z-10 max-w-3xl ml-4 md:ml-8 lg:ml-16 mr-auto pt-24 lg:pt-32"
+            className="relative z-10 max-w-3xl ml-4 md:ml-8 lg:ml-16 mr-auto pt-16 sm:pt-20 md:pt-24 lg:pt-32"
           >
             <div className="bg-white/60 backdrop-blur-sm rounded-lg p-6">
               <h1 className="font-raleway text-center text-3xl sm:text-4xl md:text-5xl lg:text-[3.3rem] mb-6 tracking-tight leading-tight text-shadow">
@@ -192,12 +192,12 @@ export default function Home() {
               </p>
             </div>
             
-            <div className="flex flex-col sm:flex-row gap-4 mt-6">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-6 mb-8 sm:mb-0">
               <motion.a 
                 href="/book" 
                 whileHover={{ scale: 1.03, y: -2 }} 
                 transition={{ type: "spring", stiffness: 300 }}
-                className="bg-bloompink hover:bg-[#B03979] text-white font-bold font-inter px-6 py-3 rounded-md shadow-md transition-all duration-300 text-center"
+                className="bg-bloompink hover:bg-[#B03979] text-white font-bold font-inter px-5 sm:px-6 py-3 rounded-md shadow-md transition-all duration-300 text-center text-sm sm:text-base"
               >
                 Book Now →
               </motion.a>
@@ -206,7 +206,7 @@ export default function Home() {
                 href="/new-mom-program" 
                 variant="outline" 
                 size="md" 
-                className="z-10 bg-white/80 hover:bg-white"
+                className="z-10 bg-white/80 hover:bg-white text-sm sm:text-base"
               >
                 New Mom Program
               </Button>
@@ -215,7 +215,7 @@ export default function Home() {
                 href="#services" 
                 whileHover={{ scale: 1.03, y: -2 }} 
                 transition={{ type: "spring", stiffness: 300 }}
-                className="bg-bloompink hover:bg-[#B03979] text-white font-bold font-inter px-6 py-3 rounded-md shadow-md transition-all duration-300 text-center"
+                className="bg-bloompink hover:bg-[#B03979] text-white font-bold font-inter px-5 sm:px-6 py-3 rounded-md shadow-md transition-all duration-300 text-center text-sm sm:text-base"
               >
                 Explore Our Services
               </motion.a>

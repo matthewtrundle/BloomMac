@@ -473,6 +473,50 @@ section:not(.hero-section) {
   .hero-section {
     /* On mobile, sometimes fixed backgrounds can be problematic */
     background-attachment: scroll;
+    /* Ensure hero section doesn't cut off content on mobile */
+    min-height: 75vh;
+    height: auto;
+  }
+  
+  /* Ensure all buttons are visible on mobile */
+  .hero-section .container {
+    padding-bottom: 2rem;
+  }
+  
+  /* Adjust hero content spacing on mobile */
+  .hero-section .bg-white\/60 {
+    margin-bottom: 1rem;
+  }
+  
+  /* Prevent content from being cut off on mobile */
+  .hero-section {
+    overflow: visible;
+  }
+  
+  /* Ensure fixed background works properly on mobile */
+  .hero-section > div:first-child {
+    position: absolute !important;
+  }
+  
+  /* Fix contact page sticky sidebar on mobile */
+  .sticky {
+    position: relative !important;
+  }
+  
+  /* Ensure proper z-index stacking on mobile */
+  .relative {
+    z-index: auto;
+  }
+  
+  /* Add padding to body to account for fixed elements */
+  body {
+    padding-bottom: 80px;
+  }
+  
+  /* Ensure glass panels don't overlap content */
+  .glass-panel-prominent {
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
   }
 }
 

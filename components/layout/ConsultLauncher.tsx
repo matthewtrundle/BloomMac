@@ -87,7 +87,7 @@ const ConsultLauncher = () => {
   if (!hasScrolled) return null;
 
   return (
-    <div className="fixed bottom-6 right-6 z-50">
+    <div className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-40">
       <AnimatePresence>
         {isOpen ? (
           <motion.div
@@ -96,7 +96,7 @@ const ConsultLauncher = () => {
             animate="visible"
             exit="exit"
             variants={expandedVariants}
-            className="glass-panel-prominent rounded-lg p-4 shadow-xl max-w-xs"
+            className="glass-panel-prominent rounded-lg p-3 md:p-4 shadow-xl max-w-[280px] md:max-w-xs"
           >
             <motion.div className="flex justify-between items-center mb-3" variants={itemVariants}>
               <h3 className="font-playfair text-lg text-bloom">Schedule a Free Consultation</h3>
