@@ -33,6 +33,7 @@ export default function AdminLayout({
     { name: 'Click Heatmap', href: '/admin/heatmap', icon: MousePointerClick },
     { name: 'Contact Submissions', href: '/admin/contacts', icon: MessageSquare },
     { name: 'Email Management', href: '/admin/email', icon: Mail },
+    { name: 'Email Editor', href: '/admin/email-editor', icon: Sparkles },
     { name: 'Email Testing', href: '/admin/email-test', icon: TestTube },
     { name: 'Newsletter', href: '/admin/newsletter', icon: Users },
     { name: 'Blog Posts', href: '/admin/blog', icon: FileText },

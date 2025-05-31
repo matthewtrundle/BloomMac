@@ -25,6 +25,7 @@ class HeatmapTracker {
 
   constructor() {
     if (typeof window !== 'undefined') {
+      console.log('[HeatmapTracker] Initializing...');
       this.init();
     }
   }
@@ -32,6 +33,7 @@ class HeatmapTracker {
   private init() {
     // Track all clicks on the page
     document.addEventListener('click', this.handleClick.bind(this), true);
+    console.log('[HeatmapTracker] Click listener attached');
     
     // Start flush timer
     this.startFlushTimer();
@@ -44,6 +46,7 @@ class HeatmapTracker {
 
   private handleClick(event: MouseEvent) {
     const target = event.target as HTMLElement;
+    console.log('[HeatmapTracker] Click detected:', target.tagName, target.textContent?.substring(0, 20));
     
     // Get element information
     const elementType = target.tagName.toLowerCase();
@@ -101,6 +104,8 @@ class HeatmapTracker {
     const clicks = [...this.clickBuffer];
     this.clickBuffer = [];
     
+    console.log('[HeatmapTracker] Flushing', clicks.length, 'clicks');
+    
     try {
       // Send to analytics API
       const response = await fetch('/api/track-clicks', {
@@ -117,12 +122,14 @@ class HeatmapTracker {
       });
       
       if (!response.ok) {
-        console.error('Failed to send click data');
+        console.error('[HeatmapTracker] Failed to send click data:', response.status);
         // Put clicks back in buffer to retry
         this.clickBuffer.unshift(...clicks);
+      } else {
+        console.log('[HeatmapTracker] Successfully sent', clicks.length, 'clicks');
       }
     } catch (error) {
-      console.error('Error sending click data:', error);
+      console.error('[HeatmapTracker] Error sending click data:', error);
       // Put clicks back in buffer to retry
       this.clickBuffer.unshift(...clicks);
     }
