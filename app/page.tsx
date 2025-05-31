@@ -141,9 +141,9 @@ export default function Home() {
       />
       
       {/* Hero Section */}
-      <section className="relative h-auto md:h-[75vh] min-h-[60vh] md:min-h-[75vh] hero-section contain-layout">
-        {/* Fixed hero background image */}
-        <div className="fixed md:fixed absolute inset-x-0 top-0 h-[60vh] md:h-[75vh] w-full" style={{ zIndex: -1 }}>
+      <section className="relative h-auto md:h-[75vh] min-h-[60vh] md:min-h-[75vh] hero-section contain-layout bg-white md:bg-transparent">
+        {/* Fixed hero background image - hidden on mobile */}
+        <div className="hidden md:block fixed inset-x-0 top-0 h-[75vh] w-full" style={{ zIndex: -1 }}>
           <div className="relative w-full h-full">
             <Image
               src={heroImage}
@@ -181,7 +181,7 @@ export default function Home() {
             transition={{ duration: 0.6 }}
             className="relative z-10 max-w-3xl w-full md:ml-8 lg:ml-16 md:mr-auto py-8 md:pt-24 lg:pt-32"
           >
-            <div className="bg-white/60 backdrop-blur-sm rounded-lg p-4 sm:p-6">
+            <div className="md:bg-white/60 md:backdrop-blur-sm md:rounded-lg p-4 sm:p-6">
               <h1 className="font-raleway text-center text-2xl sm:text-4xl md:text-5xl lg:text-[3.3rem] mb-3 sm:mb-6 tracking-tight leading-tight text-shadow">
                 <span className="font-light text-bloompink">Bloom</span>
                 <span className="font-extralight text-bloom-darkGrey">Psychology</span>
