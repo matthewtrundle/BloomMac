@@ -28,6 +28,41 @@ const nextConfig: NextConfig = {
       ],
     },
   ],
+  async redirects() {
+    return [
+      // Instagram-friendly redirects
+      {
+        source: '/newsletter',
+        destination: '/join',
+        permanent: true,
+      },
+      {
+        source: '/signup',
+        destination: '/join',
+        permanent: true,
+      },
+      {
+        source: '/subscribe',
+        destination: '/join',
+        permanent: true,
+      },
+      {
+        source: '/free-guide',
+        destination: '/join',
+        permanent: true,
+      },
+      {
+        source: '/instagram',
+        destination: '/join',
+        permanent: true,
+      },
+      {
+        source: '/ig',
+        destination: '/join',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default withBundleAnalyzer(nextConfig);

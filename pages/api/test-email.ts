@@ -21,7 +21,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   try {
-    const { to, type = 'welcome', sequence, step } = req.body;
+    const { to, type = 'welcome', sequence, step, customSubject, customContent } = req.body;
 
     if (!to || !to.includes('@')) {
       return res.status(400).json({ error: 'Valid email address is required' });
@@ -33,27 +33,37 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // Handle enhanced email templates
     if (sequence && step) {
-      const sequenceTemplates = enhancedEmailTemplates[sequence];
-      if (!sequenceTemplates) {
-        return res.status(400).json({ error: 'Invalid sequence type' });
+      // If custom content is provided, use it instead of template
+      if (customSubject && customContent) {
+        emailData = {
+          from: 'Bloom Psychology <hello@bloompsychologynorthaustin.com>',
+          to,
+          subject: `[TEST] ${customSubject}`,
+          html: customContent
+        };
+      } else {
+        const sequenceTemplates = enhancedEmailTemplates[sequence];
+        if (!sequenceTemplates) {
+          return res.status(400).json({ error: 'Invalid sequence type' });
+        }
+
+        const template = sequenceTemplates[step];
+        if (!template) {
+          return res.status(400).json({ error: 'Invalid step for sequence' });
+        }
+
+        const personalizedEmail = personalizeEmail(template, {
+          firstName: 'Test User',
+          name: 'Test User'
+        });
+
+        emailData = {
+          from: 'Bloom Psychology <hello@bloompsychologynorthaustin.com>',
+          to,
+          subject: `[TEST] ${personalizedEmail.subject}`,
+          html: personalizedEmail.content
+        };
       }
-
-      const template = sequenceTemplates[step];
-      if (!template) {
-        return res.status(400).json({ error: 'Invalid step for sequence' });
-      }
-
-      const personalizedEmail = personalizeEmail(template, {
-        firstName: 'Test User',
-        name: 'Test User'
-      });
-
-      emailData = {
-        from: 'Bloom Psychology <hello@bloompsychologynorthaustin.com>',
-        to,
-        subject: `[TEST] ${personalizedEmail.subject}`,
-        html: personalizedEmail.content
-      };
     } else {
       // Legacy test email types
       switch (type) {
