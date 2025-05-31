@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { Resend } from 'resend';
-import { welcomeEmailTemplate } from '@/lib/email-templates/welcome';
+import { enhancedEmailTemplates, personalizeEmail } from '@/lib/email-templates/enhanced-emails';
 import { supabaseAdmin } from '@/lib/supabase';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -22,16 +22,27 @@ interface SignupResponse {
 // Send welcome email to new subscriber
 async function sendWelcomeEmail(subscriber: any) {
   const firstName = subscriber.first_name || 'Friend';
-  const emailTemplate = welcomeEmailTemplate(firstName);
   
   try {
+    // Get the enhanced welcome email template
+    const welcomeTemplate = enhancedEmailTemplates.newsletter.welcome;
+    const personalizedEmail = personalizeEmail(welcomeTemplate, {
+      firstName,
+      name: firstName
+    });
+    
     await resend.emails.send({
       from: 'Bloom Psychology <hello@bloompsychologynorthaustin.com>',
       to: subscriber.email,
-      subject: emailTemplate.subject,
-      html: emailTemplate.html
+      subject: personalizedEmail.subject,
+      html: personalizedEmail.content,
+      tags: [
+        { name: 'sequence', value: 'newsletter' },
+        { name: 'step', value: 'welcome' },
+        { name: 'enhanced', value: 'true' }
+      ]
     });
-    console.log('Welcome email sent to:', subscriber.email);
+    console.log('Enhanced welcome email sent to:', subscriber.email);
   } catch (error) {
     console.error('Failed to send welcome email:', error);
     // Don't throw - we still want to save the subscriber even if email fails

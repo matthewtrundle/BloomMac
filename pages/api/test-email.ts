@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { Resend } from 'resend';
-import { welcomeEmailTemplate } from '@/lib/email-templates/welcome';
+import { enhancedEmailTemplates, personalizeEmail } from '@/lib/email-templates/enhanced-emails';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -21,7 +21,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   try {
-    const { to, type = 'welcome' } = req.body;
+    const { to, type = 'welcome', sequence, step } = req.body;
 
     if (!to || !to.includes('@')) {
       return res.status(400).json({ error: 'Valid email address is required' });
@@ -31,89 +31,147 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     let emailData;
 
-    switch (type) {
-      case 'welcome':
-        const { subject, html, text } = welcomeEmailTemplate('Test User');
-        emailData = {
-          from: 'Bloom Psychology <noreply@bloompsychologynorthaustin.com>',
-          to,
-          subject: `[TEST] ${subject}`,
-          html,
-          text
-        };
-        break;
+    // Handle enhanced email templates
+    if (sequence && step) {
+      const sequenceTemplates = enhancedEmailTemplates[sequence];
+      if (!sequenceTemplates) {
+        return res.status(400).json({ error: 'Invalid sequence type' });
+      }
 
-      case 'contact':
-        emailData = {
-          from: 'Bloom Psychology <noreply@bloompsychologynorthaustin.com>',
-          to,
-          subject: '[TEST] New Contact Form Submission',
-          html: `
-            <h2>Test Contact Form Submission</h2>
-            <p>This is a test of the contact form notification email.</p>
-            <hr>
-            <p><strong>Name:</strong> Test User</p>
-            <p><strong>Email:</strong> test@example.com</p>
-            <p><strong>Phone:</strong> (512) 555-0123</p>
-            <p><strong>Service Interest:</strong> Anxiety & Stress Management</p>
-            <p><strong>Message:</strong> This is a test message to verify email functionality.</p>
-            <hr>
-            <p><em>Sent from Bloom Psychology website</em></p>
-          `
-        };
-        break;
+      const template = sequenceTemplates[step];
+      if (!template) {
+        return res.status(400).json({ error: 'Invalid step for sequence' });
+      }
 
-      case 'newsletter':
-        emailData = {
-          from: 'Dr. Jana Rundle <jana@bloompsychologynorthaustin.com>',
-          to,
-          subject: '[TEST] Weekly Wellness Insights from Bloom Psychology',
-          html: `
-            <div style="max-width: 600px; margin: 0 auto; font-family: Arial, sans-serif;">
-              <h1 style="color: #6B3654;">This Week's Wellness Insight</h1>
-              <p>This is a test newsletter email. In a real newsletter, this would contain:</p>
-              <ul>
-                <li>Weekly mental health tips</li>
-                <li>Featured blog posts</li>
-                <li>Upcoming workshops or groups</li>
-                <li>Inspirational quotes or exercises</li>
-              </ul>
-              <p style="margin-top: 30px;">
-                <a href="https://bloompsychologynorthaustin.com/blog" 
-                   style="background: #C06B93; color: white; padding: 12px 24px; text-decoration: none; border-radius: 5px;">
-                  Read More on Our Blog
-                </a>
-              </p>
-            </div>
-          `
-        };
-        break;
+      const personalizedEmail = personalizeEmail(template, {
+        firstName: 'Test User',
+        name: 'Test User'
+      });
 
-      case 'appointment':
-        emailData = {
-          from: 'Bloom Psychology <noreply@bloompsychologynorthaustin.com>',
-          to,
-          subject: '[TEST] Appointment Reminder - Bloom Psychology',
-          html: `
-            <div style="max-width: 600px; margin: 0 auto; font-family: Arial, sans-serif;">
-              <h2 style="color: #6B3654;">Appointment Reminder</h2>
-              <p>This is a test appointment reminder email.</p>
-              <div style="background: #FDF5F9; padding: 20px; border-radius: 8px; margin: 20px 0;">
-                <p><strong>Date:</strong> Tomorrow, January 15, 2024</p>
-                <p><strong>Time:</strong> 2:00 PM CST</p>
-                <p><strong>Provider:</strong> Dr. Jana Rundle</p>
-                <p><strong>Type:</strong> Individual Therapy Session</p>
-                <p><strong>Location:</strong> Telehealth (link will be sent 15 minutes before)</p>
+      emailData = {
+        from: 'Bloom Psychology <hello@bloompsychologynorthaustin.com>',
+        to,
+        subject: `[TEST] ${personalizedEmail.subject}`,
+        html: personalizedEmail.content
+      };
+    } else {
+      // Legacy test email types
+      switch (type) {
+        case 'welcome':
+          const welcomeTemplate = enhancedEmailTemplates.newsletter.welcome;
+          const personalizedWelcome = personalizeEmail(welcomeTemplate, {
+            firstName: 'Test User',
+            name: 'Test User'
+          });
+          emailData = {
+            from: 'Bloom Psychology <hello@bloompsychologynorthaustin.com>',
+            to,
+            subject: `[TEST] ${personalizedWelcome.subject}`,
+            html: personalizedWelcome.content
+          };
+          break;
+
+        case 'contact':
+          const contactTemplate = enhancedEmailTemplates.contactFollowup.immediate;
+          const personalizedContact = personalizeEmail(contactTemplate, {
+            firstName: 'Test User',
+            name: 'Test User'
+          });
+          emailData = {
+            from: 'Bloom Psychology <hello@bloompsychologynorthaustin.com>',
+            to,
+            subject: `[TEST] ${personalizedContact.subject}`,
+            html: personalizedContact.content
+          };
+          break;
+
+        case 'booking':
+          const bookingTemplate = enhancedEmailTemplates.bookingConfirmation.confirmation;
+          const personalizedBooking = personalizeEmail(bookingTemplate, {
+            firstName: 'Test User',
+            name: 'Test User',
+            appointmentDetails: {
+              date: 'Tomorrow, February 1st',
+              time: '2:00 PM CST',
+              format: 'Video Call'
+            }
+          });
+          emailData = {
+            from: 'Bloom Psychology <hello@bloompsychologynorthaustin.com>',
+            to,
+            subject: `[TEST] ${personalizedBooking.subject}`,
+            html: personalizedBooking.content
+          };
+          break;
+
+        case 'nurture':
+          const nurtureTemplate = enhancedEmailTemplates.leadNurture.thankYou;
+          const personalizedNurture = personalizeEmail(nurtureTemplate, {
+            firstName: 'Test User',
+            name: 'Test User',
+            resourceName: 'Anxiety Management Guide'
+          });
+          emailData = {
+            from: 'Bloom Psychology <hello@bloompsychologynorthaustin.com>',
+            to,
+            subject: `[TEST] ${personalizedNurture.subject}`,
+            html: personalizedNurture.content
+          };
+          break;
+
+        // Legacy cases for backward compatibility
+        case 'newsletter':
+          emailData = {
+            from: 'Dr. Jana Rundle <jana@bloompsychologynorthaustin.com>',
+            to,
+            subject: '[TEST] Weekly Wellness Insights from Bloom Psychology',
+            html: `
+              <div style="max-width: 600px; margin: 0 auto; font-family: Arial, sans-serif;">
+                <h1 style="color: #6B3654;">This Week's Wellness Insight</h1>
+                <p>This is a test newsletter email. In a real newsletter, this would contain:</p>
+                <ul>
+                  <li>Weekly mental health tips</li>
+                  <li>Featured blog posts</li>
+                  <li>Upcoming workshops or groups</li>
+                  <li>Inspirational quotes or exercises</li>
+                </ul>
+                <p style="margin-top: 30px;">
+                  <a href="https://bloompsychologynorthaustin.com/blog" 
+                     style="background: #C06B93; color: white; padding: 12px 24px; text-decoration: none; border-radius: 5px;">
+                    Read More on Our Blog
+                  </a>
+                </p>
               </div>
-              <p>If you need to reschedule, please let us know at least 24 hours in advance.</p>
-              <p>Looking forward to seeing you!</p>
-            </div>
-          `
-        };
-        break;
+            `
+          };
+          break;
 
-      default:
-        return res.status(400).json({ error: 'Invalid email type' });
+        case 'appointment':
+          emailData = {
+            from: 'Bloom Psychology <noreply@bloompsychologynorthaustin.com>',
+            to,
+            subject: '[TEST] Appointment Reminder - Bloom Psychology',
+            html: `
+              <div style="max-width: 600px; margin: 0 auto; font-family: Arial, sans-serif;">
+                <h2 style="color: #6B3654;">Appointment Reminder</h2>
+                <p>This is a test appointment reminder email.</p>
+                <div style="background: #FDF5F9; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                  <p><strong>Date:</strong> Tomorrow, January 15, 2024</p>
+                  <p><strong>Time:</strong> 2:00 PM CST</p>
+                  <p><strong>Provider:</strong> Dr. Jana Rundle</p>
+                  <p><strong>Type:</strong> Individual Therapy Session</p>
+                  <p><strong>Location:</strong> Telehealth (link will be sent 15 minutes before)</p>
+                </div>
+                <p>If you need to reschedule, please let us know at least 24 hours in advance.</p>
+                <p>Looking forward to seeing you!</p>
+              </div>
+            `
+          };
+          break;
+
+        default:
+          return res.status(400).json({ error: 'Invalid email type' });
+      }
     }
 
     const result = await resend.emails.send(emailData);
