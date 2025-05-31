@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { Check, Star, Gift, Clock, Heart, Sparkles } from 'lucide-react';
-import { JsonLd } from '@/components/seo/JsonLd';
+// JsonLd import removed - using inline script tag instead
 
 // Metadata is handled in layout.tsx for client components
 
@@ -86,22 +86,25 @@ export default function InstagramNewsletterPage() {
 
   return (
     <>
-      <JsonLd
-        data={{
-          "@context": "https://schema.org",
-          "@type": "WebPage",
-          "name": "Join Bloom Psychology Newsletter - Free Mental Wellness Guide",
-          "description": "Get weekly mental health tips, self-care strategies, and a FREE anxiety relief guide. Join 2,000+ women prioritizing their wellness.",
-          "url": "https://bloompsychologynorthaustin.com/join",
-          "inLanguage": "en-US",
-          "publisher": {
-            "@type": "Organization",
-            "name": "Bloom Psychology",
-            "logo": {
-              "@type": "ImageObject",
-              "url": "https://bloompsychologynorthaustin.com/images/Logo/logo.jpg"
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": "Join Bloom Psychology Newsletter - Free Mental Wellness Guide",
+            "description": "Get weekly mental health tips, self-care strategies, and a FREE anxiety relief guide. Join 2,000+ women prioritizing their wellness.",
+            "url": "https://bloompsychologynorthaustin.com/join",
+            "inLanguage": "en-US",
+            "publisher": {
+              "@type": "Organization",
+              "name": "Bloom Psychology",
+              "logo": {
+                "@type": "ImageObject",
+                "url": "https://bloompsychologynorthaustin.com/images/Logo/logo.jpg"
+              }
             }
-          }
+          })
         }}
       />
 
