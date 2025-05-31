@@ -104,6 +104,13 @@ export default function AdminDashboard() {
       color: 'text-indigo-600 bg-indigo-100'
     },
     {
+      title: 'Email Editor',
+      description: 'Edit and customize email templates',
+      href: '/admin/email-editor',
+      icon: Mail,
+      color: 'text-pink-600 bg-pink-100'
+    },
+    {
       title: 'Test Emails',
       description: 'Verify email functionality',
       href: '/admin/email-test',
