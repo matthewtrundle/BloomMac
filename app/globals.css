@@ -526,6 +526,23 @@ section:not(.hero-section) {
     max-height: calc(100vh - 120px);
     overflow-y: auto;
   }
+  
+  /* Fix Calendly widget on mobile */
+  .calendly-inline-widget {
+    width: 100% !important;
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
+  }
+  
+  .calendly-inline-widget iframe {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  
+  /* Prevent horizontal scroll on booking page */
+  body:has(.calendly-inline-widget) {
+    overflow-x: hidden;
+  }
 }
 
 /* Ensure content visibility over fixed background */

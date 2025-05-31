@@ -17,16 +17,19 @@ const InlineWidget = dynamic(
 
 export default function CalendlyWidget() {
   return (
-    <div className="bg-white rounded-xl shadow-xl overflow-hidden">
-      <div className="relative">
+    <div className="bg-white rounded-xl shadow-xl overflow-hidden w-full">
+      <div className="relative w-full overflow-x-hidden">
         {/* Calendly component */}
-        <InlineWidget 
-          url="https://calendly.com/bloompsychology/15-minute?hide_gdpr_banner=1&primary_color=C63780&hide_landing_page_details=1&hide_event_type_details=1"
-          styles={{
-            height: '580px',
-            width: '100%',
-          }}
-        />
+        <div className="calendly-inline-widget">
+          <InlineWidget 
+            url="https://calendly.com/bloompsychology/15-minute?hide_gdpr_banner=1&primary_color=C63780&hide_landing_page_details=1&hide_event_type_details=1"
+            styles={{
+              height: '580px',
+              width: '100%',
+              minWidth: '320px',
+            }}
+          />
+        </div>
         
         {/* Fallback in case the Calendly widget fails to load */}
         <div className="absolute inset-0 flex flex-col items-center justify-center z-[-1] p-8 bg-white">

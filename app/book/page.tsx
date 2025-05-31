@@ -112,10 +112,10 @@ export default function BookingPage() {
       </div>
 
       {/* Main content area */}
-      <div className="container mx-auto px-4 pt-24 pb-20 relative z-10">
+      <div className="container mx-auto px-4 pt-24 pb-20 relative z-10 overflow-x-hidden">
         <div className="flex flex-col lg:flex-row gap-10 items-start">
           {/* Left side - title and contact info */}
-          <div className="lg:w-1/3 sticky top-24">
+          <div className="lg:w-1/3 lg:sticky lg:top-24">
             <h1 className="font-playfair text-bloom text-3xl md:text-4xl mb-6 animate-fade-in">
               Book Your <span className="text-bloompink font-semibold bg-gradient-to-r from-bloompink to-pink-400 bg-clip-text text-transparent">Free Consultation</span>
             </h1>
@@ -205,7 +205,7 @@ export default function BookingPage() {
           </div>
           
           {/* Right side - Calendly widget */}
-          <div className="lg:w-2/3">
+          <div className="lg:w-2/3 w-full max-w-full overflow-hidden">
             <CalendlyWidget />
           </div>
         </div>
