@@ -242,7 +242,7 @@ const sendApplicationEmail = async (data: ApplicationData, resumeAttachment?: an
   `;
 
   const emailData: any = {
-    from: 'Bloom Psychology Careers <noreply@bloompsychologynorthaustin.com>',
+    from: 'Dr. Jana Rundle <jana@bloompsychologynorthaustin.com>',
     to: 'jana@bloompsychologynorthaustin.com',
     subject: `New Career Application: ${data.firstName} ${data.lastName} - ${data.position}`,
     html: applicationHtml,
@@ -331,7 +331,7 @@ const sendApplicationConfirmation = async (data: ApplicationData) => {
   `;
 
   await resend.emails.send({
-    from: 'Bloom Psychology <noreply@bloompsychologynorthaustin.com>',
+    from: 'Dr. Jana Rundle <jana@bloompsychologynorthaustin.com>',
     to: data.email,
     subject: 'Your Application Has Been Received - Bloom Psychology',
     html: confirmationHtml,

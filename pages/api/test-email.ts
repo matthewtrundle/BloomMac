@@ -36,7 +36,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       // If custom content is provided, use it instead of template
       if (customSubject && customContent) {
         emailData = {
-          from: 'Bloom Psychology <hello@bloompsychologynorthaustin.com>',
+          from: 'Dr. Jana Rundle <jana@bloompsychologynorthaustin.com>',
           to,
           subject: `[TEST] ${customSubject}`,
           html: customContent
@@ -58,7 +58,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         });
 
         emailData = {
-          from: 'Bloom Psychology <hello@bloompsychologynorthaustin.com>',
+          from: 'Dr. Jana Rundle <jana@bloompsychologynorthaustin.com>',
           to,
           subject: `[TEST] ${personalizedEmail.subject}`,
           html: personalizedEmail.content
@@ -74,7 +74,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             name: 'Test User'
           });
           emailData = {
-            from: 'Bloom Psychology <hello@bloompsychologynorthaustin.com>',
+            from: 'Dr. Jana Rundle <jana@bloompsychologynorthaustin.com>',
             to,
             subject: `[TEST] ${personalizedWelcome.subject}`,
             html: personalizedWelcome.content
@@ -88,7 +88,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             name: 'Test User'
           });
           emailData = {
-            from: 'Bloom Psychology <hello@bloompsychologynorthaustin.com>',
+            from: 'Dr. Jana Rundle <jana@bloompsychologynorthaustin.com>',
             to,
             subject: `[TEST] ${personalizedContact.subject}`,
             html: personalizedContact.content
@@ -107,7 +107,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             }
           });
           emailData = {
-            from: 'Bloom Psychology <hello@bloompsychologynorthaustin.com>',
+            from: 'Dr. Jana Rundle <jana@bloompsychologynorthaustin.com>',
             to,
             subject: `[TEST] ${personalizedBooking.subject}`,
             html: personalizedBooking.content
@@ -122,7 +122,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             resourceName: 'Anxiety Management Guide'
           });
           emailData = {
-            from: 'Bloom Psychology <hello@bloompsychologynorthaustin.com>',
+            from: 'Dr. Jana Rundle <jana@bloompsychologynorthaustin.com>',
             to,
             subject: `[TEST] ${personalizedNurture.subject}`,
             html: personalizedNurture.content
@@ -158,7 +158,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         case 'appointment':
           emailData = {
-            from: 'Bloom Psychology <noreply@bloompsychologynorthaustin.com>',
+            from: 'Dr. Jana Rundle <jana@bloompsychologynorthaustin.com>',
             to,
             subject: '[TEST] Appointment Reminder - Bloom Psychology',
             html: `

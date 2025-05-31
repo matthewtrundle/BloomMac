@@ -88,7 +88,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     `;
     
     const data = await resend.emails.send({
-      from: 'onboarding@resend.dev',
+      from: 'Dr. Jana Rundle <jana@bloompsychologynorthaustin.com>',
       to: to,
       subject: '[TEST] New contact from Test Contact',
       html: emailContent,

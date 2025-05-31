@@ -313,7 +313,7 @@ export default function EmailTestPage() {
             </div>
             
             <p className="text-sm text-gray-600 mt-4">
-              Test emails sent from: <code>hello@bloompsychologynorthaustin.com</code>
+              Test emails sent from: <code>jana@bloompsychologynorthaustin.com</code>
             </p>
           </div>
         </CardContent>

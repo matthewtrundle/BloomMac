@@ -42,7 +42,7 @@ export async function sendAutomatedEmail({
     
     // Send the email
     const { data, error } = await resend.emails.send({
-      from: 'Bloom Psychology <newsletter@bloompsychologynorthaustin.com>',
+      from: 'Dr. Jana Rundle <jana@bloompsychologynorthaustin.com>',
       to,
       subject,
       html: trackedContent,

@@ -104,7 +104,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       // Use the variables defined above
 
       const data = await resend.emails.send({
-        from: 'onboarding@resend.dev', // Will need to change to verified domain later
+        from: 'Dr. Jana Rundle <jana@bloompsychologynorthaustin.com>',
         to: emailTo,
         cc: emailCC,
         subject: `${isDevMode ? '[TEST] ' : ''}New contact from ${displayName}`,

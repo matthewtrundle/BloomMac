@@ -123,7 +123,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         
         // Send emails using Resend batch API
         const emails = recipients.map(recipient => ({
-          from: 'Bloom Psychology <newsletter@bloompsychologynorthaustin.com>',
+          from: 'Dr. Jana Rundle <jana@bloompsychologynorthaustin.com>',
           to: recipient.email,
           subject: subject,
           html: emailHtml.replace('{{unsubscribe_link}}', `https://bloompsychologynorthaustin.com/api/unsubscribe?email=${recipient.email}`),

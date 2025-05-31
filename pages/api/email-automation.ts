@@ -86,7 +86,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     console.log(`Sending enhanced email automation: ${sequenceType} step ${step} (${templateKey}) to ${emailTo}`);
 
     const data = await resend.emails.send({
-      from: 'Bloom Psychology <hello@bloompsychologynorthaustin.com>',
+      from: 'Dr. Jana Rundle <jana@bloompsychologynorthaustin.com>',
       to: emailTo,
       subject: `${isDevMode ? '[TEST] ' : ''}${personalizedEmail.subject}`,
       html: personalizedEmail.content,

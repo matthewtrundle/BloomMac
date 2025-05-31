@@ -32,7 +32,7 @@ async function sendWelcomeEmail(subscriber: any) {
     });
     
     await resend.emails.send({
-      from: 'Bloom Psychology <hello@bloompsychologynorthaustin.com>',
+      from: 'Dr. Jana Rundle <jana@bloompsychologynorthaustin.com>',
       to: subscriber.email,
       subject: personalizedEmail.subject,
       html: personalizedEmail.content,
