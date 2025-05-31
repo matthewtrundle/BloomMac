@@ -141,9 +141,9 @@ export default function Home() {
       />
       
       {/* Hero Section */}
-      <section className="relative h-auto md:h-[75vh] min-h-[75vh] hero-section contain-layout">
+      <section className="relative h-auto md:h-[75vh] min-h-[60vh] md:min-h-[75vh] hero-section contain-layout">
         {/* Fixed hero background image */}
-        <div className="fixed md:fixed absolute inset-x-0 top-0 h-[75vh] w-full" style={{ zIndex: -1 }}>
+        <div className="fixed md:fixed absolute inset-x-0 top-0 h-[60vh] md:h-[75vh] w-full" style={{ zIndex: -1 }}>
           <div className="relative w-full h-full">
             <Image
               src={heroImage}
@@ -174,25 +174,25 @@ export default function Home() {
           </div>
         </div>
         
-        <div className="container mx-auto px-4 relative z-10 h-full">
+        <div className="container mx-auto px-4 relative z-10 h-full flex items-center">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="relative z-10 max-w-3xl ml-4 md:ml-8 lg:ml-16 mr-auto pt-16 sm:pt-20 md:pt-24 lg:pt-32"
+            className="relative z-10 max-w-3xl w-full md:ml-8 lg:ml-16 md:mr-auto py-8 md:pt-24 lg:pt-32"
           >
-            <div className="bg-white/60 backdrop-blur-sm rounded-lg p-6">
-              <h1 className="font-raleway text-center text-3xl sm:text-4xl md:text-5xl lg:text-[3.3rem] mb-6 tracking-tight leading-tight text-shadow">
+            <div className="bg-white/60 backdrop-blur-sm rounded-lg p-4 sm:p-6">
+              <h1 className="font-raleway text-center text-2xl sm:text-4xl md:text-5xl lg:text-[3.3rem] mb-3 sm:mb-6 tracking-tight leading-tight text-shadow">
                 <span className="font-light text-bloompink">Bloom</span>
                 <span className="font-extralight text-bloom-darkGrey">Psychology</span>
               </h1>
               
-              <p className="font-raleway font-normal text-lg sm:text-xl md:text-[1.25rem] mb-6 text-bloom-darkGrey text-center max-w-[600px] mx-auto text-shadow-sm">
+              <p className="font-raleway font-normal text-base sm:text-xl md:text-[1.25rem] mb-4 sm:mb-6 text-bloom-darkGrey text-center max-w-[600px] mx-auto text-shadow-sm">
                 Specialized mental health care for women and moms in North Austin.
               </p>
             </div>
             
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-6 mb-8 sm:mb-0">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-4 sm:mt-6">
               <motion.a 
                 href="/book" 
                 whileHover={{ scale: 1.03, y: -2 }} 

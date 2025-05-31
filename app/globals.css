@@ -473,19 +473,25 @@ section:not(.hero-section) {
   .hero-section {
     /* On mobile, sometimes fixed backgrounds can be problematic */
     background-attachment: scroll;
-    /* Ensure hero section doesn't cut off content on mobile */
-    min-height: 75vh;
+    /* Ensure hero section shows all content on mobile */
+    min-height: 60vh;
     height: auto;
+    display: flex;
+    align-items: center;
   }
   
   /* Ensure all buttons are visible on mobile */
   .hero-section .container {
-    padding-bottom: 2rem;
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
   }
   
   /* Adjust hero content spacing on mobile */
   .hero-section .bg-white\/60 {
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
   }
   
   /* Prevent content from being cut off on mobile */
