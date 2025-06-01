@@ -281,26 +281,27 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }
       }
       
-      // Log the change (ignore errors)
-      if (supabaseAdmin) {
-        try {
-          await supabaseAdmin
-            .from('admin_activity_log')
-            .insert({
-            action: 'email_template_edit',
-            entity_type: 'email_template',
-            entity_id: `${sequence}-${step}`,
-            details: {
-              sequence,
-              step,
-              changedFields: ['subject', 'content']
-            }
-          });
-        } catch (logError) {
-          // Ignore logging errors
-          console.log('Activity log failed (non-critical):', logError);
-        }
-      }
+      // Log the change (ignore errors) - temporarily disabled for debugging
+      // if (supabaseAdmin) {
+      //   try {
+      //     await supabaseAdmin
+      //       .from('admin_activity_log')
+      //       .insert({
+      //       action: 'email_template_edit',
+      //       entity_type: 'email_template',
+      //       entity_id: `${sequence}-${step}`,
+      //       details: {
+      //         sequence,
+      //         step,
+      //         changedFields: ['subject', 'content']
+      //       }
+      //     });
+      //   } catch (logError) {
+      //     // Ignore logging errors
+      //     console.log('Activity log failed (non-critical):', logError);
+      //   }
+      // }
+      console.log('Template save completed successfully, skipping activity log for now');
       
       return res.status(200).json({ 
         success: true, 

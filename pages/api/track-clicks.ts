@@ -67,13 +67,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }));
     
     // Store in click_heatmap table for optimized queries
-    await supabaseAdmin
-      .from('click_heatmap')
-      .insert(clickHeatmapData)
-      .catch(err => {
-        // If table doesn't exist, just log error
-        console.log('Click heatmap table may not exist yet:', err.message);
-      });
+    try {
+      await supabaseAdmin
+        .from('click_heatmap')
+        .insert(clickHeatmapData);
+    } catch (err: any) {
+      // If table doesn't exist, just log error
+      console.log('Click heatmap table may not exist yet:', err.message);
+    }
     
     return res.status(200).json({ 
       success: true, 
