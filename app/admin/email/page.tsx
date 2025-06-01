@@ -174,138 +174,276 @@ const EmailAdminPage: React.FC = () => {
               <div className="flex justify-center py-12">
                 <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-bloom-primary"></div>
               </div>
-            ) : automationData ? (
+            ) : (
               <>
-                {/* Overview Cards */}
+                {/* Automation Overview */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Email Automation Sequences</CardTitle>
+                    <p className="text-sm text-gray-600 mt-1">
+                      All automated email sequences and their triggers
+                    </p>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-6">
+                      {/* Newsletter Signup Sequence */}
+                      <div className="border rounded-lg p-4">
+                        <div className="flex justify-between items-start mb-3">
+                          <div>
+                            <h3 className="font-semibold text-gray-900 flex items-center">
+                              <Mail className="w-4 h-4 mr-2 text-bloom-primary" />
+                              Newsletter Signup Sequence
+                            </h3>
+                            <p className="text-sm text-gray-500 mt-1">
+                              <span className="font-medium">Trigger:</span> When someone signs up for the newsletter
+                            </p>
+                          </div>
+                          <span className="px-3 py-1 bg-green-100 text-green-800 text-xs font-medium rounded-full">
+                            Active
+                          </span>
+                        </div>
+                        
+                        <div className="space-y-2 mb-3">
+                          <div className="flex items-center text-sm">
+                            <Clock className="w-3 h-3 mr-2 text-gray-400" />
+                            <span className="font-medium">Email 1:</span>
+                            <span className="ml-2">Welcome + Free Resource (Immediate)</span>
+                          </div>
+                          <div className="flex items-center text-sm">
+                            <Clock className="w-3 h-3 mr-2 text-gray-400" />
+                            <span className="font-medium">Email 2:</span>
+                            <span className="ml-2">3 Quick Wins (After 3 days)</span>
+                          </div>
+                          <div className="flex items-center text-sm">
+                            <Clock className="w-3 h-3 mr-2 text-gray-400" />
+                            <span className="font-medium">Email 3:</span>
+                            <span className="ml-2">You're Not Alone (After 7 days)</span>
+                          </div>
+                          <div className="flex items-center text-sm">
+                            <Clock className="w-3 h-3 mr-2 text-gray-400" />
+                            <span className="font-medium">Email 4:</span>
+                            <span className="ml-2">Self-Care Reminder (After 14 days)</span>
+                          </div>
+                          <div className="flex items-center text-sm">
+                            <Clock className="w-3 h-3 mr-2 text-gray-400" />
+                            <span className="font-medium">Email 5:</span>
+                            <span className="ml-2">30-Day Check-In + $25 Offer (After 30 days)</span>
+                            <span className="ml-2 text-orange-600 font-medium">⏰ 48hr limit</span>
+                          </div>
+                        </div>
+                        
+                        <div className="flex items-center justify-between pt-3 border-t">
+                          <a 
+                            href="/admin/email-editor" 
+                            className="text-bloom-primary text-sm hover:underline flex items-center"
+                          >
+                            Edit Templates
+                            <ChevronRight className="w-3 h-3 ml-1" />
+                          </a>
+                        </div>
+                      </div>
+
+                      {/* Contact Form Sequence */}
+                      <div className="border rounded-lg p-4">
+                        <div className="flex justify-between items-start mb-3">
+                          <div>
+                            <h3 className="font-semibold text-gray-900 flex items-center">
+                              <Users className="w-4 h-4 mr-2 text-bloom-primary" />
+                              Contact Form Follow-Up
+                            </h3>
+                            <p className="text-sm text-gray-500 mt-1">
+                              <span className="font-medium">Trigger:</span> When someone submits the contact form
+                            </p>
+                          </div>
+                          <span className="px-3 py-1 bg-green-100 text-green-800 text-xs font-medium rounded-full">
+                            Active
+                          </span>
+                        </div>
+                        
+                        <div className="space-y-2 mb-3">
+                          <div className="flex items-center text-sm">
+                            <Clock className="w-3 h-3 mr-2 text-gray-400" />
+                            <span className="font-medium">Email 1:</span>
+                            <span className="ml-2">Confirmation + Timeline (Immediate)</span>
+                          </div>
+                          <div className="flex items-center text-sm">
+                            <Clock className="w-3 h-3 mr-2 text-gray-400" />
+                            <span className="font-medium">Admin:</span>
+                            <span className="ml-2">Notification to Jana (Immediate)</span>
+                          </div>
+                          <div className="flex items-center text-sm">
+                            <Clock className="w-3 h-3 mr-2 text-gray-400" />
+                            <span className="font-medium">Email 2:</span>
+                            <span className="ml-2">Gentle Follow-Up (After 72 hours)</span>
+                          </div>
+                          <div className="flex items-center text-sm">
+                            <Clock className="w-3 h-3 mr-2 text-gray-400" />
+                            <span className="font-medium">Email 3:</span>
+                            <span className="ml-2">Free Resources (After 7 days)</span>
+                          </div>
+                        </div>
+                        
+                        <div className="flex items-center justify-between pt-3 border-t">
+                          <a 
+                            href="/admin/email-editor" 
+                            className="text-bloom-primary text-sm hover:underline flex items-center"
+                          >
+                            Edit Templates
+                            <ChevronRight className="w-3 h-3 ml-1" />
+                          </a>
+                        </div>
+                      </div>
+
+                      {/* Booking Confirmation Sequence */}
+                      <div className="border rounded-lg p-4">
+                        <div className="flex justify-between items-start mb-3">
+                          <div>
+                            <h3 className="font-semibold text-gray-900 flex items-center">
+                              <CheckCircle className="w-4 h-4 mr-2 text-bloom-primary" />
+                              Booking Confirmation Sequence
+                            </h3>
+                            <p className="text-sm text-gray-500 mt-1">
+                              <span className="font-medium">Trigger:</span> When someone books a consultation
+                            </p>
+                          </div>
+                          <span className="px-3 py-1 bg-yellow-100 text-yellow-800 text-xs font-medium rounded-full">
+                            Via Calendly
+                          </span>
+                        </div>
+                        
+                        <div className="space-y-2 mb-3">
+                          <div className="flex items-center text-sm">
+                            <Clock className="w-3 h-3 mr-2 text-gray-400" />
+                            <span className="font-medium">Email 1:</span>
+                            <span className="ml-2">Booking Confirmation (Immediate)</span>
+                          </div>
+                          <div className="flex items-center text-sm">
+                            <Clock className="w-3 h-3 mr-2 text-gray-400" />
+                            <span className="font-medium">Email 2:</span>
+                            <span className="ml-2">Reminder (24 hours before)</span>
+                          </div>
+                          <div className="flex items-center text-sm">
+                            <Clock className="w-3 h-3 mr-2 text-gray-400" />
+                            <span className="font-medium">Email 3:</span>
+                            <span className="ml-2">Follow-Up + $20 Offer (48 hours after)</span>
+                            <span className="ml-2 text-orange-600 font-medium">⏰ 48hr limit</span>
+                          </div>
+                        </div>
+                        
+                        <div className="text-sm text-gray-600 bg-gray-50 p-3 rounded">
+                          <p className="font-medium mb-1">Note:</p>
+                          <p>Currently handled by Calendly. Templates ready for future integration.</p>
+                        </div>
+                      </div>
+
+                      {/* Lead Nurture Sequence */}
+                      <div className="border rounded-lg p-4">
+                        <div className="flex justify-between items-start mb-3">
+                          <div>
+                            <h3 className="font-semibold text-gray-900 flex items-center">
+                              <Target className="w-4 h-4 mr-2 text-bloom-primary" />
+                              Resource Download Follow-Up
+                            </h3>
+                            <p className="text-sm text-gray-500 mt-1">
+                              <span className="font-medium">Trigger:</span> When someone downloads a free resource
+                            </p>
+                          </div>
+                          <span className="px-3 py-1 bg-green-100 text-green-800 text-xs font-medium rounded-full">
+                            Active
+                          </span>
+                        </div>
+                        
+                        <div className="space-y-2 mb-3">
+                          <div className="flex items-center text-sm">
+                            <Clock className="w-3 h-3 mr-2 text-gray-400" />
+                            <span className="font-medium">Email 1:</span>
+                            <span className="ml-2">Resource Delivery + Tips (Immediate)</span>
+                          </div>
+                          <div className="flex items-center text-sm">
+                            <Clock className="w-3 h-3 mr-2 text-gray-400" />
+                            <span className="font-medium">Email 2:</span>
+                            <span className="ml-2">Check-In (After 72 hours)</span>
+                          </div>
+                          <div className="flex items-center text-sm">
+                            <Clock className="w-3 h-3 mr-2 text-gray-400" />
+                            <span className="font-medium">Email 3:</span>
+                            <span className="ml-2">Success Story (After 7 days)</span>
+                          </div>
+                          <div className="flex items-center text-sm">
+                            <Clock className="w-3 h-3 mr-2 text-gray-400" />
+                            <span className="font-medium">Email 4:</span>
+                            <span className="ml-2">No-Pressure Support (After 14 days)</span>
+                          </div>
+                        </div>
+                        
+                        <div className="flex items-center justify-between pt-3 border-t">
+                          <a 
+                            href="/admin/email-editor" 
+                            className="text-bloom-primary text-sm hover:underline flex items-center"
+                          >
+                            Edit Templates
+                            <ChevronRight className="w-3 h-3 ml-1" />
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Quick Stats */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <Card>
                     <CardHeader className="pb-3">
-                      <CardTitle className="text-sm font-medium text-gray-600">Active Sequences</CardTitle>
+                      <CardTitle className="text-sm font-medium text-gray-600">Total Sequences</CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <div className="text-2xl font-bold">{automationData.activeSequences}</div>
-                      <p className="text-xs text-gray-500 mt-1">Running automatically</p>
+                      <div className="text-2xl font-bold">4</div>
+                      <p className="text-xs text-gray-500 mt-1">Active email sequences</p>
                     </CardContent>
                   </Card>
                   
                   <Card>
                     <CardHeader className="pb-3">
-                      <CardTitle className="text-sm font-medium text-gray-600">Emails Sent</CardTitle>
+                      <CardTitle className="text-sm font-medium text-gray-600">Total Emails</CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <div className="text-2xl font-bold">{automationData.totalEmailsSent.toLocaleString()}</div>
-                      <p className="text-xs text-gray-500 mt-1">Via automation</p>
+                      <div className="text-2xl font-bold">17</div>
+                      <p className="text-xs text-gray-500 mt-1">Across all sequences</p>
                     </CardContent>
                   </Card>
                   
                   <Card>
                     <CardHeader className="pb-3">
-                      <CardTitle className="text-sm font-medium text-gray-600">Avg Performance</CardTitle>
+                      <CardTitle className="text-sm font-medium text-gray-600">Time-Limited Offers</CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <div className="text-2xl font-bold">{automationData.avgAutomationPerformance}%</div>
-                      <p className="text-xs text-gray-500 mt-1">Open + Click rate</p>
+                      <div className="text-2xl font-bold">2</div>
+                      <p className="text-xs text-gray-500 mt-1">With 48-hour expiration</p>
                     </CardContent>
                   </Card>
                 </div>
 
-                {/* Automation Sequences */}
+                {/* Documentation Link */}
                 <Card>
                   <CardHeader>
-                    <div className="flex justify-between items-center">
-                      <CardTitle>Email Sequences</CardTitle>
-                      <button 
-                        onClick={() => setShowSequenceBuilder(true)}
-                        className="flex items-center space-x-2 text-sm bg-bloom-primary text-white px-4 py-2 rounded-lg hover:bg-bloom-primary/90 transition-colors"
-                      >
-                        <Plus className="w-4 h-4" />
-                        <span>New Sequence</span>
-                      </button>
-                    </div>
+                    <CardTitle>Email Automation Documentation</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className="space-y-4">
-                      {automationData.sequences.map((sequence: any) => (
-                        <div key={sequence.id} className="border rounded-lg p-4">
-                          <div className="flex justify-between items-start mb-3">
-                            <div>
-                              <h3 className="font-semibold text-gray-900">{sequence.name}</h3>
-                              <p className="text-sm text-gray-500">Trigger: {sequence.trigger}</p>
-                            </div>
-                            <button
-                              onClick={() => toggleSequenceStatus(sequence.id, sequence.status)}
-                              className={`flex items-center space-x-1 px-3 py-1 rounded-full text-xs font-medium ${
-                                sequence.status === 'active' 
-                                  ? 'bg-green-100 text-green-800' 
-                                  : 'bg-gray-100 text-gray-800'
-                              }`}
-                            >
-                              {sequence.status === 'active' ? <Play className="w-3 h-3" /> : <Pause className="w-3 h-3" />}
-                              <span>{sequence.status}</span>
-                            </button>
-                          </div>
-                          
-                          <div className="space-y-2 mb-3">
-                            {sequence.emails.map((email: any, index: number) => (
-                              <div key={email.id} className="flex items-center justify-between text-sm">
-                                <div className="flex items-center space-x-2">
-                                  <span className="text-gray-400">{index + 1}.</span>
-                                  <span>{email.subject}</span>
-                                  <span className="text-xs text-gray-500">({email.delay})</span>
-                                </div>
-                                <div className="flex items-center space-x-4 text-xs text-gray-500">
-                                  <span>{email.sent} sent</span>
-                                  <span>{email.opened} opened</span>
-                                  <span>{email.clicked} clicked</span>
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-                          
-                          <div className="flex items-center justify-between pt-3 border-t">
-                            <div className="flex items-center space-x-4 text-sm">
-                              <span className="text-gray-600">Performance:</span>
-                              <span className="font-medium">{sequence.performance.avgOpenRate}% Open</span>
-                              <span className="font-medium">{sequence.performance.avgClickRate}% Click</span>
-                              <span className="font-medium text-green-600">{sequence.performance.conversions} Conversions</span>
-                            </div>
-                            <button className="text-bloom-primary text-sm hover:underline">
-                              Edit Sequence
-                            </button>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
-
-                {/* Email Templates */}
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Email Templates</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      {automationData.templates.map((template: any) => (
-                        <div key={template.id} className="border rounded-lg p-4 hover:border-bloom-primary cursor-pointer transition-colors">
-                          <div className="flex justify-between items-start">
-                            <div>
-                              <h4 className="font-medium text-gray-900">{template.name}</h4>
-                              <p className="text-sm text-gray-500">{template.category}</p>
-                              <p className="text-xs text-gray-400 mt-1">Last used {template.lastUsed}</p>
-                            </div>
-                            <div className="text-right">
-                              <div className="text-lg font-bold text-bloom-primary">{template.performance}%</div>
-                              <p className="text-xs text-gray-500">Performance</p>
-                            </div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
+                    <p className="text-sm text-gray-600 mb-4">
+                      For detailed information about all email sequences, triggers, and timing:
+                    </p>
+                    <a 
+                      href="/EMAIL_AUTOMATION_DOCUMENTATION.md" 
+                      target="_blank"
+                      className="inline-flex items-center text-bloom-primary hover:underline"
+                    >
+                      View Full Documentation
+                      <ChevronRight className="w-4 h-4 ml-1" />
+                    </a>
                   </CardContent>
                 </Card>
               </>
-            ) : null}
+            )}
           </div>
         )}
         
