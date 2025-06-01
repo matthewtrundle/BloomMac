@@ -1,6 +1,18 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { enhancedEmailTemplates } from '@/lib/email-templates/enhanced-emails';
-import { supabaseAdmin } from '@/lib/supabase';
+import { createClient } from '@supabase/supabase-js';
+
+// Create supabase admin client with error checking
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+if (!supabaseUrl || !supabaseServiceKey) {
+  console.error('Missing Supabase environment variables');
+}
+
+const supabaseAdmin = supabaseUrl && supabaseServiceKey 
+  ? createClient(supabaseUrl, supabaseServiceKey)
+  : null;
 
 // Helper to flatten the nested template structure
 function flattenTemplates() {
@@ -68,21 +80,26 @@ function extractVariables(template: any): string[] {
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  // Authentication is handled by middleware
-  // User info is available in headers from middleware
-  const userEmail = req.headers['x-user-email'];
-  const userRole = req.headers['x-user-role'];
-  
-  // Log authentication info
-  console.log('Email Templates API:', {
-    method: req.method,
-    userEmail,
-    userRole
-  });
-  
-  if (!userEmail || userRole !== 'admin') {
-    return res.status(403).json({ error: 'Forbidden' });
-  }
+  try {
+    // Authentication is handled by middleware
+    // User info is available in headers from middleware
+    const userEmail = req.headers['x-user-email'];
+    const userRole = req.headers['x-user-role'];
+    
+    // Log authentication info
+    console.log('Email Templates API:', {
+      method: req.method,
+      userEmail,
+      userRole,
+      hasSupabaseClient: !!supabaseAdmin,
+      supabaseUrl: supabaseUrl?.substring(0, 20) + '...',
+      hasServiceKey: !!supabaseServiceKey
+    });
+    
+    if (!userEmail || userRole !== 'admin') {
+      console.error('Authentication failed:', { userEmail, userRole });
+      return res.status(403).json({ error: 'Forbidden' });
+    }
   
   if (req.method === 'GET') {
     try {
@@ -92,6 +109,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       
       // First try to get custom templates from database
       try {
+        if (!supabaseAdmin) {
+          throw new Error('Supabase client not initialized');
+        }
         const { data } = await supabaseAdmin
           .from('email_templates_custom')
           .select('*')
@@ -159,11 +179,24 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Save edited template
     const { sequence, step, subject, content } = req.body;
     
+    console.log('PUT request received:', {
+      sequence,
+      step,
+      subjectLength: subject?.length,
+      contentLength: content?.length,
+      userEmail
+    });
+    
     if (!sequence || !step || !subject || !content) {
+      console.error('Missing required fields:', { sequence, step, subject: !!subject, content: !!content });
       return res.status(400).json({ error: 'Missing required fields' });
     }
     
     try {
+      if (!supabaseAdmin) {
+        throw new Error('Supabase client not initialized - check environment variables');
+      }
+      
       // Create or update custom template in database
       const { error } = await supabaseAdmin
         .from('email_templates_custom')
@@ -249,9 +282,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
       
       // Log the change (ignore errors)
-      await supabaseAdmin
-        .from('admin_activity_log')
-        .insert({
+      if (supabaseAdmin) {
+        await supabaseAdmin
+          .from('admin_activity_log')
+          .insert({
           action: 'email_template_edit',
           entity_type: 'email_template',
           entity_id: `${sequence}-${step}`,
@@ -264,15 +298,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         .catch(() => {
           // Ignore logging errors
         });
+      }
       
       return res.status(200).json({ 
         success: true, 
         message: 'Template saved successfully' 
       });
       
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error saving template:', error);
-      return res.status(500).json({ error: 'Failed to save template' });
+      console.error('Error stack:', error.stack);
+      return res.status(500).json({ 
+        error: 'Failed to save template',
+        details: error.message || 'Unknown error',
+        stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
+      });
     }
     
   } else if (req.method === 'POST' && req.body.action === 'reset') {
@@ -280,6 +320,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const { sequence, step } = req.body;
     
     try {
+      if (!supabaseAdmin) {
+        throw new Error('Supabase client not initialized');
+      }
+      
       await supabaseAdmin
         .from('email_templates_custom')
         .delete()
@@ -297,5 +341,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   } else {
     res.setHeader('Allow', ['GET', 'PUT', 'POST']);
     return res.status(405).json({ error: 'Method not allowed' });
+  }
+  
+  } catch (globalError: any) {
+    console.error('Global handler error:', globalError);
+    console.error('Global error stack:', globalError.stack);
+    return res.status(500).json({ 
+      error: 'Internal server error',
+      details: globalError.message,
+      stack: process.env.NODE_ENV === 'development' ? globalError.stack : undefined
+    });
   }
 }
