@@ -168,42 +168,63 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         });
       
       if (error) {
-        // If table doesn't exist, save to local JSON file as fallback
-        const fs = require('fs').promises;
-        const path = require('path');
-        const customTemplatesPath = path.join(process.cwd(), 'data', 'custom-email-templates.json');
+        console.error('Supabase upsert error:', error);
         
-        try {
-          // Read existing custom templates
-          let customTemplates = {};
+        // If it's a unique constraint violation, try update instead
+        if (error.code === '23505') {
+          const { error: updateError } = await supabaseAdmin
+            .from('email_templates_custom')
+            .update({
+              subject,
+              content,
+              modified_by: 'admin',
+              updated_at: new Date().toISOString()
+            })
+            .eq('sequence', sequence)
+            .eq('step', step);
+          
+          if (updateError) {
+            console.error('Update also failed:', updateError);
+            throw updateError;
+          }
+        } else {
+          // For other errors, try the file fallback
+          const fs = require('fs').promises;
+          const path = require('path');
+          const customTemplatesPath = path.join(process.cwd(), 'data', 'custom-email-templates.json');
+          
           try {
-            const data = await fs.readFile(customTemplatesPath, 'utf-8');
-            customTemplates = JSON.parse(data);
-          } catch (e) {
-            // File doesn't exist yet
+            // Read existing custom templates
+            let customTemplates = {};
+            try {
+              const data = await fs.readFile(customTemplatesPath, 'utf-8');
+              customTemplates = JSON.parse(data);
+            } catch (e) {
+              // File doesn't exist yet
+            }
+            
+            // Update the template
+            if (!customTemplates[sequence]) {
+              customTemplates[sequence] = {};
+            }
+            customTemplates[sequence][step] = {
+              subject,
+              content,
+              modifiedBy: 'admin',
+              updatedAt: new Date().toISOString()
+            };
+            
+            // Ensure directory exists
+            await fs.mkdir(path.dirname(customTemplatesPath), { recursive: true });
+            
+            // Save to file
+            await fs.writeFile(customTemplatesPath, JSON.stringify(customTemplates, null, 2));
+            
+            console.log('Saved template to local file as fallback');
+          } catch (fileError) {
+            console.error('Failed to save to file:', fileError);
+            throw error;
           }
-          
-          // Update the template
-          if (!customTemplates[sequence]) {
-            customTemplates[sequence] = {};
-          }
-          customTemplates[sequence][step] = {
-            subject,
-            content,
-            modifiedBy: 'admin',
-            updatedAt: new Date().toISOString()
-          };
-          
-          // Ensure directory exists
-          await fs.mkdir(path.dirname(customTemplatesPath), { recursive: true });
-          
-          // Save to file
-          await fs.writeFile(customTemplatesPath, JSON.stringify(customTemplates, null, 2));
-          
-          console.log('Saved template to local file as fallback');
-        } catch (fileError) {
-          console.error('Failed to save to file:', fileError);
-          throw error;
         }
       }
       

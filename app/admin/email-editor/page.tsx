@@ -93,16 +93,21 @@ export default function EmailEditorPage() {
         }),
       });
 
+      const responseData = await response.json().catch(() => null);
+      
       if (response.ok) {
         setSaveMessage('Template saved successfully!');
         // Reload templates to get updated data
         await loadTemplates();
         setTimeout(() => setSaveMessage(''), 3000);
       } else {
-        throw new Error('Failed to save template');
+        const errorMessage = responseData?.error || `Failed to save template (${response.status})`;
+        console.error('Save error:', errorMessage, responseData);
+        setError(errorMessage);
       }
     } catch (error) {
-      setError('Failed to save template');
+      console.error('Save exception:', error);
+      setError('Failed to save template: ' + (error.message || 'Unknown error'));
     } finally {
       setIsSaving(false);
     }
