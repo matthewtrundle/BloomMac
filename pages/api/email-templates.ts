@@ -68,6 +68,14 @@ function extractVariables(template: any): string[] {
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  // Log authentication info
+  console.log('Email Templates API:', {
+    method: req.method,
+    hasAdminToken: !!req.cookies.adminToken,
+    userEmail: req.headers['x-user-email'],
+    userRole: req.headers['x-user-role']
+  });
+  
   if (req.method === 'GET') {
     try {
       // Get base templates
@@ -148,11 +156,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
     
     try {
-      // First try to create the table if it doesn't exist
-      await supabaseAdmin.rpc('create_email_templates_table_if_not_exists').catch(() => {
-        // Ignore error - table might already exist
-      });
-
       // Create or update custom template in database
       const { error } = await supabaseAdmin
         .from('email_templates_custom')
@@ -169,9 +172,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       
       if (error) {
         console.error('Supabase upsert error:', error);
+        console.error('Error details:', {
+          code: error.code,
+          message: error.message,
+          details: error.details,
+          hint: error.hint
+        });
         
         // If it's a unique constraint violation, try update instead
-        if (error.code === '23505') {
+        if (error.code === '23505' || error.message?.includes('duplicate key')) {
+          console.log('Attempting update due to duplicate key...');
           const { error: updateError } = await supabaseAdmin
             .from('email_templates_custom')
             .update({
@@ -186,6 +196,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           if (updateError) {
             console.error('Update also failed:', updateError);
             throw updateError;
+          } else {
+            console.log('Update successful after upsert failure');
           }
         } else {
           // For other errors, try the file fallback
