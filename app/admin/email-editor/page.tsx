@@ -65,7 +65,9 @@ export default function EmailEditorPage() {
 
   const loadTemplates = async () => {
     try {
-      const response = await fetch('/api/email-templates');
+      const response = await fetch('/api/email-templates', {
+        credentials: 'include'
+      });
       if (response.ok) {
         const data = await response.json();
         setTemplates(data.templates);
@@ -89,6 +91,7 @@ export default function EmailEditorPage() {
       const response = await fetch('/api/email-templates', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({
           id: selectedTemplate.id,
           sequence: selectedTemplate.sequence,
@@ -128,6 +131,7 @@ export default function EmailEditorPage() {
       const response = await fetch('/api/test-email', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({
           to: testEmail,
           sequence: selectedTemplate.sequence,
