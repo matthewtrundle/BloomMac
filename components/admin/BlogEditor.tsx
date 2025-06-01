@@ -78,7 +78,7 @@ export default function BlogEditor({ post, isEditing = false }: BlogEditorProps)
     featured: post?.featured || false,
     author: post?.author || {
       name: 'Jana Rundle',
-      title: 'Licensed Clinical Social Worker',
+      title: 'Licensed Clinical Psychologist',
       image: '/images/Team/Jana Rundle.jpg'
     },
     metaDescription: post?.metaDescription || '',

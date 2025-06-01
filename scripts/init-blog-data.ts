@@ -15,7 +15,7 @@ const convertedPosts: BlogPost[] = existingPosts.map(post => ({
   featured: post.id <= 3, // Feature the first 3 posts
   author: {
     name: 'Jana Rundle',
-    title: 'Licensed Clinical Social Worker',
+    title: 'Licensed Clinical Psychologist',
     image: '/images/Team/Jana Rundle.jpg'
   },
   metaDescription: post.excerpt.substring(0, 160),
