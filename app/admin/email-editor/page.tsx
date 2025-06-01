@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import Button from '@/components/ui/Button';
 import { Save, Eye, Code, Mail, Copy, RotateCcw, AlertCircle } from 'lucide-react';
@@ -19,8 +20,7 @@ interface EmailTemplate {
 }
 
 export default function EmailEditorPage() {
-  const [authenticated, setAuthenticated] = useState(false);
-  const [password, setPassword] = useState('');
+  const router = useRouter();
   const [templates, setTemplates] = useState<EmailTemplate[]>([]);
   const [selectedTemplate, setSelectedTemplate] = useState<EmailTemplate | null>(null);
   const [editedSubject, setEditedSubject] = useState('');
@@ -32,13 +32,12 @@ export default function EmailEditorPage() {
   const [error, setError] = useState('');
   const [testEmail, setTestEmail] = useState('');
   const [isSendingTest, setIsSendingTest] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
-  // Load templates on mount
+  // Check authentication on mount
   useEffect(() => {
-    if (authenticated) {
-      loadTemplates();
-    }
-  }, [authenticated]);
+    checkAuth();
+  }, []);
 
   // Update edited content when template selection changes
   useEffect(() => {
@@ -48,13 +47,19 @@ export default function EmailEditorPage() {
     }
   }, [selectedTemplate]);
 
-  const handleAuth = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (password === 'bloom2024admin') {
-      setAuthenticated(true);
-      setError('');
-    } else {
-      setError('Invalid password');
+  const checkAuth = async () => {
+    try {
+      // Check if the user has a valid admin token by making a request to a protected endpoint
+      const response = await fetch('/api/admin/activity-log?limit=1');
+      if (response.ok) {
+        setIsLoading(false);
+        loadTemplates();
+      } else {
+        // Not authenticated, redirect to admin login
+        router.push('/admin/login');
+      }
+    } catch (error) {
+      router.push('/admin/login');
     }
   };
 
@@ -172,35 +177,13 @@ export default function EmailEditorPage() {
     return preview;
   };
 
-  if (!authenticated) {
+  if (isLoading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-        <Card className="max-w-md w-full">
-          <CardHeader>
-            <CardTitle className="text-center">Email Template Editor</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleAuth} className="space-y-4">
-              <div>
-                <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
-                  Admin Password
-                </label>
-                <input
-                  type="password"
-                  id="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-bloom-primary focus:border-bloom-primary"
-                  required
-                />
-              </div>
-              {error && <p className="text-red-600 text-sm">{error}</p>}
-              <Button type="submit" variant="primary" className="w-full">
-                Access Editor
-              </Button>
-            </form>
-          </CardContent>
-        </Card>
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-bloom-primary mx-auto"></div>
+          <p className="mt-4 text-gray-600">Loading...</p>
+        </div>
       </div>
     );
   }
