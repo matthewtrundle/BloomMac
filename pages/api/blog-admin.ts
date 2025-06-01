@@ -12,10 +12,13 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  // Simple auth check - in production, use proper authentication
-  const authHeader = req.headers.authorization;
-  if (authHeader !== `Bearer ${process.env.ADMIN_API_KEY}`) {
-    return res.status(401).json({ error: 'Unauthorized' });
+  // Authentication is handled by middleware
+  // User info is available in headers from middleware
+  const userEmail = req.headers['x-user-email'];
+  const userRole = req.headers['x-user-role'];
+  
+  if (!userEmail || userRole !== 'admin') {
+    return res.status(403).json({ error: 'Forbidden' });
   }
 
   try {

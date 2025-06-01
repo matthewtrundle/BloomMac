@@ -38,9 +38,7 @@ export default function EditBlogPostPage() {
   const fetchPost = async () => {
     try {
       const response = await fetch(`/api/blog-admin?slug=${slug}`, {
-        headers: {
-          'Authorization': `Bearer ${process.env.NEXT_PUBLIC_ADMIN_API_KEY}`
-        }
+        credentials: 'include'
       });
 
       if (!response.ok) {

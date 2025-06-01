@@ -114,9 +114,7 @@ export default function BlogEditor({ post, isEditing = false }: BlogEditorProps)
     try {
       const response = await fetch('/api/upload-image', {
         method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${process.env.NEXT_PUBLIC_ADMIN_API_KEY}`
-        },
+        credentials: 'include',
         body: formData
       });
 
@@ -154,9 +152,9 @@ export default function BlogEditor({ post, isEditing = false }: BlogEditorProps)
       const response = await fetch(url, {
         method,
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${process.env.NEXT_PUBLIC_ADMIN_API_KEY}`
+          'Content-Type': 'application/json'
         },
+        credentials: 'include',
         body: JSON.stringify(formData)
       });
 

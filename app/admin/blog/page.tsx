@@ -38,9 +38,7 @@ export default function BlogAdminPage() {
   const fetchPosts = async () => {
     try {
       const response = await fetch('/api/blog-admin', {
-        headers: {
-          'Authorization': `Bearer ${process.env.NEXT_PUBLIC_ADMIN_API_KEY}`
-        }
+        credentials: 'include'
       });
 
       if (!response.ok) {
@@ -64,9 +62,7 @@ export default function BlogAdminPage() {
     try {
       const response = await fetch(`/api/blog-admin?slug=${slug}`, {
         method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${process.env.NEXT_PUBLIC_ADMIN_API_KEY}`
-        }
+        credentials: 'include'
       });
 
       if (!response.ok) {
