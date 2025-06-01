@@ -81,27 +81,52 @@ export default function EmailEditorPage() {
   };
 
   const saveTemplate = async () => {
-    if (!selectedTemplate) return;
+    if (!selectedTemplate) {
+      console.error('No template selected');
+      return;
+    }
+
+    console.log('Starting save for template:', {
+      id: selectedTemplate.id,
+      sequence: selectedTemplate.sequence,
+      step: selectedTemplate.step,
+      subject: editedSubject.substring(0, 50),
+      contentLength: editedContent.length
+    });
 
     setIsSaving(true);
     setSaveMessage('');
     setError('');
 
     try {
+      const payload = {
+        id: selectedTemplate.id,
+        sequence: selectedTemplate.sequence,
+        step: selectedTemplate.step,
+        subject: editedSubject,
+        content: editedContent,
+      };
+      
+      console.log('Sending save request with payload:', {
+        ...payload,
+        content: payload.content.substring(0, 100) + '...'
+      });
+
       const response = await fetch('/api/email-templates', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
-        body: JSON.stringify({
-          id: selectedTemplate.id,
-          sequence: selectedTemplate.sequence,
-          step: selectedTemplate.step,
-          subject: editedSubject,
-          content: editedContent,
-        }),
+        body: JSON.stringify(payload),
+      });
+
+      console.log('Save response:', {
+        status: response.status,
+        statusText: response.statusText,
+        headers: Object.fromEntries(response.headers.entries())
       });
 
       const responseData = await response.json().catch(() => null);
+      console.log('Response data:', responseData);
       
       if (response.ok) {
         setSaveMessage('Template saved successfully!');

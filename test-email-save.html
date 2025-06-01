@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Email Save Test</title>
+</head>
+<body>
+    <h1>Email Template Save Test</h1>
+    <p>Open the browser console to see the results</p>
+    
+    <script>
+    async function testEmailSave() {
+        console.log('🔍 Testing Email Template Save...\n');
+        
+        try {
+            // Test if we're authenticated
+            const authCheck = await fetch('/api/admin/activity-log?limit=1', {
+                credentials: 'include'
+            });
+            
+            if (!authCheck.ok) {
+                console.error('❌ Not authenticated. Please login at /admin/login first');
+                return;
+            }
+            
+            console.log('✅ Authentication verified');
+            
+            // Test save
+            console.log('\n📝 Testing save...');
+            const saveResponse = await fetch('/api/email-templates', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include',
+                body: JSON.stringify({
+                    sequence: 'newsletter',
+                    step: 'welcome',
+                    subject: 'Browser Test - ' + new Date().toISOString(),
+                    content: '<p>Test from browser console</p>'
+                })
+            });
+            
+            console.log('Response status:', saveResponse.status);
+            console.log('Response headers:', Object.fromEntries(saveResponse.headers.entries()));
+            
+            const responseText = await saveResponse.text();
+            console.log('Response body:', responseText);
+            
+            if (saveResponse.ok) {
+                console.log('✅ Save successful!');
+                const data = JSON.parse(responseText);
+                console.log('Response data:', data);
+            } else {
+                console.error('❌ Save failed');
+                try {
+                    const errorData = JSON.parse(responseText);
+                    console.error('Error data:', errorData);
+                } catch (e) {
+                    console.error('Raw error:', responseText);
+                }
+            }
+            
+            // Check if it was saved
+            console.log('\n🔍 Verifying save...');
+            const getResponse = await fetch('/api/email-templates', {
+                credentials: 'include'
+            });
+            
+            if (getResponse.ok) {
+                const { templates } = await getResponse.json();
+                const saved = templates.find(t => t.sequence === 'newsletter' && t.step === 'welcome');
+                if (saved) {
+                    console.log('✅ Template found:', saved);
+                    console.log('Subject:', saved.subject);
+                    console.log('Last modified:', saved.lastModified);
+                } else {
+                    console.log('❌ Template not found in list');
+                }
+            }
+            
+        } catch (error) {
+            console.error('❌ Unexpected error:', error);
+        }
+    }
+    
+    // Run the test
+    testEmailSave();
+    </script>
+</body>
+</html>
