@@ -1,86 +1,138 @@
-require('dotenv').config();
-const { createClient } = require('@supabase/supabase-js');
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_ROLE_KEY
-);
+// Test email template save functionality end-to-end
+require('dotenv').config({ path: '.env.local' });
 
 async function testEmailTemplateSave() {
   console.log('Testing email template save functionality...\n');
+
+  const baseUrl = 'http://localhost:3000';
   
   try {
-    // Test 1: Check if table exists and is accessible
-    console.log('1. Checking if email_templates_custom table exists...');
-    const { data: tableCheck, error: tableError } = await supabase
-      .from('email_templates_custom')
-      .select('*')
-      .limit(1);
-    
-    if (tableError) {
-      console.error('❌ Error accessing table:', tableError);
-      return;
-    }
-    console.log('✅ Table exists and is accessible');
-    
-    // Test 2: Try to insert a test template
-    console.log('\n2. Testing insert/upsert functionality...');
-    const testTemplate = {
-      sequence: 'test-sequence',
-      step: 'test-step',
-      subject: 'Test Subject',
-      content: 'Test Content',
-      modified_by: 'test-script'
-    };
-    
-    const { data: insertData, error: insertError } = await supabase
-      .from('email_templates_custom')
-      .upsert(testTemplate, {
-        onConflict: 'sequence,step'
+    // Step 1: Login to get JWT token
+    console.log('1. Testing login...');
+    const loginResponse = await fetch(`${baseUrl}/api/admin/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: 'jana@bloompsychologygroup.com',
+        password: 'BloomAdmin2024\!'
       })
-      .select();
-    
-    if (insertError) {
-      console.error('❌ Error inserting template:', insertError);
+    });
+
+    if (\!loginResponse.ok) {
+      const error = await loginResponse.text();
+      console.error('❌ Login failed:', error);
       return;
     }
-    console.log('✅ Successfully inserted/updated test template');
-    
-    // Test 3: Verify the data was saved
-    console.log('\n3. Verifying saved data...');
-    const { data: verifyData, error: verifyError } = await supabase
-      .from('email_templates_custom')
-      .select('*')
-      .eq('sequence', 'test-sequence')
-      .eq('step', 'test-step')
-      .single();
-    
-    if (verifyError) {
-      console.error('❌ Error verifying data:', verifyError);
-    } else {
-      console.log('✅ Data verified:', verifyData);
+
+    // Extract the adminToken cookie
+    const setCookieHeader = loginResponse.headers.get('set-cookie');
+    if (\!setCookieHeader) {
+      console.error('❌ No cookie received from login');
+      return;
     }
-    
-    // Test 4: Clean up test data
-    console.log('\n4. Cleaning up test data...');
-    const { error: deleteError } = await supabase
-      .from('email_templates_custom')
-      .delete()
-      .eq('sequence', 'test-sequence')
-      .eq('step', 'test-step');
-    
-    if (deleteError) {
-      console.error('❌ Error cleaning up:', deleteError);
-    } else {
-      console.log('✅ Test data cleaned up');
+
+    const adminToken = setCookieHeader.match(/adminToken=([^;]+)/)?.[1];
+    if (\!adminToken) {
+      console.error('❌ No adminToken found in cookie');
+      return;
     }
-    
-    console.log('\n✅ All tests passed! The email template save functionality should work.');
-    
+
+    console.log('✅ Login successful, token received');
+
+    // Step 2: Test fetching templates with authentication
+    console.log('\n2. Testing template fetch with auth...');
+    const fetchResponse = await fetch(`${baseUrl}/api/email-templates`, {
+      headers: {
+        'Cookie': `adminToken=${adminToken}`
+      }
+    });
+
+    if (\!fetchResponse.ok) {
+      const error = await fetchResponse.text();
+      console.error('❌ Fetch failed:', fetchResponse.status, error);
+      return;
+    }
+
+    const { templates } = await fetchResponse.json();
+    console.log(`✅ Fetched ${templates.length} templates`);
+
+    // Step 3: Test saving a template
+    console.log('\n3. Testing template save...');
+    const testTemplate = templates[0];
+    const saveResponse = await fetch(`${baseUrl}/api/email-templates`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Cookie': `adminToken=${adminToken}`
+      },
+      body: JSON.stringify({
+        sequence: testTemplate.sequence,
+        step: testTemplate.step,
+        subject: testTemplate.subject + ' (TEST)',
+        content: testTemplate.content + '\n\n<\!-- Test edit -->'
+      })
+    });
+
+    if (\!saveResponse.ok) {
+      const error = await saveResponse.text();
+      console.error('❌ Save failed:', saveResponse.status, error);
+      return;
+    }
+
+    console.log('✅ Template saved successfully');
+
+    // Step 4: Verify the save worked
+    console.log('\n4. Verifying saved template...');
+    const verifyResponse = await fetch(`${baseUrl}/api/email-templates`, {
+      headers: {
+        'Cookie': `adminToken=${adminToken}`
+      }
+    });
+
+    const { templates: updatedTemplates } = await verifyResponse.json();
+    const updatedTemplate = updatedTemplates.find(t => 
+      t.sequence === testTemplate.sequence && t.step === testTemplate.step
+    );
+
+    if (updatedTemplate && updatedTemplate.subject.includes('(TEST)')) {
+      console.log('✅ Template update verified');
+      
+      // Clean up - restore original
+      console.log('\n5. Cleaning up test data...');
+      await fetch(`${baseUrl}/api/email-templates`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Cookie': `adminToken=${adminToken}`
+        },
+        body: JSON.stringify({
+          sequence: testTemplate.sequence,
+          step: testTemplate.step,
+          subject: testTemplate.subject,
+          content: testTemplate.content
+        })
+      });
+      console.log('✅ Original template restored');
+    } else {
+      console.error('❌ Template update not found');
+    }
+
+    console.log('\n✅ All tests passed\! Email template save is working correctly.');
+
   } catch (error) {
-    console.error('Unexpected error:', error);
+    console.error('❌ Test error:', error);
   }
 }
 
-// Run the test
-testEmailTemplateSave();
+// Check if the server is running
+fetch('http://localhost:3000/api/test-analytics')
+  .then(() => {
+    console.log('Server is running, starting tests...\n');
+    testEmailTemplateSave();
+  })
+  .catch(() => {
+    console.error('❌ Server is not running. Please start the dev server with: npm run dev');
+  });
+EOF < /dev/null

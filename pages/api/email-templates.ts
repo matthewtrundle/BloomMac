@@ -68,13 +68,21 @@ function extractVariables(template: any): string[] {
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  // Authentication is handled by middleware
+  // User info is available in headers from middleware
+  const userEmail = req.headers['x-user-email'];
+  const userRole = req.headers['x-user-role'];
+  
   // Log authentication info
   console.log('Email Templates API:', {
     method: req.method,
-    hasAdminToken: !!req.cookies.adminToken,
-    userEmail: req.headers['x-user-email'],
-    userRole: req.headers['x-user-role']
+    userEmail,
+    userRole
   });
+  
+  if (!userEmail || userRole !== 'admin') {
+    return res.status(403).json({ error: 'Forbidden' });
+  }
   
   if (req.method === 'GET') {
     try {
@@ -164,7 +172,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           step,
           subject,
           content,
-          modified_by: 'admin',
+          modified_by: userEmail as string,
           updated_at: new Date().toISOString()
         }, {
           onConflict: 'sequence,step'
@@ -187,7 +195,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             .update({
               subject,
               content,
-              modified_by: 'admin',
+              modified_by: userEmail as string,
               updated_at: new Date().toISOString()
             })
             .eq('sequence', sequence)
@@ -222,7 +230,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             customTemplates[sequence][step] = {
               subject,
               content,
-              modifiedBy: 'admin',
+              modifiedBy: userEmail as string,
               updatedAt: new Date().toISOString()
             };
             
