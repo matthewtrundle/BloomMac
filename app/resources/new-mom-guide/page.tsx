@@ -5,11 +5,11 @@ import Image from 'next/image';
 import { Heart, Coffee, Moon, Users, Clock, Sparkles } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: "New Mom's Survival Guide | Bloom Psychology",
+  title: 'New Mom Survival Guide | Bloom Psychology',
   description: 'Essential tips, resources, and support for navigating the postpartum period with self-compassion and practical strategies.',
   keywords: ['new mom guide', 'postpartum support', 'new mother resources', 'baby blues', 'postpartum depression', 'mom self-care'],
   openGraph: {
-    title: "New Mom's Survival Guide",
+    title: 'New Mom Survival Guide',
     description: 'Your comprehensive guide to thriving (not just surviving) in the postpartum period.',
     images: ['/images/Services/New Mothers.png'],
   },
