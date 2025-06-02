@@ -17,7 +17,16 @@ export default async function handler(
   const userEmail = req.headers['x-user-email'];
   const userRole = req.headers['x-user-role'];
   
+  console.log('Blog admin API:', {
+    method: req.method,
+    userEmail,
+    userRole,
+    query: req.query,
+    bodyKeys: req.body ? Object.keys(req.body) : 'no body'
+  });
+  
   if (!userEmail || userRole !== 'admin') {
+    console.error('Blog admin authentication failed:', { userEmail, userRole });
     return res.status(403).json({ error: 'Forbidden' });
   }
 
@@ -38,21 +47,27 @@ export default async function handler(
 
       case 'POST':
         // Create new post
+        console.log('Creating new blog post...');
         const newPost = await createBlogPost(req.body);
+        console.log('Blog post created successfully:', newPost.slug);
         return res.status(201).json(newPost);
 
       case 'PUT':
         // Update existing post
         const { slug } = req.query;
+        console.log('Updating blog post:', slug);
         if (!slug || typeof slug !== 'string') {
+          console.error('No slug provided for update');
           return res.status(400).json({ error: 'Slug is required' });
         }
         
         const updatedPost = await updateBlogPost(slug, req.body);
         if (!updatedPost) {
+          console.error('Blog post not found for update:', slug);
           return res.status(404).json({ error: 'Post not found' });
         }
         
+        console.log('Blog post updated successfully:', updatedPost.slug);
         return res.status(200).json(updatedPost);
 
       case 'DELETE':
@@ -75,9 +90,11 @@ export default async function handler(
     }
   } catch (error) {
     console.error('Blog admin API error:', error);
+    console.error('Error stack:', error instanceof Error ? error.stack : 'No stack trace');
     return res.status(500).json({ 
       error: 'Internal server error',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: error instanceof Error ? error.message : 'Unknown error',
+      stack: process.env.NODE_ENV === 'development' ? (error instanceof Error ? error.stack : 'No stack') : undefined
     });
   }
 }

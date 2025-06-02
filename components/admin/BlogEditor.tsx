@@ -149,6 +149,8 @@ export default function BlogEditor({ post, isEditing = false }: BlogEditorProps)
       
       const method = isEditing ? 'PUT' : 'POST';
 
+      console.log('Blog save request:', { url, method, formData: { ...formData, content: formData.content.substring(0, 100) + '...' } });
+
       const response = await fetch(url, {
         method,
         headers: {
@@ -158,12 +160,25 @@ export default function BlogEditor({ post, isEditing = false }: BlogEditorProps)
         body: JSON.stringify(formData)
       });
 
+      console.log('Blog save response:', {
+        status: response.status,
+        statusText: response.statusText,
+        headers: Object.fromEntries(response.headers.entries())
+      });
+
+      const responseData = await response.json().catch(() => null);
+      console.log('Blog save response data:', responseData);
+
       if (!response.ok) {
-        throw new Error('Failed to save post');
+        const errorMessage = responseData?.error || responseData?.details || `Failed to save post (${response.status})`;
+        console.error('Blog save error:', errorMessage, responseData);
+        throw new Error(errorMessage);
       }
 
+      console.log('Blog save successful, redirecting...');
       router.push('/admin/blog');
     } catch (err) {
+      console.error('Blog save exception:', err);
       setError(err instanceof Error ? err.message : 'Failed to save post');
     } finally {
       setSaving(false);
