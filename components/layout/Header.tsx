@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { services } from '@/lib/data/services';
 import Button from '@/components/ui/Button';
+import DarkModeToggle from '@/components/ui/DarkModeToggle';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -245,6 +246,7 @@ const Header = () => {
               >
                 Book Now
               </Button>
+              <DarkModeToggle />
             </nav>
           </div>
           
