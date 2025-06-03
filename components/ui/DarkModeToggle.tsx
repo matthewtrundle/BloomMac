@@ -5,12 +5,12 @@ import React, { useState, useEffect } from 'react';
 const DarkModeToggle = () => {
   const [isDark, setIsDark] = useState(false);
 
-  // Check for saved theme preference or default to light mode
+  // Check for saved theme preference or default to light mode (never auto-dark)
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     
-    const shouldUseDark = savedTheme === 'dark' || (!savedTheme && prefersDark);
+    // Only use dark mode if explicitly set to dark, always default to light
+    const shouldUseDark = savedTheme === 'dark';
     
     setIsDark(shouldUseDark);
     updateTheme(shouldUseDark);
@@ -32,15 +32,19 @@ const DarkModeToggle = () => {
   };
 
   return (
-    <button
-      onClick={toggleDarkMode}
-      className="fixed bottom-6 right-6 z-50 w-12 h-12 bg-bloom dark:bg-bloom-blush rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center text-white dark:text-bloom"
-      aria-label="Toggle dark mode"
-      title={`Switch to ${isDark ? 'light' : 'dark'} mode`}
-    >
+    <div className="fixed top-4 right-4 z-50 flex items-center gap-2">
+      <span className="text-xs text-gray-600 dark:text-gray-400 hidden md:block">
+        {isDark ? 'Dark' : 'Light'}
+      </span>
+      <button
+        onClick={toggleDarkMode}
+        className="w-8 h-8 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 flex items-center justify-center text-gray-700 dark:text-gray-300"
+        aria-label="Toggle dark mode"
+        title={`Switch to ${isDark ? 'light' : 'dark'} mode`}
+      >
       {isDark ? (
         // Sun icon for light mode
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path 
             strokeLinecap="round" 
             strokeLinejoin="round" 
@@ -50,7 +54,7 @@ const DarkModeToggle = () => {
         </svg>
       ) : (
         // Moon icon for dark mode
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path 
             strokeLinecap="round" 
             strokeLinejoin="round" 
@@ -59,7 +63,8 @@ const DarkModeToggle = () => {
           />
         </svg>
       )}
-    </button>
+      </button>
+    </div>
   );
 };
 
