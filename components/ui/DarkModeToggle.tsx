@@ -34,13 +34,13 @@ const DarkModeToggle = () => {
   return (
     <button
       onClick={toggleDarkMode}
-      className="w-8 h-8 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 flex items-center justify-center text-bloom-dark dark:text-gray-300"
+      className="w-7 h-7 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200 flex items-center justify-center text-bloom-dark dark:text-gray-300"
       aria-label="Toggle dark mode"
       title={`Switch to ${isDark ? 'light' : 'dark'} mode`}
     >
       {isDark ? (
         // Sun icon for light mode
-        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path 
             strokeLinecap="round" 
             strokeLinejoin="round" 
@@ -50,7 +50,7 @@ const DarkModeToggle = () => {
         </svg>
       ) : (
         // Moon icon for dark mode
-        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path 
             strokeLinecap="round" 
             strokeLinejoin="round" 
