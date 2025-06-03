@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Button from '@/components/ui/Button';
 import Image from 'next/image';
@@ -40,23 +40,7 @@ const categories = [
   'Wellness'
 ];
 
-const existingImages = [
-  '/images/Home/Confident Women.png',
-  '/images/Home/new-mom.png',
-  '/images/Services/New Mothers.png',
-  '/images/Services/Hopeful Hands.png',
-  '/images/Services/Walking through fields.png',
-  '/images/Services/Empty Armchair.png',
-  '/images/Services/Experienced Parents.png',
-  '/images/Services/AnxietyManagement1.png',
-  '/images/Services/AnxietyManagement2.png',
-  '/images/Hero/Hero.png',
-  '/images/Hero/Hero2.png',
-  '/images/Hero/Hero3.png',
-  '/images/Hero/Hero4.png',
-  '/images/Hero/Hero7.png',
-  '/images/Hero/Hero11.png'
-];
+// Images will be loaded dynamically from the API
 
 export default function BlogEditor({ post, isEditing = false }: BlogEditorProps) {
   const router = useRouter();
@@ -65,6 +49,9 @@ export default function BlogEditor({ post, isEditing = false }: BlogEditorProps)
   const [error, setError] = useState('');
   const [uploading, setUploading] = useState(false);
   const [showImagePicker, setShowImagePicker] = useState(false);
+  const [availableImages, setAvailableImages] = useState<string[]>([]);
+  const [loadingImages, setLoadingImages] = useState(false);
+  const [imageFilter, setImageFilter] = useState('');
   
   const [formData, setFormData] = useState<BlogPost>({
     title: post?.title || '',
@@ -84,6 +71,30 @@ export default function BlogEditor({ post, isEditing = false }: BlogEditorProps)
     metaDescription: post?.metaDescription || '',
     keywords: post?.keywords || []
   });
+
+  // Load available images when image picker is opened
+  useEffect(() => {
+    if (showImagePicker && availableImages.length === 0) {
+      loadImages();
+    }
+  }, [showImagePicker]);
+
+  const loadImages = async () => {
+    setLoadingImages(true);
+    try {
+      const response = await fetch('/api/images');
+      if (response.ok) {
+        const data = await response.json();
+        setAvailableImages(data.images);
+      } else {
+        console.error('Failed to load images');
+      }
+    } catch (error) {
+      console.error('Error loading images:', error);
+    } finally {
+      setLoadingImages(false);
+    }
+  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
@@ -273,12 +284,17 @@ export default function BlogEditor({ post, isEditing = false }: BlogEditorProps)
         {/* Image Picker Modal */}
         {showImagePicker && (
           <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-            <div className="bg-white rounded-lg max-w-4xl w-full max-h-[80vh] overflow-hidden">
+            <div className="bg-white rounded-lg max-w-6xl w-full max-h-[90vh] overflow-hidden">
               <div className="p-6 border-b border-gray-200">
-                <h3 className="text-lg font-semibold">Choose an Image</h3>
+                <div className="flex justify-between items-center">
+                  <h3 className="text-lg font-semibold">Choose an Image</h3>
+                  <span className="text-sm text-gray-500">
+                    {availableImages.length} images available
+                  </span>
+                </div>
               </div>
-              <div className="p-6 overflow-y-auto max-h-[60vh]">
-                <div className="mb-4">
+              <div className="p-6 overflow-y-auto max-h-[70vh]">
+                <div className="mb-6 space-y-4">
                   <Button
                     type="button"
                     variant="pink"
@@ -287,24 +303,60 @@ export default function BlogEditor({ post, isEditing = false }: BlogEditorProps)
                   >
                     {uploading ? 'Uploading...' : 'Upload New Image'}
                   </Button>
+                  
+                  {/* Search/Filter */}
+                  <input
+                    type="text"
+                    placeholder="Search images by name..."
+                    value={imageFilter}
+                    onChange={(e) => setImageFilter(e.target.value)}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-bloom-accent focus:border-transparent"
+                  />
                 </div>
-                <div className="grid grid-cols-3 gap-4">
-                  {existingImages.map((img) => (
-                    <button
-                      key={img}
-                      type="button"
-                      onClick={() => handleSelectExistingImage(img)}
-                      className="relative aspect-video bg-gray-100 rounded-lg overflow-hidden hover:ring-2 hover:ring-bloom-accent"
-                    >
-                      <Image
-                        src={img}
-                        alt=""
-                        fill
-                        className="object-cover"
-                      />
-                    </button>
-                  ))}
-                </div>
+                
+                {loadingImages ? (
+                  <div className="text-center py-8">
+                    <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-bloom-accent"></div>
+                    <p className="mt-2 text-gray-600">Loading images...</p>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-4 gap-4">
+                    {availableImages
+                      .filter(img => 
+                        imageFilter === '' || 
+                        img.toLowerCase().includes(imageFilter.toLowerCase())
+                      )
+                      .map((img) => (
+                        <button
+                          key={img}
+                          type="button"
+                          onClick={() => handleSelectExistingImage(img)}
+                          className="group relative aspect-video bg-gray-100 rounded-lg overflow-hidden hover:ring-2 hover:ring-bloom-accent transition-all"
+                          title={img}
+                        >
+                          <Image
+                            src={img}
+                            alt=""
+                            fill
+                            className="object-cover"
+                            sizes="(max-width: 768px) 50vw, 25vw"
+                          />
+                          <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all">
+                            <div className="absolute bottom-1 left-1 right-1 bg-black bg-opacity-70 text-white text-xs p-1 rounded opacity-0 group-hover:opacity-100 transition-opacity truncate">
+                              {img.split('/').pop()}
+                            </div>
+                          </div>
+                        </button>
+                      ))
+                    }
+                  </div>
+                )}
+                
+                {!loadingImages && availableImages.length === 0 && (
+                  <div className="text-center py-8 text-gray-500">
+                    No images found
+                  </div>
+                )}
               </div>
               <div className="p-6 border-t border-gray-200">
                 <Button

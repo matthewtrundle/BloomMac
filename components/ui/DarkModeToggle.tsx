@@ -32,16 +32,12 @@ const DarkModeToggle = () => {
   };
 
   return (
-    <div className="flex items-center gap-2 ml-3">
-      <span className="text-xs text-bloom-dark/60 dark:text-gray-400 hidden lg:block">
-        {isDark ? 'Dark' : 'Light'}
-      </span>
-      <button
-        onClick={toggleDarkMode}
-        className="w-8 h-8 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 flex items-center justify-center text-bloom-dark dark:text-gray-300"
-        aria-label="Toggle dark mode"
-        title={`Switch to ${isDark ? 'light' : 'dark'} mode`}
-      >
+    <button
+      onClick={toggleDarkMode}
+      className="w-8 h-8 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 flex items-center justify-center text-bloom-dark dark:text-gray-300"
+      aria-label="Toggle dark mode"
+      title={`Switch to ${isDark ? 'light' : 'dark'} mode`}
+    >
       {isDark ? (
         // Sun icon for light mode
         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -63,8 +59,7 @@ const DarkModeToggle = () => {
           />
         </svg>
       )}
-      </button>
-    </div>
+    </button>
   );
 };
 
