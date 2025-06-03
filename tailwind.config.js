@@ -17,6 +17,23 @@ module.exports = {
           blush: '#F4C2C2',
           grey: '#C8C0BB',
           darkGrey: '#7A6F6A',
+          // Course slide colors
+          sage: {
+            DEFAULT: '#8B9A82',
+            50: '#f5f7f4',
+            100: '#e9ede5',
+            200: '#d3dccc',
+            300: '#b3c4a6',
+            400: '#8B9A82',
+            500: '#6B7A62',
+            600: '#546149',
+            700: '#454d3b',
+            800: '#393f31',
+            900: '#31352a',
+            dark: '#6B7A62'
+          },
+          cream: '#F5F5DC',
+          dark: '#4A4A4A',
           // Add more pink variants
           pink: {
             50: '#fdf2f4',
@@ -29,6 +46,8 @@ module.exports = {
             700: '#be2249',
             800: '#9e1d3e',
             900: '#851b36',
+            light: '#f9a8bd',
+            dark: '#be2249'
           },
           // Add soft gradients
           gradient: {
@@ -53,6 +72,7 @@ module.exports = {
         'pink-md': '0 4px 6px -1px rgba(244, 194, 194, 0.1), 0 2px 4px -1px rgba(244, 194, 194, 0.06)',
         'pink-lg': '0 10px 15px -3px rgba(244, 194, 194, 0.1), 0 4px 6px -2px rgba(244, 194, 194, 0.05)',
         'pink-xl': '0 20px 25px -5px rgba(244, 194, 194, 0.1), 0 10px 10px -5px rgba(244, 194, 194, 0.04)',
+        'soft': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
       },
       animation: {
         'float': 'float 6s ease-in-out infinite',

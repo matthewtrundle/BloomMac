@@ -127,7 +127,7 @@ export default function Home() {
         name="Bloom Psychology"
         url="https://bloompsychologynorthaustin.com"
         logo="https://bloompsychologynorthaustin.com/images/Logo/logo.jpg"
-        description="Specialized therapy for women, moms, and parents in North Austin."
+        description="Specialized therapy for women, moms, and parents in Texas."
         address={{
           streetAddress: "13706 N Highway 183, Suite 114",
           addressLocality: "Austin",
@@ -188,7 +188,7 @@ export default function Home() {
               </h1>
               
               <p className="font-raleway font-normal text-base sm:text-xl md:text-[1.25rem] mb-4 sm:mb-6 text-bloom-darkGrey text-center max-w-[600px] mx-auto text-shadow-sm">
-                Specialized mental health care for women and moms in North Austin.
+                Specialized mental health care for women and moms in Texas.
               </p>
             </div>
             
@@ -464,6 +464,63 @@ export default function Home() {
         </div>
       </section>
       
+      {/* Digital Courses CTA Section */}
+      <section className="py-20 bg-gradient-to-r from-bloom-sage-50 to-bloom-pink-50 relative overflow-hidden z-10">
+        <div className="container mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="max-w-5xl mx-auto text-center"
+          >
+            <h2 className="text-4xl md:text-5xl font-playfair mb-6">
+              <span className="text-bloom-dark">New: </span>
+              <span className="text-bloompink">Digital Courses</span>
+              <span className="text-bloom-dark"> for Postpartum Wellness</span>
+            </h2>
+            
+            <p className="text-xl text-bloom-dark/80 mb-8 max-w-3xl mx-auto">
+              Can't make it to therapy? Our self-paced courses provide evidence-based support 
+              you can access anytime, anywhere. Created by Dr. Jana specifically for busy moms.
+            </p>
+            
+            <div className="grid md:grid-cols-3 gap-6 mb-10">
+              <motion.div
+                whileHover={{ y: -5 }}
+                className="bg-white p-6 rounded-xl shadow-soft"
+              >
+                <div className="text-3xl mb-3">🌸</div>
+                <h3 className="font-semibold mb-2">Postpartum Foundations</h3>
+                <p className="text-sm text-bloom-dark/70">6-week journey to emotional balance</p>
+              </motion.div>
+              
+              <motion.div
+                whileHover={{ y: -5 }}
+                className="bg-white p-6 rounded-xl shadow-soft"
+              >
+                <div className="text-3xl mb-3">🧘‍♀️</div>
+                <h3 className="font-semibold mb-2">Anxiety Management</h3>
+                <p className="text-sm text-bloom-dark/70">Practical tools for peace of mind</p>
+              </motion.div>
+              
+              <motion.div
+                whileHover={{ y: -5 }}
+                className="bg-white p-6 rounded-xl shadow-soft"
+              >
+                <div className="text-3xl mb-3">💑</div>
+                <h3 className="font-semibold mb-2">Partner Support</h3>
+                <p className="text-sm text-bloom-dark/70">Help your partner help you</p>
+              </motion.div>
+            </div>
+            
+            <Button href="/courses" variant="pink" size="lg">
+              Explore Digital Courses
+            </Button>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Newsletter Signup Section */}
       <section className="py-16 bg-white relative overflow-hidden z-10">
         <div className="container mx-auto px-4">
@@ -594,6 +651,105 @@ export default function Home() {
                   </button>
                 </Link>
               </motion.div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      {/* Texas Virtual Therapy Section */}
+      <section className="py-20 bg-gradient-to-br from-bloom-sage-50 to-bloom-pink-50 relative overflow-hidden">
+        <div className="container mx-auto px-6">
+          <div className="max-w-6xl mx-auto">
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              <div>
+                <h2 className="text-4xl md:text-5xl font-playfair text-bloom-dark mb-6">
+                  Now Serving <span className="text-bloompink">All of Texas</span>
+                </h2>
+                <p className="text-xl text-bloom-dark/80 mb-8">
+                  Can't make it to our North Austin office? Virtual therapy brings our specialized 
+                  perinatal and maternal mental health care directly to your Texas home.
+                </p>
+                
+                <div className="grid sm:grid-cols-2 gap-6 mb-8">
+                  <div className="bg-white p-6 rounded-xl shadow-soft">
+                    <div className="w-12 h-12 bg-bloom-sage-50 rounded-full flex items-center justify-center mb-4">
+                      <svg className="w-6 h-6 text-bloom-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                    </div>
+                    <h3 className="font-semibold text-bloom-dark mb-2">Houston • Dallas • San Antonio</h3>
+                    <p className="text-sm text-bloom-dark/70">Serving major Texas cities</p>
+                  </div>
+                  
+                  <div className="bg-white p-6 rounded-xl shadow-soft">
+                    <div className="w-12 h-12 bg-bloompink/10 rounded-full flex items-center justify-center mb-4">
+                      <svg className="w-6 h-6 text-bloompink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                      </svg>
+                    </div>
+                    <h3 className="font-semibold text-bloom-dark mb-2">Secure Video Sessions</h3>
+                    <p className="text-sm text-bloom-dark/70">HIPAA-compliant virtual care</p>
+                  </div>
+                </div>
+                
+                <div className="flex flex-col sm:flex-row gap-4 mb-6">
+                  <Link
+                    href="/virtual-therapy"
+                    className="inline-block bg-bloompink text-white px-8 py-4 rounded-full font-medium hover:bg-bloom-pink-dark transition-colors text-center"
+                  >
+                    Learn About Virtual Therapy
+                  </Link>
+                  <Link
+                    href="/texas-service-areas"
+                    className="inline-block bg-white text-bloom-dark px-8 py-4 rounded-full font-medium border-2 border-bloom-sage hover:bg-bloom-sage-50 transition-colors text-center"
+                  >
+                    See Your Area
+                  </Link>
+                </div>
+                
+                <div className="bg-white p-4 rounded-xl shadow-soft border border-bloom-sage/20">
+                  <p className="text-sm text-bloom-dark/70 mb-3">
+                    <span className="font-semibold text-bloompink">✨ New:</span> Not sure if virtual therapy is right for you?
+                  </p>
+                  <Link
+                    href="/virtual-therapy/is-virtual-right-for-you"
+                    className="text-sm bg-gradient-to-r from-bloompink to-pink-400 text-white px-4 py-2 rounded-full font-medium hover:shadow-md transition-all inline-block"
+                  >
+                    Take Our 2-Minute Assessment →
+                  </Link>
+                </div>
+              </div>
+              
+              <div className="space-y-4">
+                <div className="relative">
+                  <Image
+                    src="/images/optimized/biff01_imagine_woman_on_laptop_in_cozy_home_setting_having_vi_65b5942f-d2fb-4103-84e6-722269d37e3b_0.webp"
+                    alt="Woman having virtual therapy session from her Texas home"
+                    width={600}
+                    height={400}
+                    className="rounded-2xl shadow-xl w-full h-auto"
+                  />
+                  <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-bloom-sage/20 rounded-full blur-2xl"></div>
+                  <div className="absolute -top-6 -left-6 w-24 h-24 bg-bloompink/20 rounded-full blur-xl"></div>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <Image
+                    src="/images/optimized/biff01_imagine_woman_walking_in_nature_path_trees_and_flowers_dc53f2ba-0c3a-4b5a-a758-62679e547b70_1.webp"
+                    alt="Woman finding peace through virtual therapy in Texas"
+                    width={290}
+                    height={200}
+                    className="rounded-xl shadow-lg w-full h-auto"
+                  />
+                  <Image
+                    src="/images/optimized/biff01_imagine_woman_in_meditation_pose_serene_environment_br_43b6047c-916a-43b2-afc2-5449ec040f7c_1.webp"
+                    alt="Peaceful meditation after virtual therapy session"
+                    width={290}
+                    height={200}
+                    className="rounded-xl shadow-lg w-full h-auto"
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </div>

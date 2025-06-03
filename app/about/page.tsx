@@ -60,7 +60,7 @@ export default function AboutPage() {
             <div className="w-20 h-1 bg-[#C63780] mx-auto mb-8"></div>
             
             <p className="text-bloom-dark/90 max-w-2xl mx-auto font-medium text-shadow">
-              Dedicated to providing compassionate, evidence-based mental health care for women, mothers, and parents in North Austin.
+              Dedicated to providing compassionate, evidence-based mental health care for women, mothers, and parents throughout Texas.
             </p>
           </div>
         </div>

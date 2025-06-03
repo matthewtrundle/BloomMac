@@ -268,31 +268,6 @@ export default function InstagramNewsletterPage() {
               </div>
             )}
 
-            {/* Testimonials */}
-            <div className="mb-8">
-              <h3 className="text-lg font-bold text-gray-900 mb-4 text-center">
-                What Our Subscribers Say 💬
-              </h3>
-              <div className="space-y-3">
-                {testimonials.map((testimonial, idx) => (
-                  <motion.div
-                    key={idx}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: idx * 0.1 }}
-                    className="bg-white rounded-lg p-4 shadow-sm"
-                  >
-                    <div className="flex items-center gap-1 mb-2">
-                      {[...Array(testimonial.rating)].map((_, i) => (
-                        <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                      ))}
-                    </div>
-                    <p className="text-gray-600 text-sm italic">"{testimonial.text}"</p>
-                    <p className="text-gray-500 text-xs mt-1">- {testimonial.name}</p>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
 
             {/* Trust Badges */}
             <div className="text-center space-y-3 mb-8">
@@ -307,7 +282,7 @@ export default function InstagramNewsletterPage() {
                 </span>
               </div>
               <p className="text-xs text-gray-500">
-                By a licensed therapist who gets it 👩‍⚕️
+                By a licensed psychologist who gets it 👩‍⚕️
               </p>
             </div>
 
@@ -323,7 +298,7 @@ export default function InstagramNewsletterPage() {
               </div>
               <h4 className="font-bold text-gray-900 mb-1">Dr. Jana Rundle</h4>
               <p className="text-sm text-gray-600 mb-3">
-                Licensed Therapist & Founder of Bloom Psychology
+                Licensed Psychologist & Founder of Bloom Psychology
               </p>
               <p className="text-sm text-gray-600 italic">
                 "I created this newsletter because I believe every woman deserves 

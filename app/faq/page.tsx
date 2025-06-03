@@ -110,13 +110,9 @@ export default function FAQPage() {
           question: 'What should I expect in my first therapy session?',
           answer: (
             <div>
-              Your first session includes:
-              <ul className="list-disc pl-5 space-y-2 mt-2">
-                <li>A 15-minute initial consultation</li>
-                <li>Online portal account creation</li>
-                <li>50-minute initial in-person session discussing treatment needs</li>
-                <li>Follow-up scheduling</li>
-              </ul>
+              <p>
+                Your first session will begin with a warm introduction and an overview of confidentiality and what you can expect moving forward. Dr. Rundle will ask questions about your background, current challenges, and goals to get a clearer picture of what brought you in. You'll spend time discussing what feels most pressing—whether it's emotional support, coping strategies, or navigating new stressors—and Dr. Rundle will outline how she can help. You may be asked to complete some brief intake forms or questionnaires to provide additional context. By the end of the session, you'll have a sense of next steps and a tentative plan for future sessions.
+              </p>
             </div>
           )
         }

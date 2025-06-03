@@ -112,6 +112,87 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       });
 
       console.log('Email sent successfully:', data);
+
+      // Send confirmation email to the contact form submitter
+      const confirmationEmailContent = `
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body { font-family: Arial, sans-serif; color: #333; line-height: 1.6; }
+    .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+    .header { background-color: #f8e1e7; padding: 20px; border-radius: 8px; margin-bottom: 25px; text-align: center; }
+    .header h1 { color: #4a3842; margin: 0; font-size: 24px; }
+    .content { padding: 20px 0; }
+    .footer { margin-top: 30px; font-size: 14px; color: #666; border-top: 1px solid #eee; padding-top: 15px; }
+    .highlight { background-color: #f9f9f9; padding: 15px; border-radius: 5px; margin: 15px 0; }
+    .cta { text-align: center; margin: 25px 0; }
+    .cta a { background-color: #d1477a; color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Thank You for Contacting Bloom Psychology</h1>
+    </div>
+    
+    <div class="content">
+      <p>Dear ${displayName},</p>
+      
+      <p>Thank you for reaching out to Bloom Psychology North Austin. We have received your message and appreciate you taking the time to contact us.</p>
+      
+      <div class="highlight">
+        <p><strong>What happens next:</strong></p>
+        <ul>
+          <li>Dr. Jana Rundle will personally review your message</li>
+          <li>We typically respond within 1-2 business days</li>
+          <li>If you're seeking therapy services, we'll discuss how we can best support you</li>
+          <li>For urgent mental health concerns, please call 988 (Suicide & Crisis Lifeline) or visit your nearest emergency room</li>
+        </ul>
+      </div>
+      
+      <p>In the meantime, feel free to explore our resources on postpartum mental health, anxiety, and wellness at <a href="https://www.bloompsychologynorthaustin.com">bloompsychologynorthaustin.com</a>.</p>
+      
+      <div class="cta">
+        <a href="https://www.bloompsychologynorthaustin.com/blog">Read Our Blog</a>
+      </div>
+      
+      <p>We look forward to connecting with you soon.</p>
+      
+      <p>Warm regards,<br>
+      Dr. Jana Rundle, LCP<br>
+      Bloom Psychology North Austin</p>
+    </div>
+    
+    <div class="footer">
+      <p><strong>Bloom Psychology North Austin</strong><br>
+      Specializing in Maternal Mental Health & Women's Wellness<br>
+      Website: <a href="https://www.bloompsychologynorthaustin.com">bloompsychologynorthaustin.com</a><br>
+      Email: jana@bloompsychologynorthaustin.com</p>
+      
+      <p style="font-size: 12px; color: #999; margin-top: 15px;">
+      This is an automated confirmation email. Please do not reply to this message. 
+      If you have additional questions, please use our contact form or call our office directly.
+      </p>
+    </div>
+  </div>
+</body>
+</html>
+      `;
+
+      try {
+        const confirmationData = await resend.emails.send({
+          from: 'Dr. Jana Rundle <jana@bloompsychologynorthaustin.com>',
+          to: email, // Send to the person who submitted the form
+          subject: 'Thank you for contacting Bloom Psychology North Austin',
+          html: confirmationEmailContent,
+        });
+        
+        console.log('Confirmation email sent successfully:', confirmationData);
+      } catch (confirmationError) {
+        console.error('Error sending confirmation email:', confirmationError);
+        // Don't fail the main request if confirmation email fails
+      }
       
       // Save contact submission to Supabase
       try {

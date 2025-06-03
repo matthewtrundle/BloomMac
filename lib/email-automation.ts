@@ -1,7 +1,57 @@
 import { Resend } from 'resend';
 import { supabaseAdmin } from './supabase';
+import { courseWelcomeTemplate, courseWelcomeTextTemplate } from './email-templates/course-welcome';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
+
+interface SendEmailParams {
+  to: string;
+  subject: string;
+  template?: string;
+  data?: any;
+  html?: string;
+  text?: string;
+}
+
+export async function sendEmail({ to, subject, template, data, html, text }: SendEmailParams) {
+  try {
+    let emailHtml = html;
+    let emailText = text;
+
+    // Use template if provided
+    if (template && data) {
+      switch (template) {
+        case 'course-welcome':
+          emailHtml = courseWelcomeTemplate(data);
+          emailText = courseWelcomeTextTemplate(data);
+          break;
+        default:
+          throw new Error(`Unknown template: ${template}`);
+      }
+    }
+
+    const { data: result, error } = await resend.emails.send({
+      from: 'Dr. Jana Rundle <jana@bloompsychologynorthaustin.com>',
+      to,
+      subject,
+      html: emailHtml,
+      text: emailText,
+      tags: [
+        { name: 'type', value: template || 'manual' }
+      ]
+    });
+
+    if (error) {
+      throw error;
+    }
+
+    return { success: true, id: result.id };
+
+  } catch (error) {
+    console.error('Error sending email:', error);
+    throw error;
+  }
+}
 
 interface SendAutomatedEmailParams {
   sequenceId: string;

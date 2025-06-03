@@ -10,6 +10,7 @@ import Button from '@/components/ui/Button';
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isLoggedInToCourses, setIsLoggedInToCourses] = useState(false);
   
   // Handle scroll effect
   useEffect(() => {
@@ -21,6 +22,20 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Check course login status
+  useEffect(() => {
+    const checkCourseAuth = () => {
+      const token = localStorage.getItem('course_auth_token');
+      setIsLoggedInToCourses(!!token);
+    };
+    
+    checkCourseAuth();
+    
+    // Listen for storage changes (login/logout)
+    window.addEventListener('storage', checkCourseAuth);
+    return () => window.removeEventListener('storage', checkCourseAuth);
+  }, []);
+
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -30,9 +45,9 @@ const Header = () => {
       {/* Top Announcement Bar */}
       <div className="bg-pink-200 text-pink-900 text-center py-1 px-4 shadow-sm">
         <div className="container mx-auto flex flex-wrap justify-center md:justify-between items-center">
-          <p className="text-sm font-medium md:text-base">
-            Now accepting new clients with same-week appointments
-          </p>
+          <Link href="/virtual-therapy" className="text-sm font-medium md:text-base hover:underline">
+            Now taking virtual clients across Texas • Same-week appointments available
+          </Link>
           <Link 
             href="/book" 
             className="hidden md:inline-block text-sm font-medium hover:underline ml-2 text-bloom"
@@ -69,6 +84,16 @@ const Header = () => {
                       {service.title}
                     </Link>
                   ))}
+                  <div className="border-t border-bloom-blush/20 my-2"></div>
+                  <Link 
+                    href="/virtual-therapy"
+                    className="block px-4 py-2 text-sm text-bloompink font-medium hover:bg-bloom-blush/20 transition duration-300 flex items-center"
+                  >
+                    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                    Virtual Therapy
+                  </Link>
                 </div>
               </div>
             </nav>
@@ -88,6 +113,58 @@ const Header = () => {
             
             {/* Right Nav Items */}
             <nav className="flex items-center space-x-8">
+              <div className="relative group">
+                <button className="text-bloom font-medium hover:text-bloom-blush transition duration-300 flex items-center">
+                  COURSES
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                <div className="absolute right-0 mt-2 w-64 opacity-0 translate-y-2 invisible group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-300 glass-panel-pink rounded-md py-2 shadow-xl z-50">
+                  <Link 
+                    href="/courses"
+                    className="block px-4 py-2 text-sm text-bloom hover:bg-bloom-blush/20 transition duration-300"
+                  >
+                    Browse All Courses
+                  </Link>
+                  
+                  <div className="border-t border-bloom-blush/20 my-2"></div>
+                  
+                  {isLoggedInToCourses ? (
+                    <>
+                      <Link 
+                        href="/my-courses"
+                        className="block px-4 py-2 text-sm text-bloompink font-medium hover:bg-bloom-blush/20 transition duration-300 flex items-center"
+                      >
+                        <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                        </svg>
+                        My Courses
+                      </Link>
+                      <button 
+                        onClick={() => {
+                          localStorage.removeItem('course_auth_token');
+                          setIsLoggedInToCourses(false);
+                          window.location.reload();
+                        }}
+                        className="block w-full text-left px-4 py-2 text-sm text-bloom-dark/60 hover:bg-bloom-blush/20 transition duration-300"
+                      >
+                        Sign Out of Courses
+                      </button>
+                    </>
+                  ) : (
+                    <Link 
+                      href="/my-courses"
+                      className="block px-4 py-2 text-sm text-bloom hover:bg-bloom-blush/20 transition duration-300 flex items-center"
+                    >
+                      <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+                      </svg>
+                      Course Login
+                    </Link>
+                  )}
+                </div>
+              </div>
               <Link href="/contact" className="text-bloom font-medium hover:text-bloom-blush transition duration-300">
                 CONTACT
               </Link>
@@ -203,6 +280,31 @@ const Header = () => {
                       {service.title}
                     </Link>
                   ))}
+                </div>
+              </div>
+              
+              <div className="px-3 py-2 border-b border-gray-100 pb-2">
+                <h3 className="font-medium mb-2">COURSES</h3>
+                <div className="pl-2 flex flex-col space-y-3">
+                  <Link 
+                    href="/courses"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="text-sm text-bloom hover:text-bloom-blush transition duration-300"
+                  >
+                    Browse All Courses
+                  </Link>
+                  {isLoggedInToCourses && (
+                    <Link 
+                      href="/my-courses"
+                      onClick={() => setIsMenuOpen(false)}
+                      className="text-sm text-bloompink font-medium hover:text-bloom-blush transition duration-300 flex items-center"
+                    >
+                      <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                      </svg>
+                      My Courses
+                    </Link>
+                  )}
                 </div>
               </div>
               

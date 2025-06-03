@@ -294,7 +294,13 @@ const ChatBot: React.FC<ChatBotProps> = ({ enabled = true }) => {
                         : 'bg-bloompink text-white'
                     }`}
                   >
-                    {message.text}
+                    {/* Render text with clickable links */}
+                    <div dangerouslySetInnerHTML={{ 
+                      __html: message.text.replace(
+                        /(https?:\/\/[^\s]+)/g, 
+                        '<a href="$1" target="_blank" rel="noopener noreferrer" class="underline hover:no-underline">$1</a>'
+                      )
+                    }} />
                   </div>
                 </div>
               ))}

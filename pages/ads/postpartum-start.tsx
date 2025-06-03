@@ -82,7 +82,7 @@ export default function PostpartumPage() {
 
   return (
     <AdPageLayout
-      title="Postpartum Therapy in North Austin | Bloom Psychology"
+      title="Postpartum Therapy in Texas | Bloom Psychology"
       description="Get same-week virtual or in-person support from licensed perinatal specialists at Bloom Psychology."
     >
       {/* Page Container */}
@@ -136,7 +136,7 @@ export default function PostpartumPage() {
                 </p>
                 
                 <p className="text-base text-bloom/70 mb-5">
-                  Get same-week virtual or in-person support from North Austin's specialized perinatal mental health experts.
+                  Get same-week virtual support throughout Texas or in-person care at our North Austin office from specialized perinatal mental health experts.
                 </p>
 
                 <div className="space-y-3 mb-6">

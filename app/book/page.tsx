@@ -9,7 +9,7 @@ import CalendlyWidget from '@/components/CalendlyWidget';
 
 export const metadata: Metadata = {
   title: 'Book Your Free Consultation | Bloom Psychology',
-  description: 'Schedule your free 15-minute consultation with our licensed perinatal specialists. Same-week appointments available for virtual or in-person sessions in North Austin, Texas.',
+  description: 'Schedule your free 15-minute consultation with our licensed perinatal specialists. Same-week appointments available for virtual or in-person sessions in Texas.',
   keywords: [
     'book appointment',
     'free consultation', 
@@ -49,7 +49,7 @@ export default function BookingPage() {
             "@type": "MedicalBusiness",
             "@id": "https://bloompsychologynorthaustin.com",
             "name": "Bloom Psychology",
-            "description": "Specialized therapy for women, moms, and parents in North Austin.",
+            "description": "Specialized therapy for women, moms, and parents in Texas.",
             "url": "https://bloompsychologynorthaustin.com/book",
             "telephone": "+15128989510",
             "email": "jana@bloompsychologynorthaustin.com",

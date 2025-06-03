@@ -55,8 +55,8 @@ export default function SettingsPage() {
       twitter: ''
     },
     seo: {
-      metaTitle: 'Bloom Psychology - Therapy for Women & Moms in North Austin',
-      metaDescription: 'Specialized therapy for women, moms, and parents in North Austin. Expert support for postpartum depression, anxiety, and life transitions.',
+      metaTitle: 'Bloom Psychology - Therapy for Women & Moms in Texas',
+      metaDescription: 'Specialized therapy for women, moms, and parents in Texas. Expert support for postpartum depression, anxiety, and life transitions.',
       keywords: ['therapy', 'counseling', 'postpartum', 'anxiety', 'women', 'mothers', 'Austin']
     }
   });

@@ -31,7 +31,7 @@ const Footer = () => {
                 </div>
               </div>
               <p className="text-sm text-white/80 mt-4 max-w-xs">
-                Specialized therapy for women, moms, and parents in North Austin.
+                Specialized therapy for women, moms, and parents in Texas.
               </p>
               <div className="flex items-center space-x-6 mt-6">
                 <a 

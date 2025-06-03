@@ -92,6 +92,46 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.9,
   }))
 
+  // Virtual therapy pages
+  const virtualTherapyPages = [
+    '/virtual-therapy',
+    '/virtual-therapy/how-it-works',
+    '/virtual-therapy/technology-privacy', 
+    '/virtual-therapy/is-virtual-right-for-you'
+  ].map(url => ({
+    url: `${baseUrl}${url}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly' as const,
+    priority: 0.9,
+  }))
+
+  // Texas service area pages
+  const texasServicePages = [
+    '/texas-service-areas',
+    '/texas-service-areas/dallas',
+    '/texas-service-areas/houston', 
+    '/texas-service-areas/austin-metro',
+    '/texas-service-areas/san-antonio',
+    '/texas-service-areas/why-travel-to-austin'
+  ].map(url => ({
+    url: `${baseUrl}${url}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly' as const,
+    priority: 0.8,
+  }))
+
+  // Additional resource pages
+  const resourcePages = [
+    '/resources/grounding-techniques',
+    '/resources/new-mom-guide',
+    '/resources/self-assessment'
+  ].map(url => ({
+    url: `${baseUrl}${url}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly' as const,
+    priority: 0.7,
+  }))
+
   // Blog posts
   const blogPages = blogPosts.map((post) => ({
     url: `${baseUrl}/blog/${post.slug}`,
@@ -100,5 +140,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }))
 
-  return [...staticPages, ...servicePages, ...blogPages]
+  return [...staticPages, ...servicePages, ...virtualTherapyPages, ...texasServicePages, ...resourcePages, ...blogPages]
 }

@@ -3,17 +3,8 @@ import { Inter, Playfair_Display, Poppins, Raleway } from 'next/font/google';
 import './globals.css';
 
 // Import layout components
-import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
-import ConsultLauncher from '@/components/layout/ConsultLauncher';
+import LayoutWrapper from '@/components/layout/LayoutWrapper';
 import { AnalyticsProvider } from '@/components/AnalyticsProvider';
-
-// Import engagement components
-import ScrollConsultationBanner from '@/components/ui/ScrollConsultationBanner';
-import LazyChatBot from '@/components/ui/LazyChatBot';
-
-// Import tracking
-import HeatmapTracker from '@/components/HeatmapTracker';
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -59,7 +50,7 @@ export const metadata: Metadata = {
   keywords: 'therapy, psychologist, mental health, women\'s therapy, mom therapy, parent support, anxiety, Austin, telehealth, postpartum depression',
   openGraph: {
     title: 'Bloom Psychology',
-    description: 'Specialized therapy for women, moms, and parents in North Austin.',
+    description: 'Specialized therapy for women, moms, and parents in Texas.',
     images: ['/images/Logo/logo.jpg'],
   },
 };
@@ -96,15 +87,9 @@ export default function RootLayout({
       </head>
       <body className="bg-white text-bloom min-h-screen">
         <AnalyticsProvider>
-          <Header />
-          <main className="pt-20">
+          <LayoutWrapper>
             {children}
-          </main>
-          <Footer />
-          <ConsultLauncher />
-          <ScrollConsultationBanner enabled={true} scrollThreshold={70} delay={8000} />
-          <LazyChatBot />
-          <HeatmapTracker />
+          </LayoutWrapper>
         </AnalyticsProvider>
       </body>
     </html>
