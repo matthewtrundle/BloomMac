@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 1 - Lesson 1: Welcome to Your Fourth Trimester</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: #1a1a1a;
+            color: #4A4A4A;
+            overflow: hidden;
+        }
+        
+        .presentation {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000;
+        }
+        
+        .slide {
+            width: 100%;
+            height: 100%;
+            max-width: 1920px;
+            max-height: 1080px;
+            background: white;
+            position: absolute;
+            display: none;
+            padding: 80px;
+            overflow: hidden;
+        }
+        
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* Typography */
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 72px;
+            color: #4A4A4A;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 48px;
+            color: #8B9A82;
+            margin-bottom: 40px;
+        }
+        
+        h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 36px;
+            color: #8B9A82;
+            margin-bottom: 30px;
+        }
+        
+        p {
+            font-size: 24px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .subtitle {
+            font-size: 28px;
+            color: #8B9A82;
+            margin-bottom: 40px;
+        }
+        
+        /* Slide Layouts */
+        .title-slide {
+            background: linear-gradient(135deg, #8B9A82 0%, #F5F5DC 100%);
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+        
+        .title-slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(rgba(139, 154, 130, 0.3), rgba(245, 245, 220, 0.3));
+            z-index: 1;
+        }
+        
+        .title-slide * {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .content-slide {
+            background: #FFFFFF;
+        }
+        
+        .centered-slide {
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: #F5F5DC;
+        }
+        
+        .list-slide {
+            background: white;
+        }
+        
+        .sage-slide {
+            background: #8B9A82;
+            color: white;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .sage-slide h1, .sage-slide p {
+            color: white;
+        }
+        
+        /* Components */
+        .bullet-list {
+            list-style: none;
+            margin: 40px 0;
+        }
+        
+        .bullet-list li {
+            font-size: 28px;
+            margin-bottom: 30px;
+            padding-left: 60px;
+            position: relative;
+            line-height: 1.5;
+        }
+        
+        .bullet-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #52c41a;
+            font-size: 32px;
+            font-weight: bold;
+        }
+        
+        .bullet-list.not-list li::before {
+            content: '✗';
+            color: #D4A5A5;
+        }
+        
+        .timeline {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 60px 0;
+            position: relative;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 10%;
+            right: 10%;
+            height: 2px;
+            background: #ddd;
+            z-index: 1;
+        }
+        
+        .timeline-item {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .timeline-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0 auto 10px;
+            border: 3px solid white;
+        }
+        
+        .timeline-item.active .timeline-circle {
+            background: #D4A5A5;
+            color: white;
+        }
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            margin: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .stat-number {
+            font-size: 48px;
+            font-weight: bold;
+            color: #D4A5A5;
+            margin-bottom: 10px;
+        }
+        
+        .icon-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin: 40px 0;
+        }
+        
+        .icon-item {
+            text-align: center;
+        }
+        
+        .icon-circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: #F5F5DC;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            margin: 0 auto 20px;
+        }
+        
+        .quote-slide {
+            background: #8B9A82;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 120px;
+        }
+        
+        .quote-slide h1 {
+            color: white;
+            font-size: 56px;
+            line-height: 1.4;
+            max-width: 1200px;
+        }
+        
+        .practice-slide {
+            background: linear-gradient(135deg, #F5F5DC 0%, #D4A5A5 100%);
+            position: relative;
+        }
+        
+        .decorative-element {
+            position: absolute;
+            bottom: -50px;
+            right: -50px;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+        
+        /* Image replacements with emojis/icons */
+        .image-placeholder {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, rgba(139, 154, 130, 0.2) 0%, rgba(212, 165, 165, 0.2) 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 100px;
+            opacity: 0.5;
+        }
+        
+        .small-image {
+            width: 400px;
+            height: 300px;
+            background: linear-gradient(135deg, rgba(139, 154, 130, 0.3) 0%, rgba(245, 245, 220, 0.3) 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+        }
+        
+        /* Controls */
+        .controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            gap: 10px;
+            background: rgba(0,0,0,0.8);
+            padding: 10px;
+            border-radius: 10px;
+        }
+        
+        button {
+            padding: 10px 20px;
+            background: #8B9A82;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        button:hover {
+            background: #6B7A62;
+        }
+        
+        .slide-counter {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            z-index: 1000;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        /* Logo placeholder */
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            color: #8B9A82;
+            font-weight: 700;
+        }
+        
+        /* Rights slide special styling */
+        .rights-list {
+            list-style: none;
+            background: white;
+            padding: 60px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+        
+        .rights-list li {
+            font-size: 26px;
+            margin-bottom: 25px;
+            padding-left: 40px;
+            position: relative;
+        }
+        
+        .rights-list li::before {
+            content: '❤️';
+            position: absolute;
+            left: 0;
+        }
+        
+        /* Week list styling */
+        .week-item {
+            margin-bottom: 30px;
+            padding: 25px;
+            background: #f9f9f9;
+            border-left: 4px solid #8B9A82;
+            border-radius: 0 10px 10px 0;
+        }
+        
+        .week-item strong {
+            font-size: 24px;
+            color: #8B9A82;
+        }
+        
+        /* Responsive for different screen sizes */
+        @media (max-width: 1400px) {
+            .slide {
+                padding: 60px;
+            }
+            h1 {
+                font-size: 56px;
+            }
+            h2 {
+                font-size: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation">
+        <!-- Slide 1: Title -->
+        <div class="slide title-slide active">
+            <div style="font-size: 150px; margin-bottom: 40px;">👶</div>
+            <h1>Welcome to Your Fourth Trimester</h1>
+            <p class="subtitle">Lesson 1 • Postpartum Wellness Foundations</p>
+        </div>
+        
+        <!-- Slide 2: Warm Welcome -->
+        <div class="slide centered-slide">
+            <h1>You're Here. That Takes Courage.</h1>
+            <p style="font-size: 32px; color: #8B9A82;">Welcome to this safe space we're creating together</p>
+        </div>
+        
+        <!-- Slide 3: This Space Is... -->
+        <div class="slide content-slide">
+            <h2>This Space Is...</h2>
+            <ul class="bullet-list">
+                <li>A judgment-free zone where all feelings are valid</li>
+                <li>A place to learn practical, evidence-based strategies</li>
+                <li>Your time to focus on YOU, not just baby</li>
+            </ul>
+        </div>
+        
+        <!-- Slide 4: This Space Is NOT... -->
+        <div class="slide content-slide">
+            <h2>This Space is NOT...</h2>
+            <ul class="bullet-list not-list">
+                <li>A replacement for medical care or therapy</li>
+                <li>A place where you need to be perfect</li>
+                <li>Somewhere you'll be shamed for struggling</li>
+            </ul>
+        </div>
+        
+        <!-- Slide 5: The Fourth Trimester -->
+        <div class="slide content-slide">
+            <h2>The Fourth Trimester</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-circle">1st</div>
+                    <p>Trimester</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-circle">2nd</div>
+                    <p>Trimester</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-circle">3rd</div>
+                    <p>Trimester</p>
+                </div>
+                <div class="timeline-item active">
+                    <div class="timeline-circle">4th</div>
+                    <p>Trimester</p>
+                </div>
+            </div>
+            <p style="text-align: center; font-size: 32px; margin-top: 40px;">The first 3 months after birth (and beyond)</p>
+        </div>
+        
+        <!-- Slide 6: What's Happening to You -->
+        <div class="slide content-slide">
+            <h2>Your Fourth Trimester Reality</h2>
+            <div class="icon-grid">
+                <div class="icon-item">
+                    <div class="icon-circle">🏥</div>
+                    <p>Major physical recovery</p>
+                </div>
+                <div class="icon-item">
+                    <div class="icon-circle">🌊</div>
+                    <p>Massive hormonal shifts</p>
+                </div>
+                <div class="icon-item">
+                    <div class="icon-circle">🦋</div>
+                    <p>Identity transformation</p>
+                </div>
+                <div class="icon-item">
+                    <div class="icon-circle">💑</div>
+                    <p>Relationship changes</p>
+                </div>
+                <div class="icon-item">
+                    <div class="icon-circle">👶</div>
+                    <p>Keeping tiny human alive</p>
+                </div>
+                <div class="icon-item">
+                    <div class="icon-circle">😴</div>
+                    <p>On no sleep!</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 7: You're Not Alone - Statistics -->
+        <div class="slide content-slide" style="background: linear-gradient(to bottom, #f5f5f5, white);">
+            <h2>You're Not Alone</h2>
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; margin-top: 60px;">
+                <div class="stat-card">
+                    <div class="stat-number">80%</div>
+                    <p>experience baby blues</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">15-20%</div>
+                    <p>develop PPD</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">10%</div>
+                    <p>experience PPA</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">Higher</div>
+                    <p>numbers likely unreported</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 8: Important Truth -->
+        <div class="slide quote-slide">
+            <h1>Mental health struggles after birth are COMMON, TREATABLE, and NOT YOUR FAULT</h1>
+        </div>
+        
+        <!-- Slide 9: Our 6-Week Journey -->
+        <div class="slide content-slide">
+            <h2>Your Path to Wellness</h2>
+            <div style="margin-top: 60px;">
+                <div class="week-item">
+                    <strong>Week 1:</strong> Understanding your new reality
+                </div>
+                <div class="week-item">
+                    <strong>Week 2:</strong> Working with difficult thoughts
+                </div>
+                <div class="week-item">
+                    <strong>Week 3:</strong> Rebuilding joy & meaningful activities
+                </div>
+                <div class="week-item">
+                    <strong>Week 4:</strong> Managing anxiety & worry
+                </div>
+                <div class="week-item">
+                    <strong>Week 5:</strong> Strengthening relationships
+                </div>
+                <div class="week-item">
+                    <strong>Week 6:</strong> Creating your long-term plan
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 10: What's Included Each Week -->
+        <div class="slide content-slide">
+            <div style="display: flex; align-items: center; gap: 80px;">
+                <div style="flex: 1;">
+                    <h2>Designed for Real Moms</h2>
+                    <ul style="list-style: none; margin-top: 40px;">
+                        <li style="font-size: 28px; margin-bottom: 30px;">🎥 Video lessons (short enough for nursing!)</li>
+                        <li style="font-size: 28px; margin-bottom: 30px;">📖 Downloadable workbook</li>
+                        <li style="font-size: 28px; margin-bottom: 30px;">🧘‍♀️ Guided meditation</li>
+                        <li style="font-size: 28px; margin-bottom: 30px;">💡 Immediate strategies</li>
+                    </ul>
+                </div>
+                <div style="flex: 1;">
+                    <div class="small-image">📚</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 11: Your Fourth Trimester Rights -->
+        <div class="slide" style="background: linear-gradient(135deg, #FFE4E1 0%, #FFF0F5 100%); padding: 100px;">
+            <h2 style="text-align: center; color: #D4A5A5; margin-bottom: 60px;">Your Fourth Trimester Rights</h2>
+            <ul class="rights-list">
+                <li>You have the right to feel however you feel without judgment</li>
+                <li>You have the right to ask for and receive help</li>
+                <li>You have the right to prioritize your own wellbeing</li>
+                <li>You have the right to make mistakes as you learn</li>
+                <li>You have the right to rest when you need to</li>
+                <li>You have the right to seek professional support</li>
+                <li>You have the right to define motherhood on your own terms</li>
+            </ul>
+        </div>
+        
+        <!-- Slide 12: This Week's Simple Practice -->
+        <div class="slide practice-slide">
+            <h2>Your Only Homework</h2>
+            <p style="font-size: 32px; margin: 40px 0;">Place your hand on your heart once a day and say:</p>
+            <h1 style="font-family: 'Playfair Display', serif; font-size: 56px; color: #4A4A4A; font-style: italic;">"I'm doing the best I can, and that's enough."</h1>
+            <div style="font-size: 150px; margin-top: 60px; text-align: center;">🤲</div>
+            <div class="decorative-element"></div>
+        </div>
+        
+        <!-- Slide 13: End Slide -->
+        <div class="slide centered-slide" style="background: linear-gradient(135deg, #8B9A82 0%, #F5F5DC 100%);">
+            <h1>See You in the Next Lesson</h1>
+            <p style="font-size: 28px; margin-top: 40px;">Remember: This is YOUR journey, at YOUR pace</p>
+            <div style="margin-top: 60px;">
+                <div class="logo">Bloom Psychology</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Controls -->
+    <div class="controls">
+        <button onclick="previousSlide()">← Previous</button>
+        <button onclick="nextSlide()">Next →</button>
+    </div>
+    
+    <div class="slide-counter">
+        <span id="current-slide">1</span> / <span id="total-slides">13</span>
+    </div>
+    
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        
+        document.getElementById('total-slides').textContent = totalSlides;
+        
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            document.getElementById('current-slide').textContent = currentSlide + 1;
+        }
+        
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+        
+        function previousSlide() {
+            showSlide(currentSlide - 1);
+        }
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextSlide();
+            }
+            if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                previousSlide();
+            }
+            if (e.key === 'Home') {
+                e.preventDefault();
+                showSlide(0);
+            }
+            if (e.key === 'End') {
+                e.preventDefault();
+                showSlide(totalSlides - 1);
+            }
+        });
+        
+        // Touch/swipe navigation for tablets
+        let touchStartX = 0;
+        let touchEndX = 0;
+        
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+        
+        document.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+        
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 50) nextSlide();
+            if (touchEndX > touchStartX + 50) previousSlide();
+        }
+        
+        // Auto-hide controls in fullscreen
+        document.addEventListener('fullscreenchange', () => {
+            if (document.fullscreenElement) {
+                document.querySelector('.controls').style.opacity = '0.3';
+                document.querySelector('.slide-counter').style.opacity = '0.3';
+            } else {
+                document.querySelector('.controls').style.opacity = '1';
+                document.querySelector('.slide-counter').style.opacity = '1';
+            }
+        });
+    </script>
+</body>
+</html>
