@@ -7,6 +7,95 @@ import Image from 'next/image';
 // UI Components
 import OrganicShape from '@/components/ui/OrganicShape';
 import GlassmorphismPanel from '@/components/ui/GlassmorphismPanel';
+import MobileResource from '@/components/ui/MobileResource';
+
+const checklistData = {
+  title: "Postpartum Recovery Checklist",
+  description: "A comprehensive guide to support your healing journey after birth",
+  sections: [
+    {
+      id: "immediate-care",
+      title: "First 24-48 Hours",
+      type: "checklist" as const,
+      description: "Essential care for the first few days",
+      items: [
+        "Rest as much as possible between feedings",
+        "Stay hydrated - keep water bottle nearby",
+        "Take prescribed medications on schedule",
+        "Accept all offers of help with meals/chores",
+        "Monitor bleeding - notify provider if concerning",
+        "Begin gentle breathing exercises",
+        "Skin-to-skin contact with baby when possible",
+        "Ask questions - no question is too small"
+      ]
+    },
+    {
+      id: "first-week",
+      title: "First Week Recovery",
+      type: "checklist" as const,
+      description: "Building your recovery routine",
+      items: [
+        "Establish feeding routine that works for you",
+        "Take daily showers (even if brief)",
+        "Begin gentle walks as cleared by provider",
+        "Eat nutritious meals and snacks regularly",
+        "Sleep when baby sleeps (really!)",
+        "Limit visitors if feeling overwhelmed",
+        "Practice saying 'yes' to help",
+        "Begin journaling or mood tracking",
+        "Contact provider with any concerns"
+      ]
+    },
+    {
+      id: "warning-signs",
+      title: "When to Call Your Provider",
+      type: "warning" as const,
+      description: "Don't wait - seek help immediately for these symptoms",
+      items: [
+        "Heavy bleeding (soaking pad every hour)",
+        "Large blood clots (bigger than a golf ball)",
+        "Signs of infection (fever, chills, foul-smelling discharge)",
+        "Severe headache or vision changes",
+        "Difficulty breathing or chest pain",
+        "Thoughts of harming yourself or baby",
+        "Inability to sleep for several days",
+        "Severe mood changes or anxiety"
+      ]
+    },
+    {
+      id: "emotional-care",
+      title: "Emotional Wellbeing",
+      type: "tips" as const,
+      description: "Supporting your mental health",
+      items: [
+        "It's normal to feel overwhelmed sometimes",
+        "Crying is okay and often necessary",
+        "Bond with baby at your own pace",
+        "Your worth isn't measured by milk supply",
+        "Ask for emotional support, not just practical help",
+        "Consider joining a new mom support group",
+        "Practice self-compassion daily",
+        "Remember: you're doing better than you think"
+      ]
+    },
+    {
+      id: "month-one",
+      title: "First Month Milestones",
+      type: "checklist" as const,
+      description: "What to focus on in your first month",
+      items: [
+        "Establish your own routine (flexible is fine)",
+        "Find at least one mom friend or support group",
+        "Get fresh air daily, even if just stepping outside",
+        "Celebrate small victories",
+        "Schedule your 6-week postpartum checkup",
+        "Discuss contraception with your provider",
+        "Begin planning return to work if applicable",
+        "Consider professional support if struggling"
+      ]
+    }
+  ]
+};
 
 export default function PostpartumChecklistPage() {
   const [formData, setFormData] = useState({
@@ -17,6 +106,7 @@ export default function PostpartumChecklistPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState('');
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [showResource, setShowResource] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -59,20 +149,16 @@ export default function PostpartumChecklistPage() {
       });
 
       setSubmitSuccess(true);
+      setShowResource(true);
       
       // Fire GA4 event
       if (typeof window !== 'undefined' && window.gtag) {
-        window.gtag('event', 'resource_download', {
+        window.gtag('event', 'resource_access', {
           event_category: 'lead',
           event_label: 'postpartum_checklist',
-          resource_type: 'pdf'
+          resource_type: 'mobile_friendly'
         });
       }
-
-      // Start download automatically
-      setTimeout(() => {
-        window.open('/resources/downloads/postpartum-recovery-checklist.pdf', '_blank');
-      }, 1000);
 
     } catch (error) {
       console.error('Error:', error);
@@ -284,6 +370,47 @@ export default function PostpartumChecklistPage() {
             </div>
           </div>
         </div>
+
+        {/* Mobile Resource Display */}
+        {showResource && (
+          <div className="mt-16">
+            <div className="text-center mb-8">
+              <h2 className="font-playfair text-3xl text-bloom mb-4">
+                Your <span className="text-bloompink">Postpartum Recovery Checklist</span>
+              </h2>
+              <p className="text-bloom/70 max-w-2xl mx-auto">
+                Use this interactive checklist to track your recovery journey. You can check off items as you complete them and save it to your phone for easy access.
+              </p>
+            </div>
+            
+            <MobileResource 
+              {...checklistData}
+              downloadTitle="Save Checklist to Phone"
+              onDownload={() => {
+                // Track download
+                if (typeof window !== 'undefined' && window.gtag) {
+                  window.gtag('event', 'resource_download', {
+                    event_category: 'engagement',
+                    event_label: 'postpartum_checklist_mobile',
+                    resource_type: 'text_file'
+                  });
+                }
+              }}
+            />
+
+            <div className="text-center mt-8">
+              <Link 
+                href="/book" 
+                className="inline-flex items-center bg-bloom hover:bg-bloom/90 text-white px-6 py-3 rounded-lg font-medium transition-colors"
+              >
+                Need personalized support? Book a consultation
+                <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </Link>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -165,6 +165,44 @@ const Header = () => {
                   )}
                 </div>
               </div>
+              <div className="relative group">
+                <button className="text-bloom font-medium hover:text-bloom-blush transition duration-300 flex items-center">
+                  SUPPORT
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                <div className="absolute right-0 mt-2 w-56 opacity-0 translate-y-2 invisible group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-300 glass-panel-pink rounded-md py-2 shadow-xl z-50">
+                  <Link 
+                    href="/partners"
+                    className="block px-4 py-2 text-sm text-bloom hover:bg-bloom-blush/20 transition duration-300 flex items-center"
+                  >
+                    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                    For Partners
+                  </Link>
+                  <Link 
+                    href="/family"
+                    className="block px-4 py-2 text-sm text-bloom hover:bg-bloom-blush/20 transition duration-300 flex items-center"
+                  >
+                    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
+                    </svg>
+                    For Family
+                  </Link>
+                  <div className="border-t border-bloom-blush/20 my-2"></div>
+                  <Link 
+                    href="/resources"
+                    className="block px-4 py-2 text-sm text-bloom hover:bg-bloom-blush/20 transition duration-300 flex items-center"
+                  >
+                    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                    </svg>
+                    Free Resources
+                  </Link>
+                </div>
+              </div>
               <Link href="/contact" className="text-bloom font-medium hover:text-bloom-blush transition duration-300">
                 CONTACT
               </Link>

@@ -189,6 +189,112 @@ export default function ServicePage({
         </div>
       </section>
       
+      {/* Pricing Section */}
+      <section className="py-16 bg-white relative overflow-hidden">
+        <OrganicShape
+          variant="circle"
+          color="var(--bloom-accent)"
+          size="md"
+          position="bottom-left"
+          opacity={0.05}
+        />
+        
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-12">
+            <KineticTypography as="h2" animation="word-by-word" className="font-playfair text-bloom mb-4">
+              Investment in Your Wellbeing
+            </KineticTypography>
+            
+            <div className="w-20 h-1 bg-bloom-accent mx-auto mb-6"></div>
+            <p className="text-bloom/70 max-w-2xl mx-auto">
+              Quality mental health care should be accessible. We offer multiple options to support your journey.
+            </p>
+          </div>
+          
+          <div className="max-w-4xl mx-auto">
+            <GlassmorphismPanel variant="prominent" className="p-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {/* Main Pricing */}
+                <div>
+                  <h3 className="font-playfair text-xl text-bloom mb-4">Session Rates</h3>
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center py-2 border-b border-gray-200">
+                      <span className="text-bloom/80">Individual Session</span>
+                      <span className="font-medium text-bloom">{service.pricing.sessionFee}</span>
+                    </div>
+                    <div className="flex justify-between items-center py-2 border-b border-gray-200">
+                      <span className="text-bloom/80">Initial Consultation</span>
+                      <span className="font-medium text-bloompink">{service.pricing.initialConsultation}</span>
+                    </div>
+                    {service.pricing.specialOptions && service.pricing.specialOptions.map((option, index) => (
+                      <div key={index} className="flex justify-between items-center py-2 border-b border-gray-200">
+                        <span className="text-bloom/80">{option.split(':')[0]}</span>
+                        <span className="font-medium text-bloom">{option.split(':')[1]}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                
+                {/* Payment Options */}
+                <div>
+                  <h3 className="font-playfair text-xl text-bloom mb-4">Payment Options</h3>
+                  <div className="space-y-4">
+                    <div className="flex items-start">
+                      <div className="w-6 h-6 rounded-full bg-bloom-accent/20 flex items-center justify-center mr-3 mt-0.5">
+                        <svg className="w-3 h-3 text-bloom-accent" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        </svg>
+                      </div>
+                      <div>
+                        <h4 className="font-medium text-bloom">Insurance</h4>
+                        <p className="text-sm text-bloom/70">{service.pricing.insurance}</p>
+                      </div>
+                    </div>
+                    
+                    {service.pricing.slidingScale && (
+                      <div className="flex items-start">
+                        <div className="w-6 h-6 rounded-full bg-bloom-blush/30 flex items-center justify-center mr-3 mt-0.5">
+                          <svg className="w-3 h-3 text-bloompink" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                          </svg>
+                        </div>
+                        <div>
+                          <h4 className="font-medium text-bloom">Sliding Scale Available</h4>
+                          <p className="text-sm text-bloom/70">Reduced rates based on financial need</p>
+                        </div>
+                      </div>
+                    )}
+                    
+                    {service.pricing.paymentPlans && (
+                      <div className="flex items-start">
+                        <div className="w-6 h-6 rounded-full bg-bloom-accent/20 flex items-center justify-center mr-3 mt-0.5">
+                          <svg className="w-3 h-3 text-bloom-accent" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                          </svg>
+                        </div>
+                        <div>
+                          <h4 className="font-medium text-bloom">Payment Plans</h4>
+                          <p className="text-sm text-bloom/70">Flexible payment arrangements available</p>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                  
+                  <div className="mt-6 pt-4 border-t border-gray-200">
+                    <Link 
+                      href="/contact" 
+                      className="text-bloompink hover:text-[#B03979] transition-colors font-medium text-sm"
+                    >
+                      Contact us to discuss pricing options →
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </GlassmorphismPanel>
+          </div>
+        </div>
+      </section>
+
       {/* Benefits Section */}
       <section className="py-20 bg-gray-50 relative overflow-hidden">
         <OrganicShape

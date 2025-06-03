@@ -5,6 +5,7 @@ import './globals.css';
 // Import layout components
 import LayoutWrapper from '@/components/layout/LayoutWrapper';
 import { AnalyticsProvider } from '@/components/AnalyticsProvider';
+import DarkModeToggle from '@/components/ui/DarkModeToggle';
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -90,6 +91,7 @@ export default function RootLayout({
           <LayoutWrapper>
             {children}
           </LayoutWrapper>
+          <DarkModeToggle />
         </AnalyticsProvider>
       </body>
     </html>

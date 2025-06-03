@@ -6,6 +6,14 @@ export type Service = {
   shortDescription: string;
   heroImage: string;
   secondaryImage?: string;
+  pricing: {
+    sessionFee: string;
+    initialConsultation: string;
+    specialOptions?: string[];
+    insurance: string;
+    slidingScale: boolean;
+    paymentPlans: boolean;
+  };
   howItWorks: {
     title: string;
     steps: Array<{
@@ -37,6 +45,13 @@ export const services: Service[] = [
     description: 'Are you feeling the stress of "doing it all"? Whether you\'re a young adult finding yourself or a new mom navigating motherhood, Dr. Rundle helps you move from overwhelm to fulfillment and connection.',
     shortDescription: 'Custom therapy for women at all life stages, specializing in overwhelm, identity, and life transitions.',
     heroImage: '/images/optimized/Home/Confident Women.webp',
+    pricing: {
+      sessionFee: "$150 per session (50 minutes)",
+      initialConsultation: "Free 15-minute consultation",
+      insurance: "Out-of-network provider. Super Bills provided for potential reimbursement.",
+      slidingScale: true,
+      paymentPlans: true
+    },
     howItWorks: {
       title: 'Your Path to Fulfillment',
       steps: [
@@ -113,6 +128,14 @@ export const services: Service[] = [
     shortDescription: 'Specialized therapy for mothers at all stages, with flexible options including in-home sessions.',
     heroImage: '/images/optimized/Home/new-mom.webp',
     secondaryImage: '/images/optimized/Services/New Mothers.webp',
+    pricing: {
+      sessionFee: "$150 per session (50 minutes)",
+      initialConsultation: "Free 15-minute consultation",
+      specialOptions: ["In-home sessions: $175 per session", "Telehealth available"],
+      insurance: "Out-of-network provider. Super Bills provided for potential reimbursement.",
+      slidingScale: true,
+      paymentPlans: true
+    },
     howItWorks: {
       title: 'Motherhood Support System',
       steps: [
@@ -189,6 +212,14 @@ export const services: Service[] = [
     shortDescription: 'Evidence-based guidance for parents navigating challenges from toddler tantrums to teen independence.',
     heroImage: '/images/optimized/Services/Experienced Parents.webp',
     secondaryImage: '/images/optimized/Services/Walking through fields.webp',
+    pricing: {
+      sessionFee: "$175 per session (60 minutes)",
+      initialConsultation: "Free 15-minute consultation",
+      specialOptions: ["Family sessions: $200 per session", "In-home visits available"],
+      insurance: "Out-of-network provider. Super Bills provided for potential reimbursement.",
+      slidingScale: true,
+      paymentPlans: true
+    },
     howItWorks: {
       title: 'Building Your Parenting Toolkit',
       steps: [
@@ -265,6 +296,14 @@ export const services: Service[] = [
     shortDescription: 'Specialized treatment for anxiety, panic, and chronic stress using proven therapeutic approaches.',
     heroImage: '/images/optimized/Services/AnxietyManagement1.webp',
     secondaryImage: '/images/optimized/Services/AnxietyManagement2.webp',
+    pricing: {
+      sessionFee: "$150 per session (50 minutes)",
+      initialConsultation: "Free 15-minute consultation",
+      specialOptions: ["Intensive sessions: $225 per 75-minute session"],
+      insurance: "Out-of-network provider. Super Bills provided for potential reimbursement.",
+      slidingScale: true,
+      paymentPlans: true
+    },
     howItWorks: {
       title: 'Your Path to Calm',
       steps: [
@@ -341,6 +380,14 @@ export const services: Service[] = [
     shortDescription: 'Specialized treatment for postpartum depression, anxiety, and mood disorders with compassionate, judgment-free support.',
     heroImage: '/images/optimized/Services/Symbolic Shoes.webp',
     secondaryImage: '/images/optimized/Services/Hopeful Hands.webp',
+    pricing: {
+      sessionFee: "$150 per session (50 minutes)",
+      initialConsultation: "Free 15-minute consultation",
+      specialOptions: ["Emergency sessions available", "Support groups: $75 per session", "In-home sessions: $175"],
+      insurance: "Out-of-network provider. Super Bills provided for potential reimbursement.",
+      slidingScale: true,
+      paymentPlans: true
+    },
     howItWorks: {
       title: 'Your Path to Recovery',
       steps: [
@@ -417,6 +464,14 @@ export const services: Service[] = [
     shortDescription: 'Specialized treatment for anxiety, intrusive thoughts, or worries so that you can feel more like yourself again.',
     heroImage: '/images/optimized/Services/AnxietyManagement2.webp',
     secondaryImage: '/images/optimized/Services/Hopeful Hands.webp',
+    pricing: {
+      sessionFee: "$150 per session (50 minutes)",
+      initialConsultation: "Free 15-minute consultation",
+      specialOptions: ["Crisis sessions available", "Baby-friendly sessions", "Support groups: $75 per session"],
+      insurance: "Out-of-network provider. Super Bills provided for potential reimbursement.",
+      slidingScale: true,
+      paymentPlans: true
+    },
     howItWorks: {
       title: 'Your Journey to Calm',
       steps: [

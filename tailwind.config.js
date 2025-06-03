@@ -6,6 +6,7 @@ module.exports = {
     './components/**/*.{ts,tsx}',
     './layouts/**/*.{ts,tsx}',
   ],
+  darkMode: 'class',
   // Removed safelist pattern as it wasn't matching any actual classes
   theme: {
     extend: {
