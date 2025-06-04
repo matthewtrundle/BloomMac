@@ -75,7 +75,17 @@ const Header = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
                 </button>
-                <div className="absolute left-0 mt-2 w-60 opacity-0 translate-y-2 invisible group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-300 glass-panel-pink rounded-md py-2 shadow-xl z-50">
+                <div className="absolute left-0 mt-2 w-64 opacity-0 translate-y-2 invisible group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-300 glass-panel-pink rounded-md py-2 shadow-xl z-50">
+                  <div className="px-4 py-3 border-b border-bloom-blush/20 flex items-center gap-3">
+                    <Image 
+                      src="/images/Logo/logo2.png" 
+                      alt="Bloom Logo" 
+                      width={24} 
+                      height={24} 
+                      className="opacity-60"
+                    />
+                    <span className="text-xs font-medium text-bloom-dark/60 uppercase tracking-wider">Our Services</span>
+                  </div>
                   {services.map((service) => (
                     <Link 
                       key={service.id}
@@ -122,6 +132,17 @@ const Header = () => {
                   </svg>
                 </button>
                 <div className="absolute right-0 mt-2 w-64 opacity-0 translate-y-2 invisible group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-300 glass-panel-pink rounded-md py-2 shadow-xl z-50">
+                  <div className="px-4 py-3 border-b border-bloom-blush/20 flex items-center gap-3">
+                    <Image 
+                      src="/images/Logo/logo2.png" 
+                      alt="Bloom Logo" 
+                      width={24} 
+                      height={24} 
+                      className="opacity-60"
+                    />
+                    <span className="text-xs font-medium text-bloom-dark/60 uppercase tracking-wider">Courses & Resources</span>
+                  </div>
+                  
                   <Link 
                     href="/courses"
                     className="block px-4 py-2 text-sm text-bloom hover:bg-bloom-blush/20 transition duration-300"
@@ -129,13 +150,82 @@ const Header = () => {
                     Browse All Courses
                   </Link>
                   
+                  <div className="px-4 py-2">
+                    <p className="text-xs font-medium text-bloom-dark/60 uppercase">Courses for Moms</p>
+                  </div>
+                  
+                  <Link 
+                    href="/courses/postpartum-wellness-foundations"
+                    className="block px-4 py-2 pl-8 text-sm text-bloom hover:bg-bloom-blush/20 transition duration-300"
+                  >
+                    Postpartum Wellness Foundations
+                  </Link>
+                  
+                  <Link 
+                    href="/courses/anxiety-management-new-moms"
+                    className="block px-4 py-2 pl-8 text-sm text-bloom hover:bg-bloom-blush/20 transition duration-300"
+                  >
+                    Anxiety Management for New Moms
+                  </Link>
+                  
+                  <div className="px-4 py-2 mt-2">
+                    <p className="text-xs font-medium text-bloom-dark/60 uppercase">Courses for Support Network</p>
+                  </div>
+                  
+                  <Link 
+                    href="/courses/partner-support-bootcamp"
+                    className="block px-4 py-2 pl-8 text-sm text-bloom hover:bg-bloom-blush/20 transition duration-300"
+                  >
+                    Partner Support Bootcamp
+                  </Link>
+                  
                   <div className="border-t border-bloom-blush/20 my-2"></div>
+                  
+                  <div className="px-4 py-2">
+                    <p className="text-xs font-medium text-bloom-dark/60 uppercase">Free Support Guides</p>
+                  </div>
+                  
+                  <Link 
+                    href="/supporting-your-partner"
+                    className="block px-4 py-2 pl-8 text-sm text-bloom hover:bg-bloom-blush/20 transition duration-300 flex items-center"
+                  >
+                    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                    Supporting Your Partner
+                  </Link>
+                  
+                  <Link 
+                    href="/when-family-wants-to-help"
+                    className="block px-4 py-2 pl-8 text-sm text-bloom hover:bg-bloom-blush/20 transition duration-300 flex items-center"
+                  >
+                    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
+                    </svg>
+                    When Family Wants to Help
+                  </Link>
+                  
+                  <Link 
+                    href="/resources"
+                    className="block px-4 py-2 pl-8 text-sm text-bloom hover:bg-bloom-blush/20 transition duration-300 flex items-center"
+                  >
+                    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                    </svg>
+                    Resource Library
+                  </Link>
+                  
+                  <div className="border-t border-bloom-blush/20 my-2"></div>
+                  
+                  <div className="px-4 py-2">
+                    <p className="text-xs font-medium text-bloom-dark/60 uppercase">My Learning</p>
+                  </div>
                   
                   {isLoggedInToCourses ? (
                     <>
                       <Link 
                         href="/my-courses"
-                        className="block px-4 py-2 text-sm text-bloompink font-medium hover:bg-bloom-blush/20 transition duration-300 flex items-center"
+                        className="block px-4 py-2 pl-8 text-sm text-bloompink font-medium hover:bg-bloom-blush/20 transition duration-300 flex items-center"
                       >
                         <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
@@ -148,15 +238,15 @@ const Header = () => {
                           setIsLoggedInToCourses(false);
                           window.location.reload();
                         }}
-                        className="block w-full text-left px-4 py-2 text-sm text-bloom-dark/60 hover:bg-bloom-blush/20 transition duration-300"
+                        className="block w-full text-left px-4 py-2 pl-8 text-sm text-bloom-dark/60 hover:bg-bloom-blush/20 transition duration-300"
                       >
-                        Sign Out of Courses
+                        Sign Out
                       </button>
                     </>
                   ) : (
                     <Link 
                       href="/my-courses"
-                      className="block px-4 py-2 text-sm text-bloom hover:bg-bloom-blush/20 transition duration-300 flex items-center"
+                      className="block px-4 py-2 pl-8 text-sm text-bloom hover:bg-bloom-blush/20 transition duration-300 flex items-center"
                     >
                       <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
@@ -164,44 +254,6 @@ const Header = () => {
                       Course Login
                     </Link>
                   )}
-                </div>
-              </div>
-              <div className="relative group">
-                <button className="text-bloom font-medium hover:text-bloom-blush transition duration-300 flex items-center">
-                  SUPPORT
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
-                </button>
-                <div className="absolute right-0 mt-2 w-56 opacity-0 translate-y-2 invisible group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-300 glass-panel-pink rounded-md py-2 shadow-xl z-50">
-                  <Link 
-                    href="/partners"
-                    className="block px-4 py-2 text-sm text-bloom hover:bg-bloom-blush/20 transition duration-300 flex items-center"
-                  >
-                    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                    </svg>
-                    For Partners
-                  </Link>
-                  <Link 
-                    href="/family"
-                    className="block px-4 py-2 text-sm text-bloom hover:bg-bloom-blush/20 transition duration-300 flex items-center"
-                  >
-                    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
-                    </svg>
-                    For Family
-                  </Link>
-                  <div className="border-t border-bloom-blush/20 my-2"></div>
-                  <Link 
-                    href="/resources"
-                    className="block px-4 py-2 text-sm text-bloom hover:bg-bloom-blush/20 transition duration-300 flex items-center"
-                  >
-                    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                    </svg>
-                    Free Resources
-                  </Link>
                 </div>
               </div>
               <Link href="/contact" className="text-bloom font-medium hover:text-bloom-blush transition duration-300">
@@ -314,7 +366,7 @@ const Header = () => {
               </div>
               
               <div className="px-3 py-2 border-b border-gray-100 pb-2">
-                <h3 className="font-medium mb-2">COURSES</h3>
+                <h3 className="font-medium mb-2">COURSES & RESOURCES</h3>
                 <div className="pl-2 flex flex-col space-y-3">
                   <Link 
                     href="/courses"
@@ -323,17 +375,69 @@ const Header = () => {
                   >
                     Browse All Courses
                   </Link>
+                  
+                  <p className="text-xs font-medium text-bloom-dark/60 uppercase mt-2">Courses for Moms</p>
+                  <Link 
+                    href="/courses/postpartum-wellness-foundations"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="text-sm text-bloom hover:text-bloom-blush transition duration-300 pl-4"
+                  >
+                    Postpartum Wellness Foundations
+                  </Link>
+                  <Link 
+                    href="/courses/anxiety-management-new-moms"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="text-sm text-bloom hover:text-bloom-blush transition duration-300 pl-4"
+                  >
+                    Anxiety Management for New Moms
+                  </Link>
+                  
+                  <p className="text-xs font-medium text-bloom-dark/60 uppercase mt-2">Courses for Support Network</p>
+                  <Link 
+                    href="/courses/partner-support-bootcamp"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="text-sm text-bloom hover:text-bloom-blush transition duration-300 pl-4"
+                  >
+                    Partner Support Bootcamp
+                  </Link>
+                  
+                  <p className="text-xs font-medium text-bloom-dark/60 uppercase mt-2">Free Support Guides</p>
+                  <Link 
+                    href="/supporting-your-partner"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="text-sm text-bloom hover:text-bloom-blush transition duration-300 pl-4"
+                  >
+                    Supporting Your Partner
+                  </Link>
+                  <Link 
+                    href="/when-family-wants-to-help"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="text-sm text-bloom hover:text-bloom-blush transition duration-300 pl-4"
+                  >
+                    When Family Wants to Help
+                  </Link>
+                  <Link 
+                    href="/resources"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="text-sm text-bloom hover:text-bloom-blush transition duration-300 pl-4"
+                  >
+                    Resource Library
+                  </Link>
+                  
                   {isLoggedInToCourses && (
-                    <Link 
-                      href="/my-courses"
-                      onClick={() => setIsMenuOpen(false)}
-                      className="text-sm text-bloompink font-medium hover:text-bloom-blush transition duration-300 flex items-center"
-                    >
-                      <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                      </svg>
-                      My Courses
-                    </Link>
+                    <>
+                      <p className="text-xs font-medium text-bloom-dark/60 uppercase mt-2">My Learning</p>
+                      <Link 
+                        href="/my-courses"
+                        onClick={() => setIsMenuOpen(false)}
+                        className="text-sm text-bloompink font-medium hover:text-bloom-blush transition duration-300 flex items-center pl-4"
+                      >
+                        <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                        </svg>
+                        My Courses
+                      </Link>
+                    </>
                   )}
                 </div>
               </div>
