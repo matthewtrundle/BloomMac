@@ -12,6 +12,17 @@
 }
 
 @layer base {
+  /* Prevent horizontal scrolling on mobile */
+  html, body {
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+
+  /* Ensure all elements use border-box sizing */
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
   body {
     color: #2C3E50;
     -webkit-font-smoothing: antialiased;
@@ -319,6 +330,19 @@
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+  
+  /* Utility to prevent elements from extending beyond viewport */
+  .no-overflow {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+  
+  /* Mobile-safe containers */
+  .mobile-safe {
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
   }
   
   .text-shadow-sm {

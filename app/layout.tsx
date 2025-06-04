@@ -65,6 +65,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${playfair.variable} ${poppins.variable} ${raleway.variable}`}>
       <head>
+        {/* Mobile viewport - CRITICAL for responsive design */}
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+        
         {/* Favicon - Multiple sizes and formats */}
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
