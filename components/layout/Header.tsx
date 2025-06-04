@@ -145,8 +145,11 @@ const Header = () => {
                   
                   <Link 
                     href="/courses"
-                    className="block px-4 py-2 text-sm text-bloom hover:bg-bloom-blush/20 transition duration-300"
+                    className="block px-4 py-2 text-sm text-bloom hover:bg-bloom-blush/20 transition duration-300 flex items-center"
                   >
+                    <svg className="w-4 h-4 mr-2 text-bloom-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                    </svg>
                     Browse All Courses
                   </Link>
                   
@@ -156,15 +159,17 @@ const Header = () => {
                   
                   <Link 
                     href="/courses/postpartum-wellness-foundations"
-                    className="block px-4 py-2 pl-8 text-sm text-bloom hover:bg-bloom-blush/20 transition duration-300"
+                    className="block px-4 py-2 pl-8 text-sm text-bloom hover:bg-bloom-blush/20 transition duration-300 flex items-center"
                   >
+                    <span className="text-bloompink mr-2">🌸</span>
                     Postpartum Wellness Foundations
                   </Link>
                   
                   <Link 
                     href="/courses/anxiety-management-new-moms"
-                    className="block px-4 py-2 pl-8 text-sm text-bloom hover:bg-bloom-blush/20 transition duration-300"
+                    className="block px-4 py-2 pl-8 text-sm text-bloom hover:bg-bloom-blush/20 transition duration-300 flex items-center"
                   >
+                    <span className="text-bloom-accent mr-2">🧘‍♀️</span>
                     Anxiety Management for New Moms
                   </Link>
                   
@@ -174,8 +179,9 @@ const Header = () => {
                   
                   <Link 
                     href="/courses/partner-support-bootcamp"
-                    className="block px-4 py-2 pl-8 text-sm text-bloom hover:bg-bloom-blush/20 transition duration-300"
+                    className="block px-4 py-2 pl-8 text-sm text-bloom hover:bg-bloom-blush/20 transition duration-300 flex items-center"
                   >
+                    <span className="text-bloom mr-2">👥</span>
                     Partner Support Bootcamp
                   </Link>
                   
@@ -189,9 +195,7 @@ const Header = () => {
                     href="/supporting-your-partner"
                     className="block px-4 py-2 pl-8 text-sm text-bloom hover:bg-bloom-blush/20 transition duration-300 flex items-center"
                   >
-                    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                    </svg>
+                    <span className="text-bloompink mr-2">💝</span>
                     Supporting Your Partner
                   </Link>
                   
@@ -199,9 +203,7 @@ const Header = () => {
                     href="/when-family-wants-to-help"
                     className="block px-4 py-2 pl-8 text-sm text-bloom hover:bg-bloom-blush/20 transition duration-300 flex items-center"
                   >
-                    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
-                    </svg>
+                    <span className="text-bloom-accent mr-2">👨‍👩‍👧</span>
                     When Family Wants to Help
                   </Link>
                   
@@ -209,9 +211,7 @@ const Header = () => {
                     href="/resources"
                     className="block px-4 py-2 pl-8 text-sm text-bloom hover:bg-bloom-blush/20 transition duration-300 flex items-center"
                   >
-                    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                    </svg>
+                    <span className="text-bloom mr-2">📚</span>
                     Resource Library
                   </Link>
                   
@@ -371,8 +371,11 @@ const Header = () => {
                   <Link 
                     href="/courses"
                     onClick={() => setIsMenuOpen(false)}
-                    className="text-sm text-bloom hover:text-bloom-blush transition duration-300"
+                    className="text-sm text-bloom hover:text-bloom-blush transition duration-300 flex items-center"
                   >
+                    <svg className="w-4 h-4 mr-2 text-bloom-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                    </svg>
                     Browse All Courses
                   </Link>
                   
@@ -380,15 +383,17 @@ const Header = () => {
                   <Link 
                     href="/courses/postpartum-wellness-foundations"
                     onClick={() => setIsMenuOpen(false)}
-                    className="text-sm text-bloom hover:text-bloom-blush transition duration-300 pl-4"
+                    className="text-sm text-bloom hover:text-bloom-blush transition duration-300 pl-4 flex items-center"
                   >
+                    <span className="text-bloompink mr-2">🌸</span>
                     Postpartum Wellness Foundations
                   </Link>
                   <Link 
                     href="/courses/anxiety-management-new-moms"
                     onClick={() => setIsMenuOpen(false)}
-                    className="text-sm text-bloom hover:text-bloom-blush transition duration-300 pl-4"
+                    className="text-sm text-bloom hover:text-bloom-blush transition duration-300 pl-4 flex items-center"
                   >
+                    <span className="text-bloom-accent mr-2">🧘‍♀️</span>
                     Anxiety Management for New Moms
                   </Link>
                   
@@ -396,8 +401,9 @@ const Header = () => {
                   <Link 
                     href="/courses/partner-support-bootcamp"
                     onClick={() => setIsMenuOpen(false)}
-                    className="text-sm text-bloom hover:text-bloom-blush transition duration-300 pl-4"
+                    className="text-sm text-bloom hover:text-bloom-blush transition duration-300 pl-4 flex items-center"
                   >
+                    <span className="text-bloom mr-2">👥</span>
                     Partner Support Bootcamp
                   </Link>
                   
@@ -405,22 +411,25 @@ const Header = () => {
                   <Link 
                     href="/supporting-your-partner"
                     onClick={() => setIsMenuOpen(false)}
-                    className="text-sm text-bloom hover:text-bloom-blush transition duration-300 pl-4"
+                    className="text-sm text-bloom hover:text-bloom-blush transition duration-300 pl-4 flex items-center"
                   >
+                    <span className="text-bloompink mr-2">💝</span>
                     Supporting Your Partner
                   </Link>
                   <Link 
                     href="/when-family-wants-to-help"
                     onClick={() => setIsMenuOpen(false)}
-                    className="text-sm text-bloom hover:text-bloom-blush transition duration-300 pl-4"
+                    className="text-sm text-bloom hover:text-bloom-blush transition duration-300 pl-4 flex items-center"
                   >
+                    <span className="text-bloom-accent mr-2">👨‍👩‍👧</span>
                     When Family Wants to Help
                   </Link>
                   <Link 
                     href="/resources"
                     onClick={() => setIsMenuOpen(false)}
-                    className="text-sm text-bloom hover:text-bloom-blush transition duration-300 pl-4"
+                    className="text-sm text-bloom hover:text-bloom-blush transition duration-300 pl-4 flex items-center"
                   >
+                    <span className="text-bloom mr-2">📚</span>
                     Resource Library
                   </Link>
                   
