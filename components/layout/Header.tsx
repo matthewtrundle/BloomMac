@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
@@ -12,6 +12,7 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isLoggedInToCourses, setIsLoggedInToCourses] = useState(false);
+  const headerRef = useRef<HTMLDivElement>(null);
   
   // Handle scroll effect
   useEffect(() => {
@@ -21,6 +22,34 @@ const Header = () => {
     
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMenuOpen]);
+
+  // Measure header height for mobile menu positioning
+  useEffect(() => {
+    const updateHeaderHeight = () => {
+      if (headerRef.current) {
+        const height = headerRef.current.offsetHeight;
+        document.documentElement.style.setProperty('--header-height', `${height}px`);
+      }
+    };
+
+    updateHeaderHeight();
+    window.addEventListener('resize', updateHeaderHeight);
+    
+    return () => window.removeEventListener('resize', updateHeaderHeight);
   }, []);
 
   // Check course login status
@@ -42,7 +71,7 @@ const Header = () => {
   };
 
   return (
-    <header className="fixed w-full z-50">
+    <header ref={headerRef} className="fixed w-full z-50">
       {/* Top Announcement Bar */}
       <div className="bg-pink-200 text-pink-900 text-center py-1 px-4 shadow-sm">
         <div className="container mx-auto flex flex-wrap justify-center md:justify-between items-center">
@@ -337,9 +366,17 @@ const Header = () => {
           animate={{ opacity: 1, height: 'auto' }}
           exit={{ opacity: 0, height: 0 }}
           transition={{ duration: 0.3 }}
-          className="md:hidden bg-white shadow-lg"
+          className="md:hidden bg-white shadow-lg fixed left-0 right-0 z-50 overflow-y-auto mobile-menu-scroll"
+          style={{
+            top: 'var(--header-height, 80px)',
+            maxHeight: 'calc(100vh - var(--header-height, 80px))',
+            overflowY: 'auto',
+            WebkitOverflowScrolling: 'touch',
+            scrollbarWidth: 'thin',
+            scrollbarColor: '#C06B93 #f3f4f6'
+          }}
         >
-          <div className="container mx-auto px-4 py-3">
+          <div className="container mx-auto px-4 py-3 pb-6">
             <nav className="flex flex-col space-y-4">
               <Link 
                 href="/about"

@@ -241,6 +241,15 @@ async function shouldSendEmail(sequence: any, subscriber: any, delayHours: numbe
         triggerTime = new Date(contactForm.created_at);
       }
       break;
+    case 'resource_download':
+      // Check subscriber metadata for resource download
+      if (subscriber.metadata?.download_date) {
+        triggerTime = new Date(subscriber.metadata.download_date);
+      } else if (subscriber.source === 'resource_download') {
+        // Fallback to created_at if source indicates resource download
+        triggerTime = new Date(subscriber.created_at);
+      }
+      break;
     // Add other triggers as needed
   }
 
@@ -254,8 +263,15 @@ async function shouldSendEmail(sequence: any, subscriber: any, delayHours: numbe
 }
 
 function personalizeContent(content: string, subscriber: any): string {
+  // Get resource name from metadata if available
+  const resourceName = subscriber.metadata?.last_resource_downloaded || 'resource';
+  const downloadLink = subscriber.metadata?.download_link || 
+    `/resources/${resourceName.toLowerCase().replace(/\s+/g, '-')}`;
+
   return content
     .replace(/{{first_name}}/g, subscriber.first_name || 'Friend')
     .replace(/{{last_name}}/g, subscriber.last_name || '')
-    .replace(/{{email}}/g, subscriber.email);
+    .replace(/{{email}}/g, subscriber.email)
+    .replace(/{{resource_name}}/g, resourceName)
+    .replace(/{{download_link}}/g, downloadLink);
 }
