@@ -40,11 +40,11 @@ const predefinedResponses: { [key: string]: { response: string; action?: { type:
     action: { type: 'redirect', target: '/book', guidance: 'You can choose your preferred appointment type and time there.' }
   },
   'cost': { 
-    response: 'Dr. Rundle is an out-of-network provider on all insurance panels. We provide Super Bills for reimbursement if you have out-of-network benefits, and offer a sliding-fee scale for those who need it.',
-    action: { type: 'redirect', target: '/contact', guidance: 'You can find detailed pricing information and reach out about our sliding-fee scale options on our contact page.' }
+    response: 'For information about session fees and payment options, please contact our office directly. We\'re happy to discuss what works best for your situation.',
+    action: { type: 'redirect', target: '/contact', guidance: 'You can reach out to discuss payment options that work for you.' }
   },
   'insurance': { 
-    response: 'Dr. Rundle is considered an out-of-network provider on all insurance panels. We can provide a Super Bill for you to submit to insurance for reimbursement if you have out-of-network benefits. We also offer a sliding-fee scale.',
+    response: 'Dr. Rundle is considered an out-of-network provider on all insurance panels. We can provide a Super Bill for you to submit to insurance for reimbursement if you have out-of-network benefits.',
     action: { type: 'redirect', target: '/faq', guidance: 'Our FAQ page has detailed insurance information and examples of how reimbursement works.' }
   },
   
@@ -185,7 +185,7 @@ const callOpenAI = async (message: string): Promise<ChatResponse> => {
             - We offer free 15-minute consultations
             - Both virtual and in-person sessions available
             - Same-week appointments available
-            - Insurance: Dr. Rundle is an out-of-network provider on all insurance panels. We provide Super Bills for reimbursement if you have out-of-network benefits. Sliding-fee scale available for those who need it.
+            - Insurance: Dr. Rundle is an out-of-network provider on all insurance panels. We provide Super Bills for reimbursement if you have out-of-network benefits.
             - Office hours: Monday-Friday 9AM-6PM, weekend appointments upon request
             - Booking: bloompsychologynorthaustin.com/book
             - Contact: jana@bloompsychologynorthaustin.com

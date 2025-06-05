@@ -239,73 +239,40 @@ export default function BookNewMomProgramPage() {
         </div>
       </section>
 
-      {/* Insurance & Logistics */}
+      {/* Session Options */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-              <div>
-                <h2 className="text-2xl font-bold text-bloom mb-6">Insurance & Payment</h2>
-                <div className="space-y-4">
-                  <div className="flex items-start">
-                    <svg className="w-5 h-5 text-bloom-accent mr-3 mt-1" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                    <div>
-                      <h4 className="font-semibold text-gray-900">Most Insurance Accepted</h4>
-                      <p className="text-gray-600 text-sm">We work with most major insurance plans and can verify your benefits</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start">
-                    <svg className="w-5 h-5 text-bloom-accent mr-3 mt-1" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                    <div>
-                      <h4 className="font-semibold text-gray-900">Super Bills Provided</h4>
-                      <p className="text-gray-600 text-sm">For out-of-network plans, we provide detailed receipts for reimbursement</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start">
-                    <svg className="w-5 h-5 text-bloom-accent mr-3 mt-1" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                    <div>
-                      <h4 className="font-semibold text-gray-900">Sliding Scale Available</h4>
-                      <p className="text-gray-600 text-sm">Limited sliding scale spots available for those experiencing financial hardship</p>
-                    </div>
+            <div className="text-center mb-12">
+              <h2 className="text-2xl font-bold text-bloom mb-6">Session Options</h2>
+            </div>
+            <div className="max-w-2xl mx-auto">
+              <div className="space-y-4">
+                <div className="flex items-start">
+                  <svg className="w-5 h-5 text-bloom-accent mr-3 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                  </svg>
+                  <div>
+                    <h4 className="font-semibold text-gray-900">Virtual Therapy</h4>
+                    <p className="text-gray-600 text-sm">Secure video sessions from the comfort of your home</p>
                   </div>
                 </div>
-              </div>
-
-              <div>
-                <h2 className="text-2xl font-bold text-bloom mb-6">Session Options</h2>
-                <div className="space-y-4">
-                  <div className="flex items-start">
-                    <svg className="w-5 h-5 text-bloom-accent mr-3 mt-1" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                    <div>
-                      <h4 className="font-semibold text-gray-900">Virtual Therapy</h4>
-                      <p className="text-gray-600 text-sm">Secure video sessions from the comfort of your home</p>
-                    </div>
+                <div className="flex items-start">
+                  <svg className="w-5 h-5 text-bloom-accent mr-3 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                  </svg>
+                  <div>
+                    <h4 className="font-semibold text-gray-900">In-Person Sessions</h4>
+                    <p className="text-gray-600 text-sm">Meet at our comfortable North Austin office</p>
                   </div>
-                  <div className="flex items-start">
-                    <svg className="w-5 h-5 text-bloom-accent mr-3 mt-1" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                    <div>
-                      <h4 className="font-semibold text-gray-900">In-Person Sessions</h4>
-                      <p className="text-gray-600 text-sm">Meet at our comfortable North Austin office</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start">
-                    <svg className="w-5 h-5 text-bloom-accent mr-3 mt-1" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                    <div>
-                      <h4 className="font-semibold text-gray-900">Flexible Scheduling</h4>
-                      <p className="text-gray-600 text-sm">Morning, afternoon, and some evening appointments available</p>
-                    </div>
+                </div>
+                <div className="flex items-start">
+                  <svg className="w-5 h-5 text-bloom-accent mr-3 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                  </svg>
+                  <div>
+                    <h4 className="font-semibold text-gray-900">Flexible Scheduling</h4>
+                    <p className="text-gray-600 text-sm">Morning, afternoon, and some evening appointments available</p>
                   </div>
                 </div>
               </div>
