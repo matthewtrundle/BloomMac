@@ -37,8 +37,9 @@ const courseData: Record<string, any> = {
 
 function PurchaseSuccessContent() {
   const searchParams = useSearchParams();
-  const courseId = searchParams.get('course');
-  const enrollmentId = searchParams.get('enrollment');
+  const courseId = searchParams.get('course_id') || searchParams.get('course');
+  const sessionId = searchParams.get('session_id');
+  const enrollmentId = searchParams.get('enrollment') || sessionId;
   
   const [course, setCourse] = useState<any>(null);
   const [isCheckingEmail, setIsCheckingEmail] = useState(false);

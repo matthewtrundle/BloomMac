@@ -9,18 +9,18 @@ interface BlogPost {
   title: string;
   excerpt: string;
   content: string;
-  image: string;
-  imageAlt: string;
+  image_url: string;
+  image_alt: string;
   category: string;
-  readTime: number;
-  publishedAt: string;
+  read_time: number;
+  published_at: string;
   featured: boolean;
   author: {
     name: string;
     title: string;
     image?: string;
   };
-  metaDescription?: string;
+  meta_description?: string;
   keywords?: string[];
 }
 
@@ -37,7 +37,7 @@ export default function EditBlogPostPage() {
 
   const fetchPost = async () => {
     try {
-      const response = await fetch(`/api/blog-admin?slug=${slug}`, {
+      const response = await fetch(`/api/blog-admin-supabase?slug=${slug}`, {
         credentials: 'include'
       });
 

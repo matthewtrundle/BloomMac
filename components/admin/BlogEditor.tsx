@@ -6,23 +6,24 @@ import Button from '@/components/ui/Button';
 import Image from 'next/image';
 
 interface BlogPost {
+  id?: string;
   slug?: string;
   title: string;
   excerpt: string;
   content: string;
-  image: string;
-  imageAlt: string;
+  image_url: string;
+  image_alt: string;
   category: string;
-  readTime: number;
-  publishedAt: string;
+  read_time: number;
+  published_at: string;
   featured: boolean;
-  author: {
-    name: string;
-    title: string;
-    image?: string;
-  };
-  metaDescription?: string;
+  author_name: string;
+  author_title: string;
+  author_image?: string;
+  meta_description?: string;
   keywords?: string[];
+  created_at?: string;
+  updated_at?: string;
 }
 
 interface BlogEditorProps {
@@ -57,18 +58,16 @@ export default function BlogEditor({ post, isEditing = false }: BlogEditorProps)
     title: post?.title || '',
     excerpt: post?.excerpt || '',
     content: post?.content || '',
-    image: post?.image || '',
-    imageAlt: post?.imageAlt || '',
+    image_url: post?.image_url || '',
+    image_alt: post?.image_alt || '',
     category: post?.category || 'Mental Health',
-    readTime: post?.readTime || 5,
-    publishedAt: post?.publishedAt || new Date().toISOString(),
+    read_time: post?.read_time || 5,
+    published_at: post?.published_at || new Date().toISOString(),
     featured: post?.featured || false,
-    author: post?.author || {
-      name: 'Jana Rundle',
-      title: 'Licensed Clinical Psychologist',
-      image: '/images/Team/Jana Rundle.jpg'
-    },
-    metaDescription: post?.metaDescription || '',
+    author_name: post?.author_name || 'Jana Rundle',
+    author_title: post?.author_title || 'Licensed Clinical Psychologist',
+    author_image: post?.author_image || '/images/Team/Jana Rundle.jpg',
+    meta_description: post?.meta_description || '',
     keywords: post?.keywords || []
   });
 
@@ -134,7 +133,7 @@ export default function BlogEditor({ post, isEditing = false }: BlogEditorProps)
       }
 
       const data = await response.json();
-      setFormData(prev => ({ ...prev, image: data.url }));
+      setFormData(prev => ({ ...prev, image_url: data.url }));
       setShowImagePicker(false);
     } catch (err) {
       setError('Failed to upload image');
@@ -144,7 +143,7 @@ export default function BlogEditor({ post, isEditing = false }: BlogEditorProps)
   };
 
   const handleSelectExistingImage = (imagePath: string) => {
-    setFormData(prev => ({ ...prev, image: imagePath }));
+    setFormData(prev => ({ ...prev, image_url: imagePath }));
     setShowImagePicker(false);
   };
 
@@ -155,8 +154,8 @@ export default function BlogEditor({ post, isEditing = false }: BlogEditorProps)
 
     try {
       const url = isEditing 
-        ? `/api/blog-admin?slug=${post?.slug}`
-        : '/api/blog-admin';
+        ? `/api/blog-admin-supabase?slug=${post?.slug}`
+        : '/api/blog-admin-supabase';
       
       const method = isEditing ? 'PUT' : 'POST';
 
@@ -252,11 +251,11 @@ export default function BlogEditor({ post, isEditing = false }: BlogEditorProps)
             Featured Image *
           </label>
           <div className="space-y-4">
-            {formData.image && (
+            {formData.image_url && (
               <div className="relative w-full h-64 bg-gray-100 rounded-lg overflow-hidden">
                 <Image
-                  src={formData.image}
-                  alt={formData.imageAlt || 'Blog post image'}
+                  src={formData.image_url}
+                  alt={formData.image_alt || 'Blog post image'}
                   fill
                   className="object-cover"
                 />
@@ -378,9 +377,9 @@ export default function BlogEditor({ post, isEditing = false }: BlogEditorProps)
           </label>
           <input
             type="text"
-            id="imageAlt"
-            name="imageAlt"
-            value={formData.imageAlt}
+            id="image_alt"
+            name="image_alt"
+            value={formData.image_alt}
             onChange={handleInputChange}
             required
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-bloom-accent focus:border-transparent"
@@ -412,9 +411,9 @@ export default function BlogEditor({ post, isEditing = false }: BlogEditorProps)
             </label>
             <input
               type="number"
-              id="readTime"
-              name="readTime"
-              value={formData.readTime}
+              id="read_time"
+              name="read_time"
+              value={formData.read_time}
               onChange={handleInputChange}
               required
               min="1"
@@ -446,9 +445,9 @@ export default function BlogEditor({ post, isEditing = false }: BlogEditorProps)
             Meta Description (SEO)
           </label>
           <textarea
-            id="metaDescription"
-            name="metaDescription"
-            value={formData.metaDescription}
+            id="meta_description"
+            name="meta_description"
+            value={formData.meta_description}
             onChange={handleInputChange}
             rows={2}
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-bloom-accent focus:border-transparent"

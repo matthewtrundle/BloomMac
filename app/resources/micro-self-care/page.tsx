@@ -122,33 +122,168 @@ export default function MicroSelfCarePage() {
     );
   };
 
-  const handleDownload = () => {
-    // Create PDF content
-    const printContent = `
-      10 TINY SELF-CARE RITUALS THAT TAKE LESS THAN 2 MINUTES
-      From Bloom Psychology North Austin
+  const handleDownload = async () => {
+    try {
+      // Dynamic import to avoid SSR issues
+      const { jsPDF } = await import('jspdf');
       
-      ${microSelfCareRituals.map((ritual, index) => `
-      ${index + 1}. ${ritual.title} (${ritual.time})
-      ${ritual.description}
-      How to: ${ritual.howTo}
+      // Create new PDF document
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const pageWidth = pdf.internal.pageSize.getWidth();
+      const pageHeight = pdf.internal.pageSize.getHeight();
+      const margin = 20;
+      const lineHeight = 7;
+      const maxWidth = pageWidth - (margin * 2);
       
-      `).join('')}
+      // Bloom Psychology brand colors
+      const brandPink = '#C06B93';
+      const brandDark = '#4A3842';
+      const brandLight = '#F8E1E7';
       
-      Remember: Self-care isn't selfish—it's essential for your wellbeing and your family's.
+      // Add background color
+      pdf.setFillColor(250, 248, 249);
+      pdf.rect(0, 0, pageWidth, pageHeight, 'F');
       
-      For more resources, visit: bloompsychologynorthaustin.com
-    `;
-    
-    const blob = new Blob([printContent], { type: 'text/plain' });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = '10-tiny-self-care-rituals.txt';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    window.URL.revokeObjectURL(url);
+      // Header section with brand colors
+      pdf.setFillColor(200, 107, 147); // Brand pink
+      pdf.rect(0, 0, pageWidth, 35, 'F');
+      
+      // Title
+      pdf.setTextColor(255, 255, 255);
+      pdf.setFontSize(24);
+      pdf.setFont('helvetica', 'bold');
+      pdf.text('10 Tiny Self-Care Rituals', pageWidth / 2, 20, { align: 'center' });
+      
+      pdf.setFontSize(14);
+      pdf.setFont('helvetica', 'normal');
+      pdf.text('That Take Less Than 2 Minutes', pageWidth / 2, 28, { align: 'center' });
+      
+      // Subtitle bar
+      pdf.setFillColor(248, 225, 231); // Light pink
+      pdf.rect(0, 35, pageWidth, 15, 'F');
+      
+      pdf.setTextColor(74, 56, 66); // Brand dark
+      pdf.setFontSize(12);
+      pdf.setFont('helvetica', 'italic');
+      pdf.text('From Bloom Psychology North Austin', pageWidth / 2, 44, { align: 'center' });
+      
+      // Introduction
+      let yPosition = 65;
+      pdf.setTextColor(74, 56, 66);
+      pdf.setFontSize(11);
+      pdf.setFont('helvetica', 'normal');
+      
+      const introText = "Self-care doesn't have to be time-consuming or complicated. These micro-moments of care can be woven into your busiest days to help you reset, recharge, and reconnect with yourself.";
+      const splitIntro = pdf.splitTextToSize(introText, maxWidth);
+      pdf.text(splitIntro, margin, yPosition);
+      yPosition += splitIntro.length * lineHeight + 10;
+      
+      // Rituals
+      microSelfCareRituals.forEach((ritual, index) => {
+        // Check if we need a new page
+        if (yPosition > pageHeight - 50) {
+          pdf.addPage();
+          yPosition = margin;
+        }
+        
+        // Ritual number circle
+        pdf.setFillColor(200, 107, 147);
+        pdf.circle(margin + 8, yPosition + 5, 8, 'F');
+        
+        pdf.setTextColor(255, 255, 255);
+        pdf.setFontSize(14);
+        pdf.setFont('helvetica', 'bold');
+        pdf.text((index + 1).toString(), margin + 8, yPosition + 8, { align: 'center' });
+        
+        // Ritual title and time
+        pdf.setTextColor(74, 56, 66);
+        pdf.setFontSize(14);
+        pdf.setFont('helvetica', 'bold');
+        pdf.text(`${ritual.title} (${ritual.time})`, margin + 20, yPosition + 8);
+        
+        // Category badge
+        pdf.setFillColor(248, 225, 231);
+        const categoryWidth = pdf.getTextWidth(ritual.category) + 8;
+        pdf.rect(pageWidth - margin - categoryWidth, yPosition, categoryWidth, 8, 'F');
+        
+        pdf.setTextColor(200, 107, 147);
+        pdf.setFontSize(9);
+        pdf.setFont('helvetica', 'bold');
+        pdf.text(ritual.category, pageWidth - margin - categoryWidth + 4, yPosition + 5.5);
+        
+        yPosition += 15;
+        
+        // Description
+        pdf.setTextColor(74, 56, 66);
+        pdf.setFontSize(10);
+        pdf.setFont('helvetica', 'normal');
+        const splitDescription = pdf.splitTextToSize(ritual.description, maxWidth - 20);
+        pdf.text(splitDescription, margin + 20, yPosition);
+        yPosition += splitDescription.length * lineHeight + 3;
+        
+        // How to section
+        pdf.setFillColor(250, 248, 249);
+        const howToHeight = 15;
+        pdf.rect(margin + 20, yPosition - 2, maxWidth - 20, howToHeight, 'F');
+        
+        pdf.setTextColor(200, 107, 147);
+        pdf.setFontSize(9);
+        pdf.setFont('helvetica', 'bold');
+        pdf.text('How to:', margin + 25, yPosition + 3);
+        
+        pdf.setTextColor(74, 56, 66);
+        pdf.setFont('helvetica', 'normal');
+        const splitHowTo = pdf.splitTextToSize(ritual.howTo, maxWidth - 35);
+        pdf.text(splitHowTo, margin + 25, yPosition + 8);
+        
+        yPosition += howToHeight + 8;
+      });
+      
+      // Footer
+      if (yPosition > pageHeight - 40) {
+        pdf.addPage();
+        yPosition = margin;
+      }
+      
+      // Final message
+      yPosition += 10;
+      pdf.setFillColor(248, 225, 231);
+      pdf.rect(margin, yPosition, maxWidth, 25, 'F');
+      
+      pdf.setTextColor(74, 56, 66);
+      pdf.setFontSize(12);
+      pdf.setFont('helvetica', 'bold');
+      pdf.text('Remember: Self-care isn\'t selfish—it\'s essential', pageWidth / 2, yPosition + 8, { align: 'center' });
+      
+      pdf.setFont('helvetica', 'normal');
+      pdf.setFontSize(10);
+      pdf.text('for your wellbeing and your family\'s.', pageWidth / 2, yPosition + 16, { align: 'center' });
+      
+      // Website footer
+      yPosition += 35;
+      pdf.setTextColor(200, 107, 147);
+      pdf.setFontSize(11);
+      pdf.setFont('helvetica', 'bold');
+      pdf.text('bloompsychologynorthaustin.com', pageWidth / 2, yPosition, { align: 'center' });
+      
+      pdf.setTextColor(74, 56, 66);
+      pdf.setFontSize(9);
+      pdf.setFont('helvetica', 'normal');
+      pdf.text('Specializing in Maternal Mental Health & Women\'s Wellness', pageWidth / 2, yPosition + 7, { align: 'center' });
+      
+      // Copyright
+      pdf.setTextColor(150, 150, 150);
+      pdf.setFontSize(8);
+      pdf.text(`© ${new Date().getFullYear()} Bloom Psychology North Austin. All rights reserved.`, pageWidth / 2, yPosition + 14, { align: 'center' });
+      
+      // Save the PDF
+      pdf.save('10-tiny-self-care-rituals-bloom-psychology.pdf');
+      
+    } catch (error) {
+      console.error('Error generating PDF:', error);
+      // Fallback to the old method
+      window.open('/api/generate-micro-self-care-pdf', '_blank');
+    }
   };
 
   return (

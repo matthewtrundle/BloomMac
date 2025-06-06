@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
+import CourseWaitlist from '@/components/ui/CourseWaitlist';
 
 export const metadata: Metadata = {
   title: 'Postpartum Wellness Foundations Course | Bloom Psychology',
@@ -39,9 +40,7 @@ const course = {
   features: [
     '24 bite-sized video lessons (10-15 minutes each)',
     'Downloadable PDF workbooks for each module',
-    'Guided meditations and exercises for on-the-go',
-    'Monthly live Q&A sessions with Dr. Jana',
-    'Certificate of completion for your journey'
+    'Guided meditations and exercises for on-the-go'
   ],
   outcomes: [
     'Understand what\'s normal in the fourth trimester',
@@ -339,12 +338,15 @@ export default function PostpartumWellnessFoundationsPage() {
                     Save ${course.originalPrice - course.price}
                   </span>
                 </div>
-                <Link
-                  href="/checkout?course=postpartum-wellness-foundations"
-                  className="w-full bg-bloompink text-white py-4 px-6 rounded-full font-medium text-lg hover:bg-bloom-pink-dark transition-colors inline-block text-center"
+                <button
+                  disabled
+                  className="w-full bg-gray-100 text-gray-500 py-4 px-6 rounded-full font-medium text-lg cursor-not-allowed"
                 >
-                  Enroll Now
-                </Link>
+                  Coming Soon - July 2025
+                </button>
+                <p className="text-xs text-center mt-2 text-bloom-dark/60">
+                  Join the waitlist below for early access
+                </p>
               </div>
             </div>
             
@@ -542,25 +544,22 @@ export default function PostpartumWellnessFoundationsPage() {
         </div>
       </section>
 
-      {/* Final CTA */}
+      {/* Waitlist Section */}
       <section className="py-20 px-4 bg-gradient-to-r from-bloom-pink-50 to-bloom-sage-50">
         <div className="container mx-auto">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl font-playfair text-bloom-dark mb-6">
-              Ready to Transform Your Postpartum Experience?
+              Be the First to Know When We Launch
             </h2>
             <p className="text-xl text-bloom-dark/70 mb-8">
-              Join hundreds of mothers who have found their way from surviving to thriving.
+              Join the waitlist for early access and special launch pricing.
             </p>
-            <Link
-              href="/checkout?course=postpartum-wellness-foundations"
-              className="inline-block bg-bloompink text-white px-10 py-4 rounded-full font-medium text-lg hover:bg-bloom-pink-dark transition-colors"
-            >
-              Enroll Now - ${course.price}
-            </Link>
-            <p className="text-sm text-bloom-dark/60 mt-4">
-              Instant access
-            </p>
+            <div className="max-w-md mx-auto">
+              <CourseWaitlist 
+                courseId="postpartum-wellness-foundations"
+                courseName="Postpartum Wellness Foundations"
+              />
+            </div>
           </div>
         </div>
       </section>

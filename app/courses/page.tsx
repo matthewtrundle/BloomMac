@@ -6,8 +6,9 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import Button from '@/components/ui/Button';
 import CourseWaitlist from '@/components/ui/CourseWaitlist';
+import CoursePurchaseButton from '@/components/ui/CoursePurchaseButton';
 
-// TEMPORARY: Disable course purchases while content is being created
+// Course purchases are currently disabled - coming soon
 const COURSES_ENABLED = false;
 const LAUNCH_DATE = 'July 2025';
 
@@ -288,16 +289,22 @@ export default function CoursesPage() {
                       </div>
                       
                       {COURSES_ENABLED ? (
-                        <Link
-                          href={`/courses/${course.id}`}
-                          className={`block text-center py-3 rounded-lg font-medium transition-all ${
-                            course.highlighted 
-                              ? 'bg-bloompink text-white hover:bg-bloom-pink-dark' 
-                              : 'bg-bloom-sage-50 text-bloom-dark hover:bg-bloom-sage-100'
-                          }`}
-                        >
-                          Learn More
-                        </Link>
+                        <div className="space-y-3">
+                          <CoursePurchaseButton
+                            courseId={course.id}
+                            courseName={course.title}
+                            price={course.price * 100}
+                            originalPrice={course.originalPrice ? course.originalPrice * 100 : undefined}
+                            size="md"
+                            variant={course.highlighted ? 'primary' : 'secondary'}
+                          />
+                          <Link
+                            href={`/courses/${course.id}`}
+                            className="block text-center py-2 text-sm text-gray-600 hover:text-gray-800 transition-colors"
+                          >
+                            View Details
+                          </Link>
+                        </div>
                       ) : (
                         <div>
                           <button

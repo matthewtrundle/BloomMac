@@ -58,7 +58,7 @@ export default function ResourcesPage() {
       description: 'Daily and weekly ways to support your partner',
       type: 'PDF Guide',
       icon: '💑',
-      link: '#partner-checklist'
+      link: '/resources/partner-support-checklist'
     },
     {
       category: 'partners',
@@ -66,7 +66,7 @@ export default function ResourcesPage() {
       description: 'Navigate difficult conversations with empathy',
       type: 'Worksheet',
       icon: '💬',
-      link: '#communication-worksheet'
+      link: '/resources/communication-worksheet'
     },
     {
       category: 'partners',
@@ -74,7 +74,7 @@ export default function ResourcesPage() {
       description: 'Recognize when professional help is needed',
       type: 'PDF Guide',
       icon: '⚠️',
-      link: '#warning-signs'
+      link: '/resources/warning-signs-guide'
     },
     // For Families
     {
@@ -83,7 +83,7 @@ export default function ResourcesPage() {
       description: 'Respect new parent boundaries while staying connected',
       type: 'PDF Guide',
       icon: '🏠',
-      link: '#boundaries-guide'
+      link: '/resources/family-boundaries-guide'
     },
     {
       category: 'families',
@@ -91,7 +91,7 @@ export default function ResourcesPage() {
       description: 'What helps (and what doesn\'t) for new families',
       type: 'Checklist',
       icon: '✅',
-      link: '#helpful-harmful'
+      link: '/resources/helpful-vs-harmful-checklist'
     },
     {
       category: 'families',
@@ -99,7 +99,7 @@ export default function ResourcesPage() {
       description: 'Honor diverse parenting traditions and choices',
       type: 'PDF Guide',
       icon: '🌍',
-      link: '#cultural-guide'
+      link: '/resources/cultural-sensitivity-guide'
     },
     // Emergency Resources
     {
@@ -108,7 +108,7 @@ export default function ResourcesPage() {
       description: '24/7 support lines for immediate help',
       type: 'Resource List',
       icon: '🆘',
-      link: '#crisis-hotlines'
+      link: '/resources/crisis-hotlines'
     },
     {
       category: 'emergency',
@@ -116,7 +116,7 @@ export default function ResourcesPage() {
       description: 'Know the signs that indicate professional support is needed',
       type: 'Guide',
       icon: '🏥',
-      link: '#seek-help'
+      link: '/resources/when-to-seek-help'
     }
   ];
 
@@ -260,7 +260,7 @@ export default function ResourcesPage() {
               <p className="text-bloom mb-4">
                 Improve connection & support
               </p>
-              <Button href="#communication-worksheet" variant="outline" size="sm">
+              <Button href="/resources/communication-worksheet" variant="outline" size="sm">
                 Get Worksheet
               </Button>
             </div>

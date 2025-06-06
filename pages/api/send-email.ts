@@ -113,8 +113,37 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
       console.log('Email sent successfully:', data);
 
-      // Send confirmation email to the contact form submitter
-      const confirmationEmailContent = `
+      // Get custom email template from database
+      let confirmationEmailContent = '';
+      let confirmationSubject = 'Thank you for contacting Bloom Psychology North Austin';
+      
+      try {
+        console.log('Fetching custom contact template...');
+        const { data: customTemplate, error: templateError } = await supabaseAdmin
+          .from('email_templates_custom')
+          .select('subject, content')
+          .eq('sequence', 'contactFollowup')
+          .eq('step', 'immediate')
+          .single();
+          
+        if (templateError) {
+          console.error('Template query error:', templateError);
+        } else if (customTemplate) {
+          console.log('Custom template found, using it');
+          confirmationSubject = customTemplate.subject;
+          // Replace firstName placeholder with the actual name
+          const userFirstName = firstName || name?.split(' ')[0] || displayName.split(' ')[0] || 'there';
+          confirmationEmailContent = customTemplate.content.replace(/\{\{firstName\}\}/g, userFirstName);
+        } else {
+          console.log('No custom template returned from query');
+        }
+      } catch (templateError) {
+        console.error('Template fetch error:', templateError);
+      }
+      
+      // Fallback to default template if no custom template exists
+      if (!confirmationEmailContent) {
+        confirmationEmailContent = `
 <!DOCTYPE html>
 <html>
 <head>
@@ -178,13 +207,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   </div>
 </body>
 </html>
-      `;
+        `;
+      }
 
       try {
         const confirmationData = await resend.emails.send({
           from: 'Dr. Jana Rundle <jana@bloompsychologynorthaustin.com>',
           to: email, // Send to the person who submitted the form
-          subject: 'Thank you for contacting Bloom Psychology North Austin',
+          subject: confirmationSubject,
           html: confirmationEmailContent,
         });
         

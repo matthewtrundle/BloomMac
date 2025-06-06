@@ -6,23 +6,24 @@ import { useRouter } from 'next/navigation';
 import Button from '@/components/ui/Button';
 
 interface BlogPost {
+  id?: string;
   slug: string;
   title: string;
   excerpt: string;
   content: string;
-  image: string;
-  imageAlt: string;
+  image_url: string;
+  image_alt: string;
   category: string;
-  readTime: number;
-  publishedAt: string;
+  read_time: number;
+  published_at: string;
   featured: boolean;
-  author: {
-    name: string;
-    title: string;
-    image?: string;
-  };
-  metaDescription?: string;
+  author_name: string;
+  author_title: string;
+  author_image?: string;
+  meta_description?: string;
   keywords?: string[];
+  created_at?: string;
+  updated_at?: string;
 }
 
 export default function BlogAdminPage() {
@@ -37,7 +38,7 @@ export default function BlogAdminPage() {
 
   const fetchPosts = async () => {
     try {
-      const response = await fetch('/api/blog-admin', {
+      const response = await fetch('/api/blog-admin-supabase', {
         credentials: 'include'
       });
 
@@ -60,7 +61,7 @@ export default function BlogAdminPage() {
     }
 
     try {
-      const response = await fetch(`/api/blog-admin?slug=${slug}`, {
+      const response = await fetch(`/api/blog-admin-supabase?slug=${slug}`, {
         method: 'DELETE',
         credentials: 'include'
       });
@@ -145,7 +146,7 @@ export default function BlogAdminPage() {
                         </span>
                       </td>
                       <td className="p-4 text-gray-600">
-                        {new Date(post.publishedAt).toLocaleDateString()}
+                        {new Date(post.published_at).toLocaleDateString()}
                       </td>
                       <td className="p-4">
                         {post.featured && (
