@@ -87,7 +87,7 @@ const ConsultLauncher = () => {
   if (!hasScrolled) return null;
 
   return (
-    <div className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-40">
+    <div className="fixed bottom-4 right-20 md:bottom-6 md:right-24 z-40">
       <AnimatePresence>
         {isOpen ? (
           <motion.div
