@@ -4,6 +4,13 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Button from '@/components/ui/Button';
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
+
+// Dynamically import RichTextEditor to avoid SSR issues
+const RichTextEditor = dynamic(() => import('./RichTextEditor'), { 
+  ssr: false,
+  loading: () => <div className="h-96 bg-gray-50 animate-pulse rounded-lg" />
+});
 
 interface BlogPost {
   id?: string;
@@ -115,6 +122,18 @@ export default function BlogEditor({ post, isEditing = false }: BlogEditorProps)
     const file = e.target.files?.[0];
     if (!file) return;
 
+    // Validate file type and size
+    const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/gif'];
+    if (!validTypes.includes(file.type)) {
+      setError('Please upload a valid image file (JPEG, PNG, WebP, or GIF)');
+      return;
+    }
+
+    if (file.size > 10 * 1024 * 1024) { // 10MB limit
+      setError('Image size must be less than 10MB');
+      return;
+    }
+
     setUploading(true);
     setError('');
 
@@ -122,21 +141,25 @@ export default function BlogEditor({ post, isEditing = false }: BlogEditorProps)
     formData.append('image', file);
 
     try {
-      const response = await fetch('/api/upload-image', {
+      const response = await fetch('/api/upload-blog-image', {
         method: 'POST',
         credentials: 'include',
         body: formData
       });
 
       if (!response.ok) {
-        throw new Error('Upload failed');
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Upload failed');
       }
 
       const data = await response.json();
       setFormData(prev => ({ ...prev, image_url: data.url }));
       setShowImagePicker(false);
+      
+      // Refresh available images to include the new upload
+      loadImages();
     } catch (err) {
-      setError('Failed to upload image');
+      setError(err instanceof Error ? err.message : 'Failed to upload image');
     } finally {
       setUploading(false);
     }
@@ -424,18 +447,13 @@ export default function BlogEditor({ post, isEditing = false }: BlogEditorProps)
 
         {/* Content */}
         <div>
-          <label htmlFor="content" className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-gray-700 mb-2">
             Content *
           </label>
-          <textarea
-            id="content"
-            name="content"
-            value={formData.content}
-            onChange={handleInputChange}
-            required
-            rows={20}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-bloom-accent focus:border-transparent font-mono text-sm"
-            placeholder="Write your blog post content here. You can use Markdown for formatting."
+          <RichTextEditor
+            content={formData.content}
+            onChange={(newContent) => setFormData(prev => ({ ...prev, content: newContent }))}
+            placeholder="Start writing your blog post..."
           />
         </div>
 

@@ -10,7 +10,7 @@ import Button from '@/components/ui/Button';
 import KineticTypography from '@/components/ui/KineticTypography';
 
 // Blog storage
-import { loadBlogPosts, getBlogPost } from '@/lib/blog-storage';
+import { loadBlogPosts, getBlogPost } from '@/lib/blog-storage-supabase';
 
 // Generate static paths for all blog posts
 export async function generateStaticParams() {
@@ -36,12 +36,12 @@ export async function generateMetadata({
   
   return {
     title: `${post.title} | Bloom Psychology Blog`,
-    description: post.metaDescription || post.excerpt,
+    description: post.meta_description || post.excerpt,
     keywords: post.keywords,
     openGraph: {
       title: post.title,
       description: post.excerpt,
-      images: [post.image],
+      images: [post.image_url],
     },
   };
 }
@@ -100,9 +100,9 @@ export default async function BlogPostPage({
           </KineticTypography>
           
           <div className="text-bloom/60 mb-6">
-            <span>{new Date(post.publishedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
+            <span>{new Date(post.published_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
             <span className="mx-2">•</span>
-            <span>{post.readTime} min read</span>
+            <span>{post.read_time} min read</span>
             <span className="mx-2">•</span>
             <span className="text-bloom-accent">{post.category}</span>
           </div>
@@ -114,8 +114,8 @@ export default async function BlogPostPage({
         <div className="max-w-5xl mx-auto px-6">
           <div className="relative h-[40vh] md:h-[50vh] rounded-lg overflow-hidden shadow-md">
             <Image 
-              src={post.image} 
-              alt={post.imageAlt}
+              src={post.image_url} 
+              alt={post.image_alt}
               fill
               className="object-cover"
               priority
@@ -135,16 +135,16 @@ export default async function BlogPostPage({
               <div className="flex-shrink-0 mr-4">
                 <div className="w-12 h-12 rounded-full overflow-hidden relative">
                   <Image 
-                    src={post.author.image || "/images/Team/Jana Rundle.jpg"} 
-                    alt={post.author.name}
+                    src={post.author_image || "/images/Team/Jana Rundle.jpg"} 
+                    alt={post.author_name}
                     fill
                     className="object-cover"
                   />
                 </div>
               </div>
               <div>
-                <p className="font-medium text-bloom">{post.author.name}</p>
-                <p className="text-sm text-bloom/60">{post.author.title}</p>
+                <p className="font-medium text-bloom">{post.author_name}</p>
+                <p className="text-sm text-bloom/60">{post.author_title}</p>
               </div>
             </div>
           </div>
@@ -162,8 +162,8 @@ export default async function BlogPostPage({
                 <div key={relatedPost.slug} className="bg-white rounded-lg shadow-sm overflow-hidden">
                   <div className="h-40 bg-gray-100 relative">
                     <Image 
-                      src={relatedPost.image} 
-                      alt={relatedPost.imageAlt}
+                      src={relatedPost.image_url} 
+                      alt={relatedPost.image_alt}
                       fill
                       className="object-cover"
                     />
@@ -171,7 +171,7 @@ export default async function BlogPostPage({
                   <div className="p-4">
                     <h3 className="text-lg font-medium text-bloom">{relatedPost.title}</h3>
                     <p className="text-sm text-bloom/50 mt-1">
-                      {new Date(relatedPost.publishedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+                      {new Date(relatedPost.published_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
                     </p>
                     <Link href={`/blog/${relatedPost.slug}`} className="text-bloompink text-sm mt-2 inline-block hover:underline">
                       Read More →

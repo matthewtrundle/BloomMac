@@ -9,7 +9,7 @@ import Button from '@/components/ui/Button';
 import NewsletterSignup from '@/components/ui/NewsletterSignup';
 
 // Server-side data fetching
-import { loadBlogPosts } from '@/lib/blog-storage';
+import { loadBlogPosts } from '@/lib/blog-storage-supabase';
 
 export const metadata: Metadata = {
   title: 'Blog | Bloom Psychology',
@@ -22,7 +22,7 @@ export default async function BlogPage() {
   
   // Sort blog posts by date (newest first)
   const sortedPosts = [...blogPosts].sort((a, b) => {
-    return new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime();
+    return new Date(b.published_at).getTime() - new Date(a.published_at).getTime();
   });
 
   return (
@@ -58,8 +58,8 @@ export default async function BlogPage() {
             <article key={post.slug} className="bg-white rounded-lg shadow-sm overflow-hidden glass-panel">
               <div className="h-48 bg-gray-100 relative">
                 <Image 
-                  src={post.image} 
-                  alt={post.imageAlt}
+                  src={post.image_url} 
+                  alt={post.image_alt}
                   fill
                   className="object-cover"
                   loading={index < 3 ? "eager" : "lazy"}
@@ -80,9 +80,9 @@ export default async function BlogPage() {
                 </div>
                 <h3 className="text-xl font-playfair font-semibold text-bloom">{post.title}</h3>
                 <p className="text-sm text-bloom/50 mt-1">
-                  {new Date(post.publishedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+                  {new Date(post.published_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
                   <span className="mx-2">•</span>
-                  {post.readTime} min read
+                  {post.read_time} min read
                 </p>
                 <p className="mt-4 text-bloom/70">{post.excerpt}</p>
                 <Link 

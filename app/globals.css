@@ -4,6 +4,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Import editor styles */
+@import '../styles/editor.css';
+
 :root {
   --bloom-primary: #2C3E50;
   --bloom-accent: #A3D8F4;

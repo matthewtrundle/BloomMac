@@ -46,7 +46,16 @@ export default function EditBlogPostPage() {
       }
 
       const data = await response.json();
-      setPost(data);
+      // Transform flat author fields to nested object
+      const transformedPost = {
+        ...data,
+        author: {
+          name: data.author_name,
+          title: data.author_title,
+          image: data.author_image
+        }
+      };
+      setPost(transformedPost);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to load post');
     } finally {
