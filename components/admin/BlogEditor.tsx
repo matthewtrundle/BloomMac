@@ -109,9 +109,11 @@ export default function BlogEditor({ post, isEditing = false }: BlogEditorProps)
       const checked = (e.target as HTMLInputElement).checked;
       setFormData(prev => ({ ...prev, [name]: checked }));
     } else if (name === 'keywords') {
+      const parsedKeywords = value.split(',').map(k => k.trim()).filter(k => k);
+      console.log('Keywords input:', value, 'Parsed:', parsedKeywords);
       setFormData(prev => ({ 
         ...prev, 
-        keywords: value.split(',').map(k => k.trim()).filter(k => k) 
+        keywords: parsedKeywords
       }));
     } else {
       setFormData(prev => ({ ...prev, [name]: value }));

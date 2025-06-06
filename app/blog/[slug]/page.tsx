@@ -12,13 +12,9 @@ import KineticTypography from '@/components/ui/KineticTypography';
 // Blog storage
 import { loadBlogPosts, getBlogPost } from '@/lib/blog-storage-supabase';
 
-// Generate static paths for all blog posts
-export async function generateStaticParams() {
-  const posts = await loadBlogPosts();
-  return posts.map((post) => ({
-    slug: post.slug,
-  }));
-}
+// Disable static generation to ensure updates reflect immediately
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 // Generate metadata for each blog post page
 export async function generateMetadata({

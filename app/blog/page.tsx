@@ -16,6 +16,10 @@ export const metadata: Metadata = {
   description: 'Insights and articles for women, moms, and families from Bloom Psychology.',
 };
 
+// Disable static generation to ensure updates reflect immediately
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export default async function BlogPage() {
   // Load blog posts from storage
   const blogPosts = await loadBlogPosts();
