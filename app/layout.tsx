@@ -47,11 +47,11 @@ export const metadata: Metadata = {
     template: '%s | Bloom Psychology',
     default: 'Bloom Psychology | Women\'s Mental Health'
   },
-  description: 'Bloom Psychology offers specialized therapy for women, moms, and parents. Evidence-based support for anxiety, stress, postpartum depression, and more.',
+  description: 'Life changes—so do you. We\'re here for all of it. Bloom therapy provides in-person psychotherapy in Austin and online for all of Texas.',
   keywords: 'therapy, psychologist, mental health, women\'s therapy, mom therapy, parent support, anxiety, Austin, telehealth, postpartum depression',
   openGraph: {
     title: 'Bloom Psychology',
-    description: 'Specialized therapy for women, moms, and parents in Texas.',
+    description: 'Life changes—so do you. We\'re here for all of it. Bloom therapy provides in-person psychotherapy in Austin and online for all of Texas.',
     images: ['/images/Logo/logo.jpg'],
   },
 };

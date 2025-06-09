@@ -188,7 +188,7 @@ export default function Home() {
               </h1>
               
               <p className="font-raleway font-normal text-base sm:text-xl md:text-[1.25rem] mb-4 sm:mb-6 text-bloom-darkGrey text-center max-w-[600px] mx-auto text-shadow-sm">
-                Specialized mental health care for women and moms in Texas.
+                Life changes—so do you. We're here for all of it. Bloom therapy provides in-person psychotherapy in Austin and online for all of Texas.
               </p>
             </div>
             

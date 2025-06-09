@@ -398,6 +398,49 @@ export default function PostpartumChecklistPage() {
               }}
             />
 
+            {/* PDF Download Button */}
+            <div className="text-center mt-8">
+              <button
+                onClick={async () => {
+                  try {
+                    const { generateResourcePDF, PDFDocument } = await import('@/lib/pdf-generator');
+                    
+                    const pdfDocument: PDFDocument = {
+                      title: 'Postpartum Recovery Checklist',
+                      subtitle: 'Your comprehensive guide to healing after birth',
+                      author: 'Bloom Psychology North Austin',
+                      description: 'A week-by-week guide to support your physical and emotional recovery journey',
+                      sections: checklistData.sections.map(section => ({
+                        title: section.title,
+                        content: section.description,
+                        items: section.items,
+                        type: section.type
+                      }))
+                    };
+                    
+                    generateResourcePDF(pdfDocument, 'postpartum-recovery-checklist-bloom.pdf');
+                    
+                    // Track PDF download
+                    if (typeof window !== 'undefined' && window.gtag) {
+                      window.gtag('event', 'resource_download', {
+                        event_category: 'engagement',
+                        event_label: 'postpartum_checklist_pdf',
+                        resource_type: 'pdf'
+                      });
+                    }
+                  } catch (error) {
+                    console.error('Error generating PDF:', error);
+                  }
+                }}
+                className="inline-flex items-center bg-gradient-to-r from-pink-500 to-rose-500 text-white px-6 py-3 rounded-lg font-medium hover:from-pink-600 hover:to-rose-600 transition-all"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clipRule="evenodd" />
+                </svg>
+                Download as Beautiful PDF
+              </button>
+            </div>
+
             <div className="text-center mt-8">
               <Link 
                 href="/book" 

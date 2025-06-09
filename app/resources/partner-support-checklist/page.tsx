@@ -184,163 +184,75 @@ export default function PartnerSupportChecklistPage() {
 
   const handleDownload = async () => {
     try {
-      const { jsPDF } = await import('jspdf');
+      const { generateResourcePDF, PDFDocument } = await import('@/lib/pdf-generator');
       
-      const pdf = new jsPDF('p', 'mm', 'a4');
-      const pageWidth = pdf.internal.pageSize.getWidth();
-      const pageHeight = pdf.internal.pageSize.getHeight();
-      const margin = 20;
-      const lineHeight = 7;
-      const maxWidth = pageWidth - (margin * 2);
+      // Create comprehensive PDF document
+      const pdfDocument: PDFDocument = {
+        title: 'Partner Support Checklist',
+        subtitle: 'Daily, Weekly & Monthly Ways to Support Your Partner',
+        author: 'Bloom Psychology North Austin',
+        description: 'A comprehensive guide for partners to provide meaningful support during the postpartum period. Check off actions as you complete them to track your support efforts.',
+        sections: [
+          {
+            title: 'Daily Support Actions',
+            type: 'normal',
+            content: 'Small, consistent actions you can take every day to show support and care.',
+            items: []
+          },
+          ...dailySupport.map(category => ({
+            title: category.category,
+            type: 'checklist' as const,
+            items: category.items
+          })),
+          {
+            title: 'Weekly Support Actions',
+            type: 'normal',
+            content: 'Planned activities and support efforts to do each week.',
+            items: []
+          },
+          ...weeklySupport.map(category => ({
+            title: category.category,
+            type: 'checklist' as const,
+            items: category.items
+          })),
+          {
+            title: 'Monthly Support Actions',
+            type: 'normal',
+            content: 'Bigger picture support and planning activities.',
+            items: []
+          },
+          ...monthlySupport.map(category => ({
+            title: category.category,
+            type: 'checklist' as const,
+            items: category.items
+          })),
+          {
+            title: 'When to Seek Help Immediately',
+            type: 'warning',
+            content: 'These signs require immediate professional attention. Do not wait.',
+            items: redFlags.map(flag => `${flag.sign} → ${flag.action}`)
+          },
+          {
+            title: 'Supportive Communication',
+            type: 'tips',
+            content: 'What TO say to show love and support:',
+            items: supportivePhrases.map(phrase => `"${phrase}"`)
+          },
+          {
+            title: 'Avoid These Phrases',
+            type: 'warning',
+            content: 'Well-meaning but unhelpful things to avoid saying:',
+            items: avoidSaying.map(phrase => `"${phrase}"`)
+          },
+          {
+            title: 'Remember',
+            type: 'highlight',
+            content: 'Your partner needs your support, not your solutions. Listen more than you speak. Be present more than you fix. Love more than you judge.'
+          }
+        ]
+      };
       
-      // Brand colors
-      const brandPink = '#C06B93';
-      const brandDark = '#4A3842';
-      
-      // Header
-      pdf.setFillColor(200, 107, 147);
-      pdf.rect(0, 0, pageWidth, 35, 'F');
-      
-      pdf.setTextColor(255, 255, 255);
-      pdf.setFontSize(20);
-      pdf.setFont('helvetica', 'bold');
-      pdf.text('Partner Support Checklist', pageWidth / 2, 20, { align: 'center' });
-      
-      pdf.setFontSize(12);
-      pdf.setFont('helvetica', 'normal');
-      pdf.text('Daily, Weekly & Monthly Ways to Support Your Partner', pageWidth / 2, 28, { align: 'center' });
-      
-      let yPosition = 50;
-      
-      // Daily support section
-      pdf.setTextColor(74, 56, 66);
-      pdf.setFontSize(16);
-      pdf.setFont('helvetica', 'bold');
-      pdf.text('Daily Support', margin, yPosition);
-      yPosition += 12;
-      
-      dailySupport.forEach((category) => {
-        pdf.setTextColor(200, 107, 147);
-        pdf.setFontSize(12);
-        pdf.setFont('helvetica', 'bold');
-        pdf.text(category.category, margin, yPosition);
-        yPosition += 8;
-        
-        category.items.slice(0, 3).forEach((item) => {
-          pdf.setTextColor(74, 56, 66);
-          pdf.setFontSize(10);
-          pdf.setFont('helvetica', 'normal');
-          pdf.text('☐ ', margin + 5, yPosition);
-          const splitItem = pdf.splitTextToSize(item, maxWidth - 15);
-          pdf.text(splitItem, margin + 12, yPosition);
-          yPosition += splitItem.length * lineHeight + 3;
-        });
-        yPosition += 5;
-      });
-      
-      // Red flags section
-      if (yPosition > pageHeight - 80) {
-        pdf.addPage();
-        yPosition = margin;
-      }
-      
-      yPosition += 10;
-      pdf.setTextColor(220, 38, 38);
-      pdf.setFontSize(16);
-      pdf.setFont('helvetica', 'bold');
-      pdf.text('🚨 When to Seek Help Immediately', margin, yPosition);
-      yPosition += 12;
-      
-      redFlags.slice(0, 4).forEach((flag) => {
-        pdf.setTextColor(74, 56, 66);
-        pdf.setFontSize(10);
-        pdf.setFont('helvetica', 'bold');
-        pdf.text('Sign: ', margin, yPosition);
-        pdf.setFont('helvetica', 'normal');
-        const splitSign = pdf.splitTextToSize(flag.sign, maxWidth - 15);
-        pdf.text(splitSign, margin + 15, yPosition);
-        yPosition += splitSign.length * lineHeight + 2;
-        
-        pdf.setTextColor(220, 38, 38);
-        pdf.setFont('helvetica', 'bold');
-        pdf.text('Action: ', margin, yPosition);
-        pdf.setFont('helvetica', 'normal');
-        const splitAction = pdf.splitTextToSize(flag.action, maxWidth - 20);
-        pdf.text(splitAction, margin + 20, yPosition);
-        yPosition += splitAction.length * lineHeight + 8;
-      });
-      
-      // Supportive phrases
-      if (yPosition > pageHeight - 60) {
-        pdf.addPage();
-        yPosition = margin;
-      }
-      
-      yPosition += 10;
-      pdf.setTextColor(74, 56, 66);
-      pdf.setFontSize(14);
-      pdf.setFont('helvetica', 'bold');
-      pdf.text('💝 What TO Say', margin, yPosition);
-      yPosition += 10;
-      
-      supportivePhrases.slice(0, 6).forEach((phrase) => {
-        pdf.setFontSize(10);
-        pdf.setFont('helvetica', 'normal');
-        pdf.text('• ', margin, yPosition);
-        const splitPhrase = pdf.splitTextToSize(`"${phrase}"`, maxWidth - 10);
-        pdf.text(splitPhrase, margin + 5, yPosition);
-        yPosition += splitPhrase.length * lineHeight + 3;
-      });
-      
-      yPosition += 10;
-      pdf.setTextColor(220, 38, 38);
-      pdf.setFontSize(14);
-      pdf.setFont('helvetica', 'bold');
-      pdf.text('❌ What NOT to Say', margin, yPosition);
-      yPosition += 10;
-      
-      avoidSaying.slice(0, 6).forEach((phrase) => {
-        pdf.setTextColor(74, 56, 66);
-        pdf.setFontSize(10);
-        pdf.setFont('helvetica', 'normal');
-        pdf.text('• ', margin, yPosition);
-        const splitPhrase = pdf.splitTextToSize(`"${phrase}"`, maxWidth - 10);
-        pdf.text(splitPhrase, margin + 5, yPosition);
-        yPosition += splitPhrase.length * lineHeight + 3;
-      });
-      
-      // Footer
-      if (yPosition > pageHeight - 40) {
-        pdf.addPage();
-        yPosition = margin;
-      }
-      
-      yPosition += 15;
-      pdf.setFillColor(248, 225, 231);
-      pdf.rect(margin, yPosition, maxWidth, 25, 'F');
-      
-      pdf.setTextColor(74, 56, 66);
-      pdf.setFontSize(12);
-      pdf.setFont('helvetica', 'bold');
-      pdf.text('Supporting your partner supports your whole family', pageWidth / 2, yPosition + 8, { align: 'center' });
-      
-      pdf.setFont('helvetica', 'normal');
-      pdf.setFontSize(10);
-      pdf.text('Small, consistent actions make the biggest difference.', pageWidth / 2, yPosition + 16, { align: 'center' });
-      
-      // Website footer
-      yPosition += 35;
-      pdf.setTextColor(200, 107, 147);
-      pdf.setFontSize(11);
-      pdf.setFont('helvetica', 'bold');
-      pdf.text('bloompsychologynorthaustin.com', pageWidth / 2, yPosition, { align: 'center' });
-      
-      pdf.setTextColor(74, 56, 66);
-      pdf.setFontSize(9);
-      pdf.setFont('helvetica', 'normal');
-      pdf.text('Specializing in Maternal Mental Health & Women\'s Wellness', pageWidth / 2, yPosition + 7, { align: 'center' });
-      
-      pdf.save('partner-support-checklist-bloom-psychology.pdf');
+      generateResourcePDF(pdfDocument, 'partner-support-checklist-bloom.pdf');
       
     } catch (error) {
       console.error('Error generating PDF:', error);

@@ -177,166 +177,70 @@ export default function WhenToSeekHelpPage() {
 
   const handleDownload = async () => {
     try {
-      const { jsPDF } = await import('jspdf');
+      const { generateResourcePDF, PDFDocument } = await import('@/lib/pdf-generator');
       
-      const pdf = new jsPDF('p', 'mm', 'a4');
-      const pageWidth = pdf.internal.pageSize.getWidth();
-      const pageHeight = pdf.internal.pageSize.getHeight();
-      const margin = 20;
-      const lineHeight = 7;
-      const maxWidth = pageWidth - (margin * 2);
+      // Create comprehensive PDF document
+      const pdfDocument: PDFDocument = {
+        title: 'When to Seek Help Guide',
+        subtitle: 'Your Mental Health Decision Guide',
+        author: 'Bloom Psychology North Austin',
+        description: 'A step-by-step guide to help you recognize when professional support is needed and what actions to take for your wellbeing.',
+        sections: [
+          {
+            title: 'Emergency Signs - Call 911 Immediately',
+            type: 'warning',
+            content: 'These signs require immediate emergency intervention. Do not wait.',
+            items: immediateHelp.map(item => `${item.sign} → ${item.action}`)
+          },
+          {
+            title: 'Urgent Signs - Contact Provider Within 24-48 Hours',
+            type: 'warning',
+            content: 'These signs need prompt professional attention.',
+            items: urgentHelp.map(item => `${item.sign} → ${item.action}`)
+          },
+          {
+            title: 'Moderate Signs - Schedule Help This Week',
+            type: 'normal',
+            content: 'These signs indicate you would benefit from professional support.',
+            items: weeklyHelp.map(item => `${item.sign} → ${item.action}`)
+          },
+          {
+            title: 'Self-Care Level - Monitor and Use Resources',
+            type: 'tips',
+            content: 'These experiences are common and can often be managed with self-care and peer support.',
+            items: selfCareHelp.map(item => `${item.sign} → ${item.action}`)
+          },
+          {
+            title: 'Action Steps to Take',
+            type: 'checklist',
+            items: actionSteps.map(step => `${step.title}: ${step.description}`)
+          },
+          {
+            title: 'Common Myths vs Truth',
+            type: 'normal',
+            content: 'Don\'t let these myths prevent you from getting help:',
+            items: myths.map(m => `Myth: "${m.myth}"\nTruth: ${m.truth}`)
+          },
+          {
+            title: 'Quick Reference Numbers',
+            type: 'highlight',
+            content: 'Save these numbers in your phone:',
+            items: [
+              'Emergency: 911',
+              'Crisis Line: 988',
+              'Postpartum Support International: 1-800-944-4773',
+              'Text Crisis Support: Text HOME to 741741'
+            ]
+          },
+          {
+            title: 'Remember',
+            type: 'highlight',
+            content: 'You deserve support. Seeking help is not a sign of weakness—it\'s an act of love for yourself and your family. With the right support, you can and will feel better.'
+          }
+        ]
+      };
       
-      // Brand colors
-      const brandPink = '#C06B93';
-      const brandDark = '#4A3842';
-      
-      // Header
-      pdf.setFillColor(200, 107, 147);
-      pdf.rect(0, 0, pageWidth, 35, 'F');
-      
-      pdf.setTextColor(255, 255, 255);
-      pdf.setFontSize(20);
-      pdf.setFont('helvetica', 'bold');
-      pdf.text('When to Seek Help Guide', pageWidth / 2, 20, { align: 'center' });
-      
-      pdf.setFontSize(12);
-      pdf.setFont('helvetica', 'normal');
-      pdf.text('Knowing When and How to Get Support', pageWidth / 2, 28, { align: 'center' });
-      
-      let yPosition = 50;
-      
-      // Emergency section
-      pdf.setTextColor(220, 38, 38);
-      pdf.setFontSize(16);
-      pdf.setFont('helvetica', 'bold');
-      pdf.text('🚨 IMMEDIATE HELP NEEDED', margin, yPosition);
-      yPosition += 12;
-      
-      immediateHelp.forEach((item) => {
-        pdf.setTextColor(74, 56, 66);
-        pdf.setFontSize(10);
-        pdf.setFont('helvetica', 'bold');
-        pdf.text('Sign: ', margin, yPosition);
-        pdf.setFont('helvetica', 'normal');
-        const splitSign = pdf.splitTextToSize(item.sign, maxWidth - 15);
-        pdf.text(splitSign, margin + 15, yPosition);
-        yPosition += splitSign.length * lineHeight + 2;
-        
-        pdf.setTextColor(220, 38, 38);
-        pdf.setFont('helvetica', 'bold');
-        pdf.text('Action: ', margin, yPosition);
-        pdf.setFont('helvetica', 'normal');
-        const splitAction = pdf.splitTextToSize(item.action, maxWidth - 20);
-        pdf.text(splitAction, margin + 20, yPosition);
-        yPosition += splitAction.length * lineHeight + 8;
-      });
-      
-      yPosition += 10;
-      
-      // Urgent section
-      if (yPosition > pageHeight - 80) {
-        pdf.addPage();
-        yPosition = margin;
-      }
-      
-      pdf.setTextColor(255, 140, 0);
-      pdf.setFontSize(16);
-      pdf.setFont('helvetica', 'bold');
-      pdf.text('⚠️ URGENT HELP (Within 24-48 Hours)', margin, yPosition);
-      yPosition += 12;
-      
-      urgentHelp.slice(0, 3).forEach((item) => {
-        pdf.setTextColor(74, 56, 66);
-        pdf.setFontSize(10);
-        pdf.setFont('helvetica', 'bold');
-        pdf.text('• ', margin, yPosition);
-        pdf.setFont('helvetica', 'normal');
-        const splitSign = pdf.splitTextToSize(item.sign, maxWidth - 10);
-        pdf.text(splitSign, margin + 5, yPosition);
-        yPosition += splitSign.length * lineHeight + 5;
-      });
-      
-      yPosition += 10;
-      
-      // Quick reference numbers
-      if (yPosition > pageHeight - 60) {
-        pdf.addPage();
-        yPosition = margin;
-      }
-      
-      pdf.setFillColor(248, 225, 231);
-      pdf.rect(margin, yPosition, maxWidth, 35, 'F');
-      
-      pdf.setTextColor(200, 107, 147);
-      pdf.setFontSize(14);
-      pdf.setFont('helvetica', 'bold');
-      pdf.text('Quick Reference Numbers', margin + 5, yPosition + 8);
-      
-      pdf.setTextColor(74, 56, 66);
-      pdf.setFontSize(10);
-      pdf.setFont('helvetica', 'normal');
-      pdf.text('Emergency: 911', margin + 5, yPosition + 16);
-      pdf.text('Suicide Prevention: 988', margin + 5, yPosition + 23);
-      pdf.text('Postpartum Support: 1-800-944-4773', margin + 5, yPosition + 30);
-      
-      yPosition += 45;
-      
-      // Assessment questions
-      pdf.setTextColor(74, 56, 66);
-      pdf.setFontSize(16);
-      pdf.setFont('helvetica', 'bold');
-      pdf.text('Self-Assessment Questions', margin, yPosition);
-      yPosition += 15;
-      
-      const questions = [
-        'How long have I been feeling this way?',
-        'Is this affecting my daily functioning?',
-        'Can I care for myself and my baby?',
-        'Do I have thoughts of harm?',
-        'Is this getting better or worse?'
-      ];
-      
-      questions.forEach((question) => {
-        pdf.setFontSize(10);
-        pdf.setFont('helvetica', 'normal');
-        pdf.text('• ', margin, yPosition);
-        const splitQ = pdf.splitTextToSize(question, maxWidth - 10);
-        pdf.text(splitQ, margin + 5, yPosition);
-        yPosition += splitQ.length * lineHeight + 5;
-      });
-      
-      // Footer
-      if (yPosition > pageHeight - 40) {
-        pdf.addPage();
-        yPosition = margin;
-      }
-      
-      yPosition += 15;
-      pdf.setFillColor(248, 225, 231);
-      pdf.rect(margin, yPosition, maxWidth, 25, 'F');
-      
-      pdf.setTextColor(74, 56, 66);
-      pdf.setFontSize(12);
-      pdf.setFont('helvetica', 'bold');
-      pdf.text('Remember: Seeking help is a sign of strength', pageWidth / 2, yPosition + 8, { align: 'center' });
-      
-      pdf.setFont('helvetica', 'normal');
-      pdf.setFontSize(10);
-      pdf.text('Early intervention leads to better outcomes for you and your family.', pageWidth / 2, yPosition + 16, { align: 'center' });
-      
-      // Website footer
-      yPosition += 35;
-      pdf.setTextColor(200, 107, 147);
-      pdf.setFontSize(11);
-      pdf.setFont('helvetica', 'bold');
-      pdf.text('bloompsychologynorthaustin.com', pageWidth / 2, yPosition, { align: 'center' });
-      
-      pdf.setTextColor(74, 56, 66);
-      pdf.setFontSize(9);
-      pdf.setFont('helvetica', 'normal');
-      pdf.text('Specializing in Maternal Mental Health & Women\'s Wellness', pageWidth / 2, yPosition + 7, { align: 'center' });
-      
-      pdf.save('when-to-seek-help-guide-bloom-psychology.pdf');
+      generateResourcePDF(pdfDocument, 'when-to-seek-help-guide-bloom.pdf');
       
     } catch (error) {
       console.error('Error generating PDF:', error);

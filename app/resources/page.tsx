@@ -104,14 +104,6 @@ export default function ResourcesPage() {
     // Emergency Resources
     {
       category: 'emergency',
-      title: 'Crisis Hotline Directory',
-      description: '24/7 support lines for immediate help',
-      type: 'Resource List',
-      icon: '🆘',
-      link: '/resources/crisis-hotlines'
-    },
-    {
-      category: 'emergency',
       title: 'When to Seek Help',
       description: 'Know the signs that indicate professional support is needed',
       type: 'Guide',
@@ -228,7 +220,7 @@ export default function ResourcesPage() {
                 Postpartum Checklist
               </h3>
               <p className="text-bloom mb-4">
-                Downloaded over 5,000 times
+                Our most popular resource
               </p>
               <Button href="/resources/postpartum-checklist" variant="outline" size="sm">
                 Download Free

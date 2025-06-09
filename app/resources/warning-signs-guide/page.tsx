@@ -181,149 +181,57 @@ export default function WarningSignsGuidePage() {
 
   const handleDownload = async () => {
     try {
-      const { jsPDF } = await import('jspdf');
+      const { generateResourcePDF, PDFDocument } = await import('@/lib/pdf-generator');
       
-      const pdf = new jsPDF('p', 'mm', 'a4');
-      const pageWidth = pdf.internal.pageSize.getWidth();
-      const pageHeight = pdf.internal.pageSize.getHeight();
-      const margin = 20;
-      const lineHeight = 7;
-      const maxWidth = pageWidth - (margin * 2);
+      // Create comprehensive PDF document
+      const pdfDocument: PDFDocument = {
+        title: 'Postpartum Warning Signs Guide',
+        subtitle: 'Know When to Seek Help',
+        author: 'Bloom Psychology North Austin',
+        description: 'A comprehensive guide to recognize warning signs and know when to seek professional help during the postpartum period.',
+        sections: [
+          ...warningLevels.map(level => ({
+            title: `${level.level} (${level.timeframe})`,
+            type: level.level.includes('Emergency') ? 'warning' as const : 'normal' as const,
+            content: `Timeframe: ${level.timeframe}`,
+            items: [
+              ...level.signs.map(sign => `SIGN: ${sign}`),
+              '',
+              'What to do:',
+              ...level.actions.map(action => `• ${action}`)
+            ]
+          })),
+          {
+            title: 'Risk Factors to Consider',
+            type: 'normal',
+            content: 'These factors may increase your risk of postpartum mental health challenges:',
+            items: []
+          },
+          ...riskFactors.map(category => ({
+            title: category.category,
+            type: 'tips' as const,
+            items: category.factors
+          })),
+          {
+            title: 'Support Resources',
+            type: 'highlight',
+            content: 'Help is available. You don\'t have to go through this alone.',
+            items: []
+          },
+          ...supportResources.map(resourceType => ({
+            title: resourceType.type,
+            type: 'normal' as const,
+            items: resourceType.resources.map(r => `${r.name}: ${r.contact} - ${r.description}`)
+          })),
+          {
+            title: 'Important Reminders',
+            type: 'highlight',
+            content: 'Seeking help is a sign of strength, not weakness. Your mental health matters as much as your physical health. With proper support and treatment, you can feel better.'
+          }
+        ]
+      };
       
-      // Header
-      pdf.setFillColor(220, 38, 38);
-      pdf.rect(0, 0, pageWidth, 35, 'F');
-      
-      pdf.setTextColor(255, 255, 255);
-      pdf.setFontSize(20);
-      pdf.setFont('helvetica', 'bold');
-      pdf.text('Warning Signs Guide', pageWidth / 2, 20, { align: 'center' });
-      
-      pdf.setFontSize(12);
-      pdf.setFont('helvetica', 'normal');
-      pdf.text('Know When to Seek Professional Help', pageWidth / 2, 28, { align: 'center' });
-      
-      let yPosition = 50;
-      
-      // Emergency section
-      pdf.setTextColor(220, 38, 38);
-      pdf.setFontSize(16);
-      pdf.setFont('helvetica', 'bold');
-      pdf.text('🚨 EMERGENCY - Call 911 Immediately', margin, yPosition);
-      yPosition += 12;
-      
-      warningLevels[0].signs.slice(0, 4).forEach((sign) => {
-        pdf.setTextColor(74, 56, 66);
-        pdf.setFontSize(10);
-        pdf.setFont('helvetica', 'normal');
-        pdf.text('• ', margin, yPosition);
-        const splitSign = pdf.splitTextToSize(sign, maxWidth - 10);
-        pdf.text(splitSign, margin + 5, yPosition);
-        yPosition += splitSign.length * lineHeight + 3;
-      });
-      
-      yPosition += 10;
-      
-      // Crisis section  
-      pdf.setTextColor(255, 140, 0);
-      pdf.setFontSize(16);
-      pdf.setFont('helvetica', 'bold');
-      pdf.text('⚠️ CRISIS - Call Within Hours', margin, yPosition);
-      yPosition += 12;
-      
-      warningLevels[1].signs.slice(0, 4).forEach((sign) => {
-        pdf.setTextColor(74, 56, 66);
-        pdf.setFontSize(10);
-        pdf.setFont('helvetica', 'normal');
-        pdf.text('• ', margin, yPosition);
-        const splitSign = pdf.splitTextToSize(sign, maxWidth - 10);
-        pdf.text(splitSign, margin + 5, yPosition);
-        yPosition += splitSign.length * lineHeight + 3;
-      });
-      
-      yPosition += 15;
-      
-      // Quick reference
-      if (yPosition > pageHeight - 60) {
-        pdf.addPage();
-        yPosition = margin;
-      }
-      
-      pdf.setFillColor(248, 225, 231);
-      pdf.rect(margin, yPosition, maxWidth, 40, 'F');
-      
-      pdf.setTextColor(200, 107, 147);
-      pdf.setFontSize(14);
-      pdf.setFont('helvetica', 'bold');
-      pdf.text('Quick Reference Emergency Numbers', margin + 5, yPosition + 8);
-      
-      pdf.setTextColor(74, 56, 66);
-      pdf.setFontSize(11);
-      pdf.setFont('helvetica', 'bold');
-      pdf.text('Emergency: 911', margin + 5, yPosition + 18);
-      pdf.text('Crisis Line: 988', margin + 5, yPosition + 25);
-      pdf.text('Postpartum Support: 1-800-944-4773', margin + 5, yPosition + 32);
-      
-      yPosition += 50;
-      
-      // Risk factors
-      pdf.setTextColor(74, 56, 66);
-      pdf.setFontSize(16);
-      pdf.setFont('helvetica', 'bold');
-      pdf.text('Risk Factors to Watch For', margin, yPosition);
-      yPosition += 12;
-      
-      riskFactors.slice(0, 2).forEach((category) => {
-        pdf.setTextColor(200, 107, 147);
-        pdf.setFontSize(12);
-        pdf.setFont('helvetica', 'bold');
-        pdf.text(category.category, margin, yPosition);
-        yPosition += 8;
-        
-        category.factors.slice(0, 3).forEach((factor) => {
-          pdf.setTextColor(74, 56, 66);
-          pdf.setFontSize(10);
-          pdf.setFont('helvetica', 'normal');
-          pdf.text('• ', margin + 5, yPosition);
-          const splitFactor = pdf.splitTextToSize(factor, maxWidth - 15);
-          pdf.text(splitFactor, margin + 10, yPosition);
-          yPosition += splitFactor.length * lineHeight + 2;
-        });
-        yPosition += 5;
-      });
-      
-      // Footer
-      if (yPosition > pageHeight - 40) {
-        pdf.addPage();
-        yPosition = margin;
-      }
-      
-      yPosition += 15;
-      pdf.setFillColor(248, 225, 231);
-      pdf.rect(margin, yPosition, maxWidth, 25, 'F');
-      
-      pdf.setTextColor(74, 56, 66);
-      pdf.setFontSize(12);
-      pdf.setFont('helvetica', 'bold');
-      pdf.text('Early intervention leads to better outcomes', pageWidth / 2, yPosition + 8, { align: 'center' });
-      
-      pdf.setFont('helvetica', 'normal');
-      pdf.setFontSize(10);
-      pdf.text('Trust your instincts - if something feels wrong, seek help.', pageWidth / 2, yPosition + 16, { align: 'center' });
-      
-      // Website footer
-      yPosition += 35;
-      pdf.setTextColor(200, 107, 147);
-      pdf.setFontSize(11);
-      pdf.setFont('helvetica', 'bold');
-      pdf.text('bloompsychologynorthaustin.com', pageWidth / 2, yPosition, { align: 'center' });
-      
-      pdf.setTextColor(74, 56, 66);
-      pdf.setFontSize(9);
-      pdf.setFont('helvetica', 'normal');
-      pdf.text('Specializing in Maternal Mental Health & Women\'s Wellness', pageWidth / 2, yPosition + 7, { align: 'center' });
-      
-      pdf.save('warning-signs-guide-bloom-psychology.pdf');
+      generateResourcePDF(pdfDocument, 'warning-signs-guide-bloom.pdf');
       
     } catch (error) {
       console.error('Error generating PDF:', error);

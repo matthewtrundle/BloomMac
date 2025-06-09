@@ -280,14 +280,16 @@ const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
               </ul>
             </div>
 
-            <Button
-              type="submit"
-              variant="pink"
-              disabled={isLoading || !email}
-              className="w-full"
-            >
-              {isLoading ? 'Subscribing...' : 'Subscribe to Newsletter'}
-            </Button>
+            <div className="flex justify-center">
+              <Button
+                type="submit"
+                variant="pink"
+                disabled={isLoading || !email}
+                className=""
+              >
+                {isLoading ? 'Subscribing...' : 'Subscribe to Newsletter'}
+              </Button>
+            </div>
 
             <p className="text-xs text-gray-500 text-center">
               We respect your privacy. Unsubscribe at any time. No spam, ever.
