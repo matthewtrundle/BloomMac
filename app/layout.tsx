@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Inter, Playfair_Display, Poppins, Raleway } from 'next/font/google';
+import { Inter, Playfair_Display, Poppins, Raleway, Bebas_Neue, Montserrat, Cormorant_Garamond, Space_Grotesk, DM_Serif_Display } from 'next/font/google';
 import './globals.css';
 
 // Import layout components
@@ -41,6 +41,51 @@ const raleway = Raleway({
   adjustFontFallback: true
 });
 
+const bebasNeue = Bebas_Neue({
+  weight: '400',
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-bebas',
+  preload: true,
+  adjustFontFallback: true
+});
+
+const montserrat = Montserrat({
+  weight: ['300', '400', '500', '600', '700', '800', '900'],
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-montserrat',
+  preload: true,
+  adjustFontFallback: true
+});
+
+const cormorantGaramond = Cormorant_Garamond({
+  weight: ['300', '400', '500', '600', '700'],
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-cormorant',
+  preload: true,
+  adjustFontFallback: true
+});
+
+const spaceGrotesk = Space_Grotesk({
+  weight: ['300', '400', '500', '600', '700'],
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-space',
+  preload: true,
+  adjustFontFallback: true
+});
+
+const dmSerifDisplay = DM_Serif_Display({
+  weight: '400',
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-dm-serif',
+  preload: true,
+  adjustFontFallback: true
+});
+
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.bloompsychologynorthaustin.com'),
   title: {
@@ -63,7 +108,7 @@ export default function RootLayout({
 }) {
   // Root layout for Bloom Psychology
   return (
-    <html lang="en" className={`${inter.variable} ${playfair.variable} ${poppins.variable} ${raleway.variable}`}>
+    <html lang="en" className={`${inter.variable} ${playfair.variable} ${poppins.variable} ${raleway.variable} ${bebasNeue.variable} ${montserrat.variable} ${cormorantGaramond.variable} ${spaceGrotesk.variable} ${dmSerifDisplay.variable}`}>
       <head>
         {/* Mobile viewport - CRITICAL for responsive design */}
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />

@@ -27,14 +27,14 @@ const variantClasses = {
   accent: 'btn-accent',
   outline: 'btn-outline',
   ghost: 'text-bloom hover:text-bloompink transition-colors duration-300',
-  pink: 'bg-bloompink hover:bg-[#B03979] text-white font-bold shadow-md transition-all hover:-translate-y-0.5',
-  'pink-outline': 'border-2 border-bloompink text-bloompink hover:bg-bloompink/5 transition-all hover:-translate-y-0.5'
+  pink: 'bg-bloompink/90 hover:bg-bloompink text-white font-normal shadow-sm transition-all duration-500 hover:shadow-md',
+  'pink-outline': 'border border-bloompink/70 text-bloompink/90 hover:bg-bloompink/5 transition-all duration-500'
 };
 
 const sizeClasses = {
-  sm: 'text-xs py-2 px-4',
-  md: 'text-sm py-3 px-6',
-  lg: 'text-base py-4 px-8'
+  sm: 'text-xs py-2 px-5',
+  md: 'text-sm py-2.5 px-6',
+  lg: 'text-sm py-3 px-7'
 };
 
 const Button: React.FC<ButtonProps> = ({
@@ -57,7 +57,7 @@ const Button: React.FC<ButtonProps> = ({
     sizeClasses[size],
     fullWidth ? 'w-full' : '',
     disabled ? 'opacity-50 cursor-not-allowed' : '',
-    'font-medium rounded-md transition-all duration-300 flex items-center justify-center',
+    'font-normal rounded-full transition-all duration-500 flex items-center justify-center tracking-wide',
     className
   );
 

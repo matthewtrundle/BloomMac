@@ -74,257 +74,283 @@ const Header = () => {
     <header ref={headerRef} className="fixed w-full z-50">
       {/* Top Announcement Bar */}
       <div className="bg-pink-200 text-pink-900 text-center py-1 px-4 shadow-sm">
-        <div className="container mx-auto flex flex-wrap justify-center md:justify-between items-center">
+        <div className="container mx-auto flex justify-center items-center">
           <Link href="/virtual-therapy" className="text-sm font-medium md:text-base hover:underline">
             Now taking virtual clients across Texas • Same-week appointments available
           </Link>
-          <div className="hidden md:flex items-center gap-4">
-            <Link 
-              href="https://www.instagram.com/bloompsychology.atx/" 
-              className="text-pink-900 hover:text-bloom transition duration-300"
-              aria-label="Visit our Instagram"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-              </svg>
-            </Link>
-            <Link 
-              href="https://www.facebook.com/profile.php?id=61564681768097" 
-              className="text-pink-900 hover:text-bloom transition duration-300"
-              aria-label="Visit our Facebook"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-              </svg>
-            </Link>
-          </div>
         </div>
       </div>
       
       {/* Main Navigation */}
       <div className={`transition-all duration-300 ${isScrolled ? 'py-3 bg-white shadow-md' : 'py-4 bg-white'}`}>
-        <div className="container mx-auto px-4 md:px-6">
+        <div className="container mx-auto px-4 md:px-6 lg:px-8">
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center justify-between">
-            {/* Left Nav Items */}
-            <nav className="flex items-center space-x-6">
-              <Link href="/about" className="text-bloom font-medium hover:text-bloom-blush transition duration-300">
-                ABOUT
-              </Link>
-              <div className="relative group">
-                <button className="text-bloom font-medium hover:text-bloom-blush transition duration-300 flex items-center">
-                  SERVICES
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
-                </button>
-                <div className="absolute left-0 mt-2 w-64 opacity-0 translate-y-2 invisible group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-300 glass-panel-pink rounded-md py-2 shadow-xl z-50">
-                  <div className="px-4 py-3 border-b border-bloom-blush/20 flex items-center gap-3">
-                    <Image 
-                      src="/images/Logo/logo2.png" 
-                      alt="Bloom Logo" 
-                      width={24} 
-                      height={24} 
-                      className="opacity-60"
-                    />
-                    <span className="text-xs font-medium text-bloom-dark/60 uppercase tracking-wider">Our Services</span>
-                  </div>
-                  {services.map((service) => (
-                    <Link 
-                      key={service.id}
-                      href={`/services/${service.slug}`}
-                      className="block px-4 py-2 text-sm text-bloom hover:bg-bloom-blush/20 transition duration-300"
-                    >
-                      {service.title}
-                    </Link>
-                  ))}
-                  <div className="border-t border-bloom-blush/20 my-2"></div>
-                  <Link 
-                    href="/virtual-therapy"
-                    className="block px-4 py-2 text-sm text-bloompink font-medium hover:bg-bloom-blush/20 transition duration-300 flex items-center"
-                  >
-                    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                    </svg>
-                    Virtual Therapy
-                  </Link>
-                </div>
-              </div>
-            </nav>
-            
-            {/* Center Logo */}
-            <Link href="/" className="absolute left-1/2 transform -translate-x-1/2">
-              <div className="relative h-14 w-32">
+          <div className="hidden md:flex items-center justify-between relative">
+            {/* Left Brand Logo - Refined and Understated */}
+            <Link href="/" className="absolute left-0 hidden xl:block z-20 hover:opacity-90 transition-all duration-500 group">
+              <div className="relative h-28 w-56 2xl:h-32 2xl:w-64 -mt-3 -ml-4 transform transition-all duration-700 group-hover:scale-102">
+                {/* Very subtle white glow for depth */}
+                <div className="absolute inset-0 bg-white/50 rounded-full blur-xl scale-75 opacity-30 group-hover:opacity-40 transition-opacity duration-500"></div>
+                
+                {/* Delicate pink accent */}
+                <div className="absolute inset-0 bg-bloompink/10 rounded-full blur-lg scale-90 opacity-20 group-hover:opacity-30 transition-opacity duration-500"></div>
+                
                 <Image 
-                  src="/images/Logo/logo2.png" 
+                  src="/images/Logo/BLOOM-LOGO.png" 
                   alt="Bloom Psychology" 
                   fill
-                  className="object-contain"
+                  className="object-contain object-left relative z-10"
                   priority
+                  style={{
+                    filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.05)) drop-shadow(0 0 12px rgba(255,255,255,0.4))'
+                  }}
                 />
               </div>
             </Link>
-            
-            {/* Right Nav Items */}
-            <nav className="flex items-center space-x-6">
-              <div className="relative group">
-                <button className="text-bloom font-medium hover:text-bloom-blush transition duration-300 flex items-center">
-                  COURSES
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
-                </button>
-                <div className="absolute right-0 mt-2 w-64 opacity-0 translate-y-2 invisible group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-300 glass-panel-pink rounded-md py-2 shadow-xl z-50">
-                  <div className="px-4 py-3 border-b border-bloom-blush/20 flex items-center gap-3">
-                    <Image 
-                      src="/images/Logo/logo2.png" 
-                      alt="Bloom Logo" 
-                      width={24} 
-                      height={24} 
-                      className="opacity-60"
-                    />
-                    <span className="text-xs font-medium text-bloom-dark/60 uppercase tracking-wider">Courses & Resources</span>
-                  </div>
-                  
-                  <Link 
-                    href="/courses"
-                    className="block px-4 py-2 text-sm text-bloom hover:bg-bloom-blush/20 transition duration-300 flex items-center"
-                  >
-                    <svg className="w-4 h-4 mr-2 text-bloom-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+
+            {/* Centered Navigation Container */}
+            <div className="flex items-center justify-center w-full">
+              {/* Left Nav Items */}
+              <nav className="flex items-center space-x-8 mr-8">
+                <Link href="/about" className="text-bloom font-normal hover:text-bloom-blush transition-all duration-500 text-sm tracking-wide">
+                  ABOUT
+                </Link>
+                <div className="relative group">
+                  <button className="text-bloom font-normal hover:text-bloom-blush transition-all duration-500 flex items-center text-sm tracking-wide">
+                    SERVICES
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                     </svg>
-                    Browse All Courses
-                  </Link>
-                  
-                  <div className="px-4 py-2">
-                    <p className="text-xs font-medium text-bloom-dark/60 uppercase">Courses for Moms</p>
-                  </div>
-                  
-                  <Link 
-                    href="/courses/postpartum-wellness-foundations"
-                    className="block px-4 py-2 pl-8 text-sm text-bloom hover:bg-bloom-blush/20 transition duration-300 flex items-center"
-                  >
-                    <span className="text-bloompink mr-2">🌸</span>
-                    Postpartum Wellness Foundations
-                  </Link>
-                  
-                  <Link 
-                    href="/courses/anxiety-management-new-moms"
-                    className="block px-4 py-2 pl-8 text-sm text-bloom hover:bg-bloom-blush/20 transition duration-300 flex items-center"
-                  >
-                    <span className="text-bloom-accent mr-2">🧘‍♀️</span>
-                    Anxiety Management for New Moms
-                  </Link>
-                  
-                  <div className="px-4 py-2 mt-2">
-                    <p className="text-xs font-medium text-bloom-dark/60 uppercase">Courses for Support Network</p>
-                  </div>
-                  
-                  <Link 
-                    href="/courses/partner-support-bootcamp"
-                    className="block px-4 py-2 pl-8 text-sm text-bloom hover:bg-bloom-blush/20 transition duration-300 flex items-center"
-                  >
-                    <span className="text-bloom mr-2">👥</span>
-                    Partner Support Bootcamp
-                  </Link>
-                  
-                  <div className="border-t border-bloom-blush/20 my-2"></div>
-                  
-                  <div className="px-4 py-2">
-                    <p className="text-xs font-medium text-bloom-dark/60 uppercase">Free Support Guides</p>
-                  </div>
-                  
-                  <Link 
-                    href="/supporting-your-partner"
-                    className="block px-4 py-2 pl-8 text-sm text-bloom hover:bg-bloom-blush/20 transition duration-300 flex items-center"
-                  >
-                    <span className="text-bloompink mr-2">💝</span>
-                    Supporting Your Partner
-                  </Link>
-                  
-                  <Link 
-                    href="/when-family-wants-to-help"
-                    className="block px-4 py-2 pl-8 text-sm text-bloom hover:bg-bloom-blush/20 transition duration-300 flex items-center"
-                  >
-                    <span className="text-bloom-accent mr-2">👨‍👩‍👧</span>
-                    When Family Wants to Help
-                  </Link>
-                  
-                  <Link 
-                    href="/resources"
-                    className="block px-4 py-2 pl-8 text-sm text-bloom hover:bg-bloom-blush/20 transition duration-300 flex items-center"
-                  >
-                    <span className="text-bloom mr-2">📚</span>
-                    Resource Library
-                  </Link>
-                  
-                  <div className="border-t border-bloom-blush/20 my-2"></div>
-                  
-                  <div className="px-4 py-2">
-                    <p className="text-xs font-medium text-bloom-dark/60 uppercase">My Learning</p>
-                  </div>
-                  
-                  {isLoggedInToCourses ? (
-                    <>
+                  </button>
+                  <div className="absolute left-0 mt-2 w-64 opacity-0 translate-y-2 invisible group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-300 glass-panel-pink rounded-md py-2 shadow-xl z-50">
+                    <div className="px-4 py-3 border-b border-bloom-blush/20 flex items-center gap-3">
+                      <Image 
+                        src="/images/Logo/logo2.png" 
+                        alt="Bloom Logo" 
+                        width={24} 
+                        height={24} 
+                        className="opacity-60"
+                      />
+                      <span className="text-xs font-medium text-bloom-dark/60 uppercase tracking-wider">Our Services</span>
+                    </div>
+                    {services.map((service) => (
                       <Link 
-                        href="/my-courses"
-                        className="block px-4 py-2 pl-8 text-sm text-bloompink font-medium hover:bg-bloom-blush/20 transition duration-300 flex items-center"
+                        key={service.id}
+                        href={`/services/${service.slug}`}
+                        className="block px-4 py-2 text-sm text-bloom hover:bg-bloom-blush/20 transition duration-300"
                       >
-                        <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                        </svg>
-                        My Courses
+                        {service.title}
                       </Link>
-                      <button 
-                        onClick={() => {
-                          localStorage.removeItem('course_auth_token');
-                          setIsLoggedInToCourses(false);
-                          window.location.reload();
-                        }}
-                        className="block w-full text-left px-4 py-2 pl-8 text-sm text-bloom-dark/60 hover:bg-bloom-blush/20 transition duration-300"
-                      >
-                        Sign Out
-                      </button>
-                    </>
-                  ) : (
+                    ))}
+                    <div className="border-t border-bloom-blush/20 my-2"></div>
                     <Link 
-                      href="/my-courses"
-                      className="block px-4 py-2 pl-8 text-sm text-bloom hover:bg-bloom-blush/20 transition duration-300 flex items-center"
+                      href="/virtual-therapy"
+                      className="block px-4 py-2 text-sm text-bloompink font-medium hover:bg-bloom-blush/20 transition duration-300 flex items-center"
                     >
                       <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                       </svg>
-                      Course Login
+                      Virtual Therapy
                     </Link>
-                  )}
+                  </div>
                 </div>
-              </div>
-              <Link href="/contact" className="text-bloom font-medium hover:text-bloom-blush transition duration-300">
-                CONTACT
+              </nav>
+              
+              {/* Center Flower Logo */}
+              <Link href="/" className="mx-8">
+                <div className="relative h-12 w-28">
+                  <Image 
+                    src="/images/Logo/logo2.png" 
+                    alt="Bloom Psychology" 
+                    fill
+                    className="object-contain"
+                    priority
+                  />
+                </div>
               </Link>
-              <Link href="/faq" className="text-bloom font-medium hover:text-bloom-blush transition duration-300">
-                FAQ
+              
+              {/* Right Nav Items */}
+              <nav className="flex items-center space-x-8 ml-8">
+                <div className="relative group">
+                  <button className="text-bloom font-normal hover:text-bloom-blush transition-all duration-500 flex items-center text-sm tracking-wide">
+                    COURSES
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+                  <div className="absolute right-0 mt-2 w-64 opacity-0 translate-y-2 invisible group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-300 glass-panel-pink rounded-md py-2 shadow-xl z-50">
+                    <div className="px-4 py-3 border-b border-bloom-blush/20 flex items-center gap-3">
+                      <Image 
+                        src="/images/Logo/logo2.png" 
+                        alt="Bloom Logo" 
+                        width={24} 
+                        height={24} 
+                        className="opacity-60"
+                      />
+                      <span className="text-xs font-medium text-bloom-dark/60 uppercase tracking-wider">Courses & Resources</span>
+                    </div>
+                    
+                    <Link 
+                      href="/courses"
+                      className="block px-4 py-2 text-sm text-bloom hover:bg-bloom-blush/20 transition duration-300 flex items-center"
+                    >
+                      <svg className="w-4 h-4 mr-2 text-bloom-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                      </svg>
+                      Browse All Courses
+                    </Link>
+                    
+                    <div className="px-4 py-2">
+                      <p className="text-xs font-medium text-bloom-dark/60 uppercase">Courses for Moms</p>
+                    </div>
+                    
+                    <Link 
+                      href="/courses/postpartum-wellness-foundations"
+                      className="block px-4 py-2 pl-8 text-sm text-bloom hover:bg-bloom-blush/20 transition duration-300 flex items-center"
+                    >
+                      <span className="text-bloompink mr-2">🌸</span>
+                      Postpartum Wellness Foundations
+                    </Link>
+                    
+                    <Link 
+                      href="/courses/anxiety-management-new-moms"
+                      className="block px-4 py-2 pl-8 text-sm text-bloom hover:bg-bloom-blush/20 transition duration-300 flex items-center"
+                    >
+                      <span className="text-bloom-accent mr-2">🧘‍♀️</span>
+                      Anxiety Management for New Moms
+                    </Link>
+                    
+                    <div className="px-4 py-2 mt-2">
+                      <p className="text-xs font-medium text-bloom-dark/60 uppercase">Courses for Support Network</p>
+                    </div>
+                    
+                    <Link 
+                      href="/courses/partner-support-bootcamp"
+                      className="block px-4 py-2 pl-8 text-sm text-bloom hover:bg-bloom-blush/20 transition duration-300 flex items-center"
+                    >
+                      <span className="text-bloom mr-2">👥</span>
+                      Partner Support Bootcamp
+                    </Link>
+                    
+                    <div className="border-t border-bloom-blush/20 my-2"></div>
+                    
+                    <div className="px-4 py-2">
+                      <p className="text-xs font-medium text-bloom-dark/60 uppercase">Free Support Guides</p>
+                    </div>
+                    
+                    <Link 
+                      href="/supporting-your-partner"
+                      className="block px-4 py-2 pl-8 text-sm text-bloom hover:bg-bloom-blush/20 transition duration-300 flex items-center"
+                    >
+                      <span className="text-bloompink mr-2">💝</span>
+                      Supporting Your Partner
+                    </Link>
+                    
+                    <Link 
+                      href="/when-family-wants-to-help"
+                      className="block px-4 py-2 pl-8 text-sm text-bloom hover:bg-bloom-blush/20 transition duration-300 flex items-center"
+                    >
+                      <span className="text-bloom-accent mr-2">👨‍👩‍👧</span>
+                      When Family Wants to Help
+                    </Link>
+                    
+                    <Link 
+                      href="/resources"
+                      className="block px-4 py-2 pl-8 text-sm text-bloom hover:bg-bloom-blush/20 transition duration-300 flex items-center"
+                    >
+                      <span className="text-bloom mr-2">📚</span>
+                      Resource Library
+                    </Link>
+                    
+                    <div className="border-t border-bloom-blush/20 my-2"></div>
+                    
+                    <div className="px-4 py-2">
+                      <p className="text-xs font-medium text-bloom-dark/60 uppercase">My Learning</p>
+                    </div>
+                    
+                    {isLoggedInToCourses ? (
+                      <>
+                        <Link 
+                          href="/my-courses"
+                          className="block px-4 py-2 pl-8 text-sm text-bloompink font-medium hover:bg-bloom-blush/20 transition duration-300 flex items-center"
+                        >
+                          <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                          </svg>
+                          My Courses
+                        </Link>
+                        <button 
+                          onClick={() => {
+                            localStorage.removeItem('course_auth_token');
+                            setIsLoggedInToCourses(false);
+                            window.location.reload();
+                          }}
+                          className="block w-full text-left px-4 py-2 pl-8 text-sm text-bloom-dark/60 hover:bg-bloom-blush/20 transition duration-300"
+                        >
+                          Sign Out
+                        </button>
+                      </>
+                    ) : (
+                      <Link 
+                        href="/my-courses"
+                        className="block px-4 py-2 pl-8 text-sm text-bloom hover:bg-bloom-blush/20 transition duration-300 flex items-center"
+                      >
+                        <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+                        </svg>
+                        Course Login
+                      </Link>
+                    )}
+                  </div>
+                </div>
+                <Link href="/contact" className="text-bloom font-normal hover:text-bloom-blush transition-all duration-500 text-sm tracking-wide">
+                  CONTACT
+                </Link>
+                <Link href="/faq" className="text-bloom font-normal hover:text-bloom-blush transition-all duration-500 text-sm tracking-wide">
+                  FAQ
+                </Link>
+                <Link 
+                  href="/blog" 
+                  className="text-bloom font-normal hover:text-bloom-blush transition-all duration-500 text-sm tracking-wide"
+                >
+                  BLOG
+                </Link>
+              </nav>
+            </div>
+            
+            {/* Right Actions - Absolute positioned */}
+            <div className="absolute right-0 flex items-center space-x-4">
+              <Link 
+                href="https://www.instagram.com/bloompsychology.atx/" 
+                className="text-pink-900 hover:text-bloom transition duration-300"
+                aria-label="Visit our Instagram"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                </svg>
               </Link>
               <Link 
-                href="/blog" 
-                className="text-bloom font-medium hover:text-bloom-blush transition duration-300"
+                href="https://www.facebook.com/profile.php?id=61564681768097" 
+                className="text-pink-900 hover:text-bloom transition duration-300"
+                aria-label="Visit our Facebook"
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                BLOG
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                </svg>
               </Link>
               <DarkModeToggle />
               <Button 
                 href="/book"
                 variant="pink"
                 size="sm"
-                className="ml-3"
               >
                 Book Now
               </Button>
-            </nav>
+            </div>
           </div>
           
           {/* Mobile Navigation */}
@@ -340,9 +366,6 @@ const Header = () => {
                   priority
                 />
               </div>
-              <span className="font-playfair text-bloom font-medium text-lg ml-2">
-                <span className="text-pink-500">Bloom</span> Psychology
-              </span>
             </Link>
             
             {/* Mobile Menu Button */}

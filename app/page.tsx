@@ -17,10 +17,8 @@ import OrganicShape from '@/components/ui/OrganicShape';
 import Button from '@/components/ui/Button';
 
 // Dynamic imports for components not immediately visible
-const KineticTypography = dynamic(() => import('@/components/ui/KineticTypography'));
 const GlassmorphismPanel = dynamic(() => import('@/components/ui/GlassmorphismPanel'));
 const SimpleParallaxContainer = dynamic(() => import('@/components/ui/SimpleParallaxContainer'));
-const ScrollingTicker = dynamic(() => import('@/components/ui/ScrollingTicker'));
 const CardAccent = dynamic(() => import('@/components/ui/CardAccent'));
 const NewsletterSignup = dynamic(() => import('@/components/ui/NewsletterSignup'));
 
@@ -181,43 +179,88 @@ export default function Home() {
             transition={{ duration: 0.6 }}
             className="relative z-10 max-w-3xl w-full md:ml-8 lg:ml-16 md:mr-auto py-8 md:pt-24 lg:pt-32"
           >
-            <div className="md:bg-white/60 md:backdrop-blur-sm md:rounded-lg p-4 sm:p-6">
-              <h1 className="font-raleway text-center text-2xl sm:text-4xl md:text-5xl lg:text-[3.3rem] mb-3 sm:mb-6 tracking-tight leading-tight text-shadow">
-                <span className="font-light text-bloompink">Bloom</span>
-                <span className="font-extralight text-bloom-darkGrey">Psychology</span>
+            {/* Hero text - Elegant, impactful typography with sophisticated hierarchy */}
+            <div className="text-center md:text-left">
+              {/* Main tagline - Elegant and refined, with subtle impact */}
+              <h1 className="font-playfair font-semibold text-4xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-7xl leading-[1.1] tracking-normal mb-6">
+                <span className="block text-bloom-dark/90 mb-2" style={{ 
+                  textShadow: '1px 1px 2px rgba(255, 255, 255, 0.8), 0 0 10px rgba(255, 255, 255, 0.3)'
+                }}>
+                  Life changes—
+                </span>
+                <span className="block text-bloompink/90" style={{ 
+                  textShadow: '1px 1px 2px rgba(255, 255, 255, 0.8), 0 0 10px rgba(255, 255, 255, 0.3)'
+                }}>
+                  so do you.
+                </span>
               </h1>
               
-              <p className="font-raleway font-normal text-base sm:text-xl md:text-[1.25rem] mb-4 sm:mb-6 text-bloom-darkGrey text-center max-w-[600px] mx-auto text-shadow-sm">
-                Life changes—so do you. We're here for all of it. Bloom Psychology provides in-person psychotherapy in Austin and online for all of Texas.
-              </p>
+              {/* Subheading - Graceful and understated */}
+              <h2 className="font-poppins font-medium text-xl sm:text-2xl md:text-2xl lg:text-3xl xl:text-4xl text-bloom/80 mb-8 leading-relaxed" style={{ 
+                letterSpacing: '0.01em',
+                textShadow: '0 1px 2px rgba(255, 255, 255, 0.7)'
+              }}>
+                We're here for all of it.
+              </h2>
+              
+              {/* Location tagline - Clean and sophisticated */}
+              <div className="space-y-2 mt-10">
+                <p className="font-inter font-normal text-lg sm:text-xl md:text-xl lg:text-2xl text-bloom-dark/80" 
+                   style={{ 
+                     letterSpacing: '0.02em',
+                     textShadow: '0 1px 1px rgba(255, 255, 255, 0.7)'
+                   }}>
+                  <span className="text-bloom/90">Bloom Psychology</span>
+                </p>
+                <p className="font-inter font-light text-sm sm:text-base md:text-lg lg:text-xl text-bloom-dark/60" 
+                   style={{ 
+                     textShadow: '0 1px 1px rgba(255, 255, 255, 0.7)'
+                   }}>
+                  In-person in Austin <span className="text-bloompink/70 mx-2">•</span> Online for all of Texas
+                </p>
+              </div>
             </div>
+
+            {/* Removed all experimental typography options */}
             
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-4 sm:mt-6">
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-4 mt-8 sm:mt-10">
               <motion.a 
                 href="/book" 
-                whileHover={{ scale: 1.03, y: -2 }} 
-                transition={{ type: "spring", stiffness: 300 }}
-                className="bg-bloompink hover:bg-[#B03979] text-white font-bold font-inter px-5 sm:px-6 py-3 rounded-md shadow-md transition-all duration-300 text-center text-sm sm:text-base"
+                whileHover={{ scale: 1.02, y: -1 }} 
+                whileTap={{ scale: 0.99 }}
+                transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                className="bg-bloompink/90 hover:bg-bloompink text-white font-normal font-inter px-6 sm:px-8 py-3 sm:py-3.5 rounded-full shadow-md hover:shadow-lg transition-all duration-500 text-center text-sm sm:text-sm tracking-wide"
+                style={{
+                  boxShadow: '0 4px 12px rgba(198, 71, 138, 0.15), 0 2px 4px rgba(198, 71, 138, 0.1)'
+                }}
               >
-                Book Now →
+                Book Now
               </motion.a>
               
-              <Button 
+              <motion.a 
                 href="/new-mom-program" 
-                variant="outline" 
-                size="md" 
-                className="z-10 bg-white/80 hover:bg-white text-sm sm:text-base"
+                whileHover={{ scale: 1.02, y: -1 }} 
+                whileTap={{ scale: 0.99 }}
+                transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                className="bg-white/80 backdrop-blur-sm hover:bg-white/90 text-bloom/90 border border-bloom/15 hover:border-bloom/25 font-normal font-inter px-6 sm:px-8 py-3 sm:py-3.5 rounded-full shadow-sm hover:shadow-md transition-all duration-500 text-center text-sm sm:text-sm"
+                style={{
+                  boxShadow: '0 2px 8px rgba(0, 0, 0, 0.03), 0 1px 3px rgba(0, 0, 0, 0.02)'
+                }}
               >
                 New Mom Program
-              </Button>
+              </motion.a>
               
               <motion.a 
                 href="#services" 
-                whileHover={{ scale: 1.03, y: -2 }} 
-                transition={{ type: "spring", stiffness: 300 }}
-                className="bg-bloompink hover:bg-[#B03979] text-white font-bold font-inter px-5 sm:px-6 py-3 rounded-md shadow-md transition-all duration-300 text-center text-sm sm:text-base"
+                whileHover={{ scale: 1.02, y: -1 }} 
+                whileTap={{ scale: 0.99 }}
+                transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                className="bg-bloom/90 hover:bg-bloom text-white font-normal font-inter px-6 sm:px-8 py-3 sm:py-3.5 rounded-full shadow-sm hover:shadow-md transition-all duration-500 text-center text-sm sm:text-sm"
+                style={{
+                  boxShadow: '0 2px 8px rgba(116, 86, 103, 0.15), 0 1px 3px rgba(116, 86, 103, 0.1)'
+                }}
               >
-                Explore Our Services
+                Explore Services
               </motion.a>
             </div>
           </motion.div>
@@ -274,16 +317,16 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <h2 className="font-playfair text-bloom text-3xl md:text-5xl mb-6 animate-fade-in">
-                Welcome to <span className="font-semibold bg-gradient-to-r from-bloompink to-pink-400 bg-clip-text text-transparent animate-gradient-text hover:from-pink-400 hover:to-bloompink transition-all duration-300">Bloom Psychology</span>
+              <h2 className="font-playfair text-bloom/90 text-2xl md:text-3xl lg:text-4xl mb-6 font-normal">
+                Welcome to <span className="font-medium text-bloompink/90">Bloom Psychology</span>
               </h2>
               
-              <div className="w-40 h-1 bg-gradient-to-r from-[#C63780] to-[#FF9CB9] mx-auto mb-12 rounded-full animate-width hover:w-48 transition-all duration-300"></div>
+              <div className="w-24 h-0.5 bg-bloompink/50 mx-auto mb-12 rounded-full"></div>
             </motion.div>
           </div>
           
           <div className="space-y-6 text-bloom max-w-3xl mx-auto">
-            <p ref={paragraph1Ref} className="text-lg md:text-xl font-medium text-center leading-relaxed text-gray-700">
+            <p ref={paragraph1Ref} className="text-base md:text-lg font-light text-center leading-loose text-gray-600">
               Led by Dr. Jana Rundle, our practice specializes in addressing anxiety, stress, parenting challenges, and postpartum mental health in a warm, non-judgmental environment.
             </p>
             
@@ -307,7 +350,7 @@ export default function Home() {
                     className="transition-transform duration-300"
                   />
                 </motion.div>
-                <p className="text-lg text-bloom group-hover:text-bloompink transition-colors duration-300">Are you struggling with keeping up with it all?</p>
+                <p className="text-base text-bloom/80 group-hover:text-bloom transition-colors duration-500">Are you struggling with keeping up with it all?</p>
               </motion.div>
               
               <motion.div 
@@ -328,7 +371,7 @@ export default function Home() {
                     className="transition-transform duration-300"
                   />
                 </motion.div>
-                <p className="text-lg text-bloom group-hover:text-bloompink transition-colors duration-300">Are you starting to feel like you may be failing at everything?</p>
+                <p className="text-base text-bloom/80 group-hover:text-bloom transition-colors duration-500">Are you starting to feel like you may be failing at everything?</p>
               </motion.div>
               
               <motion.div 
@@ -349,7 +392,7 @@ export default function Home() {
                     className="transition-transform duration-300"
                   />
                 </motion.div>
-                <p className="text-lg text-bloom group-hover:text-bloompink transition-colors duration-300">Are you feeling burned out?</p>
+                <p className="text-base text-bloom/80 group-hover:text-bloom transition-colors duration-500">Are you feeling burned out?</p>
               </motion.div>
               
               <motion.div 
@@ -417,14 +460,14 @@ export default function Home() {
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <div ref={serviceTitleRef}>
-              <h2 className="font-playfair text-bloom text-3xl md:text-4xl mb-4">
+              <h2 className="font-playfair text-bloom/90 text-2xl md:text-3xl mb-4 font-normal">
                 Our Services
               </h2>
               
-              <div className="w-32 h-1 bg-[#C63780] mx-auto mb-8 rounded-full"></div>
+              <div className="w-24 h-0.5 bg-[#C63780]/50 mx-auto mb-8 rounded-full"></div>
             </div>
             
-            <p className="text-bloom/70 max-w-2xl mx-auto" ref={serviceDescRef}>
+            <p className="text-bloom/60 max-w-2xl mx-auto text-base font-light" ref={serviceDescRef}>
               We offer a range of specialized mental health services designed to support women, mothers, and parents at every stage of life.
             </p>
           </div>
@@ -442,14 +485,14 @@ export default function Home() {
                   hoverEffect="lift"
                 >
                   {/* Free accent removed as requested */}
-                  <h3 className="font-playfair text-xl text-bloom mb-4 min-h-[4rem] flex flex-col justify-center">
+                  <h3 className="font-playfair text-lg text-bloom/90 mb-4 min-h-[4rem] flex flex-col justify-center font-normal">
                     {service.title.split('\n').map((line, i) => (
                       <div key={i}>
                         {line}
                       </div>
                     ))}
                   </h3>
-                  <p className="text-bloom/70 mb-6 flex-grow">{service.shortDescription}</p>
+                  <p className="text-bloom/60 mb-6 flex-grow text-sm">{service.shortDescription}</p>
                   <Button 
                     href={`/services/${service.slug}`} 
                     variant={index % 2 === 0 ? "outline" : "pink-outline"} 
@@ -474,13 +517,13 @@ export default function Home() {
             viewport={{ once: true }}
             className="max-w-5xl mx-auto text-center"
           >
-            <h2 className="text-4xl md:text-5xl font-playfair mb-6">
-              <span className="text-bloom-dark">New: </span>
-              <span className="text-bloompink">Digital Courses</span>
-              <span className="text-bloom-dark"> for Postpartum Wellness</span>
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-playfair mb-6 font-normal">
+              <span className="text-bloom-dark/80">New: </span>
+              <span className="text-bloompink/90">Digital Courses</span>
+              <span className="text-bloom-dark/80"> for Postpartum Wellness</span>
             </h2>
             
-            <p className="text-xl text-bloom-dark/80 mb-8 max-w-3xl mx-auto">
+            <p className="text-lg text-bloom-dark/70 mb-8 max-w-3xl mx-auto font-light">
               Can't make it to therapy? Our self-paced courses provide evidence-based support 
               you can access anytime, anywhere. Created by Dr. Jana specifically for busy moms.
             </p>
@@ -491,7 +534,7 @@ export default function Home() {
                 className="bg-white p-6 rounded-xl shadow-soft"
               >
                 <div className="text-3xl mb-3">🌸</div>
-                <h3 className="font-semibold mb-2">Postpartum Foundations</h3>
+                <h3 className="font-medium mb-2 text-bloom/90">Postpartum Foundations</h3>
                 <p className="text-sm text-bloom-dark/70">6-week journey to emotional balance</p>
               </motion.div>
               
@@ -500,7 +543,7 @@ export default function Home() {
                 className="bg-white p-6 rounded-xl shadow-soft"
               >
                 <div className="text-3xl mb-3">🧘‍♀️</div>
-                <h3 className="font-semibold mb-2">Anxiety Management</h3>
+                <h3 className="font-medium mb-2 text-bloom/90">Anxiety Management</h3>
                 <p className="text-sm text-bloom-dark/70">Practical tools for peace of mind</p>
               </motion.div>
               
@@ -509,7 +552,7 @@ export default function Home() {
                 className="bg-white p-6 rounded-xl shadow-soft"
               >
                 <div className="text-3xl mb-3">💑</div>
-                <h3 className="font-semibold mb-2">Partner Support</h3>
+                <h3 className="font-medium mb-2 text-bloom/90">Partner Support</h3>
                 <p className="text-sm text-bloom-dark/70">Help your partner help you</p>
               </motion.div>
             </div>
@@ -619,33 +662,33 @@ export default function Home() {
                 className="bg-white/80 backdrop-blur-sm shadow-2xl rounded-2xl p-8 lg:p-10"
               >
                 {/* Headline */}
-                <h2 className="font-playfair text-4xl md:text-5xl mb-6 text-bloom">
-                  Why Choose <span className="text-bloompink font-semibold">Bloom Psychology</span>
+                <h2 className="font-playfair text-2xl md:text-3xl lg:text-4xl mb-6 text-bloom/90 font-normal">
+                  Why Choose <span className="text-bloompink/90 font-medium">Bloom Psychology</span>
                 </h2>
                 
                 {/* Simple divider */}
-                <div className="w-20 h-1 bg-bloompink rounded-full mb-8"></div>
+                <div className="w-16 h-0.5 bg-bloompink/40 rounded-full mb-8"></div>
                 
-                {/* First paragraph with drop cap */}
-                <p className="text-lg text-gray-700 mb-6 leading-relaxed first-letter:text-6xl first-letter:font-playfair first-letter:text-bloompink first-letter:float-left first-letter:mr-3 first-letter:leading-none">
+                {/* First paragraph with subtle drop cap */}
+                <p className="text-base text-gray-600 mb-6 leading-loose first-letter:text-5xl first-letter:font-playfair first-letter:text-bloompink/70 first-letter:float-left first-letter:mr-3 first-letter:leading-none font-light">
                   When life feels overwhelming and you're struggling to keep up, we understand. At Bloom Psychology, we specialize in helping women and mothers transform from feeling burned out and exhausted to finding renewed energy and purpose.
                 </p>
                 
                 {/* Second paragraph */}
-                <p className="text-lg text-gray-700 mb-8 leading-relaxed">
+                <p className="text-base text-gray-600 mb-8 leading-loose font-light">
                   Our evidence-based approach combines compassionate support with proven therapeutic techniques. We create a safe, judgment-free space where you can explore your challenges and develop practical strategies for lasting change.
                 </p>
                 
                 {/* Pink accent text */}
-                <p className="text-bloompink text-xl md:text-2xl font-semibold mb-8 italic">
+                <p className="text-bloompink/80 text-lg md:text-xl font-light mb-8 italic">
                   "We help you find meaning and purpose in the chaos of modern motherhood."
                 </p>
                 
                 {/* Simple button */}
                 <Link href="/about">
-                  <button className="bg-bloompink hover:bg-[#B03979] text-white font-bold px-8 py-4 rounded-full shadow-md hover:shadow-lg transition-all duration-300 flex items-center group">
+                  <button className="bg-bloompink/90 hover:bg-bloompink text-white font-normal px-8 py-3.5 rounded-full shadow-sm hover:shadow-md transition-all duration-500 flex items-center group text-sm tracking-wide">
                     Learn More
-                    <span className="ml-2 group-hover:translate-x-1 transition-transform duration-300">
+                    <span className="ml-2 group-hover:translate-x-1 transition-transform duration-500 opacity-70">
                       →
                     </span>
                   </button>
@@ -662,10 +705,10 @@ export default function Home() {
           <div className="max-w-6xl mx-auto">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <div>
-                <h2 className="text-4xl md:text-5xl font-playfair text-bloom-dark mb-6">
-                  Now Serving <span className="text-bloompink">All of Texas</span>
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-playfair text-bloom-dark/90 mb-6 font-normal">
+                  Now Serving <span className="text-bloompink/90">All of Texas</span>
                 </h2>
-                <p className="text-xl text-bloom-dark/80 mb-8">
+                <p className="text-lg text-bloom-dark/70 mb-8 font-light">
                   Can't make it to our North Austin office? Virtual therapy brings our specialized 
                   perinatal and maternal mental health care directly to your Texas home.
                 </p>
@@ -678,7 +721,7 @@ export default function Home() {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                       </svg>
                     </div>
-                    <h3 className="font-semibold text-bloom-dark mb-2">Houston • Dallas • San Antonio</h3>
+                    <h3 className="font-medium text-bloom-dark/90 mb-2">Houston • Dallas • San Antonio</h3>
                     <p className="text-sm text-bloom-dark/70">Serving major Texas cities</p>
                   </div>
                   
@@ -688,7 +731,7 @@ export default function Home() {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                       </svg>
                     </div>
-                    <h3 className="font-semibold text-bloom-dark mb-2">Secure Video Sessions</h3>
+                    <h3 className="font-medium text-bloom-dark/90 mb-2">Secure Video Sessions</h3>
                     <p className="text-sm text-bloom-dark/70">HIPAA-compliant virtual care</p>
                   </div>
                 </div>
@@ -760,12 +803,12 @@ export default function Home() {
         
         <div className="container mx-auto px-6 text-center">
           <div ref={ctaTitleRef}>
-            <h2 className="font-playfair text-white text-3xl md:text-4xl mb-6">
+            <h2 className="font-playfair text-white/95 text-2xl md:text-3xl mb-6 font-normal">
               Begin Your Healing Journey Today
             </h2>
           </div>
           
-          <p className="text-white/90 max-w-2xl mx-auto mb-10" ref={ctaTextRef}>
+          <p className="text-white/80 max-w-2xl mx-auto mb-10 font-light text-base" ref={ctaTextRef}>
             Take the first step toward healing and growth with a free 15-minute consultation.
           </p>
           

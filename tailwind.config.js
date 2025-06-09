@@ -61,7 +61,12 @@ module.exports = {
         playfair: ['var(--font-playfair)', 'serif'],
         inter: ['var(--font-inter)', 'Inter', 'sans-serif'],
         poppins: ['var(--font-poppins)', 'Poppins', 'sans-serif'],
-        raleway: ['Raleway', 'sans-serif'],
+        raleway: ['var(--font-raleway)', 'Raleway', 'sans-serif'],
+        bebas: ['var(--font-bebas)', 'Bebas Neue', 'sans-serif'],
+        montserrat: ['var(--font-montserrat)', 'Montserrat', 'sans-serif'],
+        cormorant: ['var(--font-cormorant)', 'Cormorant Garamond', 'serif'],
+        space: ['var(--font-space)', 'Space Grotesk', 'sans-serif'],
+        dmserif: ['var(--font-dm-serif)', 'DM Serif Display', 'serif'],
       },
       textShadow: {
         sm: '0 1px 2px rgba(0, 0, 0, 0.2)',
