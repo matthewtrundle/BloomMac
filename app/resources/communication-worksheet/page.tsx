@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { 
-  MessageCircle, Heart, ArrowLeft, Download, 
+  MessageCircle, Heart, ArrowLeft, 
   CheckCircle, AlertTriangle, Lightbulb, Users,
   Clock, Star, Shield, Target
 } from 'lucide-react';
@@ -205,94 +205,6 @@ export default function CommunicationWorksheetPage() {
     setCompletedSections(newCompleted);
   };
 
-  const handleDownload = async () => {
-    try {
-      const { generateResourcePDF, PDFDocument } = await import('@/lib/pdf-generator');
-      
-      const doc: PDFDocument = {
-        title: 'Communication Worksheet',
-        subtitle: 'Navigate Conversations with Empathy and Understanding',
-        sections: [
-          {
-            title: 'Introduction',
-            content: `Postpartum life brings unique communication challenges. This worksheet provides tools and conversation starters to help partners navigate difficult topics with empathy, respect, and mutual understanding.`,
-            type: 'highlight'
-          },
-          ...scenarios.map(scenario => ({
-            title: `Communication Tool: ${scenario.title}`,
-            content: scenario.description,
-            items: scenario.examples.map(example => ({
-              title: `${example.unhelpful.starter}`,
-              subtitle: 'Better Approach:',
-              description: `${example.helpful.starter}\n\nWhy this works: ${example.helpful.betterBecause}`
-            })),
-            type: 'tips' as const
-          })),
-          {
-            title: 'Conversation Starters',
-            content: `Use these questions to deepen your connection and understanding:`,
-            items: conversationStarters.flatMap(category => 
-              category.questions.map(question => ({
-                title: question,
-                subtitle: category.category
-              }))
-            ),
-            type: 'normal'
-          },
-          {
-            title: 'Communication Tools',
-            content: `Practical techniques for better conversations:`,
-            items: communicationTools.map(tool => ({
-              title: tool.tool,
-              subtitle: tool.description,
-              description: tool.howTo.join('\n')
-            })),
-            type: 'highlight'
-          },
-          {
-            title: 'When to Seek Professional Help',
-            content: `These red flags indicate it's time to reach out for professional support:`,
-            checklistItems: redFlags,
-            type: 'warning'
-          },
-          {
-            title: 'Daily Check-In Template',
-            content: `Use this simple template for daily connection:`,
-            items: [
-              {
-                title: 'Morning Check-In',
-                description: '1. How did you sleep?\n2. What do you need today?\n3. How can I support you?'
-              },
-              {
-                title: 'Evening Reflection',
-                description: '1. What went well today?\n2. What was challenging?\n3. What do we need for tomorrow?'
-              },
-              {
-                title: 'Weekly Deep Dive',
-                description: '1. How are we doing as a couple?\n2. What needs attention this week?\n3. What are we grateful for?'
-              }
-            ],
-            type: 'tips'
-          },
-          {
-            title: 'Remember',
-            content: `Good communication during the postpartum period takes practice and patience. Be gentle with yourselves and each other as you navigate this transition.
-
-The goal isn't perfect communication—it's creating a safe space where both partners feel heard, understood, and supported.
-
-Keep this worksheet handy and refer to it whenever conversations feel difficult. With practice, these tools will become natural ways of connecting.`,
-            type: 'normal'
-          }
-        ]
-      };
-      
-      await generateResourcePDF(doc, 'communication-worksheet');
-      
-    } catch (error) {
-      console.error('Error generating PDF:', error);
-    }
-  };
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50">
       {/* Header */}
@@ -321,43 +233,6 @@ Keep this worksheet handy and refer to it whenever conversations feel difficult.
 
       {/* Main Content */}
       <div className="container mx-auto px-6 py-12">
-        {/* Download Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="bg-gradient-to-r from-blue-500 to-green-500 rounded-2xl p-8 text-white mb-12"
-        >
-          <div className="flex items-center justify-between">
-            <div>
-              <h2 className="text-2xl font-semibold mb-4">Download Your Communication Toolkit</h2>
-              <p className="text-blue-100 mb-6">
-                Get this practical worksheet with conversation starters, response guides, and warning signs to watch for.
-              </p>
-              <div className="flex items-center gap-4 text-sm text-blue-100">
-                <div className="flex items-center gap-2">
-                  <MessageCircle className="w-4 h-4" />
-                  <span>Conversation starters</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Lightbulb className="w-4 h-4" />
-                  <span>Response examples</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Shield className="w-4 h-4" />
-                  <span>Warning signs guide</span>
-                </div>
-              </div>
-            </div>
-            <button
-              onClick={handleDownload}
-              className="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-colors flex items-center gap-2"
-            >
-              <Download className="w-5 h-5" />
-              Download PDF
-            </button>
-          </div>
-        </motion.div>
-
         {/* Communication Tools */}
         <div className="mb-12">
           <h2 className="text-3xl font-playfair text-gray-800 mb-8 text-center">Essential Communication Tools</h2>

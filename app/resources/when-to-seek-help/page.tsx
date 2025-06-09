@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { 
   AlertTriangle, Clock, Heart, CheckCircle, Phone, 
-  ArrowLeft, Download, ExternalLink, Users, Brain,
+  ArrowLeft, ExternalLink, Users, Brain,
   Shield, Lightbulb, MessageCircle
 } from 'lucide-react';
 import Link from 'next/link';
@@ -175,77 +175,6 @@ const myths = [
 export default function WhenToSeekHelpPage() {
   const [selectedLevel, setSelectedLevel] = useState<string>('all');
 
-  const handleDownload = async () => {
-    try {
-      const { generateResourcePDF, PDFDocument } = await import('@/lib/pdf-generator');
-      
-      // Create comprehensive PDF document
-      const pdfDocument: PDFDocument = {
-        title: 'When to Seek Help Guide',
-        subtitle: 'Your Mental Health Decision Guide',
-        author: 'Bloom Psychology North Austin',
-        description: 'A step-by-step guide to help you recognize when professional support is needed and what actions to take for your wellbeing.',
-        sections: [
-          {
-            title: 'Emergency Signs - Call 911 Immediately',
-            type: 'warning',
-            content: 'These signs require immediate emergency intervention. Do not wait.',
-            items: immediateHelp.map(item => `${item.sign} → ${item.action}`)
-          },
-          {
-            title: 'Urgent Signs - Contact Provider Within 24-48 Hours',
-            type: 'warning',
-            content: 'These signs need prompt professional attention.',
-            items: urgentHelp.map(item => `${item.sign} → ${item.action}`)
-          },
-          {
-            title: 'Moderate Signs - Schedule Help This Week',
-            type: 'normal',
-            content: 'These signs indicate you would benefit from professional support.',
-            items: weeklyHelp.map(item => `${item.sign} → ${item.action}`)
-          },
-          {
-            title: 'Self-Care Level - Monitor and Use Resources',
-            type: 'tips',
-            content: 'These experiences are common and can often be managed with self-care and peer support.',
-            items: selfCareHelp.map(item => `${item.sign} → ${item.action}`)
-          },
-          {
-            title: 'Action Steps to Take',
-            type: 'checklist',
-            items: actionSteps.map(step => `${step.title}: ${step.description}`)
-          },
-          {
-            title: 'Common Myths vs Truth',
-            type: 'normal',
-            content: 'Don\'t let these myths prevent you from getting help:',
-            items: myths.map(m => `Myth: "${m.myth}"\nTruth: ${m.truth}`)
-          },
-          {
-            title: 'Quick Reference Numbers',
-            type: 'highlight',
-            content: 'Save these numbers in your phone:',
-            items: [
-              'Emergency: 911',
-              'Crisis Line: 988',
-              'Postpartum Support International: 1-800-944-4773',
-              'Text Crisis Support: Text HOME to 741741'
-            ]
-          },
-          {
-            title: 'Remember',
-            type: 'highlight',
-            content: 'You deserve support. Seeking help is not a sign of weakness—it\'s an act of love for yourself and your family. With the right support, you can and will feel better.'
-          }
-        ]
-      };
-      
-      generateResourcePDF(pdfDocument, 'when-to-seek-help-guide-bloom.pdf');
-      
-    } catch (error) {
-      console.error('Error generating PDF:', error);
-    }
-  };
 
   const renderHelpLevel = (items: any[], title: string, bgColor: string, textColor: string, icon: any) => (
     <motion.div
@@ -306,42 +235,6 @@ export default function WhenToSeekHelpPage() {
 
       {/* Main Content */}
       <div className="container mx-auto px-6 py-12">
-        {/* Download Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl p-8 text-white mb-12"
-        >
-          <div className="flex items-center justify-between">
-            <div>
-              <h2 className="text-2xl font-semibold mb-4">Save This Guide</h2>
-              <p className="text-purple-100 mb-6">
-                Download this reference guide to help you recognize when to seek different levels of support.
-              </p>
-              <div className="flex items-center gap-4 text-sm text-purple-100">
-                <div className="flex items-center gap-2">
-                  <Lightbulb className="w-4 h-4" />
-                  <span>Self-assessment tools</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Clock className="w-4 h-4" />
-                  <span>Action timelines</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Heart className="w-4 h-4" />
-                  <span>Support resources</span>
-                </div>
-              </div>
-            </div>
-            <button
-              onClick={handleDownload}
-              className="bg-white text-purple-600 px-6 py-3 rounded-lg font-semibold hover:bg-purple-50 transition-colors flex items-center gap-2"
-            >
-              <Download className="w-5 h-5" />
-              Download PDF
-            </button>
-          </div>
-        </motion.div>
 
         {/* Action Steps Overview */}
         <div className="mb-12">

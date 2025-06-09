@@ -288,21 +288,6 @@ export default function NewMomGuidePage() {
         </div>
       </section>
 
-      {/* Download Section */}
-      <section className="px-4 py-12 pb-24">
-        <div className="max-w-3xl mx-auto bg-gray-50 rounded-lg p-8 text-center">
-          <h3 className="text-xl font-semibold text-gray-800 mb-4">
-            Take This Guide With You
-          </h3>
-          <p className="text-gray-600 mb-6">
-            Download the complete New Mom's Survival Guide as a PDF to reference anytime 
-            (perfect for those 3am feeding sessions).
-          </p>
-          <Button variant="secondary">
-            Download PDF Guide
-          </Button>
-        </div>
-      </section>
     </div>
   );
 }

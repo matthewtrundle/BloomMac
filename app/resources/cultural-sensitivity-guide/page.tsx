@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Download, Heart, Globe, Users, Star, CheckCircle, ArrowLeft } from 'lucide-react';
+import { Heart, Globe, Users, Star, CheckCircle, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 
 const culturalConsiderations = [
@@ -167,139 +167,6 @@ export default function CulturalSensitivityGuidePage() {
     );
   };
 
-  const handleDownload = async () => {
-    try {
-      const { generateResourcePDF, PDFDocument } = await import('@/lib/pdf-generator');
-      
-      const doc: PDFDocument = {
-        title: 'Cultural Sensitivity Guide',
-        subtitle: 'Supporting Diverse Families in Maternal Care',
-        sections: [
-          {
-            title: 'Introduction',
-            content: `Every family brings unique cultural traditions and values to their parenting journey. This guide helps you honor and support diverse cultural practices while providing meaningful care and support.
-
-Understanding cultural differences isn't about memorizing specific practices—it's about approaching each family with curiosity, respect, and openness to learn.`,
-            type: 'highlight'
-          },
-          {
-            title: 'Universal Principles',
-            content: `These principles apply across all cultures and help create a foundation of respect:`,
-            items: universalPrinciples.map(principle => ({
-              title: principle.title,
-              description: principle.description
-            })),
-            type: 'tips'
-          },
-          ...culturalConsiderations.map(culture => ({
-            title: culture.culture,
-            content: culture.description,
-            items: [
-              {
-                title: 'Common Practices',
-                description: culture.commonPractices.join('\n')
-              },
-              {
-                title: 'Communication Style',
-                description: culture.communicationStyle.join('\n')
-              },
-              {
-                title: 'Key Considerations',
-                description: culture.considerations.join('\n')
-              }
-            ],
-            type: 'normal' as const
-          })),
-          {
-            title: 'Questions to Ask All Families',
-            content: `Use these open-ended questions to understand each family's unique needs:`,
-            checklistItems: [
-              'What traditions or practices are important to you during this time?',
-              'How does your family typically celebrate new babies?',
-              'Are there any foods, practices, or items that are especially meaningful?',
-              'Who in your family/community traditionally provides support?',
-              'What would make you feel most comfortable and respected?',
-              'Are there any practices you want us to be aware of?',
-              'How can we best honor your family\'s values?',
-              'What role do extended family members play in your culture?',
-              'Are there any religious or spiritual practices we should know about?',
-              'How do you prefer to receive information and support?'
-            ],
-            type: 'checklist'
-          },
-          {
-            title: 'Common Mistakes to Avoid',
-            content: `Be mindful of these common pitfalls when supporting diverse families:`,
-            items: [
-              {
-                title: 'Making assumptions',
-                description: 'Never assume all families from a culture follow the same practices.'
-              },
-              {
-                title: 'Ignoring individual preferences',
-                description: 'Culture influences but doesn\'t determine individual choices.'
-              },
-              {
-                title: 'Overemphasizing differences',
-                description: 'Focus on shared human experiences while respecting uniqueness.'
-              },
-              {
-                title: 'Being afraid to ask',
-                description: 'Respectful questions show care and interest, not ignorance.'
-              },
-              {
-                title: 'Imposing your values',
-                description: 'Support their choices even if different from your own.'
-              }
-            ],
-            type: 'warning'
-          },
-          {
-            title: 'Building Cultural Competence',
-            content: `Developing cultural sensitivity is an ongoing journey:`,
-            items: [
-              {
-                title: 'Stay curious',
-                description: 'Approach each family as unique individuals with their own story.'
-              },
-              {
-                title: 'Listen actively',
-                description: 'Pay attention to what families tell you about their needs and values.'
-              },
-              {
-                title: 'Educate yourself',
-                description: 'Learn about different cultures but don\'t assume expertise.'
-              },
-              {
-                title: 'Reflect on your biases',
-                description: 'We all have cultural lenses—acknowledge yours.'
-              },
-              {
-                title: 'Seek feedback',
-                description: 'Ask families how you can better support them.'
-              }
-            ],
-            type: 'highlight'
-          },
-          {
-            title: 'Remember',
-            content: `Cultural sensitivity isn't about being perfect—it's about being respectful, curious, and willing to learn. Every family deserves support that honors their values and traditions.
-
-When you approach families with genuine interest and respect for their cultural background, you create an environment where they feel safe, valued, and truly supported.
-
-The goal is not to be an expert on every culture, but to be an expert at asking, listening, and adapting your support to meet each family where they are.`,
-            type: 'normal'
-          }
-        ]
-      };
-      
-      await generateResourcePDF(doc, 'cultural-sensitivity-guide');
-      
-    } catch (error) {
-      console.error('Error generating PDF:', error);
-    }
-  };
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
       {/* Header */}
@@ -328,43 +195,6 @@ The goal is not to be an expert on every culture, but to be an expert at asking,
 
       {/* Main Content */}
       <div className="container mx-auto px-6 py-12">
-        {/* Download Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="bg-gradient-to-r from-purple-500 to-blue-500 rounded-2xl p-8 text-white mb-12"
-        >
-          <div className="flex items-center justify-between">
-            <div>
-              <h2 className="text-2xl font-semibold mb-4">Download Complete Guide</h2>
-              <p className="text-purple-100 mb-6">
-                Get this comprehensive resource as a PDF you can reference anytime.
-              </p>
-              <div className="flex items-center gap-4 text-sm text-purple-100">
-                <div className="flex items-center gap-2">
-                  <Globe className="w-4 h-4" />
-                  <span>6+ cultural traditions</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Heart className="w-4 h-4" />
-                  <span>Evidence-based</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Users className="w-4 h-4" />
-                  <span>Family-tested</span>
-                </div>
-              </div>
-            </div>
-            <button
-              onClick={handleDownload}
-              className="bg-white text-purple-600 px-6 py-3 rounded-lg font-semibold hover:bg-purple-50 transition-colors flex items-center gap-2"
-            >
-              <Download className="w-5 h-5" />
-              Download PDF
-            </button>
-          </div>
-        </motion.div>
-
         {/* Universal Principles */}
         <div className="mb-12">
           <h2 className="text-3xl font-playfair text-gray-800 mb-8">Universal Principles</h2>

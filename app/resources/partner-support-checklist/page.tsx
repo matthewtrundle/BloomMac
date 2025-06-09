@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { 
-  Heart, CheckCircle, Clock, ArrowLeft, Download, 
+  Heart, CheckCircle, Clock, ArrowLeft, 
   Coffee, Users, MessageCircle, Home, Baby, 
   Calendar, Shield, Lightbulb, Phone
 } from 'lucide-react';
@@ -182,82 +182,6 @@ export default function PartnerSupportChecklistPage() {
     setCheckedItems(newChecked);
   };
 
-  const handleDownload = async () => {
-    try {
-      const { generateResourcePDF, PDFDocument } = await import('@/lib/pdf-generator');
-      
-      // Create comprehensive PDF document
-      const pdfDocument: PDFDocument = {
-        title: 'Partner Support Checklist',
-        subtitle: 'Daily, Weekly & Monthly Ways to Support Your Partner',
-        author: 'Bloom Psychology North Austin',
-        description: 'A comprehensive guide for partners to provide meaningful support during the postpartum period. Check off actions as you complete them to track your support efforts.',
-        sections: [
-          {
-            title: 'Daily Support Actions',
-            type: 'normal',
-            content: 'Small, consistent actions you can take every day to show support and care.',
-            items: []
-          },
-          ...dailySupport.map(category => ({
-            title: category.category,
-            type: 'checklist' as const,
-            items: category.items
-          })),
-          {
-            title: 'Weekly Support Actions',
-            type: 'normal',
-            content: 'Planned activities and support efforts to do each week.',
-            items: []
-          },
-          ...weeklySupport.map(category => ({
-            title: category.category,
-            type: 'checklist' as const,
-            items: category.items
-          })),
-          {
-            title: 'Monthly Support Actions',
-            type: 'normal',
-            content: 'Bigger picture support and planning activities.',
-            items: []
-          },
-          ...monthlySupport.map(category => ({
-            title: category.category,
-            type: 'checklist' as const,
-            items: category.items
-          })),
-          {
-            title: 'When to Seek Help Immediately',
-            type: 'warning',
-            content: 'These signs require immediate professional attention. Do not wait.',
-            items: redFlags.map(flag => `${flag.sign} → ${flag.action}`)
-          },
-          {
-            title: 'Supportive Communication',
-            type: 'tips',
-            content: 'What TO say to show love and support:',
-            items: supportivePhrases.map(phrase => `"${phrase}"`)
-          },
-          {
-            title: 'Avoid These Phrases',
-            type: 'warning',
-            content: 'Well-meaning but unhelpful things to avoid saying:',
-            items: avoidSaying.map(phrase => `"${phrase}"`)
-          },
-          {
-            title: 'Remember',
-            type: 'highlight',
-            content: 'Your partner needs your support, not your solutions. Listen more than you speak. Be present more than you fix. Love more than you judge.'
-          }
-        ]
-      };
-      
-      generateResourcePDF(pdfDocument, 'partner-support-checklist-bloom.pdf');
-      
-    } catch (error) {
-      console.error('Error generating PDF:', error);
-    }
-  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-50 via-white to-purple-50">
@@ -287,42 +211,6 @@ export default function PartnerSupportChecklistPage() {
 
       {/* Main Content */}
       <div className="container mx-auto px-6 py-12">
-        {/* Download Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="bg-gradient-to-r from-pink-500 to-purple-500 rounded-2xl p-8 text-white mb-12"
-        >
-          <div className="flex items-center justify-between">
-            <div>
-              <h2 className="text-2xl font-semibold mb-4">Download Your Checklist</h2>
-              <p className="text-pink-100 mb-6">
-                Get this comprehensive guide as a PDF to reference anytime and share with your support network.
-              </p>
-              <div className="flex items-center gap-4 text-sm text-pink-100">
-                <div className="flex items-center gap-2">
-                  <Calendar className="w-4 h-4" />
-                  <span>Daily & weekly actions</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <MessageCircle className="w-4 h-4" />
-                  <span>Communication tips</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Shield className="w-4 h-4" />
-                  <span>Warning signs guide</span>
-                </div>
-              </div>
-            </div>
-            <button
-              onClick={handleDownload}
-              className="bg-white text-pink-600 px-6 py-3 rounded-lg font-semibold hover:bg-pink-50 transition-colors flex items-center gap-2"
-            >
-              <Download className="w-5 h-5" />
-              Download PDF
-            </button>
-          </div>
-        </motion.div>
 
         {/* Tab Navigation */}
         <div className="flex flex-wrap justify-center gap-3 mb-12">

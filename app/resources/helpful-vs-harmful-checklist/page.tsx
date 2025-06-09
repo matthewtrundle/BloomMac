@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { 
-  CheckCircle, X, ArrowLeft, Download, 
+  CheckCircle, X, ArrowLeft, 
   Heart, AlertTriangle, Users, Gift,
   MessageCircle, Home, Baby, Star,
   ThumbsUp, ThumbsDown, Lightbulb
@@ -205,78 +205,6 @@ const commonMistakes = [
 export default function HelpfulVsHarmfulChecklistPage() {
   const [selectedCategory, setSelectedCategory] = useState<number>(0);
 
-  const handleDownload = async () => {
-    try {
-      const { generateResourcePDF, PDFDocument } = await import('@/lib/pdf-generator');
-      
-      const doc: PDFDocument = {
-        title: 'Helpful vs Harmful Checklist',
-        subtitle: 'What Really Helps New Families',
-        sections: [
-          {
-            title: 'Introduction',
-            content: `Well-meaning support can sometimes miss the mark. This guide helps family and friends understand what truly supports new parents versus what can unintentionally make things harder.
-
-Remember: Every family is unique, and what helps one may not help another. Always ask before assuming.`,
-            type: 'highlight'
-          },
-          ...helpfulVsHarmful.map(category => ({
-            title: category.category,
-            content: '',
-            items: category.items.map(item => ({
-              title: `✅ HELPFUL: ${item.helpful}`,
-              subtitle: `❌ HARMFUL: ${item.harmful}`,
-              description: `Why: ${item.explanation}`
-            })),
-            type: category.category === 'Offering Help' ? 'tips' : 
-                   category.category === 'Visiting' ? 'warning' :
-                   category.category === 'Emotional Support' ? 'highlight' : 'normal' as const
-          })),
-          {
-            title: 'Common Mistakes to Avoid',
-            content: `Even with the best intentions, these common mistakes can create stress for new families:`,
-            items: commonMistakes.map(mistake => ({
-              title: mistake.mistake,
-              description: `Better approach: ${mistake.betterApproach}`
-            })),
-            type: 'warning'
-          },
-          {
-            title: 'Quick Reference Checklist',
-            content: `Print this checklist and keep it handy when supporting new families:`,
-            checklistItems: [
-              'Before visiting: Call or text first',
-              'When offering help: Be specific with your offers',
-              'During visits: Keep them short and helpful',
-              'With emotions: Validate without comparing',
-              'With advice: Ask before giving suggestions',
-              'With boundaries: Respect them gracefully',
-              'With commitments: Follow through reliably',
-              'With communication: Be patient with response times',
-              'With support: Focus on reducing their workload',
-              'With presence: Sometimes just listening is enough'
-            ],
-            type: 'checklist'
-          },
-          {
-            title: 'Remember',
-            content: `The best support empowers new parents rather than undermining their confidence. Your role is to support their journey, not direct it.
-
-When in doubt, always ask: "What would be most helpful?" And then truly listen to their answer.
-
-Your respectful, thoughtful support during this vulnerable time will be remembered and appreciated long after the newborn phase passes.`,
-            type: 'normal'
-          }
-        ]
-      };
-      
-      await generateResourcePDF(doc, 'helpful-vs-harmful-checklist');
-      
-    } catch (error) {
-      console.error('Error generating PDF:', error);
-    }
-  };
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-red-50">
       {/* Header */}
@@ -305,43 +233,6 @@ Your respectful, thoughtful support during this vulnerable time will be remember
 
       {/* Main Content */}
       <div className="container mx-auto px-6 py-12">
-        {/* Download Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="bg-gradient-to-r from-green-500 to-red-500 rounded-2xl p-8 text-white mb-12"
-        >
-          <div className="flex items-center justify-between">
-            <div>
-              <h2 className="text-2xl font-semibold mb-4">Download Your Quick Reference</h2>
-              <p className="text-green-100 mb-6">
-                Get this essential checklist to ensure your support truly helps new families thrive.
-              </p>
-              <div className="flex items-center gap-4 text-sm text-green-100">
-                <div className="flex items-center gap-2">
-                  <ThumbsUp className="w-4 h-4" />
-                  <span>Helpful approaches</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <ThumbsDown className="w-4 h-4" />
-                  <span>Common mistakes</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Lightbulb className="w-4 h-4" />
-                  <span>Better alternatives</span>
-                </div>
-              </div>
-            </div>
-            <button
-              onClick={handleDownload}
-              className="bg-white text-green-600 px-6 py-3 rounded-lg font-semibold hover:bg-green-50 transition-colors flex items-center gap-2"
-            >
-              <Download className="w-5 h-5" />
-              Download PDF
-            </button>
-          </div>
-        </motion.div>
-
         {/* Category Navigation */}
         <div className="flex flex-wrap justify-center gap-3 mb-12">
           {helpfulVsHarmful.map((category, index) => (

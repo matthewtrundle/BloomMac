@@ -264,15 +264,6 @@ export default function GroundingTechniquesPage() {
             </div>
           </div>
 
-          {/* Download Section */}
-          <div className="mt-12 text-center">
-            <p className="text-gray-600 mb-4">
-              Want to keep these techniques handy?
-            </p>
-            <Button variant="secondary" size="md">
-              Download PDF Version
-            </Button>
-          </div>
         </div>
       </div>
     </div>

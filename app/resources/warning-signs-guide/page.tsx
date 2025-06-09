@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { 
-  AlertTriangle, Clock, Heart, ArrowLeft, Download, 
+  AlertTriangle, Clock, Heart, ArrowLeft, 
   Phone, CheckCircle, Eye, Brain, Users, Calendar,
   Shield, Lightbulb, MessageCircle, Star
 } from 'lucide-react';
@@ -179,64 +179,6 @@ const supportResources = [
 export default function WarningSignsGuidePage() {
   const [selectedLevel, setSelectedLevel] = useState<number>(0);
 
-  const handleDownload = async () => {
-    try {
-      const { generateResourcePDF, PDFDocument } = await import('@/lib/pdf-generator');
-      
-      // Create comprehensive PDF document
-      const pdfDocument: PDFDocument = {
-        title: 'Postpartum Warning Signs Guide',
-        subtitle: 'Know When to Seek Help',
-        author: 'Bloom Psychology North Austin',
-        description: 'A comprehensive guide to recognize warning signs and know when to seek professional help during the postpartum period.',
-        sections: [
-          ...warningLevels.map(level => ({
-            title: `${level.level} (${level.timeframe})`,
-            type: level.level.includes('Emergency') ? 'warning' as const : 'normal' as const,
-            content: `Timeframe: ${level.timeframe}`,
-            items: [
-              ...level.signs.map(sign => `SIGN: ${sign}`),
-              '',
-              'What to do:',
-              ...level.actions.map(action => `• ${action}`)
-            ]
-          })),
-          {
-            title: 'Risk Factors to Consider',
-            type: 'normal',
-            content: 'These factors may increase your risk of postpartum mental health challenges:',
-            items: []
-          },
-          ...riskFactors.map(category => ({
-            title: category.category,
-            type: 'tips' as const,
-            items: category.factors
-          })),
-          {
-            title: 'Support Resources',
-            type: 'highlight',
-            content: 'Help is available. You don\'t have to go through this alone.',
-            items: []
-          },
-          ...supportResources.map(resourceType => ({
-            title: resourceType.type,
-            type: 'normal' as const,
-            items: resourceType.resources.map(r => `${r.name}: ${r.contact} - ${r.description}`)
-          })),
-          {
-            title: 'Important Reminders',
-            type: 'highlight',
-            content: 'Seeking help is a sign of strength, not weakness. Your mental health matters as much as your physical health. With proper support and treatment, you can feel better.'
-          }
-        ]
-      };
-      
-      generateResourcePDF(pdfDocument, 'warning-signs-guide-bloom.pdf');
-      
-    } catch (error) {
-      console.error('Error generating PDF:', error);
-    }
-  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-red-50 via-white to-orange-50">
@@ -266,42 +208,6 @@ export default function WarningSignsGuidePage() {
 
       {/* Main Content */}
       <div className="container mx-auto px-6 py-12">
-        {/* Download Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="bg-gradient-to-r from-red-500 to-orange-500 rounded-2xl p-8 text-white mb-12"
-        >
-          <div className="flex items-center justify-between">
-            <div>
-              <h2 className="text-2xl font-semibold mb-4">Save This Critical Guide</h2>
-              <p className="text-red-100 mb-6">
-                Download this essential reference to recognize warning signs and know when to seek help.
-              </p>
-              <div className="flex items-center gap-4 text-sm text-red-100">
-                <div className="flex items-center gap-2">
-                  <AlertTriangle className="w-4 h-4" />
-                  <span>Emergency signs</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Phone className="w-4 h-4" />
-                  <span>Crisis resources</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Brain className="w-4 h-4" />
-                  <span>Risk factors</span>
-                </div>
-              </div>
-            </div>
-            <button
-              onClick={handleDownload}
-              className="bg-white text-red-600 px-6 py-3 rounded-lg font-semibold hover:bg-red-50 transition-colors flex items-center gap-2"
-            >
-              <Download className="w-5 h-5" />
-              Download PDF
-            </button>
-          </div>
-        </motion.div>
 
         {/* Warning Levels Navigation */}
         <div className="flex flex-wrap justify-center gap-3 mb-12">

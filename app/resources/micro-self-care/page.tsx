@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Download, Clock, Heart, Star, CheckCircle, Moon, Coffee, Sparkles } from 'lucide-react';
+import { Clock, Heart, Star, CheckCircle, Moon, Coffee, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 
 const microSelfCareRituals = [
@@ -122,41 +122,6 @@ export default function MicroSelfCarePage() {
     );
   };
 
-  const handleDownload = async () => {
-    try {
-      // Dynamic import to avoid SSR issues
-      const { generateResourcePDF, PDFDocument } = await import('@/lib/pdf-generator');
-      
-      // Transform rituals into PDF sections
-      const pdfDocument: PDFDocument = {
-        title: '10 Tiny Self-Care Rituals',
-        subtitle: 'That Take Less Than 2 Minutes',
-        author: 'Bloom Psychology North Austin',
-        description: 'Self-care doesn\'t have to be time-consuming or complicated. These micro-moments of care can be woven into your busiest days to help you reset, recharge, and reconnect with yourself.',
-        sections: microSelfCareRituals.map((ritual, index) => ({
-          title: `${index + 1}. ${ritual.title} (${ritual.time})`,
-          content: ritual.description,
-          items: [`How to: ${ritual.howTo}`],
-          type: 'tips' as const
-        }))
-      };
-      
-      // Add a closing section
-      pdfDocument.sections.push({
-        type: 'highlight',
-        title: 'Remember: Self-care isn\'t selfish',
-        content: 'It\'s essential for your wellbeing and your family\'s. Start with just one ritual today and notice how even these tiny moments can make a difference.'
-      });
-      
-      generateResourcePDF(pdfDocument, '10-tiny-self-care-rituals-bloom-psychology.pdf');
-      
-    } catch (error) {
-      console.error('Error generating PDF:', error);
-      // Fallback to the old method
-      window.open('/api/generate-micro-self-care-pdf', '_blank');
-    }
-  };
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-rose-50 via-white to-pink-50">
       {/* Header */}
@@ -184,43 +149,6 @@ export default function MicroSelfCarePage() {
 
       {/* Main Content */}
       <div className="container mx-auto px-6 py-12">
-        {/* Download Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="bg-gradient-to-r from-pink-500 to-rose-500 rounded-2xl p-8 text-white mb-12"
-        >
-          <div className="flex items-center justify-between">
-            <div>
-              <h2 className="text-2xl font-semibold mb-4">Download Your Free Guide</h2>
-              <p className="text-pink-100 mb-6">
-                Get this resource as a downloadable guide you can reference anytime.
-              </p>
-              <div className="flex items-center gap-4 text-sm text-pink-100">
-                <div className="flex items-center gap-2">
-                  <Clock className="w-4 h-4" />
-                  <span>All under 2 minutes</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Heart className="w-4 h-4" />
-                  <span>Science-backed</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Star className="w-4 h-4" />
-                  <span>Mom-tested</span>
-                </div>
-              </div>
-            </div>
-            <button
-              onClick={handleDownload}
-              className="bg-white text-pink-600 px-6 py-3 rounded-lg font-semibold hover:bg-pink-50 transition-colors flex items-center gap-2"
-            >
-              <Download className="w-5 h-5" />
-              Download Guide
-            </button>
-          </div>
-        </motion.div>
-
         {/* Category Filter */}
         <div className="mb-8">
           <h3 className="text-lg font-semibold mb-4">Filter by Category</h3>
