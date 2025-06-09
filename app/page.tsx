@@ -137,7 +137,7 @@ export default function Home() {
         }}
         telephone="+15128989510"
         email="jana@bloompsychologynorthaustin.com"
-        sameAs={["https://www.instagram.com/bloompsychology.atx/", "https://www.linkedin.com/company/bloom-psychology-atx/"]}
+        sameAs={["https://www.instagram.com/bloompsychology.atx/"]}
       />
       
       {/* Hero Section */}
@@ -188,7 +188,7 @@ export default function Home() {
               </h1>
               
               <p className="font-raleway font-normal text-base sm:text-xl md:text-[1.25rem] mb-4 sm:mb-6 text-bloom-darkGrey text-center max-w-[600px] mx-auto text-shadow-sm">
-                Life changes—so do you. We're here for all of it. Bloom therapy provides in-person psychotherapy in Austin and online for all of Texas.
+                Life changes—so do you. We're here for all of it. Bloom Psychology provides in-person psychotherapy in Austin and online for all of Texas.
               </p>
             </div>
             

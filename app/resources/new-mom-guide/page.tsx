@@ -266,6 +266,31 @@ export default function NewMomGuidePage() {
         </div>
       </section>
 
+      {/* Download Section */}
+      <section className="px-4 py-12 bg-white">
+        <div className="max-w-2xl mx-auto text-center">
+          <h2 className="text-3xl font-bold text-gray-800 mb-6">
+            Get Your Free Guide
+          </h2>
+          <p className="text-lg text-gray-700 mb-8">
+            Download this complete guide as a beautiful PDF to keep on your phone or print out. 
+            Perfect for those 3am moments when you need a reminder that you're doing great.
+          </p>
+          
+          <a 
+            href="/new-mom-guide.pdf" 
+            download="New-Mom-Survival-Guide-Bloom-Psychology.pdf"
+            className="inline-block bg-bloompink hover:bg-bloom-pink-dark text-white font-bold py-4 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg"
+          >
+            Download PDF Guide
+          </a>
+          
+          <p className="text-sm text-gray-500 mt-4 italic">
+            No email required • Instant download • Share with friends
+          </p>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="px-4 py-16">
         <div className="max-w-3xl mx-auto bg-gradient-to-r from-bloom-light to-purple-100 rounded-lg shadow-xl p-8 text-center">

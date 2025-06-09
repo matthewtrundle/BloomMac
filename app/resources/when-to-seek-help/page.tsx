@@ -324,40 +324,6 @@ export default function WhenToSeekHelpPage() {
           </div>
         </div>
 
-        {/* Emergency Resources */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="bg-red-50 rounded-2xl p-8 mb-12"
-        >
-          <div className="text-center mb-6">
-            <h2 className="text-3xl font-playfair text-red-800 mb-4">Emergency Resources</h2>
-            <p className="text-red-700">Keep these numbers accessible for immediate help</p>
-          </div>
-          
-          <div className="grid md:grid-cols-3 gap-6">
-            <div className="bg-white rounded-lg p-6 text-center">
-              <Phone className="w-8 h-8 text-red-600 mx-auto mb-3" />
-              <h3 className="text-xl font-bold text-red-800 mb-2">Emergency</h3>
-              <p className="text-2xl font-bold text-red-600">911</p>
-              <p className="text-sm text-red-700 mt-2">Life-threatening situations</p>
-            </div>
-            
-            <div className="bg-white rounded-lg p-6 text-center">
-              <MessageCircle className="w-8 h-8 text-red-600 mx-auto mb-3" />
-              <h3 className="text-xl font-bold text-red-800 mb-2">Crisis Line</h3>
-              <p className="text-2xl font-bold text-red-600">988</p>
-              <p className="text-sm text-red-700 mt-2">Suicide prevention lifeline</p>
-            </div>
-            
-            <div className="bg-white rounded-lg p-6 text-center">
-              <Heart className="w-8 h-8 text-red-600 mx-auto mb-3" />
-              <h3 className="text-xl font-bold text-red-800 mb-2">Postpartum</h3>
-              <p className="text-lg font-bold text-red-600">1-800-944-4773</p>
-              <p className="text-sm text-red-700 mt-2">Maternal mental health</p>
-            </div>
-          </div>
-        </motion.div>
 
         {/* Bottom CTA */}
         <motion.div

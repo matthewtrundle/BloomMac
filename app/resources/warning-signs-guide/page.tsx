@@ -149,32 +149,6 @@ const riskFactors = [
   }
 ];
 
-const supportResources = [
-  {
-    type: 'Emergency',
-    resources: [
-      { name: 'Emergency Services', contact: '911', description: 'Life-threatening situations' },
-      { name: 'National Suicide Prevention Lifeline', contact: '988', description: '24/7 crisis support' },
-      { name: 'Crisis Text Line', contact: 'Text HOME to 741741', description: 'Text-based crisis support' }
-    ]
-  },
-  {
-    type: 'Maternal Mental Health',
-    resources: [
-      { name: 'Postpartum Support International', contact: '1-800-944-4773', description: 'Specialized maternal mental health support' },
-      { name: 'PSI Online Support Groups', contact: 'postpartum.net', description: 'Peer support groups' },
-      { name: 'Local Maternal Mental Health Specialists', contact: 'Your healthcare provider', description: 'Professional treatment' }
-    ]
-  },
-  {
-    type: 'General Support',
-    resources: [
-      { name: 'SAMHSA National Helpline', contact: '1-800-662-4357', description: 'Mental health treatment referrals' },
-      { name: 'National Domestic Violence Hotline', contact: '1-800-799-7233', description: 'If safety is a concern' },
-      { name: 'La Leche League', contact: 'llli.org', description: 'Breastfeeding support' }
-    ]
-  }
-];
 
 export default function WarningSignsGuidePage() {
   const [selectedLevel, setSelectedLevel] = useState<number>(0);
@@ -320,36 +294,6 @@ export default function WarningSignsGuidePage() {
           </div>
         </div>
 
-        {/* Support Resources */}
-        <div className="mb-12">
-          <h2 className="text-3xl font-playfair text-gray-800 mb-8 text-center">Support Resources</h2>
-          <div className="space-y-6">
-            {supportResources.map((category, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                className="bg-white rounded-2xl p-6 shadow-lg"
-              >
-                <h3 className="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
-                  <Phone className="w-5 h-5 text-red-600" />
-                  {category.type}
-                </h3>
-                
-                <div className="grid md:grid-cols-3 gap-4">
-                  {category.resources.map((resource, resourceIndex) => (
-                    <div key={resourceIndex} className="bg-gray-50 rounded-lg p-4">
-                      <h4 className="font-semibold text-gray-800 mb-2">{resource.name}</h4>
-                      <p className="text-red-600 font-bold mb-2">{resource.contact}</p>
-                      <p className="text-gray-600 text-sm">{resource.description}</p>
-                    </div>
-                  ))}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
 
         {/* Bottom CTA */}
         <motion.div
@@ -372,12 +316,6 @@ export default function WarningSignsGuidePage() {
                 className="bg-gradient-to-r from-red-500 to-orange-500 text-white px-8 py-3 rounded-lg font-semibold hover:from-red-600 hover:to-orange-600 transition-all"
               >
                 Schedule a Consultation
-              </Link>
-              <Link
-                href="/resources/crisis-hotlines"
-                className="border-2 border-red-500 text-red-500 px-8 py-3 rounded-lg font-semibold hover:bg-red-500 hover:text-white transition-all"
-              >
-                Emergency Resources
               </Link>
             </div>
           </div>

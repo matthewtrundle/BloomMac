@@ -34,7 +34,7 @@ export const services: Service[] = [
     id: 'women',
     slug: 'therapy-for-women',
     title: 'Therapy for Women',
-    description: 'You\'re smart, capable, and everyone counts on you. You juggle work, family, friendships, invisible labor—all while showing up with a smile. But inside, it might feel like you\'re barely keeping it together. At Bloom Psychology, we work with women who are high-achieving, deeply caring, and often really hard on themselves. Together, we\'ll make sense of the high expectations you carry, challenge the belief that your worth is tied to your productivity, and help you reconnect with your needs. Therapy can help you set better boundaries, quiet your inner critic, stop overthinking everything, and feel more grounded and confident — even when things aren\'t perfect.',
+    description: 'You\'re smart, capable, and everyone counts on you. You juggle work, family, friendships, invisible labor—all while showing up with a smile. But inside, it might feel like you\'re barely keeping it together.\n\nAt Bloom Psychology, we work with women who are high-achieving, deeply caring, and often really hard on themselves. Together, we\'ll make sense of the high expectations you carry, challenge the belief that your worth is tied to your productivity, and help you reconnect with your needs.\n\nTherapy can help you set better boundaries, quiet your inner critic, stop overthinking everything, and feel more grounded and confident — even when things aren\'t perfect.',
     shortDescription: 'Custom therapy for women at all life stages, specializing in overwhelm, identity, and life transitions.',
     heroImage: '/images/optimized/Home/Confident Women.webp',
     howItWorks: {
@@ -109,7 +109,7 @@ export const services: Service[] = [
     id: 'moms',
     slug: 'therapy-for-moms',
     title: 'Therapy for Moms',
-    description: 'You\'re doing everything—but at what cost? Motherhood often means carrying the mental load for everyone else. When you\'re constantly juggling parenting, work, relationships, and the pressure to be everything to everyone, it\'s easy to lose sight of your own needs. You might be feeling burned out, touched out, and wondering, "Why does this feel so hard?" At Bloom Psychology, we help moms move from survival mode to a place of clarity, connection, and confidence. Whether you\'re feeling emotionally drained, stuck in the same arguments with your partner, or struggling to find balance in your relationships, therapy can help.',
+    description: 'You\'re doing everything—but at what cost? Motherhood often means carrying the mental load for everyone else. When you\'re constantly juggling parenting, work, relationships, and the pressure to be everything to everyone, it\'s easy to lose sight of your own needs. You might be feeling burned out, touched out, and wondering, "Why does this feel so hard?"\n\nAt Bloom Psychology, we help moms move from survival mode to a place of clarity, connection, and confidence. Whether you\'re feeling emotionally drained, stuck in the same arguments with your partner, or struggling to find balance in your relationships, therapy can help.',
     shortDescription: 'Specialized therapy for mothers at all stages, with flexible options including in-home sessions.',
     heroImage: '/images/optimized/Home/new-mom.webp',
     secondaryImage: '/images/optimized/Services/New Mothers.webp',
