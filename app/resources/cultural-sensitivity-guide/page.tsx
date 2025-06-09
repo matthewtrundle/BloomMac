@@ -169,188 +169,131 @@ export default function CulturalSensitivityGuidePage() {
 
   const handleDownload = async () => {
     try {
-      const { jsPDF } = await import('jspdf');
+      const { generateResourcePDF, PDFDocument } = await import('@/lib/pdf-generator');
       
-      const pdf = new jsPDF('p', 'mm', 'a4');
-      const pageWidth = pdf.internal.pageSize.getWidth();
-      const pageHeight = pdf.internal.pageSize.getHeight();
-      const margin = 20;
-      const lineHeight = 7;
-      const maxWidth = pageWidth - (margin * 2);
+      const doc: PDFDocument = {
+        title: 'Cultural Sensitivity Guide',
+        subtitle: 'Supporting Diverse Families in Maternal Care',
+        sections: [
+          {
+            title: 'Introduction',
+            content: `Every family brings unique cultural traditions and values to their parenting journey. This guide helps you honor and support diverse cultural practices while providing meaningful care and support.
+
+Understanding cultural differences isn't about memorizing specific practices—it's about approaching each family with curiosity, respect, and openness to learn.`,
+            type: 'highlight'
+          },
+          {
+            title: 'Universal Principles',
+            content: `These principles apply across all cultures and help create a foundation of respect:`,
+            items: universalPrinciples.map(principle => ({
+              title: principle.title,
+              description: principle.description
+            })),
+            type: 'tips'
+          },
+          ...culturalConsiderations.map(culture => ({
+            title: culture.culture,
+            content: culture.description,
+            items: [
+              {
+                title: 'Common Practices',
+                description: culture.commonPractices.join('\n')
+              },
+              {
+                title: 'Communication Style',
+                description: culture.communicationStyle.join('\n')
+              },
+              {
+                title: 'Key Considerations',
+                description: culture.considerations.join('\n')
+              }
+            ],
+            type: 'normal' as const
+          })),
+          {
+            title: 'Questions to Ask All Families',
+            content: `Use these open-ended questions to understand each family's unique needs:`,
+            checklistItems: [
+              'What traditions or practices are important to you during this time?',
+              'How does your family typically celebrate new babies?',
+              'Are there any foods, practices, or items that are especially meaningful?',
+              'Who in your family/community traditionally provides support?',
+              'What would make you feel most comfortable and respected?',
+              'Are there any practices you want us to be aware of?',
+              'How can we best honor your family\'s values?',
+              'What role do extended family members play in your culture?',
+              'Are there any religious or spiritual practices we should know about?',
+              'How do you prefer to receive information and support?'
+            ],
+            type: 'checklist'
+          },
+          {
+            title: 'Common Mistakes to Avoid',
+            content: `Be mindful of these common pitfalls when supporting diverse families:`,
+            items: [
+              {
+                title: 'Making assumptions',
+                description: 'Never assume all families from a culture follow the same practices.'
+              },
+              {
+                title: 'Ignoring individual preferences',
+                description: 'Culture influences but doesn\'t determine individual choices.'
+              },
+              {
+                title: 'Overemphasizing differences',
+                description: 'Focus on shared human experiences while respecting uniqueness.'
+              },
+              {
+                title: 'Being afraid to ask',
+                description: 'Respectful questions show care and interest, not ignorance.'
+              },
+              {
+                title: 'Imposing your values',
+                description: 'Support their choices even if different from your own.'
+              }
+            ],
+            type: 'warning'
+          },
+          {
+            title: 'Building Cultural Competence',
+            content: `Developing cultural sensitivity is an ongoing journey:`,
+            items: [
+              {
+                title: 'Stay curious',
+                description: 'Approach each family as unique individuals with their own story.'
+              },
+              {
+                title: 'Listen actively',
+                description: 'Pay attention to what families tell you about their needs and values.'
+              },
+              {
+                title: 'Educate yourself',
+                description: 'Learn about different cultures but don\'t assume expertise.'
+              },
+              {
+                title: 'Reflect on your biases',
+                description: 'We all have cultural lenses—acknowledge yours.'
+              },
+              {
+                title: 'Seek feedback',
+                description: 'Ask families how you can better support them.'
+              }
+            ],
+            type: 'highlight'
+          },
+          {
+            title: 'Remember',
+            content: `Cultural sensitivity isn't about being perfect—it's about being respectful, curious, and willing to learn. Every family deserves support that honors their values and traditions.
+
+When you approach families with genuine interest and respect for their cultural background, you create an environment where they feel safe, valued, and truly supported.
+
+The goal is not to be an expert on every culture, but to be an expert at asking, listening, and adapting your support to meet each family where they are.`,
+            type: 'normal'
+          }
+        ]
+      };
       
-      // Brand colors
-      const brandPink = '#C06B93';
-      const brandDark = '#4A3842';
-      
-      // Header
-      pdf.setFillColor(200, 107, 147);
-      pdf.rect(0, 0, pageWidth, 35, 'F');
-      
-      pdf.setTextColor(255, 255, 255);
-      pdf.setFontSize(22);
-      pdf.setFont('helvetica', 'bold');
-      pdf.text('Cultural Sensitivity Guide', pageWidth / 2, 20, { align: 'center' });
-      
-      pdf.setFontSize(12);
-      pdf.setFont('helvetica', 'normal');
-      pdf.text('Supporting Diverse Families in Maternal Care', pageWidth / 2, 28, { align: 'center' });
-      
-      // Subtitle
-      pdf.setFillColor(248, 225, 231);
-      pdf.rect(0, 35, pageWidth, 15, 'F');
-      
-      pdf.setTextColor(74, 56, 66);
-      pdf.setFontSize(11);
-      pdf.setFont('helvetica', 'italic');
-      pdf.text('From Bloom Psychology North Austin', pageWidth / 2, 44, { align: 'center' });
-      
-      let yPosition = 65;
-      
-      // Introduction
-      pdf.setTextColor(74, 56, 66);
-      pdf.setFontSize(11);
-      pdf.setFont('helvetica', 'normal');
-      
-      const introText = "Every family brings unique cultural traditions and values to their parenting journey. This guide helps you honor and support diverse cultural practices while providing meaningful care and support.";
-      const splitIntro = pdf.splitTextToSize(introText, maxWidth);
-      pdf.text(splitIntro, margin, yPosition);
-      yPosition += splitIntro.length * lineHeight + 15;
-      
-      // Universal Principles
-      pdf.setFontSize(16);
-      pdf.setFont('helvetica', 'bold');
-      pdf.setTextColor(200, 107, 147);
-      pdf.text('Universal Principles', margin, yPosition);
-      yPosition += 10;
-      
-      universalPrinciples.forEach((principle, index) => {
-        if (yPosition > pageHeight - 40) {
-          pdf.addPage();
-          yPosition = margin;
-        }
-        
-        // Principle circle
-        pdf.setFillColor(200, 107, 147);
-        pdf.circle(margin + 6, yPosition + 3, 6, 'F');
-        
-        pdf.setTextColor(255, 255, 255);
-        pdf.setFontSize(10);
-        pdf.setFont('helvetica', 'bold');
-        pdf.text((index + 1).toString(), margin + 6, yPosition + 6, { align: 'center' });
-        
-        // Principle title
-        pdf.setTextColor(74, 56, 66);
-        pdf.setFontSize(12);
-        pdf.setFont('helvetica', 'bold');
-        pdf.text(principle.title, margin + 15, yPosition + 6);
-        
-        yPosition += 10;
-        
-        // Description
-        pdf.setFontSize(10);
-        pdf.setFont('helvetica', 'normal');
-        const splitDesc = pdf.splitTextToSize(principle.description, maxWidth - 15);
-        pdf.text(splitDesc, margin + 15, yPosition);
-        yPosition += splitDesc.length * lineHeight + 8;
-      });
-      
-      // Cultural Considerations
-      if (yPosition > pageHeight - 60) {
-        pdf.addPage();
-        yPosition = margin;
-      }
-      
-      yPosition += 10;
-      pdf.setFontSize(16);
-      pdf.setFont('helvetica', 'bold');
-      pdf.setTextColor(200, 107, 147);
-      pdf.text('Cultural Considerations', margin, yPosition);
-      yPosition += 15;
-      
-      culturalConsiderations.forEach((culture) => {
-        if (yPosition > pageHeight - 80) {
-          pdf.addPage();
-          yPosition = margin;
-        }
-        
-        // Culture header
-        pdf.setFillColor(248, 225, 231);
-        pdf.rect(margin, yPosition - 5, maxWidth, 12, 'F');
-        
-        pdf.setTextColor(200, 107, 147);
-        pdf.setFontSize(14);
-        pdf.setFont('helvetica', 'bold');
-        pdf.text(`${culture.culture} Traditions`, margin + 5, yPosition + 2);
-        
-        yPosition += 15;
-        
-        // Tradition name
-        pdf.setTextColor(74, 56, 66);
-        pdf.setFontSize(12);
-        pdf.setFont('helvetica', 'bold');
-        pdf.text(culture.tradition, margin, yPosition);
-        yPosition += 8;
-        
-        // Description
-        pdf.setFontSize(10);
-        pdf.setFont('helvetica', 'normal');
-        const splitTradDesc = pdf.splitTextToSize(culture.description, maxWidth);
-        pdf.text(splitTradDesc, margin, yPosition);
-        yPosition += splitTradDesc.length * lineHeight + 8;
-        
-        // Key considerations
-        pdf.setFontSize(10);
-        pdf.setFont('helvetica', 'bold');
-        pdf.text('Key Considerations:', margin, yPosition);
-        yPosition += 6;
-        
-        culture.considerations.forEach((consideration) => {
-          pdf.setFont('helvetica', 'normal');
-          pdf.text('• ', margin + 5, yPosition);
-          const splitCons = pdf.splitTextToSize(consideration, maxWidth - 10);
-          pdf.text(splitCons, margin + 10, yPosition);
-          yPosition += splitCons.length * lineHeight + 2;
-        });
-        
-        yPosition += 8;
-      });
-      
-      // Footer
-      if (yPosition > pageHeight - 40) {
-        pdf.addPage();
-        yPosition = margin;
-      }
-      
-      yPosition += 10;
-      pdf.setFillColor(248, 225, 231);
-      pdf.rect(margin, yPosition, maxWidth, 25, 'F');
-      
-      pdf.setTextColor(74, 56, 66);
-      pdf.setFontSize(12);
-      pdf.setFont('helvetica', 'bold');
-      pdf.text('Remember: Cultural humility opens doors to meaningful support', pageWidth / 2, yPosition + 8, { align: 'center' });
-      
-      pdf.setFont('helvetica', 'normal');
-      pdf.setFontSize(10);
-      pdf.text('Every family\'s journey is unique and deserving of respect.', pageWidth / 2, yPosition + 16, { align: 'center' });
-      
-      // Website footer
-      yPosition += 35;
-      pdf.setTextColor(200, 107, 147);
-      pdf.setFontSize(11);
-      pdf.setFont('helvetica', 'bold');
-      pdf.text('bloompsychologynorthaustin.com', pageWidth / 2, yPosition, { align: 'center' });
-      
-      pdf.setTextColor(74, 56, 66);
-      pdf.setFontSize(9);
-      pdf.setFont('helvetica', 'normal');
-      pdf.text('Specializing in Maternal Mental Health & Women\'s Wellness', pageWidth / 2, yPosition + 7, { align: 'center' });
-      
-      pdf.setTextColor(150, 150, 150);
-      pdf.setFontSize(8);
-      pdf.text(`© ${new Date().getFullYear()} Bloom Psychology North Austin. All rights reserved.`, pageWidth / 2, yPosition + 14, { align: 'center' });
-      
-      pdf.save('cultural-sensitivity-guide-bloom-psychology.pdf');
+      await generateResourcePDF(doc, 'cultural-sensitivity-guide');
       
     } catch (error) {
       console.error('Error generating PDF:', error);

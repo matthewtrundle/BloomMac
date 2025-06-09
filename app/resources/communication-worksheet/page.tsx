@@ -207,185 +207,86 @@ export default function CommunicationWorksheetPage() {
 
   const handleDownload = async () => {
     try {
-      const { jsPDF } = await import('jspdf');
+      const { generateResourcePDF, PDFDocument } = await import('@/lib/pdf-generator');
       
-      const pdf = new jsPDF('p', 'mm', 'a4');
-      const pageWidth = pdf.internal.pageSize.getWidth();
-      const pageHeight = pdf.internal.pageSize.getHeight();
-      const margin = 20;
-      const lineHeight = 7;
-      const maxWidth = pageWidth - (margin * 2);
+      const doc: PDFDocument = {
+        title: 'Communication Worksheet',
+        subtitle: 'Navigate Conversations with Empathy and Understanding',
+        sections: [
+          {
+            title: 'Introduction',
+            content: `Postpartum life brings unique communication challenges. This worksheet provides tools and conversation starters to help partners navigate difficult topics with empathy, respect, and mutual understanding.`,
+            type: 'highlight'
+          },
+          ...scenarios.map(scenario => ({
+            title: `Communication Tool: ${scenario.title}`,
+            content: scenario.description,
+            items: scenario.examples.map(example => ({
+              title: `${example.unhelpful.starter}`,
+              subtitle: 'Better Approach:',
+              description: `${example.helpful.starter}\n\nWhy this works: ${example.helpful.betterBecause}`
+            })),
+            type: 'tips' as const
+          })),
+          {
+            title: 'Conversation Starters',
+            content: `Use these questions to deepen your connection and understanding:`,
+            items: conversationStarters.flatMap(category => 
+              category.questions.map(question => ({
+                title: question,
+                subtitle: category.category
+              }))
+            ),
+            type: 'normal'
+          },
+          {
+            title: 'Communication Tools',
+            content: `Practical techniques for better conversations:`,
+            items: communicationTools.map(tool => ({
+              title: tool.tool,
+              subtitle: tool.description,
+              description: tool.howTo.join('\n')
+            })),
+            type: 'highlight'
+          },
+          {
+            title: 'When to Seek Professional Help',
+            content: `These red flags indicate it's time to reach out for professional support:`,
+            checklistItems: redFlags,
+            type: 'warning'
+          },
+          {
+            title: 'Daily Check-In Template',
+            content: `Use this simple template for daily connection:`,
+            items: [
+              {
+                title: 'Morning Check-In',
+                description: '1. How did you sleep?\n2. What do you need today?\n3. How can I support you?'
+              },
+              {
+                title: 'Evening Reflection',
+                description: '1. What went well today?\n2. What was challenging?\n3. What do we need for tomorrow?'
+              },
+              {
+                title: 'Weekly Deep Dive',
+                description: '1. How are we doing as a couple?\n2. What needs attention this week?\n3. What are we grateful for?'
+              }
+            ],
+            type: 'tips'
+          },
+          {
+            title: 'Remember',
+            content: `Good communication during the postpartum period takes practice and patience. Be gentle with yourselves and each other as you navigate this transition.
+
+The goal isn't perfect communication—it's creating a safe space where both partners feel heard, understood, and supported.
+
+Keep this worksheet handy and refer to it whenever conversations feel difficult. With practice, these tools will become natural ways of connecting.`,
+            type: 'normal'
+          }
+        ]
+      };
       
-      // Brand colors
-      const brandPink = '#C06B93';
-      const brandDark = '#4A3842';
-      
-      // Header
-      pdf.setFillColor(200, 107, 147);
-      pdf.rect(0, 0, pageWidth, 35, 'F');
-      
-      pdf.setTextColor(255, 255, 255);
-      pdf.setFontSize(20);
-      pdf.setFont('helvetica', 'bold');
-      pdf.text('Communication Worksheet', pageWidth / 2, 20, { align: 'center' });
-      
-      pdf.setFontSize(12);
-      pdf.setFont('helvetica', 'normal');
-      pdf.text('Navigate Difficult Conversations with Empathy', pageWidth / 2, 28, { align: 'center' });
-      
-      let yPosition = 50;
-      
-      // Daily temperature check
-      pdf.setTextColor(74, 56, 66);
-      pdf.setFontSize(16);
-      pdf.setFont('helvetica', 'bold');
-      pdf.text('🌡️ Daily Temperature Check', margin, yPosition);
-      yPosition += 12;
-      
-      pdf.setFontSize(10);
-      pdf.setFont('helvetica', 'normal');
-      const tempCheck = [
-        'Ask: "On a scale of 1-10, how are you feeling today?"',
-        'Follow up: "What would help move that number up?"',
-        'Listen without judgment',
-        'Offer specific support based on their answer'
-      ];
-      
-      tempCheck.forEach((step) => {
-        pdf.text('• ', margin, yPosition);
-        const splitStep = pdf.splitTextToSize(step, maxWidth - 10);
-        pdf.text(splitStep, margin + 5, yPosition);
-        yPosition += splitStep.length * lineHeight + 3;
-      });
-      
-      yPosition += 10;
-      
-      // Conversation starters
-      if (yPosition > pageHeight - 80) {
-        pdf.addPage();
-        yPosition = margin;
-      }
-      
-      pdf.setFontSize(16);
-      pdf.setFont('helvetica', 'bold');
-      pdf.text('💬 Daily Check-in Questions', margin, yPosition);
-      yPosition += 12;
-      
-      const dailyQuestions = conversationStarters[0].questions.slice(0, 4);
-      dailyQuestions.forEach((question) => {
-        pdf.setFontSize(10);
-        pdf.setFont('helvetica', 'normal');
-        pdf.text('• ', margin, yPosition);
-        const splitQ = pdf.splitTextToSize(question, maxWidth - 10);
-        pdf.text(splitQ, margin + 5, yPosition);
-        yPosition += splitQ.length * lineHeight + 4;
-      });
-      
-      yPosition += 10;
-      
-      // Communication scenario
-      if (yPosition > pageHeight - 100) {
-        pdf.addPage();
-        yPosition = margin;
-      }
-      
-      pdf.setFontSize(16);
-      pdf.setFont('helvetica', 'bold');
-      pdf.text('🗣️ Sample Scenario: Partner Seems Stressed', margin, yPosition);
-      yPosition += 15;
-      
-      // What TO say
-      pdf.setTextColor(34, 197, 94);
-      pdf.setFontSize(12);
-      pdf.setFont('helvetica', 'bold');
-      pdf.text('✅ What TO Say:', margin, yPosition);
-      yPosition += 8;
-      
-      communicationScenarios[0].whatToSay.forEach((phrase) => {
-        pdf.setTextColor(74, 56, 66);
-        pdf.setFontSize(10);
-        pdf.setFont('helvetica', 'normal');
-        pdf.text('• ', margin, yPosition);
-        const splitPhrase = pdf.splitTextToSize(`"${phrase}"`, maxWidth - 10);
-        pdf.text(splitPhrase, margin + 5, yPosition);
-        yPosition += splitPhrase.length * lineHeight + 3;
-      });
-      
-      yPosition += 8;
-      
-      // What NOT to say
-      pdf.setTextColor(220, 38, 38);
-      pdf.setFontSize(12);
-      pdf.setFont('helvetica', 'bold');
-      pdf.text('❌ What NOT to Say:', margin, yPosition);
-      yPosition += 8;
-      
-      communicationScenarios[0].whatNotToSay.forEach((phrase) => {
-        pdf.setTextColor(74, 56, 66);
-        pdf.setFontSize(10);
-        pdf.setFont('helvetica', 'normal');
-        pdf.text('• ', margin, yPosition);
-        const splitPhrase = pdf.splitTextToSize(`"${phrase}"`, maxWidth - 10);
-        pdf.text(splitPhrase, margin + 5, yPosition);
-        yPosition += splitPhrase.length * lineHeight + 3;
-      });
-      
-      yPosition += 15;
-      
-      // Red flags section
-      if (yPosition > pageHeight - 80) {
-        pdf.addPage();
-        yPosition = margin;
-      }
-      
-      pdf.setTextColor(220, 38, 38);
-      pdf.setFontSize(16);
-      pdf.setFont('helvetica', 'bold');
-      pdf.text('🚨 When to Seek Professional Help', margin, yPosition);
-      yPosition += 12;
-      
-      redFlags.slice(0, 4).forEach((flag) => {
-        pdf.setTextColor(74, 56, 66);
-        pdf.setFontSize(10);
-        pdf.setFont('helvetica', 'normal');
-        pdf.text('• ', margin, yPosition);
-        const splitFlag = pdf.splitTextToSize(flag, maxWidth - 10);
-        pdf.text(splitFlag, margin + 5, yPosition);
-        yPosition += splitFlag.length * lineHeight + 4;
-      });
-      
-      // Footer
-      if (yPosition > pageHeight - 40) {
-        pdf.addPage();
-        yPosition = margin;
-      }
-      
-      yPosition += 15;
-      pdf.setFillColor(248, 225, 231);
-      pdf.rect(margin, yPosition, maxWidth, 25, 'F');
-      
-      pdf.setTextColor(74, 56, 66);
-      pdf.setFontSize(12);
-      pdf.setFont('helvetica', 'bold');
-      pdf.text('Good communication strengthens your relationship', pageWidth / 2, yPosition + 8, { align: 'center' });
-      
-      pdf.setFont('helvetica', 'normal');
-      pdf.setFontSize(10);
-      pdf.text('Practice these tools regularly to build connection and trust.', pageWidth / 2, yPosition + 16, { align: 'center' });
-      
-      // Website footer
-      yPosition += 35;
-      pdf.setTextColor(200, 107, 147);
-      pdf.setFontSize(11);
-      pdf.setFont('helvetica', 'bold');
-      pdf.text('bloompsychologynorthaustin.com', pageWidth / 2, yPosition, { align: 'center' });
-      
-      pdf.setTextColor(74, 56, 66);
-      pdf.setFontSize(9);
-      pdf.setFont('helvetica', 'normal');
-      pdf.text('Specializing in Maternal Mental Health & Women\'s Wellness', pageWidth / 2, yPosition + 7, { align: 'center' });
-      
-      pdf.save('communication-worksheet-bloom-psychology.pdf');
+      await generateResourcePDF(doc, 'communication-worksheet');
       
     } catch (error) {
       console.error('Error generating PDF:', error);

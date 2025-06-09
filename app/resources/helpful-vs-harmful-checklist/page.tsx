@@ -207,208 +207,70 @@ export default function HelpfulVsHarmfulChecklistPage() {
 
   const handleDownload = async () => {
     try {
-      const { jsPDF } = await import('jspdf');
+      const { generateResourcePDF, PDFDocument } = await import('@/lib/pdf-generator');
       
-      const pdf = new jsPDF('p', 'mm', 'a4');
-      const pageWidth = pdf.internal.pageSize.getWidth();
-      const pageHeight = pdf.internal.pageSize.getHeight();
-      const margin = 20;
-      const lineHeight = 7;
-      const maxWidth = pageWidth - (margin * 2);
+      const doc: PDFDocument = {
+        title: 'Helpful vs Harmful Checklist',
+        subtitle: 'What Really Helps New Families',
+        sections: [
+          {
+            title: 'Introduction',
+            content: `Well-meaning support can sometimes miss the mark. This guide helps family and friends understand what truly supports new parents versus what can unintentionally make things harder.
+
+Remember: Every family is unique, and what helps one may not help another. Always ask before assuming.`,
+            type: 'highlight'
+          },
+          ...helpfulVsHarmful.map(category => ({
+            title: category.category,
+            content: '',
+            items: category.items.map(item => ({
+              title: `✅ HELPFUL: ${item.helpful}`,
+              subtitle: `❌ HARMFUL: ${item.harmful}`,
+              description: `Why: ${item.explanation}`
+            })),
+            type: category.category === 'Offering Help' ? 'tips' : 
+                   category.category === 'Visiting' ? 'warning' :
+                   category.category === 'Emotional Support' ? 'highlight' : 'normal' as const
+          })),
+          {
+            title: 'Common Mistakes to Avoid',
+            content: `Even with the best intentions, these common mistakes can create stress for new families:`,
+            items: commonMistakes.map(mistake => ({
+              title: mistake.mistake,
+              description: `Better approach: ${mistake.betterApproach}`
+            })),
+            type: 'warning'
+          },
+          {
+            title: 'Quick Reference Checklist',
+            content: `Print this checklist and keep it handy when supporting new families:`,
+            checklistItems: [
+              'Before visiting: Call or text first',
+              'When offering help: Be specific with your offers',
+              'During visits: Keep them short and helpful',
+              'With emotions: Validate without comparing',
+              'With advice: Ask before giving suggestions',
+              'With boundaries: Respect them gracefully',
+              'With commitments: Follow through reliably',
+              'With communication: Be patient with response times',
+              'With support: Focus on reducing their workload',
+              'With presence: Sometimes just listening is enough'
+            ],
+            type: 'checklist'
+          },
+          {
+            title: 'Remember',
+            content: `The best support empowers new parents rather than undermining their confidence. Your role is to support their journey, not direct it.
+
+When in doubt, always ask: "What would be most helpful?" And then truly listen to their answer.
+
+Your respectful, thoughtful support during this vulnerable time will be remembered and appreciated long after the newborn phase passes.`,
+            type: 'normal'
+          }
+        ]
+      };
       
-      // Header
-      pdf.setFillColor(200, 107, 147);
-      pdf.rect(0, 0, pageWidth, 35, 'F');
-      
-      pdf.setTextColor(255, 255, 255);
-      pdf.setFontSize(20);
-      pdf.setFont('helvetica', 'bold');
-      pdf.text('Helpful vs Harmful Checklist', pageWidth / 2, 20, { align: 'center' });
-      
-      pdf.setFontSize(12);
-      pdf.setFont('helvetica', 'normal');
-      pdf.text('What Really Helps New Families', pageWidth / 2, 28, { align: 'center' });
-      
-      let yPosition = 50;
-      
-      // Offering Help section
-      pdf.setTextColor(74, 56, 66);
-      pdf.setFontSize(16);
-      pdf.setFont('helvetica', 'bold');
-      pdf.text('🎁 Offering Help', margin, yPosition);
-      yPosition += 15;
-      
-      // Helpful examples
-      pdf.setTextColor(34, 197, 94);
-      pdf.setFontSize(12);
-      pdf.setFont('helvetica', 'bold');
-      pdf.text('✅ HELPFUL:', margin, yPosition);
-      yPosition += 8;
-      
-      const helpfulOffers = [
-        'Ask "What would be most helpful right now?"',
-        'Offer specific help: "Can I bring dinner Thursday?"',
-        'Follow through on commitments reliably',
-        'Respect their "no" gracefully'
-      ];
-      
-      helpfulOffers.forEach((item) => {
-        pdf.setTextColor(74, 56, 66);
-        pdf.setFontSize(10);
-        pdf.setFont('helvetica', 'normal');
-        pdf.text('• ', margin + 5, yPosition);
-        const splitItem = pdf.splitTextToSize(item, maxWidth - 15);
-        pdf.text(splitItem, margin + 10, yPosition);
-        yPosition += splitItem.length * lineHeight + 3;
-      });
-      
-      yPosition += 8;
-      
-      // Harmful examples
-      pdf.setTextColor(220, 38, 38);
-      pdf.setFontSize(12);
-      pdf.setFont('helvetica', 'bold');
-      pdf.text('❌ HARMFUL:', margin, yPosition);
-      yPosition += 8;
-      
-      const harmfulOffers = [
-        'Assume you know what they need',
-        'Say "Let me know if you need anything"',
-        'Make promises you can\'t keep',
-        'Insist on helping when they decline'
-      ];
-      
-      harmfulOffers.forEach((item) => {
-        pdf.setTextColor(74, 56, 66);
-        pdf.setFontSize(10);
-        pdf.setFont('helvetica', 'normal');
-        pdf.text('• ', margin + 5, yPosition);
-        const splitItem = pdf.splitTextToSize(item, maxWidth - 15);
-        pdf.text(splitItem, margin + 10, yPosition);
-        yPosition += splitItem.length * lineHeight + 3;
-      });
-      
-      yPosition += 15;
-      
-      // Visiting section
-      if (yPosition > pageHeight - 100) {
-        pdf.addPage();
-        yPosition = margin;
-      }
-      
-      pdf.setTextColor(74, 56, 66);
-      pdf.setFontSize(16);
-      pdf.setFont('helvetica', 'bold');
-      pdf.text('🏠 Visiting', margin, yPosition);
-      yPosition += 15;
-      
-      // Helpful visiting
-      pdf.setTextColor(34, 197, 94);
-      pdf.setFontSize(12);
-      pdf.setFont('helvetica', 'bold');
-      pdf.text('✅ HELPFUL:', margin, yPosition);
-      yPosition += 8;
-      
-      const helpfulVisiting = [
-        'Call or text before visiting',
-        'Keep visits short and sweet',
-        'Bring your own refreshments',
-        'Help with dishes while there'
-      ];
-      
-      helpfulVisiting.forEach((item) => {
-        pdf.setTextColor(74, 56, 66);
-        pdf.setFontSize(10);
-        pdf.setFont('helvetica', 'normal');
-        pdf.text('• ', margin + 5, yPosition);
-        const splitItem = pdf.splitTextToSize(item, maxWidth - 15);
-        pdf.text(splitItem, margin + 10, yPosition);
-        yPosition += splitItem.length * lineHeight + 3;
-      });
-      
-      yPosition += 8;
-      
-      // Harmful visiting
-      pdf.setTextColor(220, 38, 38);
-      pdf.setFontSize(12);
-      pdf.setFont('helvetica', 'bold');
-      pdf.text('❌ HARMFUL:', margin, yPosition);
-      yPosition += 8;
-      
-      const harmfulVisiting = [
-        'Show up unannounced',
-        'Stay for hours without checking in',
-        'Expect to be fed and entertained',
-        'Create more work by your presence'
-      ];
-      
-      harmfulVisiting.forEach((item) => {
-        pdf.setTextColor(74, 56, 66);
-        pdf.setFontSize(10);
-        pdf.setFont('helvetica', 'normal');
-        pdf.text('• ', margin + 5, yPosition);
-        const splitItem = pdf.splitTextToSize(item, maxWidth - 15);
-        pdf.text(splitItem, margin + 10, yPosition);
-        yPosition += splitItem.length * lineHeight + 3;
-      });
-      
-      yPosition += 15;
-      
-      // Quick tips
-      if (yPosition > pageHeight - 60) {
-        pdf.addPage();
-        yPosition = margin;
-      }
-      
-      pdf.setFillColor(248, 225, 231);
-      pdf.rect(margin, yPosition, maxWidth, 30, 'F');
-      
-      pdf.setTextColor(200, 107, 147);
-      pdf.setFontSize(14);
-      pdf.setFont('helvetica', 'bold');
-      pdf.text('Quick Tips', margin + 5, yPosition + 8);
-      
-      pdf.setTextColor(74, 56, 66);
-      pdf.setFontSize(10);
-      pdf.setFont('helvetica', 'normal');
-      pdf.text('• When in doubt, ask what they need', margin + 5, yPosition + 16);
-      pdf.text('• Listen more than you speak', margin + 5, yPosition + 22);
-      pdf.text('• Respect boundaries without taking it personally', margin + 5, yPosition + 28);
-      
-      yPosition += 40;
-      
-      // Footer
-      if (yPosition > pageHeight - 40) {
-        pdf.addPage();
-        yPosition = margin;
-      }
-      
-      yPosition += 10;
-      pdf.setFillColor(248, 225, 231);
-      pdf.rect(margin, yPosition, maxWidth, 25, 'F');
-      
-      pdf.setTextColor(74, 56, 66);
-      pdf.setFontSize(12);
-      pdf.setFont('helvetica', 'bold');
-      pdf.text('The best support meets families where they are', pageWidth / 2, yPosition + 8, { align: 'center' });
-      
-      pdf.setFont('helvetica', 'normal');
-      pdf.setFontSize(10);
-      pdf.text('Every family is different - ask rather than assume.', pageWidth / 2, yPosition + 16, { align: 'center' });
-      
-      // Website footer
-      yPosition += 35;
-      pdf.setTextColor(200, 107, 147);
-      pdf.setFontSize(11);
-      pdf.setFont('helvetica', 'bold');
-      pdf.text('bloompsychologynorthaustin.com', pageWidth / 2, yPosition, { align: 'center' });
-      
-      pdf.setTextColor(74, 56, 66);
-      pdf.setFontSize(9);
-      pdf.setFont('helvetica', 'normal');
-      pdf.text('Specializing in Maternal Mental Health & Women\'s Wellness', pageWidth / 2, yPosition + 7, { align: 'center' });
-      
-      pdf.save('helpful-vs-harmful-checklist-bloom-psychology.pdf');
+      await generateResourcePDF(doc, 'helpful-vs-harmful-checklist');
       
     } catch (error) {
       console.error('Error generating PDF:', error);

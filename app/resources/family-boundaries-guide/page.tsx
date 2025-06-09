@@ -213,167 +213,187 @@ export default function FamilyBoundariesGuidePage() {
 
   const handleDownload = async () => {
     try {
-      const { jsPDF } = await import('jspdf');
+      const { generateResourcePDF, PDFDocument } = await import('@/lib/pdf-generator');
       
-      const pdf = new jsPDF('p', 'mm', 'a4');
-      const pageWidth = pdf.internal.pageSize.getWidth();
-      const pageHeight = pdf.internal.pageSize.getHeight();
-      const margin = 20;
-      const lineHeight = 7;
-      const maxWidth = pageWidth - (margin * 2);
+      const doc: PDFDocument = {
+        title: 'Family Boundaries Guide',
+        subtitle: 'Supporting New Parents While Respecting Boundaries',
+        sections: [
+          {
+            title: 'Introduction',
+            content: `When welcoming a new baby, families need support and space to adjust. This guide helps family members and friends understand how to offer meaningful help while respecting important boundaries during this sensitive time.`,
+            type: 'highlight'
+          },
+          {
+            title: 'Visiting Guidelines',
+            content: `Respecting visiting boundaries helps new parents feel supported rather than overwhelmed.`,
+            items: [
+              {
+                title: 'Call or text before visiting',
+                subtitle: 'Why: New parents need predictability and may be sleeping, feeding, or bonding',
+                description: 'Respectful approach: Ask "When would be a good time to visit this week?" rather than showing up unannounced.'
+              },
+              {
+                title: 'Keep visits short (30-60 minutes)',
+                subtitle: 'Why: Long visits can be exhausting when you\'re already sleep-deprived',
+                description: 'Set expectations upfront: "We\'d love to visit for about an hour" instead of staying indefinitely.'
+              },
+              {
+                title: 'Don\'t expect to be entertained',
+                subtitle: 'Why: New parents don\'t have energy to host traditional gatherings',
+                description: 'Bring your own drinks, clean up after yourself, and don\'t expect meals or entertainment.'
+              },
+              {
+                title: 'Respect "no visitors" periods',
+                subtitle: 'Why: Some days are harder than others, and recovery takes time',
+                description: 'Say: "No problem, let us know when you\'re ready" instead of pressuring or making them feel guilty.'
+              }
+            ],
+            type: 'tips'
+          },
+          {
+            title: 'Baby Care Boundaries',
+            content: `Supporting parents\' decisions helps them build confidence in their new role.`,
+            items: [
+              {
+                title: 'Ask before holding the baby',
+                subtitle: 'Why: Parents are learning cues and may be working on feeding/sleep schedules',
+                description: 'Wait to be offered or ask: "Would it be okay if I held them?" Don\'t reach for or demand to hold the baby.'
+              },
+              {
+                title: 'Respect feeding choices',
+                subtitle: 'Why: Feeding decisions are personal and often complex',
+                description: 'Support whatever method they choose without commenting on breastfeeding, formula, or pumping decisions.'
+              },
+              {
+                title: 'Follow parents\' sleep routines',
+                subtitle: 'Why: Sleep training and routines are crucial for the whole family',
+                description: 'Ask about nap times and respect them. Never wake the baby or dismiss sleep schedules.'
+              },
+              {
+                title: 'Let parents make the decisions',
+                subtitle: 'Why: They\'re learning to trust their instincts and build confidence',
+                description: 'Offer advice only when asked. Avoid taking over or criticizing their parenting choices.'
+              }
+            ],
+            type: 'warning'
+          },
+          {
+            title: 'Emotional Support Boundaries',
+            content: `Creating a safe emotional space helps new parents process their experience.`,
+            items: [
+              {
+                title: 'Validate their feelings',
+                subtitle: 'Why: New parents experience a wide range of emotions that are all normal',
+                description: 'Say: "This is really hard" or "You\'re doing great" instead of minimizing feelings or saying "enjoy every moment".'
+              },
+              {
+                title: 'Don\'t compare experiences',
+                subtitle: 'Why: Every pregnancy, birth, and parenting experience is unique',
+                description: 'Listen without immediately sharing your own story. Avoid starting sentences with "When I had kids..." or "At least..."'
+              },
+              {
+                title: 'Respect their parenting style',
+                subtitle: 'Why: Confidence comes from making their own decisions and learning',
+                description: 'Ask: "How can I best support what you\'re doing?" instead of constantly offering unsolicited advice.'
+              },
+              {
+                title: 'Give them space to struggle',
+                subtitle: 'Why: Learning and growth happen through working through challenges',
+                description: 'Be available but don\'t immediately jump in to "fix" everything. Let them learn and grow.'
+              }
+            ],
+            type: 'highlight'
+          },
+          {
+            title: 'How to Be Genuinely Helpful',
+            content: `Practical ways to support new families that truly make a difference.`,
+            checklistItems: [
+              'Ask: "What would be most helpful right now?" rather than assuming',
+              'Bring ready-to-eat meals in disposable containers',
+              'Offer specific help: "Can I do a load of laundry?" instead of vague offers',
+              'Pick up essentials like toilet paper, diapers, or groceries',
+              'Take out trash or recycling without being asked',
+              'Help with pet care if they have animals',
+              'Offer to take older siblings for activities',
+              'Send encouraging texts without expecting immediate responses',
+              'Be reliable - only offer what you can consistently provide',
+              'Help without expecting gratitude, reciprocation, or credit'
+            ],
+            type: 'checklist'
+          },
+          {
+            title: 'Communication Guidelines',
+            content: `How you communicate can make the difference between helpful support and added stress.`,
+            items: [
+              {
+                title: 'Use "I" statements',
+                subtitle: 'Example: "I\'d love to help with..." instead of "You should let me..."',
+                description: 'This removes pressure and gives them choice in accepting help.'
+              },
+              {
+                title: 'Ask before giving advice',
+                subtitle: 'Example: "Would you like suggestions or just someone to listen?"',
+                description: 'Respects their autonomy and current emotional needs.'
+              },
+              {
+                title: 'Be specific with offers',
+                subtitle: 'Example: "Can I bring dinner Tuesday?" instead of "Let me know if you need anything"',
+                description: 'Makes it easier for overwhelmed parents to accept help.'
+              },
+              {
+                title: 'Follow their lead',
+                subtitle: 'If they\'re talking about challenges, don\'t immediately pivot to solutions',
+                description: 'Sometimes they just need to be heard and validated.'
+              },
+              {
+                title: 'Respect their communication style',
+                subtitle: 'If they\'re not responding to texts quickly, don\'t take it personally',
+                description: 'They have limited energy and bandwidth - be patient and understanding.'
+              }
+            ],
+            type: 'tips'
+          },
+          {
+            title: 'Key Principles to Remember',
+            content: ``,
+            items: [
+              {
+                title: 'Every family is different',
+                description: 'What worked for one family may not work for another. Be flexible and responsive to individual needs.'
+              },
+              {
+                title: 'When in doubt, ask',
+                description: 'It\'s better to ask what they need than to assume you know. This shows respect and consideration.'
+              },
+              {
+                title: 'Respect "no" gracefully',
+                description: 'Accept their boundaries without making them feel guilty or obligated to explain.'
+              },
+              {
+                title: 'Support without strings',
+                description: 'Offer help without expecting gratitude, reciprocation, or public acknowledgment.'
+              },
+              {
+                title: 'Be patient with the process',
+                description: 'Adjustment takes time, and needs change as families grow. Stay flexible and supportive.'
+              }
+            ],
+            type: 'highlight'
+          },
+          {
+            title: 'Remember',
+            content: `When you respect a new family's boundaries, you're showing them that you value their autonomy, well-being, and growing confidence as parents. 
+
+Your respectful support during this vulnerable time creates a foundation of trust and appreciation that will strengthen your relationship for years to come.
+
+The greatest gift you can give new parents is the space to find their own way, with your loving support available whenever they're ready to receive it.`,
+            type: 'normal'
+          }
+        ]
+      };
       
-      // Header
-      pdf.setFillColor(200, 107, 147);
-      pdf.rect(0, 0, pageWidth, 35, 'F');
-      
-      pdf.setTextColor(255, 255, 255);
-      pdf.setFontSize(20);
-      pdf.setFont('helvetica', 'bold');
-      pdf.text('Family Boundaries Guide', pageWidth / 2, 20, { align: 'center' });
-      
-      pdf.setFontSize(12);
-      pdf.setFont('helvetica', 'normal');
-      pdf.text('Supporting New Parents While Respecting Boundaries', pageWidth / 2, 28, { align: 'center' });
-      
-      let yPosition = 50;
-      
-      // Visiting guidelines
-      pdf.setTextColor(74, 56, 66);
-      pdf.setFontSize(16);
-      pdf.setFont('helvetica', 'bold');
-      pdf.text('🏠 Visiting Guidelines', margin, yPosition);
-      yPosition += 12;
-      
-      const visitingTips = [
-        'Call or text before visiting',
-        'Keep visits short (30-60 minutes)',
-        'Don\'t expect to be entertained',
-        'Respect "no visitors" periods'
-      ];
-      
-      visitingTips.forEach((tip) => {
-        pdf.setTextColor(74, 56, 66);
-        pdf.setFontSize(10);
-        pdf.setFont('helvetica', 'normal');
-        pdf.text('• ', margin, yPosition);
-        const splitTip = pdf.splitTextToSize(tip, maxWidth - 10);
-        pdf.text(splitTip, margin + 5, yPosition);
-        yPosition += splitTip.length * lineHeight + 3;
-      });
-      
-      yPosition += 10;
-      
-      // Baby care boundaries
-      pdf.setFontSize(16);
-      pdf.setFont('helvetica', 'bold');
-      pdf.text('👶 Baby Care Boundaries', margin, yPosition);
-      yPosition += 12;
-      
-      const babyCare = [
-        'Ask before holding the baby',
-        'Respect feeding choices',
-        'Follow parents\' sleep routines',
-        'Let parents make the decisions'
-      ];
-      
-      babyCare.forEach((tip) => {
-        pdf.setFontSize(10);
-        pdf.setFont('helvetica', 'normal');
-        pdf.text('• ', margin, yPosition);
-        const splitTip = pdf.splitTextToSize(tip, maxWidth - 10);
-        pdf.text(splitTip, margin + 5, yPosition);
-        yPosition += splitTip.length * lineHeight + 3;
-      });
-      
-      yPosition += 15;
-      
-      // Helpful actions
-      if (yPosition > pageHeight - 80) {
-        pdf.addPage();
-        yPosition = margin;
-      }
-      
-      pdf.setFontSize(16);
-      pdf.setFont('helvetica', 'bold');
-      pdf.text('🎁 How to Help', margin, yPosition);
-      yPosition += 12;
-      
-      const helpActions = [
-        'Ask: "What would be most helpful right now?"',
-        'Bring ready-to-eat meals in disposable containers',
-        'Offer specific help: "Can I do a load of laundry?"',
-        'Respect their systems and routines',
-        'Be reliable with commitments'
-      ];
-      
-      helpActions.forEach((action) => {
-        pdf.setFontSize(10);
-        pdf.setFont('helvetica', 'normal');
-        pdf.text('• ', margin, yPosition);
-        const splitAction = pdf.splitTextToSize(action, maxWidth - 10);
-        pdf.text(splitAction, margin + 5, yPosition);
-        yPosition += splitAction.length * lineHeight + 3;
-      });
-      
-      yPosition += 15;
-      
-      // Communication tips
-      if (yPosition > pageHeight - 60) {
-        pdf.addPage();
-        yPosition = margin;
-      }
-      
-      pdf.setFontSize(16);
-      pdf.setFont('helvetica', 'bold');
-      pdf.text('💬 Communication Tips', margin, yPosition);
-      yPosition += 12;
-      
-      communicationTips.slice(0, 4).forEach((tip) => {
-        pdf.setTextColor(200, 107, 147);
-        pdf.setFontSize(10);
-        pdf.setFont('helvetica', 'bold');
-        pdf.text(tip.tip + ':', margin, yPosition);
-        yPosition += 6;
-        
-        pdf.setTextColor(74, 56, 66);
-        pdf.setFont('helvetica', 'normal');
-        const splitExample = pdf.splitTextToSize(tip.example, maxWidth - 10);
-        pdf.text(splitExample, margin + 5, yPosition);
-        yPosition += splitExample.length * lineHeight + 5;
-      });
-      
-      // Footer
-      if (yPosition > pageHeight - 40) {
-        pdf.addPage();
-        yPosition = margin;
-      }
-      
-      yPosition += 15;
-      pdf.setFillColor(248, 225, 231);
-      pdf.rect(margin, yPosition, maxWidth, 25, 'F');
-      
-      pdf.setTextColor(74, 56, 66);
-      pdf.setFontSize(12);
-      pdf.setFont('helvetica', 'bold');
-      pdf.text('Respecting boundaries shows love and support', pageWidth / 2, yPosition + 8, { align: 'center' });
-      
-      pdf.setFont('helvetica', 'normal');
-      pdf.setFontSize(10);
-      pdf.text('When in doubt, ask what they need rather than assume.', pageWidth / 2, yPosition + 16, { align: 'center' });
-      
-      // Website footer
-      yPosition += 35;
-      pdf.setTextColor(200, 107, 147);
-      pdf.setFontSize(11);
-      pdf.setFont('helvetica', 'bold');
-      pdf.text('bloompsychologynorthaustin.com', pageWidth / 2, yPosition, { align: 'center' });
-      
-      pdf.setTextColor(74, 56, 66);
-      pdf.setFontSize(9);
-      pdf.setFont('helvetica', 'normal');
-      pdf.text('Specializing in Maternal Mental Health & Women\'s Wellness', pageWidth / 2, yPosition + 7, { align: 'center' });
-      
-      pdf.save('family-boundaries-guide-bloom-psychology.pdf');
+      await generateResourcePDF(doc, 'family-boundaries-guide');
       
     } catch (error) {
       console.error('Error generating PDF:', error);
