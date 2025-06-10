@@ -73,17 +73,37 @@ function PurchaseSuccessContent() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-bloom-sage-50 via-white to-bloom-pink-50">
-      {/* Celebration Header */}
+      {/* Celebration Header with Garden Theme */}
       <section className="py-20 relative overflow-hidden">
+        {/* Garden lattice pattern background */}
         <div className="absolute inset-0 opacity-5">
-          <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
+          <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
             <defs>
-              <pattern id="celebration-dots" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
-                <circle cx="20" cy="20" r="1" fill="currentColor" className="text-bloompink" />
+              <pattern id="celebration-lattice" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
+                <path d="M0,5 L10,5 M5,0 L5,10" stroke="currentColor" strokeWidth="0.5" className="text-bloom-sage"/>
               </pattern>
             </defs>
-            <rect width="100%" height="100%" fill="url(#celebration-dots)" />
+            <rect width="100" height="100" fill="url(#celebration-lattice)" />
           </svg>
+        </div>
+        
+        {/* Floating celebration elements */}
+        <div className="absolute inset-0 pointer-events-none">
+          <motion.div
+            animate={{ y: [0, -30, 0], rotate: [0, 360] }}
+            transition={{ duration: 15, repeat: Infinity }}
+            className="absolute top-20 right-20 w-4 h-4 bg-pink-300 rounded-full opacity-30"
+          />
+          <motion.div
+            animate={{ y: [0, -25, 0], scale: [1, 1.2, 1] }}
+            transition={{ duration: 18, repeat: Infinity, delay: 5 }}
+            className="absolute bottom-20 left-40 w-3 h-3 bg-bloom-sage/30 rounded-full"
+          />
+          <motion.div
+            animate={{ y: [0, -20, 0] }}
+            transition={{ duration: 20, repeat: Infinity, delay: 10 }}
+            className="absolute top-1/2 right-1/3 w-2 h-2 bg-yellow-300 rounded-full opacity-25"
+          />
         </div>
 
         <div className="container mx-auto px-6 relative z-10">
@@ -110,11 +130,24 @@ function PurchaseSuccessContent() {
               <span className="text-bloompink">Wellness Journey!</span>
             </h1>
             
+            {/* Decorative flower divider */}
+            <div className="flex items-center justify-center gap-4 mb-6">
+              <div className="w-16 h-0.5 bg-gradient-to-r from-transparent to-bloom-sage/30 rounded-full"></div>
+              <Image 
+                src="/images/flower no stem.svg" 
+                alt="" 
+                width={24} 
+                height={24} 
+                className="opacity-50"
+              />
+              <div className="w-16 h-0.5 bg-gradient-to-l from-transparent to-bloom-sage/30 rounded-full"></div>
+            </div>
+            
             <p className="text-xl text-bloom-dark/80 mb-8">
               🎉 Congratulations! You've successfully enrolled in <strong>{course.title}</strong>
             </p>
 
-            <div className="bg-white rounded-xl shadow-soft p-8 mb-8 max-w-2xl mx-auto">
+            <div className="bg-gradient-to-br from-white to-bloom-sage-50/20 border border-bloom-sage/10 rounded-xl shadow-soft p-8 mb-8 max-w-2xl mx-auto">
               <div className="flex items-center gap-4 mb-4">
                 <div className="w-16 h-16 relative rounded-lg overflow-hidden flex-shrink-0">
                   <Image
@@ -157,7 +190,7 @@ function PurchaseSuccessContent() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.1 }}
                 viewport={{ once: true }}
-                className="text-center"
+                className="text-center bg-gradient-to-br from-white to-bloom-sage-50/20 border border-bloom-sage/10 rounded-xl p-6 hover:shadow-lg transition-all duration-300"
               >
                 <div className="w-16 h-16 bg-bloompink rounded-full flex items-center justify-center mx-auto mb-4">
                   <span className="text-2xl font-bold text-white">1</span>
@@ -184,7 +217,7 @@ function PurchaseSuccessContent() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
                 viewport={{ once: true }}
-                className="text-center"
+                className="text-center bg-gradient-to-br from-white to-bloom-sage-50/20 border border-bloom-sage/10 rounded-xl p-6 hover:shadow-lg transition-all duration-300"
               >
                 <div className="w-16 h-16 bg-bloom-sage rounded-full flex items-center justify-center mx-auto mb-4">
                   <span className="text-2xl font-bold text-white">2</span>
@@ -206,7 +239,7 @@ function PurchaseSuccessContent() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
                 viewport={{ once: true }}
-                className="text-center"
+                className="text-center bg-gradient-to-br from-white to-bloom-sage-50/20 border border-bloom-sage/10 rounded-xl p-6 hover:shadow-lg transition-all duration-300"
               >
                 <div className="w-16 h-16 bg-bloom-accent rounded-full flex items-center justify-center mx-auto mb-4">
                   <span className="text-2xl font-bold text-white">3</span>
@@ -233,7 +266,7 @@ function PurchaseSuccessContent() {
             </div>
 
             {/* Course Details */}
-            <div className="bg-white rounded-xl shadow-soft p-8 mb-8">
+            <div className="bg-gradient-to-br from-white to-bloom-sage-50/20 border border-bloom-sage/10 rounded-xl shadow-soft p-8 mb-8">
               <h3 className="text-2xl font-playfair mb-6">Your Course Includes:</h3>
               <div className="grid sm:grid-cols-2 gap-6">
                 <div className="flex items-start gap-3">
@@ -266,8 +299,27 @@ function PurchaseSuccessContent() {
               </div>
             </div>
 
-            {/* Support Section */}
-            <div className="bg-gradient-to-r from-bloompink to-pink-400 rounded-xl p-8 text-white text-center">
+            {/* Support Section with Garden Theme */}
+            <div className="bg-gradient-to-r from-bloompink to-pink-400 rounded-xl p-8 text-white text-center relative overflow-hidden">
+              {/* Floating garden elements */}
+              <div className="absolute inset-0 pointer-events-none">
+                <motion.div
+                  animate={{ scale: [1, 1.1, 1], rotate: [0, 180, 360] }}
+                  transition={{ duration: 20, repeat: Infinity }}
+                  className="absolute top-4 right-6 text-3xl opacity-20"
+                >
+                  🌸
+                </motion.div>
+                <motion.div
+                  animate={{ scale: [1, 1.2, 1] }}
+                  transition={{ duration: 15, repeat: Infinity, delay: 5 }}
+                  className="absolute bottom-4 left-6 text-2xl opacity-20"
+                >
+                  🌿
+                </motion.div>
+              </div>
+              
+              <div className="relative z-10">
               <h3 className="text-2xl font-playfair mb-4">I'm Here to Support You</h3>
               <p className="text-xl mb-6 opacity-90">
                 "Remember, taking this step shows incredible strength. You're not just investing in yourself, 
@@ -282,6 +334,7 @@ function PurchaseSuccessContent() {
                 <Button href="/my-courses" variant="outline-white" size="lg">
                   Access My Courses
                 </Button>
+              </div>
               </div>
             </div>
 

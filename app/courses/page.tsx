@@ -121,17 +121,37 @@ export default function CoursesPage() {
         </div>
       )}
 
-      {/* Hero Section */}
+      {/* Hero Section with Enhanced Garden Theme */}
       <section className="py-20 relative overflow-hidden">
+        {/* Garden lattice pattern background */}
         <div className="absolute inset-0 opacity-5">
-          <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
+          <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
             <defs>
-              <pattern id="course-dots" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
-                <circle cx="20" cy="20" r="1" fill="currentColor" className="text-bloompink" />
+              <pattern id="course-lattice" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
+                <path d="M0,5 L10,5 M5,0 L5,10" stroke="currentColor" strokeWidth="0.5" className="text-bloom-sage"/>
               </pattern>
             </defs>
-            <rect width="100%" height="100%" fill="url(#course-dots)" />
+            <rect width="100" height="100" fill="url(#course-lattice)" />
           </svg>
+        </div>
+        
+        {/* Floating garden elements */}
+        <div className="absolute inset-0 pointer-events-none">
+          <motion.div
+            animate={{ y: [0, -30, 0], rotate: [0, 180, 360] }}
+            transition={{ duration: 20, repeat: Infinity }}
+            className="absolute top-20 right-20 w-3 h-3 bg-pink-300 rounded-full opacity-30"
+          />
+          <motion.div
+            animate={{ y: [0, -20, 0] }}
+            transition={{ duration: 15, repeat: Infinity, delay: 5 }}
+            className="absolute bottom-20 left-40 w-2 h-2 bg-bloom-sage/30 rounded-full"
+          />
+          <motion.div
+            animate={{ y: [0, -25, 0] }}
+            transition={{ duration: 18, repeat: Infinity, delay: 10 }}
+            className="absolute top-1/2 right-1/3 w-4 h-4 bg-yellow-300 rounded-full opacity-20"
+          />
         </div>
 
         <div className="container mx-auto px-6 relative z-10">
@@ -145,6 +165,19 @@ export default function CoursesPage() {
               <span className="text-bloom-dark">Digital Courses for </span>
               <span className="text-bloompink">Postpartum Wellness</span>
             </h1>
+            
+            {/* Decorative flower divider */}
+            <div className="flex items-center justify-center gap-4 mb-8">
+              <div className="w-16 h-0.5 bg-gradient-to-r from-transparent to-bloom-sage/30 rounded-full"></div>
+              <Image 
+                src="/images/flower no stem.svg" 
+                alt="" 
+                width={24} 
+                height={24} 
+                className="opacity-50"
+              />
+              <div className="w-16 h-0.5 bg-gradient-to-l from-transparent to-bloom-sage/30 rounded-full"></div>
+            </div>
             
             <p className="text-xl text-bloom-dark/80 mb-8">
               Self-paced, evidence-based programs designed by Dr. Jana Rundle to support your journey through motherhood
@@ -261,19 +294,34 @@ export default function CoursesPage() {
                   </div>
                 )}
                 
-                <div className={`bg-white rounded-2xl shadow-xl overflow-hidden h-full flex flex-col ${
-                  course.highlighted ? 'ring-2 ring-bloompink' : ''
+                <div className={`bg-gradient-to-br from-white to-bloom-sage-50/20 rounded-2xl shadow-xl hover:shadow-2xl overflow-hidden h-full flex flex-col transition-all duration-300 hover:-translate-y-2 group ${
+                  course.highlighted ? 'ring-2 ring-bloompink' : 'border border-bloom-sage/10'
                 }`}>
-                  <div className="relative h-48">
+                  <div className="relative h-48 overflow-hidden">
                     <Image
                       src={course.image}
                       alt={course.title}
                       fill
-                      className="object-cover"
+                      className="object-cover transition-transform duration-300 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                    
+                    {/* Floating flower accent */}
+                    <div className="absolute -top-2 -right-2 opacity-0 group-hover:opacity-70 transition-opacity duration-300">
+                      <Image
+                        src="/images/flower no stem.svg"
+                        alt=""
+                        width={32}
+                        height={32}
+                        className="opacity-80"
+                      />
+                    </div>
+                    
                     <div className="absolute bottom-4 left-4 text-white">
-                      <p className="text-sm opacity-90">{course.duration} • {course.modules} modules</p>
+                      <p className="text-sm opacity-90 flex items-center gap-2">
+                        <span>⏱️</span>
+                        {course.duration} • {course.modules} modules
+                      </p>
                     </div>
                   </div>
                   
@@ -356,14 +404,47 @@ export default function CoursesPage() {
       )}
 
 
-      {/* FAQ Section */}
-      <section className="py-20">
-        <div className="container mx-auto px-6 max-w-4xl">
-          <h2 className="text-4xl font-playfair text-center mb-12">Common Questions</h2>
+      {/* FAQ Section with Garden Theme */}
+      <section className="py-20 bg-gradient-to-br from-bloom-sage-50/20 to-white relative overflow-hidden">
+        {/* Decorative vine pattern */}
+        <svg className="absolute left-0 top-0 h-full w-32 opacity-5" viewBox="0 0 100 500" preserveAspectRatio="none">
+          <path d="M50,0 Q30,50 50,100 T50,200 T50,300 T50,400 T50,500" 
+                stroke="currentColor" strokeWidth="2" fill="none" className="text-bloom-sage"/>
+        </svg>
+        
+        <div className="container mx-auto px-6 max-w-4xl relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-4xl font-playfair text-bloom-dark mb-6">Common Questions</h2>
+            
+            {/* Decorative flower divider */}
+            <div className="flex items-center justify-center gap-4">
+              <div className="w-16 h-0.5 bg-gradient-to-r from-transparent to-bloom-sage/30 rounded-full"></div>
+              <Image 
+                src="/images/flower no stem.svg" 
+                alt="" 
+                width={20} 
+                height={20} 
+                className="opacity-50"
+              />
+              <div className="w-16 h-0.5 bg-gradient-to-l from-transparent to-bloom-sage/30 rounded-full"></div>
+            </div>
+          </motion.div>
           
           <div className="space-y-6">
-            <details className="bg-white p-6 rounded-xl shadow-soft group">
-              <summary className="font-semibold cursor-pointer flex justify-between items-center">
+            <motion.details 
+              className="bg-gradient-to-br from-white to-bloom-sage-50/20 p-6 rounded-xl shadow-lg border border-bloom-sage/10 group hover:shadow-xl transition-all duration-300"
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.1 }}
+              viewport={{ once: true }}
+            >
+              <summary className="font-semibold cursor-pointer flex justify-between items-center text-bloom-dark group-hover:text-bloompink transition-colors">
                 How long do I have access to the course?
                 <svg className="w-5 h-5 text-bloom-dark/40 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -372,10 +453,16 @@ export default function CoursesPage() {
               <p className="mt-4 text-bloom-dark/70">
                 You have lifetime access to all course materials. Complete them at your own pace and revisit anytime you need a refresher.
               </p>
-            </details>
+            </motion.details>
 
-            <details className="bg-white p-6 rounded-xl shadow-soft group">
-              <summary className="font-semibold cursor-pointer flex justify-between items-center">
+            <motion.details 
+              className="bg-gradient-to-br from-white to-bloom-sage-50/20 p-6 rounded-xl shadow-lg border border-bloom-sage/10 group hover:shadow-xl transition-all duration-300"
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.2 }}
+              viewport={{ once: true }}
+            >
+              <summary className="font-semibold cursor-pointer flex justify-between items-center text-bloom-dark group-hover:text-bloompink transition-colors">
                 What if I need more personalized support?
                 <svg className="w-5 h-5 text-bloom-dark/40 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -384,10 +471,16 @@ export default function CoursesPage() {
               <p className="mt-4 text-bloom-dark/70">
                 If you need more support, we're here for you. We always offer a free 15-minute consultation to see how we can help you. <Link href="/book" className="text-bloompink hover:underline">Book now</Link>.
               </p>
-            </details>
+            </motion.details>
 
-            <details className="bg-white p-6 rounded-xl shadow-soft group">
-              <summary className="font-semibold cursor-pointer flex justify-between items-center">
+            <motion.details 
+              className="bg-gradient-to-br from-white to-bloom-sage-50/20 p-6 rounded-xl shadow-lg border border-bloom-sage/10 group hover:shadow-xl transition-all duration-300"
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.3 }}
+              viewport={{ once: true }}
+            >
+              <summary className="font-semibold cursor-pointer flex justify-between items-center text-bloom-dark group-hover:text-bloompink transition-colors">
                 Can I access the course on my phone?
                 <svg className="w-5 h-5 text-bloom-dark/40 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -396,27 +489,61 @@ export default function CoursesPage() {
               <p className="mt-4 text-bloom-dark/70">
                 Yes! All courses are mobile-friendly. Watch videos, complete exercises, and track your progress from any device.
               </p>
-            </details>
-
+            </motion.details>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-bloompink to-pink-400 text-white">
-        <div className="container mx-auto px-6 text-center">
-          <h2 className="text-4xl font-playfair mb-6">Ready to Start Your Journey?</h2>
-          <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
-            Find your path to wellness through our evidence-based courses.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button href="#courses" variant="outline" size="lg" className="bg-white text-bloompink border-white hover:bg-gray-50">
-              Choose Your Course
-            </Button>
-            <Button href="/book" variant="outline" size="lg" className="bg-transparent text-white border-white hover:bg-white hover:text-bloompink">
-              Book a Free Consultation
-            </Button>
-          </div>
+      {/* CTA Section with Garden Theme */}
+      <section className="py-20 bg-gradient-to-br from-bloompink to-bloom/90 text-white relative overflow-hidden">
+        {/* Animated garden elements */}
+        <div className="absolute inset-0 pointer-events-none">
+          <motion.div
+            animate={{ scale: [1, 1.2, 1], rotate: [0, 180, 360] }}
+            transition={{ duration: 20, repeat: Infinity }}
+            className="absolute top-10 right-10 text-6xl opacity-10"
+          >
+            🌻
+          </motion.div>
+          <motion.div
+            animate={{ scale: [1, 1.1, 1] }}
+            transition={{ duration: 15, repeat: Infinity, delay: 5 }}
+            className="absolute bottom-20 left-20 text-5xl opacity-10"
+          >
+            🌿
+          </motion.div>
+        </div>
+        
+        <div className="container mx-auto px-6 text-center relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-4xl font-playfair mb-6">Ready to Start Your Healing Journey?</h2>
+            <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
+              Find your path to wellness through our evidence-based courses, designed with professional expertise and maternal understanding.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-6 justify-center">
+              <Button href="#courses" variant="outline" size="lg" className="bg-white text-bloompink border-white hover:bg-gray-50 shadow-lg">
+                Choose Your Course
+              </Button>
+              <Button href="/book" variant="outline" size="lg" className="bg-white/10 border-white/30 text-white hover:bg-white/20 shadow-lg">
+                Book a Free Consultation
+              </Button>
+            </div>
+            
+            <motion.p 
+              className="mt-8 text-white/70 text-sm"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ delay: 0.5 }}
+              viewport={{ once: true }}
+            >
+              Lifetime access • Self-paced learning • Expert-created content
+            </motion.p>
+          </motion.div>
         </div>
       </section>
     </div>

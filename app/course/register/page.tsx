@@ -87,14 +87,43 @@ export default function CourseRegisterPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-bloom-sage-50 via-white to-bloom-pink-50 py-12 px-4">
-      <div className="max-w-2xl mx-auto">
-        <div className="bg-white rounded-2xl shadow-soft p-8">
+    <div className="min-h-screen bg-gradient-to-br from-bloom-sage-50 via-white to-bloom-pink-50 py-12 px-4 relative overflow-hidden">
+      {/* Garden lattice pattern background */}
+      <div className="absolute inset-0 opacity-5">
+        <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+          <defs>
+            <pattern id="register-lattice" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
+              <path d="M0,5 L10,5 M5,0 L5,10" stroke="currentColor" strokeWidth="0.5" className="text-bloom-sage"/>
+            </pattern>
+          </defs>
+          <rect width="100" height="100" fill="url(#register-lattice)" />
+        </svg>
+      </div>
+      
+      {/* Floating garden elements */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-20 right-20 w-3 h-3 bg-pink-300 rounded-full opacity-20 animate-pulse"></div>
+        <div className="absolute bottom-32 left-20 w-2 h-2 bg-bloom-sage/30 rounded-full animate-bounce"></div>
+        <div className="absolute top-1/2 right-1/4 w-4 h-4 bg-yellow-300 rounded-full opacity-15 animate-pulse"></div>
+      </div>
+      
+      <div className="max-w-2xl mx-auto relative z-10">
+        <div className="bg-gradient-to-br from-white to-bloom-sage-50/20 border border-bloom-sage/10 rounded-2xl shadow-soft p-8">
           {/* Header */}
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-playfair text-bloom-dark mb-2">
+            <h1 className="text-3xl font-playfair text-bloom-dark mb-4">
               Join Your Wellness Journey
             </h1>
+            
+            {/* Decorative flower divider */}
+            <div className="flex items-center justify-center gap-4 mb-4">
+              <div className="w-12 h-0.5 bg-gradient-to-r from-transparent to-bloom-sage/30 rounded-full"></div>
+              <svg className="w-5 h-5 text-bloom-sage/50" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
+              </svg>
+              <div className="w-12 h-0.5 bg-gradient-to-l from-transparent to-bloom-sage/30 rounded-full"></div>
+            </div>
+            
             <p className="text-bloom-dark/70">
               Create your account to access the Postpartum Wellness Foundations course
             </p>
@@ -103,13 +132,13 @@ export default function CourseRegisterPage() {
           {/* Registration Form */}
           <form onSubmit={handleSubmit} className="space-y-6">
             {errors.form && (
-              <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+              <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
                 <p className="text-red-600 text-sm">{errors.form}</p>
               </div>
             )}
 
             {/* Personal Information */}
-            <div className="space-y-4">
+            <div className="space-y-4 bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-bloom-sage/10">
               <h2 className="text-lg font-semibold text-bloom-dark border-b border-bloom-sage-200 pb-2">
                 Personal Information
               </h2>
@@ -187,7 +216,7 @@ export default function CourseRegisterPage() {
             </div>
 
             {/* Password */}
-            <div className="space-y-4">
+            <div className="space-y-4 bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-bloom-sage/10">
               <h2 className="text-lg font-semibold text-bloom-dark border-b border-bloom-sage-200 pb-2">
                 Create Password
               </h2>
@@ -232,7 +261,7 @@ export default function CourseRegisterPage() {
             </div>
 
             {/* Maternal Information */}
-            <div className="space-y-4">
+            <div className="space-y-4 bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-bloom-sage/10">
               <h2 className="text-lg font-semibold text-bloom-dark border-b border-bloom-sage-200 pb-2">
                 Maternal Information (Optional)
               </h2>
@@ -277,7 +306,7 @@ export default function CourseRegisterPage() {
             </div>
 
             {/* Emergency Contact */}
-            <div className="space-y-4">
+            <div className="space-y-4 bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-bloom-sage/10">
               <h2 className="text-lg font-semibold text-bloom-dark border-b border-bloom-sage-200 pb-2">
                 Emergency Contact (Recommended)
               </h2>
@@ -316,7 +345,7 @@ export default function CourseRegisterPage() {
             </div>
 
             {/* Consent and Terms */}
-            <div className="space-y-4">
+            <div className="space-y-4 bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-bloom-sage/10">
               <h2 className="text-lg font-semibold text-bloom-dark border-b border-bloom-sage-200 pb-2">
                 Consent and Terms
               </h2>

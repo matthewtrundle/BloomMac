@@ -2,6 +2,7 @@ import React from 'react';
 import { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 import { notFound } from 'next/navigation';
 import { getServiceBySlug, getAllServiceSlugs } from '@/lib/data/services';
 
@@ -79,9 +80,9 @@ export default function ServicePage({
       
       <FAQSchema faqs={service.faqs} />
       
-      {/* Hero Section */}
+      {/* Hero Section with Garden Theme */}
       <ParallaxContainer
-        className="min-h-[70vh] bg-white relative flex items-center"
+        className="min-h-[70vh] bg-gradient-to-br from-bloom-sage-50 via-white to-bloom-pink-50 relative flex items-center overflow-hidden"
         layers={[
           {
             element: <OrganicShape variant="blob-1" color="var(--bloom-accent)" size="xl" position="bottom-left" opacity={0.1} />,
@@ -95,6 +96,32 @@ export default function ServicePage({
           }
         ]}
       >
+        {/* Garden lattice pattern background */}
+        <div className="absolute inset-0 opacity-5">
+          <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <defs>
+              <pattern id="service-lattice" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
+                <path d="M0,5 L10,5 M5,0 L5,10" stroke="currentColor" strokeWidth="0.5" className="text-bloom-sage"/>
+              </pattern>
+            </defs>
+            <rect width="100" height="100" fill="url(#service-lattice)" />
+          </svg>
+        </div>
+        
+        {/* Floating garden elements */}
+        <div className="absolute inset-0 pointer-events-none">
+          <motion.div
+            animate={{ y: [0, -30, 0], rotate: [0, 180, 360] }}
+            transition={{ duration: 25, repeat: Infinity }}
+            className="absolute top-20 right-20 w-3 h-3 bg-pink-300 rounded-full opacity-20"
+          />
+          <motion.div
+            animate={{ y: [0, -25, 0] }}
+            transition={{ duration: 20, repeat: Infinity, delay: 7 }}
+            className="absolute bottom-32 left-20 w-2 h-2 bg-bloom-sage/30 rounded-full"
+          />
+        </div>
+        
         <div className="container mx-auto px-6 py-24 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="order-2 lg:order-1">
@@ -112,6 +139,19 @@ export default function ServicePage({
                   </React.Fragment>
                 ))}
               </h1>
+              
+              {/* Decorative flower divider */}
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-16 h-0.5 bg-gradient-to-r from-transparent to-bloom-sage/30 rounded-full"></div>
+                <Image 
+                  src="/images/flower no stem.svg" 
+                  alt="" 
+                  width={24} 
+                  height={24} 
+                  className="opacity-50"
+                />
+                <div className="w-16 h-0.5 bg-gradient-to-l from-transparent to-bloom-sage/30 rounded-full"></div>
+              </div>
               
               <KineticTypography as="p" animation="fade-in" className="text-lg text-bloom/80 mb-8">
                 {service.description}
@@ -147,7 +187,7 @@ export default function ServicePage({
       </ParallaxContainer>
       
       {/* How It Works Section */}
-      <section id="how-it-works" className="py-20 bg-white relative overflow-hidden">
+      <section id="how-it-works" className="py-20 bg-white/80 backdrop-blur-sm relative overflow-hidden">
         <OrganicShape
           variant="wave"
           color="var(--bloom-accent)"
@@ -167,12 +207,18 @@ export default function ServicePage({
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
             {service.howItWorks.steps.map((step, index) => (
-              <GlassmorphismPanel 
+              <motion.div
                 key={index}
-                variant={index === 1 ? 'prominent' : 'medium'}
-                className="p-6 h-full"
-                hoverEffect="lift"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
               >
+                <GlassmorphismPanel 
+                  variant={index === 1 ? 'prominent' : 'medium'}
+                  className="p-6 h-full border border-bloom-sage/10"
+                  hoverEffect="lift"
+                >
                 <div className="flex flex-col h-full">
                   <div className="flex items-center mb-4">
                     <div className="w-12 h-12 rounded-full bg-bloom flex items-center justify-center text-white font-bold text-xl mr-4">
@@ -183,14 +229,15 @@ export default function ServicePage({
                   
                   <p className="text-bloom/80 mt-2 flex-grow">{step.description}</p>
                 </div>
-              </GlassmorphismPanel>
+                </GlassmorphismPanel>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
       {/* Benefits Section */}
-      <section className="py-20 bg-gray-50 relative overflow-hidden">
+      <section className="py-20 bg-gradient-to-br from-bloom-sage-50/20 to-white relative overflow-hidden">
         <OrganicShape
           variant="blob-3"
           color="var(--bloom-blush)"
@@ -210,7 +257,14 @@ export default function ServicePage({
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {service.benefits.map((benefit, index) => (
-              <div key={index} className="group flex hover:-translate-y-1 transition-transform duration-300 ease-out">
+              <motion.div 
+                key={index} 
+                className="group flex hover:-translate-y-1 transition-transform duration-300 ease-out"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+              >
                 <div className="mr-4 mt-1">
                   <div className="w-12 h-12 rounded-full bg-gradient-to-br from-bloom-blush/30 to-bloom-accent/30 flex items-center justify-center text-bloom shadow-pink-sm group-hover:shadow-pink-md transition-all duration-300">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -222,14 +276,14 @@ export default function ServicePage({
                   <h3 className="font-playfair text-xl text-bloom mb-2">{benefit.title}</h3>
                   <p className="text-bloom/70">{benefit.description}</p>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
       
       {/* FAQ Section */}
-      <section className="py-20 bg-gray-50 relative overflow-hidden">
+      <section className="py-20 bg-white/80 backdrop-blur-sm relative overflow-hidden">
         <OrganicShape
           variant="circle"
           color="var(--bloom-blush)"
@@ -252,10 +306,14 @@ export default function ServicePage({
           
           <div className="max-w-3xl mx-auto divide-y divide-gray-200">
             {service.faqs.map((faq, index) => (
-              <details 
+              <motion.details 
                 key={index} 
-                className="py-6 group"
+                className="py-6 group bg-gradient-to-r from-white to-bloom-sage-50/20 rounded-lg px-6 mb-4 border border-bloom-sage/10 hover:shadow-lg transition-all duration-300"
                 open={index === 0}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: index * 0.1 }}
+                viewport={{ once: true }}
               >
                 <summary className="flex justify-between items-center cursor-pointer list-none">
                   <h3 className="text-lg font-medium text-bloom pr-6">{faq.question}</h3>
@@ -268,7 +326,7 @@ export default function ServicePage({
                 <div className="mt-4 text-bloom/80">
                   <p>{faq.answer}</p>
                 </div>
-              </details>
+              </motion.details>
             ))}
           </div>
           
@@ -286,8 +344,25 @@ export default function ServicePage({
         </div>
       </section>
       
-      {/* CTA Section */}
-      <section className="py-16 bg-bloom relative overflow-hidden">
+      {/* CTA Section with Garden Theme */}
+      <section className="py-16 bg-gradient-to-r from-bloompink to-pink-400 relative overflow-hidden">
+        {/* Animated garden elements */}
+        <div className="absolute inset-0 pointer-events-none">
+          <motion.div
+            animate={{ scale: [1, 1.2, 1], rotate: [0, 180, 360] }}
+            transition={{ duration: 25, repeat: Infinity }}
+            className="absolute top-10 right-10 text-6xl opacity-10"
+          >
+            🌻
+          </motion.div>
+          <motion.div
+            animate={{ scale: [1, 1.1, 1] }}
+            transition={{ duration: 20, repeat: Infinity, delay: 8 }}
+            className="absolute bottom-20 left-20 text-5xl opacity-10"
+          >
+            🌿
+          </motion.div>
+        </div>
         <OrganicShape
           variant="wave"
           color="#FFFFFF"
@@ -296,7 +371,7 @@ export default function ServicePage({
           opacity={0.03}
         />
         
-        <div className="container mx-auto px-6 text-center">
+        <div className="container mx-auto px-6 text-center relative z-10">
           <KineticTypography as="h2" animation="fade-in" className="font-playfair text-white text-3xl md:text-4xl mb-6">
             Ready to Begin Your Journey?
           </KineticTypography>
@@ -319,7 +394,12 @@ export default function ServicePage({
       
       {/* Secondary Image (if available) */}
       {service.secondaryImage && (
-        <section className="py-20 bg-white">
+        <section className="py-20 bg-white/80 backdrop-blur-sm relative overflow-hidden">
+          {/* Decorative vine pattern */}
+          <svg className="absolute right-0 top-0 h-full w-32 opacity-5" viewBox="0 0 100 500" preserveAspectRatio="none">
+            <path d="M50,0 Q70,50 50,100 T50,200 T50,300 T50,400 T50,500" 
+                  stroke="currentColor" strokeWidth="2" fill="none" className="text-bloom-sage"/>
+          </svg>
           <div className="container mx-auto px-6">
             <div className="max-w-5xl mx-auto relative">
               <div className="aspect-video w-full overflow-hidden rounded-lg shadow-xl">

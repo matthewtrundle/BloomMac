@@ -356,8 +356,39 @@ export default function CourseDetailPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-bloom-sage-50 via-white to-bloom-pink-50">
-      {/* Hero Section */}
+      {/* Hero Section with Garden Theme */}
       <section className="relative py-20 overflow-hidden">
+        {/* Garden lattice pattern background */}
+        <div className="absolute inset-0 opacity-5">
+          <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <defs>
+              <pattern id="course-detail-lattice" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
+                <path d="M0,5 L10,5 M5,0 L5,10" stroke="currentColor" strokeWidth="0.5" className="text-bloom-sage"/>
+              </pattern>
+            </defs>
+            <rect width="100" height="100" fill="url(#course-detail-lattice)" />
+          </svg>
+        </div>
+        
+        {/* Floating garden elements */}
+        <div className="absolute inset-0 pointer-events-none">
+          <motion.div
+            animate={{ y: [0, -30, 0], rotate: [0, 180, 360] }}
+            transition={{ duration: 25, repeat: Infinity }}
+            className="absolute top-20 right-20 w-3 h-3 bg-pink-300 rounded-full opacity-20"
+          />
+          <motion.div
+            animate={{ y: [0, -25, 0] }}
+            transition={{ duration: 20, repeat: Infinity, delay: 7 }}
+            className="absolute bottom-32 left-20 w-2 h-2 bg-bloom-sage/30 rounded-full"
+          />
+          <motion.div
+            animate={{ y: [0, -20, 0] }}
+            transition={{ duration: 22, repeat: Infinity, delay: 12 }}
+            className="absolute top-1/2 right-1/4 w-4 h-4 bg-yellow-300 rounded-full opacity-15"
+          />
+        </div>
+        
         <div className="absolute inset-0 opacity-10">
           <Image
             src={course.image}
@@ -377,6 +408,20 @@ export default function CourseDetailPage() {
               <h1 className="text-5xl md:text-6xl font-playfair mb-4">
                 {course.title}
               </h1>
+              
+              {/* Decorative flower divider */}
+              <div className="flex items-center justify-center gap-4 mb-6">
+                <div className="w-16 h-0.5 bg-gradient-to-r from-transparent to-bloom-sage/30 rounded-full"></div>
+                <Image 
+                  src="/images/flower no stem.svg" 
+                  alt="" 
+                  width={24} 
+                  height={24} 
+                  className="opacity-50"
+                />
+                <div className="w-16 h-0.5 bg-gradient-to-l from-transparent to-bloom-sage/30 rounded-full"></div>
+              </div>
+              
               <p className="text-xl text-bloom-dark/80 mb-8">{course.subtitle}</p>
               
               <div className="flex flex-wrap justify-center gap-6 mb-8 text-sm">
@@ -488,7 +533,7 @@ export default function CourseDetailPage() {
                 
                 {/* Sidebar */}
                 <div className="lg:col-span-1">
-                  <div className="bg-white rounded-xl shadow-xl p-6 sticky top-24">
+                  <div className="bg-gradient-to-br from-white to-bloom-sage-50/20 rounded-xl shadow-xl border border-bloom-sage/10 p-6 sticky top-24">
                     <div className="text-center mb-6">
                       <div className="flex items-baseline gap-2 justify-center mb-4">
                         <span className="text-4xl font-bold text-bloompink">${course.price}</span>
@@ -542,13 +587,27 @@ export default function CourseDetailPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <h2 className="text-3xl font-playfair mb-8 text-center">Course Curriculum</h2>
+              <h2 className="text-3xl font-playfair mb-6 text-center">Course Curriculum</h2>
+              
+              {/* Decorative flower divider */}
+              <div className="flex items-center justify-center gap-4 mb-8">
+                <div className="w-16 h-0.5 bg-gradient-to-r from-transparent to-bloom-sage/30 rounded-full"></div>
+                <Image 
+                  src="/images/flower no stem.svg" 
+                  alt="" 
+                  width={20} 
+                  height={20} 
+                  className="opacity-50"
+                />
+                <div className="w-16 h-0.5 bg-gradient-to-l from-transparent to-bloom-sage/30 rounded-full"></div>
+              </div>
+              
               <div className="max-w-3xl mx-auto">
                 {course.curriculum.map((week: any, index: number) => (
                   <div key={index} className="mb-4">
                     <button
                       onClick={() => setExpandedWeek(expandedWeek === index ? null : index)}
-                      className="w-full bg-white rounded-lg shadow-soft p-6 text-left hover:shadow-md transition-shadow"
+                      className="w-full bg-gradient-to-br from-white to-bloom-sage-50/20 border border-bloom-sage/10 rounded-lg shadow-soft p-6 text-left hover:shadow-md hover:-translate-y-1 transition-all duration-300"
                     >
                       <div className="flex justify-between items-center">
                         <div>
@@ -599,7 +658,7 @@ export default function CourseDetailPage() {
               transition={{ duration: 0.6 }}
               className="max-w-4xl mx-auto"
             >
-              <div className="bg-white rounded-xl shadow-soft p-8 md:p-12">
+              <div className="bg-gradient-to-br from-white to-bloom-sage-50/20 border border-bloom-sage/10 rounded-xl shadow-soft p-8 md:p-12">
                 <div className="grid md:grid-cols-3 gap-8 items-center">
                   <div className="md:col-span-1">
                     <Image
@@ -634,32 +693,76 @@ export default function CourseDetailPage() {
         </div>
       </section>
 
-      {/* FAQ Section */}
+      {/* FAQ Section with Garden Theme */}
       {course.faq && (
-        <section className="py-16 bg-white/80">
-          <div className="container mx-auto px-6 max-w-3xl">
-            <h2 className="text-3xl font-playfair text-center mb-8">Frequently Asked Questions</h2>
+        <section className="py-16 bg-white/80 relative overflow-hidden">
+          {/* Decorative vine pattern */}
+          <svg className="absolute right-0 top-0 h-full w-32 opacity-5" viewBox="0 0 100 500" preserveAspectRatio="none">
+            <path d="M50,0 Q70,50 50,100 T50,200 T50,300 T50,400 T50,500" 
+                  stroke="currentColor" strokeWidth="2" fill="none" className="text-bloom-sage"/>
+          </svg>
+          
+          <div className="container mx-auto px-6 max-w-3xl relative z-10">
+            <h2 className="text-3xl font-playfair text-center mb-6">Frequently Asked Questions</h2>
+            
+            {/* Decorative flower divider */}
+            <div className="flex items-center justify-center gap-4 mb-8">
+              <div className="w-16 h-0.5 bg-gradient-to-r from-transparent to-bloom-sage/30 rounded-full"></div>
+              <Image 
+                src="/images/flower no stem.svg" 
+                alt="" 
+                width={20} 
+                height={20} 
+                className="opacity-50"
+              />
+              <div className="w-16 h-0.5 bg-gradient-to-l from-transparent to-bloom-sage/30 rounded-full"></div>
+            </div>
             <div className="space-y-4">
               {course.faq.map((item: any, index: number) => (
-                <details key={index} className="bg-white p-6 rounded-xl shadow-soft group">
-                  <summary className="font-semibold cursor-pointer flex justify-between items-center">
+                <motion.details 
+                  key={index} 
+                  className="bg-gradient-to-br from-white to-bloom-sage-50/20 border border-bloom-sage/10 p-6 rounded-xl shadow-soft group hover:shadow-lg transition-all duration-300"
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                >
+                  <summary className="font-semibold cursor-pointer flex justify-between items-center text-bloom-dark group-hover:text-bloompink transition-colors">
                     {item.question}
                     <svg className="w-5 h-5 text-bloom-dark/40 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                     </svg>
                   </summary>
                   <p className="mt-4 text-bloom-dark/70">{item.answer}</p>
-                </details>
+                </motion.details>
               ))}
             </div>
           </div>
         </section>
       )}
 
-      {/* CTA Section */}
-      <section className="py-20">
-        <div className="container mx-auto px-6 text-center">
-          <div className="max-w-3xl mx-auto bg-gradient-to-r from-bloompink to-pink-400 rounded-2xl p-12 text-white">
+      {/* CTA Section with Garden Theme */}
+      <section className="py-20 relative overflow-hidden">
+        {/* Animated garden elements */}
+        <div className="absolute inset-0 pointer-events-none">
+          <motion.div
+            animate={{ scale: [1, 1.2, 1], rotate: [0, 180, 360] }}
+            transition={{ duration: 25, repeat: Infinity }}
+            className="absolute top-10 right-10 text-6xl opacity-10"
+          >
+            🌻
+          </motion.div>
+          <motion.div
+            animate={{ scale: [1, 1.1, 1] }}
+            transition={{ duration: 20, repeat: Infinity, delay: 8 }}
+            className="absolute bottom-20 left-20 text-5xl opacity-10"
+          >
+            🌿
+          </motion.div>
+        </div>
+        
+        <div className="container mx-auto px-6 text-center relative z-10">
+          <div className="max-w-3xl mx-auto bg-gradient-to-r from-bloompink to-pink-400 rounded-2xl p-12 text-white shadow-2xl">
             <h2 className="text-4xl font-playfair mb-6">Ready to Start Your Journey?</h2>
             <p className="text-xl mb-8 opacity-90">
               {course.id === 'partner-support-bootcamp' 

@@ -17,7 +17,8 @@ import {
   Activity,
   Settings,
   MessageSquare,
-  MousePointerClick
+  MousePointerClick,
+  BookOpen
 } from 'lucide-react';
 
 export default function AdminLayout({
@@ -31,6 +32,7 @@ export default function AdminLayout({
     { name: 'Dashboard', href: '/admin', icon: Home },
     { name: 'Analytics', href: '/admin/analytics', icon: BarChart },
     { name: 'Click Heatmap', href: '/admin/heatmap', icon: MousePointerClick },
+    { name: 'Course Management', href: '/admin/courses', icon: BookOpen, badge: 'NEW' },
     { name: 'Contact Submissions', href: '/admin/contacts', icon: MessageSquare },
     { name: 'Email Management', href: '/admin/email', icon: Mail },
     { name: 'Email Editor', href: '/admin/email-editor', icon: Sparkles },
@@ -100,6 +102,11 @@ export default function AdminLayout({
                     >
                       <Icon className="w-5 h-5" />
                       <span className="text-sm">{item.name}</span>
+                      {item.badge && (
+                        <span className="ml-auto bg-bloompink text-white text-xs px-2 py-0.5 rounded-full">
+                          {item.badge}
+                        </span>
+                      )}
                     </Link>
                   </li>
                 );

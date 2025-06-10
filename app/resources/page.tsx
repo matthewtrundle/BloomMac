@@ -3,8 +3,10 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { motion, AnimatePresence } from 'framer-motion';
 import Button from '@/components/ui/Button';
 import NewsletterSignup from '@/components/ui/NewsletterSignup';
+import GardenResourceCard from '@/components/ui/GardenResourceCard';
 
 export default function ResourcesPage() {
   const [activeCategory, setActiveCategory] = useState('all');
@@ -126,16 +128,68 @@ export default function ResourcesPage() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-br from-bloom-blush/20 to-white">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-5xl font-playfair font-bold text-bloom-dark mb-6">
-            Free Tools for Your Journey
-          </h1>
-          <p className="text-lg md:text-xl text-bloom max-w-3xl mx-auto mb-8">
-            Evidence-based resources, practical guides, and tools to support you through 
-            pregnancy, postpartum, and beyond—all completely free.
-          </p>
+      {/* Hero Section - Resource Garden */}
+      <section className="relative py-20 bg-gradient-to-br from-bloom-sage-50/20 via-white to-bloom-pink-50/10 overflow-hidden">
+        {/* Garden lattice pattern */}
+        <div className="absolute inset-0 opacity-5">
+          <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <defs>
+              <pattern id="lattice" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
+                <path d="M0,5 L10,5 M5,0 L5,10" stroke="currentColor" strokeWidth="0.5" className="text-bloom-sage"/>
+              </pattern>
+            </defs>
+            <rect width="100" height="100" fill="url(#lattice)" />
+          </svg>
+        </div>
+        
+        {/* Floating elements */}
+        <motion.div
+          animate={{ y: [0, -30, 0], rotate: [0, 180, 360] }}
+          transition={{ duration: 20, repeat: Infinity }}
+          className="absolute top-20 right-20 text-4xl opacity-20"
+        >
+          🌿
+        </motion.div>
+        <motion.div
+          animate={{ y: [0, -20, 0] }}
+          transition={{ duration: 15, repeat: Infinity, delay: 5 }}
+          className="absolute bottom-20 left-40 text-3xl opacity-20"
+        >
+          🌱
+        </motion.div>
+        
+        <div className="container mx-auto px-4 text-center relative">
+          <motion.h1 
+            className="text-4xl md:text-5xl font-playfair font-bold text-bloom-dark mb-6"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            Free <span className="text-bloompink">Resources</span>
+          </motion.h1>
+          
+          {/* Decorative divider */}
+          <div className="flex items-center justify-center gap-4 mb-6">
+            <div className="w-16 h-0.5 bg-gradient-to-r from-transparent to-bloom-sage/30 rounded-full"></div>
+            <motion.span
+              animate={{ rotate: 360 }}
+              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+              className="text-2xl"
+            >
+              🌻
+            </motion.span>
+            <div className="w-16 h-0.5 bg-gradient-to-l from-transparent to-bloom-sage/30 rounded-full"></div>
+          </div>
+          
+          <motion.p 
+            className="text-lg md:text-xl text-bloom max-w-3xl mx-auto mb-8"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            Evidence-based tools and guides to support your mental health journey. 
+            Download free resources created by licensed mental health professionals.
+          </motion.p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button href="#resources" variant="pink">
               Browse Resources
@@ -147,75 +201,110 @@ export default function ResourcesPage() {
         </div>
       </section>
 
-      {/* Category Filter */}
-      <section className="py-8 bg-gray-50 sticky top-[120px] z-40 shadow-sm">
+      {/* Category Filter - Garden Sections */}
+      <section className="py-8 bg-gradient-to-b from-white to-gray-50/50 sticky top-[120px] z-40 shadow-sm">
         <div className="container mx-auto px-4">
+          <p className="text-center text-sm text-bloom/60 mb-4">Filter by category:</p>
           <div className="flex flex-wrap justify-center gap-3">
             {categories.map((cat) => (
               <button
                 key={cat.id}
                 onClick={() => setActiveCategory(cat.id)}
-                className={`px-4 py-2 rounded-full font-medium transition-all flex items-center gap-2 ${
+                className={`px-4 py-2 rounded-full font-medium transition-all flex items-center gap-2 group ${
                   activeCategory === cat.id
-                    ? 'bg-bloom-accent text-white shadow-md'
-                    : 'bg-white text-bloom hover:bg-bloom-blush/20 border border-gray-200'
+                    ? 'bg-gradient-to-r from-bloom-sage to-bloom-sage/80 text-white shadow-md'
+                    : 'bg-white text-bloom hover:bg-bloom-sage-50 border border-bloom-sage/20 hover:border-bloom-sage/40'
                 }`}
               >
                 <span>{cat.icon}</span>
                 {cat.label}
+                {activeCategory === cat.id && (
+                  <motion.span
+                    animate={{ scale: [1, 1.2, 1] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                    className="ml-1"
+                  >
+                    ✓
+                  </motion.span>
+                )}
               </button>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Resources Grid */}
-      <section id="resources" className="py-16 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            {filteredResources.map((resource, index) => (
-              <Link
-                key={index}
-                href={resource.link}
-                className="bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden group"
-              >
-                <div className="p-6">
-                  <div className="flex items-start justify-between mb-4">
-                    <span className="text-4xl">{resource.icon}</span>
-                    <span className="text-xs font-medium text-bloom-accent bg-bloom-accent/10 px-3 py-1 rounded-full">
-                      {resource.type}
-                    </span>
-                  </div>
-                  <h3 className="text-xl font-semibold text-bloom-dark mb-2 group-hover:text-bloom-accent transition-colors">
-                    {resource.title}
-                  </h3>
-                  <p className="text-bloom text-sm">
-                    {resource.description}
-                  </p>
-                  <div className="mt-4 flex items-center text-bloom-accent font-medium">
-                    <span className="text-sm">Access Resource</span>
-                    <svg className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
+      {/* Resources Grid - Tool Collection */}
+      <section id="resources" className="py-16 bg-white relative overflow-hidden">
+        {/* Subtle garden bed texture */}
+        <div className="absolute inset-0 opacity-[0.02]">
+          <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <pattern id="garden-bed" x="0" y="0" width="4" height="4" patternUnits="userSpaceOnUse">
+              <circle cx="1" cy="1" r="0.5" fill="#7A8B7F" />
+              <circle cx="3" cy="3" r="0.3" fill="#8B7355" />
+            </pattern>
+            <rect width="100" height="100" fill="url(#garden-bed)" />
+          </svg>
+        </div>
+        
+        <div className="container mx-auto px-4 relative">
+          <AnimatePresence mode="wait">
+            <motion.div 
+              key={activeCategory}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+              className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto"
+            >
+              {filteredResources.map((resource, index) => (
+                <GardenResourceCard 
+                  key={index}
+                  resource={resource}
+                  index={index}
+                />
+              ))}
+            </motion.div>
+          </AnimatePresence>
         </div>
       </section>
 
-      {/* Featured Resources */}
-      <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-playfair font-bold text-bloom-dark text-center mb-12">
-            Most Popular Resources
-          </h2>
+      {/* Featured Resources - Garden Favorites */}
+      <section className="py-16 bg-gradient-to-br from-bloom-sage-50/10 to-white relative overflow-hidden">
+        {/* Decorative vines */}
+        <svg className="absolute left-0 top-0 h-full w-32 opacity-5" viewBox="0 0 100 500" preserveAspectRatio="none">
+          <path d="M50,0 Q30,50 50,100 T50,200 T50,300 T50,400 T50,500" 
+                stroke="currentColor" strokeWidth="2" fill="none" className="text-bloom-sage"/>
+        </svg>
+        <svg className="absolute right-0 top-0 h-full w-32 opacity-5 scale-x-[-1]" viewBox="0 0 100 500" preserveAspectRatio="none">
+          <path d="M50,0 Q30,50 50,100 T50,200 T50,300 T50,400 T50,500" 
+                stroke="currentColor" strokeWidth="2" fill="none" className="text-bloom-sage"/>
+        </svg>
+        
+        <div className="container mx-auto px-4 relative">
+          <motion.h2 
+            className="text-3xl font-playfair font-bold text-bloom-dark text-center mb-4"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            Most Popular <span className="text-bloompink">Resources</span>
+          </motion.h2>
           <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            <div className="bg-white rounded-lg p-6 text-center">
-              <div className="w-16 h-16 bg-bloom-accent/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl">📋</span>
-              </div>
+            <motion.div 
+              className="bg-gradient-to-br from-white to-bloom-pink-50/30 rounded-xl p-6 text-center shadow-md hover:shadow-lg transition-all border border-bloom-pink-50"
+              whileHover={{ y: -5, scale: 1.02 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+            >
+              <motion.div 
+                className="w-16 h-16 bg-bloom-pink-100 rounded-full flex items-center justify-center mx-auto mb-4"
+                whileHover={{ rotate: [0, 10, -10, 0] }}
+                transition={{ duration: 0.5 }}
+              >
+                <span className="text-2xl">🌸</span>
+              </motion.div>
               <h3 className="text-xl font-semibold text-bloom-dark mb-2">
                 Postpartum Checklist
               </h3>
@@ -225,12 +314,23 @@ export default function ResourcesPage() {
               <Button href="/resources/postpartum-checklist" variant="outline" size="sm">
                 Download Free
               </Button>
-            </div>
+            </motion.div>
 
-            <div className="bg-white rounded-lg p-6 text-center">
-              <div className="w-16 h-16 bg-bloom-accent/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl">🌟</span>
-              </div>
+            <motion.div 
+              className="bg-gradient-to-br from-white to-bloom-sage-50/30 rounded-xl p-6 text-center shadow-md hover:shadow-lg transition-all border border-bloom-sage-50"
+              whileHover={{ y: -5, scale: 1.02 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+            >
+              <motion.div 
+                className="w-16 h-16 bg-bloom-sage-100 rounded-full flex items-center justify-center mx-auto mb-4"
+                whileHover={{ rotate: [0, 10, -10, 0] }}
+                transition={{ duration: 0.5 }}
+              >
+                <span className="text-2xl">🌱</span>
+              </motion.div>
               <h3 className="text-xl font-semibold text-bloom-dark mb-2">
                 Self-Care Assessment
               </h3>
@@ -240,12 +340,23 @@ export default function ResourcesPage() {
               <Button href="/resources/self-assessment" variant="outline" size="sm">
                 Start Assessment
               </Button>
-            </div>
+            </motion.div>
 
-            <div className="bg-white rounded-lg p-6 text-center">
-              <div className="w-16 h-16 bg-bloom-accent/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl">💬</span>
-              </div>
+            <motion.div 
+              className="bg-gradient-to-br from-white to-red-50/30 rounded-xl p-6 text-center shadow-md hover:shadow-lg transition-all border border-red-50"
+              whileHover={{ y: -5, scale: 1.02 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
+            >
+              <motion.div 
+                className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4"
+                whileHover={{ rotate: [0, 10, -10, 0] }}
+                transition={{ duration: 0.5 }}
+              >
+                <span className="text-2xl">🌹</span>
+              </motion.div>
               <h3 className="text-xl font-semibold text-bloom-dark mb-2">
                 Partner Communication
               </h3>
@@ -255,25 +366,45 @@ export default function ResourcesPage() {
               <Button href="/resources/communication-worksheet" variant="outline" size="sm">
                 Get Worksheet
               </Button>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Additional Support */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
+      {/* Additional Support - Greenhouse Services */}
+      <section className="py-16 bg-white relative overflow-hidden">
+        {/* Subtle greenhouse glass effect */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/5 to-white/10 pointer-events-none"></div>
+        
+        <div className="container mx-auto px-4 relative">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl font-playfair font-bold text-bloom-dark mb-6">
-              Need More Personalized Support?
-            </h2>
-            <p className="text-lg text-bloom mb-8">
+            <motion.h2 
+              className="text-3xl font-playfair font-bold text-bloom-dark mb-6"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              Need More <span className="text-bloompink">Personalized Support?</span>
+            </motion.h2>
+            <motion.p 
+              className="text-lg text-bloom mb-8"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+            >
               While our free resources are a great starting point, sometimes you need 
               more personalized guidance. Our courses and therapy services provide 
               deeper support for your unique journey.
-            </p>
+            </motion.p>
             <div className="grid md:grid-cols-2 gap-6">
-              <div className="bg-bloom-blush/10 rounded-lg p-6">
+              <motion.div 
+                className="bg-gradient-to-br from-bloom-pink-50/50 to-white rounded-xl p-6 shadow-md hover:shadow-lg transition-all border border-bloom-pink-50"
+                whileHover={{ scale: 1.02 }}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+              >
                 <h3 className="text-xl font-semibold text-bloom-dark mb-3">
                   Self-Paced Courses
                 </h3>
@@ -283,8 +414,14 @@ export default function ResourcesPage() {
                 <Button href="/courses" variant="pink" size="sm">
                   Browse Courses
                 </Button>
-              </div>
-              <div className="bg-bloom-accent/10 rounded-lg p-6">
+              </motion.div>
+              <motion.div 
+                className="bg-gradient-to-br from-bloom-sage-50/50 to-white rounded-xl p-6 shadow-md hover:shadow-lg transition-all border border-bloom-sage-50"
+                whileHover={{ scale: 1.02 }}
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+              >
                 <h3 className="text-xl font-semibold text-bloom-dark mb-3">
                   1-on-1 Therapy
                 </h3>
@@ -294,16 +431,20 @@ export default function ResourcesPage() {
                 <Button href="/book" variant="pink" size="sm">
                   Book Consultation
                 </Button>
-              </div>
+              </motion.div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Newsletter Section */}
-      <section className="py-16 bg-gray-50">
+      {/* Newsletter Section - Garden Updates */}
+      <section className="py-16 bg-gradient-to-b from-gray-50 to-white">
         <div className="container mx-auto px-4">
-          <NewsletterSignup />
+          <NewsletterSignup 
+            variant="banner"
+            source="resources_page"
+            className="max-w-4xl mx-auto"
+          />
         </div>
       </section>
     </div>

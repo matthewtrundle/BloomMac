@@ -6,6 +6,7 @@ import './globals.css';
 import LayoutWrapper from '@/components/layout/LayoutWrapper';
 import { AnalyticsProvider } from '@/components/AnalyticsProvider';
 import DarkModeToggle from '@/components/ui/DarkModeToggle';
+import LoadingScreenProvider from '@/components/ui/LoadingScreenProvider';
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -135,12 +136,14 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://cdn.calendly.com" />
       </head>
       <body className="bg-white text-bloom min-h-screen">
-        <AnalyticsProvider>
-          <LayoutWrapper>
-            {children}
-          </LayoutWrapper>
-          <DarkModeToggle />
-        </AnalyticsProvider>
+        <LoadingScreenProvider>
+          <AnalyticsProvider>
+            <LayoutWrapper>
+              {children}
+            </LayoutWrapper>
+            <DarkModeToggle />
+          </AnalyticsProvider>
+        </LoadingScreenProvider>
       </body>
     </html>
   );

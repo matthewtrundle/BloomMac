@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { motion } from 'framer-motion';
 import Button from '@/components/ui/Button';
 import NewsletterSignup from '@/components/ui/NewsletterSignup';
 
@@ -10,30 +11,81 @@ export default function WhenFamilyWantsToHelpPage() {
   const [activeTab, setActiveTab] = useState('helpful');
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-br from-bloom-blush/20 to-white">
+    <div className="min-h-screen bg-gradient-to-br from-bloom-sage-50 via-white to-bloom-pink-50 relative overflow-hidden">
+      {/* Garden lattice pattern background */}
+      <div className="absolute inset-0 opacity-5">
+        <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+          <defs>
+            <pattern id="family-help-lattice" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
+              <path d="M0,5 L10,5 M5,0 L5,10" stroke="currentColor" strokeWidth="0.5" className="text-bloom-sage"/>
+            </pattern>
+          </defs>
+          <rect width="100" height="100" fill="url(#family-help-lattice)" />
+        </svg>
+      </div>
+      
+      {/* Floating garden elements */}
+      <div className="absolute inset-0 pointer-events-none">
+        <motion.div
+          animate={{ y: [0, -30, 0], rotate: [0, 180, 360] }}
+          transition={{ duration: 25, repeat: Infinity }}
+          className="absolute top-20 right-20 w-3 h-3 bg-pink-300 rounded-full opacity-20"
+        />
+        <motion.div
+          animate={{ y: [0, -25, 0] }}
+          transition={{ duration: 20, repeat: Infinity, delay: 7 }}
+          className="absolute bottom-32 left-20 w-2 h-2 bg-bloom-sage/30 rounded-full"
+        />
+        <motion.div
+          animate={{ y: [0, -20, 0] }}
+          transition={{ duration: 22, repeat: Infinity, delay: 12 }}
+          className="absolute top-1/2 right-1/4 w-4 h-4 bg-yellow-300 rounded-full opacity-15"
+        />
+      </div>
+      
+      {/* Hero Section with Garden Theme */}
+      <section className="relative py-20 z-10">
         <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-5xl font-playfair font-bold text-bloom-dark mb-6">
-            Supporting Without Overstepping
-          </h1>
-          <p className="text-lg md:text-xl text-bloom max-w-3xl mx-auto mb-8">
-            Learn how to be a positive presence in a new family's life while respecting 
-            boundaries and building lasting, healthy relationships.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button href="#helpful-actions" variant="pink">
-              Learn How to Help
-            </Button>
-            <Button href="/resources" variant="outline">
-              Download Free Guides
-            </Button>
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <h1 className="text-4xl md:text-5xl font-playfair font-bold text-bloom-dark mb-6">
+              Supporting Without Overstepping
+            </h1>
+            
+            {/* Decorative flower divider */}
+            <div className="flex items-center justify-center gap-4 mb-6">
+              <div className="w-16 h-0.5 bg-gradient-to-r from-transparent to-bloom-sage/30 rounded-full"></div>
+              <Image 
+                src="/images/flower no stem.svg" 
+                alt="" 
+                width={24} 
+                height={24} 
+                className="opacity-50"
+              />
+              <div className="w-16 h-0.5 bg-gradient-to-l from-transparent to-bloom-sage/30 rounded-full"></div>
+            </div>
+            
+            <p className="text-lg md:text-xl text-bloom max-w-3xl mx-auto mb-8">
+              Learn how to be a positive presence in a new family's life while respecting 
+              boundaries and building lasting, healthy relationships.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button href="#helpful-actions" variant="pink">
+                Learn How to Help
+              </Button>
+              <Button href="/resources" variant="outline">
+                Download Free Guides
+              </Button>
+            </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Understanding Your Role Section */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-white/80 backdrop-blur-sm relative z-10">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-playfair font-bold text-bloom-dark text-center mb-12">
             Understanding Your Role as Extended Family
@@ -41,8 +93,14 @@ export default function WhenFamilyWantsToHelpPage() {
           <div className="max-w-5xl mx-auto">
             <div className="grid md:grid-cols-3 gap-8">
               {/* Boundaries */}
-              <div className="text-center">
-                <div className="w-20 h-20 bg-bloom-accent/20 rounded-full flex items-center justify-center mx-auto mb-4">
+              <motion.div 
+                className="text-center"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                viewport={{ once: true }}
+              >
+                <div className="w-20 h-20 bg-gradient-to-br from-bloom-accent/20 to-bloom-accent/10 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
                   <svg className="w-10 h-10 text-bloom-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                   </svg>
@@ -52,11 +110,17 @@ export default function WhenFamilyWantsToHelpPage() {
                   New parents need space to find their rhythm. Always ask before visiting, 
                   offering advice, or making plans involving the baby.
                 </p>
-              </div>
+              </motion.div>
 
               {/* Cultural Sensitivity */}
-              <div className="text-center">
-                <div className="w-20 h-20 bg-bloom-accent/20 rounded-full flex items-center justify-center mx-auto mb-4">
+              <motion.div 
+                className="text-center"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                viewport={{ once: true }}
+              >
+                <div className="w-20 h-20 bg-gradient-to-br from-bloom-accent/20 to-bloom-accent/10 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
                   <svg className="w-10 h-10 text-bloom-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
                   </svg>
@@ -66,11 +130,17 @@ export default function WhenFamilyWantsToHelpPage() {
                   Every family has different traditions and values. Be open to learning 
                   their preferences rather than imposing your own expectations.
                 </p>
-              </div>
+              </motion.div>
 
               {/* Support vs Control */}
-              <div className="text-center">
-                <div className="w-20 h-20 bg-bloom-accent/20 rounded-full flex items-center justify-center mx-auto mb-4">
+              <motion.div 
+                className="text-center"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                viewport={{ once: true }}
+              >
+                <div className="w-20 h-20 bg-gradient-to-br from-bloom-accent/20 to-bloom-accent/10 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
                   <svg className="w-10 h-10 text-bloom-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
                   </svg>
@@ -80,14 +150,19 @@ export default function WhenFamilyWantsToHelpPage() {
                   Your role is to support their choices, not make decisions for them. 
                   Offer help in ways that empower rather than undermine.
                 </p>
-              </div>
+              </motion.div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Helpful vs Harmful Actions */}
-      <section id="helpful-actions" className="py-16 bg-gray-50">
+      <section id="helpful-actions" className="py-16 bg-gradient-to-br from-bloom-sage-50/20 to-white relative z-10 overflow-hidden">
+        {/* Decorative vine pattern */}
+        <svg className="absolute left-0 top-0 h-full w-32 opacity-5" viewBox="0 0 100 500" preserveAspectRatio="none">
+          <path d="M50,0 Q30,50 50,100 T50,200 T50,300 T50,400 T50,500" 
+                stroke="currentColor" strokeWidth="2" fill="none" className="text-bloom-sage"/>
+        </svg>
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-playfair font-bold text-bloom-dark text-center mb-12">
             Most Helpful Actions
@@ -123,7 +198,13 @@ export default function WhenFamilyWantsToHelpPage() {
           <div className="max-w-4xl mx-auto">
             {activeTab === 'helpful' ? (
               <div className="grid md:grid-cols-2 gap-6">
-                <div className="bg-white rounded-lg p-6 shadow-md">
+                <motion.div 
+                  className="bg-gradient-to-br from-white to-bloom-sage-50/20 border border-bloom-sage/10 rounded-lg p-6 shadow-md hover:shadow-lg transition-all duration-300"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.1 }}
+                  viewport={{ once: true }}
+                >
                   <h3 className="text-xl font-semibold text-bloom-dark mb-4 flex items-center">
                     <svg className="w-6 h-6 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -138,7 +219,7 @@ export default function WhenFamilyWantsToHelpPage() {
                     <li>• Walk the dog or care for pets</li>
                     <li>• Handle grocery pickup/delivery</li>
                   </ul>
-                </div>
+                </motion.div>
 
                 <div className="bg-white rounded-lg p-6 shadow-md">
                   <h3 className="text-xl font-semibold text-bloom-dark mb-4 flex items-center">
@@ -155,7 +236,7 @@ export default function WhenFamilyWantsToHelpPage() {
                     <li>• Respect their parenting decisions</li>
                     <li>• Offer encouragement, not criticism</li>
                   </ul>
-                </div>
+                </motion.div>
 
                 <div className="bg-white rounded-lg p-6 shadow-md">
                   <h3 className="text-xl font-semibold text-bloom-dark mb-4 flex items-center">
@@ -172,7 +253,7 @@ export default function WhenFamilyWantsToHelpPage() {
                     <li>• Leave when baby needs to eat/sleep</li>
                     <li>• Don't expect to be entertained</li>
                   </ul>
-                </div>
+                </motion.div>
 
                 <div className="bg-white rounded-lg p-6 shadow-md">
                   <h3 className="text-xl font-semibold text-bloom-dark mb-4 flex items-center">
@@ -189,7 +270,7 @@ export default function WhenFamilyWantsToHelpPage() {
                     <li>• Quality sleep aids for parents</li>
                     <li>• Practical items from their registry</li>
                   </ul>
-                </div>
+                </motion.div>
               </div>
             ) : (
               <div className="grid md:grid-cols-2 gap-6">
@@ -208,7 +289,7 @@ export default function WhenFamilyWantsToHelpPage() {
                     <li>• Posting about baby on social media</li>
                     <li>• Staying too long during visits</li>
                   </ul>
-                </div>
+                </motion.div>
 
                 <div className="bg-white rounded-lg p-6 shadow-md border-2 border-red-100">
                   <h3 className="text-xl font-semibold text-bloom-dark mb-4 flex items-center">
@@ -225,7 +306,7 @@ export default function WhenFamilyWantsToHelpPage() {
                     <li>• "Breast/bottle is best"</li>
                     <li>• "Enjoy every moment"</li>
                   </ul>
-                </div>
+                </motion.div>
 
                 <div className="bg-white rounded-lg p-6 shadow-md border-2 border-red-100">
                   <h3 className="text-xl font-semibold text-bloom-dark mb-4 flex items-center">
@@ -242,7 +323,7 @@ export default function WhenFamilyWantsToHelpPage() {
                     <li>• Undermining parenting choices</li>
                     <li>• Making plans without consulting parents</li>
                   </ul>
-                </div>
+                </motion.div>
 
                 <div className="bg-white rounded-lg p-6 shadow-md border-2 border-red-100">
                   <h3 className="text-xl font-semibold text-bloom-dark mb-4 flex items-center">
@@ -259,7 +340,7 @@ export default function WhenFamilyWantsToHelpPage() {
                     <li>• Giving gifts that require assembly</li>
                     <li>• Offering outdated baby care advice</li>
                   </ul>
-                </div>
+                </motion.div>
               </div>
             )}
           </div>
@@ -267,13 +348,13 @@ export default function WhenFamilyWantsToHelpPage() {
       </section>
 
       {/* Long-term Relationships */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-white/80 backdrop-blur-sm relative z-10">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-playfair font-bold text-bloom-dark text-center mb-12">
             Building Long-term Family Relationships
           </h2>
           <div className="max-w-4xl mx-auto">
-            <div className="bg-bloom-blush/10 rounded-lg p-8">
+            <div className="bg-gradient-to-br from-bloom-blush/10 to-bloom-sage-50/20 border border-bloom-sage/10 rounded-lg p-8 shadow-lg">
               <div className="grid md:grid-cols-2 gap-8">
                 <div>
                   <h3 className="text-xl font-semibold text-bloom-dark mb-4">Be a Positive Presence</h3>
@@ -288,7 +369,7 @@ export default function WhenFamilyWantsToHelpPage() {
                     <li>✓ Support parents' authority</li>
                     <li>✓ Create positive memories</li>
                   </ul>
-                </div>
+                </motion.div>
                 <div>
                   <h3 className="text-xl font-semibold text-bloom-dark mb-4">Remember Your Impact</h3>
                   <p className="text-bloom mb-4">
@@ -302,36 +383,55 @@ export default function WhenFamilyWantsToHelpPage() {
                     <li>• A wider support network</li>
                     <li>• Unconditional love from multiple sources</li>
                   </ul>
-                </div>
+                </motion.div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-br from-bloom-accent/20 to-bloom-blush/20">
+      {/* CTA Section with Garden Theme */}
+      <section className="py-16 bg-gradient-to-br from-bloom-accent/20 to-bloom-blush/20 relative z-10 overflow-hidden">
+        {/* Animated garden elements */}
+        <div className="absolute inset-0 pointer-events-none">
+          <motion.div
+            animate={{ scale: [1, 1.2, 1], rotate: [0, 180, 360] }}
+            transition={{ duration: 25, repeat: Infinity }}
+            className="absolute top-10 right-10 text-6xl opacity-10"
+          >
+            🌻
+          </motion.div>
+          <motion.div
+            animate={{ scale: [1, 1.1, 1] }}
+            transition={{ duration: 20, repeat: Infinity, delay: 8 }}
+            className="absolute bottom-20 left-20 text-5xl opacity-10"
+          >
+            🌿
+          </motion.div>
+        </div>
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-playfair font-bold text-bloom-dark mb-6">
-            Get Our Free Family Support Guide
-          </h2>
-          <p className="text-lg text-bloom max-w-2xl mx-auto mb-8">
-            Download our comprehensive guide with checklists, conversation starters, 
-            and practical tips for being the family support every new parent wishes for.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button href="#download-guide" variant="pink" size="lg">
-              Download Free Guide
-            </Button>
-            <Button href="/resources" variant="outline" size="lg">
-              Explore More Resources
-            </Button>
+          <div className="relative z-10">
+            <h2 className="text-3xl font-playfair font-bold text-bloom-dark mb-6">
+              Get Our Free Family Support Guide
+            </h2>
+            <p className="text-lg text-bloom max-w-2xl mx-auto mb-8">
+              Download our comprehensive guide with checklists, conversation starters, 
+              and practical tips for being the family support every new parent wishes for.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button href="#download-guide" variant="pink" size="lg">
+                Download Free Guide
+              </Button>
+              <Button href="/resources" variant="outline" size="lg">
+                Explore More Resources
+              </Button>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Newsletter Section */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-white/80 backdrop-blur-sm relative z-10">
         <div className="container mx-auto px-4">
           <NewsletterSignup />
         </div>

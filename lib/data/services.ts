@@ -4,6 +4,10 @@ export type Service = {
   title: string;
   description: string;
   shortDescription: string;
+  tagline?: string;
+  keyBenefits?: string[];
+  featured?: boolean;
+  category?: string;
   heroImage: string;
   secondaryImage?: string;
   howItWorks: {
@@ -31,9 +35,13 @@ export type Service = {
 
 export const services: Service[] = [
   {
-    id: 'women',
+    id: 'therapy-for-women',
     slug: 'therapy-for-women',
     title: 'Therapy for Women',
+    tagline: 'Rediscover yourself beyond the roles',
+    keyBenefits: ['Identity exploration', 'Boundary setting', 'Work-life balance'],
+    featured: true,
+    category: 'Life Stages',
     description: 'You\'re smart, capable, and everyone counts on you. You juggle work, family, friendships, invisible labor—all while showing up with a smile. But inside, it might feel like you\'re barely keeping it together.\n\nAt Bloom Psychology, we work with women who are high-achieving, deeply caring, and often really hard on themselves. Together, we\'ll make sense of the high expectations you carry, challenge the belief that your worth is tied to your productivity, and help you reconnect with your needs.\n\nTherapy can help you set better boundaries, quiet your inner critic, stop overthinking everything, and feel more grounded and confident — even when things aren\'t perfect.',
     shortDescription: 'Custom therapy for women at all life stages, specializing in overwhelm, identity, and life transitions.',
     heroImage: '/images/optimized/Home/Confident Women.webp',
@@ -106,9 +114,13 @@ export const services: Service[] = [
     ]
   },
   {
-    id: 'moms',
+    id: 'therapy-for-moms',
     slug: 'therapy-for-moms',
     title: 'Therapy for Moms',
+    tagline: 'From survival mode to thriving',
+    keyBenefits: ['In-home sessions available', 'Flexible scheduling', 'Childcare-friendly'],
+    featured: true,
+    category: 'Life Stages',
     description: 'You\'re doing everything—but at what cost? Motherhood often means carrying the mental load for everyone else. When you\'re constantly juggling parenting, work, relationships, and the pressure to be everything to everyone, it\'s easy to lose sight of your own needs. You might be feeling burned out, touched out, and wondering, "Why does this feel so hard?"\n\nAt Bloom Psychology, we help moms move from survival mode to a place of clarity, connection, and confidence. Whether you\'re feeling emotionally drained, stuck in the same arguments with your partner, or struggling to find balance in your relationships, therapy can help.',
     shortDescription: 'Specialized therapy for mothers at all stages, with flexible options including in-home sessions.',
     heroImage: '/images/optimized/Home/new-mom.webp',
@@ -182,9 +194,12 @@ export const services: Service[] = [
     ]
   },
   {
-    id: 'parent',
+    id: 'parent-support',
     slug: 'parent-support',
     title: 'Parent Support',
+    tagline: 'Confident parenting, calmer homes',
+    keyBenefits: ['Evidence-based strategies', 'All ages supported', 'Family harmony'],
+    category: 'Life Stages',
     description: 'Parenting is the hardest job you\'ll ever do—but you don\'t have to do it alone. We offer parent support to help you better understand your child\'s behavior, manage tough moments with more confidence, and bring more calm to your home. Whether you\'re facing big feelings, power struggles, or just adjusting to a new season of parenting, we\'re here to help you find clarity, connection, and support.',
     shortDescription: 'Evidence-based guidance for parents navigating challenges from toddler tantrums to teen independence.',
     heroImage: '/images/optimized/Services/Experienced Parents.webp',
@@ -258,9 +273,12 @@ export const services: Service[] = [
     ]
   },
   {
-    id: 'anxiety',
+    id: 'anxiety-stress-management',
     slug: 'anxiety-stress-management',
     title: 'Anxiety &\nStress Management',
+    tagline: 'Find your calm in the chaos',
+    keyBenefits: ['Rapid symptom relief', 'Practical tools', 'Lasting peace'],
+    category: 'Mental Health',
     description: 'We all feel overwhelmed sometimes—but if anxiety or stress is making it hard to enjoy life, sleep well, or keep up with day-to-day stuff, it might be time to talk to someone. At Bloom Psychology, we help you understand what\'s fueling your anxiety and give you real tools to feel more grounded, calm, and in control. Whether it\'s racing thoughts, a tight chest, or the constant "what ifs," we\'re here to help you breathe easier—literally and emotionally.',
     shortDescription: 'Specialized treatment for anxiety, panic, and chronic stress using proven therapeutic approaches.',
     heroImage: '/images/optimized/Services/AnxietyManagement1.webp',
@@ -334,9 +352,12 @@ export const services: Service[] = [
     ]
   },
   {
-    id: 'postpartum',
+    id: 'postpartum-depression-support',
     slug: 'postpartum-depression-support',
     title: 'Postpartum Depression\nSupport',
+    tagline: 'You\'re not alone in this',
+    keyBenefits: ['Judgment-free support', 'In-home options', 'Partner involvement'],
+    category: 'Mental Health',
     description: 'Welcoming a baby can bring joy—but it can also bring exhaustion, overwhelm, and emotions you didn\'t expect. If you\'re feeling anxious, down, disconnected, or just not like yourself, you\'re not alone. We offer compassionate support for postpartum depression, tailored to your unique experience. Whether you\'re a first-time mom or adding to your growing family, we\'re here to help you feel more like you again—one step at a time. And because we know getting out can be tough, in-home sessions are available—so you can get support in the comfort of your own space.',
     shortDescription: 'Specialized treatment for postpartum depression, anxiety, and mood disorders with compassionate, judgment-free support.',
     heroImage: '/images/optimized/Services/Symbolic Shoes.webp',
@@ -410,9 +431,12 @@ export const services: Service[] = [
     ]
   },
   {
-    id: 'postpartum-anxiety',
+    id: 'postpartum-anxiety-support',
     slug: 'postpartum-anxiety-support',
     title: 'Postpartum Anxiety\nSupport',
+    tagline: 'Quiet the worries, embrace the joy',
+    keyBenefits: ['Intrusive thought relief', 'Sleep strategies', 'Confidence building'],
+    category: 'Mental Health',
     description: 'Postpartum anxiety can create intrusive thoughts, fears, and unwanted sensations leaving you feeling stuck. Feeling this way while also trying to care for a baby can make you wonder if something is really wrong or if you\'re a bad mom. At Bloom, we create a safe space where you feel seen and heard to help you explore, address, and overcome your anxieties.',
     shortDescription: 'Specialized treatment for anxiety, intrusive thoughts, or worries so that you can feel more like yourself again.',
     heroImage: '/images/optimized/Services/AnxietyManagement2.webp',

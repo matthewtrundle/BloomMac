@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useRef, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
@@ -15,6 +15,11 @@ import useParallaxHero from '@/lib/hooks/useParallaxHero';
 // UI Components - Dynamically import non-critical components
 import OrganicShape from '@/components/ui/OrganicShape';
 import Button from '@/components/ui/Button';
+import GardenServiceCard from '@/components/ui/GardenServiceCard';
+import SeedPacketCard from '@/components/ui/SeedPacketCard';
+import FloatingSeeds from '@/components/ui/FloatingSeeds';
+import TexasGardenMap from '@/components/ui/TexasGardenMap';
+import GardenZoneCard from '@/components/ui/GardenZoneCard';
 
 // Dynamic imports for components not immediately visible
 const GlassmorphismPanel = dynamic(() => import('@/components/ui/GlassmorphismPanel'));
@@ -139,7 +144,7 @@ export default function Home() {
       />
       
       {/* Hero Section */}
-      <section className="relative h-auto md:h-[75vh] min-h-[60vh] md:min-h-[75vh] hero-section contain-layout bg-white md:bg-transparent">
+      <section className="relative h-auto md:h-[75vh] min-h-auto md:min-h-[75vh] hero-section contain-layout bg-gradient-to-b from-pink-50/30 to-white md:bg-transparent">
         {/* Fixed hero background image - hidden on mobile */}
         <div className="hidden md:block fixed inset-x-0 top-0 h-[75vh] w-full" style={{ zIndex: -1 }}>
           <div className="relative w-full h-full">
@@ -172,12 +177,49 @@ export default function Home() {
           </div>
         </div>
         
-        <div className="container mx-auto px-4 relative z-10 h-full flex items-center">
+        {/* Mobile Hero Image - Jana's picture */}
+        <div className="md:hidden w-full pt-20 pb-4">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6 }}
+            className="relative w-full aspect-[4/5] max-w-sm mx-auto px-4"
+          >
+            <Image
+              src="/images/optimized/Team/Jana Rundle.webp"
+              alt="Dr. Jana Rundle"
+              fill
+              className="object-cover rounded-2xl shadow-xl"
+              style={{ objectPosition: '50% 20%' }}
+              quality={85}
+              sizes="(max-width: 640px) 100vw, 640px"
+              priority
+              placeholder="blur"
+              blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAn/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
+            />
+            {/* Flower accent on mobile image */}
+            <motion.div
+              animate={{ y: [0, -8, 0] }}
+              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute -top-3 -right-3 z-10"
+            >
+              <Image
+                src="/images/flower no stem.svg"
+                alt="Flower accent"
+                width={45}
+                height={45}
+                className="opacity-80"
+              />
+            </motion.div>
+          </motion.div>
+        </div>
+        
+        <div className="container mx-auto px-4 relative z-10 h-full md:flex md:items-center">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="relative z-10 max-w-3xl w-full md:ml-8 lg:ml-16 md:mr-auto py-8 md:pt-24 lg:pt-32"
+            className="relative z-10 max-w-3xl w-full md:ml-8 lg:ml-16 md:mr-auto pb-8 pt-0 md:pt-24 lg:pt-32"
           >
             {/* Hero text - Elegant, impactful typography with sophisticated hierarchy */}
             <div className="text-center md:text-left">
@@ -439,127 +481,288 @@ export default function Home() {
         </div>
       </section>
       
-      {/* Services Section */}
-      <section id="services" className="py-20 bg-gray-50 relative overflow-hidden z-10">
-        <OrganicShape
-          variant="blob-2"
-          color="var(--bloom-blush)"
-          size="lg"
-          position="top-right"
-          opacity={0.08}
-        />
-        <OrganicShape
-          variant="blob-3"
-          color="var(--bloom-accent)"
-          size="md"
-          position="bottom-left"
-          opacity={0.05}
-          rotate={120}
-        />
+      {/* Services Section - Garden Theme */}
+      <section id="services" className="py-20 bg-gradient-to-b from-bloom-sage-50/20 to-white relative overflow-hidden z-10">
+        {/* Garden background elements */}
+        <div className="absolute inset-0 pointer-events-none">
+          {/* Decorative garden path */}
+          <svg className="absolute bottom-0 left-0 w-full h-full opacity-5" viewBox="0 0 1200 800" preserveAspectRatio="none">
+            <path
+              d="M0,800 Q300,700 600,750 T1200,700 L1200,800 L0,800"
+              fill="#7A8B7F"
+            />
+          </svg>
+          
+          {/* Floating seeds/petals animation */}
+          <motion.div
+            animate={{ y: [0, -100], x: [0, 50], rotate: 360 }}
+            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+            className="absolute top-20 left-20 w-3 h-3 bg-pink-300 rounded-full opacity-30"
+          />
+          <motion.div
+            animate={{ y: [0, -150], x: [0, -30], rotate: -360 }}
+            transition={{ duration: 25, repeat: Infinity, ease: "linear", delay: 5 }}
+            className="absolute top-40 right-40 w-2 h-2 bg-bloom-sage/30 rounded-full"
+          />
+          <motion.div
+            animate={{ y: [0, -120], x: [0, 40], rotate: 180 }}
+            transition={{ duration: 18, repeat: Infinity, ease: "linear", delay: 10 }}
+            className="absolute top-60 left-1/2 w-4 h-4 bg-yellow-300 rounded-full opacity-20"
+          />
+        </div>
         
-        <div className="container mx-auto px-6">
+        <div className="container mx-auto px-6 relative">
+          {/* Section header with garden metaphor */}
           <div className="text-center mb-16">
-            <div ref={serviceTitleRef}>
-              <h2 className="font-playfair text-bloom/90 text-2xl md:text-3xl mb-4 font-normal">
-                Our Services
+            <motion.div 
+              ref={serviceTitleRef}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="font-playfair text-bloom/90 text-3xl md:text-4xl mb-4 font-normal">
+                Our <span className="text-bloompink/90 font-medium">Services</span>
               </h2>
               
-              <div className="w-24 h-0.5 bg-[#C63780]/50 mx-auto mb-8 rounded-full"></div>
-            </div>
+              {/* Decorative flower divider */}
+              <div className="flex items-center justify-center gap-4 mb-8">
+                <div className="w-16 h-0.5 bg-gradient-to-r from-transparent to-bloompink/30 rounded-full"></div>
+                <Image 
+                  src="/images/flower no stem.svg" 
+                  alt="" 
+                  width={24} 
+                  height={24} 
+                  className="opacity-50"
+                />
+                <div className="w-16 h-0.5 bg-gradient-to-l from-transparent to-bloompink/30 rounded-full"></div>
+              </div>
+            </motion.div>
             
-            <p className="text-bloom/60 max-w-2xl mx-auto text-base font-light" ref={serviceDescRef}>
-              We offer a range of specialized mental health services designed to support women, mothers, and parents at every stage of life.
-            </p>
+            <motion.p 
+              ref={serviceDescRef}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              viewport={{ once: true }}
+              className="text-bloom/70 max-w-3xl mx-auto text-lg font-light"
+            >
+              Specialized therapy services designed to support you through life's transitions, 
+              with expertise in women's mental health and maternal wellness.
+            </motion.p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {services.map((service, index) => (
-              <div key={service.id} 
-                ref={el => {
-                  servicePanelRefs.current[index] = el;
-                }}>
-                <GlassmorphismPanel
-                  variant={index % 2 === 0 ? "medium" : "pink"}
-                  shape="rounded-lg"
-                  className="h-full p-6 flex flex-col relative"
-                  hoverEffect="lift"
+          {/* Garden layout grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+            {services.map((service, index) => {
+              // Create a ref for each card to track if it's in view
+              const cardRef = useRef(null);
+              const isInView = useInView(cardRef, { once: true, margin: "-100px" });
+              
+              return (
+                <div 
+                  key={service.id} 
+                  ref={cardRef}
+                  className={service.featured ? 'md:col-span-2 lg:col-span-1' : ''}
                 >
-                  {/* Free accent removed as requested */}
-                  <h3 className="font-playfair text-lg text-bloom/90 mb-4 min-h-[4rem] flex flex-col justify-center font-normal">
-                    {service.title.split('\n').map((line, i) => (
-                      <div key={i}>
-                        {line}
-                      </div>
-                    ))}
-                  </h3>
-                  <p className="text-bloom/60 mb-6 flex-grow text-sm">{service.shortDescription}</p>
-                  <Button 
-                    href={`/services/${service.slug}`} 
-                    variant={index % 2 === 0 ? "outline" : "pink-outline"} 
-                    className="mt-auto"
-                  >
-                    Learn More
-                  </Button>
-                </GlassmorphismPanel>
-              </div>
-            ))}
+                  <GardenServiceCard 
+                    service={service} 
+                    index={index} 
+                    isInView={isInView}
+                  />
+                </div>
+              );
+            })}
           </div>
-        </div>
-      </section>
-      
-      {/* Digital Courses CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-bloom-sage-50 to-bloom-pink-50 relative overflow-hidden z-10">
-        <div className="container mx-auto px-6">
+          
+          {/* Garden wisdom quote */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="max-w-5xl mx-auto text-center"
+            className="text-center mt-16"
           >
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-playfair mb-6 font-normal">
-              <span className="text-bloom-dark/80">New: </span>
-              <span className="text-bloompink/90">Digital Courses</span>
-              <span className="text-bloom-dark/80"> for Postpartum Wellness</span>
-            </h2>
-            
-            <p className="text-lg text-bloom-dark/70 mb-8 max-w-3xl mx-auto font-light">
-              Can't make it to therapy? Our self-paced courses provide evidence-based support 
-              you can access anytime, anywhere. Created by Dr. Jana specifically for busy moms.
+            <p className="text-bloom/60 text-lg italic font-light">
+              "Healing happens when expertise meets empathy. Your journey is uniquely yours."
             </p>
+            <p className="text-bloompink/70 text-sm mt-2">— Dr. Jana Rundle</p>
+          </motion.div>
+        </div>
+      </section>
+      
+      {/* Digital Garden - Seeds for Home Section */}
+      <section className="py-20 bg-gradient-to-b from-white via-bloom-sage-50/10 to-bloom-sage-50/20 relative overflow-hidden z-10">
+        {/* Floating seed animation background */}
+        <FloatingSeeds />
+        
+        {/* Greenhouse glass effect overlay */}
+        <div className="absolute inset-0 pointer-events-none">
+          {/* Soft glass texture */}
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/5 to-white/10"></div>
+          
+          {/* Condensation effect */}
+          <svg className="absolute inset-0 w-full h-full opacity-5">
+            <defs>
+              <pattern id="condensation" x="0" y="0" width="60" height="60" patternUnits="userSpaceOnUse">
+                <circle cx="10" cy="10" r="1" fill="currentColor" className="text-blue-300" />
+                <circle cx="30" cy="25" r="0.5" fill="currentColor" className="text-blue-300" />
+                <circle cx="45" cy="40" r="1.5" fill="currentColor" className="text-blue-300" />
+                <circle cx="15" cy="50" r="0.8" fill="currentColor" className="text-blue-300" />
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#condensation)" />
+          </svg>
+        </div>
+        
+        <div className="container mx-auto px-6 relative">
+          {/* Section Header */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="font-playfair text-bloom/90 text-3xl md:text-4xl mb-2 font-normal">
+              Digital Courses for <span className="text-bloompink/90 font-medium">Postpartum Wellness</span>
+            </h2>
+            <p className="text-bloom/80 text-lg mb-6">Self-paced online programs designed by mental health professionals</p>
             
-            <div className="grid md:grid-cols-3 gap-6 mb-10">
+            {/* Seed packet divider */}
+            <div className="flex items-center justify-center gap-4 mb-8">
+              <div className="w-16 h-0.5 bg-gradient-to-r from-transparent to-bloom-sage/30 rounded-full"></div>
               <motion.div
-                whileHover={{ y: -5 }}
-                className="bg-white p-6 rounded-xl shadow-soft"
+                animate={{ rotate: 360 }}
+                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
               >
-                <div className="text-3xl mb-3">🌸</div>
-                <h3 className="font-medium mb-2 text-bloom/90">Postpartum Foundations</h3>
-                <p className="text-sm text-bloom-dark/70">6-week journey to emotional balance</p>
+                <Image 
+                  src="/images/flower no stem.svg" 
+                  alt="" 
+                  width={24} 
+                  height={24} 
+                  className="opacity-50"
+                />
               </motion.div>
-              
-              <motion.div
-                whileHover={{ y: -5 }}
-                className="bg-white p-6 rounded-xl shadow-soft"
-              >
-                <div className="text-3xl mb-3">🧘‍♀️</div>
-                <h3 className="font-medium mb-2 text-bloom/90">Anxiety Management</h3>
-                <p className="text-sm text-bloom-dark/70">Practical tools for peace of mind</p>
-              </motion.div>
-              
-              <motion.div
-                whileHover={{ y: -5 }}
-                className="bg-white p-6 rounded-xl shadow-soft"
-              >
-                <div className="text-3xl mb-3">💑</div>
-                <h3 className="font-medium mb-2 text-bloom/90">Partner Support</h3>
-                <p className="text-sm text-bloom-dark/70">Help your partner help you</p>
-              </motion.div>
+              <div className="w-16 h-0.5 bg-gradient-to-l from-transparent to-bloom-sage/30 rounded-full"></div>
             </div>
             
-            <Button href="/courses" variant="pink" size="lg">
-              Explore Digital Courses
-            </Button>
+            <p className="text-bloom/70 max-w-3xl mx-auto text-lg font-light">
+              Can't make it to in-person therapy? Access evidence-based mental health 
+              resources from home — learn and heal at your own pace, in your own space.
+            </p>
+          </motion.div>
+          
+          {/* Digital courses indicator */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="flex flex-wrap items-center justify-center gap-3 mb-8"
+          >
+            <div className="flex items-center gap-2 bg-white/80 backdrop-blur-sm px-3 sm:px-4 py-2 rounded-full shadow-sm">
+              <span className="text-lg sm:text-2xl">💻</span>
+              <span className="text-xs sm:text-sm font-medium text-bloom/80">100% Online</span>
+            </div>
+            <div className="flex items-center gap-2 bg-white/80 backdrop-blur-sm px-3 sm:px-4 py-2 rounded-full shadow-sm">
+              <span className="text-lg sm:text-2xl">📱</span>
+              <span className="text-xs sm:text-sm font-medium text-bloom/80">Mobile Friendly</span>
+            </div>
+            <div className="flex items-center gap-2 bg-white/80 backdrop-blur-sm px-3 sm:px-4 py-2 rounded-full shadow-sm">
+              <span className="text-lg sm:text-2xl">⏰</span>
+              <span className="text-xs sm:text-sm font-medium text-bloom/80">Start Anytime</span>
+            </div>
+          </motion.div>
+          
+          {/* Seed Packet Grid - Option 1: All cards uniform width */}
+          <div className="w-full px-4 md:px-0">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6 mb-12 max-w-5xl mx-auto">
+              <SeedPacketCard 
+                title="Postpartum Wellness"
+                seedType="Sunflower"
+                icon="🌻"
+                growthTime="6 weeks"
+                description="Build emotional regulation skills and develop lasting confidence in your new role"
+                benefits={[
+                  "Daily coping strategies",
+                  "Strong self-care foundation",
+                  "Sustainable inner peace"
+                ]}
+                color="yellow"
+                href="/courses/postpartum-wellness-foundations"
+                featured={false}
+                index={0}
+              />
+              
+              <SeedPacketCard 
+                title="Anxiety Management"
+                seedType="Lavender"
+                icon="💜"
+                growthTime="4 weeks"
+                description="Learn evidence-based techniques to manage anxiety and calm your mind"
+                benefits={[
+                  "Immediate symptom relief",
+                  "Proven coping strategies",
+                  "Long-term emotional stability"
+                ]}
+                color="purple"
+                href="/courses"
+                index={1}
+              />
+              
+              <SeedPacketCard 
+                title="Partner Support"
+                seedType="Twin Roses"
+                icon="🌹"
+                growthTime="3 weeks"
+                description="Strengthen your relationship with communication tools and mutual support strategies"
+                benefits={[
+                  "Enhanced communication",
+                  "Deeper understanding",
+                  "Unified partnership"
+                ]}
+                color="pink"
+                href="/courses"
+                index={2}
+              />
+            </div>
+          </div>
+          
+          {/* Garden wisdom footer */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            viewport={{ once: true }}
+            className="text-center"
+          >
+            <p className="text-bloom/60 text-base italic font-light mb-2">
+              "Small steps lead to lasting change. Start your wellness journey today."
+            </p>
+            <p className="text-bloompink/70 text-sm">— Dr. Jana Rundle</p>
+            
+            {/* Additional CTA */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              viewport={{ once: true }}
+              className="mt-8"
+            >
+              <Link href="/courses">
+                <button className="inline-flex items-center gap-2 text-bloom/80 hover:text-bloompink transition-colors group">
+                  <span className="text-sm font-medium">View All Courses</span>
+                  <motion.span
+                    animate={{ x: [0, 5, 0] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                    className="text-lg"
+                  >
+                    →
+                  </motion.span>
+                </button>
+              </Link>
+            </motion.div>
           </motion.div>
         </div>
       </section>
@@ -699,100 +902,166 @@ export default function Home() {
         </div>
       </section>
       
-      {/* Texas Virtual Therapy Section */}
-      <section className="py-20 bg-gradient-to-br from-bloom-sage-50 to-bloom-pink-50 relative overflow-hidden">
-        <div className="container mx-auto px-6">
+      {/* Texas Virtual Garden Section */}
+      <section className="py-20 bg-gradient-to-br from-bloom-sage-50/30 via-white to-bloom-blush/10 relative overflow-hidden">
+        {/* Garden texture background */}
+        <div className="absolute inset-0 opacity-5">
+          <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <pattern id="texas-garden" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
+              <circle cx="2" cy="2" r="1" fill="#7A8B7F" />
+              <circle cx="7" cy="7" r="0.5" fill="#8B7355" />
+            </pattern>
+            <rect width="100" height="100" fill="url(#texas-garden)" />
+          </svg>
+        </div>
+        
+        <div className="container mx-auto px-6 relative">
           <div className="max-w-6xl mx-auto">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <div>
+              {/* Content Column */}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6 }}
+                viewport={{ once: true }}
+              >
                 <h2 className="text-2xl md:text-3xl lg:text-4xl font-playfair text-bloom-dark/90 mb-6 font-normal">
-                  Now Serving <span className="text-bloompink/90">All of Texas</span>
+                  Now Serving <span className="text-bloompink/90 font-medium">All of Texas</span>
                 </h2>
-                <p className="text-lg text-bloom-dark/70 mb-8 font-light">
-                  Can't make it to our North Austin office? Virtual therapy brings our specialized 
-                  perinatal and maternal mental health care directly to your Texas home.
+                
+                {/* Seed divider */}
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-12 h-0.5 bg-gradient-to-r from-bloom-sage/30 to-transparent"></div>
+                  <motion.span 
+                    className="text-2xl"
+                    animate={{ rotate: [0, 10, -10, 0] }}
+                    transition={{ duration: 3, repeat: Infinity }}
+                  >
+                    🌱
+                  </motion.span>
+                  <div className="w-12 h-0.5 bg-gradient-to-l from-bloom-sage/30 to-transparent"></div>
+                </div>
+                
+                <p className="text-lg text-bloom-dark/70 mb-4 font-light">
+                  Licensed to provide virtual therapy throughout Texas, we bring 
+                  specialized mental health care directly to you. Whether you're in a major 
+                  city or rural community, quality therapy is just a video call away.
                 </p>
                 
-                <div className="grid sm:grid-cols-2 gap-6 mb-8">
-                  <div className="bg-white p-6 rounded-xl shadow-soft">
-                    <div className="w-12 h-12 bg-bloom-sage-50 rounded-full flex items-center justify-center mb-4">
-                      <svg className="w-6 h-6 text-bloom-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                      </svg>
-                    </div>
-                    <h3 className="font-medium text-bloom-dark/90 mb-2">Houston • Dallas • San Antonio</h3>
-                    <p className="text-sm text-bloom-dark/70">Serving major Texas cities</p>
-                  </div>
-                  
-                  <div className="bg-white p-6 rounded-xl shadow-soft">
-                    <div className="w-12 h-12 bg-bloompink/10 rounded-full flex items-center justify-center mb-4">
-                      <svg className="w-6 h-6 text-bloompink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                      </svg>
-                    </div>
-                    <h3 className="font-medium text-bloom-dark/90 mb-2">Secure Video Sessions</h3>
-                    <p className="text-sm text-bloom-dark/70">HIPAA-compliant virtual care</p>
-                  </div>
+                {/* Virtual Therapy Highlight */}
+                <motion.div 
+                  className="bg-gradient-to-r from-bloompink/10 to-bloom-sage/10 p-4 rounded-xl mb-6 border border-bloompink/20"
+                  whileHover={{ scale: 1.02 }}
+                >
+                  <p className="text-base font-medium text-bloom/90 flex items-center gap-2">
+                    <span className="text-2xl">🖥️</span>
+                    All sessions conducted online via secure video chat - no travel required!
+                  </p>
+                </motion.div>
+                
+                {/* Service Coverage Cards */}
+                <div className="grid sm:grid-cols-2 gap-4 mb-8">
+                  <GardenZoneCard 
+                    icon="🏙️"
+                    title="Cities We Serve"
+                    subtitle="Houston • Dallas • San Antonio • Austin"
+                    description="Major Texas metropolitan areas"
+                  />
+                  <GardenZoneCard 
+                    icon="💻"
+                    title="100% Virtual Therapy"
+                    subtitle="Online video sessions from home"
+                    description="Secure, HIPAA-compliant platform"
+                  />
                 </div>
                 
+                {/* How It Works */}
+                <motion.div 
+                  className="bg-white/80 backdrop-blur-sm p-6 rounded-2xl shadow-soft mb-6 border border-bloom-sage/10"
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
+                  <h3 className="font-medium text-bloom-dark/90 mb-4 flex items-center gap-2">
+                    <span className="text-xl">💻</span>
+                    How Virtual Therapy Works
+                  </h3>
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-3">
+                      <span className="w-8 h-8 bg-bloom-sage/10 rounded-full flex items-center justify-center text-sm font-medium text-bloom-sage">1</span>
+                      <span className="text-sm text-bloom-dark/70">Schedule your free consultation</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <span className="w-8 h-8 bg-bloom-sage/10 rounded-full flex items-center justify-center text-sm font-medium text-bloom-sage">2</span>
+                      <span className="text-sm text-bloom-dark/70">Complete personalized assessment</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <span className="w-8 h-8 bg-bloom-sage/10 rounded-full flex items-center justify-center text-sm font-medium text-bloom-sage">3</span>
+                      <span className="text-sm text-bloom-dark/70">Begin weekly therapy sessions</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <span className="w-8 h-8 bg-bloom-sage/10 rounded-full flex items-center justify-center text-sm font-medium text-bloom-sage">4</span>
+                      <span className="text-sm text-bloom-dark/70">Experience lasting transformation</span>
+                    </div>
+                  </div>
+                </motion.div>
+                
+                {/* CTA Buttons styled as seed packets */}
                 <div className="flex flex-col sm:flex-row gap-4 mb-6">
-                  <Link
-                    href="/virtual-therapy"
-                    className="inline-block bg-bloompink text-white px-8 py-4 rounded-full font-medium hover:bg-bloom-pink-dark transition-colors text-center"
-                  >
-                    Learn About Virtual Therapy
+                  <Link href="/virtual-therapy">
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="bg-bloompink/90 hover:bg-bloompink text-white px-8 py-4 rounded-full font-medium transition-all flex items-center justify-center gap-2 shadow-md hover:shadow-lg w-full sm:w-auto"
+                    >
+                      <span>💻</span>
+                      Learn About Virtual Therapy
+                    </motion.button>
                   </Link>
-                  <Link
-                    href="/texas-service-areas"
-                    className="inline-block bg-white text-bloom-dark px-8 py-4 rounded-full font-medium border-2 border-bloom-sage hover:bg-bloom-sage-50 transition-colors text-center"
-                  >
-                    See Your Area
+                  <Link href="/texas-service-areas">
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="bg-white text-bloom-dark px-8 py-4 rounded-full font-medium border-2 border-bloom-sage hover:bg-bloom-sage-50 transition-all flex items-center justify-center gap-2 w-full sm:w-auto"
+                    >
+                      <span>📍</span>
+                      View Service Areas
+                    </motion.button>
                   </Link>
                 </div>
                 
-                <div className="bg-white p-4 rounded-xl shadow-soft border border-bloom-sage/20">
-                  <p className="text-sm text-bloom-dark/70 mb-3">
-                    <span className="font-semibold text-bloompink">✨ New:</span> Not sure if virtual therapy is right for you?
+                {/* Self-Assessment Card */}
+                <motion.div 
+                  className="bg-gradient-to-br from-white to-bloom-blush/10 p-5 rounded-xl shadow-soft border border-bloom-sage/20"
+                  whileHover={{ y: -2 }}
+                >
+                  <p className="text-sm text-bloom-dark/70 mb-3 flex items-center gap-2">
+                    <span className="text-xl">📋</span>
+                    <span><span className="font-semibold text-bloom-sage">New:</span> Not sure if virtual therapy is right for you?</span>
                   </p>
                   <Link
                     href="/virtual-therapy/is-virtual-right-for-you"
-                    className="text-sm bg-gradient-to-r from-bloompink to-pink-400 text-white px-4 py-2 rounded-full font-medium hover:shadow-md transition-all inline-block"
+                    className="text-sm bg-gradient-to-r from-bloom-sage to-bloom-sage/80 text-white px-4 py-2 rounded-full font-medium hover:shadow-md transition-all inline-flex items-center gap-2"
                   >
-                    Take Our 2-Minute Assessment →
+                    Take Self-Assessment (2 min)
+                    <span>→</span>
                   </Link>
-                </div>
-              </div>
+                </motion.div>
+              </motion.div>
               
-              <div className="space-y-4">
-                <div className="relative">
-                  <Image
-                    src="/images/optimized/biff01_imagine_woman_on_laptop_in_cozy_home_setting_having_vi_65b5942f-d2fb-4103-84e6-722269d37e3b_0.webp"
-                    alt="Woman having virtual therapy session from her Texas home"
-                    width={600}
-                    height={400}
-                    className="rounded-2xl shadow-xl w-full h-auto"
-                  />
-                  <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-bloom-sage/20 rounded-full blur-2xl"></div>
-                  <div className="absolute -top-6 -left-6 w-24 h-24 bg-bloompink/20 rounded-full blur-xl"></div>
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <Image
-                    src="/images/optimized/biff01_imagine_woman_walking_in_nature_path_trees_and_flowers_dc53f2ba-0c3a-4b5a-a758-62679e547b70_1.webp"
-                    alt="Woman finding peace through virtual therapy in Texas"
-                    width={290}
-                    height={200}
-                    className="rounded-xl shadow-lg w-full h-auto"
-                  />
-                  <Image
-                    src="/images/optimized/biff01_imagine_woman_in_meditation_pose_serene_environment_br_43b6047c-916a-43b2-afc2-5449ec040f7c_1.webp"
-                    alt="Peaceful meditation after virtual therapy session"
-                    width={290}
-                    height={200}
-                    className="rounded-xl shadow-lg w-full h-auto"
-                  />
-                </div>
-              </div>
+              {/* Visual Column - Texas Garden Map */}
+              <motion.div 
+                className="relative lg:pl-8"
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                viewport={{ once: true }}
+              >
+                <TexasGardenMap />
+                
+                {/* Decorative elements */}
+                <div className="absolute -top-4 -right-4 w-20 h-20 bg-yellow-300/20 rounded-full blur-2xl"></div>
+                <div className="absolute -bottom-4 -left-4 w-24 h-24 bg-bloom-sage/20 rounded-full blur-2xl"></div>
+              </motion.div>
             </div>
           </div>
         </div>

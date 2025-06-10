@@ -285,9 +285,27 @@ const course = {
 
 export default function PostpartumWellnessFoundationsPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-bloom-offwhite">
-      {/* Hero Section */}
-      <section className="pt-32 pb-20 px-4 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-bloom-sage-50 via-white to-bloom-pink-50 relative overflow-hidden">
+      {/* Garden lattice pattern background */}
+      <div className="absolute inset-0 opacity-5">
+        <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+          <defs>
+            <pattern id="wellness-lattice" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
+              <path d="M0,5 L10,5 M5,0 L5,10" stroke="currentColor" strokeWidth="0.5" className="text-bloom-sage"/>
+            </pattern>
+          </defs>
+          <rect width="100" height="100" fill="url(#wellness-lattice)" />
+        </svg>
+      </div>
+      
+      {/* Floating garden elements */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-20 right-20 w-3 h-3 bg-pink-300 rounded-full opacity-20 animate-pulse"></div>
+        <div className="absolute bottom-32 left-20 w-2 h-2 bg-bloom-sage/30 rounded-full animate-bounce"></div>
+        <div className="absolute top-1/2 right-1/4 w-4 h-4 bg-yellow-300 rounded-full opacity-15 animate-pulse"></div>
+      </div>
+      {/* Hero Section with Garden Theme */}
+      <section className="pt-32 pb-20 px-4 relative overflow-hidden z-10">
         <div className="absolute inset-0 bg-gradient-to-br from-bloom-pink-50/30 via-transparent to-bloom-sage-50/20"></div>
         
         <div className="container mx-auto relative z-10">
@@ -306,6 +324,20 @@ export default function PostpartumWellnessFoundationsPage() {
               <h1 className="text-4xl md:text-5xl font-playfair text-bloom-dark mb-4">
                 {course.title}
               </h1>
+              
+              {/* Decorative flower divider */}
+              <div className="flex items-center justify-center gap-4 mb-6">
+                <div className="w-16 h-0.5 bg-gradient-to-r from-transparent to-bloom-sage/30 rounded-full"></div>
+                <Image 
+                  src="/images/flower no stem.svg" 
+                  alt="" 
+                  width={24} 
+                  height={24} 
+                  className="opacity-50"
+                />
+                <div className="w-16 h-0.5 bg-gradient-to-l from-transparent to-bloom-sage/30 rounded-full"></div>
+              </div>
+              
               <p className="text-xl text-bloom-dark/80 mb-6">
                 {course.subtitle}
               </p>
@@ -330,7 +362,7 @@ export default function PostpartumWellnessFoundationsPage() {
               </div>
 
               {/* Pricing */}
-              <div className="bg-white p-6 rounded-xl shadow-soft mb-8">
+              <div className="bg-gradient-to-br from-white to-bloom-sage-50/20 border border-bloom-sage/10 p-6 rounded-xl shadow-soft mb-8">
                 <div className="flex items-center gap-4 mb-4">
                   <span className="text-3xl font-bold text-bloom-dark">${course.price}</span>
                   <span className="text-xl text-bloom-dark/50 line-through">${course.originalPrice}</span>
@@ -376,7 +408,7 @@ export default function PostpartumWellnessFoundationsPage() {
             
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {course.features.map((feature, index) => (
-                <div key={index} className="bg-white p-6 rounded-xl shadow-soft">
+                <div key={index} className="bg-gradient-to-br from-white to-bloom-sage-50/20 border border-bloom-sage/10 p-6 rounded-xl shadow-soft hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
                   <div className="flex items-start gap-3">
                     <svg className="w-6 h-6 text-bloom-sage mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
@@ -391,7 +423,7 @@ export default function PostpartumWellnessFoundationsPage() {
       </section>
 
       {/* Complete Curriculum */}
-      <section className="py-20 px-4 bg-bloom-offwhite">
+      <section className="py-20 px-4 bg-white/80 backdrop-blur-sm relative z-10">
         <div className="container mx-auto">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl font-playfair text-center text-bloom-dark mb-12">
@@ -400,7 +432,7 @@ export default function PostpartumWellnessFoundationsPage() {
             
             <div className="space-y-6">
               {course.curriculum.map((week, weekIndex) => (
-                <div key={week.week} className="bg-white rounded-2xl shadow-soft overflow-hidden">
+                <div key={week.week} className="bg-gradient-to-br from-white to-bloom-sage-50/20 border border-bloom-sage/10 rounded-2xl shadow-soft overflow-hidden hover:shadow-lg transition-all duration-300">
                   <div className="bg-gradient-to-r from-bloompink to-bloom-pink-dark p-6">
                     <div className="flex items-center justify-between">
                       <div>
@@ -419,8 +451,8 @@ export default function PostpartumWellnessFoundationsPage() {
                     {/* Lessons */}
                     <div className="space-y-3 mb-6">
                       {week.lessons.map((lesson) => (
-                        <div key={lesson.number} className="flex items-start gap-4 p-3 rounded-lg hover:bg-bloom-sage-50/30 transition-colors">
-                          <div className="w-8 h-8 bg-bloom-sage-50 rounded-full flex items-center justify-center flex-shrink-0">
+                        <div key={lesson.number} className="flex items-start gap-4 p-3 rounded-lg hover:bg-bloom-sage-50/30 transition-all duration-300 group cursor-pointer">
+                          <div className="w-8 h-8 bg-bloom-sage-50 rounded-full flex items-center justify-center flex-shrink-0 group-hover:bg-bloom-sage-100 transition-colors">
                             <svg className="w-4 h-4 text-bloom-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1m4 0h1m-6 4h1m4 0h1M9 7l3 3 3-3" />
                             </svg>
@@ -482,7 +514,7 @@ export default function PostpartumWellnessFoundationsPage() {
       </section>
 
       {/* Bonus Materials */}
-      <section className="py-20 px-4 bg-bloom-sage-50/30">
+      <section className="py-20 px-4 bg-gradient-to-br from-bloom-sage-50/30 to-white relative z-10">
         <div className="container mx-auto">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl font-playfair text-center text-bloom-dark mb-12">
@@ -491,7 +523,7 @@ export default function PostpartumWellnessFoundationsPage() {
             
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {course.bonusMaterials.map((material, index) => (
-                <div key={index} className="bg-white p-6 rounded-xl shadow-soft border-l-4 border-bloompink">
+                <div key={index} className="bg-gradient-to-br from-white to-bloom-sage-50/20 border border-bloom-sage/10 p-6 rounded-xl shadow-soft border-l-4 border-bloompink hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
                   <div className="flex items-start gap-3">
                     <svg className="w-6 h-6 text-bloompink mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
@@ -545,7 +577,7 @@ export default function PostpartumWellnessFoundationsPage() {
       </section>
 
       {/* Waitlist Section */}
-      <section className="py-20 px-4 bg-gradient-to-r from-bloom-pink-50 to-bloom-sage-50">
+      <section className="py-20 px-4 bg-gradient-to-r from-bloom-pink-50 to-bloom-sage-50 relative z-10">
         <div className="container mx-auto">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl font-playfair text-bloom-dark mb-6">
