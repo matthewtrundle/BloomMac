@@ -43,38 +43,12 @@ export default function VirtualTherapyPage() {
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section - Digital Greenhouse */}
-      <section className="relative py-20 bg-gradient-to-br from-bloom-sage-50/30 via-white to-bloom-pink-50/20 overflow-hidden">
-        {/* Greenhouse glass effect */}
+      {/* Hero Section - Professional */}
+      <section className="relative py-20 bg-gradient-to-br from-bloom-sage-50/10 via-white to-bloom-pink-50/10 overflow-hidden">
+        {/* Subtle geometric accent */}
         <div className="absolute inset-0">
-          {/* Glass panels pattern */}
-          <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <pattern id="greenhouse-glass" x="0" y="0" width="120" height="120" patternUnits="userSpaceOnUse">
-                <rect x="0" y="0" width="120" height="120" fill="none" stroke="currentColor" strokeWidth="0.5" className="text-bloom-sage/20"/>
-                <line x1="60" y1="0" x2="60" y2="120" stroke="currentColor" strokeWidth="0.3" className="text-bloom-sage/10"/>
-                <line x1="0" y1="60" x2="120" y2="60" stroke="currentColor" strokeWidth="0.3" className="text-bloom-sage/10"/>
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#greenhouse-glass)" />
-          </svg>
-          
-          {/* Condensation effect */}
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/5 to-white/10"></div>
-        </div>
-        
-        {/* Floating digital seeds */}
-        <div className="absolute inset-0 pointer-events-none">
-          <motion.div
-            animate={{ y: [0, -100], x: [0, 50], rotate: 360 }}
-            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-            className="absolute top-20 left-20 w-3 h-3 bg-green-300 rounded-full opacity-30"
-          />
-          <motion.div
-            animate={{ y: [0, -150], x: [0, -30], rotate: -360 }}
-            transition={{ duration: 25, repeat: Infinity, ease: "linear", delay: 5 }}
-            className="absolute top-40 right-40 w-2 h-2 bg-bloom-sage/30 rounded-full"
-          />
+          <div className="absolute top-0 right-0 w-96 h-96 bg-bloom-pink-50/20 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-bloom-sage-50/20 rounded-full blur-3xl"></div>
         </div>
 
         <div className="container mx-auto px-6 relative z-10">
@@ -89,18 +63,8 @@ export default function VirtualTherapyPage() {
               <span className="text-bloompink">Texas Moms</span>
             </h1>
             
-            {/* Garden divider */}
-            <div className="flex items-center justify-center gap-4 mb-6">
-              <div className="w-16 h-0.5 bg-gradient-to-r from-transparent to-bloom-sage/30 rounded-full"></div>
-              <motion.span
-                animate={{ rotate: 360 }}
-                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                className="text-2xl"
-              >
-                🌿
-              </motion.span>
-              <div className="w-16 h-0.5 bg-gradient-to-l from-transparent to-bloom-sage/30 rounded-full"></div>
-            </div>
+            {/* Professional divider */}
+            <div className="w-24 h-0.5 bg-[#f8b5c4] mx-auto mb-6"></div>
             
             <p className="text-xl text-center text-bloom-dark/80 mb-12 max-w-3xl mx-auto">
               Get professional mental health support from the comfort of your home. 
@@ -115,25 +79,33 @@ export default function VirtualTherapyPage() {
                   </h2>
                   <ul className="space-y-4">
                     <li className="flex items-start gap-3">
-                      <span className="text-xl flex-shrink-0 mt-0.5">🌱</span>
+                      <svg className="w-5 h-5 text-bloom-sage flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
                       <div>
                         <strong>No commute needed</strong> - Save time and energy
                       </div>
                     </li>
                     <li className="flex items-start gap-3">
-                      <span className="text-xl flex-shrink-0 mt-0.5">🌱</span>
+                      <svg className="w-5 h-5 text-bloom-sage flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
                       <div>
                         <strong>Baby-friendly</strong> - Nurse or hold baby during sessions
                       </div>
                     </li>
                     <li className="flex items-start gap-3">
-                      <span className="text-xl flex-shrink-0 mt-0.5">🌱</span>
+                      <svg className="w-5 h-5 text-bloom-sage flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
                       <div>
                         <strong>Flexible scheduling</strong> - Evening and weekend options
                       </div>
                     </li>
                     <li className="flex items-start gap-3">
-                      <span className="text-xl flex-shrink-0 mt-0.5">🌱</span>
+                      <svg className="w-5 h-5 text-bloom-sage flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
                       <div>
                         <strong>Expert care</strong> - Dr. Jana Rundle, Perinatal Mental Health Certified
                       </div>
@@ -166,16 +138,7 @@ export default function VirtualTherapyPage() {
       </section>
 
       {/* Texas Cities Section */}
-      <section className="py-16 bg-gradient-to-b from-white to-bloom-sage-50/10 relative overflow-hidden">
-        {/* Decorative map texture */}
-        <div className="absolute inset-0 opacity-5">
-          <svg className="w-full h-full" viewBox="0 0 200 200" preserveAspectRatio="none">
-            <pattern id="garden-zones" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-              <circle cx="10" cy="10" r="1" fill="#7A8B7F" />
-            </pattern>
-            <rect width="200" height="200" fill="url(#garden-zones)" />
-          </svg>
-        </div>
+      <section className="py-16 bg-white relative overflow-hidden">
         
         <div className="container mx-auto px-6 relative">
           <div className="max-w-4xl mx-auto text-center">
@@ -198,7 +161,9 @@ export default function VirtualTherapyPage() {
                       : 'bg-white border border-bloom-sage/20 text-bloom-dark hover:bg-bloom-sage-50 hover:border-bloom-sage/40'
                   }`}
                 >
-                  <span className="text-xs">🌱</span>
+                  <svg className="w-3 h-3 text-bloom-sage" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                  </svg>
                   {city}
                 </motion.button>
               ))}
@@ -211,13 +176,8 @@ export default function VirtualTherapyPage() {
         </div>
       </section>
 
-      {/* How It Works Section - Planting Process */}
-      <section className="py-20 bg-gradient-to-br from-bloom-pink-50/20 to-white relative overflow-hidden">
-        {/* Decorative vine pattern */}
-        <svg className="absolute left-0 top-0 h-full w-32 opacity-5" viewBox="0 0 100 500" preserveAspectRatio="none">
-          <path d="M50,0 Q30,50 50,100 T50,200 T50,300 T50,400 T50,500" 
-                stroke="currentColor" strokeWidth="2" fill="none" className="text-bloom-sage"/>
-        </svg>
+      {/* How It Works Section */}
+      <section className="py-20 bg-gradient-to-b from-white to-bloom-sage-50/5 relative overflow-hidden">
         
         <div className="container mx-auto px-6">
           <h2 className="text-4xl font-playfair text-center mb-12">How Virtual Therapy Works</h2>
@@ -234,7 +194,7 @@ export default function VirtualTherapyPage() {
                 className="w-16 h-16 bg-gradient-to-br from-bloom-sage to-bloom-sage/80 rounded-full flex items-center justify-center mx-auto mb-4 text-white shadow-lg"
                 whileHover={{ scale: 1.1, rotate: 5 }}
               >
-                <span className="text-2xl">🌱</span>
+                <span className="text-xl font-bold">1</span>
               </motion.div>
               <h3 className="font-semibold mb-2">Book Online</h3>
               <p className="text-sm text-bloom-dark/70">
@@ -253,7 +213,7 @@ export default function VirtualTherapyPage() {
                 className="w-16 h-16 bg-gradient-to-br from-bloom-sage to-bloom-sage/80 rounded-full flex items-center justify-center mx-auto mb-4 text-white shadow-lg"
                 whileHover={{ scale: 1.1, rotate: 5 }}
               >
-                <span className="text-2xl">💧</span>
+                <span className="text-xl font-bold">2</span>
               </motion.div>
               <h3 className="font-semibold mb-2">Get Your Link</h3>
               <p className="text-sm text-bloom-dark/70">
@@ -272,7 +232,7 @@ export default function VirtualTherapyPage() {
                 className="w-16 h-16 bg-gradient-to-br from-bloom-sage to-bloom-sage/80 rounded-full flex items-center justify-center mx-auto mb-4 text-white shadow-lg"
                 whileHover={{ scale: 1.1, rotate: 5 }}
               >
-                <span className="text-2xl">☀️</span>
+                <span className="text-xl font-bold">3</span>
               </motion.div>
               <h3 className="font-semibold mb-2">Connect from Home</h3>
               <p className="text-sm text-bloom-dark/70">
@@ -291,7 +251,7 @@ export default function VirtualTherapyPage() {
                 className="w-16 h-16 bg-gradient-to-br from-bloompink to-bloompink/80 rounded-full flex items-center justify-center mx-auto mb-4 text-white shadow-lg"
                 whileHover={{ scale: 1.1, rotate: 5 }}
               >
-                <span className="text-2xl">🌸</span>
+                <span className="text-xl font-bold">4</span>
               </motion.div>
               <h3 className="font-semibold mb-2">Start Healing</h3>
               <p className="text-sm text-bloom-dark/70">
@@ -302,25 +262,8 @@ export default function VirtualTherapyPage() {
         </div>
       </section>
 
-      {/* Benefits Grid - Garden Features */}
+      {/* Benefits Grid */}
       <section className="py-20 bg-white relative overflow-hidden">
-        {/* Decorative elements */}
-        <div className="absolute inset-0 pointer-events-none">
-          <motion.div
-            animate={{ y: [0, -50], rotate: 360 }}
-            transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-            className="absolute top-10 right-20 text-4xl opacity-20"
-          >
-            🌿
-          </motion.div>
-          <motion.div
-            animate={{ y: [0, -30], rotate: -360 }}
-            transition={{ duration: 25, repeat: Infinity, ease: "linear", delay: 10 }}
-            className="absolute bottom-20 left-40 text-3xl opacity-20"
-          >
-            🌱
-          </motion.div>
-        </div>
         
         <div className="container mx-auto px-6 relative">
           <h2 className="text-4xl font-playfair text-center mb-12">
@@ -391,18 +334,8 @@ export default function VirtualTherapyPage() {
         </div>
       </section>
 
-      {/* FAQ Section - Gardening Q&A */}
-      <section className="py-20 bg-bloom-sage-50/30 relative overflow-hidden">
-        {/* Garden soil texture */}
-        <div className="absolute inset-0 opacity-5">
-          <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-            <pattern id="soil-texture" x="0" y="0" width="5" height="5" patternUnits="userSpaceOnUse">
-              <circle cx="1" cy="1" r="0.5" fill="#8B7355" />
-              <circle cx="3" cy="3" r="0.3" fill="#7A8B7F" />
-            </pattern>
-            <rect width="100" height="100" fill="url(#soil-texture)" />
-          </svg>
-        </div>
+      {/* FAQ Section */}
+      <section className="py-20 bg-gradient-to-b from-white to-bloom-sage-50/10 relative overflow-hidden">
         
         <div className="container mx-auto px-6 relative">
           <h2 className="text-4xl font-playfair text-center mb-12">Common Questions</h2>
@@ -415,7 +348,7 @@ export default function VirtualTherapyPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="bg-white p-6 rounded-xl shadow-soft group"
+                className="bg-white p-6 rounded-xl shadow-lg border border-bloom-sage/10 group hover:shadow-xl transition-all duration-300"
               >
                 <summary className="font-semibold cursor-pointer flex justify-between items-center">
                   {faq.question}
@@ -430,12 +363,8 @@ export default function VirtualTherapyPage() {
         </div>
       </section>
 
-      {/* Self-Assessment CTA - Soil Test */}
+      {/* Self-Assessment CTA */}
       <section className="py-16 bg-white relative overflow-hidden">
-        {/* Decorative roots */}
-        <svg className="absolute bottom-0 left-0 w-full h-32 opacity-5" viewBox="0 0 1200 100" preserveAspectRatio="none">
-          <path d="M0,100 Q300,50 600,70 T1200,60 L1200,100 L0,100" fill="#8B7355" />
-        </svg>
         
         <div className="container mx-auto px-6 relative">
           <motion.div 
@@ -443,13 +372,11 @@ export default function VirtualTherapyPage() {
             whileHover={{ scale: 1.02 }}
             transition={{ type: "spring", stiffness: 300 }}
           >
-            <motion.div
-              animate={{ y: [0, -10, 0] }}
-              transition={{ duration: 3, repeat: Infinity }}
-              className="text-5xl mb-4"
-            >
-              🌱
-            </motion.div>
+            <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
             <h2 className="text-3xl font-playfair mb-4">Not Sure If Virtual Therapy Is Right for You?</h2>
             <p className="text-xl mb-8 opacity-90">
               Take our quick self-assessment to see if virtual therapy could help with your specific needs
@@ -461,25 +388,8 @@ export default function VirtualTherapyPage() {
         </div>
       </section>
 
-      {/* Final CTA - Plant Your First Seed */}
-      <section className="py-20 bg-gradient-to-br from-bloom-sage-50/20 to-bloom-pink-50/20 relative overflow-hidden">
-        {/* Animated garden elements */}
-        <div className="absolute inset-0 pointer-events-none">
-          <motion.div
-            animate={{ scale: [1, 1.2, 1], rotate: [0, 180, 360] }}
-            transition={{ duration: 20, repeat: Infinity }}
-            className="absolute top-10 right-10 text-6xl opacity-10"
-          >
-            🌻
-          </motion.div>
-          <motion.div
-            animate={{ scale: [1, 1.1, 1] }}
-            transition={{ duration: 15, repeat: Infinity, delay: 5 }}
-            className="absolute bottom-20 left-20 text-5xl opacity-10"
-          >
-            🌿
-          </motion.div>
-        </div>
+      {/* Final CTA */}
+      <section className="py-20 bg-gradient-to-br from-bloom-sage-50/10 to-bloom-pink-50/10 relative overflow-hidden">
         
         <div className="container mx-auto px-6 text-center relative">
           <h2 className="text-4xl font-playfair mb-6">
@@ -514,10 +424,8 @@ export default function VirtualTherapyPage() {
         </div>
       </section>
 
-      {/* Newsletter - Garden Updates */}
+      {/* Newsletter */}
       <section className="py-16 bg-white relative overflow-hidden">
-        {/* Decorative border */}
-        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-bloom-sage/20 to-transparent"></div>
         
         <div className="container mx-auto px-6">
           <NewsletterSignup 
