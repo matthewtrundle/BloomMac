@@ -18,7 +18,8 @@ import {
   Settings,
   MessageSquare,
   MousePointerClick,
-  BookOpen
+  BookOpen,
+  Palette
 } from 'lucide-react';
 
 export default function AdminLayout({
@@ -32,7 +33,8 @@ export default function AdminLayout({
     { name: 'Dashboard', href: '/admin', icon: Home },
     { name: 'Analytics', href: '/admin/analytics', icon: BarChart },
     { name: 'Click Heatmap', href: '/admin/heatmap', icon: MousePointerClick },
-    { name: 'Course Management', href: '/admin/courses', icon: BookOpen, badge: 'NEW' },
+    { name: 'Theme Concepts', href: '/admin/theme-concepts', icon: Palette, badge: 'NEW' },
+    { name: 'Course Management', href: '/admin/courses', icon: BookOpen },
     { name: 'Contact Submissions', href: '/admin/contacts', icon: MessageSquare },
     { name: 'Email Management', href: '/admin/email', icon: Mail },
     { name: 'Email Editor', href: '/admin/email-editor', icon: Sparkles },

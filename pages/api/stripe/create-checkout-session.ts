@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { stripe, COURSE_PRICES, CourseId } from '../../../lib/stripe';
 import { supabase } from '../../../lib/supabase';
+import { isTestMode, createTestCheckoutSession } from '../../../lib/stripe-test-mode';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
@@ -14,6 +15,30 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Validate course ID
     if (!courseId || !COURSE_PRICES[courseId as CourseId]) {
       return res.status(400).json({ error: 'Invalid course ID' });
+    }
+
+    // Check if we're in test mode
+    if (isTestMode()) {
+      console.log('🧪 Stripe Test Mode - Creating mock checkout session');
+      const testSession = await createTestCheckoutSession(courseId, customerEmail);
+      
+      // Still log to database even in test mode
+      try {
+        await supabase.from('course_purchases').insert({
+          customer_email: customerEmail,
+          customer_name: customerName,
+          course_id: courseId,
+          stripe_checkout_session_id: testSession.sessionId,
+          amount: COURSE_PRICES[courseId as CourseId].amount,
+          currency: 'usd',
+          status: 'test_mode',
+          created_at: new Date().toISOString(),
+        });
+      } catch (dbError) {
+        console.error('Error logging test purchase:', dbError);
+      }
+      
+      return res.status(200).json(testSession);
     }
 
     const course = COURSE_PRICES[courseId as CourseId];

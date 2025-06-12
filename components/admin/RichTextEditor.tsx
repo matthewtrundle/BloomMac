@@ -8,12 +8,14 @@ import Placeholder from '@tiptap/extension-placeholder';
 import { useEffect } from 'react';
 
 interface RichTextEditorProps {
-  content: string;
+  value?: string;
+  content?: string;
   onChange: (content: string) => void;
   placeholder?: string;
 }
 
-export default function RichTextEditor({ content, onChange, placeholder = 'Start writing your blog post...' }: RichTextEditorProps) {
+export default function RichTextEditor({ value, content, onChange, placeholder = 'Start writing your blog post...' }: RichTextEditorProps) {
+  const actualContent = value || content || '';
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
@@ -36,7 +38,7 @@ export default function RichTextEditor({ content, onChange, placeholder = 'Start
         placeholder,
       }),
     ],
-    content,
+    content: actualContent,
     onUpdate: ({ editor }) => {
       onChange(editor.getHTML());
     },
@@ -49,10 +51,10 @@ export default function RichTextEditor({ content, onChange, placeholder = 'Start
 
   // Update editor content when prop changes
   useEffect(() => {
-    if (editor && content !== editor.getHTML()) {
-      editor.commands.setContent(content);
+    if (editor && actualContent !== editor.getHTML()) {
+      editor.commands.setContent(actualContent);
     }
-  }, [content, editor]);
+  }, [actualContent, editor]);
 
   if (!editor) {
     return null;

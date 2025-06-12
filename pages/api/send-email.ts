@@ -2,12 +2,19 @@ import { Resend } from 'resend';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { supabaseAdmin } from '../../lib/supabase';
 
-// Log API key presence (truncated for security)
-console.log('API key loaded:', process.env.RESEND_API_KEY ?
-  `${process.env.RESEND_API_KEY.substring(0, 3)}...${process.env.RESEND_API_KEY.substring(process.env.RESEND_API_KEY.length - 3)}` :
-  'undefined/missing');
+// Lazy-load Resend client to avoid initialization errors
+let resend: Resend | null = null;
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+function getResendClient() {
+  if (!resend) {
+    if (!process.env.RESEND_API_KEY) {
+      console.warn('[send-email] RESEND_API_KEY not found in environment');
+      return null;
+    }
+    resend = new Resend(process.env.RESEND_API_KEY);
+  }
+  return resend;
+}
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
@@ -19,8 +26,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const { name, email, message, firstName, lastName, phone, service } = req.body;
   
   // Validate required fields
-  if (!email) {
-    return res.status(400).json({ error: 'Email is required' });
+  if (!email || typeof email !== 'string' || !email.includes('@')) {
+    return res.status(400).json({ error: 'Valid email is required' });
   }
   
   try {
@@ -103,7 +110,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     try {
       // Use the variables defined above
 
-      const data = await resend.emails.send({
+      const client = getResendClient();
+      if (!client) {
+        throw new Error('Email service not configured');
+      }
+      
+      const data = await client.emails.send({
         from: 'Dr. Jana Rundle <jana@bloompsychologynorthaustin.com>',
         to: emailTo,
         cc: emailCC,
@@ -211,7 +223,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
 
       try {
-        const confirmationData = await resend.emails.send({
+        const confirmationData = await client.emails.send({
           from: 'Dr. Jana Rundle <jana@bloompsychologynorthaustin.com>',
           to: email, // Send to the person who submitted the form
           subject: confirmationSubject,

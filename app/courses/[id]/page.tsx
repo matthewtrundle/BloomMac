@@ -7,6 +7,7 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import Button from '@/components/ui/Button';
 import NewsletterSignup from '@/components/ui/NewsletterSignup';
+import CoursePurchaseButton from '@/components/ui/CoursePurchaseButton';
 
 // Course data would normally come from a database
 const courseData: Record<string, any> = {
@@ -452,9 +453,14 @@ export default function CourseDetailPage() {
                     <span className="text-xl text-bloom-dark/40 line-through">${course.originalPrice}</span>
                   )}
                 </div>
-                <Button href={`/checkout?course=${course.id}`} variant="pink" size="lg">
-                  Enroll Now
-                </Button>
+                <CoursePurchaseButton
+                  courseId={course.id}
+                  courseName={course.title}
+                  price={course.price * 100}
+                  originalPrice={course.originalPrice ? course.originalPrice * 100 : undefined}
+                  size="lg"
+                  variant="primary"
+                />
               </div>
             </motion.div>
           </div>

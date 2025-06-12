@@ -4,5 +4,6 @@
       "path": "/api/process-email-automation",
       "schedule": "0 * * * *"
     }
-  ]
+  ],
+  "_comment": "Note: Cron jobs only run in production on Vercel, not in local development"
 }

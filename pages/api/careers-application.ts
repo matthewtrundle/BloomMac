@@ -1,11 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { Resend } from 'resend';
 import formidable, { IncomingForm, File } from 'formidable';
 import fs from 'fs';
 import path from 'path';
 import { supabaseAdmin } from '../../lib/supabase';
-
-const resend = new Resend(process.env.RESEND_API_KEY);
+import { getResendClient } from '../../lib/resend-client';
 
 export const config = {
   api: {
@@ -252,6 +250,11 @@ const sendApplicationEmail = async (data: ApplicationData, resumeAttachment?: an
     emailData.attachments = [resumeAttachment];
   }
 
+  const resend = getResendClient();
+  if (!resend) {
+    throw new Error('Email service not configured');
+  }
+  
   await resend.emails.send(emailData);
 };
 
@@ -330,6 +333,11 @@ const sendApplicationConfirmation = async (data: ApplicationData) => {
     </html>
   `;
 
+  const resend = getResendClient();
+  if (!resend) {
+    throw new Error('Email service not configured');
+  }
+  
   await resend.emails.send({
     from: 'Dr. Jana Rundle <jana@bloompsychologynorthaustin.com>',
     to: data.email,

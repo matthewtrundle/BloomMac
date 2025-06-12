@@ -2,7 +2,8 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import fs from 'fs/promises';
 import path from 'path';
 
-const ANALYTICS_FILE = path.join(process.cwd(), 'data', 'analytics.json');
+// Defer path resolution to avoid initialization errors
+const getAnalyticsFile = () => path.join(process.cwd(), 'data', 'analytics.json');
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'GET') {
@@ -16,7 +17,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Read analytics data
     let events = [];
     try {
-      const data = await fs.readFile(ANALYTICS_FILE, 'utf-8');
+      const data = await fs.readFile(getAnalyticsFile(), 'utf-8');
       const allEvents = JSON.parse(data);
       
       // Sort by timestamp descending and limit

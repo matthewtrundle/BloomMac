@@ -1,8 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { Resend } from 'resend';
 import { supabaseAdmin } from '@/lib/supabase';
-
-const resend = new Resend(process.env.RESEND_API_KEY);
+import { getResendClient } from '@/lib/resend-client';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   // Auth is handled by middleware - check headers

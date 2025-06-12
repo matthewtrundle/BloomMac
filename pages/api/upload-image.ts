@@ -9,9 +9,11 @@ export const config = {
   },
 };
 
-const uploadDir = path.join(process.cwd(), 'public', 'images', 'blog');
+// Defer path resolution to avoid initialization errors
+const getUploadDir = () => path.join(process.cwd(), 'public', 'images', 'blog');
 
 async function ensureUploadDir() {
+  const uploadDir = getUploadDir();
   try {
     await fs.access(uploadDir);
   } catch {
@@ -40,7 +42,7 @@ export default async function handler(
     await ensureUploadDir();
 
     const form = formidable({
-      uploadDir,
+      uploadDir: getUploadDir(),
       keepExtensions: true,
       maxFileSize: 10 * 1024 * 1024, // 10MB
     });
@@ -57,7 +59,7 @@ export default async function handler(
     const timestamp = Date.now();
     const randomString = Math.random().toString(36).substring(2, 8);
     const filename = `blog-${timestamp}-${randomString}${ext}`;
-    const newPath = path.join(uploadDir, filename);
+    const newPath = path.join(getUploadDir(), filename);
 
     // Move file to final location
     await fs.rename(file.filepath, newPath);

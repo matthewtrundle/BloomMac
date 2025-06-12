@@ -2,7 +2,24 @@ import { Resend } from 'resend';
 import { supabaseAdmin } from './supabase';
 import { courseWelcomeTemplate, courseWelcomeTextTemplate } from './email-templates/course-welcome';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Lazy-load Resend client to avoid initialization errors
+let resend: Resend | null = null;
+
+function getResendClient() {
+  if (!resend) {
+    if (!process.env.RESEND_API_KEY) {
+      console.warn('[email-automation] RESEND_API_KEY not found in environment');
+      return null;
+    }
+    try {
+      resend = new Resend(process.env.RESEND_API_KEY);
+    } catch (error) {
+      console.error('[email-automation] Error initializing Resend:', error);
+      return null;
+    }
+  }
+  return resend;
+}
 
 interface SendEmailParams {
   to: string;
@@ -30,7 +47,12 @@ export async function sendEmail({ to, subject, template, data, html, text }: Sen
       }
     }
 
-    const { data: result, error } = await resend.emails.send({
+    const client = getResendClient();
+    if (!client) {
+      throw new Error('Resend API key not configured');
+    }
+
+    const { data: result, error } = await client.emails.send({
       from: 'Dr. Jana Rundle <jana@bloompsychologynorthaustin.com>',
       to,
       subject,
@@ -71,6 +93,11 @@ export async function sendAutomatedEmail({
   content
 }: SendAutomatedEmailParams) {
   try {
+    // Validate email address
+    if (!to || typeof to !== 'string' || !to.includes('@')) {
+      throw new Error(`Invalid email address: ${to}`);
+    }
+
     // Create a log entry
     const { data: logEntry, error: logError } = await supabaseAdmin
       .from('email_automation_logs')
@@ -91,7 +118,12 @@ export async function sendAutomatedEmail({
     const trackedContent = addTrackingToEmail(content, logEntry.id, subscriberId);
     
     // Send the email
-    const { data, error } = await resend.emails.send({
+    const client = getResendClient();
+    if (!client) {
+      throw new Error('Resend API key not configured');
+    }
+    
+    const { data, error } = await client.emails.send({
       from: 'Dr. Jana Rundle <jana@bloompsychologynorthaustin.com>',
       to,
       subject,
@@ -185,15 +217,45 @@ async function processSequenceEmail(sequence: any, email: any) {
   // Calculate when this email should be sent
   const delayHours = (email.delay_days * 24) + email.delay_hours;
   
-  // Find subscribers who should receive this email
+  // Find subscribers who should receive this email - only get those with valid emails
   const { data: eligibleSubscribers } = await supabaseAdmin
     .from('subscribers')
     .select('*')
-    .eq('status', 'active');
+    .eq('status', 'active')
+    .not('email', 'is', null)
+    .not('email', 'eq', '');
 
   if (!eligibleSubscribers) return;
 
   for (const subscriber of eligibleSubscribers) {
+    // Validate subscriber email before any processing
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!subscriber.email || typeof subscriber.email !== 'string' || !emailRegex.test(subscriber.email)) {
+      console.error(`[Email Automation] Skipping email for subscriber ${subscriber.id} - invalid email: ${subscriber.email}`);
+      
+      // Log the error to track issues
+      try {
+        await supabaseAdmin
+          .from('email_automation_errors')
+          .insert({
+            subscriber_id: subscriber.id,
+            sequence_id: sequence.id,
+            email_id: email.id,
+            error: 'Invalid or missing email address',
+            error_details: { 
+              email: subscriber.email,
+              subscriber_source: subscriber.signup_source,
+              sequence_name: sequence.name 
+            },
+            created_at: new Date().toISOString()
+          });
+      } catch (logError) {
+        console.error('[Email Automation] Failed to log error:', logError);
+      }
+      
+      continue;
+    }
+
     // Check if we've already sent this email to this subscriber
     const { data: existingLog } = await supabaseAdmin
       .from('email_automation_logs')
@@ -207,14 +269,18 @@ async function processSequenceEmail(sequence: any, email: any) {
 
     // Check trigger conditions
     if (await shouldSendEmail(sequence, subscriber, delayHours)) {
-      await sendAutomatedEmail({
-        sequenceId: sequence.id,
-        emailId: email.id,
-        subscriberId: subscriber.id,
-        to: subscriber.email,
-        subject: personalizeContent(email.subject, subscriber),
-        content: personalizeContent(email.content, subscriber)
-      });
+      try {
+        await sendAutomatedEmail({
+          sequenceId: sequence.id,
+          emailId: email.id,
+          subscriberId: subscriber.id,
+          to: subscriber.email,
+          subject: personalizeContent(email.subject, subscriber),
+          content: personalizeContent(email.content, subscriber)
+        });
+      } catch (emailError) {
+        console.error(`[Email Automation] Failed to send email to subscriber ${subscriber.id}:`, emailError);
+      }
     }
   }
 }

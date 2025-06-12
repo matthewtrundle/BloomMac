@@ -1,8 +1,6 @@
-import { Resend } from 'resend';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { enhancedEmailTemplates, personalizeEmail } from '@/lib/email-templates/enhanced-emails';
-
-const resend = new Resend(process.env.RESEND_API_KEY);
+import { getResendClient } from '@/lib/resend-client';
 
 interface EmailSequenceData {
   email: string;
@@ -85,6 +83,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     console.log(`Sending enhanced email automation: ${sequenceType} step ${step} (${templateKey}) to ${emailTo}`);
 
+    const resend = getResendClient();
+    if (!resend) {
+      throw new Error('Email service not configured');
+    }
+    
     const data = await resend.emails.send({
       from: 'Dr. Jana Rundle <jana@bloompsychologynorthaustin.com>',
       to: emailTo,

@@ -1,9 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { Resend } from 'resend';
 import { enhancedEmailTemplates, personalizeEmail } from '@/lib/email-templates/enhanced-emails';
 import { supabaseAdmin } from '@/lib/supabase';
-
-const resend = new Resend(process.env.RESEND_API_KEY);
+import { getResendClient } from '@/lib/resend-client';
 
 interface SignupRequest {
   email: string;
@@ -24,12 +22,24 @@ async function sendWelcomeEmail(subscriber: any) {
   const firstName = subscriber.first_name || 'Friend';
   
   try {
+    // Validate email before attempting to send
+    if (!subscriber.email || typeof subscriber.email !== 'string' || !subscriber.email.includes('@')) {
+      console.error('Invalid subscriber email:', subscriber.email);
+      return;
+    }
+    
     // Get the enhanced welcome email template
     const welcomeTemplate = enhancedEmailTemplates.newsletter.welcome;
     const personalizedEmail = personalizeEmail(welcomeTemplate, {
       firstName,
       name: firstName
     });
+    
+    const resend = getResendClient();
+    if (!resend) {
+      console.error('Resend client not initialized - skipping welcome email');
+      return;
+    }
     
     await resend.emails.send({
       from: 'Dr. Jana Rundle <jana@bloompsychologynorthaustin.com>',

@@ -1,0 +1,1012 @@
+const fs = require('fs');
+const path = require('path');
+
+// Week 3, Lesson 2: Family Boundaries
+// Integrating scripts for family and intergenerational patterns
+const week3Lesson2Slides = [
+  {
+    slideNumber: 1,
+    title: "When Family Becomes Overwhelming",
+    html: `
+      <div class="slide-container" style="background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%); color: white; padding: 60px; display: flex; align-items: center; justify-content: center; min-height: 100vh; position: relative;">
+        <div class="slide-number" style="position: absolute; top: 20px; right: 30px; color: rgba(255,255,255,0.3); font-size: 18px; font-weight: 300;">01</div>
+        
+        <div class="content-wrapper" style="max-width: 1200px; width: 100%; text-align: center;">
+          <h1 style="font-size: 64px; font-weight: 300; margin-bottom: 50px; letter-spacing: -2px;">
+            When Help <span style="font-weight: 600;">Doesn't Help</span>
+          </h1>
+          
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-bottom: 60px;">
+            <div style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); padding: 40px; border-radius: 30px;">
+              <div style="font-size: 72px; font-weight: bold; margin-bottom: 20px;">76%</div>
+              <div style="font-size: 20px;">Feel judged by family</div>
+              <div style="font-size: 16px; opacity: 0.8; margin-top: 10px;">About parenting choices</div>
+            </div>
+            
+            <div style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); padding: 40px; border-radius: 30px;">
+              <div style="font-size: 72px; font-weight: bold; margin-bottom: 20px;">84%</div>
+              <div style="font-size: 20px;">Increased stress</div>
+              <div style="font-size: 16px; opacity: 0.8; margin-top: 10px;">From "helpful" visits</div>
+            </div>
+            
+            <div style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); padding: 40px; border-radius: 30px;">
+              <div style="font-size: 72px; font-weight: bold; margin-bottom: 20px;">92%</div>
+              <div style="font-size: 20px;">Can't set limits</div>
+              <div style="font-size: 16px; opacity: 0.8; margin-top: 10px;">With their own parents</div>
+            </div>
+          </div>
+          
+          <div style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); padding: 40px; border-radius: 30px;">
+            <div style="font-size: 28px; font-weight: 600; margin-bottom: 20px;">
+              The Family Paradox
+            </div>
+            <div style="font-size: 22px; line-height: 1.6; opacity: 0.9;">
+              They love you. They want to help.<br/>
+              And sometimes that's the problem.
+            </div>
+          </div>
+        </div>
+      </div>
+    `
+  },
+
+  {
+    slideNumber: 2,
+    title: "Intergenerational Patterns",
+    html: `
+      <div class="slide-container" style="background: white; color: #2d2d44; padding: 60px; display: flex; align-items: center; justify-content: center; min-height: 100vh;">
+        <div class="content-wrapper" style="max-width: 1200px; width: 100%;">
+          <h2 style="font-size: 52px; font-weight: 300; text-align: center; margin-bottom: 50px;">
+            Breaking the <span style="color: #7c3aed; font-weight: 600;">Generational Chain</span>
+          </h2>
+          
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 50px; align-items: center;">
+            <div>
+              <div style="background: #faf5ff; border-radius: 30px; padding: 40px;">
+                <div style="font-size: 32px; font-weight: 600; color: #7c3aed; margin-bottom: 30px;">What Gets Passed Down</div>
+                
+                <div style="space-y: 25px;">
+                  <div style="background: white; padding: 20px; border-radius: 15px;">
+                    <div style="font-size: 20px; font-weight: 600; color: #7c3aed;">Anxiety Patterns</div>
+                    <div style="font-size: 16px; color: #666; margin-top: 5px;">
+                      "Worry = love" messaging<br/>
+                      Catastrophic thinking normalized
+                    </div>
+                  </div>
+                  
+                  <div style="background: white; padding: 20px; border-radius: 15px;">
+                    <div style="font-size: 20px; font-weight: 600; color: #7c3aed;">Boundary Violations</div>
+                    <div style="font-size: 16px; color: #666; margin-top: 5px;">
+                      "Family has no boundaries"<br/>
+                      Privacy = secrets = shame
+                    </div>
+                  </div>
+                  
+                  <div style="background: white; padding: 20px; border-radius: 15px;">
+                    <div style="font-size: 20px; font-weight: 600; color: #7c3aed;">Guilt as Currency</div>
+                    <div style="font-size: 16px; color: #666; margin-top: 5px;">
+                      Love measured in sacrifice<br/>
+                      Manipulation disguised as care
+                    </div>
+                  </div>
+                  
+                  <div style="background: white; padding: 20px; border-radius: 15px;">
+                    <div style="font-size: 20px; font-weight: 600; color: #7c3aed;">Emotional Enmeshment</div>
+                    <div style="font-size: 16px; color: #666; margin-top: 5px;">
+                      Can't tell where you end, they begin<br/>
+                      Their emotions become yours
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div>
+              <div style="background: #e9d5ff; border-radius: 30px; padding: 40px;">
+                <div style="font-size: 28px; font-weight: 600; color: #6b21a8; margin-bottom: 30px;">The Science of Breaking Patterns</div>
+                
+                <div style="text-align: center; margin-bottom: 30px;">
+                  <div style="font-size: 72px; font-weight: bold; color: #7c3aed;">3</div>
+                  <div style="font-size: 24px; color: #666;">Generations to change a pattern</div>
+                </div>
+                
+                <div style="background: white; padding: 30px; border-radius: 20px;">
+                  <div style="font-size: 20px; font-weight: 600; color: #7c3aed; margin-bottom: 20px;">Your Generation Can Be Different</div>
+                  <div style="font-size: 18px; line-height: 1.8; color: #666;">
+                    <strong>Generation 1:</strong> Unconscious pattern<br/>
+                    <strong>Generation 2:</strong> Awareness + struggle<br/>
+                    <strong>Generation 3:</strong> New normal<br/><br/>
+                    
+                    You're likely Generation 2 - the bridge.<br/>
+                    It's the hardest but most important role.
+                  </div>
+                </div>
+              </div>
+              
+              <div style="background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%); color: white; padding: 30px; border-radius: 20px; margin-top: 30px;">
+                <div style="text-align: center;">
+                  <div style="font-size: 24px; font-weight: 600;">
+                    "The greatest gift you can give your children is healing your own trauma"
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `
+  },
+
+  {
+    slideNumber: 3,
+    title: "Common Family Dynamics",
+    html: `
+      <div class="slide-container" style="background: linear-gradient(180deg, #fee2e2 0%, #fecaca 100%); color: #2d2d44; padding: 60px; display: flex; align-items: center; justify-content: center; min-height: 100vh;">
+        <div class="content-wrapper" style="max-width: 1200px; width: 100%;">
+          <h2 style="font-size: 52px; font-weight: 300; text-align: center; margin-bottom: 50px;">
+            Recognize Your <span style="color: #dc2626; font-weight: 600;">Family Cast</span>
+          </h2>
+          
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; margin-bottom: 40px;">
+            <!-- Problem Personalities -->
+            <div style="background: white; border-radius: 30px; padding: 40px; box-shadow: 0 20px 60px rgba(0,0,0,0.08);">
+              <div style="font-size: 32px; font-weight: 600; color: #dc2626; margin-bottom: 30px; text-align: center;">
+                The Challenging Cast
+              </div>
+              
+              <div style="space-y: 20px;">
+                <div style="background: #fee2e2; padding: 20px; border-radius: 15px;">
+                  <div style="font-size: 20px; font-weight: 600; color: #dc2626;">The Expert</div>
+                  <div style="font-size: 16px; color: #666;">
+                    "In my day..." • Dismisses current advice<br/>
+                    Strategy: "Thanks, I'll consider that"
+                  </div>
+                </div>
+                
+                <div style="background: #fee2e2; padding: 20px; border-radius: 15px;">
+                  <div style="font-size: 20px; font-weight: 600; color: #dc2626;">The Competitor</div>
+                  <div style="font-size: 16px; color: #666;">
+                    Compares grandchildren • Creates rivalry<br/>
+                    Strategy: "Every child is unique"
+                  </div>
+                </div>
+                
+                <div style="background: #fee2e2; padding: 20px; border-radius: 15px;">
+                  <div style="font-size: 20px; font-weight: 600; color: #dc2626;">The Boundary Crosser</div>
+                  <div style="font-size: 16px; color: #666;">
+                    Shows up unannounced • Ignores rules<br/>
+                    Strategy: Consequences + consistency
+                  </div>
+                </div>
+                
+                <div style="background: #fee2e2; padding: 20px; border-radius: 15px;">
+                  <div style="font-size: 20px; font-weight: 600; color: #dc2626;">The Martyr</div>
+                  <div style="font-size: 16px; color: #666;">
+                    "After all I've done..." • Guilt as weapon<br/>
+                    Strategy: Don't take the bait
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- In-Law Specific -->
+            <div style="background: white; border-radius: 30px; padding: 40px; box-shadow: 0 20px 60px rgba(0,0,0,0.08);">
+              <div style="font-size: 32px; font-weight: 600; color: #f59e0b; margin-bottom: 30px; text-align: center;">
+                In-Law Dynamics
+              </div>
+              
+              <div style="space-y: 20px;">
+                <div style="background: #fef3c7; padding: 20px; border-radius: 15px;">
+                  <div style="font-size: 20px; font-weight: 600; color: #f59e0b;">Territory Marking</div>
+                  <div style="font-size: 16px; color: #666;">
+                    "My baby" instead of grandchild<br/>
+                    Possessive language • Exclusion tactics
+                  </div>
+                </div>
+                
+                <div style="background: #fef3c7; padding: 20px; border-radius: 15px;">
+                  <div style="font-size: 20px; font-weight: 600; color: #f59e0b;">Loyalty Tests</div>
+                  <div style="font-size: 16px; color: #666;">
+                    Creating choose-sides scenarios<br/>
+                    "Your spouse always..." complaints
+                  </div>
+                </div>
+                
+                <div style="background: #fef3c7; padding: 20px; border-radius: 15px;">
+                  <div style="font-size: 20px; font-weight: 600; color: #f59e0b;">Cultural Clashes</div>
+                  <div style="font-size: 16px; color: #666;">
+                    Different traditions = right/wrong<br/>
+                    Dismissing your family ways
+                  </div>
+                </div>
+              </div>
+              
+              <div style="background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%); color: white; padding: 25px; border-radius: 15px; margin-top: 25px;">
+                <div style="text-align: center;">
+                  <div style="font-size: 20px; font-weight: 600;">In-Law Success Rate</div>
+                  <div style="font-size: 16px; margin-top: 10px;">
+                    67% improve with united front approach
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div style="background: #f3f4f6; padding: 40px; border-radius: 30px; text-align: center;">
+            <div style="font-size: 28px; font-weight: 600; color: #374151; margin-bottom: 20px;">
+              Remember: They're Not Evil
+            </div>
+            <div style="font-size: 20px; color: #666; line-height: 1.6;">
+              They're operating from their own wounds, fears, and programming.<br/>
+              Understanding doesn't mean accepting harmful behavior.
+            </div>
+          </div>
+        </div>
+      </div>
+    `
+  },
+
+  {
+    slideNumber: 4,
+    title: "The DEER Trap",
+    html: `
+      <div class="slide-container" style="background: white; color: #2d2d44; padding: 60px; display: flex; align-items: center; justify-content: center; min-height: 100vh;">
+        <div class="content-wrapper" style="max-width: 1200px; width: 100%;">
+          <h2 style="font-size: 52px; font-weight: 300; text-align: center; margin-bottom: 50px;">
+            Stop Being a <span style="color: #dc2626; font-weight: 600;">DEER</span> in Headlights
+          </h2>
+          
+          <div style="background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%); border-radius: 30px; padding: 50px; margin-bottom: 40px;">
+            <div style="text-align: center; margin-bottom: 40px;">
+              <div style="font-size: 32px; font-weight: 600; color: #dc2626;">What NOT to Do</div>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px;">
+              <div style="background: white; border-radius: 20px; padding: 30px; text-align: center;">
+                <div style="font-size: 48px; font-weight: bold; color: #dc2626; margin-bottom: 20px;">D</div>
+                <div style="font-size: 24px; font-weight: 600; color: #dc2626;">Defend</div>
+                <div style="font-size: 16px; color: #666; margin-top: 10px;">
+                  "But I read that..."<br/>
+                  "The doctor said..."<br/>
+                  Creates arguments
+                </div>
+              </div>
+              
+              <div style="background: white; border-radius: 20px; padding: 30px; text-align: center;">
+                <div style="font-size: 48px; font-weight: bold; color: #dc2626; margin-bottom: 20px;">E</div>
+                <div style="font-size: 24px; font-weight: 600; color: #dc2626;">Explain</div>
+                <div style="font-size: 16px; color: #666; margin-top: 10px;">
+                  Long justifications<br/>
+                  Over-sharing reasons<br/>
+                  Invites debate
+                </div>
+              </div>
+              
+              <div style="background: white; border-radius: 20px; padding: 30px; text-align: center;">
+                <div style="font-size: 48px; font-weight: bold; color: #dc2626; margin-bottom: 20px;">E</div>
+                <div style="font-size: 24px; font-weight: 600; color: #dc2626;">Excuse</div>
+                <div style="font-size: 16px; color: #666; margin-top: 10px;">
+                  Making up reasons<br/>
+                  White lies<br/>
+                  Shows weakness
+                </div>
+              </div>
+              
+              <div style="background: white; border-radius: 20px; padding: 30px; text-align: center;">
+                <div style="font-size: 48px; font-weight: bold; color: #dc2626; margin-bottom: 20px;">R</div>
+                <div style="font-size: 24px; font-weight: 600; color: #dc2626;">Rationalize</div>
+                <div style="font-size: 16px; color: #666; margin-top: 10px;">
+                  Logic battles<br/>
+                  Trying to convince<br/>
+                  Never works
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px;">
+            <div style="background: #dcfce7; border-radius: 30px; padding: 40px;">
+              <div style="font-size: 28px; font-weight: 600; color: #16a34a; margin-bottom: 25px;">What TO Do Instead</div>
+              
+              <div style="space-y: 20px;">
+                <div style="background: white; padding: 20px; border-radius: 15px;">
+                  <div style="font-size: 20px; font-weight: 600; color: #16a34a;">Acknowledge</div>
+                  <div style="font-size: 16px; color: #666;">
+                    "I hear your concern"<br/>
+                    "I know you care"
+                  </div>
+                </div>
+                
+                <div style="background: white; padding: 20px; border-radius: 15px;">
+                  <div style="font-size: 20px; font-weight: 600; color: #16a34a;">State Boundary</div>
+                  <div style="font-size: 16px; color: #666;">
+                    "This is what works for us"<br/>
+                    "We've decided to..."
+                  </div>
+                </div>
+                
+                <div style="background: white; padding: 20px; border-radius: 15px;">
+                  <div style="font-size: 20px; font-weight: 600; color: #16a34a;">Redirect</div>
+                  <div style="font-size: 16px; color: #666;">
+                    Change subject<br/>
+                    "How about [new topic]?"
+                  </div>
+                </div>
+                
+                <div style="background: white; padding: 20px; border-radius: 15px;">
+                  <div style="font-size: 20px; font-weight: 600; color: #16a34a;">Repeat if Needed</div>
+                  <div style="font-size: 16px; color: #666;">
+                    Broken record technique<br/>
+                    Stay calm and consistent
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div style="background: #e0e7ff; border-radius: 30px; padding: 40px;">
+              <div style="font-size: 28px; font-weight: 600; color: #6366f1; margin-bottom: 25px;">Power Phrases</div>
+              
+              <div style="font-size: 18px; line-height: 2.5; color: #666;">
+                • "That's an interesting perspective"<br/>
+                • "We'll think about that"<br/>
+                • "This is what works for our family"<br/>
+                • "I appreciate your input"<br/>
+                • "Let's agree to disagree"<br/>
+                • "We're following our pediatrician's advice"<br/>
+                • "Thanks for understanding"
+              </div>
+              
+              <div style="background: white; padding: 20px; border-radius: 15px; margin-top: 25px; text-align: center;">
+                <div style="font-size: 20px; font-weight: 600; color: #6366f1;">Success Rate</div>
+                <div style="font-size: 16px; color: #666; margin-top: 5px;">89% less conflict when avoiding DEER</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `
+  },
+
+  {
+    slideNumber: 5,
+    title: "Holiday Survival Guide",
+    html: `
+      <div class="slide-container" style="background: linear-gradient(180deg, #dcfce7 0%, #bbf7d0 100%); color: #2d2d44; padding: 60px; display: flex; align-items: center; justify-content: center; min-height: 100vh;">
+        <div class="content-wrapper" style="max-width: 1200px; width: 100%;">
+          <h2 style="font-size: 52px; font-weight: 300; text-align: center; margin-bottom: 50px;">
+            Surviving <span style="color: #16a34a; font-weight: 600;">Family Gatherings</span>
+          </h2>
+          
+          <div style="background: white; border-radius: 30px; padding: 50px; box-shadow: 0 20px 60px rgba(0,0,0,0.08); margin-bottom: 40px;">
+            <div style="text-align: center; margin-bottom: 40px;">
+              <div style="font-size: 32px; font-weight: 600; color: #16a34a;">The Holiday Stress Stats</div>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; text-align: center;">
+              <div>
+                <div style="font-size: 48px; font-weight: bold; color: #dc2626;">73%</div>
+                <div style="font-size: 16px; color: #666;">Dread family events</div>
+              </div>
+              <div>
+                <div style="font-size: 48px; font-weight: bold; color: #f59e0b;">2.4x</div>
+                <div style="font-size: 16px; color: #666;">More conflicts</div>
+              </div>
+              <div>
+                <div style="font-size: 48px; font-weight: bold; color: #7c3aed;">89%</div>
+                <div style="font-size: 16px; color: #666;">Feel obligated</div>
+              </div>
+              <div>
+                <div style="font-size: 48px; font-weight: bold; color: #3b82f6;">5days</div>
+                <div style="font-size: 16px; color: #666;">To recover after</div>
+              </div>
+            </div>
+          </div>
+          
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px;">
+            <div style="background: #f0fdf4; border-radius: 30px; padding: 40px;">
+              <div style="font-size: 28px; font-weight: 600; color: #16a34a; margin-bottom: 25px;">Pre-Event Strategy</div>
+              
+              <ol style="font-size: 18px; line-height: 2; color: #666;">
+                <li><strong>Set time limits</strong><br/>
+                "We can stay until 3 PM"</li>
+                
+                <li><strong>Create exit strategy</strong><br/>
+                Baby's nap time = perfect excuse</li>
+                
+                <li><strong>Assign roles with partner</strong><br/>
+                Who handles which relative</li>
+                
+                <li><strong>Pack escape kit</strong><br/>
+                Snacks, toys, comfort items</li>
+                
+                <li><strong>Lower expectations</strong><br/>
+                Survival > perfection</li>
+                
+                <li><strong>Practice responses</strong><br/>
+                To predictable comments</li>
+              </ol>
+            </div>
+            
+            <div style="background: #e0e7ff; border-radius: 30px; padding: 40px;">
+              <div style="font-size: 28px; font-weight: 600; color: #6366f1; margin-bottom: 25px;">During Event Tactics</div>
+              
+              <div style="space-y: 20px;">
+                <div style="background: white; padding: 20px; border-radius: 15px;">
+                  <div style="font-size: 20px; font-weight: 600; color: #6366f1;">The Gray Rock Method</div>
+                  <div style="font-size: 16px; color: #666;">
+                    Be boring to difficult people<br/>
+                    Short, neutral responses
+                  </div>
+                </div>
+                
+                <div style="background: white; padding: 20px; border-radius: 15px;">
+                  <div style="font-size: 20px; font-weight: 600; color: #6366f1;">Strategic Positioning</div>
+                  <div style="font-size: 16px; color: #666;">
+                    Sit near exits<br/>
+                    Avoid confrontational relatives
+                  </div>
+                </div>
+                
+                <div style="background: white; padding: 20px; border-radius: 15px;">
+                  <div style="font-size: 20px; font-weight: 600; color: #6366f1;">Bathroom Breaks</div>
+                  <div style="font-size: 16px; color: #666;">
+                    Your reset sanctuary<br/>
+                    Deep breathing space
+                  </div>
+                </div>
+                
+                <div style="background: white; padding: 20px; border-radius: 15px;">
+                  <div style="font-size: 20px; font-weight: 600; color: #6366f1;">Baby as Shield</div>
+                  <div style="font-size: 16px; color: #666;">
+                    "Need to feed/change/settle baby"<br/>
+                    Universal conversation ender
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div style="background: linear-gradient(135deg, #16a34a 0%, #22c55e 100%); color: white; padding: 40px; border-radius: 30px; margin-top: 40px;">
+            <div style="text-align: center;">
+              <div style="font-size: 28px; font-weight: 600; margin-bottom: 20px;">Your Rights at Family Events</div>
+              <div style="font-size: 20px; line-height: 1.8;">
+                ✓ To leave when you need to<br/>
+                ✓ To protect your baby from overwhelm<br/>
+                ✓ To say no to hosting<br/>
+                ✓ To skip events entirely<br/>
+                ✓ To prioritize your nuclear family
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `
+  },
+
+  {
+    slideNumber: 6,
+    title: "United Front Strategy",
+    html: `
+      <div class="slide-container" style="background: white; color: #2d2d44; padding: 60px; display: flex; align-items: center; justify-content: center; min-height: 100vh;">
+        <div class="content-wrapper" style="max-width: 1200px; width: 100%;">
+          <h2 style="font-size: 52px; font-weight: 300; text-align: center; margin-bottom: 50px;">
+            Your Partner: <span style="color: #3b82f6; font-weight: 600;">First Line of Defense</span>
+          </h2>
+          
+          <div style="background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); border-radius: 30px; padding: 50px; margin-bottom: 40px;">
+            <div style="text-align: center; margin-bottom: 40px;">
+              <div style="font-size: 32px; font-weight: 600; color: #2563eb;">The Golden Rule</div>
+              <div style="font-size: 24px; color: #1e40af; margin-top: 10px;">Each partner handles their own family</div>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px;">
+              <div style="background: white; border-radius: 20px; padding: 30px;">
+                <div style="font-size: 24px; font-weight: 600; color: #3b82f6; margin-bottom: 20px;">
+                  Why This Works
+                </div>
+                <div style="font-size: 18px; line-height: 1.8; color: #666;">
+                  • Know the dynamics better<br/>
+                  • Less defensive reactions<br/>
+                  • Protect partner from attack<br/>
+                  • Show loyalty to spouse<br/>
+                  • Easier to be firm
+                </div>
+                <div style="margin-top: 20px; background: #dbeafe; padding: 15px; border-radius: 10px; text-align: center;">
+                  <strong>Success rate:</strong> 84%
+                </div>
+              </div>
+              
+              <div style="background: white; border-radius: 20px; padding: 30px;">
+                <div style="font-size: 24px; font-weight: 600; color: #3b82f6; margin-bottom: 20px;">
+                  Scripts for Partners
+                </div>
+                <div style="font-size: 16px; line-height: 2; color: #666;">
+                  "Mom, we've decided together..."<br/>
+                  "This is what works for our family"<br/>
+                  "I need you to respect our choices"<br/>
+                  "If you can't support us, we'll need space"<br/>
+                  "My wife/husband and baby come first"
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-bottom: 40px;">
+            <div style="background: #fee2e2; border-radius: 20px; padding: 30px; text-align: center;">
+              <div style="font-size: 48px; margin-bottom: 15px;">🚫</div>
+              <div style="font-size: 20px; font-weight: 600; color: #dc2626;">Never Say</div>
+              <div style="font-size: 16px; color: #666; margin-top: 10px;">
+                "My wife/husband thinks..."<br/>
+                Throws partner under bus
+              </div>
+            </div>
+            
+            <div style="background: #fef3c7; border-radius: 20px; padding: 30px; text-align: center;">
+              <div style="font-size: 48px; margin-bottom: 15px;">⚠️</div>
+              <div style="font-size: 20px; font-weight: 600; color: #f59e0b;">Watch For</div>
+              <div style="font-size: 16px; color: #666; margin-top: 10px;">
+                Triangulation attempts<br/>
+                Going around one parent
+              </div>
+            </div>
+            
+            <div style="background: #dcfce7; border-radius: 20px; padding: 30px; text-align: center;">
+              <div style="font-size: 48px; margin-bottom: 15px;">✅</div>
+              <div style="font-size: 20px; font-weight: 600; color: #16a34a;">Always Do</div>
+              <div style="font-size: 16px; color: #666; margin-top: 10px;">
+                Present decisions as "we"<br/>
+                Support publicly, discuss privately
+              </div>
+            </div>
+          </div>
+          
+          <div style="background: #f3f4f6; padding: 40px; border-radius: 30px;">
+            <div style="text-align: center;">
+              <div style="font-size: 28px; font-weight: 600; color: #374151; margin-bottom: 20px;">
+                Pre-Game Planning
+              </div>
+              <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px;">
+                <div>
+                  <div style="font-size: 48px; margin-bottom: 10px;">📋</div>
+                  <div style="font-size: 16px; color: #666;">List hot topics</div>
+                </div>
+                <div>
+                  <div style="font-size: 48px; margin-bottom: 10px;">🎯</div>
+                  <div style="font-size: 16px; color: #666;">Agree on responses</div>
+                </div>
+                <div>
+                  <div style="font-size: 48px; margin-bottom: 10px;">🚨</div>
+                  <div style="font-size: 16px; color: #666;">Create signals</div>
+                </div>
+                <div>
+                  <div style="font-size: 48px; margin-bottom: 10px;">🏃</div>
+                  <div style="font-size: 16px; color: #666;">Exit strategy</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `
+  },
+
+  {
+    slideNumber: 7,
+    title: "Specific Scripts",
+    html: `
+      <div class="slide-container" style="background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%); color: #2d2d44; padding: 60px; display: flex; align-items: center; justify-content: center; min-height: 100vh;">
+        <div class="content-wrapper" style="max-width: 1200px; width: 100%;">
+          <h2 style="font-size: 52px; font-weight: 300; text-align: center; margin-bottom: 50px;">
+            Copy-Paste <span style="color: #92400e; font-weight: 600;">Responses</span>
+          </h2>
+          
+          <div style="background: white; border-radius: 30px; padding: 50px; box-shadow: 0 20px 60px rgba(0,0,0,0.08);">
+            <div style="text-align: center; margin-bottom: 40px;">
+              <div style="font-size: 32px; font-weight: 600; color: #f59e0b;">For Common Invasions</div>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px;">
+              <div style="background: #fef3c7; border-radius: 20px; padding: 30px;">
+                <div style="font-size: 20px; font-weight: 600; color: #92400e; margin-bottom: 20px;">
+                  "When are you having another?"
+                </div>
+                <div style="background: white; padding: 20px; border-radius: 15px;">
+                  <div style="font-size: 16px; color: #666; line-height: 1.8;">
+                    • "We'll let you know when there's news"<br/>
+                    • "Our family feels complete right now"<br/>
+                    • "That's between us and our doctor"<br/>
+                    • "When did you become so interested in our sex life?" (nuclear option)
+                  </div>
+                </div>
+              </div>
+              
+              <div style="background: #fef3c7; border-radius: 20px; padding: 30px;">
+                <div style="font-size: 20px; font-weight: 600; color: #92400e; margin-bottom: 20px;">
+                  "You're spoiling the baby"
+                </div>
+                <div style="background: white; padding: 20px; border-radius: 15px;">
+                  <div style="font-size: 16px; color: #666; line-height: 1.8;">
+                    • "You can't spoil a baby with love"<br/>
+                    • "We're following current recommendations"<br/>
+                    • "This works for our family"<br/>
+                    • "Thanks for your concern"
+                  </div>
+                </div>
+              </div>
+              
+              <div style="background: #fef3c7; border-radius: 20px; padding: 30px;">
+                <div style="font-size: 20px; font-weight: 600; color: #92400e; margin-bottom: 20px;">
+                  "Let me take the baby"
+                </div>
+                <div style="background: white; padding: 20px; border-radius: 15px;">
+                  <div style="font-size: 16px; color: #666; line-height: 1.8;">
+                    • "Not right now, thanks"<br/>
+                    • "Baby needs to stay with me"<br/>
+                    • "Maybe in a bit"<br/>
+                    • "I'll let you know when I need help"
+                  </div>
+                </div>
+              </div>
+              
+              <div style="background: #fef3c7; border-radius: 20px; padding: 30px;">
+                <div style="font-size: 20px; font-weight: 600; color: #92400e; margin-bottom: 20px;">
+                  "Is baby sleeping through night?"
+                </div>
+                <div style="background: white; padding: 20px; border-radius: 15px;">
+                  <div style="font-size: 16px; color: #666; line-height: 1.8;">
+                    • "We're all getting the rest we need"<br/>
+                    • "Every baby is different"<br/>
+                    • "We're not discussing sleep"<br/>
+                    • "Why do you ask?"
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div style="background: linear-gradient(135deg, #92400e 0%, #78350f 100%); color: white; padding: 30px; border-radius: 20px; margin-top: 40px;">
+              <div style="text-align: center;">
+                <div style="font-size: 24px; font-weight: 600;">The Power Move</div>
+                <div style="font-size: 20px; margin-top: 15px;">
+                  "Why do you ask?" flips the script every time<br/>
+                  Makes them examine their motives
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `
+  },
+
+  {
+    slideNumber: 8,
+    title: "Going Low/No Contact",
+    html: `
+      <div class="slide-container" style="background: white; color: #2d2d44; padding: 60px; display: flex; align-items: center; justify-content: center; min-height: 100vh;">
+        <div class="content-wrapper" style="max-width: 1200px; width: 100%;">
+          <h2 style="font-size: 52px; font-weight: 300; text-align: center; margin-bottom: 50px;">
+            When <span style="color: #dc2626; font-weight: 600;">Distance</span> Is Necessary
+          </h2>
+          
+          <div style="background: #fee2e2; border-radius: 30px; padding: 50px; margin-bottom: 40px;">
+            <div style="text-align: center; margin-bottom: 40px;">
+              <div style="font-size: 32px; font-weight: 600; color: #dc2626;">Sometimes Love Means Distance</div>
+              <div style="font-size: 20px; color: #666; margin-top: 10px;">And that's okay</div>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px;">
+              <div style="background: white; border-radius: 20px; padding: 30px; text-align: center;">
+                <div style="font-size: 24px; font-weight: 600; color: #dc2626; margin-bottom: 15px;">Low Contact</div>
+                <div style="font-size: 16px; color: #666;">
+                  • Holidays only<br/>
+                  • Surface conversations<br/>
+                  • Time limits<br/>
+                  • Information diet<br/>
+                  • Gray rock method
+                </div>
+              </div>
+              
+              <div style="background: white; border-radius: 20px; padding: 30px; text-align: center;">
+                <div style="font-size: 24px; font-weight: 600; color: #dc2626; margin-bottom: 15px;">Structured Contact</div>
+                <div style="font-size: 16px; color: #666;">
+                  • Public places only<br/>
+                  • Set schedules<br/>
+                  • Witness present<br/>
+                  • Clear boundaries<br/>
+                  • Exit strategy
+                </div>
+              </div>
+              
+              <div style="background: white; border-radius: 20px; padding: 30px; text-align: center;">
+                <div style="font-size: 24px; font-weight: 600; color: #dc2626; margin-bottom: 15px;">No Contact</div>
+                <div style="font-size: 16px; color: #666;">
+                  • Complete cut-off<br/>
+                  • Block all channels<br/>
+                  • Legal if needed<br/>
+                  • Protect baby<br/>
+                  • Your mental health
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px;">
+            <div style="background: #faf5ff; border-radius: 30px; padding: 40px;">
+              <div style="font-size: 28px; font-weight: 600; color: #7c3aed; margin-bottom: 25px;">When to Consider Distance</div>
+              
+              <div style="font-size: 18px; line-height: 2; color: #666;">
+                ✓ Abuse (any form)<br/>
+                ✓ Addiction issues<br/>
+                ✓ Boundary violations repeatedly<br/>
+                ✓ Harm to your child<br/>
+                ✓ Mental health destruction<br/>
+                ✓ Unsafe environments<br/>
+                ✓ Manipulation/gaslighting<br/>
+                ✓ Your gut says "danger"
+              </div>
+            </div>
+            
+            <div style="background: #e0e7ff; border-radius: 30px; padding: 40px;">
+              <div style="font-size: 28px; font-weight: 600; color: #6366f1; margin-bottom: 25px;">The Guilt Management</div>
+              
+              <div style="space-y: 20px;">
+                <div style="background: white; padding: 20px; border-radius: 15px;">
+                  <div style="font-size: 18px; color: #666;">
+                    <strong>"But family is everything"</strong><br/>
+                    Healthy family is everything. Toxic family is optional.
+                  </div>
+                </div>
+                
+                <div style="background: white; padding: 20px; border-radius: 15px;">
+                  <div style="font-size: 18px; color: #666;">
+                    <strong>"They'll miss the baby"</strong><br/>
+                    Baby needs protection more than they need harmful people.
+                  </div>
+                </div>
+                
+                <div style="background: white; padding: 20px; border-radius: 15px;">
+                  <div style="font-size: 18px; color: #666;">
+                    <strong>"I'm breaking the family"</strong><br/>
+                    You're breaking the cycle. That's heroic.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div style="background: #374151; color: white; padding: 40px; border-radius: 30px; margin-top: 40px; text-align: center;">
+            <div style="font-size: 24px; font-weight: 600;">
+              "The blood of the covenant is thicker than the water of the womb"
+            </div>
+            <div style="font-size: 18px; margin-top: 15px; opacity: 0.9;">
+              Chosen family can be more family than blood ever was
+            </div>
+          </div>
+        </div>
+      </div>
+    `
+  },
+
+  {
+    slideNumber: 9,
+    title: "Healing Your Patterns",
+    html: `
+      <div class="slide-container" style="background: linear-gradient(180deg, #faf5ff 0%, #f3e8ff 100%); color: #2d2d44; padding: 60px; display: flex; align-items: center; justify-content: center; min-height: 100vh;">
+        <div class="content-wrapper" style="max-width: 1200px; width: 100%;">
+          <h2 style="font-size: 52px; font-weight: 300; text-align: center; margin-bottom: 50px;">
+            Becoming the <span style="color: #7c3aed; font-weight: 600;">Cycle Breaker</span>
+          </h2>
+          
+          <div style="background: white; border-radius: 30px; padding: 50px; box-shadow: 0 20px 60px rgba(0,0,0,0.08); margin-bottom: 40px;">
+            <div style="text-align: center; margin-bottom: 40px;">
+              <div style="font-size: 32px; font-weight: 600; color: #7c3aed;">Your Healing Journey</div>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px;">
+              <div style="background: #faf5ff; border-radius: 20px; padding: 30px; text-align: center;">
+                <div style="font-size: 48px; margin-bottom: 20px;">🔍</div>
+                <div style="font-size: 20px; font-weight: 600; color: #7c3aed;">Awareness</div>
+                <div style="font-size: 16px; color: #666; margin-top: 10px;">
+                  Notice patterns<br/>
+                  "That's familiar"<br/>
+                  Journal triggers<br/>
+                  <strong>Timeline:</strong> Weeks
+                </div>
+              </div>
+              
+              <div style="background: #f3e8ff; border-radius: 20px; padding: 30px; text-align: center;">
+                <div style="font-size: 48px; margin-bottom: 20px;">💔</div>
+                <div style="font-size: 20px; font-weight: 600; color: #7c3aed;">Grief</div>
+                <div style="font-size: 16px; color: #666; margin-top: 10px;">
+                  Mourn what wasn't<br/>
+                  Feel the anger<br/>
+                  Let it hurt<br/>
+                  <strong>Timeline:</strong> Months
+                </div>
+              </div>
+              
+              <div style="background: #e9d5ff; border-radius: 20px; padding: 30px; text-align: center;">
+                <div style="font-size: 48px; margin-bottom: 20px;">🌱</div>
+                <div style="font-size: 20px; font-weight: 600; color: #7c3aed;">New Patterns</div>
+                <div style="font-size: 16px; color: #666; margin-top: 10px;">
+                  Choose differently<br/>
+                  Practice new ways<br/>
+                  Celebrate wins<br/>
+                  <strong>Timeline:</strong> Years
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px;">
+            <div style="background: #dcfce7; border-radius: 30px; padding: 40px;">
+              <div style="font-size: 28px; font-weight: 600; color: #16a34a; margin-bottom: 25px;">Signs You're Healing</div>
+              
+              <div style="font-size: 18px; line-height: 2; color: #666;">
+                • Less reactive to triggers<br/>
+                • Can observe without absorbing<br/>
+                • Set boundaries without guilt<br/>
+                • Feel sad but not destroyed<br/>
+                • Choose your family's needs<br/>
+                • Break patterns consciously<br/>
+                • Model healthy relationships<br/>
+                • Feel proud, not ashamed
+              </div>
+            </div>
+            
+            <div style="background: #e0e7ff; border-radius: 30px; padding: 40px;">
+              <div style="font-size: 28px; font-weight: 600; color: #6366f1; margin-bottom: 25px;">Your Legacy</div>
+              
+              <div style="background: white; padding: 30px; border-radius: 20px;">
+                <div style="font-size: 20px; font-weight: 600; color: #6366f1; margin-bottom: 20px; text-align: center;">
+                  What You're Creating
+                </div>
+                <div style="font-size: 18px; line-height: 1.8; color: #666; text-align: center;">
+                  A child who:<br/><br/>
+                  
+                  Knows boundaries are healthy<br/>
+                  Sees relationships as safe<br/>
+                  Trusts their own feelings<br/>
+                  Speaks up for needs<br/>
+                  Loves without losing self<br/><br/>
+                  
+                  <strong>This is your gift to generations</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div style="background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%); color: white; padding: 40px; border-radius: 30px; margin-top: 40px; text-align: center;">
+            <div style="font-size: 28px; font-weight: 600;">
+              "It takes tremendous courage to break cycles. You're not just healing yourself—you're healing your lineage."
+            </div>
+          </div>
+        </div>
+      </div>
+    `
+  },
+
+  {
+    slideNumber: 10,
+    title: "Your Family Boundary Plan",
+    html: `
+      <div class="slide-container" style="background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%); color: white; padding: 60px; display: flex; align-items: center; justify-content: center; min-height: 100vh;">
+        <div class="content-wrapper" style="max-width: 1200px; width: 100%;">
+          <h2 style="font-size: 56px; font-weight: 300; text-align: center; margin-bottom: 50px;">
+            Your <span style="font-weight: 600;">Protection Plan</span>
+          </h2>
+          
+          <div style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border-radius: 30px; padding: 50px;">
+            <div style="text-align: center; margin-bottom: 40px;">
+              <div style="font-size: 32px; font-weight: 600;">This Week's Practice</div>
+              <div style="font-size: 20px; opacity: 0.9; margin-top: 10px;">Protect your peace</div>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-bottom: 40px;">
+              <div style="background: rgba(255,255,255,0.1); padding: 30px; border-radius: 20px; text-align: center;">
+                <div style="font-size: 48px; margin-bottom: 20px;">📝</div>
+                <div style="font-size: 24px; font-weight: 600; margin-bottom: 15px;">Day 1-2</div>
+                <div style="font-size: 18px; line-height: 1.6;">
+                  List family triggers<br/>
+                  Identify patterns<br/>
+                  No judgment<br/>
+                  <div style="margin-top: 15px; padding: 10px; background: rgba(255,255,255,0.1); border-radius: 10px;">
+                    Just awareness
+                  </div>
+                </div>
+              </div>
+              
+              <div style="background: rgba(255,255,255,0.1); padding: 30px; border-radius: 20px; text-align: center;">
+                <div style="font-size: 48px; margin-bottom: 20px;">🤝</div>
+                <div style="font-size: 24px; font-weight: 600; margin-bottom: 15px;">Day 3-4</div>
+                <div style="font-size: 18px; line-height: 1.6;">
+                  Talk with partner<br/>
+                  Share the list<br/>
+                  Make agreements<br/>
+                  <div style="margin-top: 15px; padding: 10px; background: rgba(255,255,255,0.1); border-radius: 10px;">
+                    United front
+                  </div>
+                </div>
+              </div>
+              
+              <div style="background: rgba(255,255,255,0.1); padding: 30px; border-radius: 20px; text-align: center;">
+                <div style="font-size: 48px; margin-bottom: 20px;">🎯</div>
+                <div style="font-size: 24px; font-weight: 600; margin-bottom: 15px;">Day 5-7</div>
+                <div style="font-size: 18px; line-height: 1.6;">
+                  Practice ONE script<br/>
+                  Use DEER awareness<br/>
+                  Notice feelings<br/>
+                  <div style="margin-top: 15px; padding: 10px; background: rgba(255,255,255,0.1); border-radius: 10px;">
+                    Build confidence
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div style="background: rgba(255,255,255,0.2); padding: 40px; border-radius: 20px;">
+              <div style="font-size: 28px; font-weight: 600; text-align: center; margin-bottom: 30px;">
+                Your Rights with Family
+              </div>
+              
+              <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; font-size: 18px;">
+                <div>
+                  ✓ To parent your way<br/>
+                  ✓ To limit visits<br/>
+                  ✓ To say no to advice<br/>
+                  ✓ To protect your baby<br/>
+                  ✓ To choose your village
+                </div>
+                <div>
+                  ✓ To feel safe<br/>
+                  ✓ To take breaks<br/>
+                  ✓ To set consequences<br/>
+                  ✓ To heal at your pace<br/>
+                  ✓ To break cycles
+                </div>
+              </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 40px;">
+              <div style="font-size: 24px; font-weight: 600; margin-bottom: 20px;">
+                Remember: You can love them AND protect yourself
+              </div>
+              <div style="font-size: 20px; opacity: 0.9;">
+                Family boundaries aren't about punishment. They're about preservation.<br/>
+                You're protecting your new family's peace, health, and future.<br/>
+                That's not selfish. That's sacred.<br/><br/>
+                <strong>Start today. Start with awareness.</strong>
+              </div>
+            </div>
+          </div>
+          
+          <div style="text-align: center; margin-top: 30px; font-size: 18px; opacity: 0.8;">
+            Based on intergenerational trauma research and family systems theory
+          </div>
+        </div>
+      </div>
+    `
+  }
+];
+
+// Create the HTML file with all slides
+const createWeek3Lesson2Slides = () => {
+  const slidesHtml = week3Lesson2Slides
+    .map(slide => slide.html)
+    .join('\n<!-- SLIDE -->\n');
+    
+  const outputPath = path.join(__dirname, '..', 'course-materials', 'week3-lesson2-slides.html');
+  
+  // Ensure directory exists
+  const dir = path.dirname(outputPath);
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir, { recursive: true });
+  }
+  
+  fs.writeFileSync(outputPath, slidesHtml);
+  console.log('Created Week 3, Lesson 2: Family Boundaries slides!');
+  console.log(`Output: ${outputPath}`);
+  console.log(`Total slides: ${week3Lesson2Slides.length}`);
+};
+
+// Run the script
+createWeek3Lesson2Slides();

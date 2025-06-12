@@ -63,6 +63,13 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  // Suppress webpack warnings for dynamic requires
+  webpack: (config) => {
+    config.ignoreWarnings = [
+      { module: /node_modules\/@supabase\/realtime-js/ },
+    ];
+    return config;
+  },
 };
 
 export default withBundleAnalyzer(nextConfig);

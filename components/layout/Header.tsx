@@ -7,12 +7,14 @@ import { motion } from 'framer-motion';
 import { services } from '@/lib/data/services';
 import Button from '@/components/ui/Button';
 import DarkModeToggle from '@/components/ui/DarkModeToggle';
+import { useAuth } from '@/contexts/AuthContext';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isLoggedInToCourses, setIsLoggedInToCourses] = useState(false);
   const headerRef = useRef<HTMLDivElement>(null);
+  const { user, signOut } = useAuth();
   
   // Handle scroll effect
   useEffect(() => {
@@ -72,23 +74,50 @@ const Header = () => {
 
   return (
     <header ref={headerRef} className="fixed w-full z-50">
-      {/* Top Announcement Bar */}
-      <div className="bg-pink-200 text-pink-900 text-center py-1 px-4 shadow-sm">
-        <div className="container mx-auto flex justify-center items-center">
-          <Link href="/virtual-therapy" className="text-sm font-medium md:text-base hover:underline">
-            Now taking virtual clients across Texas • Same-week appointments available
+      {/* Top Announcement Bar - Refined Design */}
+      <div className="bg-gradient-to-r from-[#1e3a5f] to-[#2a4a7f] text-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-white/5"></div>
+        <div className="container mx-auto px-4 py-2.5 relative">
+          <Link href="/virtual-therapy" className="flex items-center justify-center gap-3 group">
+            <div className="flex items-center gap-3">
+              {/* Pulse animation for attention */}
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#f8b5c4] opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#f8b5c4]"></span>
+              </span>
+              
+              <span className="text-sm font-light tracking-wide">
+                Now accepting virtual clients across Texas
+              </span>
+              
+              <span className="text-[#f8b5c4]/60 mx-1">•</span>
+              
+              <span className="text-sm font-medium text-[#f8b5c4]">
+                Same-week appointments available
+              </span>
+              
+              {/* Arrow indicator */}
+              <svg 
+                className="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform" 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
           </Link>
         </div>
       </div>
       
       {/* Main Navigation */}
-      <div className={`transition-all duration-300 ${isScrolled ? 'py-3 bg-white shadow-md' : 'py-4 bg-white'}`}>
+      <div className={`transition-all duration-300 ${isScrolled ? 'py-4 bg-white shadow-md' : 'py-6 bg-white'}`}>
         <div className="container mx-auto px-4 md:px-6 lg:px-8">
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center justify-between relative">
-            {/* Left Brand Logo - Refined and Understated */}
+            {/* Left Brand Logo - Larger and Better Positioned */}
             <Link href="/" className="absolute left-0 hidden xl:block z-20 hover:opacity-90 transition-all duration-500 group">
-              <div className="relative h-28 w-56 2xl:h-32 2xl:w-64 -mt-3 -ml-4 transform transition-all duration-700 group-hover:scale-102">
+              <div className="relative h-36 w-72 2xl:h-40 2xl:w-80 mt-6 ml-4 transform transition-all duration-700 group-hover:scale-105">
                 {/* Very subtle white glow for depth */}
                 <div className="absolute inset-0 bg-white/50 rounded-full blur-xl scale-75 opacity-30 group-hover:opacity-40 transition-opacity duration-500"></div>
                 
@@ -123,14 +152,7 @@ const Header = () => {
                     </svg>
                   </button>
                   <div className="absolute left-0 mt-2 w-64 opacity-0 translate-y-2 invisible group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-300 glass-panel-pink rounded-md py-2 shadow-xl z-50">
-                    <div className="px-4 py-3 border-b border-bloom-blush/20 flex items-center gap-3">
-                      <Image 
-                        src="/images/Logo/logo2.png" 
-                        alt="Bloom Logo" 
-                        width={24} 
-                        height={24} 
-                        className="opacity-60"
-                      />
+                    <div className="px-4 py-3 border-b border-bloom-blush/20">
                       <span className="text-xs font-medium text-bloom-dark/60 uppercase tracking-wider">Our Services</span>
                     </div>
                     {services.map((service) => (
@@ -154,23 +176,6 @@ const Header = () => {
                     </Link>
                   </div>
                 </div>
-              </nav>
-              
-              {/* Center Flower Logo */}
-              <Link href="/" className="mx-8">
-                <div className="relative h-12 w-28">
-                  <Image 
-                    src="/images/Logo/logo2.png" 
-                    alt="Bloom Psychology" 
-                    fill
-                    className="object-contain"
-                    priority
-                  />
-                </div>
-              </Link>
-              
-              {/* Right Nav Items */}
-              <nav className="flex items-center space-x-8 ml-8">
                 <div className="relative group">
                   <button className="text-bloom font-normal hover:text-bloom-blush transition-all duration-500 flex items-center text-sm tracking-wide">
                     COURSES
@@ -179,14 +184,7 @@ const Header = () => {
                     </svg>
                   </button>
                   <div className="absolute right-0 mt-2 w-64 opacity-0 translate-y-2 invisible group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-300 glass-panel-pink rounded-md py-2 shadow-xl z-50">
-                    <div className="px-4 py-3 border-b border-bloom-blush/20 flex items-center gap-3">
-                      <Image 
-                        src="/images/Logo/logo2.png" 
-                        alt="Bloom Logo" 
-                        width={24} 
-                        height={24} 
-                        className="opacity-60"
-                      />
+                    <div className="px-4 py-3 border-b border-bloom-blush/20">
                       <span className="text-xs font-medium text-bloom-dark/60 uppercase tracking-wider">Courses & Resources</span>
                     </div>
                     
@@ -208,7 +206,6 @@ const Header = () => {
                       href="/courses/postpartum-wellness-foundations"
                       className="block px-4 py-2 pl-8 text-sm text-bloom hover:bg-bloom-blush/20 transition duration-300 flex items-center"
                     >
-                      <span className="text-bloompink mr-2">🌸</span>
                       Postpartum Wellness Foundations
                     </Link>
                     
@@ -216,7 +213,6 @@ const Header = () => {
                       href="/courses/anxiety-management-new-moms"
                       className="block px-4 py-2 pl-8 text-sm text-bloom hover:bg-bloom-blush/20 transition duration-300 flex items-center"
                     >
-                      <span className="text-bloom-accent mr-2">🧘‍♀️</span>
                       Anxiety Management for New Moms
                     </Link>
                     
@@ -228,7 +224,6 @@ const Header = () => {
                       href="/courses/partner-support-bootcamp"
                       className="block px-4 py-2 pl-8 text-sm text-bloom hover:bg-bloom-blush/20 transition duration-300 flex items-center"
                     >
-                      <span className="text-bloom mr-2">👥</span>
                       Partner Support Bootcamp
                     </Link>
                     
@@ -242,7 +237,6 @@ const Header = () => {
                       href="/supporting-your-partner"
                       className="block px-4 py-2 pl-8 text-sm text-bloom hover:bg-bloom-blush/20 transition duration-300 flex items-center"
                     >
-                      <span className="text-bloompink mr-2">💝</span>
                       Supporting Your Partner
                     </Link>
                     
@@ -250,7 +244,6 @@ const Header = () => {
                       href="/when-family-wants-to-help"
                       className="block px-4 py-2 pl-8 text-sm text-bloom hover:bg-bloom-blush/20 transition duration-300 flex items-center"
                     >
-                      <span className="text-bloom-accent mr-2">👨‍👩‍👧</span>
                       When Family Wants to Help
                     </Link>
                     
@@ -258,7 +251,6 @@ const Header = () => {
                       href="/resources"
                       className="block px-4 py-2 pl-8 text-sm text-bloom hover:bg-bloom-blush/20 transition duration-300 flex items-center"
                     >
-                      <span className="text-bloom mr-2">📚</span>
                       Resource Library
                     </Link>
                     
@@ -268,7 +260,7 @@ const Header = () => {
                       <p className="text-xs font-medium text-bloom-dark/60 uppercase">My Learning</p>
                     </div>
                     
-                    {isLoggedInToCourses ? (
+                    {user ? (
                       <>
                         <Link 
                           href="/my-courses"
@@ -280,10 +272,8 @@ const Header = () => {
                           My Courses
                         </Link>
                         <button 
-                          onClick={() => {
-                            localStorage.removeItem('course_auth_token');
-                            setIsLoggedInToCourses(false);
-                            window.location.reload();
+                          onClick={async () => {
+                            await signOut();
                           }}
                           className="block w-full text-left px-4 py-2 pl-8 text-sm text-bloom-dark/60 hover:bg-bloom-blush/20 transition duration-300"
                         >
@@ -292,7 +282,7 @@ const Header = () => {
                       </>
                     ) : (
                       <Link 
-                        href="/my-courses"
+                        href="/auth/login"
                         className="block px-4 py-2 pl-8 text-sm text-bloom hover:bg-bloom-blush/20 transition duration-300 flex items-center"
                       >
                         <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

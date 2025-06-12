@@ -94,12 +94,16 @@ class AnalyticsManager {
       });
 
       if (!response.ok) {
-        console.error('Failed to track event:', response.statusText);
-      } else {
-        console.log('Event tracked:', event.type, event.page);
+        // Log error but don't throw - analytics shouldn't break the app
+        if (process.env.NODE_ENV === 'development') {
+          console.warn(`Analytics tracking failed (${response.status}):`, event.type, event.page);
+        }
       }
     } catch (error) {
-      console.error('Error tracking event:', error);
+      // Silently fail in production, warn in development
+      if (process.env.NODE_ENV === 'development') {
+        console.warn('Analytics tracking error:', error);
+      }
     }
 
     // Also send to GA4 if available

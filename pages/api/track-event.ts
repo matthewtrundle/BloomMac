@@ -61,7 +61,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     console.log('Analytics event tracked:', {
       type: savedEvent.type,
       page: savedEvent.page,
-      timestamp: savedEvent.timestamp
+      timestamp: savedEvent.timestamp || savedEvent.created_at
     });
 
     return res.status(200).json({ 

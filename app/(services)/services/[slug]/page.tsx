@@ -2,16 +2,18 @@ import React from 'react';
 import { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
 import { notFound } from 'next/navigation';
 import { getServiceBySlug, getAllServiceSlugs } from '@/lib/data/services';
 
+// Client Components
+import { AnimatedDiv, AnimatedDetails } from '@/components/services/AnimatedServiceElements';
+
 // UI Components
-import GlassmorphismPanel from '@/components/ui/GlassmorphismPanel';
-import KineticTypography from '@/components/ui/KineticTypography';
-import OrganicShape from '@/components/ui/OrganicShape';
 import Button from '@/components/ui/Button';
+import GlassmorphismPanel from '@/components/ui/GlassmorphismPanel';
+import OrganicShape from '@/components/ui/OrganicShape';
 import ParallaxContainer from '@/components/ui/ParallaxContainer';
+import KineticTypography from '@/components/ui/KineticTypography';
 
 // SEO Components
 import { ServiceSchema, FAQSchema } from '@/components/seo/JsonLd';
@@ -80,7 +82,7 @@ export default function ServicePage({
       
       <FAQSchema faqs={service.faqs} />
       
-      {/* Hero Section with Garden Theme */}
+      {/* Hero Section */}
       <ParallaxContainer
         className="min-h-[70vh] bg-gradient-to-br from-bloom-sage-50 via-white to-bloom-pink-50 relative flex items-center overflow-hidden"
         layers={[
@@ -96,31 +98,6 @@ export default function ServicePage({
           }
         ]}
       >
-        {/* Garden lattice pattern background */}
-        <div className="absolute inset-0 opacity-5">
-          <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-            <defs>
-              <pattern id="service-lattice" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
-                <path d="M0,5 L10,5 M5,0 L5,10" stroke="currentColor" strokeWidth="0.5" className="text-bloom-sage"/>
-              </pattern>
-            </defs>
-            <rect width="100" height="100" fill="url(#service-lattice)" />
-          </svg>
-        </div>
-        
-        {/* Floating garden elements */}
-        <div className="absolute inset-0 pointer-events-none">
-          <motion.div
-            animate={{ y: [0, -30, 0], rotate: [0, 180, 360] }}
-            transition={{ duration: 25, repeat: Infinity }}
-            className="absolute top-20 right-20 w-3 h-3 bg-pink-300 rounded-full opacity-20"
-          />
-          <motion.div
-            animate={{ y: [0, -25, 0] }}
-            transition={{ duration: 20, repeat: Infinity, delay: 7 }}
-            className="absolute bottom-32 left-20 w-2 h-2 bg-bloom-sage/30 rounded-full"
-          />
-        </div>
         
         <div className="container mx-auto px-6 py-24 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -140,18 +117,8 @@ export default function ServicePage({
                 ))}
               </h1>
               
-              {/* Decorative flower divider */}
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-16 h-0.5 bg-gradient-to-r from-transparent to-bloom-sage/30 rounded-full"></div>
-                <Image 
-                  src="/images/flower no stem.svg" 
-                  alt="" 
-                  width={24} 
-                  height={24} 
-                  className="opacity-50"
-                />
-                <div className="w-16 h-0.5 bg-gradient-to-l from-transparent to-bloom-sage/30 rounded-full"></div>
-              </div>
+              {/* Professional divider */}
+              <div className="w-24 h-0.5 bg-bloom-sage/20 rounded-full mb-6"></div>
               
               <KineticTypography as="p" animation="fade-in" className="text-lg text-bloom/80 mb-8">
                 {service.description}
@@ -207,7 +174,7 @@ export default function ServicePage({
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
             {service.howItWorks.steps.map((step, index) => (
-              <motion.div
+              <AnimatedDiv
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -230,7 +197,7 @@ export default function ServicePage({
                   <p className="text-bloom/80 mt-2 flex-grow">{step.description}</p>
                 </div>
                 </GlassmorphismPanel>
-              </motion.div>
+              </AnimatedDiv>
             ))}
           </div>
         </div>
@@ -257,7 +224,7 @@ export default function ServicePage({
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {service.benefits.map((benefit, index) => (
-              <motion.div 
+              <AnimatedDiv 
                 key={index} 
                 className="group flex hover:-translate-y-1 transition-transform duration-300 ease-out"
                 initial={{ opacity: 0, y: 20 }}
@@ -276,7 +243,7 @@ export default function ServicePage({
                   <h3 className="font-playfair text-xl text-bloom mb-2">{benefit.title}</h3>
                   <p className="text-bloom/70">{benefit.description}</p>
                 </div>
-              </motion.div>
+              </AnimatedDiv>
             ))}
           </div>
         </div>
@@ -306,7 +273,7 @@ export default function ServicePage({
           
           <div className="max-w-3xl mx-auto divide-y divide-gray-200">
             {service.faqs.map((faq, index) => (
-              <motion.details 
+              <AnimatedDetails 
                 key={index} 
                 className="py-6 group bg-gradient-to-r from-white to-bloom-sage-50/20 rounded-lg px-6 mb-4 border border-bloom-sage/10 hover:shadow-lg transition-all duration-300"
                 open={index === 0}
@@ -326,7 +293,7 @@ export default function ServicePage({
                 <div className="mt-4 text-bloom/80">
                   <p>{faq.answer}</p>
                 </div>
-              </motion.details>
+              </AnimatedDetails>
             ))}
           </div>
           
@@ -344,25 +311,8 @@ export default function ServicePage({
         </div>
       </section>
       
-      {/* CTA Section with Garden Theme */}
+      {/* CTA Section */}
       <section className="py-16 bg-gradient-to-r from-bloompink to-pink-400 relative overflow-hidden">
-        {/* Animated garden elements */}
-        <div className="absolute inset-0 pointer-events-none">
-          <motion.div
-            animate={{ scale: [1, 1.2, 1], rotate: [0, 180, 360] }}
-            transition={{ duration: 25, repeat: Infinity }}
-            className="absolute top-10 right-10 text-6xl opacity-10"
-          >
-            🌻
-          </motion.div>
-          <motion.div
-            animate={{ scale: [1, 1.1, 1] }}
-            transition={{ duration: 20, repeat: Infinity, delay: 8 }}
-            className="absolute bottom-20 left-20 text-5xl opacity-10"
-          >
-            🌿
-          </motion.div>
-        </div>
         <OrganicShape
           variant="wave"
           color="#FFFFFF"
@@ -395,11 +345,6 @@ export default function ServicePage({
       {/* Secondary Image (if available) */}
       {service.secondaryImage && (
         <section className="py-20 bg-white/80 backdrop-blur-sm relative overflow-hidden">
-          {/* Decorative vine pattern */}
-          <svg className="absolute right-0 top-0 h-full w-32 opacity-5" viewBox="0 0 100 500" preserveAspectRatio="none">
-            <path d="M50,0 Q70,50 50,100 T50,200 T50,300 T50,400 T50,500" 
-                  stroke="currentColor" strokeWidth="2" fill="none" className="text-bloom-sage"/>
-          </svg>
           <div className="container mx-auto px-6">
             <div className="max-w-5xl mx-auto relative">
               <div className="aspect-video w-full overflow-hidden rounded-lg shadow-xl">

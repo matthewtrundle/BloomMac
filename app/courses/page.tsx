@@ -121,38 +121,8 @@ export default function CoursesPage() {
         </div>
       )}
 
-      {/* Hero Section with Enhanced Garden Theme */}
+      {/* Hero Section */}
       <section className="py-20 relative overflow-hidden">
-        {/* Garden lattice pattern background */}
-        <div className="absolute inset-0 opacity-5">
-          <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-            <defs>
-              <pattern id="course-lattice" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
-                <path d="M0,5 L10,5 M5,0 L5,10" stroke="currentColor" strokeWidth="0.5" className="text-bloom-sage"/>
-              </pattern>
-            </defs>
-            <rect width="100" height="100" fill="url(#course-lattice)" />
-          </svg>
-        </div>
-        
-        {/* Floating garden elements */}
-        <div className="absolute inset-0 pointer-events-none">
-          <motion.div
-            animate={{ y: [0, -30, 0], rotate: [0, 180, 360] }}
-            transition={{ duration: 20, repeat: Infinity }}
-            className="absolute top-20 right-20 w-3 h-3 bg-pink-300 rounded-full opacity-30"
-          />
-          <motion.div
-            animate={{ y: [0, -20, 0] }}
-            transition={{ duration: 15, repeat: Infinity, delay: 5 }}
-            className="absolute bottom-20 left-40 w-2 h-2 bg-bloom-sage/30 rounded-full"
-          />
-          <motion.div
-            animate={{ y: [0, -25, 0] }}
-            transition={{ duration: 18, repeat: Infinity, delay: 10 }}
-            className="absolute top-1/2 right-1/3 w-4 h-4 bg-yellow-300 rounded-full opacity-20"
-          />
-        </div>
 
         <div className="container mx-auto px-6 relative z-10">
           <motion.div
@@ -166,18 +136,8 @@ export default function CoursesPage() {
               <span className="text-bloompink">Postpartum Wellness</span>
             </h1>
             
-            {/* Decorative flower divider */}
-            <div className="flex items-center justify-center gap-4 mb-8">
-              <div className="w-16 h-0.5 bg-gradient-to-r from-transparent to-bloom-sage/30 rounded-full"></div>
-              <Image 
-                src="/images/flower no stem.svg" 
-                alt="" 
-                width={24} 
-                height={24} 
-                className="opacity-50"
-              />
-              <div className="w-16 h-0.5 bg-gradient-to-l from-transparent to-bloom-sage/30 rounded-full"></div>
-            </div>
+            {/* Professional divider */}
+            <div className="w-32 h-0.5 bg-bloom-sage/20 rounded-full mx-auto mb-8"></div>
             
             <p className="text-xl text-bloom-dark/80 mb-8">
               Self-paced, evidence-based programs designed by Dr. Jana Rundle to support your journey through motherhood
@@ -306,16 +266,6 @@ export default function CoursesPage() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
                     
-                    {/* Floating flower accent */}
-                    <div className="absolute -top-2 -right-2 opacity-0 group-hover:opacity-70 transition-opacity duration-300">
-                      <Image
-                        src="/images/flower no stem.svg"
-                        alt=""
-                        width={32}
-                        height={32}
-                        className="opacity-80"
-                      />
-                    </div>
                     
                     <div className="absolute bottom-4 left-4 text-white">
                       <p className="text-sm opacity-90 flex items-center gap-2">
@@ -404,13 +354,8 @@ export default function CoursesPage() {
       )}
 
 
-      {/* FAQ Section with Garden Theme */}
+      {/* FAQ Section */}
       <section className="py-20 bg-gradient-to-br from-bloom-sage-50/20 to-white relative overflow-hidden">
-        {/* Decorative vine pattern */}
-        <svg className="absolute left-0 top-0 h-full w-32 opacity-5" viewBox="0 0 100 500" preserveAspectRatio="none">
-          <path d="M50,0 Q30,50 50,100 T50,200 T50,300 T50,400 T50,500" 
-                stroke="currentColor" strokeWidth="2" fill="none" className="text-bloom-sage"/>
-        </svg>
         
         <div className="container mx-auto px-6 max-w-4xl relative z-10">
           <motion.div
@@ -422,18 +367,8 @@ export default function CoursesPage() {
           >
             <h2 className="text-4xl font-playfair text-bloom-dark mb-6">Common Questions</h2>
             
-            {/* Decorative flower divider */}
-            <div className="flex items-center justify-center gap-4">
-              <div className="w-16 h-0.5 bg-gradient-to-r from-transparent to-bloom-sage/30 rounded-full"></div>
-              <Image 
-                src="/images/flower no stem.svg" 
-                alt="" 
-                width={20} 
-                height={20} 
-                className="opacity-50"
-              />
-              <div className="w-16 h-0.5 bg-gradient-to-l from-transparent to-bloom-sage/30 rounded-full"></div>
-            </div>
+            {/* Professional divider */}
+            <div className="w-32 h-0.5 bg-bloom-sage/20 rounded-full mx-auto"></div>
           </motion.div>
           
           <div className="space-y-6">
@@ -494,25 +429,8 @@ export default function CoursesPage() {
         </div>
       </section>
 
-      {/* CTA Section with Garden Theme */}
+      {/* CTA Section */}
       <section className="py-20 bg-gradient-to-br from-bloompink to-bloom/90 text-white relative overflow-hidden">
-        {/* Animated garden elements */}
-        <div className="absolute inset-0 pointer-events-none">
-          <motion.div
-            animate={{ scale: [1, 1.2, 1], rotate: [0, 180, 360] }}
-            transition={{ duration: 20, repeat: Infinity }}
-            className="absolute top-10 right-10 text-6xl opacity-10"
-          >
-            🌻
-          </motion.div>
-          <motion.div
-            animate={{ scale: [1, 1.1, 1] }}
-            transition={{ duration: 15, repeat: Infinity, delay: 5 }}
-            className="absolute bottom-20 left-20 text-5xl opacity-10"
-          >
-            🌿
-          </motion.div>
-        </div>
         
         <div className="container mx-auto px-6 text-center relative z-10">
           <motion.div
@@ -523,7 +441,7 @@ export default function CoursesPage() {
           >
             <h2 className="text-4xl font-playfair mb-6">Ready to Start Your Healing Journey?</h2>
             <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
-              Find your path to wellness through our evidence-based courses, designed with professional expertise and maternal understanding.
+              Take the first step with our evidence-based courses, designed with professional expertise and maternal understanding.
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <Button href="#courses" variant="outline" size="lg" className="bg-white text-bloompink border-white hover:bg-gray-50 shadow-lg">

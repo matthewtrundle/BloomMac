@@ -5,8 +5,10 @@ import './globals.css';
 // Import layout components
 import LayoutWrapper from '@/components/layout/LayoutWrapper';
 import { AnalyticsProvider } from '@/components/AnalyticsProvider';
+import { AuthProvider } from '@/contexts/AuthContext';
 import DarkModeToggle from '@/components/ui/DarkModeToggle';
 import LoadingScreenProvider from '@/components/ui/LoadingScreenProvider';
+import GoogleAnalytics from '@/components/GoogleAnalytics';
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -134,15 +136,23 @@ export default function RootLayout({
         <link rel="preconnect" href="https://calendly.com" />
         <link rel="dns-prefetch" href="https://assets.calendly.com" />
         <link rel="dns-prefetch" href="https://cdn.calendly.com" />
+        
+        {/* Google Analytics */}
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID || ''} />
       </head>
-      <body className="bg-white text-bloom min-h-screen">
+      <body 
+        className="bg-white text-bloom min-h-screen"
+        suppressHydrationWarning
+      >
         <LoadingScreenProvider>
-          <AnalyticsProvider>
-            <LayoutWrapper>
-              {children}
-            </LayoutWrapper>
-            <DarkModeToggle />
-          </AnalyticsProvider>
+          <AuthProvider>
+            <AnalyticsProvider>
+              <LayoutWrapper>
+                {children}
+              </LayoutWrapper>
+              <DarkModeToggle />
+            </AnalyticsProvider>
+          </AuthProvider>
         </LoadingScreenProvider>
       </body>
     </html>

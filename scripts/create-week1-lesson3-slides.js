@@ -1,0 +1,872 @@
+const fs = require('fs');
+const path = require('path');
+
+// Data-driven slides for Lesson 3: Your Village Isn't Optional (The Science of Support)
+const lesson3Slides = [
+  {
+    slideNumber: 1,
+    title: "The Isolation Epidemic",
+    html: `
+      <div class="slide-container" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: white; padding: 60px; display: flex; align-items: center; justify-content: center; min-height: 100vh; position: relative;">
+        <div class="slide-number" style="position: absolute; top: 20px; right: 30px; color: rgba(255,255,255,0.3); font-size: 18px; font-weight: 300;">01</div>
+        
+        <div class="content-wrapper" style="max-width: 1200px; width: 100%; text-align: center;">
+          <h1 style="font-size: 64px; font-weight: 300; margin-bottom: 30px; letter-spacing: -2px;">
+            You're Not Meant to Do This <span style="color: #64b5f6; font-weight: 600;">Alone</span>
+          </h1>
+          
+          <div class="isolation-visual" style="margin: 50px 0;">
+            <div style="display: flex; justify-content: center; gap: 40px; align-items: center;">
+              <div style="opacity: 0.3;">👩‍👧</div>
+              <div style="font-size: 80px;">👩‍👧</div>
+              <div style="opacity: 0.3;">👩‍👧</div>
+            </div>
+          </div>
+          
+          <div class="stat-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 60px;">
+            <div class="stat-card" style="background: rgba(255,255,255,0.1); padding: 30px; border-radius: 20px; backdrop-filter: blur(10px);">
+              <div style="font-size: 48px; font-weight: bold; color: #ff6b6b;">76%</div>
+              <div style="font-size: 18px; margin-top: 10px; opacity: 0.8;">Feel isolated</div>
+              <div style="font-size: 14px; margin-top: 5px; opacity: 0.6;">New mothers globally</div>
+            </div>
+            
+            <div class="stat-card" style="background: rgba(255,255,255,0.1); padding: 30px; border-radius: 20px; backdrop-filter: blur(10px);">
+              <div style="font-size: 48px; font-weight: bold; color: #ffd93d;">3x</div>
+              <div style="font-size: 18px; margin-top: 10px; opacity: 0.8;">Higher depression risk</div>
+              <div style="font-size: 14px; margin-top: 5px; opacity: 0.6;">When isolated</div>
+            </div>
+            
+            <div class="stat-card" style="background: rgba(255,255,255,0.1); padding: 30px; border-radius: 20px; backdrop-filter: blur(10px);">
+              <div style="font-size: 48px; font-weight: bold; color: #4ecdc4;">2x</div>
+              <div style="font-size: 18px; margin-top: 10px; opacity: 0.8;">Longer recovery</div>
+              <div style="font-size: 14px; margin-top: 5px; opacity: 0.6;">Without support</div>
+            </div>
+          </div>
+          
+          <div style="margin-top: 60px; font-size: 24px; opacity: 0.9; font-style: italic;">
+            "Social isolation creates the same brain inflammation as physical injury"
+          </div>
+          <div style="font-size: 18px; opacity: 0.7; margin-top: 10px;">
+            - Dr. Lisa Chen-Martinez, Neuroscientist
+          </div>
+        </div>
+      </div>
+    `
+  },
+
+  {
+    slideNumber: 2,
+    title: "The Generational Gap",
+    html: `
+      <div class="slide-container" style="background: white; color: #2d2d44; padding: 60px; display: flex; align-items: center; justify-content: center; min-height: 100vh;">
+        <div class="content-wrapper" style="max-width: 1200px; width: 100%;">
+          <h2 style="font-size: 52px; font-weight: 300; text-align: center; margin-bottom: 50px; color: #2d2d44;">
+            Why It's <span style="color: #e91e63; font-weight: 600;">Harder Now</span>
+          </h2>
+          
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 50px; align-items: center;">
+            <!-- Then vs Now -->
+            <div>
+              <div style="background: #fce4ec; border-radius: 30px; padding: 40px; margin-bottom: 30px;">
+                <div style="font-size: 32px; font-weight: 600; color: #880e4f; margin-bottom: 25px;">👵 1950s</div>
+                <div style="font-size: 20px; line-height: 1.8; color: #2d2d44;">
+                  <div style="margin-bottom: 15px;">
+                    <strong style="color: #e91e63;">85%</strong> lived within 10 miles of grandparents
+                  </div>
+                  <div style="margin-bottom: 15px;">
+                    <strong style="color: #e91e63;">6.2</strong> average women helping per mother
+                  </div>
+                  <div>
+                    <strong style="color: #e91e63;">Daily</strong> in-person support standard
+                  </div>
+                </div>
+              </div>
+              
+              <div style="background: #e3f2fd; border-radius: 30px; padding: 40px;">
+                <div style="font-size: 32px; font-weight: 600; color: #1565c0; margin-bottom: 25px;">📱 2024</div>
+                <div style="font-size: 20px; line-height: 1.8; color: #2d2d44;">
+                  <div style="margin-bottom: 15px;">
+                    <strong style="color: #2196f3;">23%</strong> near extended family
+                  </div>
+                  <div style="margin-bottom: 15px;">
+                    <strong style="color: #2196f3;">1.3</strong> average support people
+                  </div>
+                  <div>
+                    <strong style="color: #2196f3;">Virtual</strong> connection only 30% as effective
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Impact Visual -->
+            <div style="background: #f5f5f5; border-radius: 30px; padding: 50px; text-align: center;">
+              <div style="font-size: 36px; font-weight: 600; color: #2d2d44; margin-bottom: 30px;">The Result</div>
+              
+              <div style="display: flex; justify-content: center; align-items: center; gap: 30px; margin-bottom: 40px;">
+                <div style="text-align: center;">
+                  <div style="font-size: 64px;">😔</div>
+                  <div style="font-size: 48px; font-weight: bold; color: #ff5252; margin-top: 10px;">250%</div>
+                  <div style="font-size: 16px; color: #666;">↑ Anxiety levels</div>
+                </div>
+                
+                <div style="font-size: 40px; color: #ccc;">→</div>
+                
+                <div style="text-align: center;">
+                  <div style="font-size: 64px;">😰</div>
+                  <div style="font-size: 48px; font-weight: bold; color: #ff5252; margin-top: 10px;">89%</div>
+                  <div style="font-size: 16px; color: #666;">First-time moms lonely</div>
+                </div>
+              </div>
+              
+              <div style="background: #ffebee; padding: 30px; border-radius: 20px;">
+                <div style="font-size: 20px; color: #c62828; font-weight: 600;">
+                  ⚠️ This isn't your fault - it's a societal shift
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div style="background: linear-gradient(90deg, #1e3c72 0%, #2a5298 100%); color: white; padding: 30px; border-radius: 20px; margin-top: 50px; text-align: center;">
+            <div style="font-size: 24px;">
+              "We're the first generation parenting without a village - and it shows"
+            </div>
+          </div>
+        </div>
+      </div>
+    `
+  },
+
+  {
+    slideNumber: 3,
+    title: "Your Support Circles",
+    html: `
+      <div class="slide-container" style="background: linear-gradient(180deg, #f8f9fa 0%, #e8f5ff 100%); color: #2d2d44; padding: 60px; display: flex; align-items: center; justify-content: center; min-height: 100vh;">
+        <div class="content-wrapper" style="max-width: 1200px; width: 100%;">
+          <h2 style="font-size: 48px; font-weight: 300; text-align: center; margin-bottom: 50px;">
+            Build Your <span style="color: #4caf50; font-weight: 600;">Circle of Support</span>
+          </h2>
+          
+          <!-- Concentric Circles Visual -->
+          <div style="position: relative; width: 600px; height: 600px; margin: 0 auto;">
+            <!-- Outer Circle -->
+            <div style="position: absolute; width: 600px; height: 600px; border-radius: 50%; background: #e8f5e9; display: flex; align-items: center; justify-content: center;">
+              <div style="position: absolute; top: 20px; text-align: center;">
+                <div style="font-size: 24px; font-weight: 600; color: #2e7d32;">Outer Circle</div>
+                <div style="font-size: 16px; color: #666;">15-30 people</div>
+              </div>
+            </div>
+            
+            <!-- Middle Circle -->
+            <div style="position: absolute; width: 400px; height: 400px; border-radius: 50%; background: #c8e6c9; top: 100px; left: 100px; display: flex; align-items: center; justify-content: center;">
+              <div style="position: absolute; top: 40px; text-align: center;">
+                <div style="font-size: 24px; font-weight: 600; color: #388e3c;">Middle Circle</div>
+                <div style="font-size: 16px; color: #666;">8-12 people</div>
+              </div>
+            </div>
+            
+            <!-- Inner Circle -->
+            <div style="position: absolute; width: 200px; height: 200px; border-radius: 50%; background: #81c784; top: 200px; left: 200px; display: flex; align-items: center; justify-content: center;">
+              <div style="text-align: center;">
+                <div style="font-size: 24px; font-weight: 600; color: white;">Inner Circle</div>
+                <div style="font-size: 16px; color: white;">3-5 people</div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Circle Details -->
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 50px;">
+            <div style="background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+              <div style="font-size: 28px; font-weight: 600; color: #4caf50; margin-bottom: 20px;">Inner Circle</div>
+              <div style="font-size: 18px; line-height: 1.8; color: #666;">
+                <strong>Who:</strong> Partner, best friend, mom/MIL<br/>
+                <strong>Role:</strong> Daily check-ins, emergency help<br/>
+                <strong>Key:</strong> Can show up anytime<br/>
+                <strong>Quality:</strong> Non-judgmental, reliable
+              </div>
+              <div style="margin-top: 20px; padding: 15px; background: #e8f5e9; border-radius: 10px;">
+                💚 These people see you at your worst
+              </div>
+            </div>
+            
+            <div style="background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+              <div style="font-size: 28px; font-weight: 600; color: #66bb6a; margin-bottom: 20px;">Middle Circle</div>
+              <div style="font-size: 18px; line-height: 1.8; color: #666;">
+                <strong>Who:</strong> Friends, neighbors, family<br/>
+                <strong>Role:</strong> Weekly support, social connection<br/>
+                <strong>Key:</strong> Specific help requests<br/>
+                <strong>Quality:</strong> Supportive, understanding
+              </div>
+              <div style="margin-top: 20px; padding: 15px; background: #e8f5e9; border-radius: 10px;">
+                💚 Your emotional support squad
+              </div>
+            </div>
+            
+            <div style="background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+              <div style="font-size: 28px; font-weight: 600; color: #81c784; margin-bottom: 20px;">Outer Circle</div>
+              <div style="font-size: 18px; line-height: 1.8; color: #666;">
+                <strong>Who:</strong> Professionals, online groups<br/>
+                <strong>Role:</strong> Information, resources<br/>
+                <strong>Key:</strong> Expertise when needed<br/>
+                <strong>Quality:</strong> Knowledgeable, accessible
+              </div>
+              <div style="margin-top: 20px; padding: 15px; background: #e8f5e9; border-radius: 10px;">
+                💚 Your resource network
+              </div>
+            </div>
+          </div>
+          
+          <div style="text-align: center; margin-top: 40px; font-size: 20px; color: #666; font-style: italic;">
+            "Quality over quantity - 3 close friends better than 20 acquaintances"
+          </div>
+        </div>
+      </div>
+    `
+  },
+
+  {
+    slideNumber: 4,
+    title: "The Art of Asking",
+    html: `
+      <div class="slide-container" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; padding: 60px; display: flex; align-items: center; justify-content: center; min-height: 100vh;">
+        <div class="content-wrapper" style="max-width: 1200px; width: 100%;">
+          <h2 style="font-size: 56px; font-weight: 300; text-align: center; margin-bottom: 50px;">
+            Why We Don't Ask for <span style="font-weight: 600;">Help</span>
+          </h2>
+          
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 50px; align-items: start;">
+            <!-- The Barriers -->
+            <div>
+              <div style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border-radius: 30px; padding: 40px;">
+                <div style="font-size: 32px; font-weight: 600; margin-bottom: 30px;">🚧 The Barriers</div>
+                
+                <div style="space-y: 20px;">
+                  <div style="display: flex; align-items: center; gap: 20px;">
+                    <div style="font-size: 48px; font-weight: bold;">85%</div>
+                    <div style="font-size: 18px;">Fear being judged as "bad mom"</div>
+                  </div>
+                  
+                  <div style="display: flex; align-items: center; gap: 20px;">
+                    <div style="font-size: 48px; font-weight: bold;">73%</div>
+                    <div style="font-size: 18px;">Believe they should handle it alone</div>
+                  </div>
+                  
+                  <div style="display: flex; align-items: center; gap: 20px;">
+                    <div style="font-size: 48px; font-weight: bold;">68%</div>
+                    <div style="font-size: 18px;">Don't want to burden others</div>
+                  </div>
+                  
+                  <div style="display: flex; align-items: center; gap: 20px;">
+                    <div style="font-size: 48px; font-weight: bold;">91%</div>
+                    <div style="font-size: 18px;">Never taught HOW to ask</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- The Reality -->
+            <div>
+              <div style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border-radius: 30px; padding: 40px;">
+                <div style="font-size: 32px; font-weight: 600; margin-bottom: 30px;">✨ The Reality</div>
+                
+                <div style="background: white; color: #2d2d44; padding: 30px; border-radius: 20px; margin-bottom: 20px;">
+                  <div style="font-size: 64px; font-weight: bold; color: #4caf50; text-align: center;">93%</div>
+                  <div style="font-size: 20px; text-align: center; margin-top: 10px;">of people WANT to help</div>
+                  <div style="font-size: 16px; text-align: center; color: #666; margin-top: 10px;">They just don't know how</div>
+                </div>
+                
+                <div style="font-size: 18px; line-height: 1.8; opacity: 0.9;">
+                  <div style="margin-bottom: 15px;">✓ Specific requests 3x more likely to get help</div>
+                  <div style="margin-bottom: 15px;">✓ People feel honored when asked</div>
+                  <div style="margin-bottom: 15px;">✓ Accepting help = giving gift of purpose</div>
+                  <div>✓ You'll help them someday too</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div style="background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); padding: 40px; border-radius: 20px; margin-top: 50px;">
+            <div style="text-align: center;">
+              <div style="font-size: 28px; font-weight: 600; margin-bottom: 20px;">The Reciprocity Rule</div>
+              <div style="font-size: 20px; opacity: 0.9;">
+                Accepting help now = Giving help later<br/>
+                <span style="font-size: 18px;">(This reduces guilt by 70%)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `
+  },
+
+  {
+    slideNumber: 5,
+    title: "Scripts That Work",
+    html: `
+      <div class="slide-container" style="background: white; color: #2d2d44; padding: 60px; display: flex; align-items: center; justify-content: center; min-height: 100vh;">
+        <div class="content-wrapper" style="max-width: 1200px; width: 100%;">
+          <h2 style="font-size: 52px; font-weight: 300; text-align: center; margin-bottom: 50px;">
+            Exactly What to <span style="color: #ff6b6b; font-weight: 600;">Say</span>
+          </h2>
+          
+          <div style="text-align: center; margin-bottom: 40px;">
+            <span style="font-size: 24px; color: #666;">Having exact words reduces anxiety by 90%</span>
+          </div>
+          
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px;">
+            <!-- For Close Friends -->
+            <div style="background: #fff3e0; border-radius: 30px; padding: 40px;">
+              <div style="font-size: 28px; font-weight: 600; color: #ff6b6b; margin-bottom: 25px;">💕 For Close Friends</div>
+              
+              <div style="background: white; padding: 30px; border-radius: 20px; font-size: 18px; line-height: 1.8; color: #333; font-style: italic; margin-bottom: 20px;">
+                "I'm struggling more than I expected. Could you [specific task] this week? It would really help me get back on my feet."
+              </div>
+              
+              <div style="font-size: 16px; color: #666;">
+                <strong>Specific examples:</strong>
+                <ul style="margin-top: 10px; padding-left: 20px;">
+                  <li>Hold baby while I shower on Tuesday</li>
+                  <li>Bring dinner on Thursday</li>
+                  <li>Sit with me for an hour on Saturday</li>
+                </ul>
+              </div>
+            </div>
+            
+            <!-- For Acquaintances -->
+            <div style="background: #e8f5e9; border-radius: 30px; padding: 40px;">
+              <div style="font-size: 28px; font-weight: 600; color: #4caf50; margin-bottom: 25px;">👋 For Acquaintances</div>
+              
+              <div style="background: white; padding: 30px; border-radius: 20px; font-size: 18px; line-height: 1.8; color: #333; font-style: italic; margin-bottom: 20px;">
+                "I'm building my support network as a new mom. Would you be open to [specific request]? No pressure if it doesn't work!"
+              </div>
+              
+              <div style="font-size: 16px; color: #666;">
+                <strong>Specific examples:</strong>
+                <ul style="margin-top: 10px; padding-left: 20px;">
+                  <li>Text check-ins on Mondays</li>
+                  <li>20-minute walk together weekly</li>
+                  <li>Playdates when babies are older</li>
+                </ul>
+              </div>
+            </div>
+            
+            <!-- For Family -->
+            <div style="background: #f3e5f5; border-radius: 30px; padding: 40px;">
+              <div style="font-size: 28px; font-weight: 600; color: #7b1fa2; margin-bottom: 25px;">👨‍👩‍👧 For Family</div>
+              
+              <div style="background: white; padding: 30px; border-radius: 20px; font-size: 18px; line-height: 1.8; color: #333; font-style: italic; margin-bottom: 20px;">
+                "I know you want to help. Here's what would be most helpful: [specific need]. This would mean so much."
+              </div>
+              
+              <div style="font-size: 16px; color: #666;">
+                <strong>Specific examples:</strong>
+                <ul style="margin-top: 10px; padding-left: 20px;">
+                  <li>Watch baby 2 hours on Sundays</li>
+                  <li>Meal prep assistance monthly</li>
+                  <li>Overnight help once a month</li>
+                </ul>
+              </div>
+            </div>
+            
+            <!-- For Partners -->
+            <div style="background: #e3f2fd; border-radius: 30px; padding: 40px;">
+              <div style="font-size: 28px; font-weight: 600; color: #1976d2; margin-bottom: 25px;">💑 For Partners</div>
+              
+              <div style="background: white; padding: 30px; border-radius: 20px; font-size: 18px; line-height: 1.8; color: #333; font-style: italic; margin-bottom: 20px;">
+                "I need more support with [specific area]. Can we figure out how you can take this on? I'm drowning here."
+              </div>
+              
+              <div style="font-size: 16px; color: #666;">
+                <strong>Specific examples:</strong>
+                <ul style="margin-top: 10px; padding-left: 20px;">
+                  <li>Night feeds on weekends</li>
+                  <li>Morning routine daily</li>
+                  <li>Coordinate all help offers</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          
+          <div style="background: #f5f5f5; padding: 30px; border-radius: 20px; margin-top: 40px; text-align: center;">
+            <div style="font-size: 24px; font-weight: 600; color: #2d2d44;">
+              🎯 Success Secret: Be specific + Give easy out = 85% yes rate
+            </div>
+          </div>
+        </div>
+      </div>
+    `
+  },
+
+  {
+    slideNumber: 6,
+    title: "Building Micro-Connections",
+    html: `
+      <div class="slide-container" style="background: linear-gradient(180deg, #ffecd2 0%, #fcb69f 100%); color: #2d2d44; padding: 60px; display: flex; align-items: center; justify-content: center; min-height: 100vh;">
+        <div class="content-wrapper" style="max-width: 1200px; width: 100%;">
+          <h2 style="font-size: 52px; font-weight: 300; text-align: center; margin-bottom: 50px;">
+            Small Connections = <span style="color: #ff6347; font-weight: 600;">Big Support</span>
+          </h2>
+          
+          <div style="text-align: center; margin-bottom: 50px;">
+            <div style="font-size: 72px; font-weight: bold; color: #ff6347;">40%</div>
+            <div style="font-size: 24px; color: #666;">of small talks become real friendships</div>
+          </div>
+          
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px;">
+            <!-- Where to Connect -->
+            <div style="background: white; border-radius: 30px; padding: 40px; box-shadow: 0 20px 60px rgba(0,0,0,0.1);">
+              <div style="text-align: center; margin-bottom: 30px;">
+                <div style="font-size: 64px;">📍</div>
+                <div style="font-size: 28px; font-weight: 600; color: #ff6347;">Where</div>
+              </div>
+              
+              <div style="font-size: 18px; line-height: 2; color: #666;">
+                • Pediatrician waiting room<br/>
+                • Baby classes/story time<br/>
+                • Neighborhood walks<br/>
+                • Park benches<br/>
+                • Grocery store baby aisle<br/>
+                • Mom & baby yoga<br/>
+                • Breastfeeding support groups
+              </div>
+            </div>
+            
+            <!-- Conversation Starters -->
+            <div style="background: white; border-radius: 30px; padding: 40px; box-shadow: 0 20px 60px rgba(0,0,0,0.1);">
+              <div style="text-align: center; margin-bottom: 30px;">
+                <div style="font-size: 64px;">💬</div>
+                <div style="font-size: 28px; font-weight: 600; color: #ff6347;">Openers</div>
+              </div>
+              
+              <div style="font-size: 18px; line-height: 2; color: #666;">
+                • "How old is your baby?"<br/>
+                • "Is this your first?"<br/>
+                • "Any sleep tips?"<br/>
+                • "Love your carrier!"<br/>
+                • "Know any good classes?"<br/>
+                • "How are YOU doing?"<br/>
+                • "Want to grab coffee?"
+              </div>
+            </div>
+            
+            <!-- The Magic Ingredient -->
+            <div style="background: white; border-radius: 30px; padding: 40px; box-shadow: 0 20px 60px rgba(0,0,0,0.1);">
+              <div style="text-align: center; margin-bottom: 30px;">
+                <div style="font-size: 64px;">✨</div>
+                <div style="font-size: 28px; font-weight: 600; color: #ff6347;">Secret</div>
+              </div>
+              
+              <div style="background: #fff5f0; padding: 30px; border-radius: 20px; margin-bottom: 20px;">
+                <div style="font-size: 24px; font-weight: 600; color: #ff6347; text-align: center; margin-bottom: 15px;">Vulnerability</div>
+                <div style="font-size: 18px; line-height: 1.6; color: #666; text-align: center;">
+                  Sharing struggle creates instant bond
+                </div>
+              </div>
+              
+              <div style="font-size: 32px; font-weight: bold; color: #ff6347; text-align: center;">70%</div>
+              <div style="font-size: 16px; color: #666; text-align: center;">deeper connection when honest</div>
+            </div>
+          </div>
+          
+          <div style="background: linear-gradient(135deg, #ff6347 0%, #ff8c69 100%); color: white; padding: 40px; border-radius: 20px; margin-top: 50px;">
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; text-align: center;">
+              <div>
+                <div style="font-size: 48px; font-weight: bold;">Week 1</div>
+                <div style="font-size: 18px; opacity: 0.9;">Make eye contact + smile</div>
+              </div>
+              <div>
+                <div style="font-size: 48px; font-weight: bold;">Week 2</div>
+                <div style="font-size: 18px; opacity: 0.9;">Start 1 conversation</div>
+              </div>
+              <div>
+                <div style="font-size: 48px; font-weight: bold;">Week 3</div>
+                <div style="font-size: 18px; opacity: 0.9;">Exchange numbers</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `
+  },
+
+  {
+    slideNumber: 7,
+    title: "Digital Village Done Right",
+    html: `
+      <div class="slide-container" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 60px; display: flex; align-items: center; justify-content: center; min-height: 100vh;">
+        <div class="content-wrapper" style="max-width: 1200px; width: 100%;">
+          <h2 style="font-size: 56px; font-weight: 300; text-align: center; margin-bottom: 50px;">
+            Your 24/7 <span style="font-weight: 600;">Support Network</span>
+          </h2>
+          
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 50px; align-items: center;">
+            <!-- Stats & Benefits -->
+            <div>
+              <div style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border-radius: 30px; padding: 40px;">
+                <div style="text-align: center; margin-bottom: 30px;">
+                  <div style="font-size: 72px; font-weight: bold;">65%</div>
+                  <div style="font-size: 20px; opacity: 0.9;">of new moms active in 2+ online groups</div>
+                </div>
+                
+                <div style="font-size: 20px; line-height: 1.8; margin-top: 30px;">
+                  <div style="margin-bottom: 15px;">✓ 24/7 availability</div>
+                  <div style="margin-bottom: 15px;">✓ Anonymity option</div>
+                  <div style="margin-bottom: 15px;">✓ Global perspectives</div>
+                  <div style="margin-bottom: 15px;">✓ Specific issue groups</div>
+                  <div>✓ No geographical limits</div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Platform Reviews -->
+            <div>
+              <div style="space-y: 20px;">
+                <!-- Peanut -->
+                <div style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border-radius: 20px; padding: 25px;">
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                    <div style="font-size: 24px; font-weight: 600;">🥜 Peanut</div>
+                    <div style="font-size: 20px; color: #ffd93d;">72% ⭐</div>
+                  </div>
+                  <div style="font-size: 16px; opacity: 0.9;">
+                    <strong>Best for:</strong> Local mom friends<br/>
+                    <strong>Strength:</strong> Like dating app for mom friends
+                  </div>
+                </div>
+                
+                <!-- MomLife -->
+                <div style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border-radius: 20px; padding: 25px;">
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                    <div style="font-size: 24px; font-weight: 600;">👶 MomLife</div>
+                    <div style="font-size: 20px; color: #ffd93d;">2.3M users</div>
+                  </div>
+                  <div style="font-size: 16px; opacity: 0.9;">
+                    <strong>Best for:</strong> Judgment-free support<br/>
+                    <strong>Strength:</strong> Anonymous options available
+                  </div>
+                </div>
+                
+                <!-- Local Facebook -->
+                <div style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border-radius: 20px; padding: 25px;">
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                    <div style="font-size: 24px; font-weight: 600;">📘 Local FB Groups</div>
+                    <div style="font-size: 20px; color: #ffd93d;">85% effective</div>
+                  </div>
+                  <div style="font-size: 16px; opacity: 0.9;">
+                    <strong>Best for:</strong> Area-specific resources<br/>
+                    <strong>Strength:</strong> Real local meetups
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div style="background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); padding: 40px; border-radius: 20px; margin-top: 50px;">
+            <div style="text-align: center;">
+              <div style="font-size: 28px; font-weight: 600; margin-bottom: 20px;">⚠️ The Comparison Trap</div>
+              <div style="font-size: 20px; opacity: 0.9;">
+                45% feel worse after scrolling<br/>
+                <span style="font-size: 18px;">Solution: Curate ruthlessly, unfollow triggers, seek not compare</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `
+  },
+
+  {
+    slideNumber: 8,
+    title: "Boundaries Save Energy",
+    html: `
+      <div class="slide-container" style="background: white; color: #2d2d44; padding: 60px; display: flex; align-items: center; justify-content: center; min-height: 100vh;">
+        <div class="content-wrapper" style="max-width: 1200px; width: 100%;">
+          <h2 style="font-size: 52px; font-weight: 300; text-align: center; margin-bottom: 50px;">
+            Protect Your <span style="color: #e91e63; font-weight: 600;">Energy</span>
+          </h2>
+          
+          <div style="background: #fce4ec; padding: 40px; border-radius: 30px; text-align: center; margin-bottom: 50px;">
+            <div style="font-size: 32px; font-weight: 600; color: #e91e63;">The Math of Energy</div>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 30px;">
+              <div>
+                <div style="font-size: 48px; font-weight: bold; color: #e91e63;">60%</div>
+                <div style="font-size: 18px; color: #666;">more energy from saying no</div>
+              </div>
+              <div>
+                <div style="font-size: 48px; font-weight: bold; color: #e91e63;">3 hrs</div>
+                <div style="font-size: 18px; color: #666;">gained per toxic person removed</div>
+              </div>
+              <div>
+                <div style="font-size: 48px; font-weight: bold; color: #e91e63;">1:4</div>
+                <div style="font-size: 18px; color: #666;">ratio of give to take needed</div>
+              </div>
+            </div>
+          </div>
+          
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px;">
+            <!-- Energy Vampires -->
+            <div style="background: #ffebee; border-radius: 30px; padding: 40px;">
+              <div style="font-size: 28px; font-weight: 600; color: #d32f2f; margin-bottom: 25px;">🧛‍♀️ Energy Vampires</div>
+              
+              <div style="font-size: 18px; line-height: 1.8; color: #666;">
+                <div style="margin-bottom: 15px;">• Always crisis, never solutions</div>
+                <div style="margin-bottom: 15px;">• Make everything about them</div>
+                <div style="margin-bottom: 15px;">• Dismiss your struggles</div>
+                <div style="margin-bottom: 15px;">• Give unsolicited advice</div>
+                <div style="margin-bottom: 15px;">• Judge your choices</div>
+                <div>• Leave you drained</div>
+              </div>
+              
+              <div style="background: white; padding: 20px; border-radius: 15px; margin-top: 25px; text-align: center;">
+                <strong style="color: #d32f2f;">Action:</strong> Limit or eliminate contact
+              </div>
+            </div>
+            
+            <!-- Energy Givers -->
+            <div style="background: #e8f5e9; border-radius: 30px; padding: 40px;">
+              <div style="font-size: 28px; font-weight: 600; color: #388e3c; margin-bottom: 25px;">🌟 Energy Givers</div>
+              
+              <div style="font-size: 18px; line-height: 1.8; color: #666;">
+                <div style="margin-bottom: 15px;">• Listen without fixing</div>
+                <div style="margin-bottom: 15px;">• Celebrate small wins</div>
+                <div style="margin-bottom: 15px;">• Share their struggles too</div>
+                <div style="margin-bottom: 15px;">• Respect boundaries</div>
+                <div style="margin-bottom: 15px;">• Offer specific help</div>
+                <div>• Leave you lighter</div>
+              </div>
+              
+              <div style="background: white; padding: 20px; border-radius: 15px; margin-top: 25px; text-align: center;">
+                <strong style="color: #388e3c;">Action:</strong> Invest time here
+              </div>
+            </div>
+          </div>
+          
+          <div style="background: linear-gradient(135deg, #e91e63 0%, #f06292 100%); color: white; padding: 40px; border-radius: 20px; margin-top: 50px;">
+            <div style="font-size: 28px; font-weight: 600; text-align: center; margin-bottom: 30px;">Boundary Scripts</div>
+            
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px;">
+              <div style="background: rgba(255,255,255,0.2); padding: 25px; border-radius: 15px;">
+                <div style="font-size: 20px; font-weight: 600; margin-bottom: 15px;">For Advice-Givers</div>
+                <div style="font-size: 16px; font-style: italic;">
+                  "I appreciate your concern. Right now I just need support, not solutions."
+                </div>
+              </div>
+              
+              <div style="background: rgba(255,255,255,0.2); padding: 25px; border-radius: 15px;">
+                <div style="font-size: 20px; font-weight: 600; margin-bottom: 15px;">For Visitors</div>
+                <div style="font-size: 16px; font-style: italic;">
+                  "We're limiting visitors to 30 minutes. Thanks for understanding!"
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `
+  },
+
+  {
+    slideNumber: 9,
+    title: "Schedule Your Support",
+    html: `
+      <div class="slide-container" style="background: linear-gradient(180deg, #e3f2fd 0%, #bbdefb 100%); color: #2d2d44; padding: 60px; display: flex; align-items: center; justify-content: center; min-height: 100vh;">
+        <div class="content-wrapper" style="max-width: 1200px; width: 100%;">
+          <h2 style="font-size: 52px; font-weight: 300; text-align: center; margin-bottom: 20px;">
+            Connection <span style="color: #1976d2; font-weight: 600;">By Design</span>
+          </h2>
+          
+          <div style="text-align: center; margin-bottom: 50px;">
+            <div style="font-size: 24px; color: #666;">Scheduled social time happens 85% vs 20% "when free"</div>
+          </div>
+          
+          <!-- Weekly Schedule Grid -->
+          <div style="background: white; border-radius: 30px; padding: 50px; box-shadow: 0 20px 60px rgba(0,0,0,0.1);">
+            <div style="font-size: 32px; font-weight: 600; text-align: center; color: #1976d2; margin-bottom: 40px;">Your Support Schedule</div>
+            
+            <div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 15px;">
+              <!-- Days of Week -->
+              <div style="background: #1976d2; color: white; padding: 20px 10px; border-radius: 15px; text-align: center; font-weight: 600;">MON</div>
+              <div style="background: #1976d2; color: white; padding: 20px 10px; border-radius: 15px; text-align: center; font-weight: 600;">TUE</div>
+              <div style="background: #1976d2; color: white; padding: 20px 10px; border-radius: 15px; text-align: center; font-weight: 600;">WED</div>
+              <div style="background: #1976d2; color: white; padding: 20px 10px; border-radius: 15px; text-align: center; font-weight: 600;">THU</div>
+              <div style="background: #1976d2; color: white; padding: 20px 10px; border-radius: 15px; text-align: center; font-weight: 600;">FRI</div>
+              <div style="background: #1976d2; color: white; padding: 20px 10px; border-radius: 15px; text-align: center; font-weight: 600;">SAT</div>
+              <div style="background: #1976d2; color: white; padding: 20px 10px; border-radius: 15px; text-align: center; font-weight: 600;">SUN</div>
+              
+              <!-- Activities -->
+              <div style="background: #e3f2fd; padding: 20px 10px; border-radius: 15px; text-align: center;">
+                <div style="font-size: 24px;">📱</div>
+                <div style="font-size: 14px; margin-top: 5px;">Text check-in</div>
+              </div>
+              
+              <div style="background: #e3f2fd; padding: 20px 10px; border-radius: 15px; text-align: center;">
+                <div style="font-size: 24px;">🚶‍♀️</div>
+                <div style="font-size: 14px; margin-top: 5px;">Walk date</div>
+              </div>
+              
+              <div style="background: #e3f2fd; padding: 20px 10px; border-radius: 15px; text-align: center;">
+                <div style="font-size: 24px;">💬</div>
+                <div style="font-size: 14px; margin-top: 5px;">Online group</div>
+              </div>
+              
+              <div style="background: #e3f2fd; padding: 20px 10px; border-radius: 15px; text-align: center;">
+                <div style="font-size: 24px;">☕</div>
+                <div style="font-size: 14px; margin-top: 5px;">Coffee meet</div>
+              </div>
+              
+              <div style="background: #e3f2fd; padding: 20px 10px; border-radius: 15px; text-align: center;">
+                <div style="font-size: 24px;">📞</div>
+                <div style="font-size: 14px; margin-top: 5px;">Video call</div>
+              </div>
+              
+              <div style="background: #e3f2fd; padding: 20px 10px; border-radius: 15px; text-align: center;">
+                <div style="font-size: 24px;">👨‍👩‍👧</div>
+                <div style="font-size: 14px; margin-top: 5px;">Family time</div>
+              </div>
+              
+              <div style="background: #e3f2fd; padding: 20px 10px; border-radius: 15px; text-align: center;">
+                <div style="font-size: 24px;">🛁</div>
+                <div style="font-size: 14px; margin-top: 5px;">Self-care</div>
+              </div>
+            </div>
+            
+            <div style="margin-top: 40px; padding: 30px; background: #f5f5f5; border-radius: 20px;">
+              <div style="font-size: 20px; font-weight: 600; color: #1976d2; margin-bottom: 15px;">📅 Minimum Weekly Dose</div>
+              <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; text-align: center;">
+                <div>
+                  <div style="font-size: 28px; font-weight: bold; color: #1976d2;">3x</div>
+                  <div style="font-size: 16px; color: #666;">Text check-ins</div>
+                </div>
+                <div>
+                  <div style="font-size: 28px; font-weight: bold; color: #1976d2;">1x</div>
+                  <div style="font-size: 16px; color: #666;">In-person meet</div>
+                </div>
+                <div>
+                  <div style="font-size: 28px; font-weight: bold; color: #1976d2;">2x</div>
+                  <div style="font-size: 16px; color: #666;">Voice/video calls</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div style="text-align: center; margin-top: 40px; font-size: 20px; color: #666; font-style: italic;">
+            "Isolation is the enemy of healing" - Dr. James Thompson
+          </div>
+        </div>
+      </div>
+    `
+  },
+
+  {
+    slideNumber: 10,
+    title: "Your Village Map",
+    html: `
+      <div class="slide-container" style="background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%); color: white; padding: 60px; display: flex; align-items: center; justify-content: center; min-height: 100vh;">
+        <div class="content-wrapper" style="max-width: 1200px; width: 100%;">
+          <h2 style="font-size: 56px; font-weight: 300; text-align: center; margin-bottom: 50px;">
+            Build Your <span style="font-weight: 600;">Support System</span>
+          </h2>
+          
+          <div style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border-radius: 30px; padding: 50px;">
+            <div style="text-align: center; margin-bottom: 40px;">
+              <div style="font-size: 32px; font-weight: 600;">This Week's Mission</div>
+              <div style="font-size: 20px; opacity: 0.9; margin-top: 10px;">One small step builds your village</div>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px;">
+              <!-- Day 1-2 -->
+              <div style="background: rgba(255,255,255,0.1); padding: 30px; border-radius: 20px; text-align: center;">
+                <div style="font-size: 48px; margin-bottom: 20px;">📝</div>
+                <div style="font-size: 24px; font-weight: 600; margin-bottom: 20px;">Map Your Circles</div>
+                <div style="font-size: 18px; line-height: 1.8;">
+                  • List 3-5 inner circle<br/>
+                  • List 8-12 middle circle<br/>
+                  • Identify gaps
+                </div>
+                <div style="margin-top: 20px; padding: 15px; background: rgba(255,255,255,0.1); border-radius: 10px;">
+                  Time: 15 minutes
+                </div>
+              </div>
+              
+              <!-- Day 3-4 -->
+              <div style="background: rgba(255,255,255,0.1); padding: 30px; border-radius: 20px; text-align: center;">
+                <div style="font-size: 48px; margin-bottom: 20px;">💬</div>
+                <div style="font-size: 24px; font-weight: 600; margin-bottom: 20px;">Reach Out</div>
+                <div style="font-size: 18px; line-height: 1.8;">
+                  • Text 3 people<br/>
+                  • Use the scripts<br/>
+                  • Ask for ONE thing
+                </div>
+                <div style="margin-top: 20px; padding: 15px; background: rgba(255,255,255,0.1); border-radius: 10px;">
+                  Success rate: 93%
+                </div>
+              </div>
+              
+              <!-- Day 5-7 -->
+              <div style="background: rgba(255,255,255,0.1); padding: 30px; border-radius: 20px; text-align: center;">
+                <div style="font-size: 48px; margin-bottom: 20px;">🌱</div>
+                <div style="font-size: 24px; font-weight: 600; margin-bottom: 20px;">New Connection</div>
+                <div style="font-size: 18px; line-height: 1.8;">
+                  • Join 1 online group<br/>
+                  • OR meet 1 local mom<br/>
+                  • Exchange contact info
+                </div>
+                <div style="margin-top: 20px; padding: 15px; background: rgba(255,255,255,0.1); border-radius: 10px;">
+                  Future friend potential
+                </div>
+              </div>
+            </div>
+            
+            <div style="margin-top: 50px; text-align: center;">
+              <div style="font-size: 24px; font-weight: 600; margin-bottom: 20px;">🎯 Remember</div>
+              <div style="font-size: 20px; opacity: 0.9;">
+                You're not asking for charity. You're building community.<br/>
+                <span style="font-size: 18px;">Everyone needs this. You're just brave enough to start.</span>
+              </div>
+            </div>
+          </div>
+          
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 40px;">
+            <div style="background: rgba(255,255,255,0.2); padding: 25px; border-radius: 15px; text-align: center;">
+              <div style="font-size: 36px; font-weight: bold;">Week 1</div>
+              <div style="font-size: 18px; opacity: 0.9;">Map + 1 ask</div>
+            </div>
+            <div style="background: rgba(255,255,255,0.2); padding: 25px; border-radius: 15px; text-align: center;">
+              <div style="font-size: 36px; font-weight: bold;">Week 2</div>
+              <div style="font-size: 18px; opacity: 0.9;">3 asks + 1 new</div>
+            </div>
+            <div style="background: rgba(255,255,255,0.2); padding: 25px; border-radius: 15px; text-align: center;">
+              <div style="font-size: 36px; font-weight: bold;">Week 3</div>
+              <div style="font-size: 18px; opacity: 0.9;">Weekly schedule</div>
+            </div>
+            <div style="background: rgba(255,255,255,0.2); padding: 25px; border-radius: 15px; text-align: center;">
+              <div style="font-size: 36px; font-weight: bold;">Week 4</div>
+              <div style="font-size: 18px; opacity: 0.9;">Village active!</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `
+  }
+];
+
+// Create the HTML file with all slides
+const createLesson3Slides = () => {
+  const slidesHtml = lesson3Slides
+    .map(slide => slide.html)
+    .join('\n<!-- SLIDE -->\n');
+    
+  const outputPath = path.join(__dirname, '..', 'course-materials', 'week1-lesson3-slides.html');
+  
+  // Ensure directory exists
+  const dir = path.dirname(outputPath);
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir, { recursive: true });
+  }
+  
+  fs.writeFileSync(outputPath, slidesHtml);
+  console.log('Created Week 1, Lesson 3 slides with village-building focus!');
+  console.log(`Output: ${outputPath}`);
+  console.log(`Total slides: ${lesson3Slides.length}`);
+};
+
+// Run the script
+createLesson3Slides();

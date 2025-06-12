@@ -1,12 +1,19 @@
 import { Resend } from 'resend';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-// Log API key presence (truncated for security)
-console.log('API key loaded:', process.env.RESEND_API_KEY ? 
-  `${process.env.RESEND_API_KEY.substring(0, 3)}...${process.env.RESEND_API_KEY.substring(process.env.RESEND_API_KEY.length - 3)}` : 
-  'undefined/missing');
+// Lazy-load Resend client to avoid initialization errors
+let resend: Resend | null = null;
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+function getResendClient() {
+  if (!resend) {
+    if (!process.env.RESEND_API_KEY) {
+      console.warn('[send-postpartum-email] RESEND_API_KEY not found in environment');
+      return null;
+    }
+    resend = new Resend(process.env.RESEND_API_KEY);
+  }
+  return resend;
+}
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
@@ -88,7 +95,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     try {
       // Use the variables defined above
 
-      const data = await resend.emails.send({
+      const client = getResendClient();
+      if (!client) {
+        throw new Error('Email service not configured');
+      }
+      
+      const data = await client.emails.send({
         from: 'Dr. Jana Rundle <jana@bloompsychologynorthaustin.com>',
         to: emailTo,
         cc: emailCC,

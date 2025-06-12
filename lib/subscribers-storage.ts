@@ -1,7 +1,8 @@
 import fs from 'fs/promises';
 import path from 'path';
 
-const SUBSCRIBERS_FILE = path.join(process.cwd(), 'data', 'subscribers.json');
+// Defer path resolution to avoid initialization errors
+const getSubscribersFile = () => path.join(process.cwd(), 'data', 'subscribers.json');
 
 export interface NewsletterSubscriber {
   id: string;
@@ -32,7 +33,7 @@ async function ensureDataDir() {
 export async function loadSubscribers(): Promise<NewsletterSubscriber[]> {
   try {
     await ensureDataDir();
-    const data = await fs.readFile(SUBSCRIBERS_FILE, 'utf-8');
+    const data = await fs.readFile(getSubscribersFile(), 'utf-8');
     return JSON.parse(data);
   } catch (error) {
     // If file doesn't exist, return empty array
@@ -45,7 +46,7 @@ export async function loadSubscribers(): Promise<NewsletterSubscriber[]> {
 export async function saveSubscribers(subscribers: NewsletterSubscriber[]): Promise<void> {
   try {
     await ensureDataDir();
-    await fs.writeFile(SUBSCRIBERS_FILE, JSON.stringify(subscribers, null, 2));
+    await fs.writeFile(getSubscribersFile(), JSON.stringify(subscribers, null, 2));
     
     // Also create a backup with timestamp
     const backupDir = path.join(process.cwd(), 'data', 'backups');

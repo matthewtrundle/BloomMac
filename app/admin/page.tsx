@@ -13,7 +13,8 @@ import {
   ArrowRight,
   CheckCircle,
   AlertCircle,
-  Clock
+  Clock,
+  Palette
 } from 'lucide-react';
 
 interface QuickStats {
@@ -116,6 +117,27 @@ export default function AdminDashboard() {
       href: '/admin/email-test',
       icon: Activity,
       color: 'text-orange-600 bg-orange-100'
+    },
+    {
+      title: 'Theme Concepts',
+      description: 'Preview new landing page themes',
+      href: '/admin/theme-concepts',
+      icon: Palette,
+      color: 'text-teal-600 bg-teal-100'
+    },
+    {
+      title: 'Theme Variations',
+      description: '18 modern theme variations to review',
+      href: '/admin/theme-variations',
+      icon: Palette,
+      color: 'text-indigo-600 bg-indigo-100'
+    },
+    {
+      title: 'Analytics Dashboard',
+      description: 'Enhanced analytics with GA4 integration',
+      href: '/admin/analytics-dashboard',
+      icon: TrendingUp,
+      color: 'text-green-600 bg-green-100'
     }
   ];
 

@@ -1,0 +1,851 @@
+const fs = require('fs');
+const path = require('path');
+
+// Week 2, Lesson 2: Releasing Perfectionism
+const week2Lesson2Slides = [
+  {
+    slideNumber: 1,
+    title: "The Perfectionism Epidemic",
+    html: `
+      <div class="slide-container" style="background: linear-gradient(135deg, #fef3c7 0%, #fed7aa 100%); color: #2d2d44; padding: 60px; display: flex; align-items: center; justify-content: center; min-height: 100vh; position: relative;">
+        <div class="slide-number" style="position: absolute; top: 20px; right: 30px; color: rgba(0,0,0,0.2); font-size: 18px; font-weight: 300;">01</div>
+        
+        <div class="content-wrapper" style="max-width: 1200px; width: 100%; text-align: center;">
+          <h1 style="font-size: 64px; font-weight: 300; margin-bottom: 50px; letter-spacing: -2px;">
+            The <span style="color: #f59e0b; font-weight: 600;">Impossible Standards</span> Pandemic
+          </h1>
+          
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-bottom: 60px;">
+            <div style="background: white; padding: 40px; border-radius: 30px; box-shadow: 0 20px 60px rgba(0,0,0,0.08);">
+              <div style="font-size: 72px; font-weight: bold; color: #f59e0b; margin-bottom: 20px;">87%</div>
+              <div style="font-size: 20px; color: #666;">Feel they're failing</div>
+              <div style="font-size: 16px; color: #999; margin-top: 10px;">Despite meeting all needs</div>
+            </div>
+            
+            <div style="background: white; padding: 40px; border-radius: 30px; box-shadow: 0 20px 60px rgba(0,0,0,0.08);">
+              <div style="font-size: 72px; font-weight: bold; color: #dc2626; margin-bottom: 20px;">94%</div>
+              <div style="font-size: 20px; color: #666;">Compare to social media</div>
+              <div style="font-size: 16px; color: #999; margin-top: 10px;">Curated vs reality</div>
+            </div>
+            
+            <div style="background: white; padding: 40px; border-radius: 30px; box-shadow: 0 20px 60px rgba(0,0,0,0.08);">
+              <div style="font-size: 72px; font-weight: bold; color: #7c3aed; margin-bottom: 20px;">3.2x</div>
+              <div style="font-size: 20px; color: #666;">More anxiety</div>
+              <div style="font-size: 16px; color: #999; margin-top: 10px;">Than "good enough" moms</div>
+            </div>
+          </div>
+          
+          <div style="background: white; padding: 40px; border-radius: 30px; box-shadow: 0 20px 60px rgba(0,0,0,0.08);">
+            <div style="font-size: 28px; color: #f59e0b; font-weight: 600; margin-bottom: 20px;">
+              The Paradox
+            </div>
+            <div style="font-size: 22px; color: #666; line-height: 1.6;">
+              Perfectionism doesn't make you a better mother.<br/>
+              It makes you an anxious one.
+            </div>
+          </div>
+        </div>
+      </div>
+    `
+  },
+
+  {
+    slideNumber: 2,
+    title: "The Instagram Illusion",
+    html: `
+      <div class="slide-container" style="background: white; color: #2d2d44; padding: 60px; display: flex; align-items: center; justify-content: center; min-height: 100vh;">
+        <div class="content-wrapper" style="max-width: 1200px; width: 100%;">
+          <h2 style="font-size: 52px; font-weight: 300; text-align: center; margin-bottom: 50px;">
+            Social Media's <span style="color: #e11d48; font-weight: 600;">Toxic Gift</span> to Mothers
+          </h2>
+          
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 50px; margin-bottom: 50px;">
+            <!-- What You See -->
+            <div style="background: #fef2f2; border-radius: 30px; padding: 40px;">
+              <div style="font-size: 32px; font-weight: 600; color: #e11d48; margin-bottom: 30px; text-align: center;">
+                📱 What You See
+              </div>
+              <div style="font-size: 20px; line-height: 1.8; color: #666;">
+                • Perfect nurseries<br/>
+                • Smiling babies<br/>
+                • Organized homes<br/>
+                • "Blessed" captions<br/>
+                • Bounce-back bodies<br/>
+                • Date nights
+              </div>
+            </div>
+            
+            <!-- What's Hidden -->
+            <div style="background: #f3f4f6; border-radius: 30px; padding: 40px;">
+              <div style="font-size: 32px; font-weight: 600; color: #6b7280; margin-bottom: 30px; text-align: center;">
+                🚫 What's Hidden
+              </div>
+              <div style="font-size: 20px; line-height: 1.8; color: #666;">
+                • 2 AM meltdowns<br/>
+                • Postpartum anxiety<br/>
+                • Relationship strain<br/>
+                • Financial stress<br/>
+                • Identity loss<br/>
+                • 47 takes for one photo
+              </div>
+            </div>
+          </div>
+          
+          <div style="background: linear-gradient(135deg, #e11d48 0%, #f43f5e 100%); color: white; padding: 40px; border-radius: 30px;">
+            <div style="text-align: center;">
+              <div style="font-size: 36px; font-weight: bold; margin-bottom: 20px;">The Research</div>
+              <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px;">
+                <div>
+                  <div style="font-size: 48px; font-weight: bold;">68%</div>
+                  <div style="font-size: 18px; opacity: 0.9;">Feel inadequate after scrolling</div>
+                </div>
+                <div>
+                  <div style="font-size: 48px; font-weight: bold;">45min</div>
+                  <div style="font-size: 18px; opacity: 0.9;">Daily comparing to others</div>
+                </div>
+                <div>
+                  <div style="font-size: 48px; font-weight: bold;">2.8x</div>
+                  <div style="font-size: 18px; opacity: 0.9;">More likely to feel depressed</div>
+                </div>
+              </div>
+              <div style="font-size: 16px; margin-top: 20px; opacity: 0.8;">
+                Source: Journal of Social and Clinical Psychology (2023)
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `
+  },
+
+  {
+    slideNumber: 3,
+    title: "The 70% Rule",
+    html: `
+      <div class="slide-container" style="background: linear-gradient(180deg, #ecfdf5 0%, #d1fae5 100%); color: #2d2d44; padding: 60px; display: flex; align-items: center; justify-content: center; min-height: 100vh;">
+        <div class="content-wrapper" style="max-width: 1200px; width: 100%;">
+          <h2 style="font-size: 52px; font-weight: 300; text-align: center; margin-bottom: 50px;">
+            Why <span style="color: #10b981; font-weight: 600;">"Good Enough"</span> Is Actually Better
+          </h2>
+          
+          <div style="background: white; border-radius: 30px; padding: 50px; box-shadow: 0 20px 60px rgba(0,0,0,0.08); margin-bottom: 40px;">
+            <div style="text-align: center; margin-bottom: 40px;">
+              <div style="font-size: 96px; font-weight: bold; color: #10b981;">70%</div>
+              <div style="font-size: 28px; color: #666;">The Magic Number</div>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px;">
+              <div>
+                <div style="font-size: 24px; font-weight: 600; color: #059669; margin-bottom: 20px;">
+                  What 70% Looks Like:
+                </div>
+                <div style="font-size: 18px; line-height: 1.8; color: #666;">
+                  ✓ Baby fed (formula is fine!)<br/>
+                  ✓ Baby safe (floor time counts)<br/>
+                  ✓ Baby loved (imperfectly)<br/>
+                  ✓ You survived the day<br/>
+                  ✓ Tomorrow you'll try again
+                </div>
+              </div>
+              
+              <div>
+                <div style="font-size: 24px; font-weight: 600; color: #059669; margin-bottom: 20px;">
+                  What 70% Creates:
+                </div>
+                <div style="font-size: 18px; line-height: 1.8; color: #666;">
+                  • Resilient children<br/>
+                  • Sustainable energy<br/>
+                  • Room for mistakes<br/>
+                  • Authentic connection<br/>
+                  • Actual happiness
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px;">
+            <div style="background: white; border-radius: 20px; padding: 30px; text-align: center;">
+              <div style="font-size: 48px; margin-bottom: 15px;">🧠</div>
+              <div style="font-size: 32px; font-weight: bold; color: #10b981;">85%</div>
+              <div style="font-size: 18px; color: #666;">Better emotional regulation in kids of "good enough" parents</div>
+            </div>
+            
+            <div style="background: white; border-radius: 20px; padding: 30px; text-align: center;">
+              <div style="font-size: 48px; margin-bottom: 15px;">💚</div>
+              <div style="font-size: 32px; font-weight: bold; color: #10b981;">92%</div>
+              <div style="font-size: 18px; color: #666;">Less burnout in mothers practicing 70% rule</div>
+            </div>
+            
+            <div style="background: white; border-radius: 20px; padding: 30px; text-align: center;">
+              <div style="font-size: 48px; margin-bottom: 15px;">🌱</div>
+              <div style="font-size: 32px; font-weight: bold; color: #10b981;">76%</div>
+              <div style="font-size: 18px; color: #666;">More creativity and problem-solving in children</div>
+            </div>
+          </div>
+          
+          <div style="background: #f0fdf4; padding: 30px; border-radius: 20px; margin-top: 40px; text-align: center;">
+            <div style="font-size: 24px; font-weight: 600; color: #059669;">
+              "The good enough mother... starts off with an almost complete adaptation to her infant's needs, and as time proceeds she adapts less and less completely, gradually, according to the infant's growing ability to deal with her failure."
+            </div>
+            <div style="font-size: 18px; color: #666; margin-top: 15px;">
+              - D.W. Winnicott, Pediatrician & Psychoanalyst
+            </div>
+          </div>
+        </div>
+      </div>
+    `
+  },
+
+  {
+    slideNumber: 4,
+    title: "Perfectionism's Hidden Costs",
+    html: `
+      <div class="slide-container" style="background: white; color: #2d2d44; padding: 60px; display: flex; align-items: center; justify-content: center; min-height: 100vh;">
+        <div class="content-wrapper" style="max-width: 1200px; width: 100%;">
+          <h2 style="font-size: 52px; font-weight: 300; text-align: center; margin-bottom: 50px;">
+            The Real Price of <span style="color: #dc2626; font-weight: 600;">Perfect</span>
+          </h2>
+          
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; margin-bottom: 40px;">
+            <!-- Your Costs -->
+            <div style="background: #fee2e2; border-radius: 30px; padding: 40px;">
+              <div style="font-size: 32px; font-weight: 600; color: #dc2626; margin-bottom: 30px; text-align: center;">
+                💔 Your Costs
+              </div>
+              
+              <div style="space-y: 20px;">
+                <div style="background: white; padding: 20px; border-radius: 15px;">
+                  <div style="font-size: 20px; font-weight: 600; color: #dc2626; margin-bottom: 10px;">Anxiety Disorders</div>
+                  <div style="font-size: 16px; color: #666;">3.2x higher risk • Constant worry about "doing it right"</div>
+                </div>
+                
+                <div style="background: white; padding: 20px; border-radius: 15px;">
+                  <div style="font-size: 20px; font-weight: 600; color: #dc2626; margin-bottom: 10px;">Chronic Exhaustion</div>
+                  <div style="font-size: 16px; color: #666;">78% report burnout • Never feeling "done"</div>
+                </div>
+                
+                <div style="background: white; padding: 20px; border-radius: 15px;">
+                  <div style="font-size: 20px; font-weight: 600; color: #dc2626; margin-bottom: 10px;">Relationship Strain</div>
+                  <div style="font-size: 16px; color: #666;">65% more conflicts • Impossible expectations for others</div>
+                </div>
+                
+                <div style="background: white; padding: 20px; border-radius: 15px;">
+                  <div style="font-size: 20px; font-weight: 600; color: #dc2626; margin-bottom: 10px;">Joy Deficit</div>
+                  <div style="font-size: 16px; color: #666;">Missing moments while chasing perfect ones</div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Your Child's Costs -->
+            <div style="background: #fef3c7; border-radius: 30px; padding: 40px;">
+              <div style="font-size: 32px; font-weight: 600; color: #f59e0b; margin-bottom: 30px; text-align: center;">
+                👶 Your Child's Costs
+              </div>
+              
+              <div style="space-y: 20px;">
+                <div style="background: white; padding: 20px; border-radius: 15px;">
+                  <div style="font-size: 20px; font-weight: 600; color: #f59e0b; margin-bottom: 10px;">Anxiety Inheritance</div>
+                  <div style="font-size: 16px; color: #666;">2.4x more likely to develop anxiety • Absorb your stress</div>
+                </div>
+                
+                <div style="background: white; padding: 20px; border-radius: 15px;">
+                  <div style="font-size: 20px; font-weight: 600; color: #f59e0b; margin-bottom: 10px;">Fear of Failure</div>
+                  <div style="font-size: 16px; color: #666;">Won't try new things • Perfectionism is contagious</div>
+                </div>
+                
+                <div style="background: white; padding: 20px; border-radius: 15px;">
+                  <div style="font-size: 20px; font-weight: 600; color: #f59e0b; margin-bottom: 10px;">Less Secure Attachment</div>
+                  <div style="font-size: 16px; color: #666;">Need authentic you, not perfect you</div>
+                </div>
+                
+                <div style="background: white; padding: 20px; border-radius: 15px;">
+                  <div style="font-size: 20px; font-weight: 600; color: #f59e0b; margin-bottom: 10px;">Reduced Resilience</div>
+                  <div style="font-size: 16px; color: #666;">Never learn from your mistakes</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div style="background: #f3f4f6; padding: 40px; border-radius: 30px; text-align: center;">
+            <div style="font-size: 28px; font-weight: 600; color: #374151; margin-bottom: 20px;">
+              The Bottom Line
+            </div>
+            <div style="font-size: 22px; color: #666; line-height: 1.6;">
+              Your child doesn't need a perfect mother.<br/>
+              They need a present one.
+            </div>
+          </div>
+        </div>
+      </div>
+    `
+  },
+
+  {
+    slideNumber: 5,
+    title: "The Origins of Perfect",
+    html: `
+      <div class="slide-container" style="background: linear-gradient(180deg, #faf5ff 0%, #f3e8ff 100%); color: #2d2d44; padding: 60px; display: flex; align-items: center; justify-content: center; min-height: 100vh;">
+        <div class="content-wrapper" style="max-width: 1200px; width: 100%;">
+          <h2 style="font-size: 52px; font-weight: 300; text-align: center; margin-bottom: 50px;">
+            Where Perfectionism <span style="color: #7c3aed; font-weight: 600;">Comes From</span>
+          </h2>
+          
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 50px; align-items: center;">
+            <div>
+              <div style="background: white; border-radius: 30px; padding: 40px; box-shadow: 0 20px 60px rgba(0,0,0,0.08);">
+                <div style="font-size: 32px; font-weight: 600; color: #7c3aed; margin-bottom: 30px;">Childhood Messages</div>
+                
+                <div style="space-y: 25px;">
+                  <div style="display: flex; align-items: center; gap: 20px;">
+                    <div style="font-size: 48px;">👧</div>
+                    <div>
+                      <div style="font-size: 20px; font-weight: 600; color: #7c3aed;">Age 5-7</div>
+                      <div style="font-size: 16px; color: #666;">"Good girls don't make mistakes"</div>
+                    </div>
+                  </div>
+                  
+                  <div style="display: flex; align-items: center; gap: 20px;">
+                    <div style="font-size: 48px;">📚</div>
+                    <div>
+                      <div style="font-size: 20px; font-weight: 600; color: #7c3aed;">School Years</div>
+                      <div style="font-size: 16px; color: #666;">Love tied to achievement</div>
+                    </div>
+                  </div>
+                  
+                  <div style="display: flex; align-items: center; gap: 20px;">
+                    <div style="font-size: 48px;">👨‍👩‍👧</div>
+                    <div>
+                      <div style="font-size: 20px; font-weight: 600; color: #7c3aed;">Family Dynamics</div>
+                      <div style="font-size: 16px; color: #666;">"What will people think?"</div>
+                    </div>
+                  </div>
+                  
+                  <div style="display: flex; align-items: center; gap: 20px;">
+                    <div style="font-size: 48px;">🏃‍♀️</div>
+                    <div>
+                      <div style="font-size: 20px; font-weight: 600; color: #7c3aed;">Survival Strategy</div>
+                      <div style="font-size: 16px; color: #666;">Perfect = Safe = Loved</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div>
+              <div style="background: #faf5ff; border-radius: 30px; padding: 40px;">
+                <div style="font-size: 28px; font-weight: 600; color: #6b21a8; margin-bottom: 30px;">How It Shows Up Now</div>
+                
+                <div style="space-y: 20px;">
+                  <div style="background: white; padding: 20px; border-radius: 15px;">
+                    <div style="font-size: 18px; color: #666;">
+                      <span style="font-weight: 600; color: #7c3aed;">Can't rest</span> until everything is "done" (spoiler: it never is)
+                    </div>
+                  </div>
+                  
+                  <div style="background: white; padding: 20px; border-radius: 15px;">
+                    <div style="font-size: 18px; color: #666;">
+                      <span style="font-weight: 600; color: #7c3aed;">Apologize constantly</span> for normal human needs
+                    </div>
+                  </div>
+                  
+                  <div style="background: white; padding: 20px; border-radius: 15px;">
+                    <div style="font-size: 18px; color: #666;">
+                      <span style="font-weight: 600; color: #7c3aed;">Feel like a fraud</span> when people say you're doing well
+                    </div>
+                  </div>
+                  
+                  <div style="background: white; padding: 20px; border-radius: 15px;">
+                    <div style="font-size: 18px; color: #666;">
+                      <span style="font-weight: 600; color: #7c3aed;">Procrastinate</span> because if you can't do it perfectly, why start?
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div style="background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%); color: white; padding: 30px; border-radius: 20px; margin-top: 30px;">
+                <div style="text-align: center;">
+                  <div style="font-size: 24px; font-weight: 600;">The Truth</div>
+                  <div style="font-size: 18px; margin-top: 10px;">
+                    Perfectionism isn't about high standards.<br/>
+                    It's about fear of not being enough.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `
+  },
+
+  {
+    slideNumber: 6,
+    title: "The Imperfection Practice",
+    html: `
+      <div class="slide-container" style="background: white; color: #2d2d44; padding: 60px; display: flex; align-items: center; justify-content: center; min-height: 100vh;">
+        <div class="content-wrapper" style="max-width: 1200px; width: 100%;">
+          <h2 style="font-size: 52px; font-weight: 300; text-align: center; margin-bottom: 50px;">
+            Practicing <span style="color: #10b981; font-weight: 600;">Imperfection</span> On Purpose
+          </h2>
+          
+          <div style="background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%); border-radius: 30px; padding: 50px; margin-bottom: 40px;">
+            <div style="text-align: center; margin-bottom: 40px;">
+              <div style="font-size: 32px; font-weight: 600; color: #065f46;">Small Acts of Rebellion</div>
+              <div style="font-size: 20px; color: #047857; margin-top: 10px;">Start with one this week</div>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px;">
+              <div style="background: white; border-radius: 20px; padding: 30px;">
+                <div style="font-size: 48px; text-align: center; margin-bottom: 20px;">🏠</div>
+                <div style="font-size: 20px; font-weight: 600; color: #10b981; margin-bottom: 15px;">Home Imperfections</div>
+                <ul style="font-size: 18px; line-height: 1.8; color: #666;">
+                  <li>Leave dishes overnight</li>
+                  <li>Don't make the bed</li>
+                  <li>Serve cereal for dinner</li>
+                  <li>Let toys stay out</li>
+                </ul>
+                <div style="margin-top: 20px; padding: 15px; background: #d1fae5; border-radius: 10px; text-align: center;">
+                  Notice: World doesn't end
+                </div>
+              </div>
+              
+              <div style="background: white; border-radius: 20px; padding: 30px;">
+                <div style="font-size: 48px; text-align: center; margin-bottom: 20px;">👶</div>
+                <div style="font-size: 20px; font-weight: 600; color: #10b981; margin-bottom: 15px;">Parenting Imperfections</div>
+                <ul style="font-size: 18px; line-height: 1.8; color: #666;">
+                  <li>Use screen time guilt-free</li>
+                  <li>Skip the bath</li>
+                  <li>Repeat yesterday's outfit</li>
+                  <li>Say "I don't know"</li>
+                </ul>
+                <div style="margin-top: 20px; padding: 15px; background: #d1fae5; border-radius: 10px; text-align: center;">
+                  Notice: Baby still loves you
+                </div>
+              </div>
+              
+              <div style="background: white; border-radius: 20px; padding: 30px;">
+                <div style="font-size: 48px; text-align: center; margin-bottom: 20px;">💬</div>
+                <div style="font-size: 20px; font-weight: 600; color: #10b981; margin-bottom: 15px;">Social Imperfections</div>
+                <ul style="font-size: 18px; line-height: 1.8; color: #666;">
+                  <li>Show up without makeup</li>
+                  <li>Admit you're struggling</li>
+                  <li>Cancel plans last minute</li>
+                  <li>Post a real photo</li>
+                </ul>
+                <div style="margin-top: 20px; padding: 15px; background: #d1fae5; border-radius: 10px; text-align: center;">
+                  Notice: Real connections form
+                </div>
+              </div>
+              
+              <div style="background: white; border-radius: 20px; padding: 30px;">
+                <div style="font-size: 48px; text-align: center; margin-bottom: 20px;">💭</div>
+                <div style="font-size: 20px; font-weight: 600; color: #10b981; margin-bottom: 15px;">Mental Imperfections</div>
+                <ul style="font-size: 18px; line-height: 1.8; color: #666;">
+                  <li>Don't finish the to-do list</li>
+                  <li>Forget something on purpose</li>
+                  <li>Choose rest over productivity</li>
+                  <li>Think "good enough"</li>
+                </ul>
+                <div style="margin-top: 20px; padding: 15px; background: #d1fae5; border-radius: 10px; text-align: center;">
+                  Notice: Peace increases
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div style="background: #f9fafb; padding: 40px; border-radius: 30px;">
+            <div style="text-align: center;">
+              <div style="font-size: 28px; font-weight: 600; color: #374151; margin-bottom: 20px;">
+                The Science of Imperfection
+              </div>
+              <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px;">
+                <div>
+                  <div style="font-size: 36px; font-weight: bold; color: #10b981;">47%</div>
+                  <div style="font-size: 16px; color: #666;">Less anxiety after 1 week</div>
+                </div>
+                <div>
+                  <div style="font-size: 36px; font-weight: bold; color: #10b981;">62%</div>
+                  <div style="font-size: 16px; color: #666;">More present with kids</div>
+                </div>
+                <div>
+                  <div style="font-size: 36px; font-weight: bold; color: #10b981;">71%</div>
+                  <div style="font-size: 16px; color: #666;">Report feeling lighter</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `
+  },
+
+  {
+    slideNumber: 7,
+    title: "Reframing Success",
+    html: `
+      <div class="slide-container" style="background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%); color: #2d2d44; padding: 60px; display: flex; align-items: center; justify-content: center; min-height: 100vh;">
+        <div class="content-wrapper" style="max-width: 1200px; width: 100%;">
+          <h2 style="font-size: 52px; font-weight: 300; text-align: center; margin-bottom: 50px;">
+            What Success <span style="color: #6366f1; font-weight: 600;">Actually</span> Looks Like
+          </h2>
+          
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; margin-bottom: 40px;">
+            <!-- Old Definition -->
+            <div style="background: white; border-radius: 30px; padding: 40px; box-shadow: 0 20px 60px rgba(0,0,0,0.08);">
+              <div style="font-size: 32px; font-weight: 600; color: #dc2626; margin-bottom: 30px; text-align: center;">
+                ❌ Old Success
+              </div>
+              <div style="font-size: 18px; line-height: 2; color: #666;">
+                • House always clean<br/>
+                • Baby on perfect schedule<br/>
+                • Homemade everything<br/>
+                • Pre-baby body back<br/>
+                • Never asking for help<br/>
+                • Always put together<br/>
+                • Never losing patience<br/>
+                • Doing it all alone
+              </div>
+              <div style="margin-top: 30px; background: #fee2e2; padding: 20px; border-radius: 15px; text-align: center;">
+                <div style="font-size: 20px; font-weight: 600; color: #dc2626;">Result: Burnout</div>
+              </div>
+            </div>
+            
+            <!-- New Definition -->
+            <div style="background: white; border-radius: 30px; padding: 40px; box-shadow: 0 20px 60px rgba(0,0,0,0.08);">
+              <div style="font-size: 32px; font-weight: 600; color: #6366f1; margin-bottom: 30px; text-align: center;">
+                ✓ Real Success
+              </div>
+              <div style="font-size: 18px; line-height: 2; color: #666;">
+                • Everyone fed and alive<br/>
+                • Found 5 minutes for yourself<br/>
+                • Asked for help once<br/>
+                • Wore comfortable clothes<br/>
+                • Let something go<br/>
+                • Had one real conversation<br/>
+                • Showed authentic emotion<br/>
+                • Connected over perfect
+              </div>
+              <div style="margin-top: 30px; background: #e0e7ff; padding: 20px; border-radius: 15px; text-align: center;">
+                <div style="font-size: 20px; font-weight: 600; color: #6366f1;">Result: Sustainable</div>
+              </div>
+            </div>
+          </div>
+          
+          <div style="background: white; border-radius: 30px; padding: 50px; box-shadow: 0 20px 60px rgba(0,0,0,0.08);">
+            <div style="text-align: center; margin-bottom: 40px;">
+              <div style="font-size: 32px; font-weight: 600; color: #6366f1;">New Success Metrics</div>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; text-align: center;">
+              <div>
+                <div style="font-size: 64px; margin-bottom: 15px;">😊</div>
+                <div style="font-size: 20px; font-weight: 600; color: #6366f1;">Laughter</div>
+                <div style="font-size: 16px; color: #666; margin-top: 10px;">Did we laugh today?</div>
+              </div>
+              
+              <div>
+                <div style="font-size: 64px; margin-bottom: 15px;">🤗</div>
+                <div style="font-size: 20px; font-weight: 600; color: #6366f1;">Connection</div>
+                <div style="font-size: 16px; color: #666; margin-top: 10px;">Did we have a real moment?</div>
+              </div>
+              
+              <div>
+                <div style="font-size: 64px; margin-bottom: 15px;">🌟</div>
+                <div style="font-size: 20px; font-weight: 600; color: #6366f1;">Growth</div>
+                <div style="font-size: 16px; color: #666; margin-top: 10px;">Did I learn something?</div>
+              </div>
+              
+              <div>
+                <div style="font-size: 64px; margin-bottom: 15px;">💛</div>
+                <div style="font-size: 20px; font-weight: 600; color: #6366f1;">Kindness</div>
+                <div style="font-size: 16px; color: #666; margin-top: 10px;">Was I kind to myself?</div>
+              </div>
+            </div>
+            
+            <div style="margin-top: 40px; text-align: center; font-size: 22px; color: #666; line-height: 1.6;">
+              Success isn't about being perfect.<br/>
+              It's about being present.
+            </div>
+          </div>
+        </div>
+      </div>
+    `
+  },
+
+  {
+    slideNumber: 8,
+    title: "The Comparison Cure",
+    html: `
+      <div class="slide-container" style="background: white; color: #2d2d44; padding: 60px; display: flex; align-items: center; justify-content: center; min-height: 100vh;">
+        <div class="content-wrapper" style="max-width: 1200px; width: 100%;">
+          <h2 style="font-size: 52px; font-weight: 300; text-align: center; margin-bottom: 50px;">
+            Breaking the <span style="color: #e11d48; font-weight: 600;">Comparison</span> Addiction
+          </h2>
+          
+          <div style="background: #fef2f2; border-radius: 30px; padding: 50px; margin-bottom: 40px;">
+            <div style="text-align: center; margin-bottom: 40px;">
+              <div style="font-size: 32px; font-weight: 600; color: #e11d48;">The Comparison Trap</div>
+              <div style="font-size: 20px; color: #666; margin-top: 10px;">You're comparing your behind-the-scenes to everyone's highlight reel</div>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px;">
+              <div style="background: white; border-radius: 20px; padding: 30px; text-align: center;">
+                <div style="font-size: 48px; font-weight: bold; color: #e11d48;">3.7</div>
+                <div style="font-size: 18px; color: #666;">Hours daily on social media</div>
+              </div>
+              <div style="background: white; border-radius: 20px; padding: 30px; text-align: center;">
+                <div style="font-size: 48px; font-weight: bold; color: #e11d48;">147</div>
+                <div style="font-size: 18px; color: #666;">Comparisons made per day</div>
+              </div>
+              <div style="background: white; border-radius: 20px; padding: 30px; text-align: center;">
+                <div style="font-size: 48px; font-weight: bold; color: #e11d48;">89%</div>
+                <div style="font-size: 18px; color: #666;">Feel worse after comparing</div>
+              </div>
+            </div>
+          </div>
+          
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px;">
+            <div style="background: #f3f4f6; border-radius: 30px; padding: 40px;">
+              <div style="font-size: 28px; font-weight: 600; color: #374151; margin-bottom: 25px;">Digital Detox Steps</div>
+              <ol style="font-size: 18px; line-height: 2; color: #666;">
+                <li><strong>Unfollow accounts</strong> that make you feel inadequate</li>
+                <li><strong>Set time limits</strong> - 30 min max per day</li>
+                <li><strong>No scroll zones</strong> - bedroom, nursing, meals</li>
+                <li><strong>Replace with real connection</strong> - text a friend instead</li>
+                <li><strong>Follow real mothers</strong> who show the messy truth</li>
+              </ol>
+            </div>
+            
+            <div style="background: #ecfdf5; border-radius: 30px; padding: 40px;">
+              <div style="font-size: 28px; font-weight: 600; color: #065f46; margin-bottom: 25px;">Comparison Antidotes</div>
+              <div style="font-size: 18px; line-height: 2; color: #666;">
+                When you catch yourself comparing:<br/><br/>
+                1. <strong>Name it:</strong> "I'm comparing again"<br/>
+                2. <strong>Get curious:</strong> "What am I really needing?"<br/>
+                3. <strong>Celebrate someone:</strong> Turn envy into appreciation<br/>
+                4. <strong>List your wins:</strong> What went right today?<br/>
+                5. <strong>Remember:</strong> You're seeing their Act 3, not Acts 1 & 2
+              </div>
+            </div>
+          </div>
+          
+          <div style="background: linear-gradient(135deg, #10b981 0%, #34d399 100%); color: white; padding: 40px; border-radius: 30px; margin-top: 40px;">
+            <div style="text-align: center;">
+              <div style="font-size: 32px; font-weight: 600; margin-bottom: 20px;">Your Only Competition</div>
+              <div style="font-size: 24px; line-height: 1.6;">
+                Yesterday's version of you.<br/>
+                Are you kinder to yourself than yesterday?<br/>
+                That's the only metric that matters.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `
+  },
+
+  {
+    slideNumber: 9,
+    title: "Modeling Imperfection",
+    html: `
+      <div class="slide-container" style="background: linear-gradient(180deg, #fef3c7 0%, #fed7aa 100%); color: #2d2d44; padding: 60px; display: flex; align-items: center; justify-content: center; min-height: 100vh;">
+        <div class="content-wrapper" style="max-width: 1200px; width: 100%;">
+          <h2 style="font-size: 52px; font-weight: 300; text-align: center; margin-bottom: 50px;">
+            The Gift of <span style="color: #f59e0b; font-weight: 600;">Imperfect</span> Parenting
+          </h2>
+          
+          <div style="background: white; border-radius: 30px; padding: 50px; box-shadow: 0 20px 60px rgba(0,0,0,0.08); margin-bottom: 40px;">
+            <div style="text-align: center; margin-bottom: 40px;">
+              <div style="font-size: 32px; font-weight: 600; color: #f59e0b;">What Your Mistakes Teach</div>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px;">
+              <div>
+                <div style="font-size: 24px; font-weight: 600; color: #d97706; margin-bottom: 20px;">When You Mess Up & Repair:</div>
+                <div style="font-size: 18px; line-height: 1.8; color: #666;">
+                  Your child learns:<br/>
+                  ✓ Everyone makes mistakes<br/>
+                  ✓ Mistakes can be fixed<br/>
+                  ✓ Love survives imperfection<br/>
+                  ✓ Apologizing is strength<br/>
+                  ✓ They don't need to be perfect<br/>
+                  ✓ Emotions are manageable
+                </div>
+              </div>
+              
+              <div>
+                <div style="font-size: 24px; font-weight: 600; color: #d97706; margin-bottom: 20px;">The Repair Process:</div>
+                <div style="background: #fef3c7; padding: 25px; border-radius: 15px;">
+                  <ol style="font-size: 18px; line-height: 2; color: #666; margin: 0;">
+                    <li>"I'm sorry I yelled"</li>
+                    <li>"I was feeling overwhelmed"</li>
+                    <li>"That wasn't about you"</li>
+                    <li>"I love you no matter what"</li>
+                    <li>"Let's try again"</li>
+                  </ol>
+                </div>
+                <div style="margin-top: 20px; text-align: center; font-size: 20px; font-weight: 600; color: #f59e0b;">
+                  Repair > Perfect
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-bottom: 40px;">
+            <div style="background: white; border-radius: 20px; padding: 30px; text-align: center;">
+              <div style="font-size: 64px; font-weight: bold; color: #f59e0b;">93%</div>
+              <div style="font-size: 18px; color: #666;">of secure attachment comes from repair, not perfection</div>
+            </div>
+            
+            <div style="background: white; border-radius: 20px; padding: 30px; text-align: center;">
+              <div style="font-size: 64px; font-weight: bold; color: #dc2626;">2.1x</div>
+              <div style="font-size: 18px; color: #666;">more resilient when they see you overcome struggles</div>
+            </div>
+            
+            <div style="background: white; border-radius: 20px; padding: 30px; text-align: center;">
+              <div style="font-size: 64px; font-weight: bold; color: #7c3aed;">84%</div>
+              <div style="font-size: 18px; color: #666;">less likely to develop perfectionism themselves</div>
+            </div>
+          </div>
+          
+          <div style="background: #fffbeb; border-radius: 30px; padding: 40px;">
+            <div style="text-align: center;">
+              <div style="font-size: 28px; font-weight: 600; color: #92400e; margin-bottom: 20px;">
+                Permission Slips for Your Child
+              </div>
+              <div style="font-size: 20px; color: #666; line-height: 1.8;">
+                Every time you're imperfect, you write them a permission slip:<br/><br/>
+                "You have permission to be human"<br/>
+                "You have permission to struggle"<br/>
+                "You have permission to need help"<br/>
+                "You have permission to not know"<br/>
+                "You have permission to be yourself"
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `
+  },
+
+  {
+    slideNumber: 10,
+    title: "Your Imperfection Plan",
+    html: `
+      <div class="slide-container" style="background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%); color: white; padding: 60px; display: flex; align-items: center; justify-content: center; min-height: 100vh;">
+        <div class="content-wrapper" style="max-width: 1200px; width: 100%;">
+          <h2 style="font-size: 56px; font-weight: 300; text-align: center; margin-bottom: 50px;">
+            Your <span style="font-weight: 600;">Good Enough</span> Game Plan
+          </h2>
+          
+          <div style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border-radius: 30px; padding: 50px;">
+            <div style="text-align: center; margin-bottom: 40px;">
+              <div style="font-size: 32px; font-weight: 600;">This Week's Challenge</div>
+              <div style="font-size: 20px; opacity: 0.9; margin-top: 10px;">Embrace the 70% Rule</div>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-bottom: 40px;">
+              <div style="background: rgba(255,255,255,0.1); padding: 30px; border-radius: 20px; text-align: center;">
+                <div style="font-size: 48px; margin-bottom: 20px;">📝</div>
+                <div style="font-size: 24px; font-weight: 600; margin-bottom: 15px;">Day 1-2</div>
+                <div style="font-size: 18px; line-height: 1.6;">
+                  Write your "good enough" list<br/>
+                  What's actually essential?<br/>
+                  Cross off 30%<br/>
+                  <div style="margin-top: 15px; padding: 10px; background: rgba(255,255,255,0.1); border-radius: 10px;">
+                    Less is more
+                  </div>
+                </div>
+              </div>
+              
+              <div style="background: rgba(255,255,255,0.1); padding: 30px; border-radius: 20px; text-align: center;">
+                <div style="font-size: 48px; margin-bottom: 20px;">🎯</div>
+                <div style="font-size: 24px; font-weight: 600; margin-bottom: 15px;">Day 3-4</div>
+                <div style="font-size: 18px; line-height: 1.6;">
+                  Practice one imperfection<br/>
+                  Leave something undone<br/>
+                  ON PURPOSE<br/>
+                  <div style="margin-top: 15px; padding: 10px; background: rgba(255,255,255,0.1); border-radius: 10px;">
+                    Notice the freedom
+                  </div>
+                </div>
+              </div>
+              
+              <div style="background: rgba(255,255,255,0.1); padding: 30px; border-radius: 20px; text-align: center;">
+                <div style="font-size: 48px; margin-bottom: 20px;">💪</div>
+                <div style="font-size: 24px; font-weight: 600; margin-bottom: 15px;">Day 5-7</div>
+                <div style="font-size: 18px; line-height: 1.6;">
+                  Share an imperfection<br/>
+                  Tell someone you trust<br/>
+                  "I'm struggling with..."<br/>
+                  <div style="margin-top: 15px; padding: 10px; background: rgba(255,255,255,0.1); border-radius: 10px;">
+                    Watch connection grow
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div style="background: rgba(255,255,255,0.2); padding: 40px; border-radius: 20px;">
+              <div style="font-size: 28px; font-weight: 600; text-align: center; margin-bottom: 30px;">
+                Your New Mantras
+              </div>
+              
+              <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; font-size: 20px; text-align: center;">
+                <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 15px;">
+                  "Done is better than perfect"
+                </div>
+                <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 15px;">
+                  "Good enough IS good enough"
+                </div>
+                <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 15px;">
+                  "Progress over perfection"
+                </div>
+                <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 15px;">
+                  "I choose presence over perfect"
+                </div>
+              </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 40px;">
+              <div style="font-size: 24px; font-weight: 600; margin-bottom: 20px;">
+                Remember: Your child needs your presence, not your perfection
+              </div>
+              <div style="font-size: 20px; opacity: 0.9;">
+                Every time you choose "good enough," you choose connection over performance.<br/>
+                That's not settling. That's wisdom.<br/><br/>
+                <strong>Start today. Be beautifully, powerfully imperfect.</strong>
+              </div>
+            </div>
+          </div>
+          
+          <div style="text-align: center; margin-top: 30px; font-size: 18px; opacity: 0.8;">
+            Based on research by Dr. Brené Brown, Dr. Donald Winnicott, and the Good Enough Parent Institute
+          </div>
+        </div>
+      </div>
+    `
+  }
+];
+
+// Create the HTML file with all slides
+const createWeek2Lesson2Slides = () => {
+  const slidesHtml = week2Lesson2Slides
+    .map(slide => slide.html)
+    .join('\n<!-- SLIDE -->\n');
+    
+  const outputPath = path.join(__dirname, '..', 'course-materials', 'week2-lesson2-slides.html');
+  
+  // Ensure directory exists
+  const dir = path.dirname(outputPath);
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir, { recursive: true });
+  }
+  
+  fs.writeFileSync(outputPath, slidesHtml);
+  console.log('Created Week 2, Lesson 2: Releasing Perfectionism slides!');
+  console.log(`Output: ${outputPath}`);
+  console.log(`Total slides: ${week2Lesson2Slides.length}`);
+};
+
+// Run the script
+createWeek2Lesson2Slides();

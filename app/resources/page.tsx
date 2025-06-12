@@ -6,7 +6,6 @@ import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import Button from '@/components/ui/Button';
 import NewsletterSignup from '@/components/ui/NewsletterSignup';
-import GardenResourceCard from '@/components/ui/GardenResourceCard';
 
 export default function ResourcesPage() {
   const [activeCategory, setActiveCategory] = useState('all');
@@ -50,7 +49,7 @@ export default function ResourcesPage() {
       title: 'Grounding Techniques',
       description: 'Manage anxiety with proven grounding exercises',
       type: 'Video Series',
-      icon: '🌱',
+      icon: '🧘',
       link: '/resources/grounding-techniques'
     },
     // For Partners
@@ -128,35 +127,8 @@ export default function ResourcesPage() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Hero Section - Resource Garden */}
+      {/* Hero Section */}
       <section className="relative py-20 bg-gradient-to-br from-bloom-sage-50/20 via-white to-bloom-pink-50/10 overflow-hidden">
-        {/* Garden lattice pattern */}
-        <div className="absolute inset-0 opacity-5">
-          <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-            <defs>
-              <pattern id="lattice" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
-                <path d="M0,5 L10,5 M5,0 L5,10" stroke="currentColor" strokeWidth="0.5" className="text-bloom-sage"/>
-              </pattern>
-            </defs>
-            <rect width="100" height="100" fill="url(#lattice)" />
-          </svg>
-        </div>
-        
-        {/* Floating elements */}
-        <motion.div
-          animate={{ y: [0, -30, 0], rotate: [0, 180, 360] }}
-          transition={{ duration: 20, repeat: Infinity }}
-          className="absolute top-20 right-20 text-4xl opacity-20"
-        >
-          🌿
-        </motion.div>
-        <motion.div
-          animate={{ y: [0, -20, 0] }}
-          transition={{ duration: 15, repeat: Infinity, delay: 5 }}
-          className="absolute bottom-20 left-40 text-3xl opacity-20"
-        >
-          🌱
-        </motion.div>
         
         <div className="container mx-auto px-4 text-center relative">
           <motion.h1 
@@ -168,18 +140,8 @@ export default function ResourcesPage() {
             Free <span className="text-bloompink">Resources</span>
           </motion.h1>
           
-          {/* Decorative divider */}
-          <div className="flex items-center justify-center gap-4 mb-6">
-            <div className="w-16 h-0.5 bg-gradient-to-r from-transparent to-bloom-sage/30 rounded-full"></div>
-            <motion.span
-              animate={{ rotate: 360 }}
-              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-              className="text-2xl"
-            >
-              🌻
-            </motion.span>
-            <div className="w-16 h-0.5 bg-gradient-to-l from-transparent to-bloom-sage/30 rounded-full"></div>
-          </div>
+          {/* Professional divider */}
+          <div className="w-32 h-0.5 bg-bloom-sage/20 rounded-full mx-auto mb-6"></div>
           
           <motion.p 
             className="text-lg md:text-xl text-bloom max-w-3xl mx-auto mb-8"
@@ -201,7 +163,7 @@ export default function ResourcesPage() {
         </div>
       </section>
 
-      {/* Category Filter - Garden Sections */}
+      {/* Category Filter */}
       <section className="py-8 bg-gradient-to-b from-white to-gray-50/50 sticky top-[120px] z-40 shadow-sm">
         <div className="container mx-auto px-4">
           <p className="text-center text-sm text-bloom/60 mb-4">Filter by category:</p>
@@ -233,18 +195,8 @@ export default function ResourcesPage() {
         </div>
       </section>
 
-      {/* Resources Grid - Tool Collection */}
+      {/* Resources Grid */}
       <section id="resources" className="py-16 bg-white relative overflow-hidden">
-        {/* Subtle garden bed texture */}
-        <div className="absolute inset-0 opacity-[0.02]">
-          <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-            <pattern id="garden-bed" x="0" y="0" width="4" height="4" patternUnits="userSpaceOnUse">
-              <circle cx="1" cy="1" r="0.5" fill="#7A8B7F" />
-              <circle cx="3" cy="3" r="0.3" fill="#8B7355" />
-            </pattern>
-            <rect width="100" height="100" fill="url(#garden-bed)" />
-          </svg>
-        </div>
         
         <div className="container mx-auto px-4 relative">
           <AnimatePresence mode="wait">
@@ -257,28 +209,51 @@ export default function ResourcesPage() {
               className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto"
             >
               {filteredResources.map((resource, index) => (
-                <GardenResourceCard 
+                <motion.div
                   key={index}
-                  resource={resource}
-                  index={index}
-                />
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  whileHover={{ y: -5, scale: 1.02 }}
+                >
+                  <Link href={resource.link} className="block h-full">
+                    <div className="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-all border border-gray-100 h-full flex flex-col">
+                      <div className="flex items-start justify-between mb-4">
+                        <div className="w-12 h-12 bg-bloom-sage-50 rounded-lg flex items-center justify-center">
+                          <span className="text-2xl">{resource.icon}</span>
+                        </div>
+                        <span className="text-sm text-bloom-sage font-medium px-3 py-1 bg-bloom-sage-50 rounded-full">
+                          {resource.type}
+                        </span>
+                      </div>
+                      <h3 className="text-xl font-semibold text-bloom-dark mb-2">
+                        {resource.title}
+                      </h3>
+                      <p className="text-bloom flex-grow mb-4">
+                        {resource.description}
+                      </p>
+                      <div className="flex items-center text-bloom-sage font-medium group">
+                        <span>Download</span>
+                        <svg 
+                          className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" 
+                          fill="none" 
+                          stroke="currentColor" 
+                          viewBox="0 0 24 24"
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </div>
+                    </div>
+                  </Link>
+                </motion.div>
               ))}
             </motion.div>
           </AnimatePresence>
         </div>
       </section>
 
-      {/* Featured Resources - Garden Favorites */}
+      {/* Featured Resources */}
       <section className="py-16 bg-gradient-to-br from-bloom-sage-50/10 to-white relative overflow-hidden">
-        {/* Decorative vines */}
-        <svg className="absolute left-0 top-0 h-full w-32 opacity-5" viewBox="0 0 100 500" preserveAspectRatio="none">
-          <path d="M50,0 Q30,50 50,100 T50,200 T50,300 T50,400 T50,500" 
-                stroke="currentColor" strokeWidth="2" fill="none" className="text-bloom-sage"/>
-        </svg>
-        <svg className="absolute right-0 top-0 h-full w-32 opacity-5 scale-x-[-1]" viewBox="0 0 100 500" preserveAspectRatio="none">
-          <path d="M50,0 Q30,50 50,100 T50,200 T50,300 T50,400 T50,500" 
-                stroke="currentColor" strokeWidth="2" fill="none" className="text-bloom-sage"/>
-        </svg>
         
         <div className="container mx-auto px-4 relative">
           <motion.h2 
@@ -298,13 +273,9 @@ export default function ResourcesPage() {
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
             >
-              <motion.div 
-                className="w-16 h-16 bg-bloom-pink-100 rounded-full flex items-center justify-center mx-auto mb-4"
-                whileHover={{ rotate: [0, 10, -10, 0] }}
-                transition={{ duration: 0.5 }}
-              >
-                <span className="text-2xl">🌸</span>
-              </motion.div>
+              <div className="w-16 h-16 bg-bloom-pink-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl">📋</span>
+              </div>
               <h3 className="text-xl font-semibold text-bloom-dark mb-2">
                 Postpartum Checklist
               </h3>
@@ -324,13 +295,9 @@ export default function ResourcesPage() {
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
             >
-              <motion.div 
-                className="w-16 h-16 bg-bloom-sage-100 rounded-full flex items-center justify-center mx-auto mb-4"
-                whileHover={{ rotate: [0, 10, -10, 0] }}
-                transition={{ duration: 0.5 }}
-              >
-                <span className="text-2xl">🌱</span>
-              </motion.div>
+              <div className="w-16 h-16 bg-bloom-sage-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl">⭐</span>
+              </div>
               <h3 className="text-xl font-semibold text-bloom-dark mb-2">
                 Self-Care Assessment
               </h3>
@@ -350,13 +317,9 @@ export default function ResourcesPage() {
               viewport={{ once: true }}
               transition={{ delay: 0.3 }}
             >
-              <motion.div 
-                className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4"
-                whileHover={{ rotate: [0, 10, -10, 0] }}
-                transition={{ duration: 0.5 }}
-              >
-                <span className="text-2xl">🌹</span>
-              </motion.div>
+              <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl">💬</span>
+              </div>
               <h3 className="text-xl font-semibold text-bloom-dark mb-2">
                 Partner Communication
               </h3>
@@ -371,10 +334,8 @@ export default function ResourcesPage() {
         </div>
       </section>
 
-      {/* Additional Support - Greenhouse Services */}
+      {/* Additional Support */}
       <section className="py-16 bg-white relative overflow-hidden">
-        {/* Subtle greenhouse glass effect */}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/5 to-white/10 pointer-events-none"></div>
         
         <div className="container mx-auto px-4 relative">
           <div className="max-w-4xl mx-auto text-center">
@@ -437,7 +398,7 @@ export default function ResourcesPage() {
         </div>
       </section>
 
-      {/* Newsletter Section - Garden Updates */}
+      {/* Newsletter Section */}
       <section className="py-16 bg-gradient-to-b from-gray-50 to-white">
         <div className="container mx-auto px-4">
           <NewsletterSignup 

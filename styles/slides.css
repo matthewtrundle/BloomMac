@@ -1,0 +1,357 @@
+/* Course Slides CSS - Bloom Postpartum Wellness */
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  line-height: 1.6;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background: #f8fafc;
+  color: #1e293b;
+}
+
+/* Slide deck container */
+.slide-deck {
+  max-width: 100vw;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* Individual slide container */
+.slide-container {
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  position: relative;
+  scroll-snap-align: start;
+}
+
+/* Content wrapper for max-width control */
+.content-wrapper {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Slide number indicator */
+.slide-number {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 18px;
+  font-weight: 300;
+  opacity: 0.6;
+  z-index: 10;
+}
+
+/* Typography hierarchy */
+h1 {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 300;
+  margin-bottom: 2rem;
+  letter-spacing: -2px;
+  line-height: 1.1;
+}
+
+h2 {
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  font-weight: 300;
+  margin-bottom: 2rem;
+  letter-spacing: -1px;
+  line-height: 1.2;
+}
+
+h3 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+h4 {
+  font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+/* Grid layouts */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin: 3rem 0;
+}
+
+.three-col-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.two-col-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 2rem;
+}
+
+.four-col-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Stat cards */
+.stat-card {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 1.5rem;
+  padding: 2rem;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.stat-number {
+  font-size: clamp(3rem, 6vw, 4.5rem);
+  font-weight: bold;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.stat-label {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.stat-description {
+  font-size: 1rem;
+  opacity: 0.8;
+}
+
+/* Content cards */
+.content-card {
+  background: white;
+  border-radius: 1.5rem;
+  padding: 2rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.content-card-colored {
+  border-radius: 1.5rem;
+  padding: 2rem;
+}
+
+/* Quote/highlight box */
+.highlight-box {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 1.25rem;
+  padding: 2rem;
+  text-align: center;
+  margin: 2rem 0;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Script/example boxes */
+.script-box {
+  background: white;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin: 1rem 0;
+  border-left: 4px solid var(--accent-color, #6366f1);
+}
+
+/* Button styles */
+.btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: #6366f1;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #4f46e5;
+  transform: translateY(-1px);
+}
+
+/* Icon placeholders */
+.icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .slide-container {
+    padding: 1rem;
+  }
+  
+  .content-wrapper {
+    padding: 0 1rem;
+  }
+  
+  .stats-grid,
+  .three-col-grid,
+  .two-col-grid,
+  .four-col-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .stat-card,
+  .content-card,
+  .content-card-colored {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .slide-container {
+    padding: 0.5rem;
+  }
+  
+  h1 {
+    font-size: 2rem;
+  }
+  
+  h2 {
+    font-size: 1.75rem;
+  }
+  
+  .stat-number {
+    font-size: 2.5rem;
+  }
+}
+
+/* Color scheme variables */
+:root {
+  --primary-blue: #3b82f6;
+  --primary-purple: #7c3aed;
+  --primary-pink: #ec4899;
+  --primary-green: #16a34a;
+  --primary-yellow: #f59e0b;
+  --primary-red: #dc2626;
+  
+  --bg-light-blue: #eff6ff;
+  --bg-light-purple: #faf5ff;
+  --bg-light-pink: #fce7f3;
+  --bg-light-green: #f0fdf4;
+  --bg-light-yellow: #fef3c7;
+  --bg-light-red: #fee2e2;
+  
+  --text-dark: #1e293b;
+  --text-medium: #475569;
+  --text-light: #64748b;
+}
+
+/* Theme-specific gradients */
+.gradient-blue {
+  background: linear-gradient(135deg, var(--primary-blue) 0%, #2563eb 100%);
+  color: white;
+}
+
+.gradient-purple {
+  background: linear-gradient(135deg, var(--primary-purple) 0%, #6b21a8 100%);
+  color: white;
+}
+
+.gradient-pink {
+  background: linear-gradient(135deg, var(--primary-pink) 0%, #db2777 100%);
+  color: white;
+}
+
+.gradient-green {
+  background: linear-gradient(135deg, var(--primary-green) 0%, #059669 100%);
+  color: white;
+}
+
+.gradient-yellow {
+  background: linear-gradient(135deg, var(--primary-yellow) 0%, #fbbf24 100%);
+  color: var(--text-dark);
+}
+
+.gradient-red {
+  background: linear-gradient(135deg, var(--primary-red) 0%, #ef4444 100%);
+  color: white;
+}
+
+/* Additional slide elements */
+.highlight-title {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.highlight-text {
+  font-size: 22px;
+  line-height: 1.6;
+}
+
+/* Navigation */
+.slide-nav {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 1rem;
+  z-index: 100;
+}
+
+.nav-btn {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.nav-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+}
+
+/* Print styles */
+@media print {
+  .slide-container {
+    page-break-after: always;
+    min-height: auto;
+    padding: 2rem;
+  }
+  
+  .slide-number {
+    display: none;
+  }
+  
+  .slide-nav {
+    display: none;
+  }
+  
+  * {
+    background: white !important;
+    color: black !important;
+  }
+}
