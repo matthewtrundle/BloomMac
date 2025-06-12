@@ -357,38 +357,8 @@ export default function CourseDetailPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-bloom-sage-50 via-white to-bloom-pink-50">
-      {/* Hero Section with Garden Theme */}
+      {/* Hero Section - Professional */}
       <section className="relative py-20 overflow-hidden">
-        {/* Garden lattice pattern background */}
-        <div className="absolute inset-0 opacity-5">
-          <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-            <defs>
-              <pattern id="course-detail-lattice" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
-                <path d="M0,5 L10,5 M5,0 L5,10" stroke="currentColor" strokeWidth="0.5" className="text-bloom-sage"/>
-              </pattern>
-            </defs>
-            <rect width="100" height="100" fill="url(#course-detail-lattice)" />
-          </svg>
-        </div>
-        
-        {/* Floating garden elements */}
-        <div className="absolute inset-0 pointer-events-none">
-          <motion.div
-            animate={{ y: [0, -30, 0], rotate: [0, 180, 360] }}
-            transition={{ duration: 25, repeat: Infinity }}
-            className="absolute top-20 right-20 w-3 h-3 bg-pink-300 rounded-full opacity-20"
-          />
-          <motion.div
-            animate={{ y: [0, -25, 0] }}
-            transition={{ duration: 20, repeat: Infinity, delay: 7 }}
-            className="absolute bottom-32 left-20 w-2 h-2 bg-bloom-sage/30 rounded-full"
-          />
-          <motion.div
-            animate={{ y: [0, -20, 0] }}
-            transition={{ duration: 22, repeat: Infinity, delay: 12 }}
-            className="absolute top-1/2 right-1/4 w-4 h-4 bg-yellow-300 rounded-full opacity-15"
-          />
-        </div>
         
         <div className="absolute inset-0 opacity-10">
           <Image
@@ -410,18 +380,8 @@ export default function CourseDetailPage() {
                 {course.title}
               </h1>
               
-              {/* Decorative flower divider */}
-              <div className="flex items-center justify-center gap-4 mb-6">
-                <div className="w-16 h-0.5 bg-gradient-to-r from-transparent to-bloom-sage/30 rounded-full"></div>
-                <Image 
-                  src="/images/flower no stem.svg" 
-                  alt="" 
-                  width={24} 
-                  height={24} 
-                  className="opacity-50"
-                />
-                <div className="w-16 h-0.5 bg-gradient-to-l from-transparent to-bloom-sage/30 rounded-full"></div>
-              </div>
+              {/* Professional divider */}
+              <div className="w-24 h-0.5 bg-[#f8b5c4] mx-auto mb-6"></div>
               
               <p className="text-xl text-bloom-dark/80 mb-8">{course.subtitle}</p>
               
@@ -453,14 +413,17 @@ export default function CourseDetailPage() {
                     <span className="text-xl text-bloom-dark/40 line-through">${course.originalPrice}</span>
                   )}
                 </div>
-                <CoursePurchaseButton
-                  courseId={course.id}
-                  courseName={course.title}
-                  price={course.price * 100}
-                  originalPrice={course.originalPrice ? course.originalPrice * 100 : undefined}
-                  size="lg"
-                  variant="primary"
-                />
+                <div>
+                  <button
+                    disabled
+                    className="px-8 py-3 rounded-lg font-medium bg-gray-100 text-gray-500 cursor-not-allowed"
+                  >
+                    Coming Soon
+                  </button>
+                  <p className="text-xs text-center mt-2 text-bloom-dark/60">
+                    Launching July 2025
+                  </p>
+                </div>
               </div>
             </motion.div>
           </div>
