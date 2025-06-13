@@ -510,14 +510,17 @@ export default function CourseDetailPage() {
                           <span className="text-xl text-bloom-dark/40 line-through">${course.originalPrice}</span>
                         )}
                       </div>
-                      <Button 
-                        href={`/checkout?course=${course.id}`} 
-                        variant={course.id === 'partner-support-bootcamp' ? 'outline' : 'pink'} 
-                        size="lg" 
-                        className="w-full mb-4"
-                      >
-                        Enroll Now
-                      </Button>
+                      <div className="w-full">
+                        <button
+                          disabled
+                          className="w-full py-3 rounded-lg font-medium bg-gray-100 text-gray-500 cursor-not-allowed mb-4"
+                        >
+                          Coming Soon
+                        </button>
+                        <p className="text-xs text-center text-bloom-dark/60">
+                          Launching July 2025
+                        </p>
+                      </div>
                     </div>
                     
                     <div className="border-t pt-6">
@@ -558,18 +561,8 @@ export default function CourseDetailPage() {
             >
               <h2 className="text-3xl font-playfair mb-6 text-center">Course Curriculum</h2>
               
-              {/* Decorative flower divider */}
-              <div className="flex items-center justify-center gap-4 mb-8">
-                <div className="w-16 h-0.5 bg-gradient-to-r from-transparent to-bloom-sage/30 rounded-full"></div>
-                <Image 
-                  src="/images/flower no stem.svg" 
-                  alt="" 
-                  width={20} 
-                  height={20} 
-                  className="opacity-50"
-                />
-                <div className="w-16 h-0.5 bg-gradient-to-l from-transparent to-bloom-sage/30 rounded-full"></div>
-              </div>
+              {/* Professional divider */}
+              <div className="w-24 h-0.5 bg-[#f8b5c4] mx-auto mb-8"></div>
               
               <div className="max-w-3xl mx-auto">
                 {course.curriculum.map((week: any, index: number) => (
@@ -662,35 +655,19 @@ export default function CourseDetailPage() {
         </div>
       </section>
 
-      {/* FAQ Section with Garden Theme */}
+      {/* FAQ Section */}
       {course.faq && (
-        <section className="py-16 bg-white/80 relative overflow-hidden">
-          {/* Decorative vine pattern */}
-          <svg className="absolute right-0 top-0 h-full w-32 opacity-5" viewBox="0 0 100 500" preserveAspectRatio="none">
-            <path d="M50,0 Q70,50 50,100 T50,200 T50,300 T50,400 T50,500" 
-                  stroke="currentColor" strokeWidth="2" fill="none" className="text-bloom-sage"/>
-          </svg>
-          
+        <section className="py-16 bg-gradient-to-b from-white to-bloom-sage-50/10 relative overflow-hidden">
           <div className="container mx-auto px-6 max-w-3xl relative z-10">
             <h2 className="text-3xl font-playfair text-center mb-6">Frequently Asked Questions</h2>
             
-            {/* Decorative flower divider */}
-            <div className="flex items-center justify-center gap-4 mb-8">
-              <div className="w-16 h-0.5 bg-gradient-to-r from-transparent to-bloom-sage/30 rounded-full"></div>
-              <Image 
-                src="/images/flower no stem.svg" 
-                alt="" 
-                width={20} 
-                height={20} 
-                className="opacity-50"
-              />
-              <div className="w-16 h-0.5 bg-gradient-to-l from-transparent to-bloom-sage/30 rounded-full"></div>
-            </div>
+            {/* Professional divider */}
+            <div className="w-24 h-0.5 bg-[#f8b5c4] mx-auto mb-8"></div>
             <div className="space-y-4">
               {course.faq.map((item: any, index: number) => (
                 <motion.details 
                   key={index} 
-                  className="bg-gradient-to-br from-white to-bloom-sage-50/20 border border-bloom-sage/10 p-6 rounded-xl shadow-soft group hover:shadow-lg transition-all duration-300"
+                  className="bg-white p-6 rounded-xl shadow-lg border border-bloom-sage/10 group hover:shadow-xl transition-all duration-300"
                   initial={{ opacity: 0, y: 10 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4, delay: index * 0.1 }}
@@ -710,25 +687,8 @@ export default function CourseDetailPage() {
         </section>
       )}
 
-      {/* CTA Section with Garden Theme */}
-      <section className="py-20 relative overflow-hidden">
-        {/* Animated garden elements */}
-        <div className="absolute inset-0 pointer-events-none">
-          <motion.div
-            animate={{ scale: [1, 1.2, 1], rotate: [0, 180, 360] }}
-            transition={{ duration: 25, repeat: Infinity }}
-            className="absolute top-10 right-10 text-6xl opacity-10"
-          >
-            🌻
-          </motion.div>
-          <motion.div
-            animate={{ scale: [1, 1.1, 1] }}
-            transition={{ duration: 20, repeat: Infinity, delay: 8 }}
-            className="absolute bottom-20 left-20 text-5xl opacity-10"
-          >
-            🌿
-          </motion.div>
-        </div>
+      {/* CTA Section */}
+      <section className="py-20 bg-gradient-to-br from-bloom-sage-50/10 to-bloom-pink-50/10 relative overflow-hidden">
         
         <div className="container mx-auto px-6 text-center relative z-10">
           <div className="max-w-3xl mx-auto bg-gradient-to-r from-bloompink to-pink-400 rounded-2xl p-12 text-white shadow-2xl">
@@ -745,13 +705,17 @@ export default function CourseDetailPage() {
                 <span className="text-2xl opacity-70 line-through">${course.originalPrice}</span>
               )}
             </div>
-            <Button 
-              href={`/checkout?course=${course.id}`} 
-              variant={course.id === 'partner-support-bootcamp' ? 'outline-white' : 'white'} 
-              size="lg"
-            >
-              Enroll Now
-            </Button>
+            <div>
+              <button
+                disabled
+                className="px-8 py-3 rounded-lg font-medium bg-white/20 text-white border border-white/30 cursor-not-allowed"
+              >
+                Coming Soon
+              </button>
+              <p className="text-sm mt-2 opacity-70">
+                Launching July 2025
+              </p>
+            </div>
           </div>
         </div>
       </section>
