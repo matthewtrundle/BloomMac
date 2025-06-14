@@ -356,17 +356,12 @@ export default function CourseDetailPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-bloom-sage-50 via-white to-bloom-pink-50">
+    <div className="min-h-screen bg-white">
       {/* Hero Section - Professional */}
-      <section className="relative py-20 overflow-hidden">
-        
-        <div className="absolute inset-0 opacity-10">
-          <Image
-            src={course.image}
-            alt={course.title}
-            fill
-            className="object-cover"
-          />
+      <section className="relative py-20 bg-gradient-to-br from-bloom-sage-50/10 via-white to-bloom-pink-50/10 overflow-hidden">
+        <div className="absolute inset-0">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-bloom-pink-50/20 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-bloom-sage-50/20 rounded-full blur-3xl"></div>
         </div>
         
         <div className="container mx-auto px-6 relative z-10">
