@@ -18,7 +18,42 @@ export default function LessonPage() {
   const { lesson, loading, error } = useCourseContent(courseSlug, weekNumber, lessonNumber);
 
   // Parse HTML slides content
-  const slides = lesson?.slides_html ? lesson.slides_html.split('<!-- SLIDE -->').filter(Boolean) : [];
+  let slides: string[] = [];
+  let extractedStyles = '';
+  
+  if (lesson?.slides_html) {
+    const html = lesson.slides_html;
+    
+    // Check if it's a full HTML document or just slide fragments
+    if (html.includes('<!DOCTYPE')) {
+      // Extract styles from head
+      const styleMatch = html.match(/<style[^>]*>([\s\S]*?)<\/style>/i);
+      if (styleMatch) {
+        extractedStyles = `<style>${styleMatch[1]}</style>`;
+      }
+      
+      // Extract body content
+      const bodyMatch = html.match(/<body[^>]*>([\s\S]*)<\/body>/i);
+      const bodyContent = bodyMatch ? bodyMatch[1] : html;
+      
+      // Split by slide separator and clean up
+      slides = bodyContent
+        .split('<!-- SLIDE -->')
+        .map(slide => slide.trim())
+        .filter(slide => slide.length > 0);
+      
+      // Prepend styles to each slide to ensure consistent styling
+      if (extractedStyles) {
+        slides = slides.map(slide => extractedStyles + '\n' + slide);
+      }
+    } else {
+      // Direct slide format (no HTML wrapper)
+      slides = html
+        .split('<!-- SLIDE -->')
+        .map(slide => slide.trim())
+        .filter(slide => slide.length > 0);
+    }
+  }
 
   if (loading) {
     return (
