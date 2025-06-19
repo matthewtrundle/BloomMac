@@ -1,8 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next';
+import { supabaseAdmin } from '../../lib/supabase';
 
-// Hardcoded list of available images to avoid filesystem access in production
-// This prevents the serverless function from bundling all image files
-const availableImages = [
+// Hardcoded list of available images in the public folder
+const publicImages = [
   // Hero images
   '/images/Hero/Hero.png',
   '/images/Hero/Hero2.png',
@@ -32,6 +32,7 @@ const availableImages = [
   
   // Team images
   '/images/Team/Jana Rundle.jpg',
+  '/images/Team/jana10.png',
   
   // Logo images
   '/images/Logo/logo.jpg',
@@ -118,7 +119,6 @@ const availableImages = [
   '/images/biff01_imagine_woman_writing_in_journal_therapy_workbook_peac_7f6a2636-e20e-44c3-9edf-8de89e48ffc7_2.png',
   '/images/biff01_imagine_young_mother_studying_while_baby_sleeps_textbo_d12d0e2f-62fb-47b7-a94d-41c71540baf5_0.png',
   '/images/biff01_imagine_young_mother_studying_while_baby_sleeps_textbo_dd1e3c54-b3dc-4365-91df-eb056f7834db_0.png',
-  '/images/Team/jana10.png',
   
   // Virtual therapy images
   '/images/virtualimages/biff01_imagine_Dallas_suburban_home_with_mother_on_video_ther_b5f37bdb-aa66-4513-9461-f1fe95a1fee3_2.png',
@@ -201,13 +201,55 @@ const availableImages = [
   '/images/biff01_tired_mother_sitting_outside_toddlers_bedroom_door_sof_d146b6b9-0e21-4f9c-875b-2f40a32575bb_3.png'
 ];
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'GET') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  res.status(200).json({ 
-    images: availableImages,
-    count: availableImages.length 
-  });
+  try {
+    // Fetch images from Supabase storage
+    const { data: supabaseImages, error } = await supabaseAdmin.storage
+      .from('blog-images')
+      .list('', {
+        limit: 1000,
+        offset: 0
+      });
+
+    let allImages = [...publicImages];
+
+    if (!error && supabaseImages) {
+      // Add Supabase storage URLs
+      const supabaseUrls = supabaseImages
+        .filter(file => file.name && !file.name.startsWith('.'))
+        .map(file => {
+          const { data: { publicUrl } } = supabaseAdmin.storage
+            .from('blog-images')
+            .getPublicUrl(file.name);
+          return publicUrl;
+        });
+      
+      allImages = [...allImages, ...supabaseUrls];
+    }
+
+    // Remove duplicates and sort
+    const uniqueImages = Array.from(new Set(allImages)).sort();
+
+    res.status(200).json({ 
+      images: uniqueImages,
+      count: uniqueImages.length,
+      publicCount: publicImages.length,
+      supabaseCount: uniqueImages.length - publicImages.length
+    });
+  } catch (error) {
+    console.error('Error fetching images:', error);
+    
+    // Fallback to just public images if there's an error
+    res.status(200).json({ 
+      images: publicImages,
+      count: publicImages.length,
+      publicCount: publicImages.length,
+      supabaseCount: 0,
+      error: 'Failed to fetch Supabase images, showing only public images'
+    });
+  }
 }

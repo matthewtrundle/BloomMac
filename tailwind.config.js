@@ -11,11 +11,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        bloompink: "#C6478A",
+        bloompink: "#f8b5c4",
         bloom: {
-          DEFAULT: '#2C3E50',
+          DEFAULT: '#1e3a5f',
           accent: '#A3D8F4',
-          blush: '#F4C2C2',
+          blush: '#f8b5c4',
           grey: '#C8C0BB',
           darkGrey: '#7A6F6A',
           // Course slide colors

@@ -63,7 +63,28 @@ export default function FAQPage() {
       questions: [
         {
           question: 'Do you accept insurance for therapy?',
-          answer: 'We are an "out-of-network provider." We can help you apply for out-of-network benefits and provide a "Super Bill" for insurance reimbursement.'
+          answer: (
+            <div className="space-y-4">
+              <p>
+                We are an out-of-network provider, which means we don't bill insurance directly. However, many PPO insurance plans include out-of-network benefits, and clients are often reimbursed for a significant portion of their therapy sessions—typically between 50–80% of the session fee.
+              </p>
+              <p>
+                Each month, we'll provide you with a superbill (a detailed receipt) that you can submit to your insurance provider for possible reimbursement.
+              </p>
+              <div>
+                <p className="font-medium mb-2">It's always a good idea to call your insurance company and ask:</p>
+                <ul className="list-disc pl-5 space-y-2">
+                  <li>Do I have out-of-network benefits for outpatient mental health services?</li>
+                  <li>Is a diagnosis required for reimbursement?</li>
+                  <li>What percentage of the session fee will be reimbursed?</li>
+                  <li>Is there an annual deductible I need to meet first?</li>
+                </ul>
+              </div>
+              <p>
+                While we are not in-network, we are happy to help guide you through the process so you can make the most of your benefits. 💛
+              </p>
+            </div>
+          )
         },
         {
           question: 'What are your therapy fees and payment options?',
@@ -186,11 +207,11 @@ export default function FAQPage() {
         
         <div className="container mx-auto px-6 relative z-10">
           <div className="text-center max-w-3xl mx-auto">
-            <KineticTypography as="h1" animation="fade-in" className="font-playfair text-bloom text-4xl md:text-5xl mb-6">
+            <KineticTypography as="h1" animation="fade-in" className="font-playfair text-[#1e3a5f] text-4xl md:text-5xl mb-6">
               Frequently Asked Questions
             </KineticTypography>
             
-            <p className="text-bloom/70 text-lg mb-8">
+            <p className="text-[#1e3a5f]/70 text-lg mb-8">
               Find answers to common questions about our therapy services, insurance, and treatment process.
             </p>
             
@@ -201,7 +222,7 @@ export default function FAQPage() {
                 placeholder="Search for a question..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full px-6 py-4 pr-12 rounded-full border border-gray-200 focus:outline-none focus:ring-2 focus:ring-bloompink/30 focus:border-bloompink transition-all"
+                className="w-full px-6 py-4 pr-12 rounded-full border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#f8b5c4]/30 focus:border-[#f8b5c4] transition-all"
               />
               <svg className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -214,7 +235,7 @@ export default function FAQPage() {
                 onClick={() => setActiveCategory('all')}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
                   activeCategory === 'all'
-                    ? 'bg-bloompink text-white'
+                    ? 'bg-[#f8b5c4] text-[#1e3a5f]'
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                 }`}
               >
@@ -226,7 +247,7 @@ export default function FAQPage() {
                   onClick={() => setActiveCategory(category.id)}
                   className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
                     activeCategory === category.id
-                      ? 'bg-bloompink text-white'
+                      ? 'bg-[#f8b5c4] text-[#1e3a5f]'
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                   }`}
                 >
@@ -260,8 +281,8 @@ export default function FAQPage() {
                       {category.icon}
                     </div>
                     <div>
-                      <h2 className="font-playfair text-2xl text-bloom">{category.title}</h2>
-                      <p className="text-bloom/60">{category.description}</p>
+                      <h2 className="font-playfair text-2xl text-[#1e3a5f]">{category.title}</h2>
+                      <p className="text-[#1e3a5f]/60">{category.description}</p>
                     </div>
                   </div>
                 </GlassmorphismPanel>
@@ -278,14 +299,14 @@ export default function FAQPage() {
                   >
                     <details className="group">
                       <summary className="flex justify-between items-center cursor-pointer list-none p-6 rounded-lg hover:bg-gray-50 transition-colors">
-                        <h3 className="text-lg font-medium text-bloom pr-6">{faq.question}</h3>
-                        <span className="text-bloom transition-transform duration-300 group-open:rotate-180 flex-shrink-0">
+                        <h3 className="text-lg font-medium text-[#1e3a5f] pr-6">{faq.question}</h3>
+                        <span className="text-[#1e3a5f] transition-transform duration-300 group-open:rotate-180 flex-shrink-0">
                           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                           </svg>
                         </span>
                       </summary>
-                      <div className="px-6 pb-6 text-bloom/80">
+                      <div className="px-6 pb-6 text-[#1e3a5f]/80">
                         <div className="pt-2">{faq.answer}</div>
                       </div>
                     </details>
@@ -309,11 +330,11 @@ export default function FAQPage() {
         
         <div className="container mx-auto px-6 text-center relative z-10">
           <GlassmorphismPanel variant="pink" className="py-12 px-8 max-w-2xl mx-auto">
-            <KineticTypography as="h2" animation="fade-in" className="font-playfair text-2xl text-bloom mb-4">
+            <KineticTypography as="h2" animation="fade-in" className="font-playfair text-2xl text-[#1e3a5f] mb-4">
               Still have questions?
             </KineticTypography>
             
-            <p className="text-bloom/80 mb-8">
+            <p className="text-[#1e3a5f]/80 mb-8">
               We're here to help. Schedule a free consultation call to discuss your specific needs.
             </p>
             

@@ -217,7 +217,7 @@ export default function Home() {
               className="text-center mb-12"
             >
               <h2 className="font-bold text-[#1e3a5f] text-4xl md:text-5xl mb-6">
-                Expert Care for Your Maternal Journey
+                Expert Mental Health Care for Women
               </h2>
               <p className="text-gray-600 max-w-3xl mx-auto text-lg leading-relaxed">
                 Dr. Jana Rundle brings warmth, expertise, and understanding to every interaction. 
@@ -263,10 +263,10 @@ export default function Home() {
                     A Personal Approach to Professional Care
                   </h3>
                   <p className="text-gray-700 leading-relaxed">
-                    Every mother's journey is unique. That's why Dr. Rundle takes the time to understand 
-                    your specific circumstances, challenges, and goals. Whether you're navigating postpartum 
-                    anxiety, struggling with identity changes, or seeking support for fertility challenges, 
-                    you'll find compassionate, evidence-based care tailored to your needs.
+                    Every women's journey is unique. That's why Dr. Rundle takes the time to understand 
+                    your specific circumstances, challenges, and goals. Whether you're struggling with burn 
+                    out, navigating new motherhood, or struggling with identity changes, you'll find 
+                    compassionate, evidence-based care tailored to your needs.
                   </p>
                 </div>
 
@@ -274,11 +274,11 @@ export default function Home() {
                   <div className="bg-white p-6 rounded-lg shadow-sm">
                     <h4 className="font-semibold text-[#1e3a5f] mb-2">Specialized Training</h4>
                     <p className="text-gray-600 text-sm">
-                      Advanced certifications in perinatal mental health and trauma-informed care
+                      Doctoral-level care and advanced certifications in perinatal mental health
                     </p>
                   </div>
                   <div className="bg-white p-6 rounded-lg shadow-sm">
-                    <h4 className="font-semibold text-[#1e3a5f] mb-2">Mother & Professional</h4>
+                    <h4 className="font-semibold text-[#1e3a5f] mb-2">Clinician & Mother</h4>
                     <p className="text-gray-600 text-sm">
                       Personal experience combined with clinical expertise creates deep understanding
                     </p>
@@ -360,7 +360,7 @@ export default function Home() {
             >
               <div className="h-3 bg-gradient-to-r from-[#f8b5c4] to-[#f472b6]"></div>
               <div className="p-8">
-                <h3 className="text-2xl font-bold text-[#1e3a5f] mb-2">Postpartum Wellness</h3>
+                <h3 className="text-2xl font-bold text-[#1e3a5f] mb-2">🌸 Postpartum Wellness</h3>
                 <p className="text-sm text-gray-500 mb-4">6-week program</p>
                 <p className="text-gray-600 mb-6">Build emotional regulation skills and develop lasting confidence in your new role</p>
                 <ul className="space-y-2 mb-6">
@@ -392,7 +392,7 @@ export default function Home() {
             >
               <div className="h-3 bg-gradient-to-r from-[#1e3a5f] to-[#3b82f6]"></div>
               <div className="p-8">
-                <h3 className="text-2xl font-bold text-[#1e3a5f] mb-2">Anxiety Management</h3>
+                <h3 className="text-2xl font-bold text-[#1e3a5f] mb-2">🧘‍♀️ Anxiety Management</h3>
                 <p className="text-sm text-gray-500 mb-4">4-week program</p>
                 <p className="text-gray-600 mb-6">Learn evidence-based techniques to manage anxiety and calm your mind</p>
                 <ul className="space-y-2 mb-6">
@@ -424,7 +424,7 @@ export default function Home() {
             >
               <div className="h-3 bg-gradient-to-r from-[#d4a574] to-[#f59e0b]"></div>
               <div className="p-8">
-                <h3 className="text-2xl font-bold text-[#1e3a5f] mb-2">Partner Support</h3>
+                <h3 className="text-2xl font-bold text-[#1e3a5f] mb-2">💑 Partner Support</h3>
                 <p className="text-sm text-gray-500 mb-4">3-week program</p>
                 <p className="text-gray-600 mb-6">Strengthen your relationship with communication tools and mutual support strategies</p>
                 <ul className="space-y-2 mb-6">
