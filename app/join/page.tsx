@@ -1,9 +1,9 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
-import { Check, Star, Gift, Clock, Heart, Sparkles } from 'lucide-react';
+import { Check, Gift, Heart, Sparkles } from 'lucide-react';
 // JsonLd import removed - using inline script tag instead
 
 // Metadata is handled in layout.tsx for client components
@@ -14,24 +14,6 @@ export default function InstagramNewsletterPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [message, setMessage] = useState('');
-  const [timeLeft, setTimeLeft] = useState(15 * 60); // 15 minutes in seconds
-
-  // Countdown timer for urgency
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft(prev => {
-        if (prev <= 0) return 0;
-        return prev - 1;
-      });
-    }, 1000);
-    return () => clearInterval(timer);
-  }, []);
-
-  const formatTime = (seconds: number) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins}:${secs.toString().padStart(2, '0')}`;
-  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -93,7 +75,7 @@ export default function InstagramNewsletterPage() {
             "@context": "https://schema.org",
             "@type": "WebPage",
             "name": "Join Bloom Psychology Newsletter - Free Mental Wellness Guide",
-            "description": "Get weekly mental health tips, self-care strategies, and a FREE anxiety relief guide. Join 2,000+ women prioritizing their wellness.",
+            "description": "Get weekly mental health tips, self-care strategies, and a FREE anxiety relief guide. Join our community prioritizing mental wellness.",
             "url": "https://bloompsychologynorthaustin.com/join",
             "inLanguage": "en-US",
             "publisher": {
@@ -124,19 +106,6 @@ export default function InstagramNewsletterPage() {
               <p className="text-sm text-gray-600">Your weekly dose of mental wellness 🌸</p>
             </div>
 
-            {/* Urgency Timer */}
-            {timeLeft > 0 && (
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="bg-yellow-50 border border-yellow-200 rounded-lg p-3 mb-6 text-center"
-              >
-                <p className="text-sm font-medium text-yellow-800 flex items-center justify-center gap-2">
-                  <Clock className="w-4 h-4" />
-                  Bonus gift expires in: <span className="font-bold">{formatTime(timeLeft)}</span>
-                </p>
-              </motion.div>
-            )}
 
             {/* Value Proposition */}
             <div className="text-center mb-8">
@@ -145,17 +114,10 @@ export default function InstagramNewsletterPage() {
                 <span className="text-bloompink"> 5 Minutes a Week</span>
               </h2>
               <p className="text-gray-600">
-                Join 2,000+ women getting evidence-based tips that actually work
+                Get evidence-based tips that actually work
               </p>
             </div>
 
-            {/* Social Proof */}
-            <div className="flex items-center justify-center gap-1 mb-6">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
-              ))}
-              <span className="ml-2 text-sm text-gray-600">Loved by 2,000+ subscribers</span>
-            </div>
 
             {/* Sign Up Form */}
             <AnimatePresence mode="wait">
@@ -239,7 +201,7 @@ export default function InstagramNewsletterPage() {
                   <li className="flex items-start gap-3">
                     <Check className="w-5 h-5 text-green-500 mt-0.5" />
                     <div>
-                      <span className="font-medium">Instant Download:</span>
+                      <span className="font-medium">Instant Access:</span>
                       <span className="text-gray-600"> "5 Grounding Techniques for Anxious Moments" guide</span>
                     </div>
                   </li>
