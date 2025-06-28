@@ -95,11 +95,11 @@ export const metadata: Metadata = {
     template: '%s | Bloom Psychology',
     default: 'Bloom Psychology | Women\'s Mental Health'
   },
-  description: 'Life changes—so do you. We\'re here for all of it. Bloom therapy provides in-person psychotherapy in Austin and online for all of Texas.',
+  description: 'Mental health care for real life transitions. Dr. Jana Rundle provides expert, compassionate therapy for women and moms—in Austin and across Texas, in-person or virtual.',
   keywords: 'therapy, psychologist, mental health, women\'s therapy, mom therapy, parent support, anxiety, Austin, telehealth, postpartum depression',
   openGraph: {
     title: 'Bloom Psychology',
-    description: 'Life changes—so do you. We\'re here for all of it. Bloom therapy provides in-person psychotherapy in Austin and online for all of Texas.',
+    description: 'Mental health care for real life transitions. Dr. Jana Rundle provides expert, compassionate therapy for women and moms—in Austin and across Texas, in-person or virtual.',
     images: ['/images/Logo/logo.jpg'],
   },
 };

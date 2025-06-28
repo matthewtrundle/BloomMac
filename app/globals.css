@@ -538,6 +538,14 @@ section:not(.hero-section) {
 
 /* Mobile optimization for hero section */
 @media (max-width: 768px) {
+  /* Global fix for mobile header cutoff */
+  main > section:first-child,
+  main > div:first-child > section:first-child,
+  [class*="pt-20"],
+  [class*="pt-24"] {
+    padding-top: 140px !important; /* Increased from 120px for better clearance */
+  }
+  
   .hero-section {
     /* Clean white background on mobile */
     background: white;
@@ -546,7 +554,7 @@ section:not(.hero-section) {
     height: auto;
     display: flex;
     align-items: center;
-    padding-top: 80px; /* Account for header */
+    padding-top: 140px !important; /* Increased for header and announcement bar */
   }
   
   /* Ensure all buttons are visible on mobile */
@@ -610,6 +618,15 @@ section:not(.hero-section) {
   /* Prevent horizontal scroll on booking page */
   body:has(.calendly-inline-widget) {
     overflow-x: hidden;
+  }
+  
+  /* Slow down pulse animations on mobile */
+  .animate-pulse {
+    animation-duration: 3s !important; /* Slower than default 2s */
+  }
+  
+  .animate-pulse-subtle {
+    animation-duration: 5s !important; /* Even slower for subtle pulse */
   }
 }
 

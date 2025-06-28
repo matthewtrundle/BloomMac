@@ -119,20 +119,8 @@ export default function PostpartumChecklistPage() {
     setSubmitError('');
 
     try {
-      // Send lead capture email
-      const res = await fetch('/api/send-email', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...formData,
-          message: `Downloaded: Postpartum Recovery Checklist. Stage: ${formData.stage}`,
-          service: 'Resource Download - Postpartum Checklist'
-        }),
-      });
-
-      if (!res.ok) {
-        throw new Error('Failed to process request');
-      }
+      // Removed duplicate email - email automation handles the confirmation
+      // The email automation sequence below will send the proper download email
 
       // Start email automation sequence
       await fetch('/api/email-automation', {
@@ -143,6 +131,7 @@ export default function PostpartumChecklistPage() {
           name: formData.name,
           sequenceType: 'lead_nurture',
           step: 1,
+          resourceName: 'Postpartum Recovery Checklist',
           leadSource: 'postpartum_checklist_download',
           serviceInterest: 'postpartum_support'
         }),

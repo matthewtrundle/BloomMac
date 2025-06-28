@@ -81,15 +81,18 @@ export default function BlogEditor({ post, isEditing = false }: BlogEditorProps)
 
   // Load available images when image picker is opened
   useEffect(() => {
-    if (showImagePicker && availableImages.length === 0) {
-      loadImages();
+    if (showImagePicker) {
+      setFailedImages(new Set()); // Clear failed images
+      if (availableImages.length === 0) {
+        loadImages();
+      }
     }
   }, [showImagePicker]);
 
   const loadImages = async () => {
     setLoadingImages(true);
     try {
-      const response = await fetch('/api/images-v2');
+      const response = await fetch(`/api/images-v2?t=${Date.now()}`);
       if (response.ok) {
         const data = await response.json();
         setAvailableImages(data.images);

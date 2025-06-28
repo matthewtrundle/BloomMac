@@ -102,7 +102,7 @@ export default function ServicePage({
         <div className="container mx-auto px-6 py-24 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="order-2 lg:order-1">
-              <h1 className="font-playfair text-bloom text-3xl lg:text-4xl xl:text-5xl mb-6 max-w-[90%] lg:max-w-[95%]">
+              <h1 className="font-playfair text-bloom text-3xl lg:text-4xl xl:text-5xl mb-6 max-w-[90%] lg:max-w-[95%] break-words hyphens-manual">
                 {service.title.split('\n').map((line, i) => (
                   <React.Fragment key={i}>
                     {i === 0 ? (
@@ -120,9 +120,13 @@ export default function ServicePage({
               {/* Professional divider */}
               <div className="w-24 h-0.5 bg-bloom-sage/20 rounded-full mb-6"></div>
               
-              <KineticTypography as="p" animation="fade-in" className="text-lg text-bloom/80 mb-8">
-                {service.description}
-              </KineticTypography>
+              <div className="text-lg text-bloom/80 mb-8 space-y-4">
+                {service.description.split('\n\n').map((paragraph, index) => (
+                  <KineticTypography key={index} as="p" animation="fade-in">
+                    {paragraph}
+                  </KineticTypography>
+                ))}
+              </div>
               
               <div className="flex flex-col sm:flex-row gap-4 mt-8">
                 <Button href="/book" variant="pink" pulseOnView>

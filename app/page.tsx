@@ -153,7 +153,7 @@ export default function Home() {
                 </Link>
                 <Link href="/book">
                   <button className="border-2 border-[#1e3a5f] text-[#1e3a5f] px-8 py-4 rounded-lg hover:bg-gray-50 transition-colors font-medium">
-                    Book Consultation
+                    Book Now
                   </button>
                 </Link>
               </div>
@@ -305,7 +305,7 @@ export default function Home() {
                   </Link>
                   <Link href="/consultation">
                     <button className="border-2 border-[#1e3a5f] text-[#1e3a5f] px-6 py-3 rounded-lg hover:bg-[#1e3a5f] hover:text-white transition-all font-medium">
-                      Schedule a Consultation
+                      Book Now
                     </button>
                   </Link>
                 </div>
@@ -610,7 +610,7 @@ export default function Home() {
                   <div className="space-y-3">
                     <div className="flex items-center gap-3">
                       <span className="w-8 h-8 bg-[#f8b5c4]/20 rounded-full flex items-center justify-center text-sm font-medium text-[#1e3a5f]">1</span>
-                      <span className="text-sm text-gray-700">Schedule your free consultation</span>
+                      <span className="text-sm text-gray-700">Book your free consultation</span>
                     </div>
                     <div className="flex items-center gap-3">
                       <span className="w-8 h-8 bg-[#f8b5c4]/20 rounded-full flex items-center justify-center text-sm font-medium text-[#1e3a5f]">2</span>
@@ -779,7 +779,7 @@ export default function Home() {
             viewport={{ once: true }}
           >
             <a href="/book" className="inline-block bg-[#f8b5c4] text-[#1e3a5f] px-8 py-4 rounded-lg hover:bg-[#f4a0b5] transition-colors font-medium text-lg">
-              Book Your Free Consultation
+              Book Now
             </a>
           </motion.div>
         </div>

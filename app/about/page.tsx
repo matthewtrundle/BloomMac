@@ -16,17 +16,6 @@ export default function AboutPage() {
     <>
       {/* Hero Section - Professional */}
       <section className="pt-20 pb-10 bg-gradient-to-br from-gray-50 via-white to-gray-50 relative overflow-hidden">
-        <div className="absolute inset-0 z-0 h-[50vh] overflow-hidden">
-          <Image
-            src="/images/optimized/Hero/ABoutHero.webp"
-            alt="Bloom Psychology hero"
-            fill
-            className="object-cover"
-            objectPosition="center"
-            priority
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-white/70 to-white/90"></div>
-        </div>
         
         <div className="container mx-auto px-6 relative z-10">
           <motion.div 
@@ -36,7 +25,7 @@ export default function AboutPage() {
             transition={{ duration: 0.6 }}
           >
             <KineticTypography as="h1" animation="fade-in" className="font-playfair text-[#1e3a5f] text-4xl md:text-5xl lg:text-6xl mb-6 text-shadow-lg">
-              About Bloom Psychology
+              Meet Jana Rundle
             </KineticTypography>
             
             {/* Professional divider */}
@@ -76,7 +65,7 @@ export default function AboutPage() {
                 </p>
 
                 <p className="text-[#1e3a5f]/80">
-                  Being a woman in today's world is difficult. The demands and expectations that society places on us to be all things to all people can become a huge burden. Perhaps you are someone who is feeling overwhelmed with trying to "do it all." If so, you're in the right place.
+                  Being a woman—and a mom—today can feel like an impossible juggling act. If you're exhausted by expectations, weighed down by the mental load, or just wondering "Is it supposed to be this hard?"... you're not alone. And you're in the right place.
                 </p>
 
                 <p className="text-[#1e3a5f]/80">
@@ -84,11 +73,11 @@ export default function AboutPage() {
                 </p>
 
                 <p className="text-[#1e3a5f]/80">
-                  Typically my work with clients focuses on reducing stress, improving social connection, while also improving family dynamics so they feel like the best version of themselves. I have specialized training in Interpersonal Psychotherapy (IPT), an evidenced-based therapy for women with perinatal mood disorders. I also integrate practices of Cognitive Behavioral Therapy (CBT) and psychodynamically focussed interventions to help clients go from "survive" to "thrive."
+                  I help women reduce stress, build meaningful connections, and strengthen their family dynamics—so they can feel more like themselves again. I'm trained in Interpersonal Psychotherapy (IPT), an evidence-based approach for perinatal mood disorders, and I also draw from Cognitive Behavioral Therapy (CBT) and psychodynamic principles to support real, lasting growth.
                 </p>
 
                 <p className="text-[#1e3a5f]/80">
-                  In my spare time, I enjoy traveling, hiking, a good cup of coffee, and volunteering for local non-profits. Reach out to see how I might be able to help you!
+                  In my spare time, I enjoy traveling, hiking, a good cup of coffee, and volunteering for local non-profits.
                 </p>
               </GlassmorphismPanel>
               
@@ -224,7 +213,10 @@ export default function AboutPage() {
                   viewport={{ once: true }}
                   transition={{ delay: 0.1 }}
                 >
-                  <h3 className="font-playfair text-xl text-[#1e3a5f] mb-3">
+                  <h3 className="font-playfair text-xl text-[#1e3a5f] mb-3 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-[#f8b5c4] mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                    </svg>
                     <span className="text-[#f8b5c4]">Connection</span>
                   </h3>
                   <p className="text-[#1e3a5f]/80">
@@ -239,7 +231,10 @@ export default function AboutPage() {
                   viewport={{ once: true }}
                   transition={{ delay: 0.2 }}
                 >
-                  <h3 className="font-playfair text-xl text-[#1e3a5f] mb-3">
+                  <h3 className="font-playfair text-xl text-[#1e3a5f] mb-3 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-[#f8b5c4] mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                    </svg>
                     <span className="text-[#f8b5c4]">Compassion</span>
                   </h3>
                   <p className="text-[#1e3a5f]/80">
@@ -254,7 +249,10 @@ export default function AboutPage() {
                   viewport={{ once: true }}
                   transition={{ delay: 0.3 }}
                 >
-                  <h3 className="font-playfair text-xl text-[#1e3a5f] mb-3">
+                  <h3 className="font-playfair text-xl text-[#1e3a5f] mb-3 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-[#f8b5c4] mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                    </svg>
                     <span className="text-[#f8b5c4]">Authenticity</span>
                   </h3>
                   <p className="text-[#1e3a5f]/80">
@@ -269,7 +267,10 @@ export default function AboutPage() {
                   viewport={{ once: true }}
                   transition={{ delay: 0.4 }}
                 >
-                  <h3 className="font-playfair text-xl text-[#1e3a5f] mb-3">
+                  <h3 className="font-playfair text-xl text-[#1e3a5f] mb-3 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-[#f8b5c4] mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                    </svg>
                     <span className="text-[#f8b5c4]">Empowerment</span>
                   </h3>
                   <p className="text-[#1e3a5f]/80">
@@ -296,12 +297,8 @@ export default function AboutPage() {
               className="text-center mb-12"
             >
               <h2 className="font-playfair text-4xl md:text-5xl font-bold text-[#1e3a5f] mb-6">
-                Professional, Personal, Present
+                Professional Roots, Personalized Care
               </h2>
-              <p className="text-[#1e3a5f]/70 max-w-3xl mx-auto text-lg">
-                Behind every professional credential is a person who understands your journey. 
-                Dr. Rundle combines clinical expertise with genuine warmth and understanding.
-              </p>
             </motion.div>
 
             <div className="grid lg:grid-cols-2 gap-12 items-center">

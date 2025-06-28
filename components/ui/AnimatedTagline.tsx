@@ -18,7 +18,7 @@ export default function AnimatedTagline() {
   return (
     <div className="space-y-4">
       {/* Main animated tagline */}
-      <h1 className="font-bold text-4xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-7xl leading-[1.1] tracking-tight text-[#1e3a5f]">
+      <h1 className="font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl leading-[1.1] tracking-tight text-[#1e3a5f]">
         <span className="block">
           Bloom into your best{' '}
           <AnimatePresence mode="wait">

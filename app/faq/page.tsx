@@ -307,7 +307,7 @@ export default function FAQPage() {
                         </span>
                       </summary>
                       <div className="px-6 pb-6 text-[#1e3a5f]/80">
-                        <div className="pt-2">{faq.answer}</div>
+                        <div className="pt-2 text-base leading-relaxed [&_p]:text-base [&_p]:leading-relaxed [&_li]:text-base">{faq.answer}</div>
                       </div>
                     </details>
                   </motion.div>
