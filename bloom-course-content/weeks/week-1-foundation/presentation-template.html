@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>[LESSON TITLE] | Bloom Psychology</title>
+    
+    <!-- Reveal.js Core -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reset.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ========================================
+           BLOOM PROFESSIONAL DESIGN SYSTEM
+           ======================================== */
+        :root {
+            /* Brand Colors */
+            --bloom-sage: #8B9A82;
+            --bloom-charcoal: #1a1a1a;
+            --bloom-warm-gray: #4a4a4a;
+            --bloom-cream: #faf8f5;
+            --bloom-background: #FFF9F0;
+            
+            /* Vibrant Accent Colors */
+            --bloom-coral: #FF6B6B;
+            --bloom-peach: #FFB4A2;
+            --bloom-golden: #FFCB77;
+            --bloom-mint: #95E1D3;
+            --bloom-lavender: #C589E8;
+            --bloom-sky: #74C0FC;
+            --bloom-rose: #FFA8C5;
+            --bloom-teal: #4ECDC4;
+            --bloom-orange: #FF9A8B;
+            
+            /* Typography */
+            --font-display: 'Cormorant Garamond', serif;
+            --font-body: 'Inter', -apple-system, sans-serif;
+            
+            /* Spacing Scale */
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 2rem;
+            --space-lg: 3rem;
+            --space-xl: 4rem;
+            --space-2xl: 6rem;
+            --space-3xl: 8rem;
+        }
+        
+        /* Base Reveal Overrides */
+        .reveal {
+            font-family: var(--font-body);
+            font-size: 24px;
+            font-weight: normal;
+            color: var(--bloom-charcoal);
+            background-color: #FFFFFF;
+        }
+        
+        .reveal .slides {
+            text-align: left;
+        }
+        
+        .reveal .slides section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            padding: 2rem;
+            overflow: hidden;
+        }
+        
+        .reveal h1,
+        .reveal h2,
+        .reveal h3,
+        .reveal h4 {
+            font-family: var(--font-body);
+            font-weight: 600;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            text-transform: none;
+            margin: 0 0 1rem 0;
+        }
+        
+        .reveal h1 { font-size: clamp(2.5rem, 5vw, 4rem); }
+        .reveal h2 { font-size: clamp(2rem, 4vw, 3rem); }
+        .reveal h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
+        .reveal h4 { font-size: clamp(1.2rem, 2.5vw, 1.8rem); }
+        
+        .reveal p {
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            font-size: clamp(1rem, 2vw, 1.2rem);
+        }
+        
+        /* Remove all animations */
+        .reveal .slides section,
+        .reveal .slides section * {
+            transition: none !important;
+            animation: none !important;
+        }
+        
+        .reveal .fragment {
+            opacity: 1 !important;
+            visibility: visible !important;
+            transform: none !important;
+        }
+        
+        /* Typography Classes */
+        .display-serif {
+            font-family: var(--font-display);
+            font-weight: 300;
+        }
+        
+        .display-title {
+            font-size: clamp(3rem, 7vw, 5rem);
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            margin-bottom: var(--space-lg);
+        }
+        
+        .section-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: var(--bloom-charcoal);
+        }
+        
+        .subtitle-caps {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-weight: 500;
+        }
+        
+        /* Layout Components */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        .asymmetric-grid {
+            display: grid;
+            grid-template-columns: 1.618fr 1fr;
+            gap: var(--space-xl);
+            align-items: center;
+            height: 100%;
+        }
+        
+        .asymmetric-grid.reverse {
+            grid-template-columns: 1fr 1.618fr;
+        }
+        
+        .magazine-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        
+        .content-panel {
+            padding: var(--space-md);
+        }
+        
+        .image-panel {
+            position: relative;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .image-panel img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+        }
+        
+        /* Visual Elements */
+        .elegant-divider {
+            width: 60px;
+            height: 3px;
+            margin: var(--space-md) 0;
+            border-radius: 3px;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Text Protection for Images */
+        .text-protection {
+            position: relative;
+            z-index: 2;
+            padding: var(--space-2xl);
+            text-align: center;
+        }
+        
+        .text-protection h1,
+        .text-protection h2,
+        .text-protection p {
+            color: white;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .asymmetric-grid,
+            .magazine-split {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .reveal .slides section {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- Slide 1: Cinematic Opening -->
+            <section data-background-image="../../../shared-assets/images/[HERO-IMAGE].png"
+                     data-background-size="cover"
+                     data-background-position="center">
+                <div style="position: absolute; inset: 0; background: linear-gradient(to right, rgba(26,26,26,0.9) 0%, rgba(26,26,26,0.7) 40%, transparent 70%); z-index: 1;"></div>
+                <div style="position: relative; z-index: 2; height: 100vh; display: flex; align-items: center; padding: 0 8%;">
+                    <div style="max-width: 650px;">
+                        <div style="display: inline-block; padding: 0.5rem 1.5rem; background: rgba(139,154,130,0.2); backdrop-filter: blur(10px); border-radius: 30px; margin-bottom: 2rem;">
+                            <p style="color: var(--bloom-sage); font-size: 0.9rem; letter-spacing: 0.15em; text-transform: uppercase; margin: 0; font-weight: 500;">Week 1 · Lesson [NUMBER]</p>
+                        </div>
+                        <h1 style="font-family: var(--font-display); font-size: clamp(3rem, 6vw, 4.5rem); font-weight: 300; line-height: 1.05; margin-bottom: 2rem; color: white;">
+                            [MAIN TITLE]<br>
+                            <span style="font-weight: 600; font-style: italic;">[EMPHASIS SUBTITLE]</span>
+                        </h1>
+                        <p style="font-size: 1.3rem; line-height: 1.6; color: rgba(255,255,255,0.9); margin-bottom: 3rem; font-weight: 300;">
+                            [LESSON DESCRIPTION]
+                        </p>
+                        <div style="display: flex; align-items: center; gap: 2rem;">
+                            <div style="width: 60px; height: 1px; background: var(--bloom-golden);"></div>
+                            <p style="color: rgba(255,255,255,0.7); font-size: 0.95rem; letter-spacing: 0.05em; margin: 0;">Dr. Jana Williams · Bloom Psychology</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 2: Key Message with Image -->
+            <section data-background-color="#FFFFFF">
+                <div class="asymmetric-grid" style="padding: 0 6%; height: 100vh;">
+                    <div class="content-panel">
+                        <p class="subtitle-caps" style="color: var(--bloom-sage); margin-bottom: 2rem;">[SECTION LABEL]</p>
+                        <h2 class="display-serif" style="font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.1; margin-bottom: 2rem;">
+                            [MAIN MESSAGE] <span style="font-style: italic; color: var(--bloom-coral);">[EMPHASIS]</span>
+                        </h2>
+                        <div class="elegant-divider" style="background: var(--bloom-coral);"></div>
+                        <p style="font-size: 1.3rem; line-height: 1.8; color: var(--bloom-warm-gray);">
+                            [SUPPORTING TEXT]
+                        </p>
+                    </div>
+                    <div class="image-panel">
+                        <div style="position: relative; width: 100%; max-width: 500px;">
+                            <img src="../../../shared-assets/images/[IMAGE].png" alt="[ALT TEXT]" style="border-radius: 2px;">
+                            <div style="position: absolute; bottom: -20px; right: -20px; width: 150px; height: 150px; background: var(--bloom-peach); opacity: 0.2; border-radius: 50%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 3: Four-Panel Grid (for concepts/points) -->
+            <section data-background-color="#FFF9F0">
+                <div style="padding: 2rem 1.5rem; height: 100vh; display: flex; flex-direction: column; justify-content: center;">
+                    <div class="container">
+                        <h2 class="section-title display-serif" style="margin-bottom: 1.5rem; font-size: clamp(1.8rem, 3.5vw, 2.5rem);">[SECTION TITLE] <span style="font-style: italic; color: var(--bloom-coral);">[EMPHASIS]</span></h2>
+                        
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.2rem; max-width: 900px; margin: 0 auto;">
+                            <!-- Card 1 -->
+                            <div style="position: relative; background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 15px 40px rgba(0,0,0,0.06);">
+                                <div style="height: 140px; background: linear-gradient(135deg, var(--bloom-coral) 0%, var(--bloom-peach) 100%); position: relative; overflow: hidden;">
+                                    <img src="../../../shared-assets/images/[IMAGE].png" alt="[ALT]" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.3;">
+                                </div>
+                                <div style="padding: 1.2rem;">
+                                    <h3 style="color: var(--bloom-coral); font-size: 1.1rem; margin-bottom: 0.5rem; font-weight: 600;">[TITLE]</h3>
+                                    <p style="color: var(--bloom-warm-gray); font-size: 0.85rem; line-height: 1.4; margin: 0;">[DESCRIPTION]</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Repeat for Cards 2-4 with different color combinations -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 4: Full-Screen Message -->
+            <section data-background-image="../../../shared-assets/images/[IMAGE].png"
+                     data-background-size="cover"
+                     data-background-position="center">
+                <div style="position: absolute; inset: 0; background: linear-gradient(135deg, rgba(26,26,26,0.8) 0%, rgba(26,26,26,0.6) 100%); z-index: 1;"></div>
+                <div class="text-protection" style="z-index: 2;">
+                    <h1 class="display-title" style="color: white;">[MAIN MESSAGE]</h1>
+                    <p style="font-size: 1.8rem; color: rgba(255,255,255,0.9); line-height: 1.6; max-width: 800px; margin: 0 auto;">
+                        [SUPPORTING TEXT]
+                    </p>
+                </div>
+            </section>
+            
+            <!-- Slide 5: Statistics/Data -->
+            <section data-background-color="#FFFFFF">
+                <div style="padding: 4rem 3rem; text-align: center;">
+                    <h2 class="section-title display-serif" style="margin-bottom: 4rem;">[TITLE]</h2>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; max-width: 900px; margin: 0 auto;">
+                        <div class="stat-card">
+                            <div class="stat-number" style="color: var(--bloom-coral);">[NUMBER]</div>
+                            <p style="color: var(--bloom-warm-gray); font-size: 1rem;">[DESCRIPTION]</p>
+                        </div>
+                        <!-- Repeat for other stats -->
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 6: Practice/Action -->
+            <section data-background-color="#FFFFFF">
+                <div class="asymmetric-grid" style="padding: 0 4%; height: 100vh;">
+                    <div class="image-panel" style="height: 500px; position: relative;">
+                        <img src="../../../shared-assets/images/[IMAGE].png" alt="[ALT]" style="border-radius: 2px;">
+                    </div>
+                    <div class="content-panel">
+                        <p class="subtitle-caps" style="color: var(--bloom-sage); margin-bottom: 1.5rem;">[LABEL]</p>
+                        <h2 class="display-serif" style="font-size: clamp(2.5rem, 4vw, 3.5rem); margin-bottom: 2rem;">[PRACTICE TITLE]</h2>
+                        
+                        <div style="background: white; border-left: 3px solid var(--bloom-mint); padding: 2.5rem; box-shadow: 0 10px 40px rgba(0,0,0,0.08);">
+                            <h3 style="color: var(--bloom-charcoal); font-size: 1.6rem; margin-bottom: 1.5rem;">[PRACTICE NAME]</h3>
+                            <!-- Practice steps/content -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Final Slide: Closing -->
+            <section data-background-image="../../../shared-assets/images/[CLOSING-IMAGE].png"
+                     data-background-size="cover"
+                     data-background-position="center">
+                <div style="position: absolute; inset: 0; background: linear-gradient(to right, rgba(26,26,26,0.9) 0%, rgba(26,26,26,0.7) 40%, transparent 70%); z-index: 1;"></div>
+                <div style="position: relative; z-index: 2; height: 100vh; display: flex; align-items: center; padding: 0 8%;">
+                    <div style="max-width: 650px;">
+                        <div style="display: inline-block; padding: 0.5rem 1.5rem; background: rgba(255,203,119,0.2); backdrop-filter: blur(10px); border-radius: 30px; margin-bottom: 2rem;">
+                            <p style="color: var(--bloom-golden); font-size: 0.9rem; letter-spacing: 0.15em; text-transform: uppercase; margin: 0; font-weight: 500;">Week 1 · Lesson [NUMBER] Complete</p>
+                        </div>
+                        <h1 style="font-family: var(--font-display); font-size: clamp(3rem, 6vw, 4.5rem); font-weight: 300; line-height: 1.05; margin-bottom: 2rem; color: white;">
+                            [CLOSING TITLE]<br>
+                            <span style="font-weight: 600; font-style: italic;">[EMPHASIS]</span>
+                        </h1>
+                        <p style="font-size: 1.3rem; line-height: 1.6; color: rgba(255,255,255,0.9); margin-bottom: 3rem; font-weight: 300;">
+                            [CLOSING MESSAGE]
+                        </p>
+                        <div style="display: flex; align-items: center; gap: 2rem;">
+                            <div style="width: 60px; height: 1px; background: var(--bloom-golden);"></div>
+                            <p style="color: rgba(255,255,255,0.7); font-size: 0.95rem; letter-spacing: 0.05em; margin: 0;">See you next time</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/notes/notes.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/markdown/markdown.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/highlight/highlight.js"></script>
+    
+    <script>
+        Reveal.initialize({
+            hash: true,
+            controls: true,
+            progress: true,
+            center: false,
+            transition: 'none',
+            backgroundTransition: 'none',
+            plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+        });
+    </script>
+</body>
+</html>

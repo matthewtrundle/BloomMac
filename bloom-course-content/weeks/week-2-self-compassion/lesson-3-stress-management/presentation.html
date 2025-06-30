@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Stress Management Essentials | Bloom Psychology</title>
+    
+    <!-- Reveal.js Core -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reset.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ========================================
+           BLOOM PROFESSIONAL DESIGN SYSTEM
+           ======================================== */
+        :root {
+            /* Brand Colors */
+            --bloom-sage: #8B9A82;
+            --bloom-charcoal: #1a1a1a;
+            --bloom-warm-gray: #4a4a4a;
+            --bloom-cream: #faf8f5;
+            --bloom-background: #FFF9F0;
+            
+            /* Vibrant Accent Colors */
+            --bloom-coral: #FF6B6B;
+            --bloom-peach: #FFB4A2;
+            --bloom-golden: #FFCB77;
+            --bloom-mint: #95E1D3;
+            --bloom-lavender: #C589E8;
+            --bloom-sky: #74C0FC;
+            --bloom-rose: #FFA8C5;
+            --bloom-teal: #4ECDC4;
+            --bloom-orange: #FF9A8B;
+            
+            /* Lesson 3 Primary Colors */
+            --lesson3-sage: #8B9A82;
+            --lesson3-peach: #FFB4A2;
+            
+            /* Typography */
+            --font-display: 'Cormorant Garamond', serif;
+            --font-body: 'Inter', -apple-system, sans-serif;
+            
+            /* Spacing Scale */
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 2rem;
+            --space-lg: 3rem;
+            --space-xl: 4rem;
+            --space-2xl: 6rem;
+            --space-3xl: 8rem;
+        }
+        
+        /* Base Reveal Overrides */
+        .reveal {
+            font-family: var(--font-body);
+            font-size: 24px;
+            font-weight: normal;
+            color: var(--bloom-charcoal);
+            background-color: #FFFFFF;
+        }
+        
+        .reveal .slides {
+            text-align: left;
+        }
+        
+        .reveal .slides section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            padding: 2rem;
+            overflow: hidden;
+        }
+        
+        .reveal h1,
+        .reveal h2,
+        .reveal h3,
+        .reveal h4 {
+            font-family: var(--font-body);
+            font-weight: 600;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            text-transform: none;
+            margin: 0 0 1rem 0;
+        }
+        
+        .reveal h1 { font-size: clamp(2.5rem, 5vw, 4rem); }
+        .reveal h2 { font-size: clamp(2rem, 4vw, 3rem); }
+        .reveal h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
+        .reveal h4 { font-size: clamp(1.2rem, 2.5vw, 1.8rem); }
+        
+        .reveal p {
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            font-size: clamp(1rem, 2vw, 1.2rem);
+        }
+        
+        /* Remove all animations */
+        .reveal .fragment {
+            opacity: 1 !important;
+            visibility: visible !important;
+            transform: none !important;
+        }
+        
+        .reveal .slides section.present {
+            transform: none !important;
+        }
+        
+        .reveal .progress {
+            display: none;
+        }
+        
+        /* Magazine Layouts */
+        .magazine-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            width: 100%;
+            max-width: 1400px;
+        }
+        
+        .magazine-split.reverse {
+            grid-template-columns: 1fr 1fr;
+        }
+        
+        .magazine-split .content {
+            padding: 2rem;
+        }
+        
+        .magazine-split .image {
+            position: relative;
+            height: 70vh;
+            overflow: hidden;
+            border-radius: 20px;
+        }
+        
+        .magazine-split .image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Lesson 3 Design Elements - Breathing Visualization */
+        .breathing-circle {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(139, 154, 130, 0.2) 0%, rgba(255, 180, 162, 0.2) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            margin: 2rem auto;
+        }
+        
+        .breathing-circle::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 50%;
+            border: 3px solid var(--lesson3-sage);
+            opacity: 0.3;
+        }
+        
+        .breathing-text {
+            text-align: center;
+            font-size: 1.5rem;
+            color: var(--lesson3-sage);
+            font-weight: 500;
+        }
+        
+        /* Stress Response Cards */
+        .stress-card {
+            background: white;
+            border-radius: 30px;
+            padding: 2.5rem;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+            position: relative;
+            overflow: hidden;
+            margin: 1rem;
+        }
+        
+        .stress-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, rgba(255, 180, 162, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            transform: translate(30%, -30%);
+        }
+        
+        /* Technique Timer */
+        .timer-card {
+            background: linear-gradient(135deg, rgba(139, 154, 130, 0.1), rgba(255, 180, 162, 0.1));
+            border-radius: 25px;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+        }
+        
+        .timer-number {
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--lesson3-sage);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+        
+        .timer-label {
+            font-size: 1.2rem;
+            color: var(--lesson3-peach);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        
+        /* Wave Pattern */
+        .wave-separator {
+            width: 100%;
+            height: 100px;
+            position: relative;
+            margin: 2rem 0;
+        }
+        
+        .wave-separator svg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+        
+        /* Body Scan Visualization */
+        .body-outline {
+            width: 200px;
+            height: 400px;
+            margin: 0 auto;
+            position: relative;
+            background: linear-gradient(180deg, 
+                rgba(139, 154, 130, 0.1) 0%, 
+                rgba(139, 154, 130, 0.2) 30%,
+                rgba(255, 180, 162, 0.2) 60%,
+                rgba(255, 180, 162, 0.1) 100%);
+            border-radius: 100px 100px 50px 50px / 150px 150px 50px 50px;
+        }
+        
+        /* Stress Level Meter */
+        .stress-meter {
+            background: #f0f0f0;
+            border-radius: 50px;
+            height: 50px;
+            position: relative;
+            overflow: hidden;
+            margin: 2rem 0;
+        }
+        
+        .stress-level {
+            height: 100%;
+            background: linear-gradient(90deg, var(--lesson3-sage), var(--lesson3-peach));
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            padding-left: 2rem;
+            color: white;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        /* Quick Relief Grid */
+        .relief-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .relief-technique {
+            background: white;
+            border: 2px solid var(--lesson3-sage);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .relief-technique:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .technique-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .magazine-split {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .relief-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .breathing-circle {
+                width: 250px;
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- Slide 1: Cinematic Opening -->
+            <section data-background-image="../../../shared-assets/images/week-2-images/biff01_Woman_sitting_in_meditation_pose_early_morning_light_s_dae35f5a-f039-4a8e-b4e5-57e18e890c84_0.png"
+                     data-background-size="cover"
+                     data-background-position="center">
+                <div style="position: absolute; inset: 0; background: linear-gradient(to right, rgba(139,154,130,0.9) 0%, rgba(255,180,162,0.8) 40%, transparent 70%); z-index: 1;"></div>
+                <div style="position: relative; z-index: 2; height: 100vh; display: flex; align-items: center; padding: 0 8%;">
+                    <div style="max-width: 650px;">
+                        <div style="display: inline-block; padding: 0.5rem 1.5rem; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); border-radius: 30px; margin-bottom: 2rem;">
+                            <p style="color: white; font-size: 0.9rem; letter-spacing: 0.15em; text-transform: uppercase; margin: 0; font-weight: 500;">Week 2 · Lesson 3</p>
+                        </div>
+                        <h1 style="font-family: var(--font-body); font-size: clamp(3rem, 6vw, 4.5rem); font-weight: 300; line-height: 1.05; margin-bottom: 2rem; color: white;">
+                            Stress Management<br>
+                            <span style="font-weight: 600; font-style: italic;">Essentials</span>
+                        </h1>
+                        <p style="font-size: 1.3rem; line-height: 1.6; color: rgba(255,255,255,0.9); margin-bottom: 3rem; font-weight: 300;">
+                            Evidence-based techniques that work<br>in 30 seconds, 3 minutes, or 30 minutes
+                        </p>
+                        <div style="display: flex; align-items: center; gap: 2rem;">
+                            <div style="width: 60px; height: 1px; background: white;"></div>
+                            <p style="color: rgba(255,255,255,0.7); font-size: 0.95rem; letter-spacing: 0.05em; margin: 0;">Dr. Jana Williams · Bloom Psychology</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 2: Your Stress Response -->
+            <section data-background-image="../../../shared-assets/images/week-2-images/biff01_Visualization_of_nervous_system_response_abstract_wave_e1f92e04-fd5e-474b-937b-eeadfefdc5a2_2.png"
+                     data-background-size="cover"
+                     data-background-position="center"
+                     data-background-opacity="0.15">
+                <div class="magazine-split">
+                    <div class="content">
+                        <h2>Your <span style="color: var(--lesson3-sage);">Stress Response</span></h2>
+                        <p style="font-size: 1.3rem; margin-bottom: 2rem;">When threat is perceived:</p>
+                        
+                        <div class="stress-card" style="margin-bottom: 1.5rem;">
+                            <h4 style="color: var(--lesson3-peach); margin-bottom: 1rem;">🧠 Amygdala Alarm</h4>
+                            <p>Sounds alert: "DANGER!"</p>
+                        </div>
+                        
+                        <div class="stress-card" style="margin-bottom: 1.5rem;">
+                            <h4 style="color: var(--lesson3-sage); margin-bottom: 1rem;">💉 Chemical Cascade</h4>
+                            <p>Cortisol + adrenaline flood your system</p>
+                        </div>
+                        
+                        <div class="stress-card">
+                            <h4 style="color: var(--lesson3-peach); margin-bottom: 1rem;">💓 Body Response</h4>
+                            <p>Heart races, muscles tense, breathing quickens</p>
+                        </div>
+                        
+                        <p style="margin-top: 2rem; font-style: italic; color: var(--lesson3-sage);">
+                            Your body can't tell the difference between a tiger and a teething baby
+                        </p>
+                    </div>
+                    <div class="image">
+                        <img src="../../../shared-assets/images/week-2-images/biff01_Woman_doing_breathing_exercise_with_visible_calm_peace_4d0b0db3-b3e6-4ccb-bf83-d09fb15de13a_1.png" alt="Woman practicing breathing">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 3: The Cost of Chronic Stress -->
+            <section data-background-color="#FFF9F0">
+                <div style="max-width: 1200px; text-align: center;">
+                    <h2 style="margin-bottom: 3rem;">The <span style="color: var(--lesson3-peach);">Cost</span> of Chronic Stress</h2>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 3rem; margin-bottom: 3rem;">
+                        <div style="text-align: left;">
+                            <h3 style="color: var(--lesson3-sage); margin-bottom: 2rem;">New mothers experience:</h3>
+                            <div class="timer-card">
+                                <div class="timer-number">40-50</div>
+                                <div class="timer-label">Stress responses per day</div>
+                            </div>
+                            <p style="text-align: center; margin-top: 1rem; font-style: italic;">vs. 15-20 for average adults</p>
+                        </div>
+                        
+                        <div style="text-align: left;">
+                            <h3 style="color: var(--lesson3-peach); margin-bottom: 2rem;">Impact on your body:</h3>
+                            <ul style="list-style: none; padding: 0; font-size: 1.15rem; line-height: 2;">
+                                <li>🥛 Interferes with milk production</li>
+                                <li>🩹 Slows physical healing</li>
+                                <li>😴 Disrupts fragile sleep</li>
+                                <li>🔥 Increases inflammation</li>
+                                <li>💊 Depletes nutrients faster</li>
+                                <li>😔 Impacts mood regulation</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div style="background: linear-gradient(135deg, rgba(139,154,130,0.1), rgba(255,180,162,0.1)); padding: 2rem; border-radius: 30px;">
+                        <p style="font-size: 1.3rem; margin: 0;">But here's the good news: We can work with your nervous system<br>to find moments of calm, even in the chaos.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 4: The 30-Second Reset -->
+            <section data-background-image="../../../shared-assets/images/week-2-images/biff01_Woman_splashing_cold_water_on_face_refreshing_moment_i_cf9dc82a-7d32-4bd7-8df7-9e8cf7a19c79_0.png"
+                     data-background-size="cover"
+                     data-background-position="right center"
+                     data-background-opacity="0.2">
+                <div style="max-width: 1000px;">
+                    <h2 style="text-align: center; margin-bottom: 3rem;">The <span style="color: var(--lesson3-sage);">30-Second</span> Reset</h2>
+                    <p style="text-align: center; font-size: 1.3rem; margin-bottom: 3rem;">When you need relief RIGHT NOW</p>
+                    
+                    <div class="relief-grid">
+                        <div class="relief-technique">
+                            <div class="technique-icon">🫁</div>
+                            <h3 style="color: var(--lesson3-peach);">Physiological Sigh</h3>
+                            <ol style="text-align: left; margin: 0;">
+                                <li>Deep breath in through nose</li>
+                                <li>Sip in a little more air</li>
+                                <li>Long, slow exhale through mouth</li>
+                                <li>Repeat 2-3 times</li>
+                            </ol>
+                        </div>
+                        
+                        <div class="relief-technique">
+                            <div class="technique-icon">❄️</div>
+                            <h3 style="color: var(--lesson3-sage);">Cold Water Reset</h3>
+                            <ul style="text-align: left; list-style: none; padding: 0; margin: 0;">
+                                <li>• Splash face with cold water</li>
+                                <li>• Cold washcloth on wrists</li>
+                                <li>• Step outside in cool air</li>
+                                <li>• Activates dive response</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="relief-technique">
+                            <div class="technique-icon">👁️</div>
+                            <h3 style="color: var(--lesson3-peach);">5-4-3-2-1 Grounding</h3>
+                            <p style="text-align: left; margin: 0;">Name: 5 things you see<br>
+                            4 things you touch<br>
+                            3 things you hear<br>
+                            2 things you smell<br>
+                            1 thing you taste</p>
+                        </div>
+                        
+                        <div class="relief-technique">
+                            <div class="technique-icon">🌬️</div>
+                            <h3 style="color: var(--lesson3-sage);">Quick Discharge</h3>
+                            <p style="text-align: left; margin: 0;">Shake whole body vigorously<br>
+                            Jump up and down 10 times<br>
+                            Push against wall hard<br>
+                            Releases stress hormones</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 5: The 3-Minute Recharge -->
+            <section data-background-image="../../../shared-assets/images/week-2-images/biff01_Woman_stretching_on_yoga_mat_peaceful_home_environment_9b23e5ad-b1a5-4b4f-b9a7-bd1c085cf7c7_0.png"
+                     data-background-size="cover"
+                     data-background-position="center"
+                     data-background-opacity="0.15">
+                <div style="max-width: 1200px;">
+                    <h2 style="text-align: center; margin-bottom: 3rem;">The <span style="color: var(--lesson3-peach);">3-Minute</span> Recharge</h2>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;">
+                        <div>
+                            <div style="background: rgba(255,255,255,0.95); padding: 2.5rem; border-radius: 30px; box-shadow: 0 20px 60px rgba(0,0,0,0.1);">
+                                <h3 style="color: var(--lesson3-sage); margin-bottom: 2rem;">Box Breathing</h3>
+                                <div class="breathing-circle">
+                                    <div class="breathing-text">
+                                        4-4-4-4
+                                    </div>
+                                </div>
+                                <p style="text-align: center;">Breathe in 4 • Hold 4<br>Breathe out 4 • Hold 4</p>
+                                <p style="text-align: center; font-style: italic; color: var(--lesson3-peach); margin-top: 1rem;">Used by Navy SEALs</p>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div style="background: rgba(255,255,255,0.95); padding: 2.5rem; border-radius: 30px; box-shadow: 0 20px 60px rgba(0,0,0,0.1);">
+                                <h3 style="color: var(--lesson3-peach); margin-bottom: 2rem;">Movement Reset</h3>
+                                <div style="background: linear-gradient(135deg, rgba(139,154,130,0.1), rgba(255,180,162,0.1)); padding: 2rem; border-radius: 20px;">
+                                    <p style="font-size: 1.2rem; line-height: 2; margin: 0;">
+                                        🔄 10 arm circles backwards<br>
+                                        🔄 10 gentle neck rolls<br>
+                                        🔄 10 shoulder shrugs<br>
+                                        🔄 30 seconds full body shake
+                                    </p>
+                                </div>
+                                <p style="text-align: center; font-style: italic; color: var(--lesson3-sage); margin-top: 1rem;">Discharges stress hormones</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 2rem; text-align: center;">
+                        <p style="font-size: 1.3rem; color: var(--lesson3-sage);">Quick muscle release: Shoulders to ears → Hold 5 → Release</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 6: The 30-Minute Recovery -->
+            <section>
+                <div class="magazine-split reverse">
+                    <div class="image">
+                        <img src="../../../shared-assets/images/week-2-images/biff01_Woman_in_comfortable_bath_with_candles_self-care_momen_dce7cf78-2a71-40f4-8aa8-f013ddf31d96_1.png" alt="Self-care bath">
+                    </div>
+                    <div class="content">
+                        <h2>The <span style="color: var(--lesson3-sage);">30-Minute</span> Recovery</h2>
+                        <p style="font-size: 1.3rem; margin-bottom: 2rem;">When you have a longer window:</p>
+                        
+                        <div style="background: linear-gradient(135deg, rgba(139,154,130,0.1), rgba(255,180,162,0.1)); padding: 2rem; border-radius: 20px; margin-bottom: 2rem;">
+                            <h4 style="color: var(--lesson3-peach); margin-bottom: 1rem;">🧘‍♀️ Restorative Yoga</h4>
+                            <p>Child's pose: 5 minutes<br>
+                            Legs up the wall: 10 minutes<br>
+                            Savasana with pillows: 15 minutes</p>
+                        </div>
+                        
+                        <div style="background: linear-gradient(135deg, rgba(255,180,162,0.1), rgba(139,154,130,0.1)); padding: 2rem; border-radius: 20px; margin-bottom: 2rem;">
+                            <h4 style="color: var(--lesson3-sage); margin-bottom: 1rem;">🚶‍♀️ Walking Meditation</h4>
+                            <p>20 minutes walking reduces cortisol<br>more than sitting meditation for moms</p>
+                        </div>
+                        
+                        <div style="background: linear-gradient(135deg, rgba(139,154,130,0.1), rgba(255,180,162,0.1)); padding: 2rem; border-radius: 20px;">
+                            <h4 style="color: var(--lesson3-peach); margin-bottom: 1rem;">🛁 Bath Therapy</h4>
+                            <p>Warm water + Epsom salts<br>
+                            No phone, just float and breathe</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 7: Building Resilience -->
+            <section data-background-image="../../../shared-assets/images/week-2-images/biff01_Woman_taking_deep_restorative_breath_outdoors_fresh_ai_dc659b77-7c88-4f5e-bfee-0bdffa8ab43b_1.png"
+                     data-background-size="cover"
+                     data-background-position="center"
+                     data-background-opacity="0.2">
+                <div style="max-width: 1000px; margin: 0 auto;">
+                    <h2 style="text-align: center; margin-bottom: 3rem;">Building <span style="color: var(--lesson3-sage);">Resilience</span></h2>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 3rem;">
+                        <div style="background: rgba(255,255,255,0.95); padding: 2.5rem; border-radius: 30px; box-shadow: 0 20px 60px rgba(0,0,0,0.1);">
+                            <h3 style="color: var(--lesson3-peach); margin-bottom: 1.5rem;">Daily Micro-Practices</h3>
+                            <ul style="list-style: none; padding: 0;">
+                                <li style="margin-bottom: 1rem;">🌅 3 breaths before feeding</li>
+                                <li style="margin-bottom: 1rem;">🎵 Calm music while pumping</li>
+                                <li style="margin-bottom: 1rem;">🙏 Gratitude while washing bottles</li>
+                                <li>🤸‍♀️ Stretch during tummy time</li>
+                            </ul>
+                            <p style="margin-top: 1.5rem; font-style: italic; text-align: center;">Tiny practices = Big impact</p>
+                        </div>
+                        
+                        <div style="background: rgba(255,255,255,0.95); padding: 2.5rem; border-radius: 30px; box-shadow: 0 20px 60px rgba(0,0,0,0.1);">
+                            <h3 style="color: var(--lesson3-sage); margin-bottom: 1.5rem;">Protective Boundaries</h3>
+                            <p style="font-size: 1.1rem; margin-bottom: 1rem;">"Thanks for the advice,<br>I'll think about it"</p>
+                            <p style="font-size: 1.1rem; margin-bottom: 1rem;">"We're not accepting<br>visitors this week"</p>
+                            <p style="font-size: 1.1rem; margin-bottom: 1rem;">"I need to rest<br>instead of clean"</p>
+                            <p style="margin-top: 1.5rem; font-style: italic; text-align: center;">Every boundary reduces stress</p>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 3rem; background: linear-gradient(135deg, rgba(139,154,130,0.1), rgba(255,180,162,0.1)); padding: 2rem; border-radius: 30px; text-align: center;">
+                        <p style="font-size: 1.3rem; margin: 0;">Remember: Even 20 minutes of deep rest<br>significantly reduces stress hormones</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 8: The Stress Paradox -->
+            <section data-background-color="#FFF9F0">
+                <div style="max-width: 900px; margin: 0 auto; text-align: center;">
+                    <h2 style="margin-bottom: 3rem;">The <span style="color: var(--lesson3-peach);">Stress Paradox</span></h2>
+                    
+                    <div style="background: white; padding: 3rem; border-radius: 30px; box-shadow: 0 20px 60px rgba(0,0,0,0.1);">
+                        <p style="font-size: 1.5rem; margin-bottom: 2rem; color: var(--lesson3-sage);">
+                            Accepting stress reduces its harmful effects
+                        </p>
+                        
+                        <div class="wave-separator">
+                            <svg viewBox="0 0 1200 100">
+                                <path d="M0,50 Q300,20 600,50 T1200,50 L1200,100 L0,100 Z" fill="rgba(139,154,130,0.1)"/>
+                            </svg>
+                        </div>
+                        
+                        <div style="text-align: left; max-width: 600px; margin: 0 auto;">
+                            <p style="font-size: 1.2rem; margin-bottom: 1.5rem;">
+                                <span style="color: var(--lesson3-peach); font-weight: 600;">Your racing heart?</span><br>
+                                It's pumping more oxygen to your brain
+                            </p>
+                            <p style="font-size: 1.2rem; margin-bottom: 1.5rem;">
+                                <span style="color: var(--lesson3-sage); font-weight: 600;">Your rapid breathing?</span><br>
+                                It's energizing you for action
+                            </p>
+                            <p style="font-size: 1.2rem;">
+                                <span style="color: var(--lesson3-peach); font-weight: 600;">Your heightened senses?</span><br>
+                                They're helping you respond to baby
+                            </p>
+                        </div>
+                        
+                        <p style="margin-top: 2rem; font-style: italic; font-size: 1.3rem; color: var(--lesson3-sage);">
+                            "I'm stressed because I care deeply<br>about doing well for my baby"
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 9: Your Stress Plan -->
+            <section data-background-image="../../../shared-assets/images/week-2-images/biff01_Woman_writing_in_journal_planning_self-care_soft_light_9eb4e4fa-f5f9-4a41-ad1b-c29f48e38c9e_0.png"
+                     data-background-size="cover"
+                     data-background-position="right center"
+                     data-background-opacity="0.15">
+                <div style="max-width: 900px;">
+                    <h2 style="text-align: center; margin-bottom: 3rem;">Create Your <span style="color: var(--lesson3-sage);">Stress Plan</span></h2>
+                    
+                    <div style="background: rgba(255,255,255,0.95); padding: 3rem; border-radius: 30px; box-shadow: 0 20px 60px rgba(0,0,0,0.1);">
+                        <p style="text-align: center; font-size: 1.3rem; margin-bottom: 2rem;">Fill in your personalized toolkit:</p>
+                        
+                        <div style="margin-bottom: 2rem; padding: 2rem; background: linear-gradient(to right, rgba(139,154,130,0.1), rgba(255,180,162,0.1)); border-radius: 20px;">
+                            <p style="font-size: 1.2rem; margin: 0;">
+                                <strong style="color: var(--lesson3-peach);">When I have 30 seconds, I will:</strong><br>
+                                <span style="font-style: italic; color: var(--bloom-warm-gray);">
+                                    (Pick one: physiological sigh, cold water, 5-4-3-2-1)
+                                </span>
+                            </p>
+                        </div>
+                        
+                        <div style="margin-bottom: 2rem; padding: 2rem; background: linear-gradient(to right, rgba(255,180,162,0.1), rgba(139,154,130,0.1)); border-radius: 20px;">
+                            <p style="font-size: 1.2rem; margin: 0;">
+                                <strong style="color: var(--lesson3-sage);">When I have 3 minutes, I will:</strong><br>
+                                <span style="font-style: italic; color: var(--bloom-warm-gray);">
+                                    (Pick one: box breathing, movement, muscle release)
+                                </span>
+                            </p>
+                        </div>
+                        
+                        <div style="margin-bottom: 2rem; padding: 2rem; background: linear-gradient(to right, rgba(139,154,130,0.1), rgba(255,180,162,0.1)); border-radius: 20px;">
+                            <p style="font-size: 1.2rem; margin: 0;">
+                                <strong style="color: var(--lesson3-peach);">When I have 30 minutes, I will:</strong><br>
+                                <span style="font-style: italic; color: var(--bloom-warm-gray);">
+                                    (Pick one: walk, bath, restorative yoga)
+                                </span>
+                            </p>
+                        </div>
+                        
+                        <div style="padding: 2rem; background: linear-gradient(to right, rgba(255,180,162,0.1), rgba(139,154,130,0.1)); border-radius: 20px;">
+                            <p style="font-size: 1.2rem; margin: 0;">
+                                <strong style="color: var(--lesson3-sage);">My daily micro-practice will be:</strong><br>
+                                <span style="font-style: italic; color: var(--bloom-warm-gray);">
+                                    (Pick one small thing you can do every day)
+                                </span>
+                            </p>
+                        </div>
+                        
+                        <p style="text-align: center; margin-top: 2rem; font-style: italic;">
+                            Write these down. Practice when calm.<br>They'll be automatic when you need them.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 10: Closing -->
+            <section data-background-image="../../../shared-assets/images/week-2-images/biff01_Woman_looking_peaceful_and_centered_gentle_smile_calm__31c84c6d-c3a2-4f89-a1f9-d8f56a3becd8_1.png"
+                     data-background-size="cover"
+                     data-background-position="center">
+                <div style="position: absolute; inset: 0; background: linear-gradient(to right, rgba(255,180,162,0.9) 0%, rgba(139,154,130,0.8) 40%, transparent 70%); z-index: 1;"></div>
+                <div style="position: relative; z-index: 2; height: 100vh; display: flex; align-items: center; padding: 0 8%;">
+                    <div style="max-width: 650px;">
+                        <div style="display: inline-block; padding: 0.5rem 1.5rem; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); border-radius: 30px; margin-bottom: 2rem;">
+                            <p style="color: white; font-size: 0.9rem; letter-spacing: 0.15em; text-transform: uppercase; margin: 0; font-weight: 500;">Remember</p>
+                        </div>
+                        <h1 style="font-family: var(--font-body); font-size: clamp(3rem, 6vw, 4.5rem); font-weight: 300; line-height: 1.05; margin-bottom: 2rem; color: white;">
+                            Your Body Knows<br>
+                            <span style="font-weight: 600; font-style: italic;">How To Be Calm</span>
+                        </h1>
+                        <p style="font-size: 1.3rem; line-height: 1.6; color: rgba(255,255,255,0.9); margin-bottom: 3rem; font-weight: 300;">
+                            It just needs reminders sometimes.<br>
+                            Start small. Pick one technique.<br>
+                            Try it today. One breath at a time.
+                        </p>
+                        <div style="display: flex; align-items: center; gap: 2rem;">
+                            <div style="width: 60px; height: 1px; background: white;"></div>
+                            <p style="color: rgba(255,255,255,0.7); font-size: 0.95rem; letter-spacing: 0.05em; margin: 0;">Next: Emotional Regulation Tools</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            controls: true,
+            progress: false,
+            center: false,
+            transition: 'none',
+            transitionSpeed: 'instant',
+            backgroundTransition: 'none'
+        });
+    </script>
+</body>
+</html>

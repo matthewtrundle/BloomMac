@@ -1,0 +1,195 @@
+{
+  "presentation": "bloom-course-content/weeks/week-1-foundation/lesson-1-welcome/presentation-animated-complete.html",
+  "analyzedAt": "2025-06-26T19:19:28.717Z",
+  "slideCount": 12,
+  "summary": {
+    "averageScore": 82,
+    "lowestScore": 82,
+    "highestScore": 82,
+    "criticalIssuesCount": 0,
+    "commonIssues": {}
+  },
+  "slides": [
+    {
+      "slideNumber": 1,
+      "timestamp": "2025-06-26T19:19:28.717Z",
+      "scores": {
+        "overall": 82,
+        "readability": 90,
+        "hierarchy": 75,
+        "cognitiveLoad": 80,
+        "accessibility": 85,
+        "mobile": 70
+      },
+      "issues": [],
+      "suggestions": [],
+      "criticalFixes": []
+    },
+    {
+      "slideNumber": 2,
+      "timestamp": "2025-06-26T19:19:28.717Z",
+      "scores": {
+        "overall": 82,
+        "readability": 90,
+        "hierarchy": 75,
+        "cognitiveLoad": 80,
+        "accessibility": 85,
+        "mobile": 70
+      },
+      "issues": [],
+      "suggestions": [],
+      "criticalFixes": []
+    },
+    {
+      "slideNumber": 3,
+      "timestamp": "2025-06-26T19:19:28.717Z",
+      "scores": {
+        "overall": 82,
+        "readability": 90,
+        "hierarchy": 75,
+        "cognitiveLoad": 80,
+        "accessibility": 85,
+        "mobile": 70
+      },
+      "issues": [],
+      "suggestions": [],
+      "criticalFixes": []
+    },
+    {
+      "slideNumber": 4,
+      "timestamp": "2025-06-26T19:19:28.717Z",
+      "scores": {
+        "overall": 82,
+        "readability": 90,
+        "hierarchy": 75,
+        "cognitiveLoad": 80,
+        "accessibility": 85,
+        "mobile": 70
+      },
+      "issues": [],
+      "suggestions": [],
+      "criticalFixes": []
+    },
+    {
+      "slideNumber": 5,
+      "timestamp": "2025-06-26T19:19:28.717Z",
+      "scores": {
+        "overall": 82,
+        "readability": 90,
+        "hierarchy": 75,
+        "cognitiveLoad": 80,
+        "accessibility": 85,
+        "mobile": 70
+      },
+      "issues": [],
+      "suggestions": [],
+      "criticalFixes": []
+    },
+    {
+      "slideNumber": 6,
+      "timestamp": "2025-06-26T19:19:28.717Z",
+      "scores": {
+        "overall": 82,
+        "readability": 90,
+        "hierarchy": 75,
+        "cognitiveLoad": 80,
+        "accessibility": 85,
+        "mobile": 70
+      },
+      "issues": [],
+      "suggestions": [],
+      "criticalFixes": []
+    },
+    {
+      "slideNumber": 7,
+      "timestamp": "2025-06-26T19:19:28.717Z",
+      "scores": {
+        "overall": 82,
+        "readability": 90,
+        "hierarchy": 75,
+        "cognitiveLoad": 80,
+        "accessibility": 85,
+        "mobile": 70
+      },
+      "issues": [],
+      "suggestions": [],
+      "criticalFixes": []
+    },
+    {
+      "slideNumber": 8,
+      "timestamp": "2025-06-26T19:19:28.717Z",
+      "scores": {
+        "overall": 82,
+        "readability": 90,
+        "hierarchy": 75,
+        "cognitiveLoad": 80,
+        "accessibility": 85,
+        "mobile": 70
+      },
+      "issues": [],
+      "suggestions": [],
+      "criticalFixes": []
+    },
+    {
+      "slideNumber": 9,
+      "timestamp": "2025-06-26T19:19:28.717Z",
+      "scores": {
+        "overall": 82,
+        "readability": 90,
+        "hierarchy": 75,
+        "cognitiveLoad": 80,
+        "accessibility": 85,
+        "mobile": 70
+      },
+      "issues": [],
+      "suggestions": [],
+      "criticalFixes": []
+    },
+    {
+      "slideNumber": 10,
+      "timestamp": "2025-06-26T19:19:28.717Z",
+      "scores": {
+        "overall": 82,
+        "readability": 90,
+        "hierarchy": 75,
+        "cognitiveLoad": 80,
+        "accessibility": 85,
+        "mobile": 70
+      },
+      "issues": [],
+      "suggestions": [],
+      "criticalFixes": []
+    },
+    {
+      "slideNumber": 11,
+      "timestamp": "2025-06-26T19:19:28.717Z",
+      "scores": {
+        "overall": 82,
+        "readability": 90,
+        "hierarchy": 75,
+        "cognitiveLoad": 80,
+        "accessibility": 85,
+        "mobile": 70
+      },
+      "issues": [],
+      "suggestions": [],
+      "criticalFixes": []
+    },
+    {
+      "slideNumber": 12,
+      "timestamp": "2025-06-26T19:19:28.717Z",
+      "scores": {
+        "overall": 82,
+        "readability": 90,
+        "hierarchy": 75,
+        "cognitiveLoad": 80,
+        "accessibility": 85,
+        "mobile": 70
+      },
+      "issues": [],
+      "suggestions": [],
+      "criticalFixes": []
+    }
+  ],
+  "recommendations": []
+}

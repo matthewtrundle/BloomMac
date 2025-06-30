@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>Welcome to Your Fourth Trimester | Bloom Psychology</title>
+    
+    <!-- Reveal.js Core -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reset.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/theme/white.css">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ========================================
+           BLOOM PSYCHOLOGY THEME OVERRIDES
+           ======================================== */
+        :root {
+            /* Brand Colors */
+            --bloom-sage: #8B9A82;
+            --bloom-charcoal: #1a1a1a;
+            --bloom-warm-gray: #4a4a4a;
+            --bloom-cream: #faf8f5;
+            --bloom-background: #FFF9F0;
+            
+            /* Vibrant Accent Colors */
+            --bloom-coral: #FF6B6B;
+            --bloom-peach: #FFB4A2;
+            --bloom-golden: #FFCB77;
+            --bloom-mint: #95E1D3;
+            --bloom-lavender: #C589E8;
+            --bloom-sky: #74C0FC;
+            --bloom-rose: #FFA8C5;
+            --bloom-teal: #4ECDC4;
+            --bloom-orange: #FF9A8B;
+            
+            /* Typography */
+            --font-display: 'Cormorant Garamond', serif;
+            --font-body: 'Inter', -apple-system, sans-serif;
+        }
+        
+        /* Base Reveal Overrides */
+        .reveal {
+            font-family: var(--font-body);
+            font-size: 24px;
+            font-weight: normal;
+            color: var(--bloom-charcoal);
+        }
+        
+        .reveal .slides {
+            text-align: left;
+        }
+        
+        .reveal h1,
+        .reveal h2,
+        .reveal h3,
+        .reveal h4 {
+            font-family: var(--font-body);
+            font-weight: 600;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            margin: 0 0 1rem 0;
+        }
+        
+        .reveal h1 { font-size: 3.5rem; }
+        .reveal h2 { font-size: 2.5rem; }
+        .reveal h3 { font-size: 1.8rem; }
+        
+        .reveal p {
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        /* Hero Slides */
+        .hero-slide {
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .hero-overlay {
+            background: rgba(26, 26, 26, 0.85);
+            padding: 4rem;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Cards */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        /* Timeline */
+        .timeline {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .timeline-item {
+            text-align: center;
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            position: relative;
+        }
+        
+        .timeline-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+        }
+        
+        /* Stats */
+        .stat-card {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .stat-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .stat-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: white;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Quote */
+        .quote-box {
+            background: white;
+            padding: 2rem 3rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            margin: 2rem auto;
+            max-width: 800px;
+            text-align: center;
+        }
+        
+        .quote-text {
+            font-size: 1.5rem;
+            line-height: 1.6;
+            color: var(--bloom-sage);
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- Slide 1: Hero Opening -->
+            <section class="hero-slide" data-background-color="#1a1a1a">
+                <div class="hero-overlay">
+                    <div class="container">
+                        <h1 style="color: white; text-align: center;">
+                            Welcome to Your<br/>
+                            <span style="color: var(--bloom-coral);">Fourth Trimester</span>
+                        </h1>
+                        <p style="color: rgba(255,255,255,0.8); text-align: center; font-size: 1.5rem; margin-top: 2rem;">
+                            Understanding Your Postpartum Journey
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 2: You Belong Here -->
+            <section data-background-color="#FFF9F0">
+                <div class="container">
+                    <h2>You <span style="color: var(--bloom-coral);">Belong</span> Here</h2>
+                    <p style="font-size: 1.3rem; color: var(--bloom-sage);">
+                        Whether this is your first baby or your fifth, whether you're feeling overwhelmed or underwhelmed, 
+                        whether you planned this or it surprised you—you belong here.
+                    </p>
+                </div>
+            </section>
+            
+            <!-- Slide 3: What Makes This Unique -->
+            <section data-background-color="#FFFFFF">
+                <div class="container">
+                    <h2>What Makes This <span style="color: var(--bloom-coral);">Unique</span></h2>
+                    
+                    <div class="card-grid">
+                        <div class="card fragment">
+                            <div class="card-header">
+                                <div class="card-icon" style="background: var(--bloom-coral);">🧠</div>
+                                <h3 style="color: var(--bloom-coral); margin: 0;">Your Brain is Changing</h3>
+                            </div>
+                            <p>Adapting to read your baby's needs—this is strength, not weakness</p>
+                        </div>
+                        
+                        <div class="card fragment">
+                            <div class="card-header">
+                                <div class="card-icon" style="background: var(--bloom-sky);">💤</div>
+                                <h3 style="color: var(--bloom-sky); margin: 0;">Sleep Changes Everything</h3>
+                            </div>
+                            <p>Disrupted sleep affects mood, memory, and patience—it's biology, not failure</p>
+                        </div>
+                        
+                        <div class="card fragment">
+                            <div class="card-header">
+                                <div class="card-icon" style="background: var(--bloom-lavender);">💪</div>
+                                <h3 style="color: var(--bloom-lavender); margin: 0;">Physical Recovery</h3>
+                            </div>
+                            <p>Your body needs time to heal—months, not weeks</p>
+                        </div>
+                        
+                        <div class="card fragment">
+                            <div class="card-header">
+                                <div class="card-icon" style="background: var(--bloom-golden);">✨</div>
+                                <h3 style="color: var(--bloom-golden); margin: 0;">Identity Shifts</h3>
+                            </div>
+                            <p>"Matrescence"—becoming a mother is as big as adolescence</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 4: This Is NOT -->
+            <section class="hero-slide" data-background-color="#1a1a1a">
+                <div class="hero-overlay">
+                    <div class="container">
+                        <h2 style="color: white; text-align: center; margin-bottom: 3rem;">
+                            This is <span style="color: var(--bloom-rose);">NOT</span>
+                        </h2>
+                        
+                        <div style="max-width: 700px; margin: 0 auto;">
+                            <div class="fragment" style="background: rgba(255,255,255,0.1); padding: 1.5rem; border-radius: 10px; margin-bottom: 1rem; border-left: 4px solid var(--bloom-rose);">
+                                <h3 style="color: var(--bloom-rose); margin-bottom: 0.5rem;">About "Bouncing Back"</h3>
+                                <p style="color: rgba(255,255,255,0.9); margin: 0;">You're not a rubber band. You're transforming.</p>
+                            </div>
+                            
+                            <div class="fragment" style="background: rgba(255,255,255,0.1); padding: 1.5rem; border-radius: 10px; margin-bottom: 1rem; border-left: 4px solid var(--bloom-rose);">
+                                <h3 style="color: var(--bloom-rose); margin-bottom: 0.5rem;">About Perfection</h3>
+                                <p style="color: rgba(255,255,255,0.9); margin: 0;">There's no prize for doing this alone.</p>
+                            </div>
+                            
+                            <div class="fragment" style="background: rgba(255,255,255,0.1); padding: 1.5rem; border-radius: 10px; margin-bottom: 1rem; border-left: 4px solid var(--bloom-rose);">
+                                <h3 style="color: var(--bloom-rose); margin-bottom: 0.5rem;">About Comparison</h3>
+                                <p style="color: rgba(255,255,255,0.9); margin: 0;">Your journey is uniquely yours.</p>
+                            </div>
+                            
+                            <div class="fragment" style="background: rgba(255,255,255,0.1); padding: 1.5rem; border-radius: 10px; border-left: 4px solid var(--bloom-rose);">
+                                <h3 style="color: var(--bloom-rose); margin-bottom: 0.5rem;">About Judgment</h3>
+                                <p style="color: rgba(255,255,255,0.9); margin: 0;">Whatever you're feeling is valid. Full stop.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 5: The Timeline -->
+            <section data-background-color="#FFF9F0">
+                <div class="container">
+                    <h2 style="text-align: center;">Your 100-Day <span style="color: var(--bloom-coral);">Timeline</span></h2>
+                    
+                    <div class="timeline">
+                        <div class="timeline-item fragment">
+                            <div class="timeline-circle" style="background: var(--bloom-warm-gray);">1-4</div>
+                            <h4>Weeks 1-4</h4>
+                            <h3 style="color: var(--bloom-charcoal);">Survival Mode</h3>
+                            <p>Just getting through each day</p>
+                        </div>
+                        
+                        <div class="timeline-item fragment">
+                            <div class="timeline-circle" style="background: var(--bloom-coral);">5-8</div>
+                            <h4>Weeks 5-8</h4>
+                            <h3 style="color: var(--bloom-charcoal);">Finding Rhythm</h3>
+                            <p>Patterns start emerging</p>
+                        </div>
+                        
+                        <div class="timeline-item fragment">
+                            <div class="timeline-circle" style="background: var(--bloom-golden);">9+</div>
+                            <h4>Weeks 9-14</h4>
+                            <h3 style="color: var(--bloom-charcoal);">New Normal</h3>
+                            <p>Confidence building</p>
+                        </div>
+                    </div>
+                    
+                    <div class="quote-box fragment">
+                        <p class="quote-text">
+                            Recovery isn't linear. Good days followed by hard days are both part of the journey.
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 6: The Emotional Reality -->
+            <section data-background-color="#1a1a1a">
+                <div class="hero-overlay">
+                    <div class="container">
+                        <h2 style="color: white; text-align: center; margin-bottom: 3rem;">
+                            The <span style="color: var(--bloom-coral);">Real</span> Fourth Trimester
+                        </h2>
+                        
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+                            <div class="stat-card fragment">
+                                <img src="../../../shared-assets/images/dark/darkphotos/biff01_Mother_looking_overwhelmed_sitting_among_baby_items_an_c7bd2229-ed7a-43da-ba8f-df4447eb2f05_1.png" alt="Exhaustion">
+                                <div class="stat-overlay">
+                                    <div class="stat-number">80%</div>
+                                    <p>Experience severe fatigue</p>
+                                </div>
+                            </div>
+                            
+                            <div class="stat-card fragment">
+                                <img src="../../../shared-assets/images/dark/darkphotos/biff01_Mother_sitting_alone_in_crowded_park_with_other_famili_e773a335-e8e4-4a68-9df6-5d813ae07df6_1.png" alt="Isolation">
+                                <div class="stat-overlay">
+                                    <div class="stat-number">67%</div>
+                                    <p>Feel lonely daily</p>
+                                </div>
+                            </div>
+                            
+                            <div class="stat-card fragment">
+                                <img src="../../../shared-assets/images/dark/darkphotos/biff01_Mother_holding_baby_with_mixed_expression_of_love_and__333dbc78-b05a-46d7-b993-a9cf8ee886ef_2.png" alt="Mixed emotions">
+                                <div class="stat-overlay">
+                                    <div class="stat-number">91%</div>
+                                    <p>Have conflicting emotions</p>
+                                </div>
+                            </div>
+                            
+                            <div class="stat-card fragment">
+                                <img src="../../../shared-assets/images/dark/darkphotos/biff01_Woman_looking_at_herself_in_bathroom_mirror_not_recogn_717a8ef2-27b2-4b83-bddd-b728c38a793b_2.png" alt="Identity">
+                                <div class="stat-overlay">
+                                    <div class="stat-number">88%</div>
+                                    <p>Question their identity</p>
+                                </div>
+                            </div>
+                            
+                            <div class="stat-card fragment">
+                                <img src="../../../shared-assets/images/dark/darkphotos/biff01_Mother_looking_overwhelmed_sitting_among_baby_items_an_c7bd2229-ed7a-43da-ba8f-df4447eb2f05_1.png" alt="Overwhelm">
+                                <div class="stat-overlay">
+                                    <div class="stat-number">76%</div>
+                                    <p>Feel overwhelmed daily</p>
+                                </div>
+                            </div>
+                            
+                            <div class="stat-card fragment">
+                                <img src="../../../shared-assets/images/biff01_Woman_taking_medication_with_morning_routine_matter-of_df1f0e62-14c6-4782-b08a-89031db6b197_2.png" alt="Recovery">
+                                <div class="stat-overlay">
+                                    <div class="stat-number">95%</div>
+                                    <p>Recover with support</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 7: You're Not Alone -->
+            <section data-background-color="#FFF9F0">
+                <div class="container">
+                    <h2 style="text-align: center; margin-bottom: 3rem;">
+                        You Are <span style="color: var(--bloom-coral);">Not Alone</span>
+                    </h2>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; max-width: 800px; margin: 0 auto;">
+                        <div class="stat-card fragment">
+                            <img src="../../../shared-assets/images/dark/darkphotos/biff01_Mother_in_support_group_sharing_story_other_women_list_56bfe588-5e6a-44ca-b14e-95b93593d85a_0.png" alt="Support">
+                            <div class="stat-overlay" style="background: linear-gradient(to top, rgba(255,107,107,0.9), transparent);">
+                                <div class="stat-number">1 in 5</div>
+                                <p>Experience postpartum mood disorders</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card fragment">
+                            <img src="../../../shared-assets/images/dark/darkphotos/biff01_Woman_looking_at_herself_in_bathroom_mirror_not_recogn_717a8ef2-27b2-4b83-bddd-b728c38a793b_2.png" alt="Unprepared">
+                            <div class="stat-overlay" style="background: linear-gradient(to top, rgba(139,154,130,0.9), transparent);">
+                                <div class="stat-number">70%</div>
+                                <p>Feel unprepared for the reality</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card fragment">
+                            <img src="../../../shared-assets/images/biff01_Large_diverse_group_of_mothers_at_outdoor_baby-wearing_af9fca4a-b408-4ba3-b315-6ccd06bc4ceb_0.png" alt="Recovery">
+                            <div class="stat-overlay" style="background: linear-gradient(to top, rgba(255,203,119,0.9), transparent);">
+                                <div class="stat-number">95%</div>
+                                <p>Recover fully with support</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card fragment">
+                            <img src="../../../shared-assets/images/biff01_Woman_with_hand_on_heart_in_morning_light_self-compas_55242be0-e564-4de9-bee2-46be6a8e9bb6_1.png" alt="Compassion">
+                            <div class="stat-overlay" style="background: linear-gradient(to top, rgba(149,225,211,0.9), transparent);">
+                                <div class="stat-number">100%</div>
+                                <p>Deserve compassion and care</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="quote-box fragment">
+                        <p class="quote-text">
+                            You are not alone in this journey, and with the right support, you will find your way.
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 8: Your Path Forward -->
+            <section data-background-color="#FFFFFF">
+                <div class="container">
+                    <h2>Your Path <span style="color: var(--bloom-coral);">Forward</span></h2>
+                    <h3 style="color: var(--bloom-sage); margin-bottom: 2rem;">Six Steps to Transformation</h3>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
+                        <div class="card fragment" style="border-left: 3px solid var(--bloom-coral);">
+                            <h4 style="color: var(--bloom-coral);">01. Recognition</h4>
+                            <p>Acknowledging that what you're feeling is real</p>
+                        </div>
+                        
+                        <div class="card fragment" style="border-left: 3px solid var(--bloom-sky);">
+                            <h4 style="color: var(--bloom-sky);">02. Connection</h4>
+                            <p>Reaching out to others who understand</p>
+                        </div>
+                        
+                        <div class="card fragment" style="border-left: 3px solid var(--bloom-mint);">
+                            <h4 style="color: var(--bloom-mint);">03. Support</h4>
+                            <p>Building a care team when needed</p>
+                        </div>
+                        
+                        <div class="card fragment" style="border-left: 3px solid var(--bloom-rose);">
+                            <h4 style="color: var(--bloom-rose);">04. Community</h4>
+                            <p>Finding your tribe of mothers</p>
+                        </div>
+                        
+                        <div class="card fragment" style="border-left: 3px solid var(--bloom-golden);">
+                            <h4 style="color: var(--bloom-golden);">05. Tools</h4>
+                            <p>Learning practical strategies</p>
+                        </div>
+                        
+                        <div class="card fragment" style="border-left: 3px solid var(--bloom-lavender);">
+                            <h4 style="color: var(--bloom-lavender);">06. Growth</h4>
+                            <p>Transforming into who you're meant to be</p>
+                        </div>
+                    </div>
+                    
+                    <div class="quote-box fragment">
+                        <p class="quote-text">
+                            Each step builds on the last, creating a foundation for lasting transformation.
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 9: Today's Practice -->
+            <section data-background-color="#FFF9F0">
+                <div class="container">
+                    <h2>Today's <span style="color: var(--bloom-coral);">Practice</span></h2>
+                    
+                    <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+                        <h3 style="color: var(--bloom-sage); margin: 3rem 0;">Your Daily Check-In</h3>
+                        
+                        <div class="card" style="padding: 3rem; background: white;">
+                            <p style="font-size: 1.5rem; margin-bottom: 2rem;">Three times today, pause and ask yourself:</p>
+                            
+                            <h2 style="color: var(--bloom-coral); margin: 2rem 0;">
+                                "How am I feeling in this moment?"
+                            </h2>
+                            
+                            <p style="font-size: 1.2rem; color: var(--bloom-sage);">
+                                No judgment. Just notice. Just breathe.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 10: Closing -->
+            <section class="hero-slide" data-background-color="#1a1a1a">
+                <div class="hero-overlay">
+                    <div class="container" style="text-align: center;">
+                        <h1 style="color: white;">
+                            Your Journey Begins <span style="color: var(--bloom-coral);">Now</span>
+                        </h1>
+                        
+                        <p style="color: rgba(255,255,255,0.9); font-size: 1.5rem; margin: 3rem 0;">
+                            You've taken the first courageous step.<br/>
+                            We're here to walk alongside you.
+                        </p>
+                        
+                        <p style="color: rgba(255,255,255,0.7); font-size: 1.2rem;">
+                            Next: Lesson 2 - Understanding What's Normal
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/notes/notes.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/markdown/markdown.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/highlight/highlight.js"></script>
+    
+    <script>
+        Reveal.initialize({
+            hash: true,
+            controls: true,
+            progress: true,
+            center: false,
+            transition: 'fade',
+            transitionSpeed: 'default',
+            backgroundTransition: 'fade',
+            
+            // Enable fragments
+            fragments: true,
+            
+            // View settings
+            width: 1920,
+            height: 1080,
+            margin: 0.1,
+            minScale: 0.2,
+            maxScale: 2.0,
+            
+            plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+        });
+    </script>
+</body>
+</html>

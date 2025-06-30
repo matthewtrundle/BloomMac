@@ -1,0 +1,778 @@
+/**
+ * Bloom Psychology Reveal.js Theme
+ * Created for professional postpartum support presentations
+ * 
+ * This is the complete CSS needed for all lessons.
+ * Import this file instead of bloom-professional.css
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* ========================================
+   COLOR SYSTEM
+   ======================================== */
+:root {
+  /* Primary Brand Colors - Hope-Focused Palette */
+  --bloom-sage: #A8C09A;  /* Lighter, warmer sage */
+  --bloom-charcoal: #2d2d2d;  /* Softer charcoal */
+  --bloom-warm-gray: #5a5a5a;  /* Lighter warm gray */
+  --bloom-light-gray: #f9f9f9;  /* Even lighter gray */
+  --bloom-cream: #faf8f5;
+  --bloom-white: #ffffff;
+  
+  /* Hope-Focused Accent Colors */
+  --bloom-coral: #F4A261;  /* Warm coral instead of harsh red */
+  --bloom-peach: #FFB4A2;
+  --bloom-golden: #FFCB77;
+  --bloom-mint: #95E1D3;
+  --bloom-lavender: #E6E6FA;  /* Softer lavender */
+  --bloom-sky: #87CEEB;  /* Softer sky blue */
+  --bloom-rose: #FFA8C5;
+  
+  /* New Hope Colors */
+  --bloom-morning-light: #FFF5E6;  /* Primary background */
+  --bloom-hope-green: #C7E9C0;  /* Growth and renewal */
+  --bloom-sunshine: #FFF3CD;  /* Warmth and optimism */
+  
+  /* Typography */
+  --font-display: 'Cormorant Garamond', serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  
+  /* Spacing */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 2rem;
+  --space-lg: 4rem;
+  --space-xl: 6rem;
+  --space-2xl: 8rem;
+  
+  /* Shadows - Softer for hope theme */
+  --shadow-subtle: 0 2px 8px rgba(0,0,0,0.06);
+  --shadow-medium: 0 8px 24px rgba(0,0,0,0.08);
+  --shadow-large: 0 20px 60px rgba(0,0,0,0.1);
+  --shadow-dramatic: 0 30px 80px rgba(0,0,0,0.15);
+}
+
+/* ========================================
+   BASE STYLES
+   ======================================== */
+.reveal-viewport {
+  background: var(--bloom-morning-light);
+}
+
+.reveal {
+  font-family: var(--font-body);
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--bloom-charcoal);
+  line-height: 1.6;
+  letter-spacing: -0.02em;
+}
+
+.reveal .slides {
+  text-align: left;
+}
+
+.reveal .slides section {
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* ========================================
+   TYPOGRAPHY
+   ======================================== */
+.reveal h1 {
+  font-family: var(--font-display);
+  font-size: 5.5rem;
+  font-weight: 300;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--bloom-charcoal);
+  margin-bottom: var(--space-md);
+}
+
+.reveal h2 {
+  font-family: var(--font-display);
+  font-size: 4rem;
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--bloom-charcoal);
+  margin-bottom: var(--space-md);
+}
+
+.reveal h3 {
+  font-family: var(--font-body);
+  font-size: 2.5rem;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--bloom-warm-gray);
+  margin-bottom: var(--space-sm);
+}
+
+.reveal p {
+  font-size: 1.6rem;
+  line-height: 1.8;
+  color: var(--bloom-warm-gray);
+  margin-bottom: var(--space-md);
+  max-width: 45em;
+}
+
+.reveal em {
+  font-style: italic;
+  color: var(--bloom-sage);
+}
+
+.reveal strong {
+  font-weight: 600;
+  color: var(--bloom-charcoal);
+}
+
+/* ========================================
+   LAYOUT COMPONENTS
+   ======================================== */
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: var(--space-xl) var(--space-lg);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.container--full {
+  max-width: 100%;
+  padding: 0;
+}
+
+/* Magazine Layouts */
+.magazine-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.magazine-split-weighted {
+  grid-template-columns: 1.3fr 1fr;
+}
+
+.magazine-split-reverse {
+  grid-template-columns: 1fr 1.3fr;
+}
+
+.image-panel {
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+.image-panel img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  margin: 0;
+  display: block;
+}
+
+.content-panel {
+  padding: 5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: white;
+}
+
+.content-panel-gradient {
+  background: linear-gradient(135deg, #faf8f5 0%, rgba(255,228,225,0.5) 100%);
+}
+
+/* ========================================
+   HERO SLIDES
+   ======================================== */
+.hero-image-slide {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.hero-image-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.hero-scrim {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.2) 30%, rgba(0,0,0,0.5) 70%, rgba(0,0,0,0.7) 100%);
+}
+
+.custom-hero-scrim {
+  background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.1) 40%, rgba(0,0,0,0.4) 80%, rgba(0,0,0,0.6) 100%);
+}
+
+.text-protection {
+  background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.5) 50%, transparent 100%);
+  padding: 6rem 5rem 5rem 5rem;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.text-protection-light {
+  background: linear-gradient(135deg, rgba(255,255,255,0.98) 0%, rgba(255,245,230,0.95) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.6);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+}
+
+/* ========================================
+   FLOATING CARDS
+   ======================================== */
+.floating-card {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 3.5rem;
+  border-radius: 24px;
+  box-shadow: var(--shadow-dramatic);
+  max-width: 650px;
+  border: 1px solid rgba(255,255,255,0.5);
+}
+
+.floating-card-left {
+  left: 5%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.floating-card-right {
+  right: 5%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.floating-card-bottom {
+  bottom: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 85%;
+  max-width: 1100px;
+}
+
+.floating-card-dark {
+  background: rgba(26, 26, 26, 0.95);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.image-with-card {
+  position: relative;
+  height: 100%;
+}
+
+.image-with-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ========================================
+   IMAGE GRIDS
+   ======================================== */
+.image-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5rem;
+  padding: 2rem;
+  height: 100%;
+}
+
+.image-grid-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.image-grid-item:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: var(--shadow-dramatic);
+}
+
+.image-grid-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.image-grid-item:hover img {
+  transform: scale(1.08);
+}
+
+.image-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.7) 50%, transparent 100%);
+  color: white;
+  padding: 2.5rem 2rem 2rem 2rem;
+  transform: translateY(100%);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.image-grid-item:hover .image-caption {
+  transform: translateY(0);
+}
+
+/* ========================================
+   STAT CARDS
+   ======================================== */
+.stat-image-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 24px;
+  height: 380px;
+  transition: all 0.4s ease;
+  cursor: pointer;
+}
+
+.stat-image-card:hover {
+  transform: translateY(-10px);
+  box-shadow: var(--shadow-dramatic);
+}
+
+.stat-image-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.stat-image-card:hover img {
+  transform: scale(1.1);
+}
+
+.stat-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: center;
+  padding: 2rem;
+  background: linear-gradient(135deg, rgba(26,26,26,0.85) 0%, rgba(26,26,26,0.95) 100%);
+}
+
+.stat-overlay h3 {
+  font-size: 2.2rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: white;
+}
+
+.stat-overlay p {
+  font-size: 1.6rem;
+  opacity: 0.95;
+  color: white;
+}
+
+.stat-big-number {
+  font-family: var(--font-display);
+  font-size: 7rem;
+  font-weight: 300;
+  margin-bottom: 0.5rem;
+  line-height: 1;
+}
+
+/* ========================================
+   JOURNEY CARDS
+   ======================================== */
+.journey-card {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  gap: 0;
+  margin-bottom: 2rem;
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+.journey-card:hover {
+  transform: translateX(15px);
+  box-shadow: var(--shadow-dramatic);
+}
+
+.journey-image {
+  position: relative;
+  overflow: hidden;
+}
+
+.journey-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.journey-card:hover .journey-image img {
+  transform: scale(1.1);
+}
+
+.journey-number-overlay {
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  width: 60px;
+  height: 60px;
+  background: white;
+  color: var(--bloom-charcoal);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  font-weight: bold;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+}
+
+.journey-content-panel {
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.journey-content-panel h3 {
+  font-size: 1.8rem;
+  margin-bottom: 0.8rem;
+  color: var(--bloom-charcoal);
+}
+
+.journey-content-panel p {
+  font-size: 1.4rem;
+  color: var(--bloom-warm-gray);
+  line-height: 1.6;
+}
+
+/* ========================================
+   RIGHTS CARDS
+   ======================================== */
+.rights-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: 2.5rem;
+  padding: 2rem;
+}
+
+.right-card {
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+.right-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-dramatic);
+}
+
+.right-card-image {
+  height: 220px;
+  overflow: hidden;
+  position: relative;
+}
+
+.right-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.right-card:hover .right-card-image img {
+  transform: scale(1.1);
+}
+
+.right-card-content {
+  padding: 2.5rem;
+}
+
+.right-card-content p {
+  font-size: 1.5rem;
+  line-height: 1.7;
+}
+
+/* ========================================
+   QUOTES
+   ======================================== */
+.quote-with-image {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 5rem;
+  align-items: center;
+  padding: 5rem;
+}
+
+.quote-portrait {
+  position: relative;
+  overflow: hidden;
+  border-radius: 24px;
+  box-shadow: var(--shadow-dramatic);
+}
+
+.quote-portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.reveal blockquote {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  font-weight: 300;
+  line-height: 1.4;
+  margin: 0;
+  position: relative;
+}
+
+/* ========================================
+   VISUAL ELEMENTS
+   ======================================== */
+.gradient-text {
+  background: linear-gradient(135deg, var(--bloom-coral) 0%, var(--bloom-lavender) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.floating-shape {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  animation: float 20s ease-in-out infinite;
+  opacity: 0.3;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) translateX(0) rotate(0deg); }
+  33% { transform: translateY(-30px) translateX(20px) rotate(120deg); }
+  66% { transform: translateY(20px) translateX(-20px) rotate(240deg); }
+}
+
+.shape-coral {
+  width: 400px;
+  height: 400px;
+  background: var(--bloom-coral);
+}
+
+.shape-mint {
+  width: 500px;
+  height: 500px;
+  background: var(--bloom-mint);
+}
+
+.shape-lavender {
+  width: 450px;
+  height: 450px;
+  background: var(--bloom-lavender);
+}
+
+/* ========================================
+   LISTS
+   ======================================== */
+.visual-list {
+  list-style: none;
+  padding: 0;
+}
+
+.visual-list li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2.5rem;
+  font-size: 1.7rem;
+}
+
+.visual-list-icon {
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(135deg, var(--bloom-mint) 0%, var(--bloom-sky) 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 2rem;
+  color: white;
+  font-size: 1.8rem;
+  flex-shrink: 0;
+  box-shadow: 0 8px 24px rgba(149, 225, 211, 0.2);
+}
+
+.visual-list-icon svg {
+  width: 32px;
+  height: 32px;
+  stroke: white;
+  stroke-width: 2;
+}
+
+/* Icon gradient variations */
+.icon-gradient-1 {
+  background: linear-gradient(135deg, var(--bloom-coral) 0%, var(--bloom-peach) 100%);
+}
+
+.icon-gradient-2 {
+  background: linear-gradient(135deg, var(--bloom-peach) 0%, var(--bloom-golden) 100%);
+}
+
+.icon-gradient-3 {
+  background: linear-gradient(135deg, var(--bloom-lavender) 0%, var(--bloom-rose) 100%);
+}
+
+.icon-gradient-4 {
+  background: linear-gradient(135deg, var(--bloom-mint) 0%, var(--bloom-sky) 100%);
+}
+
+/* ========================================
+   BUTTONS
+   ======================================== */
+.cta-button {
+  display: inline-block;
+  padding: 1.8rem 3.5rem;
+  background: linear-gradient(135deg, var(--bloom-coral) 0%, var(--bloom-lavender) 100%);
+  color: white;
+  text-decoration: none;
+  border-radius: 50px;
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-top: 2.5rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 15px 40px rgba(255, 107, 107, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.cta-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 50px rgba(255, 107, 107, 0.4);
+  color: white;
+}
+
+/* ========================================
+   REVEAL.JS OVERRIDES
+   ======================================== */
+.reveal .progress {
+  height: 4px;
+  background: rgba(0,0,0,0.1);
+}
+
+.reveal .progress span {
+  background: var(--bloom-sage);
+}
+
+.reveal .controls {
+  color: var(--bloom-sage);
+}
+
+.reveal .slide-number {
+  background: transparent;
+  color: var(--bloom-warm-gray);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+}
+
+/* Links */
+.reveal a {
+  color: var(--bloom-sage);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.reveal a:hover {
+  color: var(--bloom-sage-dark);
+  text-decoration: underline;
+}
+
+/* ========================================
+   FRAGMENTS
+   ======================================== */
+.reveal .fragment {
+  transition: all 0.5s ease;
+}
+
+.reveal .fragment.fade-in-up {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.reveal .fragment.fade-in-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal .fragment.scale-in {
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+.reveal .fragment.scale-in.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+@media (max-width: 1024px) {
+  .reveal h1 { font-size: 4rem; }
+  .reveal h2 { font-size: 3rem; }
+  .magazine-split { grid-template-columns: 1fr; }
+  .container { padding: var(--space-lg) var(--space-md); }
+  .image-grid { grid-template-columns: repeat(2, 1fr); }
+  .rights-grid { grid-template-columns: 1fr; }
+}
+
+/* ========================================
+   PRINT STYLES
+   ======================================== */
+@media print {
+  .reveal .slide-background {
+    background-color: var(--bloom-white);
+  }
+  
+  .floating-shape {
+    display: none;
+  }
+  
+  .reveal .fragment {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

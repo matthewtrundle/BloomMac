@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Honoring Your Experience | Bloom Psychology</title>
+    
+    <!-- Reveal.js Core -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reset.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ========================================
+           BLOOM PROFESSIONAL DESIGN SYSTEM
+           ======================================== */
+        :root {
+            /* Brand Colors */
+            --bloom-sage: #8B9A82;
+            --bloom-charcoal: #1a1a1a;
+            --bloom-warm-gray: #4a4a4a;
+            --bloom-cream: #faf8f5;
+            --bloom-background: #FFF9F0;
+            
+            /* Vibrant Accent Colors */
+            --bloom-coral: #FF6B6B;
+            --bloom-peach: #FFB4A2;
+            --bloom-golden: #FFCB77;
+            --bloom-mint: #95E1D3;
+            --bloom-lavender: #C589E8;
+            --bloom-sky: #74C0FC;
+            --bloom-rose: #FFA8C5;
+            --bloom-teal: #4ECDC4;
+            --bloom-orange: #FF9A8B;
+            
+            /* Typography */
+            --font-display: 'Cormorant Garamond', serif;
+            --font-body: 'Inter', -apple-system, sans-serif;
+            
+            /* Spacing Scale */
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 2rem;
+            --space-lg: 3rem;
+            --space-xl: 4rem;
+            --space-2xl: 6rem;
+            --space-3xl: 8rem;
+        }
+        
+        /* Base Reveal Overrides */
+        .reveal {
+            font-family: var(--font-body);
+            font-size: 24px;
+            font-weight: normal;
+            color: var(--bloom-charcoal);
+            background-color: #FFFFFF;
+        }
+        
+        .reveal .slides {
+            text-align: left;
+        }
+        
+        .reveal .slides section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            padding: 2rem;
+            overflow: hidden;
+        }
+        
+        .reveal h1,
+        .reveal h2,
+        .reveal h3,
+        .reveal h4 {
+            font-family: var(--font-body);
+            font-weight: 600;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            text-transform: none;
+            margin: 0 0 1rem 0;
+        }
+        
+        .reveal h1 { font-size: clamp(2.5rem, 5vw, 4rem); }
+        .reveal h2 { font-size: clamp(2rem, 4vw, 3rem); }
+        .reveal h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
+        .reveal h4 { font-size: clamp(1.2rem, 2.5vw, 1.8rem); }
+        
+        .reveal p {
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            font-size: clamp(1rem, 2vw, 1.2rem);
+        }
+        
+        /* Remove all animations */
+        .reveal .fragment {
+            opacity: 1 !important;
+            visibility: visible !important;
+            transform: none !important;
+        }
+        
+        .reveal .slides section.present {
+            transform: none !important;
+        }
+        
+        .reveal .progress {
+            display: none;
+        }
+        
+        /* Magazine Layouts */
+        .magazine-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            width: 100%;
+            max-width: 1400px;
+        }
+        
+        .magazine-split.reverse {
+            grid-template-columns: 1fr 1fr;
+        }
+        
+        .magazine-split .content {
+            padding: 2rem;
+        }
+        
+        .magazine-split .image {
+            position: relative;
+            height: 70vh;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+        
+        .magazine-split .image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Typography refinements */
+        .elegant-divider {
+            width: 60px;
+            height: 1px;
+            background: currentColor;
+            opacity: 0.3;
+            margin: 2rem 0;
+        }
+        
+        /* Emotion Cards */
+        .emotion-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            width: 100%;
+            max-width: 1200px;
+        }
+        
+        .emotion-card {
+            background: linear-gradient(135deg, #FFF9F0 0%, #FFFFFF 100%);
+            border: 1px solid rgba(255, 168, 197, 0.2);
+            border-radius: 16px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .emotion-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--bloom-rose), var(--bloom-golden));
+        }
+        
+        .emotion-card h3 {
+            color: var(--bloom-charcoal);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .emotion-card p {
+            color: var(--bloom-warm-gray);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        
+        /* Quote Section */
+        .quote-container {
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(250, 248, 245, 0.9));
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+            border-left: 4px solid var(--bloom-rose);
+        }
+        
+        .quote-text {
+            font-size: clamp(1.4rem, 2.5vw, 1.8rem);
+            font-weight: 300;
+            line-height: 1.5;
+            color: var(--bloom-charcoal);
+            margin-bottom: 1.5rem;
+            position: relative;
+            font-style: italic;
+        }
+        
+        .quote-text::before,
+        .quote-text::after {
+            content: '"';
+            font-size: 4rem;
+            color: var(--bloom-rose);
+            opacity: 0.3;
+            position: absolute;
+        }
+        
+        .quote-text::before {
+            top: -1rem;
+            left: -2rem;
+        }
+        
+        .quote-text::after {
+            bottom: -2rem;
+            right: -2rem;
+        }
+        
+        .quote-author {
+            font-size: 1.1rem;
+            color: var(--bloom-warm-gray);
+            font-weight: 500;
+        }
+        
+        /* Rights List */
+        .rights-container {
+            background: linear-gradient(135deg, rgba(255, 168, 197, 0.05), rgba(255, 203, 119, 0.05));
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .rights-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .rights-list li {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        
+        .rights-list li::before {
+            content: '✓';
+            color: var(--bloom-golden);
+            font-weight: 700;
+            font-size: 1.5rem;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+        
+        /* Practice Box */
+        .practice-box {
+            background: white;
+            border: 2px solid var(--bloom-rose);
+            border-radius: 16px;
+            padding: 2.5rem;
+            max-width: 500px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        
+        .practice-box h3 {
+            color: var(--bloom-rose);
+            margin-bottom: 1.5rem;
+        }
+        
+        .practice-box ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .practice-box li {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .practice-box li::before {
+            content: '•';
+            color: var(--bloom-golden);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .magazine-split {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .emotion-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .opener-content h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- Slide 1: Cinematic Opening -->
+            <section data-background-image="../../../shared-assets/images/dark/darkphotos/biff01_Woman_with_hand_on_heart_self-compassion_gesture_eyes_e5d46d39-ab41-480c-95f7-064a9cb57855_2.png"
+                     data-background-size="cover"
+                     data-background-position="center">
+                <div style="position: absolute; inset: 0; background: linear-gradient(to right, rgba(255,168,197,0.9) 0%, rgba(255,203,119,0.8) 40%, transparent 70%); z-index: 1;"></div>
+                <div style="position: relative; z-index: 2; height: 100vh; display: flex; align-items: center; padding: 0 8%;">
+                    <div style="max-width: 650px;">
+                        <div style="display: inline-block; padding: 0.5rem 1.5rem; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); border-radius: 30px; margin-bottom: 2rem;">
+                            <p style="color: white; font-size: 0.9rem; letter-spacing: 0.15em; text-transform: uppercase; margin: 0; font-weight: 500;">Week 1 · Lesson 4</p>
+                        </div>
+                        <h1 style="font-family: var(--font-body); font-size: clamp(3rem, 6vw, 4.5rem); font-weight: 300; line-height: 1.05; margin-bottom: 2rem; color: white;">
+                            Honoring<br>
+                            <span style="font-weight: 600; font-style: italic;">Your Experience</span>
+                        </h1>
+                        <p style="font-size: 1.3rem; line-height: 1.6; color: rgba(255,255,255,0.9); margin-bottom: 3rem; font-weight: 300;">
+                            Every feeling you're having is valid.<br>It matters. And it deserves to be honored.
+                        </p>
+                        <div style="display: flex; align-items: center; gap: 2rem;">
+                            <div style="width: 60px; height: 1px; background: white;"></div>
+                            <p style="color: rgba(255,255,255,0.7); font-size: 0.95rem; letter-spacing: 0.05em; margin: 0;">Dr. Jana Williams · Bloom Psychology</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 2: Your Experience Is Valid -->
+            <section>
+                <div class="magazine-split">
+                    <div class="content">
+                        <h2>Your Experience Is <span style="color: var(--bloom-rose);">Valid</span></h2>
+                        <p style="font-size: 1.3rem; font-weight: 500; margin-bottom: 1.5rem;">There is no "right" way to experience postpartum.</p>
+                        <p>Your journey is uniquely yours, shaped by your personal history, your circumstances, your support system, and yes, your individual biology.</p>
+                        <p>Whatever you're feeling right now - joy, grief, love, resentment, confidence, fear, or numbness - <strong>it all belongs</strong>.</p>
+                        <p style="font-style: italic; color: var(--bloom-rose); margin-top: 1.5rem;">You have permission to feel it all.</p>
+                    </div>
+                    <div class="image">
+                        <img src="../../../shared-assets/images/dark/darkphotos/biff01_Woman_in_quiet_contemplation_processing_emotions_sitti_37a05f1d-a7c2-42d2-87a3-ee23e68dc922_0.png" alt="Woman in contemplation">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 3: The Emotional Spectrum -->
+            <section>
+                <div style="max-width: 1200px; text-align: center;">
+                    <h2 style="margin-bottom: 3rem;">Opposing Emotions Can <span style="color: var(--bloom-golden);">Coexist</span></h2>
+                    <div class="emotion-grid">
+                        <div class="emotion-card">
+                            <h3>Joy & Grief</h3>
+                            <p>Overjoyed about your baby while grieving your old life. Both are true.</p>
+                        </div>
+                        <div class="emotion-card">
+                            <h3>Love & Resentment</h3>
+                            <p>Deeply loving your baby while resenting motherhood's demands. Neither cancels the other.</p>
+                        </div>
+                        <div class="emotion-card">
+                            <h3>Confidence & Overwhelm</h3>
+                            <p>Capable in one moment, completely lost in the next. Both are valid.</p>
+                        </div>
+                        <div class="emotion-card">
+                            <h3>Gratitude & Depletion</h3>
+                            <p>Profoundly grateful while utterly exhausted. Being grateful doesn't erase exhaustion.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 4: Unspoken Experiences -->
+            <section data-background-image="../../../shared-assets/images/dark/darkphotos/biff01_Circle_of_mothers_sharing_experiences_various_emotiona_57db6ea4-e5e9-4bb5-9ed8-54a8e7ed53c3_1.png" data-background-opacity="0.15">
+                <div style="max-width: 900px; margin: 0 auto;">
+                    <h2 style="text-align: center; margin-bottom: 3rem;">The Feelings We Don't Share</h2>
+                    <div style="background: rgba(255, 255, 255, 0.95); padding: 3rem; border-radius: 20px; backdrop-filter: blur(10px);">
+                        <p style="font-size: 1.3rem; color: var(--bloom-rose); margin-bottom: 2rem; text-align: center;">"Am I the only one?"</p>
+                        <h3 style="text-align: center; margin-bottom: 2rem;">You're not.</h3>
+                        <ul style="list-style: none; padding: 0; font-size: 1.1rem; line-height: 2;">
+                            <li>✓ Grieving your pre-baby self</li>
+                            <li>✓ Feeling trapped or claustrophobic</li>
+                            <li>✓ Moments of regret</li>
+                            <li>✓ Not recognizing yourself</li>
+                            <li>✓ Fantasizing about escape</li>
+                            <li>✓ Feeling nothing when you expected joy</li>
+                        </ul>
+                        <p style="text-align: center; margin-top: 2rem; font-style: italic;">These feelings don't make you a bad mother. They make you human.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 5: Real Mothers' Words -->
+            <section data-background-image="../../../shared-assets/images/dark/darkphotos/biff01_Group_of_diverse_mothers_in_park_setting_all_different_485ab1e2-5436-49a3-ad9c-5ec1fab55c05_0.png" data-background-opacity="0.1">
+                <div style="max-width: 1200px; margin: 0 auto;">
+                    <h2 style="text-align: center; margin-bottom: 3rem; color: var(--bloom-charcoal);">Real Mothers, <span style="color: var(--bloom-rose);">Real Words</span></h2>
+                    
+                    <div style="display: grid; gap: 2rem;">
+                        <div class="quote-container">
+                            <p class="quote-text">I love my baby more than life itself, but some days I miss my old life so much it physically hurts.</p>
+                            <p class="quote-author">- Sarah, 3 months postpartum</p>
+                        </div>
+                        
+                        <div class="quote-container" style="border-left-color: var(--bloom-golden);">
+                            <p class="quote-text">Everyone said I'd feel instant love. It took me weeks to feel connected, and I thought I was broken.</p>
+                            <p class="quote-author">- Maria, 6 months postpartum</p>
+                        </div>
+                        
+                        <div class="quote-container" style="border-left-color: var(--bloom-lavender);">
+                            <p class="quote-text">I'm a good mom AND I sometimes wonder what life would be like if I'd made different choices.</p>
+                            <p class="quote-author">- Aisha, 9 months postpartum</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 6: Trusting Your Inner Wisdom -->
+            <section>
+                <div class="magazine-split reverse">
+                    <div class="image">
+                        <img src="../../../shared-assets/images/dark/darkphotos/biff01_Mother_and_baby_in_peaceful_connected_moment_emotional_8b93b69b-31ae-4606-afb1-87b65575d17d_1.png" alt="Mother trusting intuition">
+                    </div>
+                    <div class="content">
+                        <h2>Your <span style="color: var(--bloom-golden);">Maternal Intuition</span> Is Real</h2>
+                        <p>It's not just a nice idea - it's biology. Your brain has literally rewired itself to tune into your baby.</p>
+                        <ul style="list-style: none; padding: 0; margin: 2rem 0;">
+                            <li style="margin-bottom: 1.2rem; font-size: 1.1rem;"><strong style="color: var(--bloom-golden);">Instinct:</strong> You know when something feels off</li>
+                            <li style="margin-bottom: 1.2rem; font-size: 1.1rem;"><strong style="color: var(--bloom-golden);">Connection:</strong> You distinguish your baby's different cries</li>
+                            <li style="margin-bottom: 1.2rem; font-size: 1.1rem;"><strong style="color: var(--bloom-golden);">Attunement:</strong> You sense their needs before they express them</li>
+                            <li style="margin-bottom: 1.2rem; font-size: 1.1rem;"><strong style="color: var(--bloom-golden);">Knowledge:</strong> You know your baby better than anyone</li>
+                        </ul>
+                        <div style="background: linear-gradient(135deg, rgba(255, 203, 119, 0.1), rgba(255, 168, 197, 0.1)); padding: 1.5rem; border-radius: 12px; margin-top: 2rem;">
+                            <p style="margin: 0; font-weight: 500;">Take what serves you. Leave what doesn't.<br><span style="font-size: 0.9rem; color: var(--bloom-warm-gray);">You are the expert on your baby.</span></p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 7: Your Postpartum Rights -->
+            <section>
+                <div style="max-width: 1000px; margin: 0 auto; text-align: center;">
+                    <h2 style="margin-bottom: 3rem;">Your Postpartum <span style="color: var(--bloom-rose);">Rights</span></h2>
+                    <p style="font-size: 1.2rem; margin-bottom: 3rem;">These aren't things you have to earn. They're yours.</p>
+                    <div class="rights-container">
+                        <ul class="rights-list">
+                            <li>The right to <strong>rest</strong> - without earning it or explaining why</li>
+                            <li>The right to <strong>feel all your emotions</strong> - without judgment or timeline</li>
+                            <li>The right to <strong>ask for help</strong> - this is strength, not weakness</li>
+                            <li>The right to <strong>make mistakes</strong> - perfection isn't required or possible</li>
+                            <li>The right to <strong>boundaries</strong> - to say no to what doesn't serve you</li>
+                            <li>The right to <strong>heal at your own pace</strong> - your timeline is the right timeline</li>
+                        </ul>
+                    </div>
+                    <p style="margin-top: 2rem; font-style: italic; color: var(--bloom-golden);">These aren't luxuries. These are rights. Claim them.</p>
+                </div>
+            </section>
+
+            <!-- Slide 8: This Week's Practice -->
+            <section>
+                <div class="magazine-split">
+                    <div class="image">
+                        <img src="../../../shared-assets/images/dark/darkphotos/biff01_Woman_journaling_emotions_cozy_setting_self-reflection_fe6431d8-4e52-411a-b903-0a2f0106a159_2.png" alt="Woman journaling">
+                    </div>
+                    <div class="content">
+                        <div class="practice-box">
+                            <h3>This Week's Practice</h3>
+                            <ul>
+                                <li><strong>Daily emotion check-in:</strong> Name 3 emotions without judgment</li>
+                                <li><strong>One act of self-compassion:</strong> Something purely for your well-being</li>
+                                <li><strong>Journal prompt:</strong> "Today I'm honoring myself by acknowledging that..."</li>
+                            </ul>
+                            <p style="margin-top: 2rem; font-style: italic; color: var(--bloom-warm-gray);">Simple acknowledgment is powerful.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 9: Moving Forward -->
+            <section data-background-image="../../../shared-assets/images/dark/darkphotos/biff01_Mother_playing_with_baby_genuine_smile_breakthrough_mo_8bfe49ff-258d-48ab-b002-cd46a92cf9b9_3.png" data-background-opacity="0.2">
+                <div style="max-width: 900px; margin: 0 auto; text-align: center; background: rgba(255, 255, 255, 0.95); padding: 4rem; border-radius: 20px;">
+                    <h2 style="margin-bottom: 2rem;">You Are <span style="color: var(--bloom-golden);">Exactly</span> The Mother Your Baby Needs</h2>
+                    <p style="font-size: 1.3rem; line-height: 1.8;">Not the mother you think you should be.<br>
+                    Not the mother others expect you to be.<br>
+                    But exactly who you are, with all your feelings,<br>
+                    all your struggles, all your love.</p>
+                    <div style="margin-top: 3rem; padding: 2rem; background: linear-gradient(135deg, rgba(255, 168, 197, 0.1), rgba(255, 203, 119, 0.1)); border-radius: 16px;">
+                        <p style="font-size: 1.2rem; font-weight: 500; margin: 0;">Trust yourself. Honor your journey. You are enough.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 10: Closing -->
+            <section data-background-image="../../../shared-assets/images/dark/darkphotos/biff01_Woman_with_expression_of_relief_after_asking_for_help__9611dd01-6e47-4520-b26e-22643dcf0571_2.png"
+                     data-background-size="cover"
+                     data-background-position="center">
+                <div style="position: absolute; inset: 0; background: linear-gradient(to right, rgba(255,203,119,0.9) 0%, rgba(255,168,197,0.8) 40%, transparent 70%); z-index: 1;"></div>
+                <div style="position: relative; z-index: 2; height: 100vh; display: flex; align-items: center; padding: 0 8%;">
+                    <div style="max-width: 650px;">
+                        <div style="display: inline-block; padding: 0.5rem 1.5rem; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); border-radius: 30px; margin-bottom: 2rem;">
+                            <p style="color: white; font-size: 0.9rem; letter-spacing: 0.15em; text-transform: uppercase; margin: 0; font-weight: 500;">Week 1 Complete</p>
+                        </div>
+                        <h1 style="font-family: var(--font-body); font-size: clamp(3rem, 6vw, 4.5rem); font-weight: 300; line-height: 1.05; margin-bottom: 2rem; color: white;">
+                            You've Taken<br>
+                            <span style="font-weight: 600; font-style: italic;">The First Step</span>
+                        </h1>
+                        <p style="font-size: 1.3rem; line-height: 1.6; color: rgba(255,255,255,0.9); margin-bottom: 3rem; font-weight: 300;">
+                            Next week, we'll explore how to nurture<br>self-compassion as you continue this journey.
+                        </p>
+                        <div style="display: flex; align-items: center; gap: 2rem;">
+                            <div style="width: 60px; height: 1px; background: white;"></div>
+                            <p style="color: rgba(255,255,255,0.7); font-size: 0.95rem; letter-spacing: 0.05em; margin: 0;">Until then, be gentle with yourself. You're doing better than you know.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            controls: true,
+            progress: false,
+            center: false,
+            transition: 'none',
+            transitionSpeed: 'instant',
+            backgroundTransition: 'none'
+        });
+    </script>
+</body>
+</html>

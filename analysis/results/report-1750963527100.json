@@ -1,0 +1,515 @@
+{
+  "presentation": "bloom-course-content/weeks/week-1-foundation/lesson-1-welcome/presentation-animated-complete.html",
+  "analyzedAt": "2025-06-26T18:45:27.100Z",
+  "slideCount": 12,
+  "summary": {
+    "averageScore": 95,
+    "lowestScore": 87,
+    "highestScore": 98,
+    "criticalIssuesCount": 3,
+    "commonIssues": {
+      "SPACING": 12,
+      "MOBILE": 12,
+      "ACCESSIBILITY": 10,
+      "TEXT_SIZE": 5
+    }
+  },
+  "slides": [
+    {
+      "slideNumber": 1,
+      "timestamp": "2025-06-26T18:45:27.093Z",
+      "scores": {
+        "readability": 100,
+        "hierarchy": 95,
+        "cognitiveLoad": 100,
+        "accessibility": 100,
+        "mobile": 90,
+        "overall": 98
+      },
+      "issues": [
+        {
+          "type": "SPACING",
+          "severity": "low",
+          "description": "No margin between elements",
+          "count": 2
+        },
+        {
+          "type": "MOBILE",
+          "severity": "medium",
+          "description": "Found 2 fixed width declarations",
+          "examples": [
+            "width: 650px",
+            "width: 80px"
+          ]
+        }
+      ],
+      "suggestions": [],
+      "criticalFixes": []
+    },
+    {
+      "slideNumber": 2,
+      "timestamp": "2025-06-26T18:45:27.094Z",
+      "scores": {
+        "readability": 100,
+        "hierarchy": 95,
+        "cognitiveLoad": 100,
+        "accessibility": 90,
+        "mobile": 90,
+        "overall": 96
+      },
+      "issues": [
+        {
+          "type": "SPACING",
+          "severity": "low",
+          "description": "No margin between elements",
+          "count": 1
+        },
+        {
+          "type": "ACCESSIBILITY",
+          "severity": "medium",
+          "description": "Heading hierarchy skip: h0 to h2"
+        },
+        {
+          "type": "MOBILE",
+          "severity": "medium",
+          "description": "Found 1 fixed width declarations",
+          "examples": [
+            "width: 150px"
+          ]
+        }
+      ],
+      "suggestions": [],
+      "criticalFixes": []
+    },
+    {
+      "slideNumber": 3,
+      "timestamp": "2025-06-26T18:45:27.094Z",
+      "scores": {
+        "readability": 70,
+        "hierarchy": 95,
+        "cognitiveLoad": 100,
+        "accessibility": 90,
+        "mobile": 90,
+        "overall": 87
+      },
+      "issues": [
+        {
+          "type": "TEXT_SIZE",
+          "severity": "medium",
+          "description": "Text too small (< 1rem)",
+          "count": 1,
+          "examples": [
+            "font-size: 0.9rem"
+          ]
+        },
+        {
+          "type": "TEXT_SIZE",
+          "severity": "medium",
+          "description": "Body text borderline small (1rem)",
+          "count": 4,
+          "examples": [
+            "font-size: 1.05rem",
+            "font-size: 1.05rem",
+            "font-size: 1.05rem"
+          ]
+        },
+        {
+          "type": "SPACING",
+          "severity": "low",
+          "description": "No margin between elements",
+          "count": 4
+        },
+        {
+          "type": "ACCESSIBILITY",
+          "severity": "medium",
+          "description": "Heading hierarchy skip: h0 to h2"
+        },
+        {
+          "type": "MOBILE",
+          "severity": "medium",
+          "description": "Found 9 fixed width declarations",
+          "examples": [
+            "width: 900px",
+            "width: 4px",
+            "width: 48px"
+          ]
+        }
+      ],
+      "suggestions": [],
+      "criticalFixes": [
+        {
+          "type": "TEXT_SIZE",
+          "priority": "high",
+          "description": "Multiple text elements are too small for comfortable reading"
+        }
+      ]
+    },
+    {
+      "slideNumber": 4,
+      "timestamp": "2025-06-26T18:45:27.094Z",
+      "scores": {
+        "readability": 100,
+        "hierarchy": 95,
+        "cognitiveLoad": 100,
+        "accessibility": 90,
+        "mobile": 90,
+        "overall": 96
+      },
+      "issues": [
+        {
+          "type": "SPACING",
+          "severity": "low",
+          "description": "No margin between elements",
+          "count": 4
+        },
+        {
+          "type": "ACCESSIBILITY",
+          "severity": "medium",
+          "description": "Heading hierarchy skip: h0 to h2"
+        },
+        {
+          "type": "MOBILE",
+          "severity": "medium",
+          "description": "Found 4 fixed width declarations",
+          "examples": [
+            "width: 5px",
+            "width: 5px",
+            "width: 5px"
+          ]
+        }
+      ],
+      "suggestions": [],
+      "criticalFixes": []
+    },
+    {
+      "slideNumber": 5,
+      "timestamp": "2025-06-26T18:45:27.095Z",
+      "scores": {
+        "readability": 100,
+        "hierarchy": 95,
+        "cognitiveLoad": 100,
+        "accessibility": 90,
+        "mobile": 90,
+        "overall": 96
+      },
+      "issues": [
+        {
+          "type": "SPACING",
+          "severity": "low",
+          "description": "No margin between elements",
+          "count": 7
+        },
+        {
+          "type": "ACCESSIBILITY",
+          "severity": "medium",
+          "description": "Heading hierarchy skip: h0 to h2"
+        },
+        {
+          "type": "MOBILE",
+          "severity": "medium",
+          "description": "Found 9 fixed width declarations",
+          "examples": [
+            "width: 1400px",
+            "width: 90px",
+            "width: 90px"
+          ]
+        }
+      ],
+      "suggestions": [],
+      "criticalFixes": []
+    },
+    {
+      "slideNumber": 6,
+      "timestamp": "2025-06-26T18:45:27.095Z",
+      "scores": {
+        "readability": 70,
+        "hierarchy": 95,
+        "cognitiveLoad": 100,
+        "accessibility": 90,
+        "mobile": 90,
+        "overall": 87
+      },
+      "issues": [
+        {
+          "type": "TEXT_SIZE",
+          "severity": "medium",
+          "description": "Text too small (< 1rem)",
+          "count": 1,
+          "examples": [
+            "font-size: 0.9rem"
+          ]
+        },
+        {
+          "type": "TEXT_SIZE",
+          "severity": "medium",
+          "description": "Body text borderline small (1rem)",
+          "count": 2,
+          "examples": [
+            "font-size: 1.05rem",
+            "font-size: 1.05rem"
+          ]
+        },
+        {
+          "type": "SPACING",
+          "severity": "low",
+          "description": "No margin between elements",
+          "count": 2
+        },
+        {
+          "type": "ACCESSIBILITY",
+          "severity": "medium",
+          "description": "Heading hierarchy skip: h0 to h2"
+        },
+        {
+          "type": "MOBILE",
+          "severity": "medium",
+          "description": "Found 2 fixed width declarations",
+          "examples": [
+            "width: 1200px",
+            "width: 60px"
+          ]
+        }
+      ],
+      "suggestions": [],
+      "criticalFixes": [
+        {
+          "type": "TEXT_SIZE",
+          "priority": "high",
+          "description": "Multiple text elements are too small for comfortable reading"
+        }
+      ]
+    },
+    {
+      "slideNumber": 7,
+      "timestamp": "2025-06-26T18:45:27.095Z",
+      "scores": {
+        "readability": 100,
+        "hierarchy": 95,
+        "cognitiveLoad": 100,
+        "accessibility": 90,
+        "mobile": 90,
+        "overall": 96
+      },
+      "issues": [
+        {
+          "type": "SPACING",
+          "severity": "low",
+          "description": "No margin between elements",
+          "count": 4
+        },
+        {
+          "type": "ACCESSIBILITY",
+          "severity": "medium",
+          "description": "Heading hierarchy skip: h0 to h2"
+        },
+        {
+          "type": "MOBILE",
+          "severity": "medium",
+          "description": "Found 1 fixed width declarations",
+          "examples": [
+            "width: 1000px"
+          ]
+        }
+      ],
+      "suggestions": [],
+      "criticalFixes": []
+    },
+    {
+      "slideNumber": 8,
+      "timestamp": "2025-06-26T18:45:27.096Z",
+      "scores": {
+        "readability": 85,
+        "hierarchy": 95,
+        "cognitiveLoad": 100,
+        "accessibility": 90,
+        "mobile": 90,
+        "overall": 92
+      },
+      "issues": [
+        {
+          "type": "TEXT_SIZE",
+          "severity": "medium",
+          "description": "Text too small (< 1rem)",
+          "count": 1,
+          "examples": [
+            "font-size: 0.9rem"
+          ]
+        },
+        {
+          "type": "SPACING",
+          "severity": "low",
+          "description": "No margin between elements",
+          "count": 9
+        },
+        {
+          "type": "ACCESSIBILITY",
+          "severity": "medium",
+          "description": "Heading hierarchy skip: h0 to h2"
+        },
+        {
+          "type": "MOBILE",
+          "severity": "medium",
+          "description": "Found 3 fixed width declarations",
+          "examples": [
+            "width: 50px",
+            "width: 50px",
+            "width: 700px"
+          ]
+        }
+      ],
+      "suggestions": [],
+      "criticalFixes": [
+        {
+          "type": "TEXT_SIZE",
+          "priority": "high",
+          "description": "Multiple text elements are too small for comfortable reading"
+        }
+      ]
+    },
+    {
+      "slideNumber": 9,
+      "timestamp": "2025-06-26T18:45:27.096Z",
+      "scores": {
+        "readability": 100,
+        "hierarchy": 95,
+        "cognitiveLoad": 100,
+        "accessibility": 90,
+        "mobile": 90,
+        "overall": 96
+      },
+      "issues": [
+        {
+          "type": "SPACING",
+          "severity": "low",
+          "description": "No margin between elements",
+          "count": 1
+        },
+        {
+          "type": "ACCESSIBILITY",
+          "severity": "medium",
+          "description": "Heading hierarchy skip: h0 to h2"
+        },
+        {
+          "type": "MOBILE",
+          "severity": "medium",
+          "description": "Found 1 fixed width declarations",
+          "examples": [
+            "width: 120px"
+          ]
+        }
+      ],
+      "suggestions": [],
+      "criticalFixes": []
+    },
+    {
+      "slideNumber": 10,
+      "timestamp": "2025-06-26T18:45:27.097Z",
+      "scores": {
+        "readability": 100,
+        "hierarchy": 95,
+        "cognitiveLoad": 100,
+        "accessibility": 90,
+        "mobile": 90,
+        "overall": 96
+      },
+      "issues": [
+        {
+          "type": "SPACING",
+          "severity": "low",
+          "description": "No margin between elements",
+          "count": 1
+        },
+        {
+          "type": "ACCESSIBILITY",
+          "severity": "medium",
+          "description": "Heading hierarchy skip: h0 to h2"
+        },
+        {
+          "type": "MOBILE",
+          "severity": "medium",
+          "description": "Found 2 fixed width declarations",
+          "examples": [
+            "width: 1000px",
+            "width: 100px"
+          ]
+        }
+      ],
+      "suggestions": [],
+      "criticalFixes": []
+    },
+    {
+      "slideNumber": 11,
+      "timestamp": "2025-06-26T18:45:27.099Z",
+      "scores": {
+        "readability": 100,
+        "hierarchy": 95,
+        "cognitiveLoad": 100,
+        "accessibility": 90,
+        "mobile": 90,
+        "overall": 96
+      },
+      "issues": [
+        {
+          "type": "SPACING",
+          "severity": "low",
+          "description": "No margin between elements",
+          "count": 7
+        },
+        {
+          "type": "ACCESSIBILITY",
+          "severity": "medium",
+          "description": "Heading hierarchy skip: h0 to h2"
+        },
+        {
+          "type": "MOBILE",
+          "severity": "medium",
+          "description": "Found 6 fixed width declarations",
+          "examples": [
+            "width: 100px",
+            "width: 80px",
+            "width: 120px"
+          ]
+        }
+      ],
+      "suggestions": [],
+      "criticalFixes": []
+    },
+    {
+      "slideNumber": 12,
+      "timestamp": "2025-06-26T18:45:27.100Z",
+      "scores": {
+        "readability": 100,
+        "hierarchy": 95,
+        "cognitiveLoad": 100,
+        "accessibility": 100,
+        "mobile": 90,
+        "overall": 98
+      },
+      "issues": [
+        {
+          "type": "SPACING",
+          "severity": "low",
+          "description": "No margin between elements",
+          "count": 1
+        },
+        {
+          "type": "MOBILE",
+          "severity": "medium",
+          "description": "Found 1 fixed width declarations",
+          "examples": [
+            "width: 150px"
+          ]
+        }
+      ],
+      "suggestions": [],
+      "criticalFixes": []
+    }
+  ],
+  "recommendations": [
+    {
+      "priority": "high",
+      "action": "Increase text sizes globally",
+      "description": "Multiple slides have text readability issues"
+    }
+  ]
+}

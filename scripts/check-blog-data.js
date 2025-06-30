@@ -41,6 +41,9 @@ async function checkBlogData() {
         console.log(`   Published: ${new Date(post.published_at).toLocaleDateString()}`);
         console.log(`   Featured: ${post.featured ? 'Yes' : 'No'}`);
         console.log(`   Image: ${post.image_url ? '✓' : '✗'}`);
+        if (post.image_url) {
+          console.log(`   Image URL: ${post.image_url}`);
+        }
       });
     } else {
       console.log('No blog posts found in the database.');

@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>The Science of Postpartum Changes | Bloom Psychology</title>
+    
+    <!-- Reveal.js Core -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reset.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ========================================
+           BLOOM PROFESSIONAL DESIGN SYSTEM
+           ======================================== */
+        :root {
+            /* Brand Colors */
+            --bloom-sage: #8B9A82;
+            --bloom-charcoal: #1a1a1a;
+            --bloom-warm-gray: #4a4a4a;
+            --bloom-cream: #faf8f5;
+            --bloom-background: #FFF9F0;
+            
+            /* Vibrant Accent Colors */
+            --bloom-coral: #FF6B6B;
+            --bloom-peach: #FFB4A2;
+            --bloom-golden: #FFCB77;
+            --bloom-mint: #95E1D3;
+            --bloom-lavender: #C589E8;
+            --bloom-sky: #74C0FC;
+            --bloom-rose: #FFA8C5;
+            --bloom-teal: #4ECDC4;
+            --bloom-orange: #FF9A8B;
+            
+            /* Typography */
+            --font-display: 'Cormorant Garamond', serif;
+            --font-body: 'Inter', -apple-system, sans-serif;
+            
+            /* Spacing Scale */
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 2rem;
+            --space-lg: 3rem;
+            --space-xl: 4rem;
+            --space-2xl: 6rem;
+            --space-3xl: 8rem;
+        }
+        
+        /* Base Reveal Overrides */
+        .reveal {
+            font-family: var(--font-body);
+            font-size: 24px;
+            font-weight: normal;
+            color: var(--bloom-charcoal);
+            background-color: #FFFFFF;
+        }
+        
+        .reveal .slides {
+            text-align: left;
+        }
+        
+        .reveal .slides section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            padding: 2rem;
+            overflow: hidden;
+        }
+        
+        .reveal h1,
+        .reveal h2,
+        .reveal h3,
+        .reveal h4 {
+            font-family: var(--font-body);
+            font-weight: 600;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            text-transform: none;
+            margin: 0 0 1rem 0;
+        }
+        
+        .reveal h1 { font-size: clamp(2.5rem, 5vw, 4rem); }
+        .reveal h2 { font-size: clamp(2rem, 4vw, 3rem); }
+        .reveal h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
+        .reveal h4 { font-size: clamp(1.2rem, 2.5vw, 1.8rem); }
+        
+        .reveal p {
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            font-size: clamp(1rem, 2vw, 1.2rem);
+        }
+        
+        /* Remove all animations */
+        .reveal .slides section,
+        .reveal .slides section * {
+            transition: none !important;
+            animation: none !important;
+        }
+        
+        .reveal .fragment {
+            opacity: 1 !important;
+            visibility: visible !important;
+            transform: none !important;
+        }
+        
+        /* Typography Classes */
+        .display-serif {
+            font-family: var(--font-display);
+            font-weight: 300;
+        }
+        
+        .display-title {
+            font-size: clamp(3rem, 7vw, 5rem);
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            margin-bottom: var(--space-lg);
+        }
+        
+        .section-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: var(--bloom-charcoal);
+        }
+        
+        .subtitle-caps {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-weight: 500;
+        }
+        
+        /* Science-specific visual elements */
+        .science-stat {
+            display: inline-block;
+            font-size: 4rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--bloom-lavender) 0%, var(--bloom-sky) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+        }
+        
+        .timeline-dot {
+            width: 20px;
+            height: 20px;
+            background: var(--bloom-lavender);
+            border-radius: 50%;
+            position: relative;
+        }
+        
+        .timeline-line {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(to right, var(--bloom-lavender), var(--bloom-sky));
+            z-index: -1;
+        }
+        
+        .brain-card {
+            background: rgba(149, 225, 211, 0.05);
+            border: 2px solid var(--bloom-mint);
+            border-radius: 20px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .brain-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(149, 225, 211, 0.1) 0%, transparent 70%);
+            animation: none;
+        }
+        
+        /* Layout Components */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        .asymmetric-grid {
+            display: grid;
+            grid-template-columns: 1.618fr 1fr;
+            gap: var(--space-xl);
+            align-items: center;
+            height: 100%;
+        }
+        
+        .asymmetric-grid.reverse {
+            grid-template-columns: 1fr 1.618fr;
+        }
+        
+        .content-panel {
+            padding: var(--space-md);
+        }
+        
+        .image-panel {
+            position: relative;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .asymmetric-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .reveal .slides section {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- Slide 1: Cinematic Opening -->
+            <section data-background-image="../../../shared-assets/images/biff01_Abstract_warm_visualization_of_brain_with_gentle_flowi_97896f3f-ec59-4429-8004-ae4f5d7c6a34_1.png"
+                     data-background-size="cover"
+                     data-background-position="center">
+                <div style="position: absolute; inset: 0; background: linear-gradient(to right, rgba(26,26,26,0.9) 0%, rgba(26,26,26,0.7) 40%, transparent 70%); z-index: 1;"></div>
+                <div style="position: relative; z-index: 2; height: 100vh; display: flex; align-items: center; padding: 0 8%;">
+                    <div style="max-width: 650px;">
+                        <div style="display: inline-block; padding: 0.5rem 1.5rem; background: rgba(197,137,232,0.2); backdrop-filter: blur(10px); border-radius: 30px; margin-bottom: 2rem;">
+                            <p style="color: var(--bloom-lavender); font-size: 0.9rem; letter-spacing: 0.15em; text-transform: uppercase; margin: 0; font-weight: 500;">Week 1 · Lesson 3</p>
+                        </div>
+                        <h1 style="font-family: var(--font-display); font-size: clamp(3rem, 6vw, 4.5rem); font-weight: 300; line-height: 1.05; margin-bottom: 2rem; color: white;">
+                            The Science of<br>
+                            <span style="font-weight: 600; font-style: italic;">Postpartum Changes</span>
+                        </h1>
+                        <p style="font-size: 1.3rem; line-height: 1.6; color: rgba(255,255,255,0.9); margin-bottom: 3rem; font-weight: 300;">
+                            Understanding the remarkable biology<br>behind your transformation
+                        </p>
+                        <div style="display: flex; align-items: center; gap: 2rem;">
+                            <div style="width: 60px; height: 1px; background: var(--bloom-golden);"></div>
+                            <p style="color: rgba(255,255,255,0.7); font-size: 0.95rem; letter-spacing: 0.05em; margin: 0;">Dr. Jana Williams · Bloom Psychology</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 2: Your Body Is Wise -->
+            <section data-background-color="#FFFFFF">
+                <div class="asymmetric-grid" style="padding: 0 6%; height: 100vh;">
+                    <div class="content-panel">
+                        <p class="subtitle-caps" style="color: var(--bloom-lavender); margin-bottom: 2rem;">Fundamental Truth</p>
+                        <h2 class="display-serif" style="font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.1; margin-bottom: 2rem;">
+                            Your Body Is <span style="font-style: italic; color: var(--bloom-lavender);">Wise</span>
+                        </h2>
+                        <div style="width: 60px; height: 3px; background: var(--bloom-lavender); margin: 2rem 0; border-radius: 3px;"></div>
+                        <p style="font-size: 1.25rem; line-height: 1.8; color: var(--bloom-warm-gray); margin-bottom: 1.5rem;">
+                            What you're experiencing isn't random or broken. Every change has a purpose, refined by millions of years of evolution.
+                        </p>
+                        <div style="background: var(--bloom-background); padding: 1.5rem; border-radius: 15px; border-left: 3px solid var(--bloom-lavender);">
+                            <p style="font-size: 1.1rem; color: var(--bloom-charcoal); margin: 0; font-weight: 500;">
+                                You're not failing. You're adapting.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="image-panel">
+                        <div style="position: relative; width: 100%; max-width: 500px;">
+                            <img src="../../../shared-assets/images/biff01_Woman_practicing_mindfulness_in_bright_space_with_plan_f0d3341c-e721-4523-838e-7f6c7636e178_1.png" alt="Woman in contemplation" style="border-radius: 2px; width: 100%; height: auto;">
+                            <div style="position: absolute; top: -30px; right: -30px; width: 150px; height: 150px; background: radial-gradient(circle, var(--bloom-lavender) 0%, transparent 70%); opacity: 0.2;"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 3: The Hormone Cliff -->
+            <section data-background-color="#FFF9F0">
+                <div style="padding: 3rem 2rem;">
+                    <h2 class="section-title display-serif" style="text-align: center; margin-bottom: 3rem;">The <span style="font-style: italic; color: var(--bloom-coral);">Hormone Cliff</span></h2>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; max-width: 1100px; margin: 0 auto;">
+                        <div style="text-align: center; background: white; padding: 2rem 1rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+                            <div class="science-stat" style="background: linear-gradient(135deg, var(--bloom-coral) 0%, var(--bloom-orange) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">1000x</div>
+                            <h3 style="font-size: 1.2rem; margin: 1rem 0 0.5rem; color: var(--bloom-charcoal);">Estrogen Peak</h3>
+                            <p style="font-size: 0.9rem; color: var(--bloom-warm-gray);">During pregnancy, then crashes within hours</p>
+                        </div>
+                        
+                        <div style="text-align: center; background: white; padding: 2rem 1rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+                            <div class="science-stat" style="background: linear-gradient(135deg, var(--bloom-sky) 0%, var(--bloom-mint) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">90%</div>
+                            <h3 style="font-size: 1.2rem; margin: 1rem 0 0.5rem; color: var(--bloom-charcoal);">Progesterone Drop</h3>
+                            <p style="font-size: 0.9rem; color: var(--bloom-warm-gray);">In just 4 days postpartum</p>
+                        </div>
+                        
+                        <div style="text-align: center; background: white; padding: 2rem 1rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+                            <div class="science-stat" style="background: linear-gradient(135deg, var(--bloom-lavender) 0%, var(--bloom-rose) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">2-3x</div>
+                            <h3 style="font-size: 1.2rem; margin: 1rem 0 0.5rem; color: var(--bloom-charcoal);">Cortisol Levels</h3>
+                            <p style="font-size: 0.9rem; color: var(--bloom-warm-gray);">Elevated to keep you alert for baby</p>
+                        </div>
+                        
+                        <div style="text-align: center; background: white; padding: 2rem 1rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+                            <div class="science-stat" style="background: linear-gradient(135deg, var(--bloom-golden) 0%, var(--bloom-peach) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">24/7</div>
+                            <h3 style="font-size: 1.2rem; margin: 1rem 0 0.5rem; color: var(--bloom-charcoal);">Oxytocin Surges</h3>
+                            <p style="font-size: 0.9rem; color: var(--bloom-warm-gray);">With every feeding & bonding moment</p>
+                        </div>
+                    </div>
+                    
+                    <p style="text-align: center; font-size: 1.3rem; color: var(--bloom-charcoal); margin-top: 3rem; font-weight: 500;">
+                        The most dramatic hormone shift your body will ever experience.
+                    </p>
+                </div>
+            </section>
+            
+            <!-- Slide 4: Your Brain on Motherhood -->
+            <section data-background-image="../../../shared-assets/images/dark/darkphotos/biff01_Abstract_artistic_representation_of_brain_with_warm_fl_2cdf1e4c-7afa-4e4f-b502-78d982ae0b78_1.png"
+                     data-background-size="cover"
+                     data-background-position="center">
+                <div style="position: absolute; inset: 0; background: linear-gradient(135deg, rgba(26,26,26,0.85) 0%, rgba(197,137,232,0.3) 100%); z-index: 1;"></div>
+                <div style="position: relative; z-index: 2; padding: 4rem 3rem;">
+                    <h1 class="display-title" style="color: white; text-align: center;">Your Brain on <span style="color: var(--bloom-lavender);">Motherhood</span></h1>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; max-width: 900px; margin: 2rem auto;">
+                        <div class="brain-card" style="background: rgba(255,255,255,0.95);">
+                            <h3 style="color: var(--bloom-lavender); font-size: 1.5rem; margin-bottom: 1rem;">7% Gray Matter Loss</h3>
+                            <p style="font-size: 1.05rem; line-height: 1.6;">Not losing function—becoming more efficient. Like renovating a house, you're specializing for motherhood.</p>
+                        </div>
+                        
+                        <div class="brain-card" style="background: rgba(255,255,255,0.95);">
+                            <h3 style="color: var(--bloom-mint); font-size: 1.5rem; margin-bottom: 1rem;">Amygdala Activation</h3>
+                            <p style="font-size: 1.05rem; line-height: 1.6;">Your alarm system is more reactive. Feels like anxiety, but it's designed to protect your baby.</p>
+                        </div>
+                        
+                        <div class="brain-card" style="background: rgba(255,255,255,0.95);">
+                            <h3 style="color: var(--bloom-sky); font-size: 1.5rem; margin-bottom: 1rem;">Enhanced Empathy</h3>
+                            <p style="font-size: 1.05rem; line-height: 1.6;">Brain regions for emotion and connection show increased activity. You feel everything more intensely.</p>
+                        </div>
+                        
+                        <div class="brain-card" style="background: rgba(255,255,255,0.95);">
+                            <h3 style="color: var(--bloom-rose); font-size: 1.5rem; margin-bottom: 1rem;">Neural Rewiring</h3>
+                            <p style="font-size: 1.05rem; line-height: 1.6;">Strengthening pathways for reading infant cues, bonding, and responding to needs.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 5: The Sleep Revolution -->
+            <section data-background-color="#FFFFFF">
+                <div style="padding: 0 4%; height: 100vh; display: flex; align-items: center;">
+                    <div style="max-width: 1000px; margin: 0 auto;">
+                        <h2 class="section-title display-serif" style="text-align: center; margin-bottom: 3rem;">The Sleep <span style="font-style: italic; color: var(--bloom-sky);">Revolution</span></h2>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;">
+                            <div>
+                                <h3 style="color: var(--bloom-warm-gray); font-size: 1.3rem; margin-bottom: 2rem; text-align: center;">Before Baby</h3>
+                                <div style="background: var(--bloom-background); padding: 2rem; border-radius: 15px;">
+                                    <ul style="list-style: none; padding: 0; font-size: 1.1rem; line-height: 2;">
+                                        <li style="padding: 0.5rem 0;"><span style="color: var(--bloom-sky);">•</span> 90-minute sleep cycles</li>
+                                        <li style="padding: 0.5rem 0;"><span style="color: var(--bloom-sky);">•</span> Deep, restorative sleep</li>
+                                        <li style="padding: 0.5rem 0;"><span style="color: var(--bloom-sky);">•</span> Hard to wake</li>
+                                        <li style="padding: 0.5rem 0;"><span style="color: var(--bloom-sky);">•</span> Consolidated blocks</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <h3 style="color: var(--bloom-charcoal); font-size: 1.3rem; margin-bottom: 2rem; text-align: center;">Now</h3>
+                                <div style="background: white; border: 2px solid var(--bloom-sky); padding: 2rem; border-radius: 15px;">
+                                    <ul style="list-style: none; padding: 0; font-size: 1.1rem; line-height: 2;">
+                                        <li style="padding: 0.5rem 0;"><span style="color: var(--bloom-sky);">•</span> 45-minute cycles</li>
+                                        <li style="padding: 0.5rem 0;"><span style="color: var(--bloom-sky);">•</span> Light, vigilant sleep</li>
+                                        <li style="padding: 0.5rem 0;"><span style="color: var(--bloom-sky);">•</span> Ready to respond</li>
+                                        <li style="padding: 0.5rem 0;"><span style="color: var(--bloom-sky);">•</span> Fragmented patterns</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <p style="text-align: center; font-size: 1.2rem; color: var(--bloom-charcoal); margin-top: 3rem; padding: 1.5rem; background: rgba(116,192,252,0.1); border-radius: 10px;">
+                            This isn't insomnia. This is <strong>maternal sleep adaptation</strong>.
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 6: Physical Healing Timeline -->
+            <section data-background-color="#FFF9F0">
+                <div style="padding: 3rem 2rem;">
+                    <h2 class="section-title display-serif" style="text-align: center; margin-bottom: 3rem;">Physical Healing <span style="font-style: italic; color: var(--bloom-sage);">Timeline</span></h2>
+                    
+                    <div style="position: relative; max-width: 1000px; margin: 0 auto;">
+                        <div class="timeline-line"></div>
+                        
+                        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; position: relative;">
+                            <div style="text-align: center;">
+                                <div class="timeline-dot" style="margin: 0 auto 1rem;"></div>
+                                <h3 style="color: var(--bloom-lavender); font-size: 1.2rem; margin-bottom: 0.5rem;">Weeks 1-2</h3>
+                                <p style="font-size: 0.9rem; color: var(--bloom-warm-gray);">Uterus shrinking, hormone crash, establishing feeding</p>
+                            </div>
+                            
+                            <div style="text-align: center;">
+                                <div class="timeline-dot" style="margin: 0 auto 1rem; background: var(--bloom-mint);"></div>
+                                <h3 style="color: var(--bloom-mint); font-size: 1.2rem; margin-bottom: 0.5rem;">Weeks 3-6</h3>
+                                <p style="font-size: 0.9rem; color: var(--bloom-warm-gray);">Hormones finding baseline, sleep debt accumulating</p>
+                            </div>
+                            
+                            <div style="text-align: center;">
+                                <div class="timeline-dot" style="margin: 0 auto 1rem; background: var(--bloom-sky);"></div>
+                                <h3 style="color: var(--bloom-sky); font-size: 1.2rem; margin-bottom: 0.5rem;">Months 2-6</h3>
+                                <p style="font-size: 0.9rem; color: var(--bloom-warm-gray);">Rebuilding core, pelvic floor, energy reserves</p>
+                            </div>
+                            
+                            <div style="text-align: center;">
+                                <div class="timeline-dot" style="margin: 0 auto 1rem; background: var(--bloom-sage);"></div>
+                                <h3 style="color: var(--bloom-sage); font-size: 1.2rem; margin-bottom: 0.5rem;">Months 6-12+</h3>
+                                <p style="font-size: 0.9rem; color: var(--bloom-warm-gray);">Deep tissue repair, metabolic restoration</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <p style="text-align: center; font-size: 1.3rem; color: var(--bloom-charcoal); margin-top: 3rem; font-weight: 500;">
+                        Full recovery takes at least a year, often longer.
+                    </p>
+                </div>
+            </section>
+            
+            <!-- Slide 7: Why You Can't Think Your Way Better -->
+            <section data-background-image="../../../shared-assets/images/dark/darkphotos/biff01_Woman_lying_awake_in_bed_at_night_while_baby_sleeps_wo_313a85b9-7bb2-4f3c-97ac-bcf26fe92a70_0.png"
+                     data-background-size="cover"
+                     data-background-position="center">
+                <div style="position: absolute; inset: 0; background: linear-gradient(135deg, rgba(26,26,26,0.8) 0%, rgba(255,107,107,0.2) 100%); z-index: 1;"></div>
+                <div style="position: relative; z-index: 2; padding: 4rem 3rem; text-align: center;">
+                    <h1 class="display-title" style="color: white;">Why You Can't <span style="color: var(--bloom-coral);">Think</span> Your Way Better</h1>
+                    
+                    <div style="max-width: 800px; margin: 2rem auto;">
+                        <div style="background: rgba(255,255,255,0.95); padding: 3rem; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.2);">
+                            <h3 style="color: var(--bloom-charcoal); font-size: 1.5rem; margin-bottom: 2rem;">Your emotional regulation center is overwhelmed by:</h3>
+                            <ul style="list-style: none; padding: 0; font-size: 1.1rem; line-height: 2; text-align: left;">
+                                <li style="padding: 0.5rem 0; border-bottom: 1px solid #f0f0f0;"><span style="color: var(--bloom-coral);">✓</span> Hormone fluctuations</li>
+                                <li style="padding: 0.5rem 0; border-bottom: 1px solid #f0f0f0;"><span style="color: var(--bloom-coral);">✓</span> Sleep deprivation</li>
+                                <li style="padding: 0.5rem 0; border-bottom: 1px solid #f0f0f0;"><span style="color: var(--bloom-coral);">✓</span> Nutritional depletion</li>
+                                <li style="padding: 0.5rem 0; border-bottom: 1px solid #f0f0f0;"><span style="color: var(--bloom-coral);">✓</span> Physical healing demands</li>
+                                <li style="padding: 0.5rem 0;"><span style="color: var(--bloom-coral);">✓</span> Constant hypervigilance</li>
+                            </ul>
+                            
+                            <div style="margin-top: 2rem; padding: 1.5rem; background: var(--bloom-background); border-radius: 10px;">
+                                <p style="font-size: 1.2rem; color: var(--bloom-charcoal); margin: 0; font-weight: 500;">
+                                    You need time, not just positive thinking.<br>
+                                    You need support, not just motivation.<br>
+                                    You need healing, not just perspective.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 8: Working WITH Your Biology -->
+            <section data-background-color="#FFFFFF">
+                <div style="padding: 3rem 2rem;">
+                    <h2 class="section-title display-serif" style="text-align: center; margin-bottom: 3rem;">Working <span style="font-style: italic; color: var(--bloom-sage);">WITH</span> Your Biology</h2>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; max-width: 1000px; margin: 0 auto;">
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;">
+                            <div style="background: rgba(139,154,130,0.1); padding: 2rem; border-radius: 15px; text-align: center;">
+                                <div style="font-size: 3rem; margin-bottom: 1rem;">🌙</div>
+                                <h4 style="color: var(--bloom-sage); font-size: 1.2rem; margin-bottom: 0.5rem;">Respect Rest</h4>
+                                <p style="font-size: 0.9rem; color: var(--bloom-warm-gray);">Brain repairs during sleep—even fragmented sleep helps</p>
+                            </div>
+                            
+                            <div style="background: rgba(255,203,119,0.1); padding: 2rem; border-radius: 15px; text-align: center;">
+                                <div style="font-size: 3rem; margin-bottom: 1rem;">🥑</div>
+                                <h4 style="color: var(--bloom-golden); font-size: 1.2rem; margin-bottom: 0.5rem;">Feed Recovery</h4>
+                                <p style="font-size: 0.9rem; color: var(--bloom-warm-gray);">Protein & omega-3s support brain & hormone health</p>
+                            </div>
+                            
+                            <div style="background: rgba(149,225,211,0.1); padding: 2rem; border-radius: 15px; text-align: center;">
+                                <div style="font-size: 3rem; margin-bottom: 1rem;">🚶‍♀️</div>
+                                <h4 style="color: var(--bloom-mint); font-size: 1.2rem; margin-bottom: 0.5rem;">Move Gently</h4>
+                                <p style="font-size: 0.9rem; color: var(--bloom-warm-gray);">5-minute walks boost mood-regulating neurotransmitters</p>
+                            </div>
+                            
+                            <div style="background: rgba(116,192,252,0.1); padding: 2rem; border-radius: 15px; text-align: center;">
+                                <div style="font-size: 3rem; margin-bottom: 1rem;">☀️</div>
+                                <h4 style="color: var(--bloom-sky); font-size: 1.2rem; margin-bottom: 0.5rem;">Get Sunlight</h4>
+                                <p style="font-size: 0.9rem; color: var(--bloom-warm-gray);">10 minutes daily regulates circadian rhythms</p>
+                            </div>
+                        </div>
+                        
+                        <div style="display: flex; align-items: center;">
+                            <div style="background: white; border: 3px solid var(--bloom-sage); padding: 3rem; border-radius: 20px; text-align: center;">
+                                <h3 style="color: var(--bloom-sage); font-size: 1.5rem; margin-bottom: 1rem;">Seek Connection</h3>
+                                <p style="font-size: 1.1rem; line-height: 1.6; color: var(--bloom-charcoal);">
+                                    Social support actually changes your stress hormone levels. It's not just nice to have—it's biologically necessary.
+                                </p>
+                                <div style="margin-top: 2rem; padding: 1rem; background: var(--bloom-background); border-radius: 10px;">
+                                    <p style="font-size: 1rem; color: var(--bloom-sage); margin: 0; font-weight: 600;">
+                                        Give yourself time. Healing follows biological timelines, not social expectations.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 9: Three Panel Progression -->
+            <section data-background-color="#FFF9F0">
+                <div style="padding: 3rem 2rem;">
+                    <h2 class="section-title display-serif" style="text-align: center; margin-bottom: 3rem;">Your Recovery <span style="font-style: italic; color: var(--bloom-lavender);">Journey</span></h2>
+                    
+                    <div style="position: relative; max-width: 1200px; margin: 0 auto;">
+                        <img src="../../../shared-assets/images/biff01_Three_panel_progression_same_mother_at_1_week_exhauste_9fd173a0-8cfa-4acd-8742-27f1bd0549f2_1.png" 
+                             alt="Recovery timeline" 
+                             style="width: 100%; height: auto; border-radius: 20px; box-shadow: 0 30px 80px rgba(0,0,0,0.15);">
+                        
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 2rem;">
+                            <div style="text-align: center;">
+                                <h3 style="color: var(--bloom-coral); font-size: 1.3rem;">Early Days</h3>
+                                <p style="color: var(--bloom-warm-gray);">Survival mode is normal</p>
+                            </div>
+                            <div style="text-align: center;">
+                                <h3 style="color: var(--bloom-lavender); font-size: 1.3rem;">Finding Rhythm</h3>
+                                <p style="color: var(--bloom-warm-gray);">Patterns slowly emerge</p>
+                            </div>
+                            <div style="text-align: center;">
+                                <h3 style="color: var(--bloom-sage); font-size: 1.3rem;">Integration</h3>
+                                <p style="color: var(--bloom-warm-gray);">New normal takes shape</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 10: Closing -->
+            <section data-background-image="../../../shared-assets/images/biff01_Mother_with_hand_on_heart_in_morning_light_self-compas_55242be0-e564-4de9-bee2-46be6a8e9bb6_1.png"
+                     data-background-size="cover"
+                     data-background-position="center">
+                <div style="position: absolute; inset: 0; background: linear-gradient(to right, rgba(26,26,26,0.9) 0%, rgba(26,26,26,0.7) 40%, transparent 70%); z-index: 1;"></div>
+                <div style="position: relative; z-index: 2; height: 100vh; display: flex; align-items: center; padding: 0 8%;">
+                    <div style="max-width: 650px;">
+                        <div style="display: inline-block; padding: 0.5rem 1.5rem; background: rgba(197,137,232,0.2); backdrop-filter: blur(10px); border-radius: 30px; margin-bottom: 2rem;">
+                            <p style="color: var(--bloom-lavender); font-size: 0.9rem; letter-spacing: 0.15em; text-transform: uppercase; margin: 0; font-weight: 500;">Week 1 · Lesson 3 Complete</p>
+                        </div>
+                        <h1 style="font-family: var(--font-display); font-size: clamp(3rem, 6vw, 4.5rem); font-weight: 300; line-height: 1.05; margin-bottom: 2rem; color: white;">
+                            Trust Your Body's<br>
+                            <span style="font-weight: 600; font-style: italic;">Wisdom</span>
+                        </h1>
+                        <p style="font-size: 1.3rem; line-height: 1.6; color: rgba(255,255,255,0.9); margin-bottom: 1.5rem; font-weight: 300;">
+                            Every system in your body is working toward recovery right now, even if it doesn't feel like it.
+                        </p>
+                        <p style="font-size: 1.1rem; line-height: 1.6; color: var(--bloom-lavender); margin-bottom: 3rem; font-weight: 400;">
+                            You're not broken. You're not weak.<br>You're transforming.
+                        </p>
+                        <div style="display: flex; align-items: center; gap: 2rem;">
+                            <div style="width: 60px; height: 1px; background: var(--bloom-golden);"></div>
+                            <p style="color: rgba(255,255,255,0.7); font-size: 0.95rem; letter-spacing: 0.05em; margin: 0;">See you in Lesson 4</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/notes/notes.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/markdown/markdown.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/highlight/highlight.js"></script>
+    
+    <script>
+        Reveal.initialize({
+            hash: true,
+            controls: true,
+            progress: true,
+            center: false,
+            transition: 'none',
+            backgroundTransition: 'none',
+            plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+        });
+    </script>
+</body>
+</html>

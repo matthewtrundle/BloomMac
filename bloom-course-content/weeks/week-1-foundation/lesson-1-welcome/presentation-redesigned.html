@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Your Fourth Trimester | Bloom Psychology</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reset.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/theme/white.css" id="theme">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bloom-sage: #8B9A82;
+            --bloom-charcoal: #1a1a1a;
+            --bloom-warm-gray: #4a4a4a;
+            --bloom-cream: #faf8f5;
+            --bloom-background: #FFF9F0;
+            --bloom-coral: #FF6B6B;
+            --bloom-peach: #FFB4A2;
+            --bloom-golden: #FFCB77;
+            --bloom-mint: #95E1D3;
+            --bloom-lavender: #C589E8;
+            --bloom-sky: #74C0FC;
+            --bloom-rose: #FFA8C5;
+            --bloom-teal: #4ECDC4;
+            --bloom-orange: #FF9A8B;
+        }
+        .reveal {
+            font-family: 'Inter', sans-serif;
+        }
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        @keyframes-in-up {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .reveal .fragment.fade-in-up {
+            animation: fade-in-up 0.6s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .card {
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        
+        .slide-background-gradient::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to right, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 50%, transparent 100%);
+            z-index: 1;
+        }
+
+        .slide-background-gradient-dark::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,0.4) 100%);
+            z-index: 1;
+        }
+
+        .reveal .slides section > * {
+            position: relative;
+            z-index: 2;
+        }
+    </style>
+</head>
+<body class="bg-bloom-background">
+    <div class="reveal">
+        <div class="slides">
+            <!-- Slide 1: Cinematic Opening -->
+            <section 
+                data-background-image="../../../shared-assets/images/biff01_Mother_holding_newborn_by_large_window_with_soft_morni_f16d5b33-2dc7-4aa7-86a1-34d018871ed7_3.png"
+                data-background-size="cover"
+                data-background-position="center"
+                class="text-white slide-background-gradient">
+                <div class="relative z-10 flex flex-col items-start justify-center h-full text-left max-w-7xl mx-auto px-8">
+                    <div class="fragment fade-in-up bg-white/10 backdrop-blur-sm rounded-full px-6 py-2 mb-6">
+                        <p class="text-sm uppercase tracking-widest">Week 1 · Lesson 1</p>
+                    </div>
+                    <h1 class="fragment fade-in-up text-6xl md:text-8xl font-light leading-tight mb-6" style="animation-delay: 0.1s;">
+                        Welcome to Your<br>
+                        <span class="font-semibold italic">Fourth Trimester</span>
+                    </h1>
+                    <p class="fragment fade-in-up text-xl md:text-2xl max-w-2xl font-light mb-8" style="animation-delay: 0.2s;">
+                        Understanding this profound life transition and setting realistic expectations for recovery
+                    </p>
+                    <div class="fragment fade-in-up flex items-center" style="animation-delay: 0.3s;">
+                        <div class="w-20 h-0.5 bg-bloom-golden"></div>
+                        <p class="ml-4 text-sm tracking-wider">Dr. Jana Rundle · Bloom Psychology</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 2: You Belong Here -->
+            <section class="bg-white">
+                <div class="flex items-center justify-center h-full">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center max-w-7xl mx-auto px-8">
+                        <div class="text-left">
+                            <p class="fragment fade-in-up text-sm uppercase tracking-widest text-bloom-sage mb-4">A Message of Hope</p>
+                            <h2 class="fragment fade-in-up text-5xl md:text-7xl font-light mb-6" style="animation-delay: 0.1s;">
+                                You Belong <span class="italic text-bloom-coral">Here</span>
+                            </h2>
+                            <div class="fragment fade-in-up w-16 h-1 bg-bloom-coral mb-6" style="animation-delay: 0.2s;"></div>
+                            <p class="fragment fade-in-up text-lg text-bloom-warm-gray mb-8 leading-relaxed" style="animation-delay: 0.3s;">
+                                If you're watching this, you're already doing something right. You're seeking support, and that takes extraordinary courage.
+                            </p>
+                            <div class="fragment fade-in-up border-l-4 border-bloom-sage pl-6" style="animation-delay: 0.4s;">
+                                <p class="text-lg text-bloom-charcoal italic">
+                                    This course is your roadmap through the fourth trimester—a time of profound change that deserves recognition, understanding, and expert support.
+                                </p>
+                            </div>
+                            <div class="fragment fade-in-up card mt-10 bg-gray-50 p-6 rounded-lg relative" style="animation-delay: 0.5s;">
+                                <p class="text-xs uppercase tracking-wider text-bloom-sage font-semibold mb-2">Voices from the Community</p>
+                                <p class="italic text-bloom-charcoal leading-relaxed">
+                                    "I felt so alone until I found this course. Knowing other mothers felt the same way changed everything for me."
+                                </p>
+                                <p class="text-right text-sm text-bloom-warm-gray mt-4">— Mother of 2-month-old</p>
+                            </div>
+                        </div>
+                        <div class="h-[600px] w-full bg-gray-200 rounded-lg shadow-xl fragment fade-in-up" style="animation-delay: 0.2s;">
+                            <img src="../../../shared-assets/images/biff01_Woman_recognizing_she_needs_help_while_looking_at_slee_53bf119b-9a43-4f7e-8a5b-eff2727a4beb_0.png" alt="Mother seeking support" class="w-full h-full object-cover rounded-lg">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 3: What Makes This Unique -->
+            <section class="bg-bloom-background">
+                <div class="flex flex-col items-center justify-center h-full text-center px-8">
+                    <p class="fragment fade-in-up text-sm uppercase tracking-widest text-bloom-sage mb-4">Understanding Your Experience</p>
+                    <h2 class="fragment fade-in-up text-5xl md:text-7xl font-light mb-12" style="animation-delay: 0.1s;">
+                        What Makes This <span class="italic text-bloom-coral">Unique</span>
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                        <!-- Brain Changes Card -->
+                        <div class="fragment fade-in-up card bg-white p-8 rounded-lg shadow-lg text-left flex items-start space-x-6" style="animation-delay: 0.2s;">
+                            <div class="flex-shrink-0">
+                                <div class="w-16 h-16 bg-bloom-coral/10 rounded-full flex items-center justify-center">
+                                    <img src="../../../shared-assets/images/brain-icon.svg" alt="Brain" class="w-8 h-8">
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-semibold mb-2 text-bloom-charcoal">Your Brain is Changing</h3>
+                                <p class="text-bloom-warm-gray leading-relaxed">Adapting to read your baby's needs—this is strength, not weakness.</p>
+                            </div>
+                        </div>
+                        <!-- Sleep Card -->
+                        <div class="fragment fade-in-up card bg-white p-8 rounded-lg shadow-lg text-left flex items-start space-x-6" style="animation-delay: 0.3s;">
+                            <div class="flex-shrink-0">
+                                <div class="w-16 h-16 bg-bloom-sky/10 rounded-full flex items-center justify-center">
+                                    <img src="../../../shared-assets/images/sleep-icon.svg" alt="Sleep" class="w-8 h-8">
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-semibold mb-2 text-bloom-charcoal">Sleep Changes Everything</h3>
+                                <p class="text-bloom-warm-gray leading-relaxed">Disrupted sleep affects mood, memory, and patience—it's biology, not failure.</p>
+                            </div>
+                        </div>
+                        <!-- Physical Recovery Card -->
+                        <div class="fragment fade-in-up card bg-white p-8 rounded-lg shadow-lg text-left flex items-start space-x-6" style="animation-delay: 0.4s;">
+                            <div class="flex-shrink-0">
+                                <div class="w-16 h-16 bg-bloom-lavender/10 rounded-full flex items-center justify-center">
+                                    <img src="../../../shared-assets/images/recovery-icon.svg" alt="Recovery" class="w-8 h-8">
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-semibold mb-2 text-bloom-charcoal">Physical Recovery</h3>
+                                <p class="text-bloom-warm-gray leading-relaxed">Your body did something extraordinary—recovery takes 12-18 months.</p>
+                            </div>
+                        </div>
+                        <!-- Identity Card -->
+                        <div class="fragment fade-in-up card bg-white p-8 rounded-lg shadow-lg text-left flex items-start space-x-6" style="animation-delay: 0.5s;">
+                            <div class="flex-shrink-0">
+                                <div class="w-16 h-16 bg-bloom-golden/10 rounded-full flex items-center justify-center">
+                                    <img src="../../../shared-assets/images/identity-icon.svg" alt="Identity" class="w-8 h-8">
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-semibold mb-2 text-bloom-charcoal">Identity Shifts</h3>
+                                <p class="text-bloom-warm-gray leading-relaxed">"Matrescence"—becoming a mother is as big as adolescence.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 4: This Is NOT -->
+            <section 
+                data-background-image="../../../shared-assets/images/dark/darkphotos/biff01_Woman_first_recognizing_she_needs_help_sitting_alone_i_2f1b0637-ac4b-4883-a85b-6df7467e0631_1.png"
+                data-background-size="cover"
+                data-background-position="center"
+                class="text-white slide-background-gradient-dark">
+                <div class="relative z-10 flex flex-col items-center justify-center h-full text-center px-8">
+                    <h2 class="fragment fade-in-up text-5xl md:text-7xl font-light mb-12">
+                        This is <span class="italic text-bloom-rose">NOT</span>
+                    </h2>
+                    <div class="space-y-6 max-w-3xl mx-auto">
+                        <div class="fragment fade-in-up card bg-white/10 backdrop-blur-sm p-6 rounded-lg text-left flex items-center space-x-6 border-l-4 border-bloom-coral" style="animation-delay: 0.1s;">
+                            <div>
+                                <h3 class="text-2xl font-semibold mb-2 text-bloom-coral">About "Bouncing Back"</h3>
+                                <p class="text-white/90 leading-relaxed">You're not a rubber band. You're transforming.</p>
+                            </div>
+                        </div>
+                        <div class="fragment fade-in-up card bg-white/10 backdrop-blur-sm p-6 rounded-lg text-left flex items-center space-x-6 border-l-4 border-bloom-sky" style="animation-delay: 0.2s;">
+                            <div>
+                                <h3 class="text-2xl font-semibold mb-2 text-bloom-sky">About Perfection</h3>
+                                <p class="text-white/90 leading-relaxed">There's no prize for doing this alone.</p>
+                            </div>
+                        </div>
+                        <div class="fragment fade-in-up card bg-white/10 backdrop-blur-sm p-6 rounded-lg text-left flex items-center space-x-6 border-l-4 border-bloom-lavender" style="animation-delay: 0.3s;">
+                            <div>
+                                <h3 class="text-2xl font-semibold mb-2 text-bloom-lavender">About Comparison</h3>
+                                <p class="text-white/90 leading-relaxed">Your journey is uniquely yours.</p>
+                            </div>
+                        </div>
+                        <div class="fragment fade-in-up card bg-white/10 backdrop-blur-sm p-6 rounded-lg text-left flex items-center space-x-6 border-l-4 border-bloom-golden" style="animation-delay: 0.4s;">
+                            <div>
+                                <h3 class="text-2xl font-semibold mb-2 text-bloom-golden">About Judgment</h3>
+                                <p class="text-white/90 leading-relaxed">Whatever you're feeling is valid. Full stop.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 5: The Timeline -->
+            <section 
+                data-background-image="../../../shared-assets/images/biff01_Three_panel_progression_same_mother_at_1_week_exhauste_9fd173a0-8cfa-4acd-8742-27f1bd0549f2_1.png"
+                data-background-size="cover"
+                data-background-position="center"
+                class="slide-background-gradient">
+                <div class="relative z-10 flex flex-col items-center justify-center h-full text-center px-8">
+                    <p class="fragment fade-in-up text-sm uppercase tracking-widest text-bloom-sage mb-4">Your Course Journey</p>
+                    <h2 class="fragment fade-in-up text-5xl md:text-7xl font-light mb-12" style="animation-delay: 0.1s;">
+                        Your 6-Week <span class="italic text-bloom-coral">Journey</span>
+                    </h2>
+                    <div class="flex flex-wrap justify-center gap-4">
+                        <!-- Week 1 -->
+                        <div class="fragment fade-in-up card bg-white p-6 rounded-lg shadow-lg text-center w-48" style="animation-delay: 0.2s;">
+                            <div class="w-16 h-16 bg-bloom-coral text-white rounded-full flex items-center justify-center mx-auto mb-4">
+                                <span class="text-2xl font-bold">1</span>
+                            </div>
+                            <p class="text-xs uppercase tracking-wider text-bloom-coral font-semibold mb-2">Week 1</p>
+                            <h3 class="font-semibold text-bloom-charcoal mb-2">Foundation</h3>
+                            <p class="text-sm text-bloom-warm-gray">Understanding what's normal</p>
+                        </div>
+                        <!-- Week 2 -->
+                        <div class="fragment fade-in-up card bg-white p-6 rounded-lg shadow-lg text-center w-48" style="animation-delay: 0.3s;">
+                            <div class="w-16 h-16 bg-bloom-peach text-white rounded-full flex items-center justify-center mx-auto mb-4">
+                                <span class="text-2xl font-bold">2</span>
+                            </div>
+                            <p class="text-xs uppercase tracking-wider text-bloom-peach font-semibold mb-2">Week 2</p>
+                            <h3 class="font-semibold text-bloom-charcoal mb-2">Self-Compassion</h3>
+                            <p class="text-sm text-bloom-warm-gray">Building your personal coping toolkit</p>
+                        </div>
+                        <!-- Week 3 -->
+                        <div class="fragment fade-in-up card bg-white p-6 rounded-lg shadow-lg text-center w-48" style="animation-delay: 0.4s;">
+                            <div class="w-16 h-16 bg-bloom-sky text-white rounded-full flex items-center justify-center mx-auto mb-4">
+                                <span class="text-2xl font-bold">3</span>
+                            </div>
+                            <p class="text-xs uppercase tracking-wider text-bloom-sky font-semibold mb-2">Week 3</p>
+                            <h3 class="font-semibold text-bloom-charcoal mb-2">Communication</h3>
+                            <p class="text-sm text-bloom-warm-gray">Building the support you need</p>
+                        </div>
+                        <!-- Week 4 -->
+                        <div class="fragment fade-in-up card bg-white p-6 rounded-lg shadow-lg text-center w-48" style="animation-delay: 0.5s;">
+                            <div class="w-16 h-16 bg-bloom-mint text-white rounded-full flex items-center justify-center mx-auto mb-4">
+                                <span class="text-2xl font-bold">4</span>
+                            </div>
+                            <p class="text-xs uppercase tracking-wider text-bloom-mint font-semibold mb-2">Week 4</p>
+                            <h3 class="font-semibold text-bloom-charcoal mb-2">Managing Anxiety</h3>
+                            <p class="text-sm text-bloom-warm-gray">Practical tools for overwhelm</p>
+                        </div>
+                        <!-- Week 5 -->
+                        <div class="fragment fade-in-up card bg-white p-6 rounded-lg shadow-lg text-center w-48" style="animation-delay: 0.6s;">
+                            <div class="w-16 h-16 bg-bloom-lavender text-white rounded-full flex items-center justify-center mx-auto mb-4">
+                                <span class="text-2xl font-bold">5</span>
+                            </div>
+                            <p class="text-xs uppercase tracking-wider text-bloom-lavender font-semibold mb-2">Week 5</p>
+                            <h3 class="font-semibold text-bloom-charcoal mb-2">Identity</h3>
+                            <p class="text-sm text-bloom-warm-gray">Exploring the shifts of motherhood</p>
+                        </div>
+                        <!-- Week 6 -->
+                        <div class="fragment fade-in-up card bg-white p-6 rounded-lg shadow-lg text-center w-48" style="animation-delay: 0.7s;">
+                            <div class="w-16 h-16 bg-bloom-golden text-white rounded-full flex items-center justify-center mx-auto mb-4">
+                                <span class="text-2xl font-bold">6</span>
+                            </div>
+                            <p class="text-xs uppercase tracking-wider text-bloom-golden font-semibold mb-2">Week 6</p>
+                            <h3 class="font-semibold text-bloom-charcoal mb-2">Sustainable Wellness</h3>
+                            <p class="text-sm text-bloom-warm-gray">Creating your ongoing plan</p>
+                        </div>
+                    </div>
+                    <div class="fragment fade-in-up mt-12 bg-white/50 backdrop-blur-sm p-8 rounded-lg max-w-4xl mx-auto" style="animation-delay: 0.8s;">
+                        <div class="w-24 h-1 bg-bloom-sage mx-auto mb-4"></div>
+                        <p class="text-2xl italic text-bloom-charcoal leading-relaxed">
+                            <span class="font-semibold text-bloom-coral">This isn't school.</span> There's no falling behind. Go at your own pace. Skip to what you need most.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 6: Cultural Wisdom & The Emotional Journey -->
+            <section class="bg-white">
+                <div class="flex flex-col items-center justify-center h-full text-center px-8">
+                    <p class="fragment fade-in-up text-sm uppercase tracking-widest text-bloom-sage mb-4">Ancient Understanding</p>
+                    <h2 class="fragment fade-in-up text-5xl md:text-7xl font-light mb-12" style="animation-delay: 0.1s;">
+                        Cultural <span class="italic text-bloom-coral">Wisdom</span> & Your Journey
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start max-w-7xl mx-auto">
+                        <div class="text-left space-y-8">
+                            <div class="fragment fade-in-up card bg-white p-8 rounded-lg shadow-lg" style="animation-delay: 0.2s;">
+                                <h3 class="text-2xl font-semibold mb-4 text-bloom-coral">Sacred Traditions</h3>
+                                <p class="text-bloom-warm-gray mb-4">Many cultures have always recognized the sacred nature of postpartum:</p>
+                                <ul class="space-y-2">
+                                    <li><span class="font-semibold text-bloom-coral">China:</span> "Sitting the month" - protected healing time</li>
+                                    <li><span class="font-semibold text-bloom-sky">Latin America:</span> "La cuarentena" - 40 days of care</li>
+                                    <li><span class="font-semibold text-bloom-lavender">India:</span> Confinement period with family support</li>
+                                </ul>
+                            </div>
+                            <div class="fragment fade-in-up card bg-white p-8 rounded-lg shadow-lg" style="animation-delay: 0.3s;">
+                                <h3 class="text-2xl font-semibold mb-4 text-bloom-sage">Modern Truth</h3>
+                                <p class="text-bloom-warm-gray leading-relaxed">These aren't outdated traditions. They're wisdom we've lost in our rush to "bounce back."</p>
+                                <p class="mt-4 font-semibold text-bloom-coral">Your body is healing. Your brain is rewiring. Your identity is shifting. This takes time, and that time is sacred, not selfish.</p>
+                            </div>
+                        </div>
+                        <div class="fragment fade-in-up text-left" style="animation-delay: 0.4s;">
+                            <img src="../../../shared-assets/images/biff01_Warm_circle_of_diverse_mothers_supporting_each_other_i_8bae413b-4693-4c2a-9e8d-323482f0085a_0.png" alt="Diverse mothers supporting each other" class="w-full h-auto rounded-lg shadow-xl mb-8">
+                            <div class="card bg-white p-8 rounded-lg shadow-lg">
+                                <div class="w-16 h-1 bg-bloom-sage mx-auto mb-4"></div>
+                                <p class="italic text-lg text-center text-bloom-sage leading-relaxed">
+                                    "The emotional journey isn't a straight line—it's waves. Some days you'll feel capable and connected. Others, you'll wonder if you'll ever feel like yourself again. Both are part of the process."
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 7: You're Not Alone -->
+            <section class="bg-bloom-charcoal text-white">
+                <div class="flex flex-col items-center justify-center h-full text-center px-8">
+                    <p class="fragment fade-in-up text-sm uppercase tracking-widest text-bloom-coral mb-4">The Truth</p>
+                    <h2 class="fragment fade-in-up text-5xl md:text-7xl font-light mb-12" style="animation-delay: 0.1s;">
+                        You Are <span class="italic text-bloom-coral">Not Alone</span>
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-7xl mx-auto mb-12">
+                        <div class="fragment fade-in-up card bg-bloom-coral/20 border-2 border-bloom-coral p-8 rounded-lg" style="animation-delay: 0.2s;">
+                            <p class="text-6xl font-bold mb-4">1 in 5</p>
+                            <p>Experience postpartum mood disorders</p>
+                        </div>
+                        <div class="fragment fade-in-up card bg-bloom-sage/20 border-2 border-bloom-sage p-8 rounded-lg" style="animation-delay: 0.3s;">
+                            <p class="text-6xl font-bold mb-4">70%</p>
+                            <p>Feel unprepared for the emotional reality</p>
+                        </div>
+                        <div class="fragment fade-in-up card bg-bloom-golden/20 border-2 border-bloom-golden p-8 rounded-lg" style="animation-delay: 0.4s;">
+                            <p class="text-6xl font-bold mb-4">95%</p>
+                            <p>Recover fully with proper support</p>
+                        </div>
+                        <div class="fragment fade-in-up card bg-bloom-sky/20 border-2 border-bloom-sky p-8 rounded-lg" style="animation-delay: 0.5s;">
+                            <p class="text-6xl font-bold mb-4">100%</p>
+                            <p>Deserve compassion and understanding</p>
+                        </div>
+                    </div>
+                    <div class="fragment fade-in-up bg-white/10 backdrop-blur-sm p-8 rounded-lg max-w-4xl mx-auto" style="animation-delay: 0.6s;">
+                        <div class="w-24 h-1 bg-bloom-coral mx-auto mb-4"></div>
+                        <p class="text-2xl italic leading-relaxed">
+                            <span class="font-semibold text-bloom-coral">Your feelings are valid.</span> Your experience is real. Your recovery is possible.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 8: When to Seek Help -->
+            <section 
+                data-background-image="../../../shared-assets/images/biff01_Woman_reaching_for_helping_hand_abstract_warm_light_h_4f9d8c45-8e7f-4e26-b9b9-4b45fdc2a7f8_1.png"
+                data-background-size="cover"
+                data-background-position="center"
+                class="text-white slide-background-gradient-dark">
+                <div class="relative z-10 flex flex-col items-center justify-center h-full text-center px-8">
+                    <p class="fragment fade-in-up text-sm uppercase tracking-widest text-bloom-sage mb-4">When to Seek Professional Support</p>
+                    <h2 class="fragment fade-in-up text-5xl md:text-7xl font-light mb-12" style="animation-delay: 0.1s;">
+                        Your Path <span class="italic text-bloom-coral">Forward</span>
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto mb-12">
+                        <div class="fragment fade-in-up card bg-white/10 backdrop-blur-sm p-8 rounded-lg border-t-4 border-bloom-coral" style="animation-delay: 0.2s;">
+                            <h3 class="text-2xl font-semibold mb-4 text-bloom-coral">🚨 Urgent Signs</h3>
+                            <ul class="text-left space-y-2">
+                                <li>• Thoughts of harming yourself or baby</li>
+                                <li>• Feeling disconnected from reality</li>
+                                <li>• Severe panic attacks</li>
+                            </ul>
+                        </div>
+                        <div class="fragment fade-in-up card bg-white/10 backdrop-blur-sm p-8 rounded-lg border-t-4 border-bloom-sky" style="animation-delay: 0.3s;">
+                            <h3 class="text-2xl font-semibold mb-4 text-bloom-sky">⚠️ Important Signals</h3>
+                            <ul class="text-left space-y-2">
+                                <li>• Can't sleep when you have the chance</li>
+                                <li>• Persistent sadness over 2 weeks</li>
+                                <li>• Overwhelming anxiety</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="fragment fade-in-up" style="animation-delay: 0.4s;">
+                        <h4 class="text-2xl font-semibold mb-6">Your Support Options</h4>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+                            <div class="card bg-white/10 backdrop-blur-sm p-4 rounded-lg border-t-4 border-bloom-coral">
+                                <h5 class="font-semibold text-bloom-coral">Therapy</h5>
+                                <p class="text-sm text-white/80">Individual support</p>
+                            </div>
+                            <div class="card bg-white/10 backdrop-blur-sm p-4 rounded-lg border-t-4 border-bloom-sky">
+                                <h5 class="font-semibold text-bloom-sky">Medication</h5>
+                                <p class="text-sm text-white/80">Medical care</p>
+                            </div>
+                            <div class="card bg-white/10 backdrop-blur-sm p-4 rounded-lg border-t-4 border-bloom-lavender">
+                                <h5 class="font-semibold text-bloom-lavender">Support Groups</h5>
+                                <p class="text-sm text-white/80">Community care</p>
+                            </div>
+                            <div class="card bg-white/10 backdrop-blur-sm p-4 rounded-lg border-t-4 border-bloom-golden">
+                                <h5 class="font-semibold text-bloom-golden">Crisis Lines</h5>
+                                <p class="text-sm text-white/80">24/7 support</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fragment fade-in-up mt-8 bg-gradient-to-r from-bloom-peach/20 to-bloom-coral/20 p-6 rounded-lg max-w-3xl mx-auto" style="animation-delay: 0.5s;">
+                        <p class="font-semibold text-lg">There's no shame in seeking help. These are not signs of weakness.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 9: Your Daily Check-In -->
+            <section class="bg-white">
+                <div class="flex items-center justify-center h-full">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center max-w-7xl mx-auto px-8">
+                        <div class="h-[600px] w-full bg-gray-200 rounded-lg shadow-xl fragment fade-in-up">
+                            <img src="../../../shared-assets/images/biff01_Woman_writing_in_journal_at_kitchen_table_with_tea_pro_2395b15a-e975-4fc4-8694-e53ab8a93511_3.png" alt="Daily check-in practice" class="w-full h-full object-cover rounded-lg">
+                        </div>
+                        <div class="text-left">
+                            <p class="fragment fade-in-up text-sm uppercase tracking-widest text-bloom-sage mb-4">Start Today</p>
+                            <h2 class="fragment fade-in-up text-5xl md:text-7xl font-light mb-6" style="animation-delay: 0.1s;">
+                                Your Daily <span class="italic">Check-In</span>
+                            </h2>
+                            <div class="fragment fade-in-up w-16 h-1 bg-bloom-coral mb-6" style="animation-delay: 0.2s;"></div>
+                            <div class="fragment fade-in-up card bg-bloom-cream border-l-4 border-bloom-coral p-8 rounded-r-lg" style="animation-delay: 0.3s;">
+                                <p class="text-lg text-bloom-charcoal mb-4">Three times today, pause and ask yourself:</p>
+                                <h3 class="text-3xl italic text-bloom-coral mb-4">
+                                    "How am I feeling in this moment?"
+                                </h3>
+                                <p class="text-bloom-sage">
+                                    No judgment. Just notice. Just breathe. You're learning to honor your experience.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 10: Building Hope -->
+            <section 
+                data-background-image="../../../shared-assets/images/biff01_Sunrise_over_mountains_golden_light_hope_abstract_lands_8c7e9f23-4f5a-4b23-9f3d-2c8b9d5f6e12_2.png"
+                data-background-size="cover"
+                data-background-position="center"
+                class="slide-background-gradient">
+                <div class="relative z-10 flex flex-col items-center justify-center h-full text-center px-8">
+                    <p class="fragment fade-in-up text-sm uppercase tracking-widest text-bloom-sage mb-4">Evidence-Based Hope</p>
+                    <h2 class="fragment fade-in-up text-5xl md:text-7xl font-light mb-12" style="animation-delay: 0.1s;">
+                        The Facts About <span class="italic text-bloom-coral">Recovery</span>
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-12">
+                        <div class="fragment fade-in-up card text-white p-8 rounded-lg shadow-lg bg-gradient-to-br from-bloom-coral to-bloom-peach" style="animation-delay: 0.2s;">
+                            <p class="text-7xl font-bold mb-4">100%</p>
+                            <p class="font-semibold">Of mothers deserve support—including you</p>
+                        </div>
+                        <div class="fragment fade-in-up card text-white p-8 rounded-lg shadow-lg bg-gradient-to-br from-bloom-sky to-bloom-mint" style="animation-delay: 0.3s;">
+                            <p class="text-7xl font-bold mb-4">95%</p>
+                            <p class="font-semibold">Recover fully with the right help</p>
+                        </div>
+                        <div class="fragment fade-in-up card text-white p-8 rounded-lg shadow-lg bg-gradient-to-br from-bloom-golden to-bloom-orange" style="animation-delay: 0.4s;">
+                            <p class="text-7xl font-bold mb-4">87%</p>
+                            <p class="font-semibold">Feel significantly better by 6 months</p>
+                        </div>
+                    </div>
+                    <div class="fragment fade-in-up bg-white/50 backdrop-blur-sm p-8 rounded-lg max-w-4xl mx-auto" style="animation-delay: 0.5s;">
+                        <div class="w-24 h-1 bg-bloom-sage mx-auto mb-4"></div>
+                        <p class="text-xl italic text-bloom-charcoal leading-relaxed">
+                            "You won't feel this way forever. Healing is happening, even when you can't see it. Every day you survive is a day closer to feeling like yourself again—not your old self, but a new version who's been through something profound and emerged stronger."
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 11: Your Rights (Optional) -->
+            <section class="bg-bloom-background">
+                <div class="flex flex-col items-center justify-center h-full text-center px-8">
+                    <p class="fragment fade-in-up text-sm uppercase tracking-widest text-bloom-sage mb-4">Permission Granted</p>
+                    <h2 class="fragment fade-in-up text-5xl md:text-7xl font-light mb-12" style="animation-delay: 0.1s;">
+                        Your <span class="italic text-bloom-coral">Rights</span> as a New Mother
+                    </h2>
+                    <div class="space-y-6 max-w-4xl mx-auto">
+                        <div class="fragment fade-in-up card bg-white p-6 rounded-lg shadow-lg text-left flex items-center space-x-6 border-l-4 border-bloom-coral" style="animation-delay: 0.2s;">
+                            <div>
+                                <h3 class="text-2xl font-semibold mb-2 text-bloom-coral">You have the right to feel</h3>
+                                <p class="text-bloom-warm-gray leading-relaxed">Whatever you're feeling is valid. Joy, grief, rage, numbness—all of it.</p>
+                            </div>
+                        </div>
+                        <div class="fragment fade-in-up card bg-white p-6 rounded-lg shadow-lg text-left flex items-center space-x-6 border-l-4 border-bloom-sky" style="animation-delay: 0.3s;">
+                            <div>
+                                <h3 class="text-2xl font-semibold mb-2 text-bloom-sky">You have the right to rest</h3>
+                                <p class="text-bloom-warm-gray leading-relaxed">Your body created life. It deserves time to heal.</p>
+                            </div>
+                        </div>
+                        <div class="fragment fade-in-up card bg-white p-6 rounded-lg shadow-lg text-left flex items-center space-x-6 border-l-4 border-bloom-lavender" style="animation-delay: 0.4s;">
+                            <div>
+                                <h3 class="text-2xl font-semibold mb-2 text-bloom-lavender">You have the right to ask for help</h3>
+                                <p class="text-bloom-warm-gray leading-relaxed">Needing support doesn't make you weak. It makes you human.</p>
+                            </div>
+                        </div>
+                        <div class="fragment fade-in-up card bg-white p-6 rounded-lg shadow-lg text-left flex items-center space-x-6 border-l-4 border-bloom-golden" style="animation-delay: 0.5s;">
+                            <div>
+                                <h3 class="text-2xl font-semibold mb-2 text-bloom-golden">You have the right to change</h3>
+                                <p class="text-bloom-warm-gray leading-relaxed">You don't have to be who you were before. You're allowed to evolve.</p>
+                            </div>
+                        </div>
+                        <div class="fragment fade-in-up card bg-white p-6 rounded-lg shadow-lg text-left flex items-center space-x-6 border-l-4 border-bloom-mint" style="animation-delay: 0.6s;">
+                            <div>
+                                <h3 class="text-2xl font-semibold mb-2 text-bloom-mint">You have the right to prioritize yourself</h3>
+                                <p class="text-bloom-warm-gray leading-relaxed">A healthy mother is the greatest gift you can give your child.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fragment fade-in-up mt-12 bg-bloom-sage p-8 rounded-lg max-w-4xl mx-auto text-white" style="animation-delay: 0.7s;">
+                        <p class="text-3xl italic leading-relaxed">
+                            "You are already enough. You are already doing enough. You are already <span class="font-semibold not-italic">more than enough</span>."
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 12: Closing -->
+            <section 
+                data-background-image="../../../shared-assets/images/biff01_Mother_holding_baby_looking_out_window_at_sunrise_hope_7f2de060-da80-41fa-8c95-705189ef01be_1.png"
+                data-background-size="cover"
+                data-background-position="center"
+                class="text-white slide-background-gradient-dark">
+                <div class="relative z-10 flex flex-col items-center justify-center h-full text-center px-8">
+                    <h1 class="fragment fade-in-up text-6xl md:text-8xl font-light leading-tight mb-6">
+                        Your Journey Begins <span class="italic text-bloom-coral">Now</span>
+                    </h1>
+                    <p class="fragment fade-in-up text-xl md:text-2xl max-w-3xl mx-auto font-light mb-8" style="animation-delay: 0.1s;">
+                        You've taken the first courageous step. We're here to walk alongside you.
+                    </p>
+                    <div class="fragment fade-in-up card bg-white/10 backdrop-blur-sm p-8 rounded-lg max-w-4xl mx-auto mb-8" style="animation-delay: 0.2s;">
+                        <p class="text-2xl italic leading-relaxed">
+                            "You're not alone in this. Welcome to your postpartum journey. Welcome to <span class="font-semibold not-italic text-bloom-coral">Bloom Psychology</span>."
+                        </p>
+                    </div>
+                    <div class="fragment fade-in-up" style="animation-delay: 0.3s;">
+                        <a href="#" class="bg-bloom-coral text-white font-bold py-3 px-8 rounded-full text-lg uppercase tracking-wider hover:bg-bloom-coral/80 transition-colors">
+                            Next: Lesson 2 - Understanding What's Normal
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            width: 1920,
+            height: 1080,
+            margin: 0,
+            minScale: 0.2,
+            maxScale: 2.0,
+            transition: 'fade', // fade, slide, convex, concave, zoom
+            backgroundTransition: 'fade', // none, fade, slide, convex, concave, zoom
+            plugins: []
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1619 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Visual Analysis Report</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        .slide-analysis {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .slide-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+        .screenshot-container {
+            position: relative;
+        }
+        .screenshot {
+            width: 100%;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+        }
+        .analysis-panel {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+        }
+        .issue-detector {
+            margin: 20px 0;
+            padding: 20px;
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            border-radius: 4px;
+        }
+        .critical-issue {
+            background: #f8d7da;
+            border-left-color: #dc3545;
+        }
+        .analysis-prompt {
+            background: #e7f3ff;
+            border: 1px solid #b8daff;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+            white-space: pre-wrap;
+            font-family: monospace;
+            font-size: 12px;
+        }
+        .context-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .context-item {
+            background: #e9ecef;
+            padding: 15px;
+            border-radius: 6px;
+            text-align: center;
+        }
+        .context-label {
+            font-size: 12px;
+            color: #6c757d;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .context-value {
+            font-size: 20px;
+            font-weight: bold;
+            color: #495057;
+            margin-top: 5px;
+        }
+        .manual-check-form {
+            background: #fff;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        .check-item {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 4px;
+        }
+        .check-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 15px;
+        }
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-family: inherit;
+            resize: vertical;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🤖 AI Visual Analysis Report</h1>
+        <p>Presentation: presentation-animated-complete.html</p>
+        <p>Generated: 6/26/2025, 3:52:07 PM</p>
+    </div>
+
+    <div class="slide-analysis">
+        <h2>Slide 1</h2>
+        
+        <div class="slide-grid">
+            <div class="screenshot-container">
+                <img src="slide-1.png" class="screenshot" alt="Slide 1">
+            </div>
+            
+            <div class="analysis-panel">
+                <h3>📊 Slide Context</h3>
+                <div class="context-info">
+                    <div class="context-item">
+                        <div class="context-label">Background</div>
+                        <div class="context-value">🖼️ Image</div>
+                    </div>
+                    <div class="context-item">
+                        <div class="context-label">Text Elements</div>
+                        <div class="context-value">5</div>
+                    </div>
+                    <div class="context-item">
+                        <div class="context-label">Has Cards</div>
+                        <div class="context-value">❌ No</div>
+                    </div>
+                </div>
+                
+                <h3>🔍 Visual Issue Checklist</h3>
+                <div class="manual-check-form">
+                    <div class="check-item">
+                        <input type="checkbox" id="slide1-white-on-white">
+                        <label for="slide1-white-on-white">
+                            <strong>White/Light text on white/light background</strong><br>
+                            <small>Text is barely visible or completely invisible</small>
+                        </label>
+                    </div>
+                    
+                    <div class="check-item">
+                        <input type="checkbox" id="slide1-dark-on-dark">
+                        <label for="slide1-dark-on-dark">
+                            <strong>Dark/Black text on dark/black background</strong><br>
+                            <small>Text blends into the background</small>
+                        </label>
+                    </div>
+                    
+                    <div class="check-item">
+                        <input type="checkbox" id="slide1-text-cutoff">
+                        <label for="slide1-text-cutoff">
+                            <strong>Text cut off or overflowing</strong><br>
+                            <small>Words or sentences are truncated or go off screen</small>
+                        </label>
+                    </div>
+                    
+                    <div class="check-item">
+                        <input type="checkbox" id="slide1-cards-broken">
+                        <label for="slide1-cards-broken">
+                            <strong>Cards misaligned or broken</strong><br>
+                            <small>Card layout is incorrect, overlapping, or inconsistent</small>
+                        </label>
+                    </div>
+                    
+                    <div class="check-item">
+                        <input type="checkbox" id="slide1-text-small">
+                        <label for="slide1-text-small">
+                            <strong>Text too small for video</strong><br>
+                            <small>Font size appears less than 24px equivalent</small>
+                        </label>
+                    </div>
+                </div>
+                
+                <h3>📝 Specific Issues</h3>
+                <textarea id="issues-slide1" rows="4" 
+                    placeholder="Describe exactly what's wrong (e.g., 'The title is white text on a white card background')"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-analysis">
+        <h2>Slide 2</h2>
+        
+        <div class="slide-grid">
+            <div class="screenshot-container">
+                <img src="slide-2.png" class="screenshot" alt="Slide 2">
+            </div>
+            
+            <div class="analysis-panel">
+                <h3>📊 Slide Context</h3>
+                <div class="context-info">
+                    <div class="context-item">
+                        <div class="context-label">Background</div>
+                        <div class="context-value">🎨 Color</div>
+                    </div>
+                    <div class="context-item">
+                        <div class="context-label">Text Elements</div>
+                        <div class="context-value">7</div>
+                    </div>
+                    <div class="context-item">
+                        <div class="context-label">Has Cards</div>
+                        <div class="context-value">❌ No</div>
+                    </div>
+                </div>
+                
+                <h3>🔍 Visual Issue Checklist</h3>
+                <div class="manual-check-form">
+                    <div class="check-item">
+                        <input type="checkbox" id="slide2-white-on-white">
+                        <label for="slide2-white-on-white">
+                            <strong>White/Light text on white/light background</strong><br>
+                            <small>Text is barely visible or completely invisible</small>
+                        </label>
+                    </div>
+                    
+                    <div class="check-item">
+                        <input type="checkbox" id="slide2-dark-on-dark">
+                        <label for="slide2-dark-on-dark">
+                            <strong>Dark/Black text on dark/black background</strong><br>
+                            <small>Text blends into the background</small>
+                        </label>
+                    </div>
+                    
+                    <div class="check-item">
+                        <input type="checkbox" id="slide2-text-cutoff">
+                        <label for="slide2-text-cutoff">
+                            <strong>Text cut off or overflowing</strong><br>
+                            <small>Words or sentences are truncated or go off screen</small>
+                        </label>
+                    </div>
+                    
+                    <div class="check-item">
+                        <input type="checkbox" id="slide2-cards-broken">
+                        <label for="slide2-cards-broken">
+                            <strong>Cards misaligned or broken</strong><br>
+                            <small>Card layout is incorrect, overlapping, or inconsistent</small>
+                        </label>
+                    </div>
+                    
+                    <div class="check-item">
+                        <input type="checkbox" id="slide2-text-small">
+                        <label for="slide2-text-small">
+                            <strong>Text too small for video</strong><br>
+                            <small>Font size appears less than 24px equivalent</small>
+                        </label>
+                    </div>
+                </div>
+                
+                <h3>📝 Specific Issues</h3>
+                <textarea id="issues-slide2" rows="4" 
+                    placeholder="Describe exactly what's wrong (e.g., 'The title is white text on a white card background')"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-analysis">
+        <h2>Slide 3</h2>
+        
+        <div class="slide-grid">
+            <div class="screenshot-container">
+                <img src="slide-3.png" class="screenshot" alt="Slide 3">
+            </div>
+            
+            <div class="analysis-panel">
+                <h3>📊 Slide Context</h3>
+                <div class="context-info">
+                    <div class="context-item">
+                        <div class="context-label">Background</div>
+                        <div class="context-value">🎨 Color</div>
+                    </div>
+                    <div class="context-item">
+                        <div class="context-label">Text Elements</div>
+                        <div class="context-value">15</div>
+                    </div>
+                    <div class="context-item">
+                        <div class="context-label">Has Cards</div>
+                        <div class="context-value">✅ Yes</div>
+                    </div>
+                </div>
+                
+                <h3>🔍 Visual Issue Checklist</h3>
+                <div class="manual-check-form">
+                    <div class="check-item">
+                        <input type="checkbox" id="slide3-white-on-white">
+                        <label for="slide3-white-on-white">
+                            <strong>White/Light text on white/light background</strong><br>
+                            <small>Text is barely visible or completely invisible</small>
+                        </label>
+                    </div>
+                    
+                    <div class="check-item">
+                        <input type="checkbox" id="slide3-dark-on-dark">
+                        <label for="slide3-dark-on-dark">
+                            <strong>Dark/Black text on dark/black background</strong><br>
+                            <small>Text blends into the background</small>
+                        </label>
+                    </div>
+                    
+                    <div class="check-item">
+                        <input type="checkbox" id="slide3-text-cutoff">
+                        <label for="slide3-text-cutoff">
+                            <strong>Text cut off or overflowing</strong><br>
+                            <small>Words or sentences are truncated or go off screen</small>
+                        </label>
+                    </div>
+                    
+                    <div class="check-item">
+                        <input type="checkbox" id="slide3-cards-broken">
+                        <label for="slide3-cards-broken">
+                            <strong>Cards misaligned or broken</strong><br>
+                            <small>Card layout is incorrect, overlapping, or inconsistent</small>
+                        </label>
+                    </div>
+                    
+                    <div class="check-item">
+                        <input type="checkbox" id="slide3-text-small">
+                        <label for="slide3-text-small">
+                            <strong>Text too small for video</strong><br>
+                            <small>Font size appears less than 24px equivalent</small>
+                        </label>
+                    </div>
+                </div>
+                
+                <h3>📝 Specific Issues</h3>
+                <textarea id="issues-slide3" rows="4" 
+                    placeholder="Describe exactly what's wrong (e.g., 'The title is white text on a white card background')"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-analysis">
+        <h2>Slide 4</h2>
+        
+        <div class="slide-grid">
+            <div class="screenshot-container">
+                <img src="slide-4.png" class="screenshot" alt="Slide 4">
+            </div>
+            
+            <div class="analysis-panel">
+                <h3>📊 Slide Context</h3>
+                <div class="context-info">
+                    <div class="context-item">
+                        <div class="context-label">Background</div>
+                        <div class="context-value">🖼️ Image</div>
+                    </div>
+                    <div class="context-item">
+                        <div class="context-label">Text Elements</div>
+                        <div class="context-value">10</div>
+                    </div>
+                    <div class="context-item">
+                        <div class="context-label">Has Cards</div>
+                        <div class="context-value">✅ Yes</div>
+                    </div>
+                </div>
+                
+                <h3>🔍 Visual Issue Checklist</h3>
+                <div class="manual-check-form">
+                    <div class="check-item">
+                        <input type="checkbox" id="slide4-white-on-white">
+                        <label for="slide4-white-on-white">
+                            <strong>White/Light text on white/light background</strong><br>
+                            <small>Text is barely visible or completely invisible</small>
+                        </label>
+                    </div>
+                    
+                    <div class="check-item">
+                        <input type="checkbox" id="slide4-dark-on-dark">
+                        <label for="slide4-dark-on-dark">
+                            <strong>Dark/Black text on dark/black background</strong><br>
+                            <small>Text blends into the background</small>
+                        </label>
+                    </div>
+                    
+                    <div class="check-item">
+                        <input type="checkbox" id="slide4-text-cutoff">
+                        <label for="slide4-text-cutoff">
+                            <strong>Text cut off or overflowing</strong><br>
+                            <small>Words or sentences are truncated or go off screen</small>
+                        </label>
+                    </div>
+                    
+                    <div class="check-item">
+                        <input type="checkbox" id="slide4-cards-broken">
+                        <label for="slide4-cards-broken">
+                            <strong>Cards misaligned or broken</strong><br>
+                            <small>Card layout is incorrect, overlapping, or inconsistent</small>
+                        </label>
+                    </div>
+                    
+                    <div class="check-item">
+                        <input type="checkbox" id="slide4-text-small">
+                        <label for="slide4-text-small">
+                            <strong>Text too small for video</strong><br>
+                            <small>Font size appears less than 24px equivalent</small>
+                        </label>
+                    </div>
+                </div>
+                
+                <h3>📝 Specific Issues</h3>
+                <textarea id="issues-slide4" rows="4" 
+                    placeholder="Describe exactly what's wrong (e.g., 'The title is white text on a white card background')"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-analysis">
+        <h2>Slide 5</h2>
+        
+        <div class="slide-grid">
+            <div class="screenshot-container">
+                <img src="slide-5.png" class="screenshot" alt="Slide 5">
+            </div>
+            
+            <div class="analysis-panel">
+                <h3>📊 Slide Context</h3>
+                <div class="context-info">
+                    <div class="context-item">
+                        <div class="context-label">Background</div>
+                        <div class="context-value">🖼️ Image</div>
+                    </div>
+                    <div class="context-item">
+                        <div class="context-label">Text Elements</div>
+                        <div class="context-value">29</div>
+                    </div>
+                    <div class="context-item">
+                        <div class="context-label">Has Cards</div>
+                        <div class="context-value">✅ Yes</div>
+                    </div>
+                </div>
+                
+                <h3>🔍 Visual Issue Checklist</h3>
+                <div class="manual-check-form">
+                    <div class="check-item">
+                        <input type="checkbox" id="slide5-white-on-white">
+                        <label for="slide5-white-on-white">
+                            <strong>White/Light text on white/light background</strong><br>
+                            <small>Text is barely visible or completely invisible</small>
+                        </label>
+                    </div>
+                    
+                    <div class="check-item">
+                        <input type="checkbox" id="slide5-dark-on-dark">
+                        <label for="slide5-dark-on-dark">
+                            <strong>Dark/Black text on dark/black background</strong><br>
+                            <small>Text blends into the background</small>
+                        </label>
+                    </div>
+                    
+                    <div class="check-item">
+                        <input type="checkbox" id="slide5-text-cutoff">
+                        <label for="slide5-text-cutoff">
+                            <strong>Text cut off or overflowing</strong><br>
+                            <small>Words or sentences are truncated or go off screen</small>
+                        </label>
+                    </div>
+                    
+                    <div class="check-item">
+                        <input type="checkbox" id="slide5-cards-broken">
+                        <label for="slide5-cards-broken">
+                            <strong>Cards misaligned or broken</strong><br>
+                            <small>Card layout is incorrect, overlapping, or inconsistent</small>
+                        </label>
+                    </div>
+                    
+                    <div class="check-item">
+                        <input type="checkbox" id="slide5-text-small">
+                        <label for="slide5-text-small">
+                            <strong>Text too small for video</strong><br>
+                            <small>Font size appears less than 24px equivalent</small>
+                        </label>
+                    </div>
+                </div>
+                
+                <h3>📝 Specific Issues</h3>
+                <textarea id="issues-slide5" rows="4" 
+                    placeholder="Describe exactly what's wrong (e.g., 'The title is white text on a white card background')"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-analysis">
+        <h2>Slide 6</h2>
+        
+        <div class="slide-grid">
+            <div class="screenshot-container">
+                <img src="slide-6.png" class="screenshot" alt="Slide 6">
+            </div>
+            
+            <div class="analysis-panel">
+                <h3>📊 Slide Context</h3>
+                <div class="context-info">
+                    <div class="context-item">
+                        <div class="context-label">Background</div>
+                        <div class="context-value">🎨 Color</div>
+                    </div>
+                    <div class="context-item">
+                        <div class="context-label">Text Elements</div>
+                        <div class="context-value">18</div>
+                    </div>
+                    <div class="context-item">
+                        <div class="context-label">Has Cards</div>
+                        <div class="context-value">✅ Yes</div>
+                    </div>
+                </div>
+                
+                <h3>🔍 Visual Issue Checklist</h3>
+                <div class="manual-check-form">
+                    <div class="check-item">
+                        <input type="checkbox" id="slide6-white-on-white">
+                        <label for="slide6-white-on-white">
+                            <strong>White/Light text on white/light background</strong><br>
+                            <small>Text is barely visible or completely invisible</small>
+                        </label>
+                    </div>
+                    
+                    <div class="check-item">
+                        <input type="checkbox" id="slide6-dark-on-dark">
+                        <label for="slide6-dark-on-dark">
+                            <strong>Dark/Black text on dark/black background</strong><br>
+                            <small>Text blends into the background</small>
+                        </label>
+                    </div>
+                    
+                    <div class="check-item">
+                        <input type="checkbox" id="slide6-text-cutoff">
+                        <label for="slide6-text-cutoff">
+                            <strong>Text cut off or overflowing</strong><br>
+                            <small>Words or sentences are truncated or go off screen</small>
+                        </label>
+                    </div>
+                    
+                    <div class="check-item">
+                        <input type="checkbox" id="slide6-cards-broken">
+                        <label for="slide6-cards-broken">
+                            <strong>Cards misaligned or broken</strong><br>
+                            <small>Card layout is incorrect, overlapping, or inconsistent</small>
+                        </label>
+                    </div>
+                    
+                    <div class="check-item">
+                        <input type="checkbox" id="slide6-text-small">
+                        <label for="slide6-text-small">
+                            <strong>Text too small for video</strong><br>
+                            <small>Font size appears less than 24px equivalent</small>
+                        </label>
+                    </div>
+                </div>
+                
+                <h3>📝 Specific Issues</h3>
+                <textarea id="issues-slide6" rows="4" 
+                    placeholder="Describe exactly what's wrong (e.g., 'The title is white text on a white card background')"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-analysis">
+        <h2>Slide 7</h2>
+        
+        <div class="slide-grid">
+            <div class="screenshot-container">
+                <img src="slide-7.png" class="screenshot" alt="Slide 7">
+            </div>
+            
+            <div class="analysis-panel">
+                <h3>📊 Slide Context</h3>
+                <div class="context-info">
+                    <div class="context-item">
+                        <div class="context-label">Background</div>
+                        <div class="context-value">🖼️ Image</div>
+                    </div>
+                    <div class="context-item">
+                        <div class="context-label">Text Elements</div>
+                        <div class="context-value">7</div>
+                    </div>
+                    <div class="context-item">
+                        <div class="context-label">Has Cards</div>
+                        <div class="context-value">✅ Yes</div>
+                    </div>
+                </div>
+                
+                <h3>🔍 Visual Issue Checklist</h3>
+                <div class="manual-check-form">
+                    <div class="check-item">
+                        <input type="checkbox" id="slide7-white-on-white">
+                        <label for="slide7-white-on-white">
+                            <strong>White/Light text on white/light background</strong><br>
+                            <small>Text is barely visible or completely invisible</small>
+                        </label>
+                    </div>
+                    
+                    <div class="check-item">
+                        <input type="checkbox" id="slide7-dark-on-dark">
+                        <label for="slide7-dark-on-dark">
+                            <strong>Dark/Black text on dark/black background</strong><br>
+                            <small>Text blends into the background</small>
+                        </label>
+                    </div>
+                    
+                    <div class="check-item">
+                        <input type="checkbox" id="slide7-text-cutoff">
+                        <label for="slide7-text-cutoff">
+                            <strong>Text cut off or overflowing</strong><br>
+                            <small>Words or sentences are truncated or go off screen</small>
+                        </label>
+                    </div>
+                    
+                    <div class="check-item">
+                        <input type="checkbox" id="slide7-cards-broken">
+                        <label for="slide7-cards-broken">
+                            <strong>Cards misaligned or broken</strong><br>
+                            <small>Card layout is incorrect, overlapping, or inconsistent</small>
+                        </label>
+                    </div>
+                    
+                    <div class="check-item">
+                        <input type="checkbox" id="slide7-text-small">
+                        <label for="slide7-text-small">
+                            <strong>Text too small for video</strong><br>
+                            <small>Font size appears less than 24px equivalent</small>
+                        </label>
+                    </div>
+                </div>
+                
+                <h3>📝 Specific Issues</h3>
+                <textarea id="issues-slide7" rows="4" 
+                    placeholder="Describe exactly what's wrong (e.g., 'The title is white text on a white card background')"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-analysis">
+        <h2>Slide 8</h2>
+        
+        <div class="slide-grid">
+            <div class="screenshot-container">
+                <img src="slide-8.png" class="screenshot" alt="Slide 8">
+            </div>
+            
+            <div class="analysis-panel">
+                <h3>📊 Slide Context</h3>
+                <div class="context-info">
+                    <div class="context-item">
+                        <div class="context-label">Background</div>
+                        <div class="context-value">🖼️ Image</div>
+                    </div>
+                    <div class="context-item">
+                        <div class="context-label">Text Elements</div>
+                        <div class="context-value">20</div>
+                    </div>
+                    <div class="context-item">
+                        <div class="context-label">Has Cards</div>
+                        <div class="context-value">✅ Yes</div>
+                    </div>
+                </div>
+                
+                <h3>🔍 Visual Issue Checklist</h3>
+                <div class="manual-check-form">
+                    <div class="check-item">
+                        <input type="checkbox" id="slide8-white-on-white">
+                        <label for="slide8-white-on-white">
+                            <strong>White/Light text on white/light background</strong><br>
+                            <small>Text is barely visible or completely invisible</small>
+                        </label>
+                    </div>
+                    
+                    <div class="check-item">
+                        <input type="checkbox" id="slide8-dark-on-dark">
+                        <label for="slide8-dark-on-dark">
+                            <strong>Dark/Black text on dark/black background</strong><br>
+                            <small>Text blends into the background</small>
+                        </label>
+                    </div>
+                    
+                    <div class="check-item">
+                        <input type="checkbox" id="slide8-text-cutoff">
+                        <label for="slide8-text-cutoff">
+                            <strong>Text cut off or overflowing</strong><br>
+                            <small>Words or sentences are truncated or go off screen</small>
+                        </label>
+                    </div>
+                    
+                    <div class="check-item">
+                        <input type="checkbox" id="slide8-cards-broken">
+                        <label for="slide8-cards-broken">
+                            <strong>Cards misaligned or broken</strong><br>
+                            <small>Card layout is incorrect, overlapping, or inconsistent</small>
+                        </label>
+                    </div>
+                    
+                    <div class="check-item">
+                        <input type="checkbox" id="slide8-text-small">
+                        <label for="slide8-text-small">
+                            <strong>Text too small for video</strong><br>
+                            <small>Font size appears less than 24px equivalent</small>
+                        </label>
+                    </div>
+                </div>
+                
+                <h3>📝 Specific Issues</h3>
+                <textarea id="issues-slide8" rows="4" 
+                    placeholder="Describe exactly what's wrong (e.g., 'The title is white text on a white card background')"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-analysis">
+        <h2>Slide 9</h2>
+        
+        <div class="slide-grid">
+            <div class="screenshot-container">
+                <img src="slide-9.png" class="screenshot" alt="Slide 9">
+            </div>
+            
+            <div class="analysis-panel">
+                <h3>📊 Slide Context</h3>
+                <div class="context-info">
+                    <div class="context-item">
+                        <div class="context-label">Background</div>
+                        <div class="context-value">🎨 Color</div>
+                    </div>
+                    <div class="context-item">
+                        <div class="context-label">Text Elements</div>
+                        <div class="context-value">6</div>
+                    </div>
+                    <div class="context-item">
+                        <div class="context-label">Has Cards</div>
+                        <div class="context-value">❌ No</div>
+                    </div>
+                </div>
+                
+                <h3>🔍 Visual Issue Checklist</h3>
+                <div class="manual-check-form">
+                    <div class="check-item">
+                        <input type="checkbox" id="slide9-white-on-white">
+                        <label for="slide9-white-on-white">
+                            <strong>White/Light text on white/light background</strong><br>
+                            <small>Text is barely visible or completely invisible</small>
+                        </label>
+                    </div>
+                    
+                    <div class="check-item">
+                        <input type="checkbox" id="slide9-dark-on-dark">
+                        <label for="slide9-dark-on-dark">
+                            <strong>Dark/Black text on dark/black background</strong><br>
+                            <small>Text blends into the background</small>
+                        </label>
+                    </div>
+                    
+                    <div class="check-item">
+                        <input type="checkbox" id="slide9-text-cutoff">
+                        <label for="slide9-text-cutoff">
+                            <strong>Text cut off or overflowing</strong><br>
+                            <small>Words or sentences are truncated or go off screen</small>
+                        </label>
+                    </div>
+                    
+                    <div class="check-item">
+                        <input type="checkbox" id="slide9-cards-broken">
+                        <label for="slide9-cards-broken">
+                            <strong>Cards misaligned or broken</strong><br>
+                            <small>Card layout is incorrect, overlapping, or inconsistent</small>
+                        </label>
+                    </div>
+                    
+                    <div class="check-item">
+                        <input type="checkbox" id="slide9-text-small">
+                        <label for="slide9-text-small">
+                            <strong>Text too small for video</strong><br>
+                            <small>Font size appears less than 24px equivalent</small>
+                        </label>
+                    </div>
+                </div>
+                
+                <h3>📝 Specific Issues</h3>
+                <textarea id="issues-slide9" rows="4" 
+                    placeholder="Describe exactly what's wrong (e.g., 'The title is white text on a white card background')"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-analysis">
+        <h2>Slide 10</h2>
+        
+        <div class="slide-grid">
+            <div class="screenshot-container">
+                <img src="slide-10.png" class="screenshot" alt="Slide 10">
+            </div>
+            
+            <div class="analysis-panel">
+                <h3>📊 Slide Context</h3>
+                <div class="context-info">
+                    <div class="context-item">
+                        <div class="context-label">Background</div>
+                        <div class="context-value">🖼️ Image</div>
+                    </div>
+                    <div class="context-item">
+                        <div class="context-label">Text Elements</div>
+                        <div class="context-value">7</div>
+                    </div>
+                    <div class="context-item">
+                        <div class="context-label">Has Cards</div>
+                        <div class="context-value">✅ Yes</div>
+                    </div>
+                </div>
+                
+                <h3>🔍 Visual Issue Checklist</h3>
+                <div class="manual-check-form">
+                    <div class="check-item">
+                        <input type="checkbox" id="slide10-white-on-white">
+                        <label for="slide10-white-on-white">
+                            <strong>White/Light text on white/light background</strong><br>
+                            <small>Text is barely visible or completely invisible</small>
+                        </label>
+                    </div>
+                    
+                    <div class="check-item">
+                        <input type="checkbox" id="slide10-dark-on-dark">
+                        <label for="slide10-dark-on-dark">
+                            <strong>Dark/Black text on dark/black background</strong><br>
+                            <small>Text blends into the background</small>
+                        </label>
+                    </div>
+                    
+                    <div class="check-item">
+                        <input type="checkbox" id="slide10-text-cutoff">
+                        <label for="slide10-text-cutoff">
+                            <strong>Text cut off or overflowing</strong><br>
+                            <small>Words or sentences are truncated or go off screen</small>
+                        </label>
+                    </div>
+                    
+                    <div class="check-item">
+                        <input type="checkbox" id="slide10-cards-broken">
+                        <label for="slide10-cards-broken">
+                            <strong>Cards misaligned or broken</strong><br>
+                            <small>Card layout is incorrect, overlapping, or inconsistent</small>
+                        </label>
+                    </div>
+                    
+                    <div class="check-item">
+                        <input type="checkbox" id="slide10-text-small">
+                        <label for="slide10-text-small">
+                            <strong>Text too small for video</strong><br>
+                            <small>Font size appears less than 24px equivalent</small>
+                        </label>
+                    </div>
+                </div>
+                
+                <h3>📝 Specific Issues</h3>
+                <textarea id="issues-slide10" rows="4" 
+                    placeholder="Describe exactly what's wrong (e.g., 'The title is white text on a white card background')"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-analysis">
+        <h2>Slide 11</h2>
+        
+        <div class="slide-grid">
+            <div class="screenshot-container">
+                <img src="slide-11.png" class="screenshot" alt="Slide 11">
+            </div>
+            
+            <div class="analysis-panel">
+                <h3>📊 Slide Context</h3>
+                <div class="context-info">
+                    <div class="context-item">
+                        <div class="context-label">Background</div>
+                        <div class="context-value">🎨 Color</div>
+                    </div>
+                    <div class="context-item">
+                        <div class="context-label">Text Elements</div>
+                        <div class="context-value">12</div>
+                    </div>
+                    <div class="context-item">
+                        <div class="context-label">Has Cards</div>
+                        <div class="context-value">✅ Yes</div>
+                    </div>
+                </div>
+                
+                <h3>🔍 Visual Issue Checklist</h3>
+                <div class="manual-check-form">
+                    <div class="check-item">
+                        <input type="checkbox" id="slide11-white-on-white">
+                        <label for="slide11-white-on-white">
+                            <strong>White/Light text on white/light background</strong><br>
+                            <small>Text is barely visible or completely invisible</small>
+                        </label>
+                    </div>
+                    
+                    <div class="check-item">
+                        <input type="checkbox" id="slide11-dark-on-dark">
+                        <label for="slide11-dark-on-dark">
+                            <strong>Dark/Black text on dark/black background</strong><br>
+                            <small>Text blends into the background</small>
+                        </label>
+                    </div>
+                    
+                    <div class="check-item">
+                        <input type="checkbox" id="slide11-text-cutoff">
+                        <label for="slide11-text-cutoff">
+                            <strong>Text cut off or overflowing</strong><br>
+                            <small>Words or sentences are truncated or go off screen</small>
+                        </label>
+                    </div>
+                    
+                    <div class="check-item">
+                        <input type="checkbox" id="slide11-cards-broken">
+                        <label for="slide11-cards-broken">
+                            <strong>Cards misaligned or broken</strong><br>
+                            <small>Card layout is incorrect, overlapping, or inconsistent</small>
+                        </label>
+                    </div>
+                    
+                    <div class="check-item">
+                        <input type="checkbox" id="slide11-text-small">
+                        <label for="slide11-text-small">
+                            <strong>Text too small for video</strong><br>
+                            <small>Font size appears less than 24px equivalent</small>
+                        </label>
+                    </div>
+                </div>
+                
+                <h3>📝 Specific Issues</h3>
+                <textarea id="issues-slide11" rows="4" 
+                    placeholder="Describe exactly what's wrong (e.g., 'The title is white text on a white card background')"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-analysis">
+        <h2>Slide 12</h2>
+        
+        <div class="slide-grid">
+            <div class="screenshot-container">
+                <img src="slide-12.png" class="screenshot" alt="Slide 12">
+            </div>
+            
+            <div class="analysis-panel">
+                <h3>📊 Slide Context</h3>
+                <div class="context-info">
+                    <div class="context-item">
+                        <div class="context-label">Background</div>
+                        <div class="context-value">🖼️ Image</div>
+                    </div>
+                    <div class="context-item">
+                        <div class="context-label">Text Elements</div>
+                        <div class="context-value">6</div>
+                    </div>
+                    <div class="context-item">
+                        <div class="context-label">Has Cards</div>
+                        <div class="context-value">✅ Yes</div>
+                    </div>
+                </div>
+                
+                <h3>🔍 Visual Issue Checklist</h3>
+                <div class="manual-check-form">
+                    <div class="check-item">
+                        <input type="checkbox" id="slide12-white-on-white">
+                        <label for="slide12-white-on-white">
+                            <strong>White/Light text on white/light background</strong><br>
+                            <small>Text is barely visible or completely invisible</small>
+                        </label>
+                    </div>
+                    
+                    <div class="check-item">
+                        <input type="checkbox" id="slide12-dark-on-dark">
+                        <label for="slide12-dark-on-dark">
+                            <strong>Dark/Black text on dark/black background</strong><br>
+                            <small>Text blends into the background</small>
+                        </label>
+                    </div>
+                    
+                    <div class="check-item">
+                        <input type="checkbox" id="slide12-text-cutoff">
+                        <label for="slide12-text-cutoff">
+                            <strong>Text cut off or overflowing</strong><br>
+                            <small>Words or sentences are truncated or go off screen</small>
+                        </label>
+                    </div>
+                    
+                    <div class="check-item">
+                        <input type="checkbox" id="slide12-cards-broken">
+                        <label for="slide12-cards-broken">
+                            <strong>Cards misaligned or broken</strong><br>
+                            <small>Card layout is incorrect, overlapping, or inconsistent</small>
+                        </label>
+                    </div>
+                    
+                    <div class="check-item">
+                        <input type="checkbox" id="slide12-text-small">
+                        <label for="slide12-text-small">
+                            <strong>Text too small for video</strong><br>
+                            <small>Font size appears less than 24px equivalent</small>
+                        </label>
+                    </div>
+                </div>
+                
+                <h3>📝 Specific Issues</h3>
+                <textarea id="issues-slide12" rows="4" 
+                    placeholder="Describe exactly what's wrong (e.g., 'The title is white text on a white card background')"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function collectIssues() {
+            const issues = [];
+            
+            const slide1Issues = [];
+            if (document.getElementById('slide1-white-on-white').checked) {
+                slide1Issues.push({
+                    type: 'contrast',
+                    severity: 'critical',
+                    issue: 'White text on white background'
+                });
+            }
+            if (document.getElementById('slide1-dark-on-dark').checked) {
+                slide1Issues.push({
+                    type: 'contrast',
+                    severity: 'critical',
+                    issue: 'Dark text on dark background'
+                });
+            }
+            if (document.getElementById('slide1-text-cutoff').checked) {
+                slide1Issues.push({
+                    type: 'layout',
+                    severity: 'critical',
+                    issue: 'Text cut off or overflowing'
+                });
+            }
+            if (document.getElementById('slide1-cards-broken').checked) {
+                slide1Issues.push({
+                    type: 'layout',
+                    severity: 'critical',
+                    issue: 'Cards misaligned or broken'
+                });
+            }
+            if (document.getElementById('slide1-text-small').checked) {
+                slide1Issues.push({
+                    type: 'typography',
+                    severity: 'warning',
+                    issue: 'Text too small for video'
+                });
+            }
+            
+            const specificIssues = document.getElementById('issues-slide1').value;
+            if (slide1Issues.length > 0 || specificIssues) {
+                issues.push({
+                    slide: 1,
+                    issues: slide1Issues,
+                    description: specificIssues
+                });
+            }
+            
+
+            const slide2Issues = [];
+            if (document.getElementById('slide2-white-on-white').checked) {
+                slide2Issues.push({
+                    type: 'contrast',
+                    severity: 'critical',
+                    issue: 'White text on white background'
+                });
+            }
+            if (document.getElementById('slide2-dark-on-dark').checked) {
+                slide2Issues.push({
+                    type: 'contrast',
+                    severity: 'critical',
+                    issue: 'Dark text on dark background'
+                });
+            }
+            if (document.getElementById('slide2-text-cutoff').checked) {
+                slide2Issues.push({
+                    type: 'layout',
+                    severity: 'critical',
+                    issue: 'Text cut off or overflowing'
+                });
+            }
+            if (document.getElementById('slide2-cards-broken').checked) {
+                slide2Issues.push({
+                    type: 'layout',
+                    severity: 'critical',
+                    issue: 'Cards misaligned or broken'
+                });
+            }
+            if (document.getElementById('slide2-text-small').checked) {
+                slide2Issues.push({
+                    type: 'typography',
+                    severity: 'warning',
+                    issue: 'Text too small for video'
+                });
+            }
+            
+            const specificIssues = document.getElementById('issues-slide2').value;
+            if (slide2Issues.length > 0 || specificIssues) {
+                issues.push({
+                    slide: 2,
+                    issues: slide2Issues,
+                    description: specificIssues
+                });
+            }
+            
+
+            const slide3Issues = [];
+            if (document.getElementById('slide3-white-on-white').checked) {
+                slide3Issues.push({
+                    type: 'contrast',
+                    severity: 'critical',
+                    issue: 'White text on white background'
+                });
+            }
+            if (document.getElementById('slide3-dark-on-dark').checked) {
+                slide3Issues.push({
+                    type: 'contrast',
+                    severity: 'critical',
+                    issue: 'Dark text on dark background'
+                });
+            }
+            if (document.getElementById('slide3-text-cutoff').checked) {
+                slide3Issues.push({
+                    type: 'layout',
+                    severity: 'critical',
+                    issue: 'Text cut off or overflowing'
+                });
+            }
+            if (document.getElementById('slide3-cards-broken').checked) {
+                slide3Issues.push({
+                    type: 'layout',
+                    severity: 'critical',
+                    issue: 'Cards misaligned or broken'
+                });
+            }
+            if (document.getElementById('slide3-text-small').checked) {
+                slide3Issues.push({
+                    type: 'typography',
+                    severity: 'warning',
+                    issue: 'Text too small for video'
+                });
+            }
+            
+            const specificIssues = document.getElementById('issues-slide3').value;
+            if (slide3Issues.length > 0 || specificIssues) {
+                issues.push({
+                    slide: 3,
+                    issues: slide3Issues,
+                    description: specificIssues
+                });
+            }
+            
+
+            const slide4Issues = [];
+            if (document.getElementById('slide4-white-on-white').checked) {
+                slide4Issues.push({
+                    type: 'contrast',
+                    severity: 'critical',
+                    issue: 'White text on white background'
+                });
+            }
+            if (document.getElementById('slide4-dark-on-dark').checked) {
+                slide4Issues.push({
+                    type: 'contrast',
+                    severity: 'critical',
+                    issue: 'Dark text on dark background'
+                });
+            }
+            if (document.getElementById('slide4-text-cutoff').checked) {
+                slide4Issues.push({
+                    type: 'layout',
+                    severity: 'critical',
+                    issue: 'Text cut off or overflowing'
+                });
+            }
+            if (document.getElementById('slide4-cards-broken').checked) {
+                slide4Issues.push({
+                    type: 'layout',
+                    severity: 'critical',
+                    issue: 'Cards misaligned or broken'
+                });
+            }
+            if (document.getElementById('slide4-text-small').checked) {
+                slide4Issues.push({
+                    type: 'typography',
+                    severity: 'warning',
+                    issue: 'Text too small for video'
+                });
+            }
+            
+            const specificIssues = document.getElementById('issues-slide4').value;
+            if (slide4Issues.length > 0 || specificIssues) {
+                issues.push({
+                    slide: 4,
+                    issues: slide4Issues,
+                    description: specificIssues
+                });
+            }
+            
+
+            const slide5Issues = [];
+            if (document.getElementById('slide5-white-on-white').checked) {
+                slide5Issues.push({
+                    type: 'contrast',
+                    severity: 'critical',
+                    issue: 'White text on white background'
+                });
+            }
+            if (document.getElementById('slide5-dark-on-dark').checked) {
+                slide5Issues.push({
+                    type: 'contrast',
+                    severity: 'critical',
+                    issue: 'Dark text on dark background'
+                });
+            }
+            if (document.getElementById('slide5-text-cutoff').checked) {
+                slide5Issues.push({
+                    type: 'layout',
+                    severity: 'critical',
+                    issue: 'Text cut off or overflowing'
+                });
+            }
+            if (document.getElementById('slide5-cards-broken').checked) {
+                slide5Issues.push({
+                    type: 'layout',
+                    severity: 'critical',
+                    issue: 'Cards misaligned or broken'
+                });
+            }
+            if (document.getElementById('slide5-text-small').checked) {
+                slide5Issues.push({
+                    type: 'typography',
+                    severity: 'warning',
+                    issue: 'Text too small for video'
+                });
+            }
+            
+            const specificIssues = document.getElementById('issues-slide5').value;
+            if (slide5Issues.length > 0 || specificIssues) {
+                issues.push({
+                    slide: 5,
+                    issues: slide5Issues,
+                    description: specificIssues
+                });
+            }
+            
+
+            const slide6Issues = [];
+            if (document.getElementById('slide6-white-on-white').checked) {
+                slide6Issues.push({
+                    type: 'contrast',
+                    severity: 'critical',
+                    issue: 'White text on white background'
+                });
+            }
+            if (document.getElementById('slide6-dark-on-dark').checked) {
+                slide6Issues.push({
+                    type: 'contrast',
+                    severity: 'critical',
+                    issue: 'Dark text on dark background'
+                });
+            }
+            if (document.getElementById('slide6-text-cutoff').checked) {
+                slide6Issues.push({
+                    type: 'layout',
+                    severity: 'critical',
+                    issue: 'Text cut off or overflowing'
+                });
+            }
+            if (document.getElementById('slide6-cards-broken').checked) {
+                slide6Issues.push({
+                    type: 'layout',
+                    severity: 'critical',
+                    issue: 'Cards misaligned or broken'
+                });
+            }
+            if (document.getElementById('slide6-text-small').checked) {
+                slide6Issues.push({
+                    type: 'typography',
+                    severity: 'warning',
+                    issue: 'Text too small for video'
+                });
+            }
+            
+            const specificIssues = document.getElementById('issues-slide6').value;
+            if (slide6Issues.length > 0 || specificIssues) {
+                issues.push({
+                    slide: 6,
+                    issues: slide6Issues,
+                    description: specificIssues
+                });
+            }
+            
+
+            const slide7Issues = [];
+            if (document.getElementById('slide7-white-on-white').checked) {
+                slide7Issues.push({
+                    type: 'contrast',
+                    severity: 'critical',
+                    issue: 'White text on white background'
+                });
+            }
+            if (document.getElementById('slide7-dark-on-dark').checked) {
+                slide7Issues.push({
+                    type: 'contrast',
+                    severity: 'critical',
+                    issue: 'Dark text on dark background'
+                });
+            }
+            if (document.getElementById('slide7-text-cutoff').checked) {
+                slide7Issues.push({
+                    type: 'layout',
+                    severity: 'critical',
+                    issue: 'Text cut off or overflowing'
+                });
+            }
+            if (document.getElementById('slide7-cards-broken').checked) {
+                slide7Issues.push({
+                    type: 'layout',
+                    severity: 'critical',
+                    issue: 'Cards misaligned or broken'
+                });
+            }
+            if (document.getElementById('slide7-text-small').checked) {
+                slide7Issues.push({
+                    type: 'typography',
+                    severity: 'warning',
+                    issue: 'Text too small for video'
+                });
+            }
+            
+            const specificIssues = document.getElementById('issues-slide7').value;
+            if (slide7Issues.length > 0 || specificIssues) {
+                issues.push({
+                    slide: 7,
+                    issues: slide7Issues,
+                    description: specificIssues
+                });
+            }
+            
+
+            const slide8Issues = [];
+            if (document.getElementById('slide8-white-on-white').checked) {
+                slide8Issues.push({
+                    type: 'contrast',
+                    severity: 'critical',
+                    issue: 'White text on white background'
+                });
+            }
+            if (document.getElementById('slide8-dark-on-dark').checked) {
+                slide8Issues.push({
+                    type: 'contrast',
+                    severity: 'critical',
+                    issue: 'Dark text on dark background'
+                });
+            }
+            if (document.getElementById('slide8-text-cutoff').checked) {
+                slide8Issues.push({
+                    type: 'layout',
+                    severity: 'critical',
+                    issue: 'Text cut off or overflowing'
+                });
+            }
+            if (document.getElementById('slide8-cards-broken').checked) {
+                slide8Issues.push({
+                    type: 'layout',
+                    severity: 'critical',
+                    issue: 'Cards misaligned or broken'
+                });
+            }
+            if (document.getElementById('slide8-text-small').checked) {
+                slide8Issues.push({
+                    type: 'typography',
+                    severity: 'warning',
+                    issue: 'Text too small for video'
+                });
+            }
+            
+            const specificIssues = document.getElementById('issues-slide8').value;
+            if (slide8Issues.length > 0 || specificIssues) {
+                issues.push({
+                    slide: 8,
+                    issues: slide8Issues,
+                    description: specificIssues
+                });
+            }
+            
+
+            const slide9Issues = [];
+            if (document.getElementById('slide9-white-on-white').checked) {
+                slide9Issues.push({
+                    type: 'contrast',
+                    severity: 'critical',
+                    issue: 'White text on white background'
+                });
+            }
+            if (document.getElementById('slide9-dark-on-dark').checked) {
+                slide9Issues.push({
+                    type: 'contrast',
+                    severity: 'critical',
+                    issue: 'Dark text on dark background'
+                });
+            }
+            if (document.getElementById('slide9-text-cutoff').checked) {
+                slide9Issues.push({
+                    type: 'layout',
+                    severity: 'critical',
+                    issue: 'Text cut off or overflowing'
+                });
+            }
+            if (document.getElementById('slide9-cards-broken').checked) {
+                slide9Issues.push({
+                    type: 'layout',
+                    severity: 'critical',
+                    issue: 'Cards misaligned or broken'
+                });
+            }
+            if (document.getElementById('slide9-text-small').checked) {
+                slide9Issues.push({
+                    type: 'typography',
+                    severity: 'warning',
+                    issue: 'Text too small for video'
+                });
+            }
+            
+            const specificIssues = document.getElementById('issues-slide9').value;
+            if (slide9Issues.length > 0 || specificIssues) {
+                issues.push({
+                    slide: 9,
+                    issues: slide9Issues,
+                    description: specificIssues
+                });
+            }
+            
+
+            const slide10Issues = [];
+            if (document.getElementById('slide10-white-on-white').checked) {
+                slide10Issues.push({
+                    type: 'contrast',
+                    severity: 'critical',
+                    issue: 'White text on white background'
+                });
+            }
+            if (document.getElementById('slide10-dark-on-dark').checked) {
+                slide10Issues.push({
+                    type: 'contrast',
+                    severity: 'critical',
+                    issue: 'Dark text on dark background'
+                });
+            }
+            if (document.getElementById('slide10-text-cutoff').checked) {
+                slide10Issues.push({
+                    type: 'layout',
+                    severity: 'critical',
+                    issue: 'Text cut off or overflowing'
+                });
+            }
+            if (document.getElementById('slide10-cards-broken').checked) {
+                slide10Issues.push({
+                    type: 'layout',
+                    severity: 'critical',
+                    issue: 'Cards misaligned or broken'
+                });
+            }
+            if (document.getElementById('slide10-text-small').checked) {
+                slide10Issues.push({
+                    type: 'typography',
+                    severity: 'warning',
+                    issue: 'Text too small for video'
+                });
+            }
+            
+            const specificIssues = document.getElementById('issues-slide10').value;
+            if (slide10Issues.length > 0 || specificIssues) {
+                issues.push({
+                    slide: 10,
+                    issues: slide10Issues,
+                    description: specificIssues
+                });
+            }
+            
+
+            const slide11Issues = [];
+            if (document.getElementById('slide11-white-on-white').checked) {
+                slide11Issues.push({
+                    type: 'contrast',
+                    severity: 'critical',
+                    issue: 'White text on white background'
+                });
+            }
+            if (document.getElementById('slide11-dark-on-dark').checked) {
+                slide11Issues.push({
+                    type: 'contrast',
+                    severity: 'critical',
+                    issue: 'Dark text on dark background'
+                });
+            }
+            if (document.getElementById('slide11-text-cutoff').checked) {
+                slide11Issues.push({
+                    type: 'layout',
+                    severity: 'critical',
+                    issue: 'Text cut off or overflowing'
+                });
+            }
+            if (document.getElementById('slide11-cards-broken').checked) {
+                slide11Issues.push({
+                    type: 'layout',
+                    severity: 'critical',
+                    issue: 'Cards misaligned or broken'
+                });
+            }
+            if (document.getElementById('slide11-text-small').checked) {
+                slide11Issues.push({
+                    type: 'typography',
+                    severity: 'warning',
+                    issue: 'Text too small for video'
+                });
+            }
+            
+            const specificIssues = document.getElementById('issues-slide11').value;
+            if (slide11Issues.length > 0 || specificIssues) {
+                issues.push({
+                    slide: 11,
+                    issues: slide11Issues,
+                    description: specificIssues
+                });
+            }
+            
+
+            const slide12Issues = [];
+            if (document.getElementById('slide12-white-on-white').checked) {
+                slide12Issues.push({
+                    type: 'contrast',
+                    severity: 'critical',
+                    issue: 'White text on white background'
+                });
+            }
+            if (document.getElementById('slide12-dark-on-dark').checked) {
+                slide12Issues.push({
+                    type: 'contrast',
+                    severity: 'critical',
+                    issue: 'Dark text on dark background'
+                });
+            }
+            if (document.getElementById('slide12-text-cutoff').checked) {
+                slide12Issues.push({
+                    type: 'layout',
+                    severity: 'critical',
+                    issue: 'Text cut off or overflowing'
+                });
+            }
+            if (document.getElementById('slide12-cards-broken').checked) {
+                slide12Issues.push({
+                    type: 'layout',
+                    severity: 'critical',
+                    issue: 'Cards misaligned or broken'
+                });
+            }
+            if (document.getElementById('slide12-text-small').checked) {
+                slide12Issues.push({
+                    type: 'typography',
+                    severity: 'warning',
+                    issue: 'Text too small for video'
+                });
+            }
+            
+            const specificIssues = document.getElementById('issues-slide12').value;
+            if (slide12Issues.length > 0 || specificIssues) {
+                issues.push({
+                    slide: 12,
+                    issues: slide12Issues,
+                    description: specificIssues
+                });
+            }
+            
+            
+            console.log('Collected issues:', JSON.stringify(issues, null, 2));
+            
+            // Create downloadable JSON
+            const dataStr = JSON.stringify(issues, null, 2);
+            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+            
+            const exportFileDefaultName = 'visual-issues-2025-06-26.json';
+            
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataUri);
+            linkElement.setAttribute('download', exportFileDefaultName);
+            linkElement.click();
+            
+            alert('Issues exported! Total slides with issues: ' + issues.length);
+        }
+    </script>
+    
+    <div style="position: fixed; bottom: 20px; right: 20px;">
+        <button onclick="collectIssues()" style="background: #28a745; color: white; padding: 15px 30px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; box-shadow: 0 2px 10px rgba(0,0,0,0.2);">
+            📥 Export Issues as JSON
+        </button>
+    </div>
+</body>
+</html>

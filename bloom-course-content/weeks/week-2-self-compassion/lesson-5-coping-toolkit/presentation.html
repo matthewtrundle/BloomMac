@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Creating Your Coping Toolkit | Bloom Psychology</title>
+    
+    <!-- Reveal.js Core -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reset.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ========================================
+           BLOOM PROFESSIONAL DESIGN SYSTEM
+           ======================================== */
+        :root {
+            /* Brand Colors */
+            --bloom-sage: #8B9A82;
+            --bloom-charcoal: #1a1a1a;
+            --bloom-warm-gray: #4a4a4a;
+            --bloom-cream: #faf8f5;
+            --bloom-background: #FFF9F0;
+            
+            /* Vibrant Accent Colors */
+            --bloom-coral: #FF6B6B;
+            --bloom-peach: #FFB4A2;
+            --bloom-golden: #FFCB77;
+            --bloom-mint: #95E1D3;
+            --bloom-lavender: #C589E8;
+            --bloom-sky: #74C0FC;
+            --bloom-rose: #FFA8C5;
+            --bloom-teal: #4ECDC4;
+            --bloom-orange: #FF9A8B;
+            
+            /* Lesson 5 Primary Colors */
+            --lesson5-rose-gold: #E8B4B8;
+            --lesson5-steel-blue: #5B7C99;
+            
+            /* Typography */
+            --font-display: 'Cormorant Garamond', serif;
+            --font-body: 'Inter', -apple-system, sans-serif;
+            
+            /* Spacing Scale */
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 2rem;
+            --space-lg: 3rem;
+            --space-xl: 4rem;
+            --space-2xl: 6rem;
+            --space-3xl: 8rem;
+        }
+        
+        /* Base Reveal Overrides */
+        .reveal {
+            font-family: var(--font-body);
+            font-size: 24px;
+            font-weight: normal;
+            color: var(--bloom-charcoal);
+            background-color: #FFFFFF;
+        }
+        
+        .reveal .slides {
+            text-align: left;
+        }
+        
+        .reveal .slides section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            padding: 2rem;
+            overflow: hidden;
+        }
+        
+        .reveal h1,
+        .reveal h2,
+        .reveal h3,
+        .reveal h4 {
+            font-family: var(--font-body);
+            font-weight: 600;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            text-transform: none;
+            margin: 0 0 1rem 0;
+        }
+        
+        .reveal h1 { font-size: clamp(2.5rem, 5vw, 4rem); }
+        .reveal h2 { font-size: clamp(2rem, 4vw, 3rem); }
+        .reveal h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
+        .reveal h4 { font-size: clamp(1.2rem, 2.5vw, 1.8rem); }
+        
+        .reveal p {
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            font-size: clamp(1rem, 2vw, 1.2rem);
+        }
+        
+        /* Remove all animations */
+        .reveal .fragment {
+            opacity: 1 !important;
+            visibility: visible !important;
+            transform: none !important;
+        }
+        
+        .reveal .slides section.present {
+            transform: none !important;
+        }
+        
+        .reveal .progress {
+            display: none;
+        }
+        
+        /* Magazine Layouts */
+        .magazine-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            width: 100%;
+            max-width: 1400px;
+        }
+        
+        .magazine-split.reverse {
+            grid-template-columns: 1fr 1fr;
+        }
+        
+        .magazine-split .content {
+            padding: 2rem;
+        }
+        
+        .magazine-split .image {
+            position: relative;
+            height: 70vh;
+            overflow: hidden;
+            border-radius: 20px;
+        }
+        
+        .magazine-split .image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Toolkit Visual Elements */
+        .toolkit-box {
+            background: white;
+            border: 3px solid var(--lesson5-rose-gold);
+            border-radius: 25px;
+            padding: 3rem;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        }
+        
+        .toolkit-handle {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 40px;
+            background: var(--lesson5-steel-blue);
+            border-radius: 20px 20px 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .toolkit-handle::before {
+            content: '';
+            width: 60px;
+            height: 4px;
+            background: rgba(255,255,255,0.5);
+            border-radius: 2px;
+        }
+        
+        /* Daily Five Grid */
+        .daily-five-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .daily-card {
+            background: linear-gradient(135deg, rgba(232,180,184,0.1), rgba(91,124,153,0.1));
+            border-radius: 20px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .daily-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--lesson5-rose-gold), var(--lesson5-steel-blue));
+        }
+        
+        .daily-number {
+            background: var(--lesson5-steel-blue);
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        /* Quick Relief Menu */
+        .relief-menu {
+            background: white;
+            border-radius: 30px;
+            padding: 2.5rem;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+            position: relative;
+        }
+        
+        .relief-tab {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: var(--lesson5-rose-gold);
+            color: white;
+            border-radius: 20px 20px 0 0;
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+        
+        /* Crisis Card */
+        .crisis-card {
+            background: linear-gradient(135deg, #FFEFEF, #FFF5F5);
+            border: 2px solid #FF6B6B;
+            border-radius: 20px;
+            padding: 2.5rem;
+            position: relative;
+        }
+        
+        .crisis-card::before {
+            content: '⚠️';
+            position: absolute;
+            top: -15px;
+            right: 20px;
+            font-size: 2rem;
+            background: white;
+            padding: 0 10px;
+        }
+        
+        /* Index Card Visual */
+        .index-card {
+            background: #FFFEF0;
+            border: 1px solid #E0E0E0;
+            border-radius: 5px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: relative;
+            transform: rotate(-2deg);
+            margin: 1rem;
+        }
+        
+        .index-card::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #FF6B6B;
+        }
+        
+        .index-card::after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #74C0FC;
+        }
+        
+        /* Habit Stack Visual */
+        .habit-stack {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: rgba(255,255,255,0.95);
+            border-radius: 20px;
+            margin: 1rem 0;
+        }
+        
+        .habit-arrow {
+            color: var(--lesson5-steel-blue);
+            font-size: 2rem;
+        }
+        
+        /* Practice Tracker */
+        .practice-tracker {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.5rem;
+            max-width: 400px;
+            margin: 2rem auto;
+        }
+        
+        .tracker-day {
+            aspect-ratio: 1;
+            background: #F0F0F0;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            position: relative;
+        }
+        
+        .tracker-day.checked {
+            background: var(--lesson5-rose-gold);
+            color: white;
+        }
+        
+        .tracker-day.checked::after {
+            content: '✓';
+            position: absolute;
+            font-size: 1.5rem;
+            color: white;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .magazine-split {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .daily-five-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .practice-tracker {
+                grid-template-columns: repeat(7, 1fr);
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- Slide 1: Cinematic Opening -->
+            <section data-background-image="../../../shared-assets/images/week-2-images/biff01_First_aid_kit_concept_with_emotional_wellness_tools_so_b3b1ba39-5b83-4b33-ad83-40b5c5e95d8f_1.png"
+                     data-background-size="cover"
+                     data-background-position="center">
+                <div style="position: absolute; inset: 0; background: linear-gradient(to right, rgba(232,180,184,0.9) 0%, rgba(91,124,153,0.8) 40%, transparent 70%); z-index: 1;"></div>
+                <div style="position: relative; z-index: 2; height: 100vh; display: flex; align-items: center; padding: 0 8%;">
+                    <div style="max-width: 650px;">
+                        <div style="display: inline-block; padding: 0.5rem 1.5rem; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); border-radius: 30px; margin-bottom: 2rem;">
+                            <p style="color: white; font-size: 0.9rem; letter-spacing: 0.15em; text-transform: uppercase; margin: 0; font-weight: 500;">Week 2 · Lesson 5</p>
+                        </div>
+                        <h1 style="font-family: var(--font-body); font-size: clamp(3rem, 6vw, 4.5rem); font-weight: 300; line-height: 1.05; margin-bottom: 2rem; color: white;">
+                            Creating Your<br>
+                            <span style="font-weight: 600; font-style: italic;">Coping Toolkit</span>
+                        </h1>
+                        <p style="font-size: 1.3rem; line-height: 1.6; color: rgba(255,255,255,0.9); margin-bottom: 3rem; font-weight: 300;">
+                            Personalized strategies that work<br>for YOU, in YOUR life, with YOUR baby
+                        </p>
+                        <div style="display: flex; align-items: center; gap: 2rem;">
+                            <div style="width: 60px; height: 1px; background: white;"></div>
+                            <p style="color: rgba(255,255,255,0.7); font-size: 0.95rem; letter-spacing: 0.05em; margin: 0;">Dr. Jana Williams · Bloom Psychology</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 2: What Is a Coping Toolkit? -->
+            <section data-background-image="../../../shared-assets/images/week-2-images/biff01_Organized_self-care_toolkit_laid_out_journals_essentia_b00e3d68-db7b-4beb-96e1-23e8e49b7c3e_0.png"
+                     data-background-size="cover"
+                     data-background-position="right center"
+                     data-background-opacity="0.15">
+                <div class="magazine-split">
+                    <div class="content">
+                        <h2>What Is a <span style="color: var(--lesson5-rose-gold);">Coping Toolkit?</span></h2>
+                        <p style="font-size: 1.3rem; margin-bottom: 2rem;">
+                            Think of it like a first aid kit for your mental health
+                        </p>
+                        
+                        <div class="toolkit-box">
+                            <div class="toolkit-handle"></div>
+                            <h3 style="color: var(--lesson5-steel-blue); margin-bottom: 1.5rem;">Your Toolkit Includes:</h3>
+                            <ul style="list-style: none; padding: 0; font-size: 1.15rem; line-height: 2;">
+                                <li>⚡ Quick techniques for immediate relief</li>
+                                <li>🌱 Daily practices for resilience</li>
+                                <li>🚨 Emergency plans for crisis moments</li>
+                                <li>💫 Resources for ongoing support</li>
+                            </ul>
+                            <p style="margin-top: 2rem; font-style: italic; color: var(--lesson5-rose-gold);">
+                                Have these ready BEFORE you need them
+                            </p>
+                        </div>
+                    </div>
+                    <div class="image">
+                        <img src="../../../shared-assets/images/week-2-images/biff01_Woman_organizing_personal_wellness_items_creating_tool_e8b71faf-e8c0-4f5e-9fa7-f3ad5f1c3b0c_1.png" alt="Creating toolkit">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 3: The Daily Five -->
+            <section data-background-color="#FFF9F0">
+                <div style="max-width: 1200px;">
+                    <h2 style="text-align: center; margin-bottom: 3rem;">The <span style="color: var(--lesson5-steel-blue);">Daily Five</span></h2>
+                    <p style="text-align: center; font-size: 1.3rem; margin-bottom: 3rem;">Pick one from each category:</p>
+                    
+                    <div class="daily-five-grid">
+                        <div class="daily-card">
+                            <div class="daily-number">1</div>
+                            <h4 style="color: var(--lesson5-rose-gold);">Morning Anchor</h4>
+                            <p style="font-size: 0.9rem; margin-bottom: 1rem;">(2-5 minutes)</p>
+                            <ul style="list-style: none; padding: 0; font-size: 0.95rem;">
+                                <li>• Stretch in bed</li>
+                                <li>• 3 gratitudes with coffee</li>
+                                <li>• Mirror affirmation</li>
+                                <li>• Deep breaths while nursing</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="daily-card">
+                            <div class="daily-number">2</div>
+                            <h4 style="color: var(--lesson5-steel-blue);">Midday Reset</h4>
+                            <p style="font-size: 0.9rem; margin-bottom: 1rem;">(30 sec - 2 min)</p>
+                            <ul style="list-style: none; padding: 0; font-size: 0.95rem;">
+                                <li>• Physiological sigh</li>
+                                <li>• Body scan</li>
+                                <li>• Text a friend</li>
+                                <li>• Step outside</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="daily-card">
+                            <div class="daily-number">3</div>
+                            <h4 style="color: var(--lesson5-rose-gold);">Movement Moment</h4>
+                            <p style="font-size: 0.9rem; margin-bottom: 1rem;">(5-10 minutes)</p>
+                            <ul style="list-style: none; padding: 0; font-size: 0.95rem;">
+                                <li>• Walk with carrier</li>
+                                <li>• Kitchen dance party</li>
+                                <li>• Living room yoga</li>
+                                <li>• Gentle stretches</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="daily-card">
+                            <div class="daily-number">4</div>
+                            <h4 style="color: var(--lesson5-steel-blue);">Connection Touch</h4>
+                            <p style="font-size: 0.9rem; margin-bottom: 1rem;">(varies)</p>
+                            <ul style="list-style: none; padding: 0; font-size: 0.95rem;">
+                                <li>• Voice message</li>
+                                <li>• Video call</li>
+                                <li>• Mom group check-in</li>
+                                <li>• 20-second hug</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="daily-card">
+                            <div class="daily-number">5</div>
+                            <h4 style="color: var(--lesson5-rose-gold);">Evening Wind-Down</h4>
+                            <p style="font-size: 0.9rem; margin-bottom: 1rem;">(5-10 minutes)</p>
+                            <ul style="list-style: none; padding: 0; font-size: 0.95rem;">
+                                <li>• Journal 3 sentences</li>
+                                <li>• Mindful bath</li>
+                                <li>• Gentle music</li>
+                                <li>• Muscle relaxation</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <p style="text-align: center; margin-top: 2rem; font-size: 1.2rem; color: var(--lesson5-steel-blue);">
+                        These aren't extras. They're maintenance.<br>Like brushing teeth for mental health.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Slide 4: Quick Relief Menu -->
+            <section data-background-image="../../../shared-assets/images/week-2-images/biff01_Index_cards_with_coping_strategies_written_out_practic_ae0dd55d-6dfc-45bd-b06f-42b5cfb2c829_2.png"
+                     data-background-size="cover"
+                     data-background-position="center"
+                     data-background-opacity="0.15">
+                <div style="max-width: 1000px;">
+                    <h2 style="text-align: center; margin-bottom: 3rem;">Your <span style="color: var(--lesson5-rose-gold);">Quick Relief</span> Menu</h2>
+                    <p style="text-align: center; font-size: 1.2rem; margin-bottom: 3rem;">For immediate relief (30 seconds to 3 minutes):</p>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem;">
+                        <div class="relief-menu">
+                            <div class="relief-tab" style="background: #FF6B6B;">When Anxious/Panicked</div>
+                            <ul style="list-style: none; padding: 0; margin-top: 2rem;">
+                                <li style="margin-bottom: 1rem;">🫁 4-7-8 breathing</li>
+                                <li style="margin-bottom: 1rem;">🧊 Ice cube on wrist</li>
+                                <li style="margin-bottom: 1rem;">👁️ Name 5 blue things</li>
+                                <li>🤸 Shake body for 30 seconds</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="relief-menu">
+                            <div class="relief-tab" style="background: #FF9A8B;">When Rageful/Frustrated</div>
+                            <ul style="list-style: none; padding: 0; margin-top: 2rem;">
+                                <li style="margin-bottom: 1rem;">🤚 Push wall hard 10 seconds</li>
+                                <li style="margin-bottom: 1rem;">😱 Scream into pillow</li>
+                                <li style="margin-bottom: 1rem;">📄 Rip up paper</li>
+                                <li>🦶 Stomp feet 20 times</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="relief-menu">
+                            <div class="relief-tab" style="background: #95E1D3;">When Numb/Disconnected</div>
+                            <ul style="list-style: none; padding: 0; margin-top: 2rem;">
+                                <li style="margin-bottom: 1rem;">🌿 Smell peppermint oil</li>
+                                <li style="margin-bottom: 1rem;">💦 Cold water on face</li>
+                                <li style="margin-bottom: 1rem;">🏃‍♀️ 10 jumping jacks</li>
+                                <li>📞 Call & say "I need your voice"</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="relief-menu">
+                            <div class="relief-tab" style="background: #74C0FC;">When Overwhelmed/Crying</div>
+                            <ul style="list-style: none; padding: 0; margin-top: 2rem;">
+                                <li style="margin-bottom: 1rem;">❤️ Hand on heart: "This is temporary"</li>
+                                <li style="margin-bottom: 1rem;">🫂 Wrap in blanket tightly</li>
+                                <li style="margin-bottom: 1rem;">🪑 Rock yourself gently</li>
+                                <li>😢 Let tears flow without story</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 3rem;">
+                        <div class="index-card" style="display: inline-block;">
+                            <p style="margin: 0; font-weight: 600;">Write these on index cards.<br>
+                            Put them everywhere - bathroom, kitchen, diaper bag.<br>
+                            When you need them, you won't have to think.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 5: The Emergency Plan -->
+            <section data-background-image="../../../shared-assets/images/week-2-images/biff01_Crisis_support_plan_safety_net_visualization_warm_lig_c7a87f37-f7f0-4dfc-9d72-54f4dd5527bb_0.png"
+                     data-background-size="cover"
+                     data-background-position="center"
+                     data-background-opacity="0.2">
+                <div style="max-width: 900px;">
+                    <h2 style="text-align: center; margin-bottom: 3rem;">The <span style="color: var(--lesson5-steel-blue);">Emergency Plan</span></h2>
+                    
+                    <div class="crisis-card">
+                        <h3 style="color: #FF6B6B; margin-bottom: 2rem;">Your Crisis Card</h3>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;">
+                            <div>
+                                <h4 style="color: var(--lesson5-steel-blue);">Safe Person to Call:</h4>
+                                <p style="font-family: monospace; background: #F0F0F0; padding: 1rem; border-radius: 10px;">
+                                    Name: ___________<br>
+                                    Number: ___________<br>
+                                    Backup: ___________
+                                </p>
+                                
+                                <h4 style="color: var(--lesson5-steel-blue); margin-top: 2rem;">Professional Support:</h4>
+                                <p style="font-family: monospace; background: #F0F0F0; padding: 1rem; border-radius: 10px;">
+                                    Therapist: ___________<br>
+                                    Postpartum: 1-800-944-4773<br>
+                                    Crisis: 988<br>
+                                    OB/Midwife: ___________
+                                </p>
+                            </div>
+                            
+                            <div>
+                                <h4 style="color: var(--lesson5-rose-gold);">Immediate Safety Steps:</h4>
+                                <ol style="line-height: 1.8;">
+                                    <li>Put baby in safe place (crib)</li>
+                                    <li>Step into another room</li>
+                                    <li>Call someone</li>
+                                    <li>Use cold water/ice</li>
+                                    <li>Remember: "This will pass"</li>
+                                </ol>
+                                
+                                <h4 style="color: var(--lesson5-rose-gold); margin-top: 2rem;">After-Crisis Care:</h4>
+                                <ul style="list-style: none; padding: 0;">
+                                    <li>✓ No shame or judgment</li>
+                                    <li>✓ Extra rest</li>
+                                    <li>✓ Gentle nutrition</li>
+                                    <li>✓ Follow-up with support</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <p style="text-align: center; margin-top: 2rem; font-style: italic; color: var(--lesson5-steel-blue);">
+                            Having this plan isn't pessimistic. It's protective.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 6: Customizing Your Toolkit -->
+            <section>
+                <div class="magazine-split reverse">
+                    <div class="image">
+                        <img src="../../../shared-assets/images/week-2-images/biff01_Woman_personalizing_her_coping_strategies_writing_in_j_c9947b7e-e1f6-4f72-8dcb-d32cefe7ad07_2.png" alt="Personalizing toolkit">
+                    </div>
+                    <div class="content">
+                        <h2>Customize Your <span style="color: var(--lesson5-rose-gold);">Toolkit</span></h2>
+                        
+                        <div style="background: linear-gradient(135deg, rgba(232,180,184,0.1), rgba(91,124,153,0.1)); padding: 2rem; border-radius: 20px; margin-bottom: 2rem;">
+                            <h4 style="color: var(--lesson5-steel-blue); margin-bottom: 1rem;">Consider Your Reality:</h4>
+                            <ul style="list-style: none; padding: 0;">
+                                <li>⏰ How much time do you actually have?</li>
+                                <li>🏠 What's your living situation?</li>
+                                <li>👥 Who's available to help?</li>
+                                <li>😰 What are your biggest triggers?</li>
+                                <li>✨ What's worked in the past?</li>
+                            </ul>
+                        </div>
+                        
+                        <div style="background: rgba(255,255,255,0.95); padding: 2rem; border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.08);">
+                            <h4 style="color: var(--lesson5-rose-gold); margin-bottom: 1rem;">Match Tools to Moments:</h4>
+                            <p style="margin-bottom: 0.5rem;">🤱 While nursing → breathing, music</p>
+                            <p style="margin-bottom: 0.5rem;">😴 Baby sleeps → bath, journal</p>
+                            <p style="margin-bottom: 0.5rem;">🎯 Baby plays → movement, calls</p>
+                            <p style="margin-bottom: 0.5rem;">🍼 While pumping → meditation, TV</p>
+                        </div>
+                        
+                        <p style="margin-top: 2rem; font-style: italic; color: var(--lesson5-steel-blue);">
+                            Your toolkit works when it fits your actual life,<br>not your ideal life.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 7: Making It Stick -->
+            <section data-background-color="#FFF9F0">
+                <div style="max-width: 1000px;">
+                    <h2 style="text-align: center; margin-bottom: 3rem;">Making It <span style="color: var(--lesson5-steel-blue);">Stick</span></h2>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;">
+                        <div>
+                            <h3 style="color: var(--lesson5-rose-gold); margin-bottom: 2rem;">Start Tiny</h3>
+                            <div style="background: white; padding: 2rem; border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.08);">
+                                <p>📍 Pick ONE daily practice<br>
+                                ✓ Do it for one week<br>
+                                ➕ Then add another<br>
+                                🌱 Build slowly</p>
+                            </div>
+                            
+                            <h3 style="color: var(--lesson5-rose-gold); margin: 2rem 0;">Stack Habits</h3>
+                            <div class="habit-stack">
+                                <span>☕ Coffee brews</span>
+                                <span class="habit-arrow">→</span>
+                                <span>🫁 Deep breaths</span>
+                            </div>
+                            <div class="habit-stack">
+                                <span>👶 Tummy time</span>
+                                <span class="habit-arrow">→</span>
+                                <span>🤸‍♀️ Stretches</span>
+                            </div>
+                            <div class="habit-stack">
+                                <span>🤱 Morning feed</span>
+                                <span class="habit-arrow">→</span>
+                                <span>🙏 Gratitude</span>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h3 style="color: var(--lesson5-steel-blue); margin-bottom: 2rem;">Track Simply</h3>
+                            <div class="practice-tracker">
+                                <div class="tracker-day">M</div>
+                                <div class="tracker-day checked">T</div>
+                                <div class="tracker-day checked">W</div>
+                                <div class="tracker-day">T</div>
+                                <div class="tracker-day checked">F</div>
+                                <div class="tracker-day checked">S</div>
+                                <div class="tracker-day">S</div>
+                            </div>
+                            <p style="text-align: center;">✓ Calendar check marks<br>
+                            📱 Phone notes<br>
+                            ⭐ Sticker chart (yes, really!)</p>
+                            
+                            <h3 style="color: var(--lesson5-steel-blue); margin: 2rem 0;">Adjust Often</h3>
+                            <div style="background: white; padding: 2rem; border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.08);">
+                                <p>❓ What's working?<br>
+                                ❌ What's not?<br>
+                                🔧 What needs tweaking?<br>
+                                🦋 Toolkits evolve</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 8: The Power of Practice -->
+            <section data-background-image="../../../shared-assets/images/week-2-images/biff01_Woman_practicing_self-care_routine_peaceful_daily_prac_b4f93e00-0e61-4742-8bb0-28df0cf8dd7f_1.png"
+                     data-background-size="cover"
+                     data-background-position="center"
+                     data-background-opacity="0.2">
+                <div style="max-width: 900px; text-align: center;">
+                    <h2 style="margin-bottom: 3rem;">The Power of <span style="color: var(--lesson5-rose-gold);">Practice</span></h2>
+                    
+                    <div style="background: rgba(255,255,255,0.95); padding: 3rem; border-radius: 30px; box-shadow: 0 20px 60px rgba(0,0,0,0.1);">
+                        <p style="font-size: 1.5rem; margin-bottom: 2rem; color: var(--lesson5-steel-blue);">
+                            Here's the secret:
+                        </p>
+                        
+                        <p style="font-size: 1.3rem; line-height: 1.8; margin-bottom: 2rem;">
+                            These tools work best when practiced<br>
+                            <span style="color: var(--lesson5-rose-gold); font-weight: 600;">during calm moments</span>
+                        </p>
+                        
+                        <div style="padding: 2rem; background: linear-gradient(135deg, rgba(232,180,184,0.1), rgba(91,124,153,0.1)); border-radius: 20px;">
+                            <p style="font-size: 1.2rem; margin-bottom: 1rem;">
+                                🫁 Practice breathing when not panicked<br>
+                                🧘‍♀️ Practice grounding when not dissociated<br>
+                                ❤️ Practice self-compassion when not struggling
+                            </p>
+                        </div>
+                        
+                        <p style="margin-top: 2rem; font-size: 1.2rem;">
+                            Think of it like fire drills.<br>
+                            You practice when there's no fire<br>
+                            so your body knows what to do when there is one.
+                        </p>
+                        
+                        <p style="margin-top: 2rem; font-style: italic; color: var(--lesson5-steel-blue);">
+                            Even 2 minutes of daily practice builds neural pathways<br>
+                            that make these tools automatic when you need them most.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 9: Your Assignment -->
+            <section data-background-image="../../../shared-assets/images/week-2-images/biff01_Toolkit_coming_together_various_coping_tools_organized_a19cf88f-f1de-496b-a953-b23fb87aefbb_1.png"
+                     data-background-size="cover"
+                     data-background-position="center"
+                     data-background-opacity="0.15">
+                <div style="max-width: 900px;">
+                    <h2 style="text-align: center; margin-bottom: 3rem;">This Week: <span style="color: var(--lesson5-rose-gold);">Build Your Toolkit</span></h2>
+                    
+                    <div style="background: rgba(255,255,255,0.95); padding: 3rem; border-radius: 30px; box-shadow: 0 20px 60px rgba(0,0,0,0.1);">
+                        <div style="display: grid; gap: 2rem;">
+                            <div style="background: linear-gradient(to right, rgba(232,180,184,0.1), rgba(91,124,153,0.1)); padding: 2rem; border-radius: 20px; border-left: 5px solid var(--lesson5-rose-gold);">
+                                <h3 style="color: var(--lesson5-steel-blue); margin-bottom: 1rem;">✓ Choose ONE daily practice</h3>
+                                <p>Start with just one from the Daily Five. Which feels most doable?</p>
+                            </div>
+                            
+                            <div style="background: linear-gradient(to right, rgba(91,124,153,0.1), rgba(232,180,184,0.1)); padding: 2rem; border-radius: 20px; border-left: 5px solid var(--lesson5-steel-blue);">
+                                <h3 style="color: var(--lesson5-rose-gold); margin-bottom: 1rem;">✓ Write your crisis card</h3>
+                                <p>Fill in the emergency numbers. Put it somewhere visible.</p>
+                            </div>
+                            
+                            <div style="background: linear-gradient(to right, rgba(232,180,184,0.1), rgba(91,124,153,0.1)); padding: 2rem; border-radius: 20px; border-left: 5px solid var(--lesson5-rose-gold);">
+                                <h3 style="color: var(--lesson5-steel-blue); margin-bottom: 1rem;">✓ Try ONE quick relief technique</h3>
+                                <p>Pick one that appeals to you. Practice it when calm.</p>
+                            </div>
+                            
+                            <div style="background: linear-gradient(to right, rgba(91,124,153,0.1), rgba(232,180,184,0.1)); padding: 2rem; border-radius: 20px; border-left: 5px solid var(--lesson5-steel-blue);">
+                                <h3 style="color: var(--lesson5-rose-gold); margin-bottom: 1rem;">✓ Share with someone</h3>
+                                <p>Tell one person about your toolkit. Accountability helps.</p>
+                            </div>
+                        </div>
+                        
+                        <p style="text-align: center; margin-top: 2rem; font-style: italic; color: var(--lesson5-steel-blue);">
+                            Small steps lead to big changes.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 10: Closing -->
+            <section data-background-image="../../../shared-assets/images/week-2-images/biff01_Mother_looking_confident_and_prepared_toolkit_metaphor_9ae8c6d4-0322-4be5-9d30-f78f43b1a9e2_1.png"
+                     data-background-size="cover"
+                     data-background-position="center">
+                <div style="position: absolute; inset: 0; background: linear-gradient(to right, rgba(91,124,153,0.9) 0%, rgba(232,180,184,0.8) 40%, transparent 70%); z-index: 1;"></div>
+                <div style="position: relative; z-index: 2; height: 100vh; display: flex; align-items: center; padding: 0 8%;">
+                    <div style="max-width: 650px;">
+                        <div style="display: inline-block; padding: 0.5rem 1.5rem; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); border-radius: 30px; margin-bottom: 2rem;">
+                            <p style="color: white; font-size: 0.9rem; letter-spacing: 0.15em; text-transform: uppercase; margin: 0; font-weight: 500;">Week 2 Complete</p>
+                        </div>
+                        <h1 style="font-family: var(--font-body); font-size: clamp(3rem, 6vw, 4.5rem); font-weight: 300; line-height: 1.05; margin-bottom: 2rem; color: white;">
+                            Your Toolkit Is<br>
+                            <span style="font-weight: 600; font-style: italic;">Always There</span>
+                        </h1>
+                        <p style="font-size: 1.3rem; line-height: 1.6; color: rgba(255,255,255,0.9); margin-bottom: 2rem; font-weight: 300;">
+                            Some days you'll use every tool.<br>
+                            Some days you'll forget they exist.<br>
+                            Both are okay.
+                        </p>
+                        <p style="font-size: 1.2rem; line-height: 1.6; color: rgba(255,255,255,0.9); margin-bottom: 3rem;">
+                            The toolkit is there when you need it,<br>
+                            judgment-free and ready.
+                        </p>
+                        <div style="display: flex; align-items: center; gap: 2rem;">
+                            <div style="width: 60px; height: 1px; background: white;"></div>
+                            <p style="color: rgba(255,255,255,0.7); font-size: 0.95rem; letter-spacing: 0.05em; margin: 0;">Next Week: Building Your Support System</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            controls: true,
+            progress: false,
+            center: false,
+            transition: 'none',
+            transitionSpeed: 'instant',
+            backgroundTransition: 'none'
+        });
+    </script>
+</body>
+</html>

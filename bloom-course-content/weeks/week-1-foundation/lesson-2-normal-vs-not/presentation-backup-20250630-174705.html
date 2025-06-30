@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>What's Normal vs. What's Not | Bloom Psychology</title>
+    
+    <!-- Reveal.js Core -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reset.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ========================================
+           BLOOM PROFESSIONAL DESIGN SYSTEM
+           ======================================== */
+        :root {
+            /* Brand Colors */
+            --bloom-sage: #8B9A82;
+            --bloom-charcoal: #1a1a1a;
+            --bloom-warm-gray: #4a4a4a;
+            --bloom-cream: #faf8f5;
+            --bloom-background: #FFF9F0;
+            
+            /* Vibrant Accent Colors */
+            --bloom-coral: #FF6B6B;
+            --bloom-peach: #FFB4A2;
+            --bloom-golden: #FFCB77;
+            --bloom-mint: #95E1D3;
+            --bloom-lavender: #C589E8;
+            --bloom-sky: #74C0FC;
+            --bloom-rose: #FFA8C5;
+            --bloom-teal: #4ECDC4;
+            --bloom-orange: #FF9A8B;
+            
+            /* Typography */
+            --font-display: 'Cormorant Garamond', serif;
+            --font-body: 'Inter', -apple-system, sans-serif;
+            
+            /* Spacing Scale */
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 2rem;
+            --space-lg: 3rem;
+            --space-xl: 4rem;
+            --space-2xl: 6rem;
+            --space-3xl: 8rem;
+        }
+        
+        /* Base Reveal Overrides */
+        .reveal {
+            font-family: var(--font-body);
+            font-size: 24px;
+            font-weight: normal;
+            color: var(--bloom-charcoal);
+            background-color: #FFFFFF;
+        }
+        
+        .reveal .slides {
+            text-align: left;
+        }
+        
+        .reveal .slides section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            padding: 2rem;
+            overflow: hidden;
+        }
+        
+        .reveal h1,
+        .reveal h2,
+        .reveal h3,
+        .reveal h4 {
+            font-family: var(--font-body);
+            font-weight: 600;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            text-transform: none;
+            margin: 0 0 1rem 0;
+        }
+        
+        .reveal h1 { font-size: clamp(2.5rem, 5vw, 4rem); }
+        .reveal h2 { font-size: clamp(2rem, 4vw, 3rem); }
+        .reveal h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
+        .reveal h4 { font-size: clamp(1.2rem, 2.5vw, 1.8rem); }
+        
+        .reveal p {
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            font-size: clamp(1rem, 2vw, 1.2rem);
+        }
+        
+        /* Remove all animations */
+        .reveal .slides section,
+        .reveal .slides section * {
+            transition: none !important;
+            animation: none !important;
+        }
+        
+        .reveal .fragment {
+            opacity: 1 !important;
+            visibility: visible !important;
+            transform: none !important;
+        }
+        
+        /* Typography Classes */
+        .display-serif {
+            font-family: var(--font-display);
+            font-weight: 300;
+        }
+        
+        .display-title {
+            font-size: clamp(3rem, 7vw, 5rem);
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            margin-bottom: var(--space-lg);
+        }
+        
+        .section-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: var(--bloom-charcoal);
+        }
+        
+        .subtitle-caps {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-weight: 500;
+        }
+        
+        /* Layout Components */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        .asymmetric-grid {
+            display: grid;
+            grid-template-columns: 1.618fr 1fr;
+            gap: var(--space-xl);
+            align-items: center;
+            height: 100%;
+        }
+        
+        .asymmetric-grid.reverse {
+            grid-template-columns: 1fr 1.618fr;
+        }
+        
+        .magazine-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        
+        .content-panel {
+            padding: var(--space-md);
+        }
+        
+        .image-panel {
+            position: relative;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .image-panel img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+        }
+        
+        /* Visual Elements */
+        .elegant-divider {
+            width: 60px;
+            height: 3px;
+            margin: var(--space-md) 0;
+            border-radius: 3px;
+        }
+        
+        .symptom-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--bloom-mint);
+        }
+        
+        .warning-card {
+            background: rgba(255, 107, 107, 0.05);
+            border: 2px solid var(--bloom-coral);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-bottom: 1rem;
+        }
+        
+        /* Text Protection for Images */
+        .text-protection {
+            position: relative;
+            z-index: 2;
+            padding: var(--space-2xl);
+            text-align: center;
+        }
+        
+        .text-protection h1,
+        .text-protection h2,
+        .text-protection p {
+            color: white;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .asymmetric-grid,
+            .magazine-split {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .reveal .slides section {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- Slide 1: Cinematic Opening -->
+            <section data-background-image="../../../shared-assets/images/biff01_Woman_recognizing_she_needs_help_while_looking_at_slee_53bf119b-9a43-4f7e-8a5b-eff2727a4beb_3.png"
+                     data-background-size="cover"
+                     data-background-position="center">
+                <div style="position: absolute; inset: 0; background: linear-gradient(to right, rgba(26,26,26,0.9) 0%, rgba(26,26,26,0.7) 40%, transparent 70%); z-index: 1;"></div>
+                <div style="position: relative; z-index: 2; height: 100vh; display: flex; align-items: center; padding: 0 8%;">
+                    <div style="max-width: 650px;">
+                        <div style="display: inline-block; padding: 0.5rem 1.5rem; background: rgba(149,225,211,0.2); backdrop-filter: blur(10px); border-radius: 30px; margin-bottom: 2rem;">
+                            <p style="color: var(--bloom-mint); font-size: 0.9rem; letter-spacing: 0.15em; text-transform: uppercase; margin: 0; font-weight: 500;">Week 1 · Lesson 2</p>
+                        </div>
+                        <h1 style="font-family: var(--font-display); font-size: clamp(3rem, 6vw, 4.5rem); font-weight: 300; line-height: 1.05; margin-bottom: 2rem; color: white;">
+                            What's Normal vs.<br>
+                            <span style="font-weight: 600; font-style: italic;">What's Not</span>
+                        </h1>
+                        <p style="font-size: 1.3rem; line-height: 1.6; color: rgba(255,255,255,0.9); margin-bottom: 3rem; font-weight: 300;">
+                            Recognizing typical postpartum experiences<br>and when to seek additional support
+                        </p>
+                        <div style="display: flex; align-items: center; gap: 2rem;">
+                            <div style="width: 60px; height: 1px; background: var(--bloom-golden);"></div>
+                            <p style="color: rgba(255,255,255,0.7); font-size: 0.95rem; letter-spacing: 0.05em; margin: 0;">Dr. Jana Williams · Bloom Psychology</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 2: The Spectrum of Normal -->
+            <section data-background-color="#FFFFFF">
+                <div class="asymmetric-grid" style="padding: 0 4%; height: 100vh;">
+                    <div class="content-panel" style="padding: 1rem;">
+                        <p class="subtitle-caps" style="color: var(--bloom-mint); margin-bottom: 1.5rem;">Knowledge is Power</p>
+                        <h2 class="display-serif" style="font-size: clamp(2rem, 4vw, 3.5rem); line-height: 1.1; margin-bottom: 1.5rem;">
+                            The Spectrum of <span style="font-style: italic; color: var(--bloom-mint);">Normal</span>
+                        </h2>
+                        <div class="elegant-divider" style="background: var(--bloom-mint);"></div>
+                        <p style="font-size: 1.15rem; line-height: 1.7; color: var(--bloom-warm-gray); margin-bottom: 1.2rem;">
+                            "Is this normal?" It's probably the question you ask yourself a dozen times a day.
+                        </p>
+                        <p style="font-size: 1rem; line-height: 1.6; color: var(--bloom-warm-gray);">
+                            Questioning whether your experience is normal isn't a sign of weakness. It's smart. It's protective. Today, we'll get specific about what falls within expected recovery and what needs attention.
+                        </p>
+                    </div>
+                    <div class="image-panel">
+                        <div style="position: relative; width: 100%; max-width: 450px;">
+                            <img src="../../../shared-assets/images/biff01_Female_therapist_and_mother_in_bright_modern_office_wi_aecf3df6-ee57-4c10-864b-8d15b9b5c704_1.png" alt="Woman talking with healthcare provider" style="border-radius: 2px; width: 100%; height: auto;">
+                            <div style="position: absolute; top: -20px; left: -20px; width: 100px; height: 100px; background: var(--bloom-mint); opacity: 0.15; border-radius: 50%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 3: Normal Physical Experiences -->
+            <section data-background-color="#FFF9F0">
+                <div style="padding: 2rem 1.5rem; height: 100vh; display: flex; flex-direction: column; justify-content: center;">
+                    <div class="container">
+                        <h2 class="section-title display-serif" style="margin-bottom: 2rem; font-size: clamp(2rem, 4vw, 3rem); text-align: center;">Normal <span style="font-style: italic; color: var(--bloom-mint);">Physical</span> Recovery</h2>
+                        
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; max-width: 1000px; margin: 0 auto;">
+                            <!-- Bleeding -->
+                            <div style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+                                <div style="height: 100px; background: linear-gradient(135deg, var(--bloom-coral) 0%, var(--bloom-peach) 100%); display: flex; align-items: center; justify-content: center;">
+                                    <h3 style="color: white; font-size: 1.3rem; margin: 0;">Bleeding (Lochia)</h3>
+                                </div>
+                                <div style="padding: 1.2rem;">
+                                    <p style="color: var(--bloom-warm-gray); font-size: 0.85rem; line-height: 1.5; margin: 0;">
+                                        Up to 6 weeks, changing from red to pink to yellow. Clots up to golf ball size.
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <!-- Night Sweats -->
+                            <div style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+                                <div style="height: 100px; background: linear-gradient(135deg, var(--bloom-sky) 0%, var(--bloom-mint) 100%); display: flex; align-items: center; justify-content: center;">
+                                    <h3 style="color: white; font-size: 1.3rem; margin: 0;">Night Sweats</h3>
+                                </div>
+                                <div style="padding: 1.2rem;">
+                                    <p style="color: var(--bloom-warm-gray); font-size: 0.85rem; line-height: 1.5; margin: 0;">
+                                        Soaking sheets as your body dumps extra pregnancy fluid. Temporary but intense.
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <!-- Hair Loss -->
+                            <div style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+                                <div style="height: 100px; background: linear-gradient(135deg, var(--bloom-lavender) 0%, var(--bloom-rose) 100%); display: flex; align-items: center; justify-content: center;">
+                                    <h3 style="color: white; font-size: 1.3rem; margin: 0;">Hair Loss</h3>
+                                </div>
+                                <div style="padding: 1.2rem;">
+                                    <p style="color: var(--bloom-warm-gray); font-size: 0.85rem; line-height: 1.5; margin: 0;">
+                                        Months 3-4, all the hair you didn't lose during pregnancy falls out. You won't go bald.
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <!-- Breast Changes -->
+                            <div style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+                                <div style="height: 100px; background: linear-gradient(135deg, var(--bloom-golden) 0%, var(--bloom-peach) 100%); display: flex; align-items: center; justify-content: center;">
+                                    <h3 style="color: white; font-size: 1.3rem; margin: 0;">Breast Changes</h3>
+                                </div>
+                                <div style="padding: 1.2rem;">
+                                    <p style="color: var(--bloom-warm-gray); font-size: 0.85rem; line-height: 1.5; margin: 0;">
+                                        Engorgement, leaking, size fluctuations. Your breasts are learning a new job.
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <!-- Pelvic Floor -->
+                            <div style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+                                <div style="height: 100px; background: linear-gradient(135deg, var(--bloom-teal) 0%, var(--bloom-mint) 100%); display: flex; align-items: center; justify-content: center;">
+                                    <h3 style="color: white; font-size: 1.3rem; margin: 0;">Pelvic Changes</h3>
+                                </div>
+                                <div style="padding: 1.2rem;">
+                                    <p style="color: var(--bloom-warm-gray); font-size: 0.85rem; line-height: 1.5; margin: 0;">
+                                        Leaking urine, pressure, discomfort. These muscles supported 30+ pounds.
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <!-- Exhaustion -->
+                            <div style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+                                <div style="height: 100px; background: linear-gradient(135deg, var(--bloom-warm-gray) 0%, var(--bloom-charcoal) 100%); display: flex; align-items: center; justify-content: center;">
+                                    <h3 style="color: white; font-size: 1.3rem; margin: 0;">Deep Exhaustion</h3>
+                                </div>
+                                <div style="padding: 1.2rem;">
+                                    <p style="color: var(--bloom-warm-gray); font-size: 0.85rem; line-height: 1.5; margin: 0;">
+                                        Bone-deep depletion that sleep doesn't fix. Your body is in major recovery mode.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 4: Normal Emotional Experiences -->
+            <section data-background-color="#FFFFFF">
+                <div style="padding: 3rem 2rem;">
+                    <h2 class="section-title display-serif" style="text-align: center; margin-bottom: 3rem;">Normal <span style="font-style: italic; color: var(--bloom-lavender);">Emotional</span> Experiences</h2>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; max-width: 1000px; margin: 0 auto;">
+                        <div class="symptom-card" style="border-left-color: var(--bloom-sky);">
+                            <h3 style="color: var(--bloom-sky); font-size: 1.4rem; margin-bottom: 0.8rem;">Baby Blues (80% of mothers)</h3>
+                            <p style="font-size: 1rem; line-height: 1.6; color: var(--bloom-warm-gray); margin: 0;">
+                                Days 3-5 when hormones plummet. Crying, overwhelm, mood swings. Peaks at day 5, improves by 2 weeks.
+                            </p>
+                        </div>
+                        
+                        <div class="symptom-card" style="border-left-color: var(--bloom-lavender);">
+                            <h3 style="color: var(--bloom-lavender); font-size: 1.4rem; margin-bottom: 0.8rem;">Extreme Mood Swings</h3>
+                            <p style="font-size: 1rem; line-height: 1.6; color: var(--bloom-warm-gray); margin: 0;">
+                                Intense love to feeling trapped. Rage at partner, then guilt. Your brain processing massive change.
+                            </p>
+                        </div>
+                        
+                        <div class="symptom-card" style="border-left-color: var(--bloom-rose);">
+                            <h3 style="color: var(--bloom-rose); font-size: 1.4rem; margin-bottom: 0.8rem;">Delayed Bonding</h3>
+                            <p style="font-size: 1rem; line-height: 1.6; color: var(--bloom-warm-gray); margin: 0;">
+                                Not feeling "in love" immediately is common. For some it's instant, for others it grows slowly. Both normal.
+                            </p>
+                        </div>
+                        
+                        <div class="symptom-card" style="border-left-color: var(--bloom-golden);">
+                            <h3 style="color: var(--bloom-golden); font-size: 1.4rem; margin-bottom: 0.8rem;">Intrusive Thoughts</h3>
+                            <p style="font-size: 1rem; line-height: 1.6; color: var(--bloom-warm-gray); margin: 0;">
+                                Scary "what if" thoughts. If you're horrified by them, that's good—they're just thoughts, not desires.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 5: Physical Warning Signs -->
+            <section data-background-image="../../../shared-assets/images/dark/darkphotos/biff01_Woman_first_recognizing_she_needs_help_sitting_alone_i_2f1b0637-ac4b-4883-a85b-6df7467e0631_3.png"
+                     data-background-size="cover"
+                     data-background-position="center">
+                <div style="position: absolute; inset: 0; background: linear-gradient(135deg, rgba(26,26,26,0.85) 0%, rgba(255,107,107,0.3) 100%); z-index: 1;"></div>
+                <div style="position: relative; z-index: 2; padding: 4rem 3rem;">
+                    <h1 class="display-title" style="color: white; text-align: center; margin-bottom: 3rem;">Physical <span style="color: var(--bloom-coral);">Warning Signs</span></h1>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; max-width: 900px; margin: 0 auto;">
+                        <div class="warning-card" style="background: rgba(255,255,255,0.95);">
+                            <h3 style="color: var(--bloom-coral); font-size: 1.3rem; margin-bottom: 0.5rem;">Heavy Bleeding</h3>
+                            <p style="font-size: 0.95rem; margin: 0;">Soaking a pad in an hour or clots bigger than golf ball</p>
+                        </div>
+                        
+                        <div class="warning-card" style="background: rgba(255,255,255,0.95);">
+                            <h3 style="color: var(--bloom-coral); font-size: 1.3rem; margin-bottom: 0.5rem;">Fever & Infection</h3>
+                            <p style="font-size: 0.95rem; margin: 0;">Temperature over 100.4°F or foul-smelling discharge</p>
+                        </div>
+                        
+                        <div class="warning-card" style="background: rgba(255,255,255,0.95);">
+                            <h3 style="color: var(--bloom-coral); font-size: 1.3rem; margin-bottom: 0.5rem;">Severe Headaches</h3>
+                            <p style="font-size: 0.95rem; margin: 0;">Especially with vision changes or unresponsive to medication</p>
+                        </div>
+                        
+                        <div class="warning-card" style="background: rgba(255,255,255,0.95);">
+                            <h3 style="color: var(--bloom-coral); font-size: 1.3rem; margin-bottom: 0.5rem;">Breathing Issues</h3>
+                            <p style="font-size: 0.95rem; margin: 0;">Chest pain, trouble breathing, or leg pain with swelling</p>
+                        </div>
+                    </div>
+                    
+                    <p style="text-align: center; font-size: 1.5rem; color: white; margin-top: 3rem; font-weight: 500;">
+                        Don't wait. Don't minimize. Call.
+                    </p>
+                </div>
+            </section>
+            
+            <!-- Slide 6: Emotional Warning Signs -->
+            <section data-background-color="#FFF9F0">
+                <div style="padding: 3rem 2rem;">
+                    <h2 class="section-title display-serif" style="text-align: center; margin-bottom: 3rem; color: var(--bloom-coral);">Emotional <span style="font-style: italic;">Red Flags</span></h2>
+                    
+                    <div style="max-width: 800px; margin: 0 auto;">
+                        <div style="background: white; padding: 3rem; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.1);">
+                            <div style="margin-bottom: 2rem;">
+                                <h3 style="color: var(--bloom-coral); font-size: 1.5rem; margin-bottom: 1rem;">Seek Help Immediately If:</h3>
+                                
+                                <ul style="list-style: none; padding: 0;">
+                                    <li style="padding: 0.8rem 0; border-bottom: 1px solid #f0f0f0; font-size: 1.1rem;">
+                                        <span style="color: var(--bloom-coral); font-weight: 600;">✓</span> Sadness or anxiety lasting more than 2 weeks without improvement
+                                    </li>
+                                    <li style="padding: 0.8rem 0; border-bottom: 1px solid #f0f0f0; font-size: 1.1rem;">
+                                        <span style="color: var(--bloom-coral); font-weight: 600;">✓</span> Can't sleep even when you have the opportunity
+                                    </li>
+                                    <li style="padding: 0.8rem 0; border-bottom: 1px solid #f0f0f0; font-size: 1.1rem;">
+                                        <span style="color: var(--bloom-coral); font-weight: 600;">✓</span> No interest in anything - not just baby, but food, shower, things you enjoyed
+                                    </li>
+                                    <li style="padding: 0.8rem 0; border-bottom: 1px solid #f0f0f0; font-size: 1.1rem;">
+                                        <span style="color: var(--bloom-coral); font-weight: 600;">✓</span> Thoughts of harming yourself or baby
+                                    </li>
+                                    <li style="padding: 0.8rem 0; font-size: 1.1rem;">
+                                        <span style="color: var(--bloom-coral); font-weight: 600;">✓</span> Feeling disconnected from reality
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <div style="background: var(--bloom-background); padding: 1.5rem; border-radius: 10px; text-align: center;">
+                                <p style="font-size: 1.2rem; color: var(--bloom-charcoal); margin: 0; font-weight: 500;">
+                                    These aren't weaknesses. They're symptoms of treatable conditions.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 7: How to Get Help -->
+            <section data-background-color="#FFFFFF">
+                <div class="magazine-split" style="padding: 0 4%; height: 100vh;">
+                    <div>
+                        <p class="subtitle-caps" style="color: var(--bloom-sage); margin-bottom: 1.5rem;">Taking Action</p>
+                        <h2 class="display-serif" style="font-size: clamp(2.5rem, 5vw, 3.5rem); margin-bottom: 2rem;">How to <span style="font-style: italic; color: var(--bloom-mint);">Get Help</span></h2>
+                        
+                        <div style="background: white; border: 2px solid var(--bloom-mint); padding: 2rem; border-radius: 15px; margin-bottom: 2rem;">
+                            <h3 style="color: var(--bloom-charcoal); font-size: 1.4rem; margin-bottom: 1rem;">Say These Exact Words:</h3>
+                            <p style="font-size: 1.2rem; line-height: 1.6; color: var(--bloom-charcoal); font-style: italic; margin: 0;">
+                                "I'm struggling more than I think is normal. I need help figuring out what's going on."
+                            </p>
+                        </div>
+                        
+                        <div style="font-size: 1.1rem; line-height: 1.8; color: var(--bloom-warm-gray);">
+                            <p style="margin-bottom: 1rem;">1. Call your OB or midwife first</p>
+                            <p style="margin-bottom: 1rem;">2. Postpartum Support International: <strong>1-800-944-4773</strong></p>
+                            <p style="margin-bottom: 1rem;">3. Crisis line: <strong>988</strong></p>
+                            <p>4. Bring someone to advocate for you</p>
+                        </div>
+                    </div>
+                    
+                    <div style="position: relative;">
+                        <img src="../../../shared-assets/images/biff01_Woman_confidently_texting_for_help_on_phone_slight_smi_80c32700-a8d0-4f60-a513-96b06c758c76_1.png" alt="Woman making phone call for help" style="width: 100%; height: 450px; object-fit: cover; border-radius: 20px; box-shadow: 0 30px 80px rgba(0,0,0,0.15);">
+                        <div style="position: absolute; bottom: -20px; right: -20px; width: 100px; height: 100px; background: var(--bloom-mint); opacity: 0.2; border-radius: 50%;"></div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 8: Self-Advocacy -->
+            <section data-background-image="../../../shared-assets/images/dark/darkphotos/biff01_Woman_with_expression_of_relief_after_asking_for_help__9611dd01-6e47-4520-b26e-22643dcf0571_2.png"
+                     data-background-size="cover"
+                     data-background-position="center">
+                <div style="position: absolute; inset: 0; background: linear-gradient(135deg, rgba(26,26,26,0.8) 0%, rgba(139,154,130,0.4) 100%); z-index: 1;"></div>
+                <div class="text-protection" style="z-index: 2; padding: 3rem 2rem;">
+                    <h1 class="display-title" style="color: white; font-size: clamp(2.5rem, 6vw, 4.5rem); margin-bottom: 2rem;">Trust Your <span style="color: var(--bloom-mint);">Instincts</span></h1>
+                    <p style="font-size: clamp(1.3rem, 3vw, 1.8rem); color: rgba(255,255,255,0.95); line-height: 1.5; max-width: 700px; margin: 1.5rem auto;">
+                        You know your body. You know your mind.<br>
+                        If something feels wrong, it probably is.
+                    </p>
+                    <p style="font-size: clamp(1.1rem, 2.5vw, 1.4rem); color: var(--bloom-mint); margin-top: 2.5rem;">
+                        Better to be the mom who called "too much"<br>
+                        than the one who waited too long.
+                    </p>
+                </div>
+            </section>
+            
+            <!-- Slide 9: Today's Practice -->
+            <section data-background-color="#FFFFFF">
+                <div class="asymmetric-grid reverse" style="padding: 0 4%; height: 100vh;">
+                    <div class="content-panel">
+                        <p class="subtitle-caps" style="color: var(--bloom-sage); margin-bottom: 1.5rem;">Your Tool</p>
+                        <h2 class="display-serif" style="font-size: clamp(2.5rem, 4vw, 3.5rem); margin-bottom: 2rem;">Daily <span style="font-style: italic; color: var(--bloom-golden);">Symptom Tracking</span></h2>
+                        
+                        <div style="background: var(--bloom-background); border-left: 3px solid var(--bloom-golden); padding: 2rem; border-radius: 10px;">
+                            <h3 style="color: var(--bloom-charcoal); font-size: 1.4rem; margin-bottom: 1.5rem;">Track Each Day:</h3>
+                            
+                            <div style="font-size: 1.05rem; line-height: 2; color: var(--bloom-warm-gray);">
+                                <p style="margin-bottom: 0.8rem; padding-left: 1.5rem; position: relative;">
+                                    <span style="position: absolute; left: 0; color: var(--bloom-golden);">•</span>
+                                    Rate your mood (1-10)
+                                </p>
+                                <p style="margin-bottom: 0.8rem; padding-left: 1.5rem; position: relative;">
+                                    <span style="position: absolute; left: 0; color: var(--bloom-golden);">•</span>
+                                    Note physical symptoms
+                                </p>
+                                <p style="margin-bottom: 0.8rem; padding-left: 1.5rem; position: relative;">
+                                    <span style="position: absolute; left: 0; color: var(--bloom-golden);">•</span>
+                                    Track sleep quality
+                                </p>
+                                <p style="margin: 0; padding-left: 1.5rem; position: relative;">
+                                    <span style="position: absolute; left: 0; color: var(--bloom-golden);">•</span>
+                                    Write any concerns
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <p style="font-size: 1.1rem; color: var(--bloom-warm-gray); font-style: italic; margin-top: 2rem;">
+                            This data helps providers understand patterns and make accurate diagnoses.
+                        </p>
+                    </div>
+                    <div class="image-panel" style="height: 500px;">
+                        <img src="../../../shared-assets/images/biff01_Woman_journaling_worries_with_cup_of_tea_processing_em_7ec028c6-a90b-46cb-9159-20b83a5e9320_0.png" alt="Woman tracking symptoms" style="border-radius: 2px;">
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 10: Knowledge Brings Peace -->
+            <section data-background-color="#FFF9F0">
+                <div style="padding: 4rem 3rem; text-align: center;">
+                    <h2 class="section-title display-serif" style="margin-bottom: 3rem;">Knowledge Brings <span style="font-style: italic; color: var(--bloom-sage);">Peace</span></h2>
+                    
+                    <div style="max-width: 800px; margin: 0 auto;">
+                        <p style="font-size: 1.5rem; line-height: 1.8; color: var(--bloom-charcoal); margin-bottom: 3rem;">
+                            Now you know what's normal discomfort and what needs attention.<br>
+                            You know the words to use and who to call.
+                        </p>
+                        
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 4rem;">
+                            <div style="text-align: center;">
+                                <div style="font-size: 3rem; font-weight: 700; color: var(--bloom-sage); margin-bottom: 0.5rem;">Most</div>
+                                <p style="color: var(--bloom-warm-gray); font-size: 1rem;">of what you're experiencing is normal—difficult, but normal</p>
+                            </div>
+                            
+                            <div style="text-align: center;">
+                                <div style="font-size: 3rem; font-weight: 700; color: var(--bloom-mint); margin-bottom: 0.5rem;">Help</div>
+                                <p style="color: var(--bloom-warm-gray); font-size: 1rem;">is available if something isn't normal—effective help</p>
+                            </div>
+                            
+                            <div style="text-align: center;">
+                                <div style="font-size: 3rem; font-weight: 700; color: var(--bloom-golden); margin-bottom: 0.5rem;">Trust</div>
+                                <p style="color: var(--bloom-warm-gray); font-size: 1rem;">yourself—your instincts are good and wise</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 11: Closing -->
+            <section data-background-image="../../../shared-assets/images/biff01_Mother_sitting_in_bright_kitchen_with_friend_having_ho_d6821a24-717e-4c6b-b5c8-f97513bf5343_3.png"
+                     data-background-size="cover"
+                     data-background-position="center">
+                <div style="position: absolute; inset: 0; background: linear-gradient(to right, rgba(26,26,26,0.9) 0%, rgba(26,26,26,0.7) 40%, transparent 70%); z-index: 1;"></div>
+                <div style="position: relative; z-index: 2; height: 100vh; display: flex; align-items: center; padding: 0 8%;">
+                    <div style="max-width: 650px;">
+                        <div style="display: inline-block; padding: 0.5rem 1.5rem; background: rgba(149,225,211,0.2); backdrop-filter: blur(10px); border-radius: 30px; margin-bottom: 2rem;">
+                            <p style="color: var(--bloom-mint); font-size: 0.9rem; letter-spacing: 0.15em; text-transform: uppercase; margin: 0; font-weight: 500;">Week 1 · Lesson 2 Complete</p>
+                        </div>
+                        <h1 style="font-family: var(--font-display); font-size: clamp(3rem, 6vw, 4.5rem); font-weight: 300; line-height: 1.05; margin-bottom: 2rem; color: white;">
+                            Help Is Always<br>
+                            <span style="font-weight: 600; font-style: italic;">Available</span>
+                        </h1>
+                        <p style="font-size: 1.3rem; line-height: 1.6; color: rgba(255,255,255,0.9); margin-bottom: 1.5rem; font-weight: 300;">
+                            You're doing the hard work of healing. Keep going.
+                        </p>
+                        <p style="font-size: 1.1rem; line-height: 1.6; color: var(--bloom-mint); margin-bottom: 3rem; font-weight: 400;">
+                            Next, we'll explore the fascinating science behind<br>all these changes—understanding brings peace.
+                        </p>
+                        <div style="display: flex; align-items: center; gap: 2rem;">
+                            <div style="width: 60px; height: 1px; background: var(--bloom-golden);"></div>
+                            <p style="color: rgba(255,255,255,0.7); font-size: 0.95rem; letter-spacing: 0.05em; margin: 0;">See you in Lesson 3</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/notes/notes.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/markdown/markdown.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/highlight/highlight.js"></script>
+    
+    <script>
+        Reveal.initialize({
+            hash: true,
+            controls: true,
+            progress: true,
+            center: false,
+            transition: 'none',
+            backgroundTransition: 'none',
+            plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+        });
+    </script>
+</body>
+</html>

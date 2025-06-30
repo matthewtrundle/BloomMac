@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>The Power of Self-Compassion | Bloom Psychology</title>
+    
+    <!-- Reveal.js Core -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reset.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ========================================
+           BLOOM PROFESSIONAL DESIGN SYSTEM
+           ======================================== */
+        :root {
+            /* Brand Colors */
+            --bloom-sage: #8B9A82;
+            --bloom-charcoal: #1a1a1a;
+            --bloom-warm-gray: #4a4a4a;
+            --bloom-cream: #faf8f5;
+            --bloom-background: #FFF9F0;
+            
+            /* Vibrant Accent Colors */
+            --bloom-coral: #FF6B6B;
+            --bloom-peach: #FFB4A2;
+            --bloom-golden: #FFCB77;
+            --bloom-mint: #95E1D3;
+            --bloom-lavender: #C589E8;
+            --bloom-sky: #74C0FC;
+            --bloom-rose: #FFA8C5;
+            --bloom-teal: #4ECDC4;
+            --bloom-orange: #FF9A8B;
+            
+            /* Week 2 Primary Colors */
+            --week2-blue: #74C0FC;
+            --week2-coral: #FF6B6B;
+            
+            /* Typography */
+            --font-display: 'Cormorant Garamond', serif;
+            --font-body: 'Inter', -apple-system, sans-serif;
+            
+            /* Spacing Scale */
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 2rem;
+            --space-lg: 3rem;
+            --space-xl: 4rem;
+            --space-2xl: 6rem;
+            --space-3xl: 8rem;
+        }
+        
+        /* Base Reveal Overrides */
+        .reveal {
+            font-family: var(--font-body);
+            font-size: 24px;
+            font-weight: normal;
+            color: var(--bloom-charcoal);
+            background-color: #FFFFFF;
+        }
+        
+        .reveal .slides {
+            text-align: left;
+        }
+        
+        .reveal .slides section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            padding: 2rem;
+            overflow: hidden;
+        }
+        
+        .reveal h1,
+        .reveal h2,
+        .reveal h3,
+        .reveal h4 {
+            font-family: var(--font-body);
+            font-weight: 600;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            text-transform: none;
+            margin: 0 0 1rem 0;
+        }
+        
+        .reveal h1 { font-size: clamp(2.5rem, 5vw, 4rem); }
+        .reveal h2 { font-size: clamp(2rem, 4vw, 3rem); }
+        .reveal h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
+        .reveal h4 { font-size: clamp(1.2rem, 2.5vw, 1.8rem); }
+        
+        .reveal p {
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            font-size: clamp(1rem, 2vw, 1.2rem);
+        }
+        
+        /* Remove all animations */
+        .reveal .fragment {
+            opacity: 1 !important;
+            visibility: visible !important;
+            transform: none !important;
+        }
+        
+        .reveal .slides section.present {
+            transform: none !important;
+        }
+        
+        .reveal .progress {
+            display: none;
+        }
+        
+        /* Magazine Layouts */
+        .magazine-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            width: 100%;
+            max-width: 1400px;
+        }
+        
+        .magazine-split.reverse {
+            grid-template-columns: 1fr 1fr;
+        }
+        
+        .magazine-split .content {
+            padding: 2rem;
+        }
+        
+        .magazine-split .image {
+            position: relative;
+            height: 70vh;
+            overflow: hidden;
+            border-radius: 20px;
+        }
+        
+        .magazine-split .image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Week 2 Design Elements - Organic Shapes */
+        .circle-card {
+            background: linear-gradient(135deg, rgba(116, 192, 252, 0.1), rgba(255, 107, 107, 0.1));
+            border-radius: 50%;
+            width: 300px;
+            height: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .circle-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+            transform: rotate(45deg);
+        }
+        
+        /* Floating Elements */
+        .floating-card {
+            background: white;
+            border-radius: 30px;
+            padding: 2.5rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+            position: relative;
+            margin: 1rem;
+        }
+        
+        .floating-card::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 20px;
+            background: radial-gradient(ellipse, rgba(0,0,0,0.1) 0%, transparent 70%);
+            filter: blur(10px);
+        }
+        
+        /* Wave Pattern Divider */
+        .wave-divider {
+            width: 100%;
+            height: 60px;
+            position: relative;
+            margin: 2rem 0;
+        }
+        
+        .wave-divider::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 1200 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,30 Q300,0 600,30 T1200,30 L1200,60 L0,60 Z' fill='%2374C0FC' opacity='0.1'/%3E%3C/svg%3E");
+            background-size: cover;
+        }
+        
+        /* Three Components Grid */
+        .components-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .component-card {
+            background: linear-gradient(135deg, #FFFFFF 0%, #FFF9F0 100%);
+            border-radius: 30px;
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(116, 192, 252, 0.2);
+        }
+        
+        .component-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, var(--week2-blue), var(--week2-coral));
+        }
+        
+        .component-number {
+            background: var(--week2-coral);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        /* Self-Compassion Practice Box */
+        .practice-box {
+            background: linear-gradient(135deg, rgba(116, 192, 252, 0.05), rgba(255, 107, 107, 0.05));
+            border-radius: 30px;
+            padding: 3rem;
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+        }
+        
+        .practice-box::before {
+            content: '♥';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 3rem;
+            color: var(--week2-coral);
+            opacity: 0.2;
+        }
+        
+        /* Research Stats */
+        .stat-circle {
+            background: white;
+            border-radius: 50%;
+            width: 200px;
+            height: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            margin: 1rem;
+        }
+        
+        .stat-circle .number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--week2-blue);
+            line-height: 1;
+        }
+        
+        .stat-circle .label {
+            font-size: 0.9rem;
+            color: var(--bloom-warm-gray);
+            text-align: center;
+            margin-top: 0.5rem;
+        }
+        
+        /* Quote Styling */
+        .quote-card {
+            background: white;
+            border-left: 5px solid var(--week2-coral);
+            border-radius: 0 20px 20px 0;
+            padding: 2rem 3rem;
+            margin: 2rem 0;
+            font-style: italic;
+            font-size: 1.3rem;
+            line-height: 1.8;
+            position: relative;
+        }
+        
+        .quote-card::before {
+            content: '"';
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            font-size: 5rem;
+            color: var(--week2-coral);
+            opacity: 0.1;
+            font-family: serif;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .magazine-split {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .components-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stat-circle {
+                width: 150px;
+                height: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- Slide 1: Cinematic Opening -->
+            <section data-background-image="../../../shared-assets/images/week-2-images/biff01_Woman_placing_both_hands_over_her_heart_in_self-compas_4bee2c05-4c7e-48d5-890f-47c6136c2299_2.png"
+                     data-background-size="cover"
+                     data-background-position="center">
+                <div style="position: absolute; inset: 0; background: linear-gradient(to right, rgba(116,192,252,0.9) 0%, rgba(255,107,107,0.8) 40%, transparent 70%); z-index: 1;"></div>
+                <div style="position: relative; z-index: 2; height: 100vh; display: flex; align-items: center; padding: 0 8%;">
+                    <div style="max-width: 650px;">
+                        <div style="display: inline-block; padding: 0.5rem 1.5rem; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); border-radius: 30px; margin-bottom: 2rem;">
+                            <p style="color: white; font-size: 0.9rem; letter-spacing: 0.15em; text-transform: uppercase; margin: 0; font-weight: 500;">Week 2 · Lesson 1</p>
+                        </div>
+                        <h1 style="font-family: var(--font-body); font-size: clamp(3rem, 6vw, 4.5rem); font-weight: 300; line-height: 1.05; margin-bottom: 2rem; color: white;">
+                            The Power of<br>
+                            <span style="font-weight: 600; font-style: italic;">Self-Compassion</span>
+                        </h1>
+                        <p style="font-size: 1.3rem; line-height: 1.6; color: rgba(255,255,255,0.9); margin-bottom: 3rem; font-weight: 300;">
+                            Treating yourself with the same kindness<br>you'd show a good friend
+                        </p>
+                        <div style="display: flex; align-items: center; gap: 2rem;">
+                            <div style="width: 60px; height: 1px; background: white;"></div>
+                            <p style="color: rgba(255,255,255,0.7); font-size: 0.95rem; letter-spacing: 0.05em; margin: 0;">Dr. Jana Williams · Bloom Psychology</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 2: What Self-Compassion Is Not -->
+            <section data-background-image="../../../shared-assets/images/week-2-images/biff01_Mother_looking_at_her_reflection_in_mirror_with_gentle_b9dee3d1-9dd8-4a13-9362-901c373b14a5_0.png"
+                     data-background-size="cover"
+                     data-background-position="right center"
+                     data-background-opacity="0.15">
+                <div class="magazine-split">
+                    <div class="content">
+                        <h2>What Self-Compassion Is <span style="color: var(--week2-coral);">NOT</span></h2>
+                        <div style="margin: 2rem 0;">
+                            <div class="floating-card" style="margin-bottom: 1.5rem;">
+                                <h4 style="color: var(--week2-blue); margin-bottom: 0.5rem;">❌ Not Self-Pity</h4>
+                                <p style="margin: 0;">Self-compassion connects us to others; self-pity isolates us</p>
+                            </div>
+                            <div class="floating-card" style="margin-bottom: 1.5rem;">
+                                <h4 style="color: var(--week2-blue); margin-bottom: 0.5rem;">❌ Not Weakness</h4>
+                                <p style="margin: 0;">It takes courage to face our pain with kindness</p>
+                            </div>
+                            <div class="floating-card">
+                                <h4 style="color: var(--week2-blue); margin-bottom: 0.5rem;">❌ Not Selfish</h4>
+                                <p style="margin: 0;">Caring for yourself enables you to care for others</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="image">
+                        <img src="../../../shared-assets/images/week-2-images/biff01_Mother_looking_at_her_reflection_in_mirror_with_gentle_b9dee3d1-9dd8-4a13-9362-901c373b14a5_0.png" alt="Mother looking at reflection with kindness">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 3: Research Statistics -->
+            <section data-background-image="../../../shared-assets/images/week-2-images/biff01_Mother_in_quiet_moment_of_self-reflection_journaling_w_d9b37833-7a21-4b55-aefd-5c0b2f7db8ac_1.png"
+                     data-background-size="cover"
+                     data-background-position="center"
+                     data-background-opacity="0.1">
+                <div style="max-width: 1200px; text-align: center;">
+                    <h2 style="margin-bottom: 3rem;">The Evidence Is <span style="color: var(--week2-blue);">Clear</span></h2>
+                    <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 3rem;">
+                        <div class="stat-circle">
+                            <div class="number">67%</div>
+                            <div class="label">of mothers report being more self-critical than ever</div>
+                        </div>
+                        <div class="stat-circle">
+                            <div class="number">40%</div>
+                            <div class="label">lower depression in self-compassionate mothers</div>
+                        </div>
+                        <div class="stat-circle">
+                            <div class="number">85%</div>
+                            <div class="label">report feeling overwhelmed</div>
+                        </div>
+                    </div>
+                    <div class="quote-card" style="max-width: 800px; margin: 3rem auto 0;">
+                        If your best friend called you exhausted and crying, you wouldn't say "Try harder." Yet that's exactly how we talk to ourselves.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 4: The Three Components -->
+            <section data-background-image="../../../shared-assets/images/week-2-images/biff01_Abstract_watercolor_in_soft_blues_and_corals_gentle_fl_4fef77c6-54f5-4491-8c59-9fff63d3dd2f_1.png"
+                     data-background-size="cover"
+                     data-background-position="center"
+                     data-background-opacity="0.15">
+                <div style="max-width: 1200px;">
+                    <h2 style="text-align: center; margin-bottom: 3rem;">Three Essential <span style="color: var(--week2-coral);">Components</span></h2>
+                    <div class="components-grid">
+                        <div class="component-card">
+                            <div class="component-number">1</div>
+                            <h3 style="color: var(--week2-blue); margin-bottom: 1rem;">Self-Kindness</h3>
+                            <p style="font-size: 1.1rem; margin-bottom: 1.5rem;">vs. Self-Judgment</p>
+                            <p>Instead of "I'm terrible for feeling this way"</p>
+                            <p style="font-style: italic; color: var(--week2-coral);">Try: "This is really hard, and it's okay that I'm struggling"</p>
+                        </div>
+                        
+                        <div class="component-card">
+                            <div class="component-number">2</div>
+                            <h3 style="color: var(--week2-blue); margin-bottom: 1rem;">Common Humanity</h3>
+                            <p style="font-size: 1.1rem; margin-bottom: 1.5rem;">vs. Isolation</p>
+                            <p>You're not uniquely flawed</p>
+                            <p style="font-style: italic; color: var(--week2-coral);">92% of mothers doubt their abilities</p>
+                        </div>
+                        
+                        <div class="component-card">
+                            <div class="component-number">3</div>
+                            <h3 style="color: var(--week2-blue); margin-bottom: 1rem;">Mindfulness</h3>
+                            <p style="font-size: 1.1rem; margin-bottom: 1.5rem;">vs. Over-Identification</p>
+                            <p>"I'm having the thought that I'm a bad mother"</p>
+                            <p style="font-style: italic; color: var(--week2-coral);">Not: "I AM a bad mother"</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 5: Common Humanity Visual -->
+            <section data-background-image="../../../shared-assets/images/week-2-images/biff01_Split_screen_showing_three_different_mothers_all_exper_bbcc3646-7c79-4f5c-9283-5855c9331d71_1.png"
+                     data-background-size="cover"
+                     data-background-position="center">
+                <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.7); z-index: 1;"></div>
+                <div style="position: relative; z-index: 2; text-align: center; color: white;">
+                    <h2 style="color: white; margin-bottom: 3rem;">You Are <span style="color: var(--week2-coral);">Not Alone</span></h2>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; max-width: 1000px; margin: 0 auto;">
+                        <div style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); padding: 2rem; border-radius: 20px;">
+                            <h3 style="color: var(--week2-blue); font-size: 2.5rem; margin-bottom: 0.5rem;">85%</h3>
+                            <p style="color: white;">feel overwhelmed daily</p>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); padding: 2rem; border-radius: 20px;">
+                            <h3 style="color: var(--week2-coral); font-size: 2.5rem; margin-bottom: 0.5rem;">92%</h3>
+                            <p style="color: white;">doubt their abilities</p>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); padding: 2rem; border-radius: 20px;">
+                            <h3 style="color: var(--bloom-golden); font-size: 2.5rem; margin-bottom: 0.5rem;">78%</h3>
+                            <p style="color: white;">cried from exhaustion this week</p>
+                        </div>
+                    </div>
+                    <p style="font-size: 1.5rem; margin-top: 3rem; font-style: italic;">You are human, having a human experience shared by millions</p>
+                </div>
+            </section>
+
+            <!-- Slide 6: Why It Matters Now -->
+            <section>
+                <div class="magazine-split reverse">
+                    <div class="image">
+                        <img src="../../../shared-assets/images/week-2-images/biff01_Woman_giving_herself_a_gentle_self-hug_wrapped_in_soft_d5d28418-4a64-44b6-9364-68d21a46c421_2.png" alt="Woman self-hug">
+                    </div>
+                    <div class="content">
+                        <h2>Self-Compassion Is <span style="color: var(--week2-coral);">Medicine</span></h2>
+                        <p style="font-size: 1.3rem; margin-bottom: 2rem;">Research shows self-compassionate mothers have:</p>
+                        <div style="background: linear-gradient(135deg, rgba(116,192,252,0.1), rgba(255,107,107,0.1)); padding: 2rem; border-radius: 20px;">
+                            <ul style="list-style: none; padding: 0; font-size: 1.15rem; line-height: 2;">
+                                <li>✓ Better sleep quality (same hours, better rest)</li>
+                                <li>✓ Stronger bonding with babies</li>
+                                <li>✓ Faster physical recovery</li>
+                                <li>✓ Lower anxiety levels</li>
+                                <li>✓ More patience with themselves & others</li>
+                            </ul>
+                        </div>
+                        <p style="margin-top: 2rem; font-style: italic; color: var(--week2-blue);">It's not just nice to have - it's essential for recovery</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 7: The Inner Critic's Lies -->
+            <section data-background-image="../../../shared-assets/images/week-2-images/biff01_Before_and_after_diptych_woman_moving_from_self-critic_93ecadc9-baa3-4f33-82b8-75ea5e418e7e_1.png"
+                     data-background-size="cover"
+                     data-background-position="center"
+                     data-background-opacity="0.2">
+                <div style="max-width: 1000px; margin: 0 auto; text-align: center;">
+                    <h2 style="margin-bottom: 3rem;">The Inner Critic's <span style="color: var(--week2-coral);">Lies</span></h2>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;">
+                        <div>
+                            <h3 style="color: var(--week2-coral); margin-bottom: 2rem;">The Lies:</h3>
+                            <div style="text-align: left; background: rgba(255,255,255,0.95); padding: 2rem; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.1);">
+                                <p style="color: var(--bloom-charcoal); margin-bottom: 1rem;">"Good mothers don't feel this way"</p>
+                                <p style="color: var(--bloom-charcoal); margin-bottom: 1rem;">"You should be grateful"</p>
+                                <p style="color: var(--bloom-charcoal); margin-bottom: 1rem;">"Everyone else manages better"</p>
+                                <p style="color: var(--bloom-charcoal);">"Your baby deserves better"</p>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 style="color: var(--week2-blue); margin-bottom: 2rem;">The Truth:</h3>
+                            <div style="text-align: left; background: rgba(255,255,255,0.95); padding: 2rem; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.1);">
+                                <p style="color: var(--bloom-charcoal); margin-bottom: 1rem;">Good mothers have all kinds of feelings</p>
+                                <p style="color: var(--bloom-charcoal); margin-bottom: 1rem;">Gratitude and struggle coexist</p>
+                                <p style="color: var(--bloom-charcoal); margin-bottom: 1rem;">Everyone struggles, most hide it</p>
+                                <p style="color: var(--bloom-charcoal);">Your baby needs a human mother</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 8: The Simple Practice -->
+            <section data-background-image="../../../shared-assets/images/week-2-images/biff01_Woman_placing_both_hands_over_her_heart_in_self-compas_4bee2c05-4c7e-48d5-890f-47c6136c2299_2.png"
+                     data-background-size="cover"
+                     data-background-position="right center"
+                     data-background-opacity="0.15">
+                <div style="max-width: 900px; margin: 0 auto;">
+                    <h2 style="text-align: center; margin-bottom: 3rem;">A Simple <span style="color: var(--week2-coral);">Practice</span></h2>
+                    
+                    <div class="practice-box">
+                        <h3 style="color: var(--week2-blue); margin-bottom: 2rem;">The Self-Compassion Break</h3>
+                        <p style="font-size: 1.2rem; margin-bottom: 2rem;">Place your hand on your heart. Feel the warmth. Take a breath.</p>
+                        
+                        <div style="text-align: left; max-width: 500px; margin: 0 auto;">
+                            <div style="margin-bottom: 2rem;">
+                                <p style="font-weight: 600; color: var(--week2-coral); margin-bottom: 0.5rem;">1. Acknowledge:</p>
+                                <p style="font-style: italic;">"This is a moment of struggle"</p>
+                            </div>
+                            
+                            <div style="margin-bottom: 2rem;">
+                                <p style="font-weight: 600; color: var(--week2-blue); margin-bottom: 0.5rem;">2. Remember:</p>
+                                <p style="font-style: italic;">"Struggle is part of being human"</p>
+                            </div>
+                            
+                            <div>
+                                <p style="font-weight: 600; color: var(--bloom-golden); margin-bottom: 0.5rem;">3. Offer:</p>
+                                <p style="font-style: italic;">"May I be kind to myself in this moment"</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 9: The Ripple Effect -->
+            <section data-background-image="../../../shared-assets/images/week-2-images/biff01_Circle_of_diverse_mothers_in_support_group_all_showing_89abbc8c-0c5f-4739-9cb2-fc14065c52a3_0.png"
+                     data-background-size="cover"
+                     data-background-position="center"
+                     data-background-opacity="0.2">
+                <div style="max-width: 900px; margin: 0 auto; text-align: center;">
+                    <h2 style="margin-bottom: 3rem;">The <span style="color: var(--week2-coral);">Ripple Effect</span></h2>
+                    
+                    <div style="background: rgba(255, 255, 255, 0.95); padding: 3rem; border-radius: 30px; box-shadow: 0 20px 60px rgba(0,0,0,0.1);">
+                        <div class="wave-divider"></div>
+                        
+                        <p style="font-size: 1.4rem; line-height: 1.8; margin-bottom: 2rem;">
+                            When you're kind to yourself, you model emotional regulation for your baby.
+                        </p>
+                        
+                        <p style="font-size: 1.4rem; line-height: 1.8; margin-bottom: 2rem;">
+                            When you acknowledge your humanity, you give others permission to be human too.
+                        </p>
+                        
+                        <p style="font-size: 1.4rem; line-height: 1.8;">
+                            When you practice mindfulness, you're more present for the moments that matter.
+                        </p>
+                        
+                        <div class="wave-divider" style="transform: rotate(180deg);"></div>
+                        
+                        <p style="margin-top: 2rem; font-size: 1.2rem; font-style: italic; color: var(--week2-blue);">
+                            Your baby doesn't need a perfect mother.<br>
+                            They need a mother who knows how to be kind to herself when things are hard.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 10: Closing -->
+            <section data-background-image="../../../shared-assets/images/week-2-images/biff01_Woman_practicing_mindful_breathing_with_hand_on_chest__45e1c14e-4adc-47ca-8f25-6737659d7d08_3.png"
+                     data-background-size="cover"
+                     data-background-position="center">
+                <div style="position: absolute; inset: 0; background: linear-gradient(to right, rgba(255,107,107,0.9) 0%, rgba(116,192,252,0.8) 40%, transparent 70%); z-index: 1;"></div>
+                <div style="position: relative; z-index: 2; height: 100vh; display: flex; align-items: center; padding: 0 8%;">
+                    <div style="max-width: 650px;">
+                        <div style="display: inline-block; padding: 0.5rem 1.5rem; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); border-radius: 30px; margin-bottom: 2rem;">
+                            <p style="color: white; font-size: 0.9rem; letter-spacing: 0.15em; text-transform: uppercase; margin: 0; font-weight: 500;">This Week's Invitation</p>
+                        </div>
+                        <h1 style="font-family: var(--font-body); font-size: clamp(3rem, 6vw, 4.5rem); font-weight: 300; line-height: 1.05; margin-bottom: 2rem; color: white;">
+                            Be As Kind To<br>
+                            <span style="font-weight: 600; font-style: italic;">Yourself</span><br>
+                            As You'd Be To A Friend
+                        </h1>
+                        <p style="font-size: 1.3rem; line-height: 1.6; color: rgba(255,255,255,0.9); margin-bottom: 3rem; font-weight: 300;">
+                            You deserve that kindness. Not when you're perfect.<br>
+                            Not when you have it all figured out.<br>
+                            Right now, exactly as you are.
+                        </p>
+                        <div style="display: flex; align-items: center; gap: 2rem;">
+                            <div style="width: 60px; height: 1px; background: white;"></div>
+                            <p style="color: rgba(255,255,255,0.7); font-size: 0.95rem; letter-spacing: 0.05em; margin: 0;">Next: Releasing Perfectionism</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            controls: true,
+            progress: false,
+            center: false,
+            transition: 'none',
+            transitionSpeed: 'instant',
+            backgroundTransition: 'none'
+        });
+    </script>
+</body>
+</html>

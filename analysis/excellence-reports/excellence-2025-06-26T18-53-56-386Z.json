@@ -1,0 +1,201 @@
+{
+  "report": {
+    "summary": {
+      "currentScore": 83,
+      "qualityLevel": "Above Average",
+      "targetScore": 95,
+      "gapToWorldClass": 12
+    },
+    "scoreBreakdown": {
+      "technical": 82,
+      "expertConsensus": 84,
+      "narrativeFlow": 85,
+      "emotionalJourney": 88,
+      "learningEffectiveness": 82,
+      "inclusivity": 78
+    },
+    "strengths": [
+      "Strong emotional resonance throughout",
+      "Clear visual hierarchy on most slides",
+      "Excellent use of color psychology",
+      "Good pacing and flow",
+      "Trauma-informed language"
+    ],
+    "criticalGaps": [
+      {
+        "gap": "Limited interactivity",
+        "impact": "Reduced engagement for kinesthetic learners",
+        "solution": "Add clickable elements and micro-interactions"
+      },
+      {
+        "gap": "Single learning path",
+        "impact": "One-size-fits-all approach",
+        "solution": "Create branching scenarios based on user needs"
+      },
+      {
+        "gap": "Minimal personalization",
+        "impact": "Less relevant for diverse audiences",
+        "solution": "Add preference settings and adaptive content"
+      }
+    ],
+    "innovationPotential": [
+      {
+        "opportunity": "Interactive Self-Assessment",
+        "description": "Add clickable mood check-in that adapts content",
+        "impact": "high",
+        "effort": "medium",
+        "expertise": "Suggested by E-Learning Innovation Expert"
+      },
+      {
+        "opportunity": "Micro-Animations",
+        "description": "Subtle animations to guide attention and reduce cognitive load",
+        "impact": "medium",
+        "effort": "low",
+        "expertise": "Suggested by Visual Storytelling Expert"
+      },
+      {
+        "opportunity": "Personalization Paths",
+        "description": "Allow users to choose their biggest challenge and get custom path",
+        "impact": "high",
+        "effort": "high",
+        "expertise": "Suggested by Adult Learning Specialist"
+      },
+      {
+        "opportunity": "Peer Voice Integration",
+        "description": "Include anonymized quotes from other mothers",
+        "impact": "high",
+        "effort": "low",
+        "expertise": "Suggested by Trauma-Informed Expert"
+      }
+    ],
+    "quickWins": [
+      "Increase all body text to 1.5rem minimum",
+      "Add subtle hover effects on interactive elements",
+      "Include progress indicator",
+      "Add 'Skip to section' navigation",
+      "Optimize images for faster loading",
+      "Add subtle entrance animations",
+      "Include closed captions for any audio",
+      "Add keyboard navigation support"
+    ],
+    "transformationalChanges": [
+      {
+        "change": "AI-Powered Personalization",
+        "description": "Content adapts based on user's responses and engagement",
+        "impact": "30% increase in relevance and retention"
+      },
+      {
+        "change": "Peer Learning Integration",
+        "description": "Connect mothers for shared experiences and support",
+        "impact": "50% increase in emotional support outcomes"
+      },
+      {
+        "change": "Multimodal Learning Paths",
+        "description": "Video, audio, text, and interactive options for each concept",
+        "impact": "Reaches 95% of learning preferences"
+      },
+      {
+        "change": "Real-time Progress Tracking",
+        "description": "Visual journey map showing growth and achievements",
+        "impact": "40% increase in course completion"
+      }
+    ]
+  },
+  "roadmap": {
+    "phase1_QuickWins": {
+      "timeline": "1 week",
+      "effort": "Low",
+      "impact": "+5-8 points",
+      "actions": [
+        "Increase all body text to 1.5rem minimum",
+        "Add subtle hover effects on interactive elements",
+        "Include progress indicator",
+        "Add 'Skip to section' navigation",
+        "Optimize images for faster loading"
+      ],
+      "resources": [
+        "Current team",
+        "2-3 hours per fix"
+      ]
+    },
+    "phase2_HighImpact": {
+      "timeline": "2-3 weeks",
+      "effort": "Medium",
+      "impact": "+8-12 points",
+      "actions": [
+        "Professional image replacement",
+        "Implement micro-interactions",
+        "Add personalization layer"
+      ],
+      "resources": [
+        "Designer",
+        "Developer",
+        "~40 hours"
+      ]
+    },
+    "phase3_Innovation": {
+      "timeline": "4-6 weeks",
+      "effort": "High",
+      "impact": "+10-15 points",
+      "actions": [
+        {
+          "opportunity": "Interactive Self-Assessment",
+          "description": "Add clickable mood check-in that adapts content",
+          "impact": "high",
+          "effort": "medium",
+          "expertise": "Suggested by E-Learning Innovation Expert"
+        },
+        {
+          "opportunity": "Personalization Paths",
+          "description": "Allow users to choose their biggest challenge and get custom path",
+          "impact": "high",
+          "effort": "high",
+          "expertise": "Suggested by Adult Learning Specialist"
+        },
+        {
+          "opportunity": "Peer Voice Integration",
+          "description": "Include anonymized quotes from other mothers",
+          "impact": "high",
+          "effort": "low",
+          "expertise": "Suggested by Trauma-Informed Expert"
+        }
+      ],
+      "resources": [
+        "Full team",
+        "User testing",
+        "~100 hours"
+      ]
+    },
+    "phase4_Excellence": {
+      "timeline": "2-3 months",
+      "effort": "Transformational",
+      "impact": "World-class status",
+      "actions": [
+        {
+          "change": "AI-Powered Personalization",
+          "description": "Content adapts based on user's responses and engagement",
+          "impact": "30% increase in relevance and retention"
+        },
+        {
+          "change": "Peer Learning Integration",
+          "description": "Connect mothers for shared experiences and support",
+          "impact": "50% increase in emotional support outcomes"
+        },
+        {
+          "change": "Multimodal Learning Paths",
+          "description": "Video, audio, text, and interactive options for each concept",
+          "impact": "Reaches 95% of learning preferences"
+        },
+        {
+          "change": "Real-time Progress Tracking",
+          "description": "Visual journey map showing growth and achievements",
+          "impact": "40% increase in course completion"
+        }
+      ],
+      "resources": [
+        "Strategic initiative",
+        "Cross-functional team"
+      ]
+    }
+  }
+}

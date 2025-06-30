@@ -1,0 +1,331 @@
+/**
+ * Bloom Psychology - Scientific Journal Format
+ * For lessons focusing on research, data, and cognitive understanding
+ */
+
+/* Scientific Format Base */
+.reveal.format-scientific {
+    --scientific-bg: #FAFBFC;
+    --data-blue: #4A7BA7;
+    --chart-coral: #FF6B6B;
+    --chart-mint: #95E1D3;
+    --chart-lavender: #C589E8;
+}
+
+/* Clean Scientific Layouts */
+.scientific-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    padding: 3rem;
+    background: white;
+    height: 100vh;
+}
+
+.data-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+.insight-panel {
+    padding: 3rem;
+}
+
+/* Research Cards */
+.research-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    padding: 2rem;
+}
+
+.research-card {
+    background: white;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 12px;
+    padding: 2.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+}
+
+.research-card:hover {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    transform: translateY(-2px);
+}
+
+.research-stat {
+    font-size: 4rem;
+    font-weight: 300;
+    color: var(--data-blue);
+    margin-bottom: 1rem;
+    font-family: 'Inter', sans-serif;
+}
+
+.research-label {
+    font-size: 1.4rem;
+    color: #666;
+    line-height: 1.5;
+}
+
+/* Brain Diagram Section */
+.brain-diagram-slide {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 4rem;
+    padding: 3rem;
+    align-items: center;
+}
+
+.brain-visual {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.brain-annotations {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.annotation-point {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    background: var(--bloom-coral);
+    border-radius: 50%;
+    cursor: pointer;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); opacity: 0.8; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* Chart Styles */
+.chart-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.chart-title {
+    font-size: 1.8rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #333;
+}
+
+/* Timeline Visualization */
+.hormone-timeline {
+    position: relative;
+    height: 400px;
+    margin: 3rem 0;
+}
+
+.timeline-line {
+    position: absolute;
+    bottom: 50px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #ddd;
+}
+
+.timeline-point {
+    position: absolute;
+    bottom: 40px;
+    width: 20px;
+    height: 20px;
+    background: var(--bloom-coral);
+    border-radius: 50%;
+    transform: translateX(-50%);
+}
+
+.timeline-label {
+    position: absolute;
+    bottom: 0;
+    transform: translateX(-50%);
+    font-size: 1.2rem;
+    color: #666;
+}
+
+/* Evidence-Based Lists */
+.evidence-list {
+    list-style: none;
+    padding: 0;
+    margin: 2rem 0;
+}
+
+.evidence-list li {
+    position: relative;
+    padding-left: 3rem;
+    margin-bottom: 2rem;
+    font-size: 1.6rem;
+    line-height: 1.6;
+}
+
+.evidence-list li:before {
+    content: "📊";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 1.8rem;
+}
+
+/* Clinical but Warm Images */
+.clinical-image {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.clinical-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(1.05) contrast(0.95);
+}
+
+/* Info Boxes */
+.info-box {
+    background: linear-gradient(135deg, #F0F4F8 0%, #D9E2EC 100%);
+    border-radius: 16px;
+    padding: 2.5rem;
+    margin: 2rem 0;
+    border-left: 4px solid var(--data-blue);
+}
+
+.info-box h3 {
+    color: var(--data-blue);
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+}
+
+/* Comparison Tables */
+.comparison-table {
+    width: 100%;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+.comparison-table th {
+    background: var(--scientific-bg);
+    padding: 1.5rem;
+    font-weight: 600;
+    color: #333;
+    text-align: left;
+    font-size: 1.4rem;
+}
+
+.comparison-table td {
+    padding: 1.5rem;
+    border-bottom: 1px solid #eee;
+    font-size: 1.3rem;
+}
+
+.comparison-table tr:last-child td {
+    border-bottom: none;
+}
+
+/* Scientific Quote Style */
+.scientific-quote {
+    background: white;
+    border-radius: 16px;
+    padding: 3rem;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    margin: 2rem auto;
+    max-width: 800px;
+    position: relative;
+}
+
+.scientific-quote:before {
+    content: """;
+    position: absolute;
+    top: -20px;
+    left: 30px;
+    font-size: 8rem;
+    color: var(--data-blue);
+    opacity: 0.2;
+    font-family: Georgia, serif;
+}
+
+.scientific-quote p {
+    font-size: 1.8rem;
+    line-height: 1.6;
+    color: #333;
+    margin-bottom: 1.5rem;
+}
+
+.scientific-quote cite {
+    display: block;
+    text-align: right;
+    color: #666;
+    font-size: 1.4rem;
+    font-style: normal;
+}
+
+/* Progress Indicators */
+.progress-indicator {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 600px;
+    margin: 3rem auto;
+}
+
+.progress-step {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #eee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.progress-step.active {
+    background: var(--bloom-coral);
+    color: white;
+    transform: scale(1.1);
+}
+
+.progress-step.completed {
+    background: var(--bloom-mint);
+    color: white;
+}
+
+/* Clean Typography for Scientific Format */
+.format-scientific h1 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 4rem;
+    color: #1a1a1a;
+}
+
+.format-scientific h2 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 3rem;
+    color: #333;
+}
+
+.format-scientific p {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+    color: #555;
+}

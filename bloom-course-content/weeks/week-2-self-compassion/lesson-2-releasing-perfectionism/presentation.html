@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Releasing Perfectionism | Bloom Psychology</title>
+    
+    <!-- Reveal.js Core -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reset.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ========================================
+           BLOOM PROFESSIONAL DESIGN SYSTEM
+           ======================================== */
+        :root {
+            /* Brand Colors */
+            --bloom-sage: #8B9A82;
+            --bloom-charcoal: #1a1a1a;
+            --bloom-warm-gray: #4a4a4a;
+            --bloom-cream: #faf8f5;
+            --bloom-background: #FFF9F0;
+            
+            /* Vibrant Accent Colors */
+            --bloom-coral: #FF6B6B;
+            --bloom-peach: #FFB4A2;
+            --bloom-golden: #FFCB77;
+            --bloom-mint: #95E1D3;
+            --bloom-lavender: #C589E8;
+            --bloom-sky: #74C0FC;
+            --bloom-rose: #FFA8C5;
+            --bloom-teal: #4ECDC4;
+            --bloom-orange: #FF9A8B;
+            
+            /* Lesson 2 Primary Colors */
+            --lesson2-lavender: #C589E8;
+            --lesson2-mint: #95E1D3;
+            
+            /* Typography */
+            --font-display: 'Cormorant Garamond', serif;
+            --font-body: 'Inter', -apple-system, sans-serif;
+            
+            /* Spacing Scale */
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 2rem;
+            --space-lg: 3rem;
+            --space-xl: 4rem;
+            --space-2xl: 6rem;
+            --space-3xl: 8rem;
+        }
+        
+        /* Base Reveal Overrides */
+        .reveal {
+            font-family: var(--font-body);
+            font-size: 24px;
+            font-weight: normal;
+            color: var(--bloom-charcoal);
+            background-color: #FFFFFF;
+        }
+        
+        .reveal .slides {
+            text-align: left;
+        }
+        
+        .reveal .slides section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            padding: 2rem;
+            overflow: hidden;
+        }
+        
+        .reveal h1,
+        .reveal h2,
+        .reveal h3,
+        .reveal h4 {
+            font-family: var(--font-body);
+            font-weight: 600;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            text-transform: none;
+            margin: 0 0 1rem 0;
+        }
+        
+        .reveal h1 { font-size: clamp(2.5rem, 5vw, 4rem); }
+        .reveal h2 { font-size: clamp(2rem, 4vw, 3rem); }
+        .reveal h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
+        .reveal h4 { font-size: clamp(1.2rem, 2.5vw, 1.8rem); }
+        
+        .reveal p {
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            font-size: clamp(1rem, 2vw, 1.2rem);
+        }
+        
+        /* Remove all animations */
+        .reveal .fragment {
+            opacity: 1 !important;
+            visibility: visible !important;
+            transform: none !important;
+        }
+        
+        .reveal .slides section.present {
+            transform: none !important;
+        }
+        
+        .reveal .progress {
+            display: none;
+        }
+        
+        /* Magazine Layouts */
+        .magazine-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            width: 100%;
+            max-width: 1400px;
+        }
+        
+        .magazine-split.reverse {
+            grid-template-columns: 1fr 1fr;
+        }
+        
+        .magazine-split .content {
+            padding: 2rem;
+        }
+        
+        .magazine-split .image {
+            position: relative;
+            height: 70vh;
+            overflow: hidden;
+            border-radius: 20px;
+        }
+        
+        .magazine-split .image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Lesson 2 Design Elements - Diamond Shapes */
+        .diamond-card {
+            background: linear-gradient(135deg, rgba(197, 137, 232, 0.1), rgba(149, 225, 211, 0.1));
+            transform: rotate(45deg);
+            width: 250px;
+            height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 3rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+            position: relative;
+        }
+        
+        .diamond-card-content {
+            transform: rotate(-45deg);
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        /* Floating Hexagon Cards */
+        .hex-card {
+            background: white;
+            clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+            padding: 3rem;
+            margin: 1rem;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+        }
+        
+        /* Strikethrough Effect */
+        .strike-through {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .strike-through::after {
+            content: '';
+            position: absolute;
+            left: -5%;
+            top: 50%;
+            width: 110%;
+            height: 3px;
+            background: var(--lesson2-lavender);
+            transform: rotate(-5deg);
+        }
+        
+        /* Before/After Cards */
+        .before-after-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .before-card {
+            background: linear-gradient(135deg, #FFE4E4 0%, #FFCCCC 100%);
+            border-radius: 30px;
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .after-card {
+            background: linear-gradient(135deg, #E4FFE4 0%, #CCFFCC 100%);
+            border-radius: 30px;
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Progress Bar Visualization */
+        .progress-visual {
+            background: #f0f0f0;
+            border-radius: 50px;
+            height: 40px;
+            position: relative;
+            overflow: hidden;
+            margin: 2rem 0;
+        }
+        
+        .progress-fill {
+            background: linear-gradient(90deg, var(--lesson2-lavender), var(--lesson2-mint));
+            height: 100%;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+        
+        /* Perfectionism Rules Card */
+        .rules-card {
+            background: white;
+            border: 2px dashed var(--lesson2-lavender);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 1rem;
+            position: relative;
+        }
+        
+        .rules-card.crossed {
+            opacity: 0.7;
+        }
+        
+        .rules-card.crossed::after {
+            content: '✗';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 5rem;
+            color: var(--lesson2-mint);
+            opacity: 0.5;
+        }
+        
+        /* Good Enough Badge */
+        .good-enough-badge {
+            background: linear-gradient(135deg, var(--lesson2-mint), var(--lesson2-lavender));
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            display: inline-block;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin: 1rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .magazine-split {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .before-after-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .diamond-card {
+                width: 200px;
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- Slide 1: Cinematic Opening -->
+            <section data-background-image="../../../shared-assets/images/week-2-images/biff01_Woman_letting_go_gesture_releasing_papers_or_objects_i_7f7c9cb4-bb24-487d-a757-48753ec9efdc_3.png"
+                     data-background-size="cover"
+                     data-background-position="center">
+                <div style="position: absolute; inset: 0; background: linear-gradient(to right, rgba(197,137,232,0.9) 0%, rgba(149,225,211,0.8) 40%, transparent 70%); z-index: 1;"></div>
+                <div style="position: relative; z-index: 2; height: 100vh; display: flex; align-items: center; padding: 0 8%;">
+                    <div style="max-width: 650px;">
+                        <div style="display: inline-block; padding: 0.5rem 1.5rem; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); border-radius: 30px; margin-bottom: 2rem;">
+                            <p style="color: white; font-size: 0.9rem; letter-spacing: 0.15em; text-transform: uppercase; margin: 0; font-weight: 500;">Week 2 · Lesson 2</p>
+                        </div>
+                        <h1 style="font-family: var(--font-body); font-size: clamp(3rem, 6vw, 4.5rem); font-weight: 300; line-height: 1.05; margin-bottom: 2rem; color: white;">
+                            Releasing<br>
+                            <span style="font-weight: 600; font-style: italic;">Perfectionism</span>
+                        </h1>
+                        <p style="font-size: 1.3rem; line-height: 1.6; color: rgba(255,255,255,0.9); margin-bottom: 3rem; font-weight: 300;">
+                            Embracing "good enough" mothering<br>and finding freedom in imperfection
+                        </p>
+                        <div style="display: flex; align-items: center; gap: 2rem;">
+                            <div style="width: 60px; height: 1px; background: white;"></div>
+                            <p style="color: rgba(255,255,255,0.7); font-size: 0.95rem; letter-spacing: 0.05em; margin: 0;">Dr. Jana Williams · Bloom Psychology</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 2: The Perfectionism Trap -->
+            <section data-background-image="../../../shared-assets/images/week-2-images/biff01_Woman_relaxing_on_couch_while_laundry_pile_waits_readi_c7263af1-e6c2-4af5-bd19-a11403cc8054_3.png"
+                     data-background-size="cover"
+                     data-background-position="center"
+                     data-background-opacity="0.15">
+                <div class="magazine-split">
+                    <div class="content">
+                        <h2>The <span style="color: var(--lesson2-lavender);">Perfectionism</span> Trap</h2>
+                        <div style="margin: 2rem 0;">
+                            <p style="font-size: 1.3rem; margin-bottom: 2rem;">Before baby, maybe you:</p>
+                            <ul style="list-style: none; padding: 0; font-size: 1.1rem; line-height: 2;">
+                                <li>✓ Kept a spotless home</li>
+                                <li>✓ Excelled at work</li>
+                                <li>✓ Never missed commitments</li>
+                                <li>✓ Had systems for everything</li>
+                            </ul>
+                            <div style="margin-top: 2rem; padding: 2rem; background: linear-gradient(135deg, rgba(197,137,232,0.1), rgba(149,225,211,0.1)); border-radius: 20px;">
+                                <p style="font-size: 1.2rem; margin: 0;">Then baby arrived... and suddenly you can't even shower regularly.</p>
+                                <p style="font-style: italic; color: var(--lesson2-lavender); margin: 1rem 0 0 0;">For the perfectionist, this isn't just inconvenient - it's devastating.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="image">
+                        <img src="../../../shared-assets/images/week-2-images/biff01_Mother_with_messy_hair_and_comfortable_clothes_genuine_43999e50-e47c-4ac7-a1ba-05cf1a8a2665_1.png" alt="Mother embracing imperfection">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 3: Research on Perfectionism -->
+            <section data-background-color="#FFF9F0">
+                <div style="max-width: 1200px; text-align: center;">
+                    <h2 style="margin-bottom: 3rem;">The <span style="color: var(--lesson2-lavender);">Cost</span> of Perfect</h2>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 3rem; margin-bottom: 3rem;">
+                        <div class="hex-card" style="background: white; padding: 3rem;">
+                            <h3 style="color: var(--lesson2-mint); margin-bottom: 1rem;">Perfectionist Mothers Report:</h3>
+                            <ul style="list-style: none; padding: 0; text-align: left;">
+                                <li style="margin-bottom: 1rem;">📈 Higher anxiety levels</li>
+                                <li style="margin-bottom: 1rem;">💔 Difficulty bonding with babies</li>
+                                <li style="margin-bottom: 1rem;">😔 Increased risk of PPD</li>
+                                <li>😞 Less satisfaction in motherhood</li>
+                            </ul>
+                        </div>
+                        <div class="hex-card" style="background: white; padding: 3rem;">
+                            <h3 style="color: var(--lesson2-lavender); margin-bottom: 1rem;">The Truth:</h3>
+                            <p style="font-size: 1.8rem; font-weight: 600; color: var(--lesson2-mint); margin-bottom: 1rem;">78%</p>
+                            <p style="font-size: 1.1rem;">of mothers feel they're constantly falling short</p>
+                            <p style="margin-top: 1rem; font-style: italic;">Perfectionism promises protection but delivers suffering</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 4: Good Enough Mothering -->
+            <section data-background-image="../../../shared-assets/images/week-2-images/biff01_Mother_feeding_baby_with_store-bought_food_not_homemad_89f7b5bc-4fd1-4165-9b21-4a9e4bf51427_3.png"
+                     data-background-size="cover"
+                     data-background-position="center"
+                     data-background-opacity="0.2">
+                <div style="max-width: 1000px; margin: 0 auto;">
+                    <h2 style="text-align: center; margin-bottom: 3rem;">The Revolution of <span style="color: var(--lesson2-mint);">"Good Enough"</span></h2>
+                    
+                    <div style="background: rgba(255,255,255,0.95); padding: 3rem; border-radius: 30px; box-shadow: 0 20px 60px rgba(0,0,0,0.1);">
+                        <div style="text-align: center; margin-bottom: 2rem;">
+                            <div class="good-enough-badge">Dr. Winnicott's Discovery</div>
+                        </div>
+                        
+                        <p style="font-size: 1.3rem; text-align: center; margin-bottom: 2rem;">Perfect mothers actually <strong>hinder</strong> development</p>
+                        
+                        <div class="progress-visual">
+                            <div class="progress-fill" style="width: 30%;">
+                                <span>30% Attunement = Healthy Baby</span>
+                            </div>
+                        </div>
+                        
+                        <p style="text-align: center; font-size: 1.1rem; margin-top: 2rem;">You can get it wrong <strong>70% of the time</strong> and still be exactly what your baby needs!</p>
+                        
+                        <div style="margin-top: 2rem; padding: 2rem; background: linear-gradient(135deg, rgba(197,137,232,0.1), rgba(149,225,211,0.1)); border-radius: 20px;">
+                            <p style="text-align: center; margin: 0; font-style: italic;">Babies need mothers who sometimes misunderstand, delay, and get it wrong - that's how they learn resilience.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 5: Your Shoulds -->
+            <section data-background-image="../../../shared-assets/images/week-2-images/biff01_Woman_crossing_out_perfect_to-do_list_and_writing_real_71b14f99-a794-4482-8dad-bccf56c73bed_1.png"
+                     data-background-size="cover"
+                     data-background-position="right center"
+                     data-background-opacity="0.15">
+                <div style="max-width: 1200px;">
+                    <h2 style="text-align: center; margin-bottom: 3rem;">Notice Your <span style="color: var(--lesson2-lavender);">"Shoulds"</span></h2>
+                    
+                    <div class="before-after-container">
+                        <div>
+                            <h3 style="text-align: center; color: var(--bloom-coral); margin-bottom: 2rem;">The Rules:</h3>
+                            <div class="rules-card crossed">
+                                <p>"I should make homemade baby food"</p>
+                            </div>
+                            <div class="rules-card crossed">
+                                <p>"I should have a clean house"</p>
+                            </div>
+                            <div class="rules-card crossed">
+                                <p>"I should bounce back quickly"</p>
+                            </div>
+                            <div class="rules-card crossed">
+                                <p>"I should be grateful every moment"</p>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h3 style="text-align: center; color: var(--lesson2-mint); margin-bottom: 2rem;">Good Enough:</h3>
+                            <div class="rules-card" style="border-color: var(--lesson2-mint);">
+                                <p>"My baby will be fed nutritious food"</p>
+                            </div>
+                            <div class="rules-card" style="border-color: var(--lesson2-mint);">
+                                <p>"We'll have a safe, livable space"</p>
+                            </div>
+                            <div class="rules-card" style="border-color: var(--lesson2-mint);">
+                                <p>"I'll heal at my body's pace"</p>
+                            </div>
+                            <div class="rules-card" style="border-color: var(--lesson2-mint);">
+                                <p>"I'll feel what I feel"</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <p style="text-align: center; margin-top: 2rem; font-size: 1.2rem; font-style: italic;">Ask yourself: According to whom?</p>
+                </div>
+            </section>
+
+            <!-- Slide 6: Practice Imperfection -->
+            <section>
+                <div class="magazine-split reverse">
+                    <div class="image">
+                        <img src="../../../shared-assets/images/week-2-images/biff01_Happy_mother_and_baby_in_messy_living_room_toys_scatte_72c52f69-bdb8-4d48-9b50-dac4f50b17d8_1.png" alt="Happy in the mess">
+                    </div>
+                    <div class="content">
+                        <h2>Practice <span style="color: var(--lesson2-mint);">Imperfection</span></h2>
+                        <p style="font-size: 1.3rem; margin-bottom: 2rem;">Deliberately do something imperfectly:</p>
+                        
+                        <div style="background: linear-gradient(135deg, rgba(149,225,211,0.1), rgba(197,137,232,0.1)); padding: 2rem; border-radius: 20px; margin-bottom: 2rem;">
+                            <ul style="list-style: none; padding: 0; font-size: 1.15rem; line-height: 2;">
+                                <li>📱 Send a text with a typo</li>
+                                <li>🍽️ Leave dishes in the sink</li>
+                                <li>👕 Wear the shirt with spit-up</li>
+                                <li>🥡 Order takeout instead of cooking</li>
+                            </ul>
+                        </div>
+                        
+                        <div style="text-align: center; padding: 2rem; background: white; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.05);">
+                            <p style="font-size: 1.4rem; margin-bottom: 1rem;">Notice:</p>
+                            <p style="font-size: 1.2rem; color: var(--lesson2-lavender);">Did the world end?<br>Did anyone die?</p>
+                            <p style="font-size: 1.1rem; font-style: italic; margin-top: 1rem;">Then maybe perfect isn't necessary.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 7: The Freedom in Falling Short -->
+            <section data-background-image="../../../shared-assets/images/week-2-images/biff01_Mother_laughing_at_spilled_milk_or_small_accident_baby_e39b3c60-eccc-4f1f-8e15-81c69a96e6ca_0.png"
+                     data-background-size="cover"
+                     data-background-position="center"
+                     data-background-opacity="0.2">
+                <div style="max-width: 900px; margin: 0 auto; text-align: center;">
+                    <h2 style="margin-bottom: 3rem;">The <span style="color: var(--lesson2-lavender);">Freedom</span> in Falling Short</h2>
+                    
+                    <div style="background: rgba(255,255,255,0.95); padding: 3rem; border-radius: 30px; box-shadow: 0 20px 60px rgba(0,0,0,0.1);">
+                        <p style="font-size: 1.4rem; line-height: 1.8; margin-bottom: 2rem;">
+                            "When I stopped pretending I had it all together,<br>
+                            other moms opened up about their struggles."
+                        </p>
+                        
+                        <p style="font-size: 1.4rem; line-height: 1.8; margin-bottom: 2rem;">
+                            "When I asked for help,<br>
+                            people were honored to provide it."
+                        </p>
+                        
+                        <p style="font-size: 1.4rem; line-height: 1.8; margin-bottom: 2rem;">
+                            "When I lowered my standards,<br>
+                            I raised my joy."
+                        </p>
+                        
+                        <div style="margin-top: 2rem; padding: 2rem; background: linear-gradient(135deg, rgba(197,137,232,0.1), rgba(149,225,211,0.1)); border-radius: 20px;">
+                            <p style="font-size: 1.3rem; margin: 0; font-style: italic; color: var(--lesson2-mint);">
+                                The mess didn't hurt her.<br>
+                                My anxiety about the mess did.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 8: A New Standard -->
+            <section data-background-color="#FFF9F0">
+                <div style="max-width: 1000px; margin: 0 auto; text-align: center;">
+                    <h2 style="margin-bottom: 3rem;">A New <span style="color: var(--lesson2-mint);">Standard</span></h2>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 3rem;">
+                        <div style="text-align: left;">
+                            <h3 style="color: var(--lesson2-lavender); margin-bottom: 2rem;">Instead of Perfect, Aim For:</h3>
+                            <div class="diamond-card">
+                                <div class="diamond-card-content">
+                                    <p style="font-size: 1.3rem; margin: 0;">Present<br>over<br>Polished</p>
+                                </div>
+                            </div>
+                            <div class="diamond-card">
+                                <div class="diamond-card-content">
+                                    <p style="font-size: 1.3rem; margin: 0;">Connected<br>over<br>Correct</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="text-align: left;">
+                            <h3 style="color: var(--lesson2-mint); margin-bottom: 2rem;">Success Means:</h3>
+                            <div style="background: white; padding: 2.5rem; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.05);">
+                                <p style="font-size: 1.2rem; margin-bottom: 1.5rem;">✓ Everyone was fed<br><span style="font-size: 0.9rem; color: var(--bloom-warm-gray);">(however that happened)</span></p>
+                                <p style="font-size: 1.2rem; margin-bottom: 1.5rem;">✓ Everyone was loved<br><span style="font-size: 0.9rem; color: var(--bloom-warm-gray);">(however messily)</span></p>
+                                <p style="font-size: 1.2rem;">✓ Everyone survived<br><span style="font-size: 0.9rem; color: var(--bloom-warm-gray);">(however barely)</span></p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 3rem;">
+                        <p style="font-size: 1.5rem; font-style: italic; color: var(--lesson2-lavender);">What if that was enough?</p>
+                        <p style="font-size: 1.5rem; font-weight: 600; color: var(--lesson2-mint);">What if YOU are enough, exactly as you are?</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 9: Reframe Failure -->
+            <section data-background-image="../../../shared-assets/images/week-2-images/biff01_Soft_focus_image_of_hands_releasing_flower_petals_or_f_3ad2cd6a-34f1-4019-ad7c-5d003548e685_3.png"
+                     data-background-size="cover"
+                     data-background-position="center"
+                     data-background-opacity="0.2">
+                <div style="max-width: 900px; margin: 0 auto;">
+                    <h2 style="text-align: center; margin-bottom: 3rem;">Reframe <span style="color: var(--lesson2-lavender);">Failure</span></h2>
+                    
+                    <div style="background: rgba(255,255,255,0.95); padding: 3rem; border-radius: 30px;">
+                        <p style="text-align: center; font-size: 1.3rem; margin-bottom: 3rem;">When something goes wrong, instead of "I'm failing," try:</p>
+                        
+                        <div style="display: grid; gap: 1.5rem;">
+                            <div style="background: linear-gradient(to right, rgba(197,137,232,0.1), rgba(149,225,211,0.1)); padding: 2rem; border-radius: 20px; border-left: 5px solid var(--lesson2-lavender);">
+                                <p style="font-size: 1.2rem; margin: 0;">"I'm learning"</p>
+                            </div>
+                            
+                            <div style="background: linear-gradient(to right, rgba(149,225,211,0.1), rgba(197,137,232,0.1)); padding: 2rem; border-radius: 20px; border-left: 5px solid var(--lesson2-mint);">
+                                <p style="font-size: 1.2rem; margin: 0;">"This is information"</p>
+                            </div>
+                            
+                            <div style="background: linear-gradient(to right, rgba(197,137,232,0.1), rgba(149,225,211,0.1)); padding: 2rem; border-radius: 20px; border-left: 5px solid var(--lesson2-lavender);">
+                                <p style="font-size: 1.2rem; margin: 0;">"My baby and I are figuring this out together"</p>
+                            </div>
+                            
+                            <div style="background: linear-gradient(to right, rgba(149,225,211,0.1), rgba(197,137,232,0.1)); padding: 2rem; border-radius: 20px; border-left: 5px solid var(--lesson2-mint);">
+                                <p style="font-size: 1.2rem; margin: 0;">"This is hard, and I'm doing my best"</p>
+                            </div>
+                        </div>
+                        
+                        <p style="text-align: center; margin-top: 2rem; font-style: italic; color: var(--lesson2-lavender);">Your daughter doesn't need a mother who never makes mistakes.<br>She needs a mother who shows her how to be human.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 10: Closing -->
+            <section data-background-image="../../../shared-assets/images/week-2-images/biff01_Mother_with_messy_hair_and_comfortable_clothes_genuine_43999e50-e47c-4ac7-a1ba-05cf1a8a2665_1.png"
+                     data-background-size="cover"
+                     data-background-position="center">
+                <div style="position: absolute; inset: 0; background: linear-gradient(to right, rgba(149,225,211,0.9) 0%, rgba(197,137,232,0.8) 40%, transparent 70%); z-index: 1;"></div>
+                <div style="position: relative; z-index: 2; height: 100vh; display: flex; align-items: center; padding: 0 8%;">
+                    <div style="max-width: 650px;">
+                        <div style="display: inline-block; padding: 0.5rem 1.5rem; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); border-radius: 30px; margin-bottom: 2rem;">
+                            <p style="color: white; font-size: 0.9rem; letter-spacing: 0.15em; text-transform: uppercase; margin: 0; font-weight: 500;">This Week's Practice</p>
+                        </div>
+                        <h1 style="font-family: var(--font-body); font-size: clamp(3rem, 6vw, 4.5rem); font-weight: 300; line-height: 1.05; margin-bottom: 2rem; color: white;">
+                            Embrace The<br>
+                            <span style="font-weight: 600; font-style: italic;">Beautiful Mess</span>
+                        </h1>
+                        <p style="font-size: 1.3rem; line-height: 1.6; color: rgba(255,255,255,0.9); margin-bottom: 3rem; font-weight: 300;">
+                            Your baby doesn't need perfect.<br>
+                            Your baby needs YOU -<br>
+                            tired, trying, tender, true you.
+                        </p>
+                        <div style="display: flex; align-items: center; gap: 2rem;">
+                            <div style="width: 60px; height: 1px; background: white;"></div>
+                            <p style="color: rgba(255,255,255,0.7); font-size: 0.95rem; letter-spacing: 0.05em; margin: 0;">Next: Stress Management Essentials</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            controls: true,
+            progress: false,
+            center: false,
+            transition: 'none',
+            transitionSpeed: 'instant',
+            backgroundTransition: 'none'
+        });
+    </script>
+</body>
+</html>

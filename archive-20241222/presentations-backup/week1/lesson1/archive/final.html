@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>Welcome to Your Fourth Trimester | Bloom Psychology</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reset.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+    <link rel="stylesheet" href="../assets/css/bloom-professional.css">
+    
+    <style>
+        /* Advanced design system */
+        :root {
+            --bloom-coral: #FF6B6B;
+            --bloom-peach: #FFB4A2;
+            --bloom-golden: #FFCB77;
+            --bloom-mint: #95E1D3;
+            --bloom-lavender: #C589E8;
+            --bloom-sky: #74C0FC;
+            --bloom-rose: #FFA8C5;
+            --shadow-dramatic: 0 30px 80px rgba(0,0,0,0.3);
+        }
+        
+        /* Enhanced typography */
+        .reveal h1 {
+            font-size: 5.5rem;
+            line-height: 1.05;
+            letter-spacing: -0.03em;
+        }
+        
+        .reveal h2 {
+            font-size: 4rem;
+            line-height: 1.1;
+        }
+        
+        .reveal h3 {
+            font-size: 2.5rem;
+        }
+        
+        .reveal p {
+            font-size: 1.6rem;
+            line-height: 1.8;
+        }
+        
+        /* Advanced overlay techniques */
+        .text-protection {
+            background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.7) 50%, transparent 100%);
+            padding: 6rem 5rem 5rem 5rem;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+        
+        .text-protection-light {
+            background: linear-gradient(135deg, rgba(255,255,255,0.98) 0%, rgba(250,248,245,0.95) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.4);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+        }
+        
+        /* Magazine layouts */
+        .magazine-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .magazine-split-weighted {
+            grid-template-columns: 1.3fr 1fr;
+        }
+        
+        .magazine-split-reverse {
+            grid-template-columns: 1fr 1.3fr;
+        }
+        
+        .image-panel {
+            position: relative;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .image-panel img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            margin: 0;
+            display: block;
+        }
+        
+        .content-panel {
+            padding: 5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: white;
+        }
+        
+        .content-panel-gradient {
+            background: linear-gradient(135deg, #faf8f5 0%, rgba(255,228,225,0.5) 100%);
+        }
+        
+        /* Hero slides with better readability */
+        .hero-image-slide {
+            position: relative;
+            height: 100%;
+            width: 100%;
+        }
+        
+        .hero-image-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        
+        .hero-scrim {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.3) 30%, rgba(0,0,0,0.8) 70%, rgba(0,0,0,0.95) 100%);
+        }
+        
+        /* Floating cards with better contrast */
+        .floating-card {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 3.5rem;
+            border-radius: 24px;
+            box-shadow: var(--shadow-dramatic);
+            max-width: 650px;
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+        
+        .floating-card-left {
+            left: 5%;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .floating-card-right {
+            right: 5%;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .floating-card-bottom {
+            bottom: 5%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 85%;
+            max-width: 1100px;
+        }
+        
+        .floating-card-dark {
+            background: rgba(26, 26, 26, 0.95);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        /* Image grid with better spacing */
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem;
+            padding: 2rem;
+            height: 100%;
+        }
+        
+        .image-grid-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .image-grid-item:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: var(--shadow-dramatic);
+        }
+        
+        .image-grid-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+        
+        .image-grid-item:hover img {
+            transform: scale(1.08);
+        }
+        
+        .image-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.7) 50%, transparent 100%);
+            color: white;
+            padding: 2.5rem 2rem 2rem 2rem;
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .image-grid-item:hover .image-caption {
+            transform: translateY(0);
+        }
+        
+        /* Reality cards with better design */
+        .stat-image-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 24px;
+            height: 380px;
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+        
+        .stat-image-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-dramatic);
+        }
+        
+        .stat-image-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+        
+        .stat-image-card:hover img {
+            transform: scale(1.1);
+        }
+        
+        .stat-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(26,26,26,0.85) 0%, rgba(26,26,26,0.95) 100%);
+        }
+        
+        .stat-overlay h3 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .stat-overlay p {
+            font-size: 1.6rem;
+            opacity: 0.95;
+        }
+        
+        /* Stats with better visibility */
+        .stat-big-number {
+            font-family: var(--font-display);
+            font-size: 7rem;
+            font-weight: 300;
+            margin-bottom: 0.5rem;
+            line-height: 1;
+        }
+        
+        /* Journey cards redesigned */
+        .journey-card {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 0;
+            margin-bottom: 2rem;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .journey-card:hover {
+            transform: translateX(15px);
+            box-shadow: var(--shadow-dramatic);
+        }
+        
+        .journey-image {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .journey-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .journey-card:hover .journey-image img {
+            transform: scale(1.1);
+        }
+        
+        .journey-number-overlay {
+            position: absolute;
+            top: 1.5rem;
+            left: 1.5rem;
+            width: 60px;
+            height: 60px;
+            background: white;
+            color: var(--bloom-charcoal);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: bold;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+        }
+        
+        .journey-content-panel {
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .journey-content-panel h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.8rem;
+            color: var(--bloom-charcoal);
+        }
+        
+        .journey-content-panel p {
+            font-size: 1.4rem;
+            color: var(--bloom-warm-gray);
+            line-height: 1.6;
+        }
+        
+        /* Visual list enhanced */
+        .visual-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .visual-list li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2.5rem;
+            font-size: 1.7rem;
+        }
+        
+        .visual-list-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--bloom-mint) 0%, var(--bloom-sky) 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 2rem;
+            color: white;
+            font-size: 1.8rem;
+            flex-shrink: 0;
+            box-shadow: 0 8px 24px rgba(149, 225, 211, 0.3);
+        }
+        
+        /* Rights cards enhanced */
+        .rights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 2.5rem;
+            padding: 2rem;
+        }
+        
+        .right-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .right-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-dramatic);
+        }
+        
+        .right-card-image {
+            height: 220px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .right-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .right-card:hover .right-card-image img {
+            transform: scale(1.1);
+        }
+        
+        .right-card-content {
+            padding: 2.5rem;
+        }
+        
+        .right-card-content p {
+            font-size: 1.5rem;
+            line-height: 1.7;
+        }
+        
+        /* Quote sections enhanced */
+        .quote-with-image {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 5rem;
+            align-items: center;
+            padding: 5rem;
+        }
+        
+        .quote-portrait {
+            position: relative;
+            overflow: hidden;
+            border-radius: 24px;
+            box-shadow: var(--shadow-dramatic);
+        }
+        
+        .quote-portrait img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Gradient effects */
+        .gradient-text {
+            background: linear-gradient(135deg, var(--bloom-coral) 0%, var(--bloom-lavender) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Animated elements */
+        .floating-shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            animation: float 20s ease-in-out infinite;
+            opacity: 0.3;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0) rotate(0deg); }
+            33% { transform: translateY(-30px) translateX(20px) rotate(120deg); }
+            66% { transform: translateY(20px) translateX(-20px) rotate(240deg); }
+        }
+        
+        .shape-coral {
+            width: 400px;
+            height: 400px;
+            background: var(--bloom-coral);
+        }
+        
+        .shape-mint {
+            width: 500px;
+            height: 500px;
+            background: var(--bloom-mint);
+        }
+        
+        .shape-lavender {
+            width: 450px;
+            height: 450px;
+            background: var(--bloom-lavender);
+        }
+        
+        /* CTA button enhanced */
+        .cta-button {
+            display: inline-block;
+            padding: 1.8rem 3.5rem;
+            background: linear-gradient(135deg, var(--bloom-coral) 0%, var(--bloom-lavender) 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-top: 2.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 15px 40px rgba(255, 107, 107, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 50px rgba(255, 107, 107, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- Slide 1: Hero opening with better text protection -->
+            <section data-background-color="#1a1a1a">
+                <div class="hero-image-slide">
+                    <img src="https://images.unsplash.com/photo-1492725764893-90b379c2b6e7?q=80&w=3000" alt="Mother tenderly holding newborn baby close">
+                    <div class="hero-scrim"></div>
+                    <div class="text-protection">
+                        <h1 class="fragment fade-in-up" style="color: white;">Welcome to Your<br/><span class="gradient-text">Fourth Trimester</span></h1>
+                        <p class="fragment fade-in-up" style="font-size: 2rem; margin-top: 2rem; color: rgba(255,255,255,0.95);">
+                            A journey through postpartum wellness
+                        </p>
+                        <p class="fragment fade-in-up" style="font-size: 1.3rem; margin-top: 3rem; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.1em;">
+                            Bloom Psychology • Postpartum Support Program
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 2: Split layout with better contrast -->
+            <section>
+                <div class="magazine-split">
+                    <div class="content-panel content-panel-gradient">
+                        <h1 class="fragment fade-in-up">You're Here.<br/>That Takes <span class="gradient-text">Courage</span>.</h1>
+                        <p class="fragment fade-in-up" style="margin-top: 2rem;">
+                            Taking the first step toward support is often the hardest. By being here, you've already shown incredible strength.
+                        </p>
+                        <p class="fragment fade-in-up" style="font-size: 1.4rem; color: var(--bloom-sage); margin-top: 2rem; font-style: italic;">
+                            "The journey of motherhood begins with a single brave step forward."
+                        </p>
+                    </div>
+                    <div class="image-panel">
+                        <img src="https://images.unsplash.com/photo-1584515933487-779824d29309?q=80&w=3000" alt="Mother's gentle hands cradling baby">
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 3: This Space Is - women-focused images -->
+            <section data-background-color="#ffffff">
+                <div class="container">
+                    <h2 style="text-align: center; margin-bottom: 3rem;">This Space Is...</h2>
+                    <div class="image-grid" style="grid-template-columns: repeat(3, 1fr); height: auto;">
+                        <div class="image-grid-item fragment fade-in-up">
+                            <img src="https://images.unsplash.com/photo-1581952976147-5a2d15560349?q=80&w=2000" alt="Women supporting each other">
+                            <div class="image-caption">
+                                <h3>Judgment-Free</h3>
+                                <p>All feelings are valid here</p>
+                            </div>
+                        </div>
+                        <div class="image-grid-item fragment fade-in-up">
+                            <img src="https://images.unsplash.com/photo-1522881451255-f59ad836fdfb?q=80&w=2000" alt="Woman writing in journal">
+                            <div class="image-caption">
+                                <h3>Evidence-Based</h3>
+                                <p>Strategies that actually work</p>
+                            </div>
+                        </div>
+                        <div class="image-grid-item fragment fade-in-up">
+                            <img src="https://images.unsplash.com/photo-1540324155974-7523202daa3f?q=80&w=2000" alt="Woman in peaceful meditation">
+                            <div class="image-caption">
+                                <h3>Your Time</h3>
+                                <p>Focus on YOU, not just baby</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 4: This Space Is NOT - with better floating card -->
+            <section>
+                <div class="image-with-card">
+                    <img src="https://images.unsplash.com/photo-1609220136736-443140cffec6?q=80&w=3000" alt="Supportive therapy session">
+                    <div class="floating-card floating-card-left text-protection-light">
+                        <h2 style="color: var(--bloom-coral); margin-bottom: 2rem;">Important Boundaries</h2>
+                        <ul class="visual-list">
+                            <li class="fragment fade-in-up">
+                                <div class="visual-list-icon" style="background: linear-gradient(135deg, var(--bloom-coral) 0%, var(--bloom-rose) 100%);">✗</div>
+                                Not a replacement for medical care
+                            </li>
+                            <li class="fragment fade-in-up">
+                                <div class="visual-list-icon" style="background: linear-gradient(135deg, var(--bloom-coral) 0%, var(--bloom-rose) 100%);">✗</div>
+                                Not a place for perfection
+                            </li>
+                            <li class="fragment fade-in-up">
+                                <div class="visual-list-icon" style="background: linear-gradient(135deg, var(--bloom-coral) 0%, var(--bloom-rose) 100%);">✗</div>
+                                Not somewhere you'll be shamed
+                            </li>
+                        </ul>
+                        <p class="fragment fade-in" style="font-size: 1.3rem; margin-top: 2rem; font-style: italic; color: var(--bloom-warm-gray);">
+                            We're here to support, not to judge or diagnose.
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 5: Timeline with better spacing -->
+            <section>
+                <div class="magazine-split magazine-split-weighted">
+                    <div class="image-panel">
+                        <img src="https://images.unsplash.com/photo-1503516459261-40c66117780a?q=80&w=3000" alt="Pregnant woman's journey">
+                    </div>
+                    <div class="content-panel">
+                        <h2>The <span class="gradient-text">Fourth Trimester</span></h2>
+                        <p style="margin: 2.5rem 0; font-size: 1.8rem;">Your journey doesn't end at birth—it transforms.</p>
+                        <div style="display: flex; flex-direction: column; gap: 2rem;">
+                            <div class="fragment fade-in-up" style="display: flex; align-items: center;">
+                                <div style="width: 90px; height: 90px; background: linear-gradient(135deg, #FFB4A2 0%, #FF6B6B 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.8rem; margin-right: 2rem; box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);">1-3</div>
+                                <div>
+                                    <strong style="font-size: 1.6rem;">First Three Trimesters</strong><br/>
+                                    <span style="color: var(--bloom-text-light); font-size: 1.4rem;">Growing your baby</span>
+                                </div>
+                            </div>
+                            <div class="fragment fade-in-up" style="display: flex; align-items: center;">
+                                <div style="width: 90px; height: 90px; background: linear-gradient(135deg, #C589E8 0%, #FF6B6B 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.8rem; margin-right: 2rem; box-shadow: 0 15px 40px rgba(197, 137, 232, 0.4); transform: scale(1.1);">4th</div>
+                                <div>
+                                    <strong style="font-size: 1.6rem;">Fourth Trimester</strong><br/>
+                                    <span style="color: var(--bloom-text-light); font-size: 1.4rem;">Growing into motherhood</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="fragment fade-in" style="font-size: 2rem; margin-top: 3rem; color: var(--bloom-lavender);">
+                            The first 3 months after birth—and beyond
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 6: Your Reality - all women/mother focused -->
+            <section data-background-color="#f7f7f7">
+                <div class="container">
+                    <h2 style="text-align: center; margin-bottom: 3rem;">Your Fourth Trimester <span class="gradient-text">Reality</span></h2>
+                    <div class="image-grid" style="grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 380px);">
+                        <div class="stat-image-card fragment fade-in-up">
+                            <img src="https://images.unsplash.com/photo-1584126670420-dcc5b681b85a?q=80&w=2000" alt="Mother recovering after birth">
+                            <div class="stat-overlay" style="background: linear-gradient(135deg, rgba(255, 107, 107, 0.85) 0%, rgba(255, 180, 162, 0.95) 100%);">
+                                <h3>Physical</h3>
+                                <p>Major Recovery</p>
+                            </div>
+                        </div>
+                        <div class="stat-image-card fragment fade-in-up">
+                            <img src="https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?q=80&w=2000" alt="Woman experiencing emotions">
+                            <div class="stat-overlay" style="background: linear-gradient(135deg, rgba(255, 203, 119, 0.85) 0%, rgba(255, 180, 162, 0.95) 100%);">
+                                <h3>Hormonal</h3>
+                                <p>Massive Shifts</p>
+                            </div>
+                        </div>
+                        <div class="stat-image-card fragment fade-in-up">
+                            <img src="https://images.unsplash.com/photo-1589895009255-eda35c396ac7?q=80&w=2000" alt="Woman looking at reflection">
+                            <div class="stat-overlay" style="background: linear-gradient(135deg, rgba(149, 225, 211, 0.85) 0%, rgba(116, 192, 252, 0.95) 100%);">
+                                <h3>Identity</h3>
+                                <p>Transformation</p>
+                            </div>
+                        </div>
+                        <div class="stat-image-card fragment fade-in-up">
+                            <img src="https://images.unsplash.com/photo-1617883861744-13b534e3b928?q=80&w=2000" alt="Couple with baby">
+                            <div class="stat-overlay" style="background: linear-gradient(135deg, rgba(116, 192, 252, 0.85) 0%, rgba(197, 137, 232, 0.95) 100%);">
+                                <h3>Relationships</h3>
+                                <p>Evolving Dynamics</p>
+                            </div>
+                        </div>
+                        <div class="stat-image-card fragment fade-in-up">
+                            <img src="https://images.unsplash.com/photo-1578496781197-b85385c7f0b3?q=80&w=2000" alt="Mother caring for newborn">
+                            <div class="stat-overlay" style="background: linear-gradient(135deg, rgba(197, 137, 232, 0.85) 0%, rgba(255, 168, 197, 0.95) 100%);">
+                                <h3>Responsibility</h3>
+                                <p>24/7 Care</p>
+                            </div>
+                        </div>
+                        <div class="stat-image-card fragment fade-in-up">
+                            <img src="https://images.unsplash.com/photo-1531983412531-1f49a365ffed?q=80&w=2000" alt="Tired mother">
+                            <div class="stat-overlay" style="background: linear-gradient(135deg, rgba(255, 168, 197, 0.85) 0%, rgba(255, 107, 107, 0.95) 100%);">
+                                <h3>Sleep</h3>
+                                <p>Severely Limited</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 7: Statistics with community of mothers -->
+            <section>
+                <div class="image-with-card">
+                    <img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?q=80&w=3000" alt="Diverse group of mothers supporting each other in circle">
+                    <div class="floating-card floating-card-bottom floating-card-dark">
+                        <h2 style="text-align: center; margin-bottom: 3rem; color: white;">You're <span class="gradient-text">Not Alone</span></h2>
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 4rem; text-align: center;">
+                            <div class="fragment scale-in">
+                                <div class="stat-big-number gradient-text">80%</div>
+                                <p style="font-size: 1.5rem; color: rgba(255,255,255,0.9);">experience baby blues</p>
+                            </div>
+                            <div class="fragment scale-in">
+                                <div class="stat-big-number" style="color: var(--bloom-mint);">20%</div>
+                                <p style="font-size: 1.5rem; color: rgba(255,255,255,0.9);">develop PPD</p>
+                            </div>
+                            <div class="fragment scale-in">
+                                <div class="stat-big-number" style="color: var(--bloom-lavender);">10%</div>
+                                <p style="font-size: 1.5rem; color: rgba(255,255,255,0.9);">experience PPA</p>
+                            </div>
+                        </div>
+                        <p class="fragment fade-in" style="text-align: center; margin-top: 2.5rem; font-size: 1.3rem; color: rgba(255,255,255,0.7);">
+                            <em>Research indicates actual numbers may be significantly higher</em>
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 8: Important Truth with hopeful woman -->
+            <section data-background-gradient="linear-gradient(135deg, #8B9A82 0%, #95E1D3 50%, #C589E8 100%)">
+                <div class="container">
+                    <div class="quote-with-image">
+                        <div class="quote-portrait">
+                            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=2000" alt="Woman with hopeful expression">
+                        </div>
+                        <div>
+                            <blockquote style="color: white; font-size: 3.5rem; margin: 0;">
+                                <span class="fragment fade-in-up">Mental health struggles after birth are</span><br/>
+                                <span class="fragment fade-in-up" style="font-weight: 600; font-size: 1.3em;">common</span>, 
+                                <span class="fragment fade-in-up" style="font-weight: 600; font-size: 1.3em;">treatable</span>, 
+                                <span class="fragment fade-in-up">and</span> 
+                                <span class="fragment fade-in-up" style="font-weight: 600; font-size: 1.3em;">not your fault</span>
+                            </blockquote>
+                            <p class="fragment fade-in" style="color: rgba(255,255,255,0.8); font-size: 1.5rem; margin-top: 2.5rem;">
+                                You deserve support, compassion, and care during this transformative time.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 9: Journey with women-focused images -->
+            <section data-background-color="#faf8f5">
+                <div class="container">
+                    <h2 style="margin-bottom: 3rem;">Your Path to <span class="gradient-text">Wellness</span></h2>
+                    <div style="display: grid; gap: 1.8rem;">
+                        <div class="journey-card fragment fade-in-up">
+                            <div class="journey-image">
+                                <img src="https://images.unsplash.com/photo-1609207825181-52d3214556dd?q=80&w=500" alt="Woman in self-reflection">
+                                <div class="journey-number-overlay">1</div>
+                            </div>
+                            <div class="journey-content-panel">
+                                <h3>Understanding your new reality</h3>
+                                <p>Building awareness and self-compassion for the massive changes you're experiencing</p>
+                            </div>
+                        </div>
+                        <div class="journey-card fragment fade-in-up">
+                            <div class="journey-image">
+                                <img src="https://images.unsplash.com/photo-1601288496920-b6154fe3626a?q=80&w=500" alt="Woman journaling">
+                                <div class="journey-number-overlay">2</div>
+                            </div>
+                            <div class="journey-content-panel">
+                                <h3>Working with difficult thoughts</h3>
+                                <p>Cognitive strategies that actually help when your mind feels like your enemy</p>
+                            </div>
+                        </div>
+                        <div class="journey-card fragment fade-in-up">
+                            <div class="journey-image">
+                                <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=500" alt="Woman finding joy">
+                                <div class="journey-number-overlay">3</div>
+                            </div>
+                            <div class="journey-content-panel">
+                                <h3>Rebuilding joy & meaningful activities</h3>
+                                <p>Rediscovering yourself and what brings you happiness beyond motherhood</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 10: Journey continued with women -->
+            <section data-background-color="#faf8f5">
+                <div class="container">
+                    <div style="display: grid; gap: 1.8rem;">
+                        <div class="journey-card fragment fade-in-up">
+                            <div class="journey-image">
+                                <img src="https://images.unsplash.com/photo-1586297135537-94bc9ba060aa?q=80&w=500" alt="Woman practicing breathing">
+                                <div class="journey-number-overlay">4</div>
+                            </div>
+                            <div class="journey-content-panel">
+                                <h3>Managing anxiety & worry</h3>
+                                <p>Practical tools for racing thoughts and the constant "what-ifs"</p>
+                            </div>
+                        </div>
+                        <div class="journey-card fragment fade-in-up">
+                            <div class="journey-image">
+                                <img src="https://images.unsplash.com/photo-1581403341630-a6e0b9d2d257?q=80&w=500" alt="Women connecting">
+                                <div class="journey-number-overlay">5</div>
+                            </div>
+                            <div class="journey-content-panel">
+                                <h3>Strengthening relationships</h3>
+                                <p>Finding connection when you feel isolated and misunderstood</p>
+                            </div>
+                        </div>
+                        <div class="journey-card fragment fade-in-up">
+                            <div class="journey-image">
+                                <img src="https://images.unsplash.com/photo-1590650153855-d9e808231d41?q=80&w=500" alt="Woman planning future">
+                                <div class="journey-number-overlay">6</div>
+                            </div>
+                            <div class="journey-content-panel">
+                                <h3>Creating your long-term plan</h3>
+                                <p>Building sustainable wellness strategies that grow with you</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 11: What's Included with mother learning -->
+            <section>
+                <div class="magazine-split magazine-split-reverse">
+                    <div class="content-panel">
+                        <h2>Designed for <span class="gradient-text">Real Moms</span></h2>
+                        <p style="font-size: 1.9rem; margin: 2.5rem 0; color: var(--bloom-sage);">
+                            Evidence-based support that fits into your chaotic, beautiful life
+                        </p>
+                        <ul class="visual-list">
+                            <li class="fragment fade-in-up">
+                                <div class="visual-list-icon">🎥</div>
+                                15-minute video lessons you can watch while nursing
+                            </li>
+                            <li class="fragment fade-in-up">
+                                <div class="visual-list-icon">📖</div>
+                                Downloadable workbook to process at your own pace
+                            </li>
+                            <li class="fragment fade-in-up">
+                                <div class="visual-list-icon">🧘‍♀️</div>
+                                5-minute guided meditations for immediate relief
+                            </li>
+                            <li class="fragment fade-in-up">
+                                <div class="visual-list-icon">💡</div>
+                                Practical strategies you can implement today
+                            </li>
+                        </ul>
+                        <a href="#" class="cta-button fragment fade-in">Start Your Journey</a>
+                    </div>
+                    <div class="image-panel">
+                        <img src="https://images.unsplash.com/photo-1584821594584-991f1c9ea6c3?q=80&w=3000" alt="Mother with baby using tablet">
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 12: Your Rights with empowering women images -->
+            <section data-background-color="#faf8f5">
+                <div class="container">
+                    <h2 style="text-align: center; margin-bottom: 3rem;">Your Fourth Trimester <span class="gradient-text">Rights</span></h2>
+                    <div class="rights-grid">
+                        <div class="right-card fragment fade-in-up">
+                            <div class="right-card-image">
+                                <img src="https://images.unsplash.com/photo-1598257006458-087169a1f08d?q=80&w=500" alt="Woman embracing emotions">
+                            </div>
+                            <div class="right-card-content">
+                                <p>You have the right to <strong>feel however you feel</strong> without judgment</p>
+                            </div>
+                        </div>
+                        <div class="right-card fragment fade-in-up">
+                            <div class="right-card-image">
+                                <img src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?q=80&w=500" alt="Women supporting each other">
+                            </div>
+                            <div class="right-card-content">
+                                <p>You have the right to <strong>ask for and receive help</strong></p>
+                            </div>
+                        </div>
+                        <div class="right-card fragment fade-in-up">
+                            <div class="right-card-image">
+                                <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=500" alt="Woman self-care">
+                            </div>
+                            <div class="right-card-content">
+                                <p>You have the right to <strong>prioritize your wellbeing</strong></p>
+                            </div>
+                        </div>
+                        <div class="right-card fragment fade-in-up">
+                            <div class="right-card-image">
+                                <img src="https://images.unsplash.com/photo-1591123120675-6f7f1aae0e5b?q=80&w=500" alt="Mother learning">
+                            </div>
+                            <div class="right-card-content">
+                                <p>You have the right to <strong>make mistakes</strong> as you learn</p>
+                            </div>
+                        </div>
+                        <div class="right-card fragment fade-in-up">
+                            <div class="right-card-image">
+                                <img src="https://images.unsplash.com/photo-1520880867055-1e30d1cb001c?q=80&w=500" alt="Woman resting peacefully">
+                            </div>
+                            <div class="right-card-content">
+                                <p>You have the right to <strong>rest</strong> when you need to</p>
+                            </div>
+                        </div>
+                        <div class="right-card fragment fade-in-up">
+                            <div class="right-card-image">
+                                <img src="https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?q=80&w=500" alt="Woman in therapy">
+                            </div>
+                            <div class="right-card-content">
+                                <p>You have the right to <strong>seek professional support</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 13: Practice with woman meditating -->
+            <section>
+                <div class="hero-image-slide">
+                    <img src="https://images.unsplash.com/photo-1593811167562-9cef47bfc4a7?q=80&w=3000" alt="Woman practicing self-compassion with hand on heart">
+                    <div class="floating-card floating-card-bottom text-protection-light" style="background: linear-gradient(135deg, rgba(255,255,255,0.98) 0%, rgba(255,248,245,0.98) 100%);">
+                        <h2 style="text-align: center; margin-bottom: 2rem;">Your Only Homework</h2>
+                        <p style="font-size: 1.7rem; text-align: center; color: var(--bloom-warm-gray);">
+                            Place your hand on your heart once a day and say:
+                        </p>
+                        <h1 style="text-align: center; font-size: 3.2rem; margin: 2.5rem 0;" class="gradient-text">
+                            "I'm doing the best I can,<br/>and that's enough."
+                        </h1>
+                        <p style="text-align: center; font-size: 1.4rem; color: var(--bloom-sage); margin-top: 2rem;">
+                            This simple practice builds self-compassion, which research shows is crucial for postpartum wellness.
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 14: Closing with hopeful mother and baby -->
+            <section>
+                <div class="hero-image-slide">
+                    <img src="https://images.unsplash.com/photo-1555252333-9f8e92e65df9?q=80&w=3000" alt="Mother and baby in golden hour light">
+                    <div class="hero-scrim"></div>
+                    <div class="text-protection" style="text-align: center;">
+                        <h1 class="fragment fade-in-up" style="color: white;">See You in the Next Lesson</h1>
+                        <p class="fragment fade-in-up" style="font-size: 2rem; margin-top: 2rem; color: rgba(255,255,255,0.95);">
+                            Remember: This is YOUR journey, at YOUR pace
+                        </p>
+                        <p class="fragment fade-in-up" style="font-size: 1.6rem; margin-top: 3rem; color: rgba(255,255,255,0.85);">
+                            You're not alone. You're not broken. You're becoming.
+                        </p>
+                        <div style="margin-top: 4rem; font-size: 1.3rem; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.1em;">
+                            Bloom Psychology
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/notes/notes.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/markdown/markdown.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/highlight/highlight.js"></script>
+    
+    <script>
+        Reveal.initialize({
+            hash: true,
+            controls: true,
+            progress: true,
+            center: false,
+            transition: 'fade',
+            transitionSpeed: 'slow',
+            backgroundTransition: 'fade',
+            
+            // View options
+            width: 1920,
+            height: 1080,
+            margin: 0,
+            minScale: 0.2,
+            maxScale: 2.0,
+            
+            // UI options
+            controlsTutorial: false,
+            controlsLayout: 'bottom-right',
+            controlsBackArrows: 'faded',
+            slideNumber: 'c/t',
+            showSlideNumber: 'all',
+            
+            // Features
+            history: true,
+            keyboard: true,
+            overview: true,
+            loop: false,
+            touch: true,
+            
+            // PDF export
+            pdfMaxPagesPerSlide: 1,
+            pdfSeparateFragments: false,
+            
+            plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+        });
+    </script>
+</body>
+</html>

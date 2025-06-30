@@ -1,0 +1,502 @@
+/**
+ * Bloom Psychology Professional Presentation Theme
+ * Agency-quality design for mental health education
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* Sophisticated color palette */
+  --bloom-charcoal: #1a1a1a;
+  --bloom-warm-gray: #4a4a4a;
+  --bloom-light-gray: #f7f7f7;
+  --bloom-sage: #8B9A82;
+  --bloom-sage-muted: #a3b199;
+  --bloom-blush: #e8d5d5;
+  --bloom-cream: #faf8f5;
+  --bloom-white: #ffffff;
+  
+  /* Typography scale */
+  --font-display: 'Cormorant Garamond', serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  
+  /* Spacing */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 2rem;
+  --space-lg: 4rem;
+  --space-xl: 6rem;
+  --space-2xl: 8rem;
+  
+  /* Shadows */
+  --shadow-subtle: 0 2px 8px rgba(0,0,0,0.08);
+  --shadow-medium: 0 8px 24px rgba(0,0,0,0.12);
+  --shadow-large: 0 20px 60px rgba(0,0,0,0.16);
+}
+
+/* Reset and base styles */
+.reveal-viewport {
+  background: var(--bloom-white);
+}
+
+.reveal {
+  font-family: var(--font-body);
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--bloom-charcoal);
+  line-height: 1.6;
+  letter-spacing: -0.02em;
+}
+
+.reveal .slides {
+  text-align: left;
+}
+
+.reveal .slides section {
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Typography */
+.reveal h1 {
+  font-family: var(--font-display);
+  font-size: 4.5rem;
+  font-weight: 300;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--bloom-charcoal);
+  margin-bottom: var(--space-md);
+}
+
+.reveal h2 {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--bloom-charcoal);
+  margin-bottom: var(--space-md);
+}
+
+.reveal h3 {
+  font-family: var(--font-body);
+  font-size: 1.8rem;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--bloom-warm-gray);
+  margin-bottom: var(--space-sm);
+}
+
+.reveal p {
+  font-size: 1.25rem;
+  line-height: 1.8;
+  color: var(--bloom-warm-gray);
+  margin-bottom: var(--space-md);
+  max-width: 36em;
+}
+
+.reveal em {
+  font-style: italic;
+  color: var(--bloom-sage);
+}
+
+.reveal strong {
+  font-weight: 600;
+  color: var(--bloom-charcoal);
+}
+
+/* Layout Components */
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: var(--space-xl) var(--space-lg);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.container--full {
+  max-width: 100%;
+  padding: 0;
+}
+
+/* Hero Slides */
+.hero-slide {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 60%;
+}
+
+.hero-visual {
+  position: absolute;
+  top: 0;
+  right: -10%;
+  width: 60%;
+  height: 100%;
+  opacity: 0.15;
+  background-size: cover;
+  background-position: center;
+  filter: grayscale(100%);
+}
+
+/* Split Layouts */
+.split-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-xl);
+  align-items: center;
+  height: 100%;
+}
+
+.split-layout--weighted {
+  grid-template-columns: 1.5fr 1fr;
+}
+
+/* Content Blocks */
+.content-block {
+  padding: var(--space-lg);
+}
+
+.visual-block {
+  position: relative;
+  height: 100%;
+  min-height: 600px;
+}
+
+.visual-block img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Full Bleed Slides */
+.full-bleed {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  color: var(--bloom-white);
+}
+
+.full-bleed::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(26,26,26,0.8) 0%, rgba(26,26,26,0.6) 100%);
+  z-index: 1;
+}
+
+.full-bleed .container {
+  position: relative;
+  z-index: 2;
+}
+
+.full-bleed h1,
+.full-bleed h2,
+.full-bleed p {
+  color: var(--bloom-white);
+}
+
+/* Stats and Data */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--space-lg);
+  margin: var(--space-lg) 0;
+}
+
+.stat-card {
+  background: var(--bloom-white);
+  padding: var(--space-lg);
+  border-radius: 8px;
+  box-shadow: var(--shadow-medium);
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-large);
+}
+
+.stat-number {
+  font-family: var(--font-display);
+  font-size: 4rem;
+  font-weight: 300;
+  color: var(--bloom-sage);
+  margin-bottom: var(--space-xs);
+  letter-spacing: -0.02em;
+}
+
+.stat-label {
+  font-size: 1.1rem;
+  color: var(--bloom-warm-gray);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Quote Slides */
+.quote-slide {
+  background: var(--bloom-sage);
+  color: var(--bloom-white);
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quote-slide blockquote {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  font-weight: 300;
+  line-height: 1.4;
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.quote-slide blockquote::before {
+  content: '"';
+  position: absolute;
+  top: -2rem;
+  left: -3rem;
+  font-size: 8rem;
+  opacity: 0.2;
+}
+
+.quote-slide cite {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 1.2rem;
+  font-style: normal;
+  margin-top: var(--space-md);
+  opacity: 0.8;
+}
+
+/* Feature Lists */
+.feature-list {
+  list-style: none;
+  padding: 0;
+  margin: var(--space-md) 0;
+}
+
+.feature-list li {
+  position: relative;
+  padding-left: var(--space-lg);
+  margin-bottom: var(--space-md);
+  font-size: 1.3rem;
+  line-height: 1.6;
+}
+
+.feature-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.5em;
+  width: 24px;
+  height: 2px;
+  background: var(--bloom-sage);
+}
+
+/* Timeline */
+.timeline {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: var(--space-xl) 0;
+  position: relative;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--bloom-light-gray);
+  z-index: 0;
+}
+
+.timeline-item {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  background: var(--bloom-white);
+  padding: 0 var(--space-sm);
+}
+
+.timeline-marker {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto var(--space-sm);
+  border-radius: 50%;
+  background: var(--bloom-light-gray);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: var(--bloom-warm-gray);
+  transition: all 0.3s ease;
+}
+
+.timeline-item.active .timeline-marker {
+  background: var(--bloom-sage);
+  color: var(--bloom-white);
+  transform: scale(1.1);
+}
+
+.timeline-label {
+  font-size: 0.9rem;
+  color: var(--bloom-warm-gray);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Journey Path */
+.journey-path {
+  margin: var(--space-xl) 0;
+}
+
+.journey-item {
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.journey-item:hover {
+  opacity: 1;
+}
+
+.journey-number {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--bloom-light-gray);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--bloom-warm-gray);
+}
+
+.journey-content h4 {
+  font-size: 1.4rem;
+  margin-bottom: var(--space-xs);
+  color: var(--bloom-charcoal);
+}
+
+.journey-content p {
+  font-size: 1.1rem;
+  color: var(--bloom-warm-gray);
+  margin: 0;
+}
+
+/* Practice Card */
+.practice-card {
+  background: var(--bloom-cream);
+  padding: var(--space-xl);
+  border-radius: 8px;
+  text-align: center;
+  margin: var(--space-lg) auto;
+  max-width: 800px;
+  box-shadow: var(--shadow-subtle);
+}
+
+.practice-card h3 {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  color: var(--bloom-charcoal);
+  margin-bottom: var(--space-md);
+}
+
+.practice-quote {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-style: italic;
+  color: var(--bloom-sage);
+  margin: var(--space-lg) 0;
+  line-height: 1.4;
+}
+
+/* Subtle Animations */
+.reveal .fragment.fade-in-up {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.5s ease-out;
+}
+
+.reveal .fragment.fade-in-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal .fragment.scale-in {
+  opacity: 0;
+  transform: scale(0.95);
+  transition: all 0.5s ease-out;
+}
+
+.reveal .fragment.scale-in.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Progress and Controls */
+.reveal .progress {
+  height: 3px;
+  background: rgba(0,0,0,0.1);
+}
+
+.reveal .progress span {
+  background: var(--bloom-sage);
+}
+
+.reveal .controls {
+  color: var(--bloom-sage);
+}
+
+.reveal .slide-number {
+  background: transparent;
+  color: var(--bloom-warm-gray);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+}
+
+/* Brand Footer */
+.brand-footer {
+  position: absolute;
+  bottom: var(--space-md);
+  right: var(--space-md);
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  color: var(--bloom-warm-gray);
+  opacity: 0.6;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .reveal h1 { font-size: 3.5rem; }
+  .reveal h2 { font-size: 2.5rem; }
+  .split-layout { grid-template-columns: 1fr; }
+  .hero-content { max-width: 100%; }
+  .container { padding: var(--space-lg) var(--space-md); }
+}

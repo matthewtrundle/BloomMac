@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>Welcome to Your Fourth Trimester | Bloom Psychology</title>
+    
+    <!-- Reveal.js Core -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reset.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/theme/white.css">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ========================================
+           BLOOM PSYCHOLOGY PROFESSIONAL THEME
+           ======================================== */
+        :root {
+            /* Brand Colors */
+            --bloom-sage: #8B9A82;
+            --bloom-charcoal: #1a1a1a;
+            --bloom-warm-gray: #4a4a4a;
+            --bloom-cream: #faf8f5;
+            --bloom-background: #FFF9F0;
+            
+            /* Vibrant Accent Colors */
+            --bloom-coral: #FF6B6B;
+            --bloom-peach: #FFB4A2;
+            --bloom-golden: #FFCB77;
+            --bloom-mint: #95E1D3;
+            --bloom-lavender: #C589E8;
+            --bloom-sky: #74C0FC;
+            --bloom-rose: #FFA8C5;
+            --bloom-teal: #4ECDC4;
+            --bloom-orange: #FF9A8B;
+            
+            /* Typography */
+            --font-display: 'Cormorant Garamond', serif;
+            --font-body: 'Inter', -apple-system, sans-serif;
+        }
+        
+        /* Base Reveal Overrides */
+        .reveal {
+            font-family: var(--font-body);
+            font-size: 24px;
+            font-weight: normal;
+            color: var(--bloom-charcoal);
+            background-color: #FFFFFF;
+        }
+        
+        .reveal .slides {
+            text-align: left;
+        }
+        
+        .reveal .slides section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 1rem;
+            overflow: visible;
+        }
+        
+        .reveal h1,
+        .reveal h2,
+        .reveal h3,
+        .reveal h4 {
+            font-family: var(--font-body);
+            font-weight: 600;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            text-transform: none;
+            margin: 0 0 1rem 0;
+        }
+        
+        .reveal h1 { font-size: clamp(2.5rem, 5vw, 4rem); }
+        .reveal h2 { font-size: clamp(2rem, 4vw, 3rem); }
+        .reveal h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
+        .reveal h4 { font-size: clamp(1.2rem, 2.5vw, 1.8rem); }
+        
+        .reveal p {
+            line-height: 1.7;
+            margin-bottom: 1rem;
+            font-size: clamp(1.5rem, 2.5vw, 1.8rem);
+        }
+        
+        /* Container */
+        .container {
+            width: 100%;
+            margin: 0 auto;
+            padding: 0;
+        }
+        
+        /* Typography Styles */
+        .display-serif {
+            font-family: var(--font-display);
+            font-weight: 300;
+            letter-spacing: -0.02em;
+        }
+        
+        .subtitle-caps {
+            font-size: 1.5rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            font-weight: 500;
+            color: var(--bloom-sage);
+        }
+        
+        /* Asymmetric Grid */
+        .asymmetric-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            height: 100%;
+        }
+        
+        .content-panel {
+            padding: 2rem;
+        }
+        
+        .image-panel {
+            position: relative;
+            min-height: 600px;
+            border-radius: 2px;
+            overflow: visible;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.15);
+        }
+        
+        .image-panel img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Elegant Divider */
+        .elegant-divider {
+            width: 80px;
+            height: 3px;
+            margin: 2rem 0;
+            border-radius: 3px;
+        }
+        
+        /* Pull Quote */
+        .pullquote {
+            font-family: var(--font-display);
+            font-size: 2.2rem;
+            line-height: 1.5;
+            color: var(--bloom-sage);
+            padding-left: 3rem;
+            position: relative;
+            font-style: italic;
+        }
+        
+        .pullquote::before {
+            content: '"';
+            position: absolute;
+            left: 0;
+            top: -1rem;
+            font-size: 5rem;
+            color: var(--bloom-sage);
+            opacity: 0.2;
+            font-family: var(--font-display);
+        }
+        
+        /* Stat Image Card */
+        .stat-image-card {
+            position: relative;
+            min-height: 180px;
+            overflow: visible;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .stat-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: white;
+            text-align: center;
+        }
+        
+        /* Hero Slide Styles */
+        .hero-image-slide {
+            position: relative;
+            min-height: 100vh;
+            width: 100vw;
+            overflow: visible;
+        }
+        
+        .hero-image-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        
+        .midjourney-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .asymmetric-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .image-panel {
+                min-height: 400px;
+            }
+        }
+        
+        /* ===== EXCELLENCE IMPROVEMENTS ===== */
+        /* Quick Win: Enhanced Micro-interactions */
+        .reveal .fragment {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        }
+        
+        .reveal .fragment:hover {
+            transform: translateY(-3px);
+        }
+        
+        /* Card hover effects */
+        .stat-card, .metric-card, .issue-card,
+        .fragment[style*="background"], 
+        div[style*="box-shadow"] {
+            transition: all 0.3s ease !important;
+            cursor: pointer;
+        }
+        
+        .stat-card:hover, .metric-card:hover, .issue-card:hover,
+        .fragment[style*="background"]:hover,
+        div[style*="box-shadow"]:hover {
+            transform: translateY(-5px) !important;
+            box-shadow: 0 25px 70px rgba(0,0,0,0.15) !important;
+        }
+        
+        /* Subtle entrance animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .reveal .slides section.present > * {
+            animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            animation-fill-mode: both;
+        }
+        
+        .reveal .slides section.present > *:nth-child(1) { animation-delay: 0.1s; }
+        .reveal .slides section.present > *:nth-child(2) { animation-delay: 0.2s; }
+        .reveal .slides section.present > *:nth-child(3) { animation-delay: 0.3s; }
+        .reveal .slides section.present > *:nth-child(4) { animation-delay: 0.4s; }
+        .reveal .slides section.present > *:nth-child(5) { animation-delay: 0.5s; }
+        
+        /* Progress indicator styles */
+        .progress-indicator {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            padding: 12px 24px;
+            border-radius: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: var(--bloom-charcoal);
+            transition: all 0.3s ease;
+        }
+        
+        .progress-indicator:hover {
+            transform: translateX(-50%) translateY(-3px);
+            box-shadow: 0 6px 30px rgba(0,0,0,0.15);
+        }
+        
+        .current-slide {
+            color: var(--bloom-coral);
+            font-weight: 700;
+        }
+        
+        /* Image optimization */
+        img {
+            loading: lazy;
+        }
+        
+        /* Focus styles for accessibility */
+        a:focus, button:focus, [tabindex]:focus {
+            outline: 3px solid var(--bloom-coral);
+            outline-offset: 3px;
+        }
+        
+        /* Skip navigation */
+        .skip-nav {
+            position: fixed;
+            top: -100px;
+            left: 20px;
+            z-index: 9999;
+            background: var(--bloom-coral);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: top 0.3s ease;
+        }
+        
+        .skip-nav:focus {
+            top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Excellence: Skip Navigation for Accessibility -->
+    
+    
+    <div class="reveal">
+        <!-- Excellence: Progress Indicator -->
+        
+        
+        <div class="slides">
+            <section data-background-image="../../../shared-assets/images/biff01_Mother_holding_newborn_by_large_window_with_soft_morni_f16d5b33-2dc7-4aa7-86a1-34d018871ed7_3.png"
+                     data-background-size="cover"
+                     data-background-position="center">
+                <div class="hero-scrim"></div>
+                <div style="position: absolute; inset: 0; background: linear-gradient(to right, rgba(26,26,26,0.9) 0%, rgba(26,26,26,0.7) 40%, transparent 70%); z-index: 1;"></div>
+                <div style="position: relative; z-index: 2; min-height: 100vh; display: flex; align-items: center; padding: 0 8%;">
+                    <div style="max-width: 650px;">
+                        <div style="display: inline-block; padding: 0.8rem 2rem; background: rgba(139,154,130,0.2); backdrop-filter: blur(10px); border-radius: 35px; margin-bottom: 2.5rem;">
+                            <p style="color: var(--bloom-sage); font-size: 1.5rem; letter-spacing: 0.15em; text-transform: uppercase; margin: 0; font-weight: 500;">Week 1 · Lesson 1</p>
+                        </div>
+                        <h1 style="font-family: var(--font-display); font-size: clamp(4rem, 8vw, 6rem); font-weight: 300; line-height: 1.05; margin-bottom: 2.5rem; color: white;">
+                            Welcome to Your<br>
+                            <span style="font-weight: 600; font-style: italic;">Fourth Trimester</span>
+                        </h1>
+                        <p style="font-size: 2rem; line-height: 1.6; color: rgba(255,255,255,0.9); margin-bottom: 3rem; font-weight: 300;">
+                            Understanding this profound life transition<br>and setting realistic expectations for recovery
+                        </p>
+                        <div style="display: flex; align-items: center; gap: 2rem;">
+                            <div style="width: 80px; height: 2px; background: var(--bloom-golden);"></div>
+                            <p style="color: rgba(255,255,255,0.8); font-size: 1.5rem; letter-spacing: 0.05em; margin: 0;">Dr. Jana Rundle · Bloom Psychology</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 2: You Belong Here -->
+            <section data-background-color="#FFFFFF">
+                <div class="asymmetric-grid" style="padding: 0 6%; min-height: 100vh;">
+                    <div class="content-panel">
+                        <p class="subtitle-caps" style="color: var(--bloom-sage); margin-bottom: 2rem;">A Message of Hope</p>
+                        <h2 class="display-serif" style="font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.1; margin-bottom: 2rem;">
+                            You Belong <span style="font-style: italic; color: var(--bloom-coral);">Here</span>
+                        </h2>
+                        <div class="elegant-divider" style="background: var(--bloom-coral);"></div>
+                        <p style="font-size: 1.5rem; line-height: 1.7; color: var(--bloom-warm-gray); margin-bottom: 2.5rem;">
+                            If you're watching this, you're already doing something right. You're seeking support, and that takes extraordinary courage.
+                        </p>
+                        <div style="border-left: 3px solid var(--bloom-sage); padding-left: 2rem;">
+                            <p style="font-size: 1.5rem; line-height: 1.8; color: var(--bloom-charcoal); margin: 0;">
+                                My name is Dr. Jana Rundle, and over the next six weeks, I'll be your guide through the fourth trimester—a time of profound change that deserves recognition, understanding, and expert support.
+                            </p>
+                        </div>
+                        
+                        <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(255,249,240,0.5); border-radius: 12px;">
+                            <p style="font-size: 1.5rem; line-height: 1.6; color: var(--bloom-charcoal); margin: 0;">
+                                This course is based on evidence, informed by thousands of mothers' experiences, and designed for real life—not Instagram life. Here's what I promise: No judgment. No 'shoulds.' Just real support for where you are right now.
+                            </p>
+                        </div>
+                        
+                        <!-- Excellence: Peer Voice Integration -->
+                        <div style="margin-top: 2.5rem; background: rgba(139,154,130,0.1); padding: 1.5rem; border-radius: 12px; position: relative;">
+                            <div style="position: absolute; top: -10px; left: 20px; background: white; padding: 0 10px;">
+                                <span style="color: var(--bloom-sage); font-size: 1.5rem; font-weight: 600;">VOICES FROM THE COMMUNITY</span>
+                            </div>
+                            <p style="font-style: italic; color: var(--bloom-charcoal); margin: 0; font-size: 1.5rem; line-height: 1.6;">
+                                "I felt so alone until I found this course. Knowing other mothers felt the same way changed everything for me."
+                            </p>
+                            <cite style="display: block; text-align: right; margin-top: 0.5rem; color: var(--bloom-warm-gray); font-size: 1.5rem;">
+                                — Mother of 2-month-old
+                            </cite>
+                        </div>
+                    </div>
+                    <div class="image-panel" style="position: relative; min-height: 600px; box-shadow: 0 40px 100px rgba(0,0,0,0.15);">
+                        <img src="../../../shared-assets/images/biff01_Woman_recognizing_she_needs_help_while_looking_at_slee_53bf119b-9a43-4f7e-8a5b-eff2727a4beb_0.png" alt="Mother seeking support" style="border-radius: 2px;" loading="eager">
+                        <div style="position: absolute; bottom: -20px; right: -20px; width: 150px; height: 150px; background: var(--bloom-peach); opacity: 0.2; border-radius: 50%;"></div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 3: Cultural Wisdom & The Emotional Journey -->
+            <section data-background-color="#FFF9F0">
+                <div style="padding: 3rem; min-height: 100vh; display: flex; flex-direction: column; justify-content: center;">
+                    <div style="max-width: 1000px; width: 90%; margin: 0 auto;">
+                        <p class="subtitle-caps" style="text-align: center; color: var(--bloom-sage); margin-bottom: 0.5rem; font-size: 1.5rem; letter-spacing: 0.1em;">ANCIENT UNDERSTANDING</p>
+                        <h2 class="display-serif" style="text-align: center; font-size: clamp(2.5rem, 4vw, 3.5rem); margin-bottom: 2.5rem;">Cultural <span style="font-style: italic; color: var(--bloom-coral);">Wisdom</span> & Your Journey</h2>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; width: 100%;">
+                            <div>
+                                <div class="fragment fade-right" style="margin-bottom: 1.5rem; background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.05);">
+                                    <h3 style="color: var(--bloom-coral); margin-bottom: 1rem; font-size: 1.5rem; font-weight: 500;">Sacred Traditions</h3>
+                                    <p style="margin-bottom: 1rem; font-size: 1.5rem; color: #4a4a4a;">Many cultures have always recognized the sacred nature of postpartum:</p>
+                                    <ul style="margin: 0; list-style: none; padding-left: 0; font-size: 1.5rem;">
+                                        <li style="margin-bottom: 0.6rem;"><span style="color: var(--bloom-coral); font-weight: 600;">China:</span> <span style="color: #5a5a5a;">"Sitting the month" - protected healing time</span></li>
+                                        <li style="margin-bottom: 0.6rem;"><span style="color: var(--bloom-sky); font-weight: 600;">Latin America:</span> <span style="color: #5a5a5a;">"La cuarentena" - 90 days of care</span></li>
+                                        <li><span style="color: var(--bloom-lavender); font-weight: 600;">India:</span> <span style="color: #5a5a5a;">Confinement period with family support</span></li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="fragment fade-right" style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.05);">
+                                    <h3 style="color: var(--bloom-sage); margin-bottom: 1rem; font-size: 1.5rem; font-weight: 500;">Modern Truth</h3>
+                                    <p style="font-size: 1.5rem; color: #4a4a4a; line-height: 1.6;">These aren't outdated traditions. They're wisdom we've lost in our rush to "bounce back."</p>
+                                    <p style="margin-top: 1rem; font-weight: 500; color: var(--bloom-coral); font-size: 1.5rem; line-height: 1.5;">Your body is healing. Your brain is rewiring. Your identity is shifting. This takes time, and that time is sacred, not selfish.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="fragment fade-left" style="position: relative;">
+                                <img src="../../../shared-assets/images/biff01_Warm_circle_of_diverse_mothers_supporting_each_other_i_8bae413b-4693-4c2a-9e8d-323482f0085a_0.png" alt="Diverse mothers supporting each other" style="width: 100%; height: auto; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);" loading="eager">
+                                <div style="margin-top: 0.8rem; background: white; padding: 1.2rem; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.05);">
+                                    <div class="elegant-divider" style="margin: 0 auto 0.6rem; background: var(--bloom-sage); width: 60px; height: 3px; border-radius: 2px;"></div>
+                                    <h4 style="text-align: center; color: var(--bloom-coral); margin: 0 0 0.6rem 0; font-size: 1.6rem; font-weight: 600;">The Emotional Journey</h4>
+                                    <p style="font-size: 1.4rem; text-align: center; color: var(--bloom-sage); margin: 0 0 0.8rem 0; line-height: 1.4; font-style: italic; font-weight: 500;">
+                                        "The emotional journey isn't a straight line—it's waves.<br/> Some days you'll feel capable and connected.<br/> Others, you'll wonder if you'll ever feel like yourself again.<br/> Both are part of the process."</p>
+                                    <div style="margin-top: 1rem; padding-top: 1rem; border-top: 2px solid rgba(139,154,130,0.2);">
+                                        <p style="font-size: 1.3rem; color: var(--bloom-charcoal); margin: 0; line-height: 1.4;">
+                                            <strong style="color: var(--bloom-coral);">Remember:</strong> Teenagers get years to adjust to their hormonal changes. You're experiencing more extreme shifts in just days. Let's extend ourselves the same grace we give to moody, exhausted teenagers.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 4: What Makes This Unique -->
+            <section data-background-color="#FDFCFB">
+                <div style="position: relative; z-index: 2; padding: 2rem; min-height: 100vh; display: flex; flex-direction: column; justify-content: center;">
+                    <div class="container" style="width: 100%; max-width: 900px; margin: 0 auto;">
+                        <p class="subtitle-caps" style="text-align: center; color: var(--bloom-sage); margin-bottom: 0.5rem; font-size: 1.5rem; letter-spacing: 0.1em;">UNDERSTANDING YOUR EXPERIENCE</p>
+                        <h2 class="section-title display-serif" style="margin-bottom: 3rem; font-size: clamp(2.5rem, 5vw, 3.5rem); text-align: center; color: var(--bloom-charcoal);">What Makes This <span style="font-style: italic; color: var(--bloom-coral);">Unique</span></h2>
+                        
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; width: 100%; margin: 0 auto;">
+                            <!-- Brain Changes Card -->
+                            <div class="fragment fade-up" style="position: relative; background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.06); border: 1px solid rgba(255,107,107,0.1); transition: all 0.3s ease; cursor: pointer;"
+                                 onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 20px rgba(0,0,0,0.08)'"
+                                 onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 8px rgba(0,0,0,0.06)'">
+                                <div style="position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--bloom-coral); border-radius: 12px 0 0 12px;"></div>
+                                <div style="display: flex; align-items: flex-start; gap: 1.5rem;">
+                                    <div style="width: 80px; height: 80px; border-radius: 12px; overflow: hidden; flex-shrink: 0; position: relative;">
+                                        <img src="../../../shared-assets/images/biff01_Abstract_warm_visualization_of_brain_with_gentle_flowi_97896f3f-ec59-4429-8004-ae4f5d7c6a34_1.png" alt="Brain changes" style="width: 100%; height: 100%; object-fit: cover;">
+                                        <div style="position: absolute; inset: 0; background: rgba(255,107,107,0.2);"></div>
+                                    </div>
+                                    <div style="flex: 1;">
+                                        <h3 style="color: var(--bloom-charcoal); font-size: 1.6rem; margin-bottom: 0.5rem; font-weight: 600; line-height: 1.2;">Your Brain is Changing</h3>
+                                        <p style="color: #5a5a5a; font-size: 1.4rem; line-height: 1.5; margin: 0;">Adapting to read your baby's needs—this is strength, not weakness</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Sleep Card -->
+                            <div class="fragment fade-up" style="position: relative; background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.06); border: 1px solid rgba(116,192,252,0.1); transition: all 0.3s ease; cursor: pointer; animation-delay: 0.1s;"
+                                 onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 20px rgba(0,0,0,0.08)'"
+                                 onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 8px rgba(0,0,0,0.06)'">
+                                <div style="position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--bloom-sky); border-radius: 12px 0 0 12px;"></div>
+                                <div style="display: flex; align-items: flex-start; gap: 1.5rem;">
+                                    <div style="width: 80px; height: 80px; border-radius: 12px; overflow: hidden; flex-shrink: 0; position: relative;">
+                                        <img src="../../../shared-assets/images/dark/darkphotos/biff01_Wide_shot_of_exhausted_mother_in_messy_living_room_bab_3bc12dbb-f080-4be3-9cd9-0c8e54ba2397_2.png" alt="Sleep changes" style="width: 100%; height: 100%; object-fit: cover;">
+                                        <div style="position: absolute; inset: 0; background: rgba(116,192,252,0.2);"></div>
+                                    </div>
+                                    <div style="flex: 1;">
+                                        <h3 style="color: var(--bloom-charcoal); font-size: 1.6rem; margin-bottom: 0.5rem; font-weight: 600; line-height: 1.2;">Sleep Changes Everything</h3>
+                                        <p style="color: #5a5a5a; font-size: 1.4rem; line-height: 1.5; margin: 0;">Disrupted sleep affects mood, memory, and patience—it's biology, not failure</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Physical Recovery Card -->
+                            <div class="fragment fade-up" style="position: relative; background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.06); border: 1px solid rgba(197,137,232,0.1); transition: all 0.3s ease; cursor: pointer; animation-delay: 0.2s;"
+                                 onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 20px rgba(0,0,0,0.08)'"
+                                 onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 8px rgba(0,0,0,0.06)'">
+                                <div style="position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--bloom-lavender); border-radius: 12px 0 0 12px;"></div>
+                                <div style="display: flex; align-items: flex-start; gap: 1.5rem;">
+                                    <div style="width: 80px; height: 80px; border-radius: 12px; overflow: hidden; flex-shrink: 0; position: relative;">
+                                        <img src="../../../shared-assets/images/week-2-images/biff01_Woman_showing_physical_tension_in_shoulders_and_face_t_ce3166a0-55ad-4722-810e-a25f83d442c0_0.png" alt="Physical recovery" style="width: 100%; height: 100%; object-fit: cover;">
+                                        <div style="position: absolute; inset: 0; background: rgba(197,137,232,0.2);"></div>
+                                    </div>
+                                    <div style="flex: 1;">
+                                        <h3 style="color: var(--bloom-charcoal); font-size: 1.6rem; margin-bottom: 0.5rem; font-weight: 600; line-height: 1.2;">Physical Recovery</h3>
+                                        <p style="color: #5a5a5a; font-size: 1.4rem; line-height: 1.5; margin: 0;">You operated at elite athlete levels for 9 months—recovery takes 12-18 months</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Identity Card -->
+                            <div class="fragment fade-up" style="position: relative; background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.06); border: 1px solid rgba(255,203,119,0.1); transition: all 0.3s ease; cursor: pointer; animation-delay: 0.3s;"
+                                 onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 20px rgba(0,0,0,0.08)'"
+                                 onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 8px rgba(0,0,0,0.06)'">
+                                <div style="position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--bloom-golden); border-radius: 12px 0 0 12px;"></div>
+                                <div style="display: flex; align-items: flex-start; gap: 1.5rem;">
+                                    <div style="width: 80px; height: 80px; border-radius: 12px; overflow: hidden; flex-shrink: 0; position: relative;">
+                                        <img src="../../../shared-assets/images/biff01_Woman_looking_at_postpartum_body_in_mirror_with_compas_9ea51443-1c57-485d-ab4d-54e68d06d702_0.png" alt="Identity shifts" style="width: 100%; height: 100%; object-fit: cover;">
+                                        <div style="position: absolute; inset: 0; background: rgba(255,203,119,0.2);"></div>
+                                    </div>
+                                    <div style="flex: 1;">
+                                        <h3 style="color: var(--bloom-charcoal); font-size: 1.6rem; margin-bottom: 0.5rem; font-weight: 600; line-height: 1.2;">Identity Shifts</h3>
+                                        <p style="color: #5a5a5a; font-size: 1.4rem; line-height: 1.5; margin: 0;">"Matrescence"—more extreme than adolescence, but in days not years</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- NEW Slide: Athletic Endurance Comparison -->
+            <section data-background-color="#FFFFFF">
+                <div class="asymmetric-grid" style="padding: 0 6%; min-height: 100vh;">
+                    <div class="content-panel">
+                        <p class="subtitle-caps" style="color: var(--bloom-sage); margin-bottom: 2rem;">The Science of Your Strength</p>
+                        <h2 class="display-serif" style="font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.1; margin-bottom: 2rem;">
+                            You Are Literally <span style="font-style: italic; color: var(--bloom-coral);">Stronger</span> Than You Know
+                        </h2>
+                        <div class="elegant-divider" style="background: var(--bloom-coral);"></div>
+                        
+                        <div style="background: rgba(255,249,240,0.8); padding: 2rem; border-radius: 12px; margin-bottom: 2rem;">
+                            <p style="font-size: 1.6rem; line-height: 1.7; color: var(--bloom-charcoal); margin-bottom: 1.5rem;">
+                                Research on elite athletes found the maximum sustainable energy expenditure for the human body is <strong style="color: var(--bloom-coral);">2.5x</strong> the resting metabolic rate.
+                            </p>
+                            <p style="font-size: 1.8rem; line-height: 1.6; color: var(--bloom-coral); font-weight: 600; margin: 0;">
+                                Pregnant women operate at <span style="font-size: 2.2rem;">2.2x</span> their resting rate—for 270 days straight.
+                            </p>
+                        </div>
+                        
+                        <div class="fragment" style="display: grid; gap: 1rem; margin-top: 2rem;">
+                            <div style="display: flex; align-items: center; gap: 1.5rem; padding: 1.5rem; background: white; border-left: 4px solid var(--bloom-coral); border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+                                <span style="font-size: 2.5rem;">🚴</span>
+                                <div>
+                                    <h4 style="color: var(--bloom-charcoal); margin: 0 0 0.3rem 0; font-size: 1.5rem;">Tour de France Athletes</h4>
+                                    <p style="color: var(--bloom-warm-gray); margin: 0; font-size: 1.4rem;">23 days of extreme cycling</p>
+                                </div>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 1.5rem; padding: 1.5rem; background: white; border-left: 4px solid var(--bloom-sky); border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+                                <span style="font-size: 2.5rem;">🏃</span>
+                                <div>
+                                    <h4 style="color: var(--bloom-charcoal); margin: 0 0 0.3rem 0; font-size: 1.5rem;">Ultra-Marathon Runners</h4>
+                                    <p style="color: var(--bloom-warm-gray); margin: 0; font-size: 1.4rem;">3,000 miles over months</p>
+                                </div>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 1.5rem; padding: 1.5rem; background: rgba(255,107,107,0.1); border-left: 4px solid var(--bloom-coral); border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+                                <span style="font-size: 2.5rem;">🤰</span>
+                                <div>
+                                    <h4 style="color: var(--bloom-coral); margin: 0 0 0.3rem 0; font-size: 1.5rem; font-weight: 600;">You During Pregnancy</h4>
+                                    <p style="color: var(--bloom-charcoal); margin: 0; font-size: 1.4rem; font-weight: 500;">270 days at the limit of human endurance</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="fragment" style="margin-top: 2rem; padding: 1.5rem; background: rgba(139,154,130,0.1); border-radius: 12px;">
+                            <p style="font-size: 1.6rem; line-height: 1.6; color: var(--bloom-charcoal); margin: 0; text-align: center; font-style: italic;">
+                                "Full recovery takes 12-18 months. This isn't weakness—it's biology acknowledging what you've accomplished."
+                            </p>
+                        </div>
+                    </div>
+                    <div class="image-panel" style="position: relative; min-height: 600px;">
+                        <img src="../../../shared-assets/images/biff01_Abstract_warm_visualization_of_brain_with_gentle_flowi_97896f3f-ec59-4429-8004-ae4f5d7c6a34_1.png" alt="Strength visualization" style="border-radius: 2px;" loading="eager">
+                        <div style="position: absolute; bottom: -30px; left: -30px; width: 200px; height: 200px; background: var(--bloom-golden); opacity: 0.15; border-radius: 50%;"></div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- NEW Slide: Social Media Reality Check -->
+            <section data-background-color="#FFF9F0">
+                <div style="padding: 3rem; min-height: 100vh; display: flex; flex-direction: column; justify-content: center;">
+                    <div style="max-width: 1200px; width: 100%; margin: 0 auto;">
+                        <p class="subtitle-caps" style="text-align: center; color: var(--bloom-sage); margin-bottom: 0.5rem; font-size: 1.5rem; letter-spacing: 0.1em;">REALITY CHECK</p>
+                        <h2 class="display-serif" style="text-align: center; font-size: clamp(2.5rem, 4vw, 3.5rem); margin-bottom: 3rem;">Let's Talk About <span style="font-style: italic; color: var(--bloom-coral);">"Bouncing Back"</span></h2>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;">
+                            <div>
+                                <div class="fragment fade-right" style="margin-bottom: 2rem; background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); border: 2px solid rgba(255,107,107,0.1);">
+                                    <h3 style="color: var(--bloom-coral); margin-bottom: 1rem; font-size: 1.8rem; font-weight: 600;">What Social Media Shows:</h3>
+                                    <ul style="list-style: none; padding: 0; margin: 0;">
+                                        <li style="margin-bottom: 0.8rem; font-size: 1.5rem; color: var(--bloom-warm-gray);">✨ "Back in pre-pregnancy jeans at 6 weeks!"</li>
+                                        <li style="margin-bottom: 0.8rem; font-size: 1.5rem; color: var(--bloom-warm-gray);">✨ Perfect nursery, perfect baby, perfect mom</li>
+                                        <li style="margin-bottom: 0.8rem; font-size: 1.5rem; color: var(--bloom-warm-gray);">✨ "I've never been happier!"</li>
+                                        <li style="font-size: 1.5rem; color: var(--bloom-warm-gray);">✨ Glowing skin, styled hair, clean house</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="fragment fade-right" style="background: rgba(139,154,130,0.1); padding: 2rem; border-radius: 12px; border: 2px solid var(--bloom-sage);">
+                                    <h3 style="color: var(--bloom-sage); margin-bottom: 1rem; font-size: 1.8rem; font-weight: 600;">The Truth:</h3>
+                                    <ul style="list-style: none; padding: 0; margin: 0;">
+                                        <li style="margin-bottom: 0.8rem; font-size: 1.5rem; color: var(--bloom-charcoal);">💚 Recovery isn't linear - good days and hard days</li>
+                                        <li style="margin-bottom: 0.8rem; font-size: 1.5rem; color: var(--bloom-charcoal);">💚 Bonding takes time - it's not always instant</li>
+                                        <li style="margin-bottom: 0.8rem; font-size: 1.5rem; color: var(--bloom-charcoal);">💚 Progress looks different for everyone</li>
+                                        <li style="font-size: 1.5rem; color: var(--bloom-charcoal);">💚 Surviving another day IS success</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="fragment fade-left">
+                                <img src="../../../shared-assets/images/biff01_Woman_recognizing_she_needs_help_while_looking_at_slee_53bf119b-9a43-4f7e-8a5b-eff2727a4beb_0.png" alt="Real motherhood" style="width: 100%; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.15);">
+                                
+                                <div style="margin-top: 2rem; text-align: center; background: linear-gradient(135deg, rgba(255,107,107,0.1), rgba(255,249,240,0.8)); padding: 2.5rem; border-radius: 16px; box-shadow: 0 15px 40px rgba(0,0,0,0.1); border: 2px solid var(--bloom-coral);">
+                                    <p class="pullquote" style="font-size: 2.2rem; padding-left: 0; margin: 0; font-weight: 600;">
+                                        "You're not a rubber band.<br/>
+                                        <span style="color: var(--bloom-coral); font-weight: 700; font-size: 2.5rem;">You're transforming.</span>"
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="fragment" style="margin-top: 3rem; text-align: center; background: rgba(255,107,107,0.05); padding: 2.5rem; border-radius: 20px; border: 2px solid rgba(255,107,107,0.2);">
+                            <p style="font-size: 1.8rem; line-height: 1.6; color: var(--bloom-charcoal); margin: 0;">
+                                <strong>Remember:</strong> Progress might be taking a shower. Asking for help. Making it through another day.<br/>
+                                <span style="color: var(--bloom-coral); font-weight: 600; font-size: 2rem;">All of that counts.</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 5: This Is NOT -->
+            <section data-background-image="../../../shared-assets/images/dark/darkphotos/biff01_Woman_first_recognizing_she_needs_help_sitting_alone_i_2f1b0637-ac4b-4883-a85b-6df7467e0631_1.png"
+                     data-background-size="cover"
+                     data-background-position="center">
+                <div class="hero-scrim"></div>
+                <div style="position: absolute; inset: 0; background: rgba(26,26,26,0.85); z-index: 1;"></div>
+                <div style="position: relative; z-index: 2; padding: 2rem; min-height: 100vh; display: flex; flex-direction: column; justify-content: center;">
+                    <div class="container" style="width: 95%; margin: 0 auto;">
+                        <h2 class="display-serif" style="color: white; margin-bottom: 2rem; text-align: center; font-size: clamp(2.5rem, 4vw, 3.5rem);">
+                            This is <span style="color: var(--bloom-rose); font-style: italic;">NOT</span>
+                        </h2>
+                        
+                        <div style="display: grid; gap: 1.5rem; width: 90%; margin: 0 auto;">
+                            <div class="fragment" style="display: flex; align-items: center; background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); padding: 2rem; border-radius: 12px; border-left: 5px solid var(--bloom-coral);">
+                                <div style="width: 5px; height: 50px; background: var(--bloom-coral); margin-right: 2rem; flex-shrink: 0;"></div>
+                                <div>
+                                    <h3 style="color: var(--bloom-coral); font-size: 1.6rem; margin-bottom: 0.4rem; font-weight: 600;">About "Bouncing Back"</h3>
+                                    <p style="color: rgba(255,255,255,0.9); font-size: 1.5rem; margin: 0; line-height: 1.3;">You're not a rubber band. You're transforming.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="fragment" style="display: flex; align-items: center; background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); padding: 2rem; border-radius: 12px; border-left: 5px solid var(--bloom-sky);">
+                                <div style="width: 5px; height: 50px; background: var(--bloom-sky); margin-right: 2rem; flex-shrink: 0;"></div>
+                                <div>
+                                    <h3 style="color: var(--bloom-sky); font-size: 1.6rem; margin-bottom: 0.4rem; font-weight: 600;">About Perfection</h3>
+                                    <p style="color: rgba(255,255,255,0.9); font-size: 1.5rem; margin: 0; line-height: 1.3;">There's no prize for doing this alone.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="fragment" style="display: flex; align-items: center; background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); padding: 2rem; border-radius: 12px; border-left: 5px solid var(--bloom-lavender);">
+                                <div style="width: 5px; height: 50px; background: var(--bloom-lavender); margin-right: 2rem; flex-shrink: 0;"></div>
+                                <div>
+                                    <h3 style="color: var(--bloom-lavender); font-size: 1.6rem; margin-bottom: 0.4rem; font-weight: 600;">About Comparison</h3>
+                                    <p style="color: rgba(255,255,255,0.9); font-size: 1.5rem; margin: 0; line-height: 1.3;">Your journey is uniquely yours.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="fragment" style="display: flex; align-items: center; background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); padding: 2rem; border-radius: 12px; border-left: 5px solid var(--bloom-golden);">
+                                <div style="width: 5px; height: 50px; background: var(--bloom-golden); margin-right: 2rem; flex-shrink: 0;"></div>
+                                <div>
+                                    <h3 style="color: var(--bloom-golden); font-size: 1.6rem; margin-bottom: 0.4rem; font-weight: 600;">About Judgment</h3>
+                                    <p style="color: rgba(255,255,255,0.9); font-size: 1.5rem; margin: 0; line-height: 1.3;">Whatever you're feeling is valid. Full stop.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 6: The Timeline -->
+            <section data-background-image="../../../shared-assets/images/biff01_Three_panel_progression_same_mother_at_1_week_exhauste_9fd173a0-8cfa-4acd-8742-27f1bd0549f2_1.png"
+                     data-background-size="cover"
+                     data-background-position="center">
+                <div class="hero-scrim"></div>
+                <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(255,249,240,0.92) 0%, rgba(255,249,240,0.88) 100%); z-index: 1;"></div>
+                <div style="position: relative; z-index: 2; padding: 3rem 2rem; min-height: 100vh; display: flex; flex-direction: column; justify-content: center;">
+                    <div class="container" style="width: 100%; max-width: 1400px; margin: 0 auto;">
+                        <p class="subtitle-caps" style="text-align: center; color: var(--bloom-sage); margin-bottom: 0.5rem; font-size: 1.5rem; letter-spacing: 0.2em;">YOUR COURSE JOURNEY</p>
+                        <h2 class="display-serif" style="text-align: center; font-size: clamp(3rem, 5vw, 4.5rem); margin-bottom: 3.5rem;">Your 6-Week <span style="font-style: italic; color: var(--bloom-coral);">Journey</span></h2>
+                        
+                        <div style="display: flex; gap: 1rem; width: 100%; margin: 0 auto; overflow-x: auto; padding-bottom: 1rem;">
+                            <div class="fragment fade-up" style="text-align: center; background: white; padding: 1.5rem 1rem; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.08); position: relative; transition: all 0.3s ease; flex: 0 0 180px;"
+                                 onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 25px 70px rgba(0,0,0,0.12)'"
+                                 onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 20px 60px rgba(0,0,0,0.08)'">
+                                <div style="position: absolute; top: 0; left: 0; right: 0; height: 5px; background: var(--bloom-coral); border-radius: 20px 20px 0 0;"></div>
+                                <div style="width: 60px; height: 60px; background: var(--bloom-coral); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 0.8rem; box-shadow: 0 10px 30px rgba(255,107,107,0.25);">
+                                    <span class="display-serif" style="font-size: 1.8rem; font-weight: 600;">1</span>
+                                </div>
+                                <p class="subtitle-caps" style="color: var(--bloom-coral); margin-bottom: 0.5rem; font-size: 1.5rem; font-weight: 600;">WEEK 1</p>
+                                <h3 style="color: var(--bloom-charcoal); font-size: 1.4rem; margin-bottom: 0.5rem; font-weight: 600;">Foundation</h3>
+                                <p style="color: var(--bloom-warm-gray); font-size: 1.2rem; line-height: 1.4; margin: 0;">Understanding what's normal</p>
+                            </div>
+                            
+                            <div class="fragment fade-up" style="text-align: center; background: white; padding: 1.5rem 1rem; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.08); position: relative; transition: all 0.3s ease; flex: 0 0 180px; animation-delay: 0.1s;"
+                                 onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 25px 70px rgba(0,0,0,0.12)'"
+                                 onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 20px 60px rgba(0,0,0,0.08)'">
+                                <div style="position: absolute; top: 0; left: 0; right: 0; height: 5px; background: var(--bloom-peach); border-radius: 20px 20px 0 0;"></div>
+                                <div style="width: 60px; height: 60px; background: var(--bloom-peach); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.2rem; box-shadow: 0 15px 40px rgba(255,180,162,0.25);">
+                                    <span class="display-serif" style="font-size: 1.8rem; font-weight: 600;">2</span>
+                                </div>
+                                <p class="subtitle-caps" style="color: var(--bloom-peach); margin-bottom: 0.5rem; font-size: 1.5rem; font-weight: 600;">WEEK 2</p>
+                                <h3 style="color: var(--bloom-charcoal); font-size: 1.4rem; margin-bottom: 0.5rem; font-weight: 600;">Self-Compassion</h3>
+                                <p style="color: var(--bloom-warm-gray); font-size: 1.5rem; line-height: 1.6; margin: 0;">Building your personal coping toolkit</p>
+                            </div>
+                            
+                            <div class="fragment fade-up" style="text-align: center; background: white; padding: 1.5rem 1rem; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.08); position: relative; transition: all 0.3s ease; flex: 0 0 180px; animation-delay: 0.2s;"
+                                 onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 25px 70px rgba(0,0,0,0.12)'"
+                                 onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 20px 60px rgba(0,0,0,0.08)'">
+                                <div style="position: absolute; top: 0; left: 0; right: 0; height: 5px; background: var(--bloom-sky); border-radius: 20px 20px 0 0;"></div>
+                                <div style="width: 60px; height: 60px; background: var(--bloom-sky); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.2rem; box-shadow: 0 15px 40px rgba(116,192,252,0.25);">
+                                    <span class="display-serif" style="font-size: 1.8rem; font-weight: 600;">3</span>
+                                </div>
+                                <p class="subtitle-caps" style="color: var(--bloom-sky); margin-bottom: 0.5rem; font-size: 1.5rem; font-weight: 600;">WEEK 3</p>
+                                <h3 style="color: var(--bloom-charcoal); font-size: 1.4rem; margin-bottom: 0.5rem; font-weight: 600;">Communication</h3>
+                                <p style="color: var(--bloom-warm-gray); font-size: 1.5rem; line-height: 1.6; margin: 0;">Building the support you need</p>
+                            </div>
+                            
+                            <div class="fragment fade-up" style="text-align: center; background: white; padding: 1.5rem 1rem; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.08); position: relative; transition: all 0.3s ease; flex: 0 0 180px; animation-delay: 0.3s;"
+                                 onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 25px 70px rgba(0,0,0,0.12)'"
+                                 onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 20px 60px rgba(0,0,0,0.08)'">
+                                <div style="position: absolute; top: 0; left: 0; right: 0; height: 5px; background: var(--bloom-mint); border-radius: 20px 20px 0 0;"></div>
+                                <div style="width: 60px; height: 60px; background: var(--bloom-mint); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.2rem; box-shadow: 0 15px 40px rgba(149,225,211,0.25);">
+                                    <span class="display-serif" style="font-size: 1.8rem; font-weight: 600;">4</span>
+                                </div>
+                                <p class="subtitle-caps" style="color: var(--bloom-mint); margin-bottom: 0.5rem; font-size: 1.5rem; font-weight: 600;">WEEK 4</p>
+                                <h3 style="color: var(--bloom-charcoal); font-size: 1.4rem; margin-bottom: 0.5rem; font-weight: 600;">Managing Anxiety</h3>
+                                <p style="color: var(--bloom-warm-gray); font-size: 1.5rem; line-height: 1.6; margin: 0;">Practical tools for overwhelm</p>
+                            </div>
+                            
+                            <div class="fragment fade-up" style="text-align: center; background: white; padding: 1.5rem 1rem; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.08); position: relative; transition: all 0.3s ease; flex: 0 0 180px; animation-delay: 0.4s;"
+                                 onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 25px 70px rgba(0,0,0,0.12)'"
+                                 onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 20px 60px rgba(0,0,0,0.08)'">
+                                <div style="position: absolute; top: 0; left: 0; right: 0; height: 5px; background: var(--bloom-lavender); border-radius: 20px 20px 0 0;"></div>
+                                <div style="width: 60px; height: 60px; background: var(--bloom-lavender); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.2rem; box-shadow: 0 15px 40px rgba(197,137,232,0.25);">
+                                    <span class="display-serif" style="font-size: 1.8rem; font-weight: 600;">5</span>
+                                </div>
+                                <p class="subtitle-caps" style="color: var(--bloom-lavender); margin-bottom: 0.5rem; font-size: 1.5rem; font-weight: 600;">WEEK 5</p>
+                                <h3 style="color: var(--bloom-charcoal); font-size: 1.4rem; margin-bottom: 0.5rem; font-weight: 600;">Identity</h3>
+                                <p style="color: var(--bloom-warm-gray); font-size: 1.5rem; line-height: 1.6; margin: 0;">Exploring the shifts of motherhood</p>
+                            </div>
+                            
+                            <div class="fragment fade-up" style="text-align: center; background: white; padding: 1.5rem 1rem; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.08); position: relative; transition: all 0.3s ease; flex: 0 0 180px; animation-delay: 0.5s;"
+                                 onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 25px 70px rgba(0,0,0,0.12)'"
+                                 onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 20px 60px rgba(0,0,0,0.08)'">
+                                <div style="position: absolute; top: 0; left: 0; right: 0; height: 5px; background: var(--bloom-golden); border-radius: 20px 20px 0 0;"></div>
+                                <div style="width: 60px; height: 60px; background: var(--bloom-golden); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.2rem; box-shadow: 0 15px 40px rgba(255,203,119,0.25);">
+                                    <span class="display-serif" style="font-size: 1.8rem; font-weight: 600;">6</span>
+                                </div>
+                                <p class="subtitle-caps" style="color: var(--bloom-golden); margin-bottom: 0.5rem; font-size: 1.5rem; font-weight: 600;">WEEK 6</p>
+                                <h3 style="color: var(--bloom-charcoal); font-size: 1.4rem; margin-bottom: 0.5rem; font-weight: 600;">Sustainable Wellness</h3>
+                                <p style="color: var(--bloom-warm-gray); font-size: 1.5rem; line-height: 1.6; margin: 0;">Creating your ongoing plan</p>
+                            </div>
+                        </div>
+                        
+                        <div class="fragment" style="text-align: center; margin-top: 3.5rem; background: linear-gradient(135deg, rgba(255,249,240,0.9), rgba(255,255,255,0.9)); padding: 3rem 3.5rem; border-radius: 20px; box-shadow: 0 15px 50px rgba(0,0,0,0.08); width: 90%; max-width: 900px; margin-left: auto; margin-right: auto; border: 1px solid rgba(139,154,130,0.15);">
+                            <div class="elegant-divider" style="margin: 0 auto 1.5rem; background: var(--bloom-sage); width: 100px; height: 4px; border-radius: 2px;"></div>
+                            <p class="pullquote" style="padding-left: 0; font-size: clamp(1.8rem, 2.5vw, 2.2rem); line-height: 1.6; margin: 0; font-weight: 500; color: var(--bloom-charcoal);">
+                                <span style="color: var(--bloom-coral); font-weight: 600; font-size: 1.1em;">This isn't school.</span><br>
+                                There's no falling behind. Go at your own pace.<br>
+                                Skip to what you need most.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 7: When to Seek Help - Your Path Forward -->
+            <section data-background-color="#FFFFFF">
+                <div style="position: relative; z-index: 2; padding: 3rem 2rem; min-height: 100vh; display: flex; flex-direction: column; justify-content: center;">
+                    <div class="container" style="width: 95%; margin: 0 auto;">
+                        <p class="subtitle-caps" style="text-align: center; color: var(--bloom-sage); margin-bottom: 0.5rem; font-size: 1.5rem;">When to Seek Professional Support</p>
+                        <h2 class="display-serif" style="text-align: center; font-size: clamp(2.5rem, 4vw, 3.5rem); margin-bottom: 2.5rem; color: var(--bloom-charcoal);">Your Path <span style="font-style: italic; color: var(--bloom-coral);">Forward</span></h2>
+                        
+                        <!-- Two Column Layout -->
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-bottom: 2rem;">
+                            <!-- Left Column - Urgent Signs -->
+                            <div class="fragment fade-right" style="background: white; border: 2px solid rgba(255,107,107,0.2); border-radius: 20px; padding: 2.5rem; box-shadow: 0 5px 20px rgba(0,0,0,0.05); position: relative;">
+                                <div style="display: flex; align-items: center; margin-bottom: 1.5rem;">
+                                    <div style="width: 60px; height: 60px; background: rgba(255,107,107,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 1.5rem;">
+                                        <span style="font-size: 2rem;">🚨</span>
+                                    </div>
+                                    <h3 style="margin: 0; color: var(--bloom-coral); font-size: 1.8rem; font-weight: 600;">Urgent Signs</h3>
+                                </div>
+                                <div style="space-y: 1rem;">
+                                    <p style="margin: 0 0 1rem 0; padding-left: 1.5rem; font-size: 1.5rem; color: var(--bloom-charcoal); line-height: 1.6;">• Thoughts of harming yourself or baby</p>
+                                    <p style="margin: 0 0 1rem 0; padding-left: 1.5rem; font-size: 1.5rem; color: var(--bloom-charcoal); line-height: 1.6;">• Feeling disconnected from reality</p>
+                                    <p style="margin: 0; padding-left: 1.5rem; font-size: 1.5rem; color: var(--bloom-charcoal); line-height: 1.6;">• Severe panic attacks</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Right Column - Important Signals -->
+                            <div class="fragment fade-right" style="background: white; border: 2px solid rgba(116,192,252,0.2); border-radius: 20px; padding: 2.5rem; box-shadow: 0 5px 20px rgba(0,0,0,0.05); position: relative;">
+                                <div style="display: flex; align-items: center; margin-bottom: 1.5rem;">
+                                    <div style="width: 60px; height: 60px; background: rgba(116,192,252,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 1.5rem;">
+                                        <span style="font-size: 2rem;">⚠️</span>
+                                    </div>
+                                    <h3 style="margin: 0; color: var(--bloom-sky); font-size: 1.8rem; font-weight: 600;">Important Signals</h3>
+                                </div>
+                                <div style="space-y: 1rem;">
+                                    <p style="margin: 0 0 1rem 0; padding-left: 1.5rem; font-size: 1.5rem; color: var(--bloom-charcoal); line-height: 1.6;">• Can't sleep when you have the chance</p>
+                                    <p style="margin: 0 0 1rem 0; padding-left: 1.5rem; font-size: 1.5rem; color: var(--bloom-charcoal); line-height: 1.6;">• Persistent sadness over 2 weeks</p>
+                                    <p style="margin: 0; padding-left: 1.5rem; font-size: 1.5rem; color: var(--bloom-charcoal); line-height: 1.6;">• Overwhelming anxiety</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Support Options Grid -->
+                        <div class="fragment fade-up" style="margin-top: 3rem;">
+                            <h4 style="text-align: center; color: var(--bloom-charcoal); margin-bottom: 2rem; font-size: 1.8rem; font-weight: 600;">Your Support Options</h4>
+                            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; width: 100%; margin: 0 auto;">
+                                <div style="background: white; border: 2px solid var(--bloom-coral); border-radius: 20px; padding: 2rem 1.5rem; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 25px rgba(0,0,0,0.1)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 5px 15px rgba(0,0,0,0.05)'">
+                                    <div style="width: 60px; height: 60px; background: rgba(255,107,107,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
+                                        <span style="font-size: 2rem;">🗣️</span>
+                                    </div>
+                                    <h5 style="color: var(--bloom-coral); margin: 0 0 0.5rem 0; font-size: 1.5rem; font-weight: 600;">Therapy</h5>
+                                    <p style="font-size: 1.3rem; color: var(--bloom-warm-gray); margin: 0;">Individual support</p>
+                                </div>
+                                <div style="background: white; border: 2px solid var(--bloom-sky); border-radius: 20px; padding: 2rem 1.5rem; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 25px rgba(0,0,0,0.1)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 5px 15px rgba(0,0,0,0.05)'">
+                                    <div style="width: 60px; height: 60px; background: rgba(116,192,252,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
+                                        <span style="font-size: 2rem;">💊</span>
+                                    </div>
+                                    <h5 style="color: var(--bloom-sky); margin: 0 0 0.5rem 0; font-size: 1.5rem; font-weight: 600;">Medication</h5>
+                                    <p style="font-size: 1.3rem; color: var(--bloom-warm-gray); margin: 0;">Medical care</p>
+                                </div>
+                                <div style="background: white; border: 2px solid var(--bloom-lavender); border-radius: 20px; padding: 2rem 1.5rem; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 25px rgba(0,0,0,0.1)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 5px 15px rgba(0,0,0,0.05)'">
+                                    <div style="width: 60px; height: 60px; background: rgba(197,137,232,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
+                                        <span style="font-size: 2rem;">🤝</span>
+                                    </div>
+                                    <h5 style="color: var(--bloom-lavender); margin: 0 0 0.5rem 0; font-size: 1.5rem; font-weight: 600;">Support Groups</h5>
+                                    <p style="font-size: 1.3rem; color: var(--bloom-warm-gray); margin: 0;">Community care</p>
+                                </div>
+                                <div style="background: white; border: 2px solid var(--bloom-golden); border-radius: 20px; padding: 2rem 1.5rem; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 25px rgba(0,0,0,0.1)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 5px 15px rgba(0,0,0,0.05)'">
+                                    <div style="width: 60px; height: 60px; background: rgba(255,203,119,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
+                                        <span style="font-size: 2rem;">📞</span>
+                                    </div>
+                                    <h5 style="color: var(--bloom-golden); margin: 0 0 0.5rem 0; font-size: 1.5rem; font-weight: 600;">Crisis Lines</h5>
+                                    <p style="font-size: 1.3rem; color: var(--bloom-warm-gray); margin: 0;">24/7 support</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Bottom Message -->
+                        <div class="fragment fade-up" style="text-align: center; margin-top: 3rem; background: rgba(255,249,240,0.5); border: 2px solid rgba(255,107,107,0.2); padding: 2rem 3rem; border-radius: 20px; max-width: 700px; margin-left: auto; margin-right: auto;">
+                            <p style="font-size: 1.6rem; color: var(--bloom-warm-gray); margin: 0 0 0.8rem 0; line-height: 1.5;">These aren't signs of weakness.</p>
+                            <p style="font-size: 1.8rem; font-weight: 600; color: var(--bloom-coral); margin: 0; line-height: 1.5;">There's no shame in seeking help.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 8: You're Not Alone -->
+            <section data-background-color="#1a1a1a">
+                <div style="position: relative; z-index: 2; padding: 3rem; min-height: 100vh; display: flex; flex-direction: column; justify-content: center;">
+                    <div style="width: 100%; max-width: 1200px; margin: 0 auto;">
+                        <p class="subtitle-caps" style="text-align: center; color: var(--bloom-coral); margin-bottom: 1rem; font-size: 1.8rem; letter-spacing: 0.2em;">THE TRUTH</p>
+                        <h2 class="section-title display-serif" style="margin-bottom: 3rem; text-align: center; font-size: clamp(3rem, 5vw, 4.5rem); color: white;">You Are <span style="font-style: italic; color: var(--bloom-coral);">Not Alone</span></h2>
+                        
+                        <div style="display: grid; grid-template-columns: repeat(2, 2fr); gap: 2rem; width: 100%; margin: 0 auto 3rem;">
+                            <div class="fragment" style="background: rgba(255,107,107,0.1); border: 2px solid var(--bloom-coral); border-radius: 20px; padding: 3rem; text-align: center;">
+                                <div class="display-serif" style="font-size: 4rem; line-height: 1; color: var(--bloom-coral); margin-bottom: 1rem; font-weight: 700;">1 in 5</div>
+                                <p style="font-size: 1.8rem; color: white; line-height: 1.4; margin: 0;">Experience postpartum<br>mood disorders</p>
+                            </div>
+                            
+                            <div class="fragment" style="background: rgba(139,154,130,0.1); border: 2px solid var(--bloom-sage); border-radius: 20px; padding: 3rem; text-align: center;">
+                                <div class="display-serif" style="font-size: 4rem; line-height: 1; color: var(--bloom-sage); margin-bottom: 1rem; font-weight: 700;">70%</div>
+                                <p style="font-size: 1.8rem; color: white; line-height: 1.4; margin: 0;">Feel unprepared for<br>the emotional reality</p>
+                            </div>
+                            
+                            <div class="fragment" style="background: rgba(255,203,119,0.1); border: 2px solid var(--bloom-golden); border-radius: 20px; padding: 3rem; text-align: center;">
+                                <div class="display-serif" style="font-size: 4rem; line-height: 1; color: var(--bloom-golden); margin-bottom: 1rem; font-weight: 700;">95%</div>
+                                <p style="font-size: 1.8rem; color: white; line-height: 1.4; margin: 0;">Recover fully<br>with proper support</p>
+                            </div>
+                            
+                            <div class="fragment" style="background: rgba(116,192,252,0.1); border: 2px solid var(--bloom-sky); border-radius: 20px; padding: 3rem; text-align: center;">
+                                <div class="display-serif" style="font-size: 4rem; line-height: 1; color: var(--bloom-sky); margin-bottom: 1rem; font-weight: 700;">100%</div>
+                                <p style="font-size: 1.8rem; color: white; line-height: 1.4; margin: 0;">Deserve compassion<br>and understanding</p>
+                            </div>
+                        </div>
+                        
+                        <div class="fragment" style="text-align: center; background: rgba(255,255,255,0.05); padding: 2.5rem; border-radius: 20px; backdrop-filter: blur(10px);">
+                            <div class="elegant-divider" style="margin: 0 auto 1.5rem; background: var(--bloom-coral); width: 100px; height: 4px;"></div>
+                            <p style="font-size: 2rem; color: white; line-height: 1.6; margin: 0;">
+                                <span style="color: var(--bloom-coral); font-weight: 600;">Your feelings are valid.</span><br>
+                                Your experience is real.<br>
+                                Your recovery is possible.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 9: Building Hope -->
+            <section data-background-image="../../../shared-assets/images/biff01_Sunrise_over_mountains_golden_light_hope_abstract_lands_8c7e9f23-4f5a-4b23-9f3d-2c8b9d5f6e12_2.png"
+                     data-background-size="cover"
+                     data-background-position="center">
+                <div class="hero-scrim"></div>
+                <div style="position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,249,240,0.95), rgba(255,255,255,0.9)); z-index: 1;"></div>
+                <div style="position: relative; z-index: 2; padding: 2rem 1rem; min-height: 100vh; display: flex; flex-direction: column; justify-content: center;">
+                    <div class="container" style="width: 95%; margin: 0 auto;">
+                        <p class="subtitle-caps" style="text-align: center; color: var(--bloom-sage); margin-bottom: 0.5rem;">Evidence-Based Hope</p>
+                        <h2 class="display-serif" style="text-align: center; font-size: clamp(2.5rem, 5vw, 3.5rem); margin-bottom: 3rem;">The Facts About <span style="font-style: italic; color: var(--bloom-coral);">Recovery</span></h2>
+                        
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin: 3rem auto; width: 95%;">
+                        <div class="fragment scale-in" style="position: relative; min-height: 240px; background: linear-gradient(135deg, var(--bloom-coral), var(--bloom-peach)); border-radius: 20px; overflow: visible; box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
+                            <div style="padding: 3rem 2rem; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; color: white; text-align: center;">
+                                <div class="display-serif" style="font-size: 5.5rem; margin-bottom: 1rem; font-weight: 600;">100%</div>
+                                <p style="font-size: 1.6rem; font-weight: 600; line-height: 1.4;">Of mothers deserve support—including you</p>
+                            </div>
+                        </div>
+                        
+                        <div class="fragment scale-in" style="position: relative; min-height: 240px; background: linear-gradient(135deg, var(--bloom-sky), var(--bloom-mint)); border-radius: 20px; overflow: visible; box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
+                            <div style="padding: 3rem 2rem; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; color: white; text-align: center;">
+                                <div class="display-serif" style="font-size: 5.5rem; margin-bottom: 1rem; font-weight: 600;">95%</div>
+                                <p style="font-size: 1.6rem; font-weight: 600; line-height: 1.4;">Recover fully with the right help</p>
+                            </div>
+                        </div>
+                        
+                        <div class="fragment scale-in" style="position: relative; min-height: 240px; background: linear-gradient(135deg, var(--bloom-golden), var(--bloom-orange)); border-radius: 20px; overflow: visible; box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
+                            <div style="padding: 3rem 2rem; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; color: white; text-align: center;">
+                                <div class="display-serif" style="font-size: 5.5rem; margin-bottom: 1rem; font-weight: 600;">87%</div>
+                                <p style="font-size: 1.6rem; font-weight: 600; line-height: 1.4;">Feel significantly better by 6 months</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="fragment" style="width: 90%; max-width: 1000px; margin: 2rem auto 0; background: linear-gradient(135deg, rgba(255,249,240,0.95), rgba(255,255,255,0.95)); padding: 3rem 3.5rem; border-radius: 25px; box-shadow: 0 20px 60px rgba(0,0,0,0.1); border: 1px solid rgba(139,154,130,0.2);">
+                        <div class="elegant-divider" style="margin: 0 auto 2rem; background: var(--bloom-sage); width: 100px; height: 4px; border-radius: 2px;"></div>
+                        <p class="display-serif" style="font-size: clamp(1.8rem, 2.5vw, 2.3rem); line-height: 1.7; color: var(--bloom-charcoal); text-align: center; margin: 0; font-style: italic;">
+                            "You won't feel this way forever.<br/><br/> Healing is happening, even when you can't see it.<br/><br/> Every day you survive is a day closer to feeling like yourself again—not your old self, but a new version who's been through something profound and emerged stronger."</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 10: Today's Practice -->
+            <section data-background-color="#FFFFFF">
+                <div class="asymmetric-grid" style="padding: 0 4%; min-height: 100vh;">
+                    <div class="image-panel" style="min-height: 500px; position: relative;">
+                        <img src="../../../shared-assets/images/biff01_Woman_writing_in_journal_at_kitchen_table_with_tea_pro_2395b15a-e975-4fc4-8694-e53ab8a93511_3.png" alt="Daily check-in practice" style="border-radius: 2px;" loading="eager">
+                        <div style="position: absolute; top: -20px; left: -20px; width: 120px; height: 120px; background: var(--bloom-mint); opacity: 0.15; border-radius: 50%;"></div>
+                    </div>
+                    <div class="content-panel">
+                        <p class="subtitle-caps" style="color: var(--bloom-sage); margin-bottom: 1.5rem;">Start Today</p>
+                        <h2 class="section-title display-serif" style="margin-bottom: 2rem; font-size: clamp(2.5rem, 4.5vw, 3.5rem);">Your Daily <span style="font-style: italic;">Check-In</span></h2>
+                        <div class="elegant-divider" style="background: var(--bloom-coral);"></div>
+                        <div style="background: rgba(255,249,240,0.5); border-left: 4px solid var(--bloom-coral); padding: 2rem; border-radius: 0 8px 8px 0; margin: 2rem 0;">
+                            <p style="font-size: 1.5rem; margin-bottom: 1.5rem; color: var(--bloom-charcoal);">Three times today, pause and ask yourself:</p>
+                            <h3 class="display-serif" style="color: var(--bloom-coral); font-size: 2rem; margin: 1rem 0; font-style: italic;">
+                                "How am I feeling in this moment?"
+                            </h3>
+                            <p style="color: var(--bloom-sage); font-size: 1.5rem; margin: 0;">
+                                No judgment. Just notice. Just breathe. You're learning to honor your experience.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 11: Closing -->
+            <section data-background-image="../../../shared-assets/images/biff01_Mother_holding_baby_looking_out_window_at_sunrise_hope_7f2de060-da80-41fa-8c95-705189ef01be_1.png"
+                     data-background-size="cover"
+                     data-background-position="center">
+                <div class="hero-scrim"></div>
+                <div style="position: absolute; inset: 0; background: rgba(26,26,26,0.8); z-index: 1;"></div>
+                <div style="position: relative; z-index: 2; padding: 1rem; text-align: center; min-height: 100vh; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                        <h1 class="display-serif" style="color: white; font-size: clamp(3.5rem, 7vw, 6rem); margin-bottom: 2rem; line-height: 1.1; letter-spacing: -0.02em;">
+                            Your Journey Begins <span style="font-style: italic; color: var(--bloom-coral);">Now</span>
+                        </h1>
+                        
+                        <p style="font-size: clamp(1.5rem, 2.5vw, 2rem); color: rgba(255,255,255,0.95); width: 90%; margin: 0 auto 2.5rem; line-height: 1.4; font-weight: 300;">
+                            You've taken the first courageous step.<br>
+                            We're here to walk alongside you.
+                        </p>
+                        
+                        <div class="fragment" style="width: 100%;">
+                            <div style="background: rgba(255,255,255,0.1); border-radius: 20px; padding: 2rem 1.5rem; width: 85%; margin: 0 auto 2rem; backdrop-filter: blur(10px);">
+                                <p class="display-serif" style="font-size: clamp(1.5rem, 2.8vw, 2.3rem); color: rgba(255,255,255,0.95); margin-bottom: 0; font-style: italic; line-height: 1.3;">
+                                    "You're not alone in this.<br>
+                                    Welcome to your postpartum journey.<br>
+                                    Welcome to <span style="color: var(--bloom-coral); font-weight: 600;">Bloom Psychology</span>."
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="fragment" style="padding-bottom: 2rem;">
+                        <div class="elegant-divider" style="background: var(--bloom-golden); margin: 1.5rem auto; width: 150px; height: 3px;"></div>
+                        
+                        <div style="background: rgba(255,107,107,0.15); border: 2px solid var(--bloom-coral); border-radius: 15px; padding: 1rem 2rem; display: inline-block;">
+                            <p style="color: var(--bloom-coral); font-size: clamp(1.5rem, 1.6vw, 1.5rem); font-weight: 600; margin: 0;">
+                                    Next: Lesson 2 - Understanding What's Normal vs. What Needs Attention
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/notes/notes.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/markdown/markdown.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/highlight/highlight.js"></script>
+    
+    <script>
+        Reveal.initialize({
+            hash: true,
+            controls: false,
+            progress: true,
+            center: false,
+            transition: 'fade',
+            transitionSpeed: 'default',
+            backgroundTransition: 'fade',
+            
+            // Enable fragments
+            fragments: true,
+            fragmentInURL: false,
+            
+            // View settings
+            width: 1920,
+            height: 1080,
+            margin: 0.04,
+            minScale: 0.2,
+            maxScale: 2.0,
+            
+            // Navigation
+            keyboard: true,
+            overview: true,
+            loop: false,
+            rtl: false,
+            navigationMode: 'default',
+            
+            // Auto-slide disabled for presentations
+            autoSlide: 0,
+            
+            plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+        });
+        
+        // ===== EXCELLENCE ENHANCEMENTS =====
+        // Progress Indicator Updates
+        const updateProgress = () => {
+            const current = Reveal.getIndices().h + 1;
+            const total = Reveal.getTotalSlides();
+            document.querySelector('.current-slide').textContent = current;
+            document.querySelector('.total-slides').textContent = total;
+        };
+        
+        // Initialize progress
+        Reveal.on('ready', updateProgress);
+        Reveal.on('slidechanged', updateProgress);
+        
+        // Enhanced Keyboard Navigation
+        document.addEventListener('keydown', (e) => {
+            // Home key - go to first slide
+            if (e.key === 'Home') {
+                e.preventDefault();
+                Reveal.slide(0);
+            }
+            // End key - go to last slide
+            if (e.key === 'End') {
+                e.preventDefault();
+                Reveal.slide(Reveal.getTotalSlides() - 1);
+            }
+            // ? key - show help
+            if (e.key === '?' && !e.shiftKey) {
+                e.preventDefault();
+                alert('Keyboard Shortcuts:\n\n' +
+                      '→ / Space: Next slide\n' +
+                      '←: Previous slide\n' +
+                      'Home: First slide\n' +
+                      'End: Last slide\n' +
+                      'F: Fullscreen\n' +
+                      'ESC: Exit fullscreen\n' +
+                      'O: Overview mode');
+            }
+        });
+        
+        // Add smooth scrolling for skip links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const slideNumber = this.getAttribute('href').replace('#/', '');
+                Reveal.slide(parseInt(slideNumber));
+            });
+        });
+    </script>
+</body>
+</html>
+
+</final_file_content>
+
+IMPORTANT: For any future changes to this file, use the final_file_content shown above as your reference. This content reflects the current state of the file, including any auto-formatting (e.g., if you used single quotes but the formatter converted them to double quotes). Always base your SEARCH/REPLACE operations on this final version to ensure accuracy.
+
+<environment_details>
+# VSCode Visible Files
+../Documents/Bloom/bloom-course-content/weeks/week-1-foundation/lesson-1-welcome/presentation-animated-complete.html
+
+# VSCode Open Tabs
+../Documents/Bloom/bloom-course-content/weeks/week-1-foundation/lesson-1-welcome/presentation-animated-complete.html
+
+# Current Time
+6/27/2025, 11:21:10 AM (America/Chicago, UTC-5:00)
+
+# Context Window Usage
+382,411 / 1,048.576K tokens used (36%)
+
+# Current Mode
+ACT MODE
+</environment_details>

@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Welcome to Your Fourth Trimester | Bloom Psychology</title>
+    
+    <!-- Reveal.js Core -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reset.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/theme/white.css">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ===== CLEAN BLOOM THEME ===== */
+        :root {
+            /* Brand Colors */
+            --sage: #8B9A82;
+            --charcoal: #1a1a1a;
+            --warm-gray: #4a4a4a;
+            --cream: #FFF9F0;
+            --white: #FFFFFF;
+            
+            /* Accent Colors */
+            --coral: #FF6B6B;
+            --sky: #74C0FC;
+            --golden: #FFCB77;
+            --lavender: #C589E8;
+            --mint: #95E1D3;
+        }
+        
+        /* Base Styles */
+        .reveal {
+            font-family: 'Inter', -apple-system, sans-serif;
+            font-size: 24px;
+            color: var(--charcoal);
+            background: var(--white);
+        }
+        
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4 {
+            font-weight: 600;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            color: var(--charcoal);
+        }
+        
+        .reveal h1 { font-size: 3.5rem; }
+        .reveal h2 { font-size: 2.8rem; }
+        .reveal h3 { font-size: 2rem; }
+        .reveal h4 { font-size: 1.6rem; }
+        
+        .reveal p {
+            line-height: 1.6;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        /* Dark Background Overrides */
+        .dark-bg h1, .dark-bg h2, .dark-bg h3, .dark-bg h4, .dark-bg p {
+            color: white;
+        }
+        
+        /* Content Container */
+        .content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem;
+        }
+        
+        /* Cards */
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            margin-bottom: 1.5rem;
+        }
+        
+        .card-accent {
+            border-left: 5px solid var(--coral);
+            padding-left: 2rem;
+        }
+        
+        /* Grid Layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+        
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        
+        .grid-6 {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 1.5rem;
+        }
+        
+        /* Week Cards */
+        .week-card {
+            background: white;
+            border-radius: 20px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border-top: 4px solid var(--coral);
+        }
+        
+        .week-number {
+            width: 60px;
+            height: 60px;
+            background: var(--coral);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+        
+        /* Subtitle */
+        .subtitle {
+            color: var(--sage);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Hero Overlay */
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right, rgba(26,26,26,0.9) 0%, rgba(26,26,26,0.7) 40%, transparent 70%);
+            z-index: 1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 650px;
+        }
+        
+        /* Stat Cards */
+        .stat-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border: 2px solid;
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Rights List */
+        .right-item {
+            background: white;
+            border-left: 5px solid var(--coral);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .right-item h3 {
+            color: var(--coral);
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Quote Box */
+        .quote-box {
+            background: var(--sage);
+            color: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            text-align: center;
+            font-size: 2rem;
+            line-height: 1.5;
+        }
+        
+        /* NO ANIMATIONS FOR VIDEO */
+        .fragment {
+            opacity: 1 !important;
+            visibility: visible !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            
+            <!-- SLIDE 1: Opening -->
+            <section data-background-image="../../../shared-assets/images/biff01_Mother_holding_newborn_by_large_window_with_soft_morni_f16d5b33-2dc7-4aa7-86a1-34d018871ed7_3.png">
+                <div class="hero-overlay"></div>
+                <div class="hero-content">
+                    <p class="subtitle">WEEK 1 · LESSON 1</p>
+                    <h1>Welcome to Your<br><em>Fourth Trimester</em></h1>
+                    <p style="color: rgba(255,255,255,0.9); font-size: 1.8rem;">
+                        Understanding this profound life transition<br>and setting realistic expectations for recovery
+                    </p>
+                    <p style="color: rgba(255,255,255,0.8); margin-top: 2rem;">
+                        Dr. Jana Rundle · Bloom Psychology
+                    </p>
+                </div>
+            </section>
+            
+            <!-- SLIDE 2: You Belong Here -->
+            <section data-background-color="#FFFFFF">
+                <div class="content">
+                    <p class="subtitle">A MESSAGE OF HOPE</p>
+                    <h2>You Belong <em style="color: var(--coral);">Here</em></h2>
+                    <div class="card">
+                        <p>If you're watching this, you're already doing something right. You're seeking support, and that takes extraordinary courage.</p>
+                    </div>
+                    <div class="card card-accent">
+                        <p>This course is your roadmap through the fourth trimester—a time of profound change that deserves recognition, understanding, and expert support.</p>
+                    </div>
+                    <div class="card" style="background: var(--cream);">
+                        <p><em>"I felt so alone until I found this course. Knowing other mothers felt the same way changed everything for me."</em></p>
+                        <p style="text-align: right; color: var(--warm-gray);">— Mother of 2-month-old</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 3: What Makes This Unique -->
+            <section data-background-color="#FDFCFB">
+                <div class="content">
+                    <p class="subtitle">UNDERSTANDING YOUR EXPERIENCE</p>
+                    <h2>What Makes This <em style="color: var(--coral);">Unique</em></h2>
+                    <div class="grid-2">
+                        <div class="card">
+                            <h3 style="color: var(--coral);">Your Brain is Changing</h3>
+                            <p>Adapting to read your baby's needs—this is strength, not weakness</p>
+                        </div>
+                        <div class="card">
+                            <h3 style="color: var(--sky);">Sleep Changes Everything</h3>
+                            <p>Disrupted sleep affects mood, memory, and patience—it's biology, not failure</p>
+                        </div>
+                        <div class="card">
+                            <h3 style="color: var(--lavender);">Physical Recovery</h3>
+                            <p>Your body did something extraordinary—recovery takes 12-18 months</p>
+                        </div>
+                        <div class="card">
+                            <h3 style="color: var(--golden);">Identity Shifts</h3>
+                            <p>"Matrescence"—becoming a mother is as big as adolescence</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 4: This is NOT -->
+            <section data-background-color="#1a1a1a" class="dark-bg">
+                <div class="content">
+                    <h2 style="text-align: center;">This is <em style="color: var(--coral);">NOT</em></h2>
+                    <div style="max-width: 800px; margin: 0 auto;">
+                        <div class="card" style="background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); border-left: 5px solid var(--coral);">
+                            <h3 style="color: var(--coral);">About "Bouncing Back"</h3>
+                            <p style="color: rgba(255,255,255,0.9);">You're not a rubber band. You're transforming.</p>
+                        </div>
+                        <div class="card" style="background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); border-left: 5px solid var(--sky);">
+                            <h3 style="color: var(--sky);">About Perfection</h3>
+                            <p style="color: rgba(255,255,255,0.9);">There's no prize for doing this alone.</p>
+                        </div>
+                        <div class="card" style="background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); border-left: 5px solid var(--lavender);">
+                            <h3 style="color: var(--lavender);">About Comparison</h3>
+                            <p style="color: rgba(255,255,255,0.9);">Your journey is uniquely yours.</p>
+                        </div>
+                        <div class="card" style="background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); border-left: 5px solid var(--golden);">
+                            <h3 style="color: var(--golden);">About Judgment</h3>
+                            <p style="color: rgba(255,255,255,0.9);">Whatever you're feeling is valid. Full stop.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 5: Your 6-Week Journey -->
+            <section data-background-color="#FFF9F0">
+                <div class="content">
+                    <p class="subtitle" style="text-align: center;">YOUR COURSE JOURNEY</p>
+                    <h2 style="text-align: center;">Your 6-Week <em style="color: var(--coral);">Journey</em></h2>
+                    <div class="grid-6">
+                        <div class="week-card">
+                            <div class="week-number">1</div>
+                            <h4 style="font-size: 1.3rem; margin-bottom: 0.5rem;">Foundation</h4>
+                            <p style="font-size: 1.1rem;">Understanding what's normal</p>
+                        </div>
+                        <div class="week-card" style="border-top-color: var(--sky);">
+                            <div class="week-number" style="background: var(--sky);">2</div>
+                            <h4 style="font-size: 1.3rem; margin-bottom: 0.5rem;">Self-Compassion</h4>
+                            <p style="font-size: 1.1rem;">Building your toolkit</p>
+                        </div>
+                        <div class="week-card" style="border-top-color: var(--lavender);">
+                            <div class="week-number" style="background: var(--lavender);">3</div>
+                            <h4 style="font-size: 1.3rem; margin-bottom: 0.5rem;">Communication</h4>
+                            <p style="font-size: 1.1rem;">Building support</p>
+                        </div>
+                        <div class="week-card" style="border-top-color: var(--mint);">
+                            <div class="week-number" style="background: var(--mint);">4</div>
+                            <h4 style="font-size: 1.3rem; margin-bottom: 0.5rem;">Managing Anxiety</h4>
+                            <p style="font-size: 1.1rem;">Practical tools</p>
+                        </div>
+                        <div class="week-card" style="border-top-color: var(--golden);">
+                            <div class="week-number" style="background: var(--golden);">5</div>
+                            <h4 style="font-size: 1.3rem; margin-bottom: 0.5rem;">Identity</h4>
+                            <p style="font-size: 1.1rem;">Exploring shifts</p>
+                        </div>
+                        <div class="week-card" style="border-top-color: var(--coral);">
+                            <div class="week-number" style="background: var(--coral);">6</div>
+                            <h4 style="font-size: 1.3rem; margin-bottom: 0.5rem;">Wellness</h4>
+                            <p style="font-size: 1.1rem;">Ongoing plan</p>
+                        </div>
+                    </div>
+                    <div class="card" style="margin-top: 2rem; background: var(--cream); text-align: center;">
+                        <p style="font-size: 1.8rem;">
+                            <strong style="color: var(--coral);">This isn't school.</strong><br>
+                            There's no falling behind. Go at your own pace.<br>
+                            Skip to what you need most.
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 6: Cultural Wisdom -->
+            <section data-background-color="#FFF9F0">
+                <div class="content">
+                    <p class="subtitle" style="text-align: center;">ANCIENT UNDERSTANDING</p>
+                    <h2 style="text-align: center;">Cultural <em style="color: var(--coral);">Wisdom</em> & Your Journey</h2>
+                    <div class="grid-2">
+                        <div>
+                            <div class="card">
+                                <h3 style="color: var(--coral);">Sacred Traditions</h3>
+                                <p>Many cultures have always recognized the sacred nature of postpartum:</p>
+                                <ul style="list-style: none; padding-left: 0;">
+                                    <li><strong style="color: var(--coral);">China:</strong> "Sitting the month" - protected healing time</li>
+                                    <li><strong style="color: var(--sky);">Latin America:</strong> "La cuarentena" - 40 days of care</li>
+                                    <li><strong style="color: var(--lavender);">India:</strong> Confinement period with family support</li>
+                                </ul>
+                            </div>
+                            <div class="card">
+                                <h3 style="color: var(--sage);">Modern Truth</h3>
+                                <p>These aren't outdated traditions. They're wisdom we've lost in our rush to "bounce back."</p>
+                                <p style="color: var(--coral); font-weight: 500;">Your body is healing. Your brain is rewiring. Your identity is shifting. This takes time, and that time is sacred, not selfish.</p>
+                            </div>
+                        </div>
+                        <div>
+                            <img src="../../../shared-assets/images/biff01_Warm_circle_of_diverse_mothers_supporting_each_other_i_8bae413b-4693-4c2a-9e8d-323482f0085a_0.png" style="width: 100%; border-radius: 16px;">
+                            <div class="card" style="margin-top: 1rem;">
+                                <p style="text-align: center; font-style: italic; color: var(--sage);">
+                                    "The emotional journey isn't a straight line—it's waves.<br><br>
+                                    Some days you'll feel capable and connected.<br><br>
+                                    Others, you'll wonder if you'll ever feel like yourself again.<br><br>
+                                    Both are part of the process."
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 7: You're Not Alone -->
+            <section data-background-color="#1a1a1a" class="dark-bg">
+                <div class="content">
+                    <p class="subtitle" style="text-align: center; color: var(--coral);">THE TRUTH</p>
+                    <h2 style="text-align: center;">You Are <em style="color: var(--coral);">Not Alone</em></h2>
+                    <div class="grid-2">
+                        <div class="stat-card" style="border-color: var(--coral);">
+                            <div class="stat-number" style="color: var(--coral);">1 in 5</div>
+                            <p>Experience postpartum<br>mood disorders</p>
+                        </div>
+                        <div class="stat-card" style="border-color: var(--sage);">
+                            <div class="stat-number" style="color: var(--sage);">70%</div>
+                            <p>Feel unprepared for<br>the emotional reality</p>
+                        </div>
+                        <div class="stat-card" style="border-color: var(--golden);">
+                            <div class="stat-number" style="color: var(--golden);">95%</div>
+                            <p>Recover fully<br>with proper support</p>
+                        </div>
+                        <div class="stat-card" style="border-color: var(--sky);">
+                            <div class="stat-number" style="color: var(--sky);">100%</div>
+                            <p>Deserve compassion<br>and understanding</p>
+                        </div>
+                    </div>
+                    <div style="text-align: center; margin-top: 2rem; background: rgba(255,255,255,0.05); padding: 2rem; border-radius: 20px;">
+                        <p style="font-size: 1.8rem;">
+                            <strong style="color: var(--coral);">Your feelings are valid.</strong><br>
+                            Your experience is real.<br>
+                            Your recovery is possible.
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 8: When to Seek Help -->
+            <section data-background-color="#1a1a1a" class="dark-bg">
+                <div class="content">
+                    <p class="subtitle" style="text-align: center; color: var(--sage);">WHEN TO SEEK PROFESSIONAL SUPPORT</p>
+                    <h2 style="text-align: center;">Your Path <em style="color: var(--coral);">Forward</em></h2>
+                    <div class="grid-2">
+                        <div class="card" style="background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); border-top: 4px solid var(--coral);">
+                            <h3 style="color: var(--coral);">Urgent Signs</h3>
+                            <ul style="color: rgba(255,255,255,0.9);">
+                                <li>Thoughts of harming yourself or baby</li>
+                                <li>Feeling disconnected from reality</li>
+                                <li>Severe panic attacks</li>
+                            </ul>
+                        </div>
+                        <div class="card" style="background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); border-top: 4px solid var(--sky);">
+                            <h3 style="color: var(--sky);">Important Signals</h3>
+                            <ul style="color: rgba(255,255,255,0.9);">
+                                <li>Can't sleep when you have the chance</li>
+                                <li>Persistent sadness over 2 weeks</li>
+                                <li>Overwhelming anxiety</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <h3 style="text-align: center; margin-top: 2rem;">Your Support Options</h3>
+                    <div style="display: flex; justify-content: center; gap: 2rem;">
+                        <div style="text-align: center;">
+                            <h4 style="color: var(--coral);">Therapy</h4>
+                            <p>Individual support</p>
+                        </div>
+                        <div style="text-align: center;">
+                            <h4 style="color: var(--sky);">Medication</h4>
+                            <p>Medical care</p>
+                        </div>
+                        <div style="text-align: center;">
+                            <h4 style="color: var(--lavender);">Support Groups</h4>
+                            <p>Community care</p>
+                        </div>
+                        <div style="text-align: center;">
+                            <h4 style="color: var(--golden);">Crisis Lines</h4>
+                            <p>24/7 support</p>
+                        </div>
+                    </div>
+                    <div style="text-align: center; margin-top: 2rem;">
+                        <p style="font-size: 1.6rem;">These aren't signs of weakness.</p>
+                        <p style="font-size: 1.8rem; color: var(--coral); font-weight: 600;">There's no shame in seeking help.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 9: Daily Check-In -->
+            <section data-background-color="#FFFFFF">
+                <div class="content">
+                    <p class="subtitle">START TODAY</p>
+                    <h2>Your Daily <em style="color: var(--coral);">Check-In</em></h2>
+                    <div class="card" style="background: var(--cream); border-left: 5px solid var(--coral);">
+                        <p>Three times today, pause and ask yourself:</p>
+                        <h3 style="color: var(--coral); font-style: italic; text-align: center; margin: 2rem 0;">
+                            "How am I feeling in this moment?"
+                        </h3>
+                        <p style="color: var(--sage); text-align: center;">
+                            No judgment. Just notice. Just breathe.<br>
+                            You're learning to honor your experience.
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 10: Evidence of Hope -->
+            <section data-background-color="#FFF9F0">
+                <div class="content">
+                    <p class="subtitle" style="text-align: center;">EVIDENCE-BASED HOPE</p>
+                    <h2 style="text-align: center;">The Facts About <em style="color: var(--coral);">Recovery</em></h2>
+                    <div class="grid-3">
+                        <div style="background: linear-gradient(135deg, var(--coral), #FF8A80); color: white; padding: 3rem; border-radius: 20px; text-align: center;">
+                            <div style="font-size: 4rem; font-weight: 700;">100%</div>
+                            <p>Of mothers deserve support—including you</p>
+                        </div>
+                        <div style="background: linear-gradient(135deg, var(--sky), #90CAF9); color: white; padding: 3rem; border-radius: 20px; text-align: center;">
+                            <div style="font-size: 4rem; font-weight: 700;">95%</div>
+                            <p>Recover fully with the right help</p>
+                        </div>
+                        <div style="background: linear-gradient(135deg, var(--golden), #FFD54F); color: white; padding: 3rem; border-radius: 20px; text-align: center;">
+                            <div style="font-size: 4rem; font-weight: 700;">87%</div>
+                            <p>Feel significantly better by 6 months</p>
+                        </div>
+                    </div>
+                    <div class="card" style="margin-top: 2rem; background: var(--cream); text-align: center;">
+                        <p style="font-size: 1.8rem; font-style: italic;">
+                            "You won't feel this way forever.<br><br>
+                            Healing is happening, even when you can't see it.<br><br>
+                            Every day you survive is a day closer to feeling like yourself again—not your old self, but a new version who's been through something profound and emerged stronger."
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 11: Your Rights -->
+            <section data-background-color="#FFF9F0">
+                <div class="content">
+                    <p class="subtitle" style="text-align: center;">PERMISSION GRANTED</p>
+                    <h2 style="text-align: center;">Your <em style="color: var(--coral);">Rights</em> as a New Mother</h2>
+                    <div style="max-width: 800px; margin: 0 auto;">
+                        <div class="right-item">
+                            <h3>You have the right to feel</h3>
+                            <p>Whatever you're feeling is valid. Joy, grief, rage, numbness—all of it.</p>
+                        </div>
+                        <div class="right-item" style="border-left-color: var(--sky);">
+                            <h3 style="color: var(--sky);">You have the right to rest</h3>
+                            <p>Your body created life. It deserves time to heal.</p>
+                        </div>
+                        <div class="right-item" style="border-left-color: var(--lavender);">
+                            <h3 style="color: var(--lavender);">You have the right to ask for help</h3>
+                            <p>Needing support doesn't make you weak. It makes you human.</p>
+                        </div>
+                        <div class="right-item" style="border-left-color: var(--golden);">
+                            <h3 style="color: var(--golden);">You have the right to change</h3>
+                            <p>You don't have to be who you were before. You're allowed to evolve.</p>
+                        </div>
+                        <div class="right-item" style="border-left-color: var(--mint);">
+                            <h3 style="color: var(--mint);">You have the right to prioritize yourself</h3>
+                            <p>A healthy mother is the greatest gift you can give your child.</p>
+                        </div>
+                    </div>
+                    <div class="quote-box" style="margin-top: 2rem;">
+                        <p>"You are already enough.<br>
+                        You are already doing enough.<br>
+                        You are already <em>more than enough</em>."</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 12: Closing -->
+            <section data-background-image="../../../shared-assets/images/biff01_Mother_holding_baby_looking_out_window_at_sunrise_hope_7f2de060-da80-41fa-8c95-705189ef01be_1.png">
+                <div class="hero-overlay" style="background: rgba(26,26,26,0.8);"></div>
+                <div class="hero-content" style="text-align: center; max-width: 800px; margin: 0 auto;">
+                    <h1>Your Journey Begins <em style="color: var(--coral);">Now</em></h1>
+                    <p style="color: rgba(255,255,255,0.95); font-size: 1.8rem; margin: 2rem 0;">
+                        You've taken the first courageous step.<br>
+                        We're here to walk alongside you.
+                    </p>
+                    <div style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); padding: 2rem; border-radius: 20px; margin-top: 2rem;">
+                        <p style="color: rgba(255,255,255,0.95); font-size: 1.8rem; font-style: italic;">
+                            "You're not alone in this.<br>
+                            Welcome to your postpartum journey.<br>
+                            Welcome to <strong style="color: var(--coral);">Bloom Psychology</strong>."
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+        </div>
+    </div>
+    
+    <!-- Reveal.js Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            transition: 'none',
+            transitionSpeed: 'fast',
+            controls: true,
+            progress: true,
+            center: true,
+            touch: true,
+            loop: false,
+            fragments: false,
+            autoPlayMedia: false
+        });
+    </script>
+</body>
+</html>

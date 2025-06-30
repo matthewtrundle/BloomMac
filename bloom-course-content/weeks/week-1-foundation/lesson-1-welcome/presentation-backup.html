@@ -1,0 +1,1660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Welcome to Your Fourth Trimester | Bloom Psychology</title>
+    
+    <!-- Reveal.js Core -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reset.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ========================================
+           PROFESSIONAL MAGAZINE DESIGN SYSTEM
+           ======================================== */
+        :root {
+            /* Brand Colors */
+            --bloom-sage: #8B9A82;
+            --bloom-charcoal: #1a1a1a;
+            --bloom-warm-gray: #4a4a4a;
+            --bloom-cream: #faf8f5;
+            --bloom-background: #FFF9F0;
+            
+            /* Vibrant Accent Colors */
+            --bloom-coral: #FF6B6B;
+            --bloom-peach: #FFB4A2;
+            --bloom-golden: #FFCB77;
+            --bloom-mint: #95E1D3;
+            --bloom-lavender: #C589E8;
+            --bloom-sky: #74C0FC;
+            --bloom-rose: #FFA8C5;
+            --bloom-teal: #4ECDC4;
+            --bloom-orange: #FF9A8B;
+            
+            /* Typography */
+            --font-display: 'Cormorant Garamond', serif;
+            --font-body: 'Inter', -apple-system, sans-serif;
+            
+            /* Spacing Scale */
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 2rem;
+            --space-lg: 3rem;
+            --space-xl: 4rem;
+            --space-2xl: 6rem;
+            --space-3xl: 8rem;
+        }
+        
+        /* Base Reveal Overrides */
+        .reveal {
+            font-family: var(--font-body);
+            font-size: 24px;
+            font-weight: normal;
+            color: var(--bloom-charcoal);
+            background-color: #FFFFFF;
+        }
+        
+        .reveal .slides {
+            text-align: left;
+        }
+        
+        .reveal .slides section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            padding: 2rem;
+            overflow: hidden;
+        }
+        
+        .reveal h1,
+        .reveal h2,
+        .reveal h3,
+        .reveal h4 {
+            font-family: var(--font-body);
+            font-weight: 600;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            text-transform: none;
+            margin: 0 0 1rem 0;
+        }
+        
+        .reveal h1 { font-size: clamp(2.5rem, 5vw, 4rem); }
+        .reveal h2 { font-size: clamp(2rem, 4vw, 3rem); }
+        .reveal h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
+        .reveal h4 { font-size: clamp(1.2rem, 2.5vw, 1.8rem); }
+        
+        .reveal p {
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            font-size: clamp(1rem, 2vw, 1.2rem);
+        }
+        
+        /* Container */
+        .container {
+            max-width: 1200px;
+            width: 90%;
+            margin: 0 auto;
+            padding: 1.5rem;
+        }
+        
+        /* ========================================
+           PROFESSIONAL CARD COMPONENTS
+           ======================================== */
+        .color-card {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .color-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+        }
+        
+        .color-card-coral {
+            background: linear-gradient(135deg, #FFB4A2 0%, #FF6B6B 100%);
+            color: white;
+        }
+        
+        .color-card-mint {
+            background: linear-gradient(135deg, #95E1D3 0%, #4ECDC4 100%);
+            color: white;
+        }
+        
+        .color-card-lavender {
+            background: linear-gradient(135deg, #E6C9F0 0%, #C589E8 100%);
+            color: white;
+        }
+        
+        .color-card-golden {
+            background: linear-gradient(135deg, #FFCB77 0%, #FFB347 100%);
+            color: white;
+        }
+        
+        .color-card-sky {
+            background: linear-gradient(135deg, #74C0FC 0%, #4A90E2 100%);
+            color: white;
+        }
+        
+        .color-card-rose {
+            background: linear-gradient(135deg, #FFA8C5 0%, #FF6B9D 100%);
+            color: white;
+        }
+        
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .card-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .card-description {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            line-height: 1.5;
+        }
+        
+        /* ========================================
+           HERO SLIDES
+           ======================================== */
+        .hero-image-slide {
+            position: relative;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+        }
+        
+        .hero-image-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        
+        .midjourney-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            border-radius: 0;
+        }
+        
+        .hero-image-slide .midjourney-image {
+            filter: brightness(1.1) contrast(0.95);
+        }
+        
+        .hero-scrim {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, 
+                transparent 0%, 
+                rgba(0,0,0,0.2) 30%, 
+                rgba(0,0,0,0.5) 70%, 
+                rgba(0,0,0,0.7) 100%);
+            z-index: 1;
+        }
+        
+        .text-protection {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 6rem 5rem 5rem 5rem;
+            z-index: 2;
+            background: linear-gradient(
+                to top,
+                rgba(26,26,26,0.95) 0%,
+                rgba(26,26,26,0.7) 30%,
+                transparent 100%
+            );
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        
+        .text-protection h1,
+        .text-protection p {
+            color: white;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+        }
+        
+        /* ========================================
+           MAGAZINE LAYOUTS
+           ======================================== */
+        .magazine-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            height: 100%;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .content-panel {
+            padding: 2rem;
+        }
+        
+        .image-panel {
+            height: 500px;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+        }
+        
+        .image-panel img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* ========================================
+           CARDS AND COMPONENTS
+           ======================================== */
+        .floating-card {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.5);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.15);
+            border-radius: 20px;
+            padding: 3rem;
+        }
+        
+        .floating-card-bottom {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 1200px;
+        }
+        
+        .stat-image-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            height: 100%;
+        }
+        
+        .stat-image-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .stat-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 2rem;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: white;
+        }
+        
+        .stat-overlay h3 {
+            color: white;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-overlay p {
+            color: rgba(255,255,255,0.9);
+            font-size: 1.2rem;
+            line-height: 1.4;
+        }
+        
+        /* Journey Cards */
+        .journey-card {
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            gap: 3rem;
+            align-items: center;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        }
+        
+        .journey-image {
+            position: relative;
+            height: 400px;
+        }
+        
+        .journey-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .journey-content-panel {
+            padding: 3rem;
+        }
+        
+        /* ========================================
+           TYPOGRAPHY COMPONENTS
+           ======================================== */
+        .gradient-text {
+            background: linear-gradient(135deg, var(--bloom-coral) 0%, var(--bloom-golden) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: inline-block;
+        }
+        
+        .hope-gradient {
+            background: linear-gradient(135deg, var(--bloom-coral) 0%, var(--bloom-golden) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .stat-big-number {
+            font-size: 5rem;
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* ========================================
+           GRIDS
+           ======================================== */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .card-grid-3 {
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+        
+        @media (max-width: 768px) {
+            .card-grid,
+            .card-grid-3 {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .container {
+                width: 95%;
+                padding: 1rem;
+            }
+            
+            .asymmetric-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+        
+        /* ========================================
+           UTILITIES
+           ======================================== */
+        .text-center { text-align: center; }
+        .mt-2 { margin-top: 2rem; }
+        .mt-3 { margin-top: 3rem; }
+        .mb-2 { margin-bottom: 2rem; }
+        .mb-3 { margin-bottom: 3rem; }
+        
+        /* Visual List */
+        .visual-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .visual-list li {
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+        }
+        
+        .visual-list-icon {
+            font-size: 2.5rem;
+            flex-shrink: 0;
+        }
+        
+        /* ========================================
+           MASTERFUL DESIGN ENHANCEMENTS
+           ======================================== */
+        
+        /* Advanced Gradient Meshes */
+        .gradient-mesh-bg {
+            background-image: 
+                radial-gradient(at 20% 30%, var(--bloom-coral) 0%, transparent 50%),
+                radial-gradient(at 80% 20%, var(--bloom-lavender) 0%, transparent 50%),
+                radial-gradient(at 40% 80%, var(--bloom-mint) 0%, transparent 50%),
+                radial-gradient(at 90% 70%, var(--bloom-golden) 0%, transparent 50%);
+            background-color: var(--bloom-background);
+        }
+        
+        /* Sophisticated Card Shadows */
+        .depth-shadow {
+            box-shadow: 
+                0 2px 4px rgba(0,0,0,0.04),
+                0 8px 16px rgba(0,0,0,0.08),
+                0 24px 48px rgba(0,0,0,0.12),
+                0 48px 96px rgba(0,0,0,0.16);
+        }
+        
+        /* Color-coded Hover States */
+        .journey-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .journey-card:hover { transform: translateY(-4px); }
+        .journey-card:nth-child(1):hover { border-left: 4px solid var(--bloom-coral); }
+        .journey-card:nth-child(2):hover { border-left: 4px solid var(--bloom-sky); }
+        .journey-card:nth-child(3):hover { border-left: 4px solid var(--bloom-mint); }
+        .journey-card:nth-child(4):hover { border-left: 4px solid var(--bloom-rose); }
+        .journey-card:nth-child(5):hover { border-left: 4px solid var(--bloom-golden); }
+        .journey-card:nth-child(6):hover { border-left: 4px solid var(--bloom-lavender); }
+        
+        /* Animated Statistics */
+        @keyframes countUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .stat-animate {
+            animation: countUp 1s ease-out forwards;
+        }
+        
+        /* Sophisticated Text Overlays */
+        .text-overlay-gradient {
+            background: linear-gradient(90deg, 
+                rgba(26,26,26,0.98) 0%, 
+                rgba(26,26,26,0.9) 50%, 
+                rgba(26,26,26,0) 100%);
+        }
+        
+        /* Display Typography */
+        .display-title {
+            font-size: clamp(3.5rem, 7vw, 6rem);
+            font-weight: 300;
+            letter-spacing: -0.04em;
+            line-height: 0.95;
+        }
+        
+        /* Emphasis Styles */
+        .emphasis-underline {
+            text-decoration: underline;
+            text-decoration-color: var(--bloom-coral);
+            text-decoration-thickness: 3px;
+            text-underline-offset: 0.3em;
+        }
+        
+        /* Magazine-Style Visual Effects */
+        * {
+            box-sizing: border-box;
+        }
+        
+        .reveal {
+            background: #000;
+        }
+        
+        .reveal .slides {
+            text-align: left;
+        }
+        
+        .reveal .slides section {
+            height: 100vh;
+            width: 100vw;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .reveal .slides section > * {
+            max-width: 100%;
+        }
+        
+        /* Premium Hero Effects */
+        .hero-opening {
+            background: linear-gradient(
+                180deg,
+                transparent 0%,
+                transparent 40%,
+                rgba(0,0,0,0.1) 60%,
+                rgba(0,0,0,0.3) 80%,
+                rgba(0,0,0,0.6) 100%
+            );
+        }
+        
+        /* Magazine Cover Typography */
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 2.5rem;
+            color: var(--bloom-charcoal);
+            line-height: 1.2;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, var(--bloom-coral) 0%, var(--bloom-golden) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Ken Burns effect for premium feel */
+        @keyframes kenBurns {
+            0% { transform: scale(1) translate(0, 0); }
+            100% { transform: scale(1.08) translate(-2%, -1%); }
+        }
+        
+        .hero-image-slide img {
+            animation: kenBurns 20s ease-out infinite alternate;
+        }
+        
+        .title-golden {
+            background: linear-gradient(135deg, #FFCB77 0%, #FFB4A2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Premium Content Panels */
+        .content-panel-premium {
+            background: rgba(255,255,255,0.85);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 30px;
+            padding: 4rem;
+            box-shadow: 
+                0 8px 32px rgba(0,0,0,0.06),
+                inset 0 1px 0 rgba(255,255,255,0.6);
+        }
+        
+        /* Magazine layouts with overlap */
+        .magazine-image-overlap {
+            position: absolute;
+            width: 120%;
+            height: 110%;
+            top: -5%;
+            left: -10%;
+            z-index: 2;
+            clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%);
+            box-shadow: 
+                0 30px 60px rgba(0,0,0,0.12),
+                0 50px 100px rgba(0,0,0,0.08);
+        }
+        
+        .sage-gradient-panel {
+            background: linear-gradient(135deg, #8B9A82 0%, #95E1D3 100%);
+            color: white;
+            padding: var(--space-2xl);
+            border-radius: 20px;
+        }
+        
+        /* Masonry Grid */
+        .masonry-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-auto-rows: minmax(200px, auto);
+            gap: var(--space-md);
+        }
+        
+        .masonry-item-large {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+        
+        /* Glass Morphism Cards */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: var(--space-lg);
+            color: white;
+        }
+        
+        /* Timeline Path */
+        .timeline-path {
+            position: relative;
+            padding: var(--space-xl) 0;
+        }
+        
+        .timeline-path::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(to right, 
+                var(--bloom-warm-gray) 0%, 
+                var(--bloom-peach) 50%, 
+                var(--bloom-golden) 100%);
+            border-radius: 2px;
+        }
+        
+        /* Premium Emotional Grid */
+        .emotional-grid-premium {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+        
+        .emotion-card-premium {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0;
+            transform: translateZ(0);
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            cursor: pointer;
+        }
+        
+        .emotion-card-premium:nth-child(odd) {
+            transform: translateY(30px);
+        }
+        
+        .emotion-card-premium:hover {
+            transform: translateZ(50px) scale(1.05);
+            z-index: 10;
+        }
+        
+        .emotion-card-premium img {
+            filter: contrast(1.1) brightness(0.95);
+            transition: all 0.6s ease;
+        }
+        
+        .emotion-card-premium:hover img {
+            filter: contrast(1.2) brightness(1.05);
+            transform: scale(1.1);
+        }
+        
+        .emotion-overlay-premium {
+            position: absolute;
+            inset: 0;
+            background: 
+                linear-gradient(135deg, transparent 0%, rgba(0,0,0,0.4) 100%),
+                linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 40%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 2rem;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        
+        .emotion-card-premium:hover .emotion-overlay-premium {
+            opacity: 1;
+        }
+        
+        /* Statistics Floating Cards */
+        .stats-container {
+            position: relative;
+            height: 100vh;
+            background: linear-gradient(135deg, var(--bloom-rose) 0%, var(--bloom-peach) 100%);
+        }
+        
+        .stat-floating {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: var(--space-lg);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-floating:hover {
+            transform: translateY(-10px);
+        }
+        
+        .stat-floating:nth-child(1) { top: 20%; left: 15%; }
+        .stat-floating:nth-child(2) { top: 15%; right: 20%; }
+        .stat-floating:nth-child(3) { bottom: 25%; left: 25%; }
+        .stat-floating:nth-child(4) { bottom: 20%; right: 15%; }
+        
+        /* Journey Card Grid */
+        .journey-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-md);
+            padding: var(--space-xl);
+        }
+        
+        .journey-step-card {
+            background: white;
+            border-radius: 20px;
+            padding: var(--space-lg);
+            border-left: 4px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .journey-step-card h3 {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-md);
+        }
+        
+        .journey-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+        
+        .journey-step-card:nth-child(1) .journey-icon { background: var(--bloom-coral); color: white; }
+        .journey-step-card:nth-child(2) .journey-icon { background: var(--bloom-sky); color: white; }
+        .journey-step-card:nth-child(3) .journey-icon { background: var(--bloom-mint); color: white; }
+        .journey-step-card:nth-child(4) .journey-icon { background: var(--bloom-rose); color: white; }
+        .journey-step-card:nth-child(5) .journey-icon { background: var(--bloom-golden); color: white; }
+        .journey-step-card:nth-child(6) .journey-icon { background: var(--bloom-lavender); color: white; }
+        
+        /* ========================================
+           IMAGE FALLBACKS AND IMPROVEMENTS
+           ======================================== */
+        .stat-image-card img,
+        .emotion-card-premium img,
+        .image-panel img {
+            transition: transform 0.3s ease, filter 0.3s ease;
+        }
+        
+        .stat-image-card:hover img {
+            transform: scale(1.05);
+        }
+        
+        /* Fallback for broken images */
+        img {
+            background: linear-gradient(135deg, var(--bloom-sage) 0%, var(--bloom-mint) 100%);
+            background-size: cover;
+        }
+        
+        img::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--bloom-sage) 0%, var(--bloom-mint) 100%);
+            z-index: -1;
+        }
+
+        /* ========================================
+           LESSON-SPECIFIC STYLES
+           ======================================== */
+        .four-panel-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 2rem;
+            height: 80vh;
+            padding: 2rem;
+        }
+        
+        .panel-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .panel-card h3 {
+            color: var(--bloom-sage);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .panel-card p {
+            font-size: 1.3rem;
+            line-height: 1.6;
+            color: var(--bloom-warm-gray);
+        }
+        
+        .timeline-week {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .timeline-week h4 {
+            color: var(--bloom-sage);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .timeline-week p {
+            font-size: 1.2rem;
+            color: var(--bloom-warm-gray);
+        }
+        
+        .support-card {
+            background: rgba(255, 182, 162, 0.1);
+            border: 2px solid var(--bloom-peach);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .support-card h4 {
+            color: var(--bloom-coral);
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+        
+        .support-card ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .support-card li {
+            padding-left: 2rem;
+            position: relative;
+            margin-bottom: 0.8rem;
+            font-size: 1.3rem;
+        }
+        
+        .support-card li:before {
+            content: "•";
+            color: var(--bloom-coral);
+            font-size: 1.5rem;
+            position: absolute;
+            left: 0;
+        }
+        
+        .hope-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            padding: 3rem;
+        }
+        
+        .hope-stat {
+            text-align: center;
+        }
+        
+        .hope-stat .stat-big-number {
+            color: var(--bloom-golden);
+            font-family: var(--font-display);
+        }
+        
+        .hope-stat p {
+            font-size: 1.5rem;
+            color: var(--bloom-warm-gray);
+        }
+        
+        .card-number {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            font-size: 3.5rem;
+            font-weight: 200;
+            opacity: 0.15;
+            font-family: var(--font-display);
+        }
+        
+        /* ========================================
+           SOPHISTICATED TYPOGRAPHY
+           ======================================== */
+        .display-serif {
+            font-family: var(--font-display);
+            font-weight: 300;
+            letter-spacing: -0.03em;
+        }
+        
+        .subtitle-caps {
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            font-size: 0.9rem;
+            font-weight: 500;
+            opacity: 0.7;
+        }
+        
+        /* Professional Dividers */
+        .elegant-divider {
+            width: 60px;
+            height: 1px;
+            background: currentColor;
+            opacity: 0.3;
+            margin: 2rem 0;
+        }
+        
+        /* Sophisticated Quote Styling */
+        .pullquote {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-style: italic;
+            line-height: 1.4;
+            position: relative;
+            padding-left: 3rem;
+        }
+        
+        .pullquote::before {
+            content: '"';
+            position: absolute;
+            left: 0;
+            top: -1rem;
+            font-size: 5rem;
+            opacity: 0.2;
+            font-family: var(--font-display);
+        }
+        
+        /* Advanced Grid Layouts */
+        .asymmetric-grid {
+            display: grid;
+            grid-template-columns: 1.618fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        /* Animations disabled for professional static design */
+        
+        .reveal .fragment {
+            opacity: 1 !important;
+            visibility: visible !important;
+            transform: none !important;
+        }
+        
+        /* ========================================
+           IMPROVED RESPONSIVE DESIGN
+           ======================================== */
+        @media (max-width: 768px) {
+            .magazine-split {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .stat-image-card {
+                height: 250px !important;
+            }
+            
+            .four-panel-grid {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto;
+                gap: 1rem;
+            }
+            
+            .emotional-grid-premium {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .asymmetric-grid {
+                grid-template-columns: 1fr !important;
+                padding: 2rem !important;
+            }
+            
+            .image-panel {
+                height: 300px !important;
+                margin-top: 2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .reveal .slides section {
+                padding: 1rem;
+            }
+            
+            .stat-image-card {
+                height: 200px !important;
+            }
+            
+            .pullquote {
+                font-size: 1.5rem;
+                padding-left: 2rem;
+            }
+            
+            .pullquote::before {
+                font-size: 3rem;
+            }
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- Slide 1: Cinematic Opening -->
+            <section data-background-image="../../../shared-assets/images/biff01_Mother_holding_newborn_by_large_window_with_soft_morni_f16d5b33-2dc7-4aa7-86a1-34d018871ed7_3.png"
+                     data-background-size="cover"
+                     data-background-position="center">
+                <div style="position: absolute; inset: 0; background: linear-gradient(to right, rgba(26,26,26,0.9) 0%, rgba(26,26,26,0.7) 40%, transparent 70%); z-index: 1;"></div>
+                <div style="position: relative; z-index: 2; height: 100vh; display: flex; align-items: center; padding: 0 8%;">
+                    <div style="max-width: 650px;">
+                        <div style="display: inline-block; padding: 0.5rem 1.5rem; background: rgba(139,154,130,0.2); backdrop-filter: blur(10px); border-radius: 30px; margin-bottom: 2rem;">
+                            <p style="color: var(--bloom-sage); font-size: 0.9rem; letter-spacing: 0.15em; text-transform: uppercase; margin: 0; font-weight: 500;">Week 1 · Lesson 1</p>
+                        </div>
+                        <h1 style="font-family: var(--font-display); font-size: clamp(3rem, 6vw, 4.5rem); font-weight: 300; line-height: 1.05; margin-bottom: 2rem; color: white;">
+                            Welcome to Your<br>
+                            <span style="font-weight: 600; font-style: italic;">Fourth Trimester</span>
+                        </h1>
+                        <p style="font-size: 1.3rem; line-height: 1.6; color: rgba(255,255,255,0.9); margin-bottom: 3rem; font-weight: 300;">
+                            Understanding this profound life transition<br>and setting realistic expectations for recovery
+                        </p>
+                        <div style="display: flex; align-items: center; gap: 2rem;">
+                            <div style="width: 60px; height: 1px; background: var(--bloom-golden);"></div>
+                            <p style="color: rgba(255,255,255,0.7); font-size: 0.95rem; letter-spacing: 0.05em; margin: 0;">Dr. Jana Williams · Bloom Psychology</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 2: You Belong Here -->
+            <section data-background-color="#FFFFFF">
+                <div class="asymmetric-grid" style="padding: 0 6%; height: 100vh;">
+                    <div class="content-panel">
+                        <p class="subtitle-caps" style="color: var(--bloom-sage); margin-bottom: 2rem;">A Message of Hope</p>
+                        <h2 class="display-serif" style="font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.1; margin-bottom: 2rem;">
+                            You Belong <span style="font-style: italic; color: var(--bloom-coral);">Here</span>
+                        </h2>
+                        <div class="elegant-divider" style="background: var(--bloom-coral);"></div>
+                        <p style="font-size: 1.3rem; line-height: 1.7; color: var(--bloom-warm-gray); margin-bottom: 2.5rem;">
+                            If you're watching this, you're already doing something right. You're seeking support, and that takes extraordinary courage.
+                        </p>
+                        <div style="border-left: 3px solid var(--bloom-sage); padding-left: 2rem;">
+                            <p style="font-size: 1.15rem; line-height: 1.8; color: var(--bloom-charcoal); margin: 0;">
+                                This course is your roadmap through the fourth trimester—a time of profound change that deserves recognition, understanding, and expert support.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="image-panel" style="position: relative; height: 600px; box-shadow: 0 40px 100px rgba(0,0,0,0.15);">
+                        <img src="../../../shared-assets/images/biff01_Woman_recognizing_she_needs_help_while_looking_at_slee_53bf119b-9a43-4f7e-8a5b-eff2727a4beb_0.png" alt="Mother seeking support" style="border-radius: 2px;">
+                        <div style="position: absolute; bottom: -20px; right: -20px; width: 150px; height: 150px; background: var(--bloom-peach); opacity: 0.2; border-radius: 50%;"></div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 3: What Makes This Unique -->
+            <section data-background-color="#FFF9F0">
+                <div style="padding: 2rem 1.5rem; height: 100vh; display: flex; flex-direction: column; justify-content: center;">
+                    <div class="container">
+                        <h2 class="section-title display-serif" style="margin-bottom: 1.5rem; font-size: clamp(1.8rem, 3.5vw, 2.5rem);">What Makes This <span style="font-style: italic; color: var(--bloom-coral);">Unique</span></h2>
+                        
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.2rem; max-width: 900px; margin: 0 auto;">
+                            <div style="position: relative; background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 15px 40px rgba(0,0,0,0.06);">
+                                <div style="height: 140px; background: linear-gradient(135deg, var(--bloom-coral) 0%, var(--bloom-peach) 100%); position: relative; overflow: hidden;">
+                                    <img src="../../../shared-assets/images/biff01_Close-up_of_womans_face_showing_complex_emotions_tears_c8fb9303-95c9-4209-b3b8-703c42acee55_0.png" alt="Brain changes" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.3;">
+                                    <div style="position: absolute; bottom: 0.8rem; left: 1.5rem; color: white;">
+                                        <div style="width: 30px; height: 30px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                            <div style="width: 15px; height: 15px; background: white; border-radius: 50%;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="padding: 1.2rem;">
+                                    <h3 style="color: var(--bloom-coral); font-size: 1.1rem; margin-bottom: 0.5rem; font-weight: 600;">Your Brain is Changing</h3>
+                                    <p style="color: var(--bloom-warm-gray); font-size: 0.85rem; line-height: 1.4; margin: 0;">Adapting to read your baby's needs—this is strength, not weakness</p>
+                                </div>
+                            </div>
+                            
+                            <div style="position: relative; background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 15px 40px rgba(0,0,0,0.06);">
+                                <div style="height: 140px; background: linear-gradient(135deg, var(--bloom-sky) 0%, var(--bloom-mint) 100%); position: relative; overflow: hidden;">
+                                    <img src="../../../shared-assets/images/dark/darkphotos/biff01_Wide_shot_of_exhausted_mother_in_messy_living_room_bab_3bc12dbb-f080-4be3-9cd9-0c8e54ba2397_2.png" alt="Sleep changes" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.3;">
+                                    <div style="position: absolute; bottom: 0.8rem; left: 1.5rem; color: white;">
+                                        <div style="width: 30px; height: 30px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                            <div style="width: 15px; height: 15px; background: white; border-radius: 50%;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="padding: 1.2rem;">
+                                    <h3 style="color: var(--bloom-sky); font-size: 1.1rem; margin-bottom: 0.5rem; font-weight: 600;">Sleep Changes Everything</h3>
+                                    <p style="color: var(--bloom-warm-gray); font-size: 0.85rem; line-height: 1.4; margin: 0;">Disrupted sleep affects mood, memory, and patience—it's biology, not failure</p>
+                                </div>
+                            </div>
+                            
+                            <div style="position: relative; background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 15px 40px rgba(0,0,0,0.06);">
+                                <div style="height: 140px; background: linear-gradient(135deg, var(--bloom-lavender) 0%, var(--bloom-rose) 100%); position: relative; overflow: hidden;">
+                                    <img src="../../../shared-assets/images/biff01_Woman_taking_medication_with_morning_routine_matter-of_df1f0e62-14c6-4782-b08a-89031db6b197_1.png" alt="Physical recovery" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.3;">
+                                    <div style="position: absolute; bottom: 0.8rem; left: 1.5rem; color: white;">
+                                        <div style="width: 30px; height: 30px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                            <div style="width: 15px; height: 15px; background: white; border-radius: 50%;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="padding: 1.2rem;">
+                                    <h3 style="color: var(--bloom-lavender); font-size: 1.1rem; margin-bottom: 0.5rem; font-weight: 600;">Physical Recovery</h3>
+                                    <p style="color: var(--bloom-warm-gray); font-size: 0.85rem; line-height: 1.4; margin: 0;">Your body needs time to heal—months, not weeks</p>
+                                </div>
+                            </div>
+                            
+                            <div style="position: relative; background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 15px 40px rgba(0,0,0,0.06);">
+                                <div style="height: 140px; background: linear-gradient(135deg, var(--bloom-golden) 0%, var(--bloom-peach) 100%); position: relative; overflow: hidden;">
+                                    <img src="../../../shared-assets/images/biff01_Woman_looking_at_postpartum_body_in_mirror_with_compas_9ea51443-1c57-485d-ab4d-54e68d06d702_0.png" alt="Identity shifts" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.3;">
+                                    <div style="position: absolute; bottom: 0.8rem; left: 1.5rem; color: white;">
+                                        <div style="width: 30px; height: 30px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                            <div style="width: 15px; height: 15px; background: white; border-radius: 50%;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="padding: 1.2rem;">
+                                    <h3 style="color: var(--bloom-golden); font-size: 1.1rem; margin-bottom: 0.5rem; font-weight: 600;">Identity Shifts</h3>
+                                    <p style="color: var(--bloom-warm-gray); font-size: 0.85rem; line-height: 1.4; margin: 0;">"Matrescence"—becoming a mother is as big as adolescence</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 4: This Is NOT -->
+            <section data-background-image="../../../shared-assets/images/dark/darkphotos/biff01_Woman_first_recognizing_she_needs_help_sitting_alone_i_2f1b0637-ac4b-4883-a85b-6df7467e0631_1.png"
+                     data-background-size="cover"
+                     data-background-position="center">
+                <div style="position: absolute; inset: 0; background: rgba(26,26,26,0.85); z-index: 1;"></div>
+                <div style="position: relative; z-index: 2; padding: 2rem; min-height: 100vh; display: flex; flex-direction: column; justify-content: center;">
+                    <div class="container" style="max-width: 900px; margin: 0 auto;">
+                        <h2 class="display-serif" style="color: white; margin-bottom: 2rem; text-align: center; font-size: clamp(2.5rem, 4vw, 3.5rem);">
+                            This is <span style="color: var(--bloom-rose); font-style: italic;">NOT</span>
+                        </h2>
+                        
+                        <div style="display: grid; gap: 1rem; max-width: 700px; margin: 0 auto;">
+                            <div style="display: flex; align-items: center; background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); padding: 1.5rem; border-radius: 10px;">
+                                <div style="width: 4px; height: 40px; background: var(--bloom-rose); margin-right: 1.5rem; flex-shrink: 0;"></div>
+                                <div>
+                                    <h3 style="color: var(--bloom-rose); font-size: 1.2rem; margin-bottom: 0.2rem;">About "Bouncing Back"</h3>
+                                    <p style="color: rgba(255,255,255,0.8); font-size: 1rem; margin: 0;">You're not a rubber band. You're transforming.</p>
+                                </div>
+                            </div>
+                            
+                            <div style="display: flex; align-items: center; background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); padding: 1.5rem; border-radius: 10px;">
+                                <div style="width: 4px; height: 40px; background: var(--bloom-rose); margin-right: 1.5rem; flex-shrink: 0;"></div>
+                                <div>
+                                    <h3 style="color: var(--bloom-rose); font-size: 1.2rem; margin-bottom: 0.2rem;">About Perfection</h3>
+                                    <p style="color: rgba(255,255,255,0.8); font-size: 1rem; margin: 0;">There's no prize for doing this alone.</p>
+                                </div>
+                            </div>
+                            
+                            <div style="display: flex; align-items: center; background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); padding: 1.5rem; border-radius: 10px;">
+                                <div style="width: 4px; height: 40px; background: var(--bloom-rose); margin-right: 1.5rem; flex-shrink: 0;"></div>
+                                <div>
+                                    <h3 style="color: var(--bloom-rose); font-size: 1.2rem; margin-bottom: 0.2rem;">About Comparison</h3>
+                                    <p style="color: rgba(255,255,255,0.8); font-size: 1rem; margin: 0;">Your journey is uniquely yours.</p>
+                                </div>
+                            </div>
+                            
+                            <div style="display: flex; align-items: center; background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); padding: 1.5rem; border-radius: 10px;">
+                                <div style="width: 4px; height: 40px; background: var(--bloom-rose); margin-right: 1.5rem; flex-shrink: 0;"></div>
+                                <div>
+                                    <h3 style="color: var(--bloom-rose); font-size: 1.2rem; margin-bottom: 0.2rem;">About Judgment</h3>
+                                    <p style="color: rgba(255,255,255,0.8); font-size: 1rem; margin: 0;">Whatever you're feeling is valid. Full stop.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 5: The Timeline -->
+            <section data-background-image="../../../shared-assets/images/biff01_Three_panel_progression_same_mother_at_1_week_exhauste_9fd173a0-8cfa-4acd-8742-27f1bd0549f2_1.png"
+                     data-background-size="cover"
+                     data-background-position="center">
+                <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(255,249,240,0.95) 0%, rgba(255,249,240,0.85) 100%); z-index: 1;"></div>
+                <div style="position: relative; z-index: 2; padding: 2rem 1rem;">
+                    <div class="container" style="max-width: 1200px; margin: 0 auto;">
+                        <p class="subtitle-caps" style="text-align: center; color: var(--bloom-sage); margin-bottom: 0.5rem;">The Journey Ahead</p>
+                        <h2 class="display-serif" style="text-align: center; font-size: clamp(2.5rem, 5vw, 3.5rem); margin-bottom: 2rem;">Your 100-Day <span style="font-style: italic;">Timeline</span></h2>
+                        
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; max-width: 900px; margin: 0 auto;">
+                            <div style="text-align: center; background: white; padding: 2rem 1.5rem; border-radius: 15px; box-shadow: 0 15px 50px rgba(0,0,0,0.08); position: relative;">
+                                <div style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--bloom-warm-gray); border-radius: 15px 15px 0 0;"></div>
+                                <div style="width: 80px; height: 80px; background: var(--bloom-warm-gray); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                                    <span class="display-serif" style="font-size: 1.5rem;">1-4</span>
+                                </div>
+                                <p class="subtitle-caps" style="color: var(--bloom-warm-gray); margin-bottom: 0.3rem; font-size: 0.9rem;">Weeks 1-4</p>
+                                <h3 style="color: var(--bloom-charcoal); font-size: 1.2rem; margin-bottom: 0.5rem;">Survival Mode</h3>
+                                <p style="color: var(--bloom-warm-gray); font-size: 0.9rem; line-height: 1.4;">Just getting through each day</p>
+                            </div>
+                            
+                            <div style="text-align: center; background: white; padding: 2rem 1.5rem; border-radius: 15px; box-shadow: 0 15px 50px rgba(0,0,0,0.08); position: relative;">
+                                <div style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--bloom-coral); border-radius: 15px 15px 0 0;"></div>
+                                <div style="width: 80px; height: 80px; background: var(--bloom-coral); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                                    <span class="display-serif" style="font-size: 1.5rem;">5-8</span>
+                                </div>
+                                <p class="subtitle-caps" style="color: var(--bloom-coral); margin-bottom: 0.3rem; font-size: 0.9rem;">Weeks 5-8</p>
+                                <h3 style="color: var(--bloom-charcoal); font-size: 1.2rem; margin-bottom: 0.5rem;">Finding Rhythm</h3>
+                                <p style="color: var(--bloom-warm-gray); font-size: 0.9rem; line-height: 1.4;">Patterns start emerging</p>
+                            </div>
+                            
+                            <div style="text-align: center; background: white; padding: 2rem 1.5rem; border-radius: 15px; box-shadow: 0 15px 50px rgba(0,0,0,0.08); position: relative;">
+                                <div style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--bloom-golden); border-radius: 15px 15px 0 0;"></div>
+                                <div style="width: 80px; height: 80px; background: var(--bloom-golden); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                                    <span class="display-serif" style="font-size: 1.5rem;">9+</span>
+                                </div>
+                                <p class="subtitle-caps" style="color: var(--bloom-golden); margin-bottom: 0.3rem; font-size: 0.9rem;">Weeks 9-14</p>
+                                <h3 style="color: var(--bloom-charcoal); font-size: 1.2rem; margin-bottom: 0.5rem;">New Normal</h3>
+                                <p style="color: var(--bloom-warm-gray); font-size: 0.9rem; line-height: 1.4;">Confidence building</p>
+                            </div>
+                        </div>
+                        
+                        <div style="text-align: center; margin-top: 2rem; background: white; padding: 1.5rem 2rem; border-radius: 15px; box-shadow: 0 10px 40px rgba(0,0,0,0.08); max-width: 600px; margin-left: auto; margin-right: auto;">
+                            <div class="elegant-divider" style="margin: 0 auto 1rem; background: var(--bloom-sage); width: 60px; height: 3px;"></div>
+                            <p class="pullquote" style="padding-left: 0; font-size: 1.2rem; line-height: 1.4; margin: 0;">Recovery isn't linear. Good days followed by hard days are both part of the journey.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 6: The Emotional Reality -->
+            <section data-background-image="../../../shared-assets/images/dark/darkphotos/biff01_Mother_looking_overwhelmed_sitting_among_baby_items_an_c7bd2229-ed7a-43da-ba8f-df4447eb2f05_1.png"
+                     data-background-size="cover"
+                     data-background-position="center">
+                <div style="position: absolute; inset: 0; background: rgba(26,26,26,0.85); z-index: 1;"></div>
+                <div style="position: relative; z-index: 2; padding: 1.5rem 1rem;">
+                    <div class="container">
+                        <p class="subtitle-caps" style="text-align: center; color: var(--bloom-golden); margin-bottom: 0.5rem;">The Truth</p>
+                        <h2 class="display-serif" style="text-align: center; font-size: clamp(2rem, 4vw, 2.8rem); color: white; margin-bottom: 1.5rem;">The <span style="font-style: italic;">Real</span> Fourth Trimester</h2>
+                        
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; max-width: 1000px; margin: 0 auto;">
+                            <div style="position: relative; height: 200px; overflow: hidden;">
+                                <img src="../../../shared-assets/images/dark/darkphotos/biff01_Mother_looking_overwhelmed_sitting_among_baby_items_an_c7bd2229-ed7a-43da-ba8f-df4447eb2f05_1.png" alt="Exhaustion" style="width: 100%; height: 100%; object-fit: cover;">
+                                <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.4); display: flex; flex-direction: column; justify-content: flex-end; padding: 1rem;">
+                                    <p class="subtitle-caps" style="color: var(--bloom-coral); margin-bottom: 0.2rem; font-size: 0.7rem;">Reality Check</p>
+                                    <h3 class="display-serif" style="font-size: 1.3rem; color: white; margin-bottom: 0.2rem;">Exhaustion</h3>
+                                    <p style="color: rgba(255,255,255,0.9); font-size: 0.85rem; margin: 0;">80% experience severe fatigue</p>
+                                </div>
+                            </div>
+                            
+                            <div style="position: relative; height: 200px; overflow: hidden;">
+                                <img src="../../../shared-assets/images/dark/darkphotos/biff01_Mother_sitting_alone_in_crowded_park_with_other_famili_e773a335-e8e4-4a68-9df6-5d813ae07df6_1.png" alt="Isolation" style="width: 100%; height: 100%; object-fit: cover;">
+                                <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.4); display: flex; flex-direction: column; justify-content: flex-end; padding: 1rem;">
+                                    <p class="subtitle-caps" style="color: var(--bloom-sky); margin-bottom: 0.2rem; font-size: 0.7rem;">Hidden Truth</p>
+                                    <h3 class="display-serif" style="font-size: 1.3rem; color: white; margin-bottom: 0.2rem;">Isolation</h3>
+                                    <p style="color: rgba(255,255,255,0.9); font-size: 0.85rem; margin: 0;">67% feel lonely daily</p>
+                                </div>
+                            </div>
+                            
+                            <div style="position: relative; height: 200px; overflow: hidden;">
+                                <img src="../../../shared-assets/images/dark/darkphotos/biff01_Mother_holding_baby_with_mixed_expression_of_love_and__333dbc78-b05a-46d7-b993-a9cf8ee886ef_2.png" alt="Mixed emotions" style="width: 100%; height: 100%; object-fit: cover;">
+                                <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.4); display: flex; flex-direction: column; justify-content: flex-end; padding: 1rem;">
+                                    <p class="subtitle-caps" style="color: var(--bloom-lavender); margin-bottom: 0.2rem; font-size: 0.7rem;">Complex Feelings</p>
+                                    <h3 class="display-serif" style="font-size: 1.3rem; color: white; margin-bottom: 0.2rem;">Ambivalence</h3>
+                                    <p style="color: rgba(255,255,255,0.9); font-size: 0.85rem; margin: 0;">Love & resentment coexist</p>
+                                </div>
+                            </div>
+                            
+                            <div style="position: relative; height: 200px; overflow: hidden;">
+                                <img src="../../../shared-assets/images/dark/darkphotos/biff01_Woman_looking_at_herself_in_bathroom_mirror_not_recogn_717a8ef2-27b2-4b83-bddd-b728c38a793b_2.png" alt="Identity shift" style="width: 100%; height: 100%; object-fit: cover;">
+                                <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.4); display: flex; flex-direction: column; justify-content: flex-end; padding: 1rem;">
+                                    <p class="subtitle-caps" style="color: var(--bloom-rose); margin-bottom: 0.2rem; font-size: 0.7rem;">Who Am I?</p>
+                                    <h3 class="display-serif" style="font-size: 1.3rem; color: white; margin-bottom: 0.2rem;">Identity Loss</h3>
+                                    <p style="color: rgba(255,255,255,0.9); font-size: 0.85rem; margin: 0;">"Who am I now?"</p>
+                                </div>
+                            </div>
+                            
+                            <div style="position: relative; height: 200px; overflow: hidden;">
+                                <img src="../../../shared-assets/images/dark/darkphotos/biff01_Mother_looking_overwhelmed_sitting_among_baby_items_an_c7bd2229-ed7a-43da-ba8f-df4447eb2f05_1.png" alt="Overwhelm" style="width: 100%; height: 100%; object-fit: cover;">
+                                <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.4); display: flex; flex-direction: column; justify-content: flex-end; padding: 1rem;">
+                                    <p class="subtitle-caps" style="color: var(--bloom-peach); margin-bottom: 0.2rem; font-size: 0.7rem;">The Weight</p>
+                                    <h3 class="display-serif" style="font-size: 1.3rem; color: white; margin-bottom: 0.2rem;">Overwhelm</h3>
+                                    <p style="color: rgba(255,255,255,0.9); font-size: 0.85rem; margin: 0;">Invisible mental load</p>
+                                </div>
+                            </div>
+                            
+                            <div style="position: relative; height: 200px; overflow: hidden;">
+                                <img src="../../../shared-assets/images/biff01_Woman_taking_medication_with_morning_routine_matter-of_df1f0e62-14c6-4782-b08a-89031db6b197_2.png" alt="Physical recovery" style="width: 100%; height: 100%; object-fit: cover;">
+                                <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.4); display: flex; flex-direction: column; justify-content: flex-end; padding: 1rem;">
+                                    <p class="subtitle-caps" style="color: var(--bloom-golden); margin-bottom: 0.2rem; font-size: 0.7rem;">Healing Time</p>
+                                    <h3 class="display-serif" style="font-size: 1.3rem; color: white; margin-bottom: 0.2rem;">Body Changes</h3>
+                                    <p style="color: rgba(255,255,255,0.9); font-size: 0.85rem; margin: 0;">12-18 months to heal</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 7: You're Not Alone -->
+            <section data-background-image="../../../shared-assets/images/biff01_Large_diverse_group_of_mothers_at_outdoor_baby-wearing_af9fca4a-b408-4ba3-b315-6ccd06bc4ceb_0.png"
+                     data-background-size="cover"
+                     data-background-position="center">
+                <div style="position: absolute; inset: 0; background: rgba(255,249,240,0.92); z-index: 1;"></div>
+                <div style="position: relative; z-index: 2; padding: 4rem 2rem;">
+                    <div class="container">
+                        <h2 class="section-title display-serif" style="margin-bottom: 4rem;">You Are <span style="font-style: italic; font-weight: 400;">Not Alone</span></h2>
+                        
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; max-width: 600px; margin: 0 auto;">
+                            <div class="stat-image-card" style="position: relative; height: 200px; overflow: hidden; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                                <img src="../../../shared-assets/images/dark/darkphotos/biff01_Mother_in_support_group_sharing_story_other_women_list_56bfe588-5e6a-44ca-b14e-95b93593d85a_0.png" alt="Support" style="width: 100%; height: 100%; object-fit: cover;">
+                                <div class="stat-overlay" style="position: absolute; bottom: 0; left: 0; right: 0; padding: 1rem; background: linear-gradient(to top, rgba(255,107,107,0.9), transparent); color: white; text-align: center;">
+                                    <div class="display-serif" style="font-size: 2.5rem; line-height: 1; color: white; margin-bottom: 0.2rem;">1 in 5</div>
+                                    <p style="font-size: 0.85rem; color: rgba(255,255,255,0.95); line-height: 1.3; margin: 0;">Experience postpartum<br>mood disorders</p>
+                                </div>
+                            </div>
+                            
+                            <div class="stat-image-card" style="position: relative; height: 200px; overflow: hidden; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                                <img src="../../../shared-assets/images/dark/darkphotos/biff01_Woman_looking_at_herself_in_bathroom_mirror_not_recogn_717a8ef2-27b2-4b83-bddd-b728c38a793b_2.png" alt="Unprepared" style="width: 100%; height: 100%; object-fit: cover;">
+                                <div class="stat-overlay" style="position: absolute; bottom: 0; left: 0; right: 0; padding: 1rem; background: linear-gradient(to top, rgba(139,154,130,0.9), transparent); color: white; text-align: center;">
+                                    <div class="display-serif" style="font-size: 2.5rem; line-height: 1; color: white; margin-bottom: 0.2rem;">70%</div>
+                                    <p style="font-size: 0.85rem; color: rgba(255,255,255,0.95); line-height: 1.3; margin: 0;">Feel unprepared for<br>the reality</p>
+                                </div>
+                            </div>
+                            
+                            <div class="stat-image-card" style="position: relative; height: 200px; overflow: hidden; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                                <img src="../../../shared-assets/images/biff01_Large_diverse_group_of_mothers_at_outdoor_baby-wearing_af9fca4a-b408-4ba3-b315-6ccd06bc4ceb_0.png" alt="Recovery" style="width: 100%; height: 100%; object-fit: cover;">
+                                <div class="stat-overlay" style="position: absolute; bottom: 0; left: 0; right: 0; padding: 1rem; background: linear-gradient(to top, rgba(255,203,119,0.9), transparent); color: white; text-align: center;">
+                                    <div class="display-serif" style="font-size: 2.5rem; line-height: 1; color: white; margin-bottom: 0.2rem;">95%</div>
+                                    <p style="font-size: 0.85rem; color: rgba(255,255,255,0.95); line-height: 1.3; margin: 0;">Recover fully<br>with support</p>
+                                </div>
+                            </div>
+                            
+                            <div class="stat-image-card" style="position: relative; height: 200px; overflow: hidden; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                                <img src="../../../shared-assets/images/biff01_Woman_with_hand_on_heart_in_morning_light_self-compas_55242be0-e564-4de9-bee2-46be6a8e9bb6_1.png" alt="Compassion" style="width: 100%; height: 100%; object-fit: cover;">
+                                <div class="stat-overlay" style="position: absolute; bottom: 0; left: 0; right: 0; padding: 1rem; background: linear-gradient(to top, rgba(149,225,211,0.9), transparent); color: white; text-align: center;">
+                                    <div class="display-serif" style="font-size: 2.5rem; line-height: 1; color: white; margin-bottom: 0.2rem;">100%</div>
+                                    <p style="font-size: 0.85rem; color: rgba(255,255,255,0.95); line-height: 1.3; margin: 0;">Deserve compassion<br>and care</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="text-align: center; margin-top: 3rem;">
+                            <p class="pullquote" style="max-width: 700px; margin: 0 auto; padding-left: 0; font-size: 1.6rem;">You are not alone in this journey, and with the right support, you will find your way.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 8: Your Path Forward -->
+            <section data-background-image="../../../shared-assets/images/biff01_Large_diverse_group_of_mothers_at_outdoor_baby-wearing_af9fca4a-b408-4ba3-b315-6ccd06bc4ceb_0.png"
+                     data-background-size="cover"
+                     data-background-position="center">
+                <div style="position: absolute; inset: 0; background: rgba(255,249,240,0.94); z-index: 1;"></div>
+                <div style="position: relative; z-index: 2; padding: 3rem 2rem; height: 100vh; display: flex; flex-direction: column; justify-content: center;">
+                    <div class="container">
+                        <h2 class="section-title display-serif" style="margin-bottom: 3rem;">Your Path <span style="font-style: italic;">Forward</span></h2>
+                        
+                        <div class="asymmetric-grid" style="max-width: 1200px; margin: 0 auto;">
+                            <div>
+                                <h3 class="display-serif" style="font-size: clamp(2.5rem, 4vw, 3.5rem); margin-bottom: 2rem; color: var(--bloom-charcoal);">Six Steps</h3>
+                                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+                                    <div style="background: white; padding: 1.5rem; border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.06); border-left: 3px solid var(--bloom-coral); position: relative; overflow: hidden;">
+                                        <div style="position: absolute; top: 0.5rem; right: 0.5rem; width: 60px; height: 60px; background: linear-gradient(135deg, var(--bloom-coral) 0%, var(--bloom-peach) 100%); border-radius: 50%; opacity: 0.1;"></div>
+                                        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                                            <div style="width: 30px; height: 30px; background: var(--bloom-coral); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.8rem; font-weight: 600;">👁</div>
+                                            <h4 style="color: var(--bloom-coral); font-size: 1.2rem; margin: 0;">01. Recognition</h4>
+                                        </div>
+                                        <p style="color: var(--bloom-warm-gray); font-size: 0.95rem; margin: 0;">Acknowledging that what you're feeling is real</p>
+                                    </div>
+                                    
+                                    <div style="background: white; padding: 1.5rem; border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.06); border-left: 3px solid var(--bloom-sky); position: relative; overflow: hidden;">
+                                        <div style="position: absolute; top: 0.5rem; right: 0.5rem; width: 60px; height: 60px; background: linear-gradient(135deg, var(--bloom-sky) 0%, var(--bloom-mint) 100%); border-radius: 50%; opacity: 0.1;"></div>
+                                        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                                            <div style="width: 30px; height: 30px; background: var(--bloom-sky); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.8rem; font-weight: 600;">🤝</div>
+                                            <h4 style="color: var(--bloom-sky); font-size: 1.2rem; margin: 0;">02. Connection</h4>
+                                        </div>
+                                        <p style="color: var(--bloom-warm-gray); font-size: 0.95rem; margin: 0;">Reaching out to others who understand</p>
+                                    </div>
+                                    
+                                    <div style="background: white; padding: 1.5rem; border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.06); border-left: 3px solid var(--bloom-mint); position: relative; overflow: hidden;">
+                                        <div style="position: absolute; top: 0.5rem; right: 0.5rem; width: 60px; height: 60px; background: linear-gradient(135deg, var(--bloom-mint) 0%, var(--bloom-teal) 100%); border-radius: 50%; opacity: 0.1;"></div>
+                                        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                                            <div style="width: 30px; height: 30px; background: var(--bloom-mint); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.8rem; font-weight: 600;">🛡</div>
+                                            <h4 style="color: var(--bloom-mint); font-size: 1.2rem; margin: 0;">03. Support</h4>
+                                        </div>
+                                        <p style="color: var(--bloom-warm-gray); font-size: 0.95rem; margin: 0;">Building a care team when needed</p>
+                                    </div>
+                                    
+                                    <div style="background: white; padding: 1.5rem; border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.06); border-left: 3px solid var(--bloom-rose); position: relative; overflow: hidden;">
+                                        <div style="position: absolute; top: 0.5rem; right: 0.5rem; width: 60px; height: 60px; background: linear-gradient(135deg, var(--bloom-rose) 0%, var(--bloom-coral) 100%); border-radius: 50%; opacity: 0.1;"></div>
+                                        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                                            <div style="width: 30px; height: 30px; background: var(--bloom-rose); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.8rem; font-weight: 600;">👥</div>
+                                            <h4 style="color: var(--bloom-rose); font-size: 1.2rem; margin: 0;">04. Community</h4>
+                                        </div>
+                                        <p style="color: var(--bloom-warm-gray); font-size: 0.95rem; margin: 0;">Finding your tribe of mothers</p>
+                                    </div>
+                                    
+                                    <div style="background: white; padding: 1.5rem; border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.06); border-left: 3px solid var(--bloom-golden); position: relative; overflow: hidden;">
+                                        <div style="position: absolute; top: 0.5rem; right: 0.5rem; width: 60px; height: 60px; background: linear-gradient(135deg, var(--bloom-golden) 0%, var(--bloom-orange) 100%); border-radius: 50%; opacity: 0.1;"></div>
+                                        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                                            <div style="width: 30px; height: 30px; background: var(--bloom-golden); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.8rem; font-weight: 600;">🔧</div>
+                                            <h4 style="color: var(--bloom-golden); font-size: 1.2rem; margin: 0;">05. Tools</h4>
+                                        </div>
+                                        <p style="color: var(--bloom-warm-gray); font-size: 0.95rem; margin: 0;">Learning practical strategies</p>
+                                    </div>
+                                    
+                                    <div style="background: white; padding: 1.5rem; border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.06); border-left: 3px solid var(--bloom-lavender); position: relative; overflow: hidden;">
+                                        <div style="position: absolute; top: 0.5rem; right: 0.5rem; width: 60px; height: 60px; background: linear-gradient(135deg, var(--bloom-lavender) 0%, var(--bloom-rose) 100%); border-radius: 50%; opacity: 0.1;"></div>
+                                        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                                            <div style="width: 30px; height: 30px; background: var(--bloom-lavender); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.8rem; font-weight: 600;">🌱</div>
+                                            <h4 style="color: var(--bloom-lavender); font-size: 1.2rem; margin: 0;">06. Growth</h4>
+                                        </div>
+                                        <p style="color: var(--bloom-warm-gray); font-size: 0.95rem; margin: 0;">Transforming into who you're meant to be</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="display: flex; flex-direction: column; justify-content: center; padding-left: 2rem;">
+                                <div class="elegant-divider" style="background: var(--bloom-sage); margin-bottom: 2rem;"></div>
+                                <p class="pullquote" style="padding-left: 0; font-size: 1.8rem; line-height: 1.4;">Each step builds on the last, creating a foundation for lasting transformation.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 9: Today's Practice -->
+            <section data-background-color="#FFFFFF">
+                <div class="asymmetric-grid" style="padding: 0 4%; height: 100vh;">
+                    <div class="image-panel" style="height: 500px; position: relative;">
+                        <img src="../../../shared-assets/images/biff01_Woman_writing_in_journal_at_kitchen_table_with_tea_pro_2395b15a-e975-4fc4-8694-e53ab8a93511_3.png" alt="Daily check-in practice" style="border-radius: 2px;">
+                        <div style="position: absolute; top: -20px; left: -20px; width: 120px; height: 120px; background: var(--bloom-mint); opacity: 0.15; border-radius: 50%;"></div>
+                    </div>
+                    <div class="content-panel">
+                        <p class="subtitle-caps" style="color: var(--bloom-sage); margin-bottom: 1.5rem;">Start Today</p>
+                        <h2 class="display-serif" style="font-size: clamp(2.5rem, 4vw, 3.5rem); margin-bottom: 2rem;">Your First <span style="font-style: italic; color: var(--bloom-mint);">Practice</span></h2>
+                        
+                        <div style="background: white; border-left: 3px solid var(--bloom-mint); padding: 2.5rem; box-shadow: 0 10px 40px rgba(0,0,0,0.08);">
+                            <h3 style="color: var(--bloom-charcoal); font-size: 1.6rem; margin-bottom: 1.5rem;">The Daily Check-In</h3>
+                            
+                            <div style="font-size: 1.1rem; line-height: 2; color: var(--bloom-warm-gray);">
+                                <p style="margin-bottom: 1rem; padding-left: 2rem; position: relative;">
+                                    <span style="position: absolute; left: 0; top: 0.2rem; display: inline-block; width: 12px; height: 1px; background: var(--bloom-mint);"></span>
+                                    "How am I feeling right now?"
+                                </p>
+                                <p style="margin-bottom: 1rem; padding-left: 2rem; position: relative;">
+                                    <span style="position: absolute; left: 0; top: 0.2rem; display: inline-block; width: 12px; height: 1px; background: var(--bloom-mint);"></span>
+                                    "What do I need in this moment?"
+                                </p>
+                                <p style="margin-bottom: 0; padding-left: 2rem; position: relative;">
+                                    <span style="position: absolute; left: 0; top: 0.2rem; display: inline-block; width: 12px; height: 1px; background: var(--bloom-mint);"></span>
+                                    "What's one kind thing I can do for myself?"
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="elegant-divider" style="margin: 2rem 0; background: var(--bloom-sage);"></div>
+                        <p style="font-size: 1.15rem; color: var(--bloom-warm-gray); font-style: italic;">No judgment. Just noticing. Just being.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 10: Your Journey Begins Now -->
+            <section data-background-image="../../../shared-assets/images/biff01_Mother_holding_baby_looking_out_window_at_sunrise_hope_7f2de060-da80-41fa-8c95-705189ef01be_1.png"
+                     data-background-size="cover"
+                     data-background-position="center">
+                <div style="position: absolute; inset: 0; background: rgba(26,26,26,0.7); z-index: 1;"></div>
+                <div style="position: relative; z-index: 2; height: 100vh; display: flex; align-items: center; padding: 4rem;">
+                    <div class="magazine-split" style="width: 100%; max-width: 1200px; margin: 0 auto;">
+                        <div style="position: relative;">
+                            <img src="../../../shared-assets/images/biff01_Mother_genuinely_laughing_while_playing_with_baby_on_b_7cc6a274-9631-49b8-8b09-be9160830b29_0.png" alt="Mother and baby joy" style="width: 100%; height: 400px; object-fit: cover; border-radius: 20px; box-shadow: 0 30px 80px rgba(0,0,0,0.3);">
+                            <div style="position: absolute; bottom: -20px; right: -20px; width: 100px; height: 100px; background: var(--bloom-golden); opacity: 0.8; border-radius: 50%; filter: blur(20px);"></div>
+                        </div>
+                        <div>
+                            <h1 class="display-serif" style="font-size: clamp(2.5rem, 5vw, 3.5rem); line-height: 1.1; margin-bottom: 2rem; color: white;">
+                                Your Journey<br>
+                                <span style="font-style: italic; font-weight: 400; color: var(--bloom-golden);">Begins Now</span>
+                            </h1>
+                            
+                            <div class="elegant-divider" style="background: var(--bloom-golden); margin: 2rem 0; width: 80px; height: 3px;"></div>
+                            
+                            <p style="font-size: 1.3rem; line-height: 1.6; color: rgba(255,255,255,0.95); margin-bottom: 2rem;">
+                                You've already taken the hardest step—you showed up.
+                            </p>
+                            
+                            <p style="font-size: 1.1rem; line-height: 1.6; color: rgba(255,255,255,0.8); margin-bottom: 2rem;">
+                                Tomorrow, we'll explore what's normal and what needs attention. Until then, be gentle with yourself.
+                            </p>
+                            
+                            <div style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); padding: 1.5rem; border-radius: 15px; border-left: 4px solid var(--bloom-golden);">
+                                <p class="display-serif" style="font-size: 1.4rem; font-style: italic; color: var(--bloom-golden); margin: 0;">
+                                    "You're doing better than you think."
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 11: Your Rights -->
+            <section data-background-color="#FFF9F0">
+                <div style="padding: 2rem 1.5rem; height: 100vh; display: flex; flex-direction: column; justify-content: center;">
+                    <div class="container" style="max-width: 1000px; margin: 0 auto;">
+                        <h2 class="section-title display-serif" style="margin-bottom: 2rem; text-align: center; font-size: clamp(2rem, 4vw, 2.8rem);">
+                            Your <span style="font-style: italic; color: var(--bloom-coral);">Bill of Rights</span>
+                        </h2>
+                        
+                        <div class="magazine-split" style="gap: 2rem; align-items: center;">
+                            <div style="position: relative;">
+                                <img src="../../../shared-assets/images/biff01_Mother_playing_peek-a-boo_with_baby_genuine_joy_breaki_5f30e702-cb31-491e-bb07-cc122769d11d_0.png" alt="Empowered mother" style="width: 100%; height: 350px; object-fit: cover; border-radius: 15px; box-shadow: 0 20px 60px rgba(0,0,0,0.15);">
+                                <div style="position: absolute; top: -10px; left: -10px; width: 60px; height: 60px; background: var(--bloom-coral); opacity: 0.2; border-radius: 50%;"></div>
+                                <div style="position: absolute; bottom: -15px; right: -15px; width: 80px; height: 80px; background: var(--bloom-mint); opacity: 0.15; border-radius: 50%;"></div>
+                            </div>
+                            
+                            <div>
+                                <div style="display: grid; gap: 1.5rem;">
+                                    <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); border-left: 3px solid var(--bloom-coral);">
+                                        <h3 style="color: var(--bloom-coral); font-size: 1.2rem; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.5rem;">
+                                            <span style="font-size: 1.4rem;">💖</span> You have the right to...
+                                        </h3>
+                                        <ul style="list-style: none; padding: 0; font-size: 1rem; line-height: 1.6; color: var(--bloom-warm-gray);">
+                                            <li style="margin-bottom: 0.3rem;">✓ Feel all your feelings</li>
+                                            <li style="margin-bottom: 0.3rem;">✓ Ask for help</li>
+                                            <li style="margin-bottom: 0.3rem;">✓ Take time to heal</li>
+                                            <li>✓ Not be okay sometimes</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); border-left: 3px solid var(--bloom-mint);">
+                                        <h3 style="color: var(--bloom-mint); font-size: 1.2rem; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.5rem;">
+                                            <span style="font-size: 1.4rem;">🌱</span> You deserve...
+                                        </h3>
+                                        <ul style="list-style: none; padding: 0; font-size: 1rem; line-height: 1.6; color: var(--bloom-warm-gray);">
+                                            <li style="margin-bottom: 0.3rem;">✓ Compassion, not judgment</li>
+                                            <li style="margin-bottom: 0.3rem;">✓ Support, not criticism</li>
+                                            <li style="margin-bottom: 0.3rem;">✓ Rest, not guilt</li>
+                                            <li>✓ Space to find yourself</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 12: Closing - Hope & Continuation -->
+            <section data-background-image="../../../shared-assets/images/biff01_Mother_holding_baby_looking_out_window_at_sunrise_hope_7f2de060-da80-41fa-8c95-705189ef01be_1.png"
+                     data-background-size="cover"
+                     data-background-position="center">
+                <div style="position: absolute; inset: 0; background: linear-gradient(to right, rgba(26,26,26,0.9) 0%, rgba(26,26,26,0.7) 40%, transparent 70%); z-index: 1;"></div>
+                <div style="position: relative; z-index: 2; height: 100vh; display: flex; align-items: center; padding: 0 8%;">
+                    <div style="max-width: 650px;">
+                        <div style="display: inline-block; padding: 0.5rem 1.5rem; background: rgba(255,203,119,0.2); backdrop-filter: blur(10px); border-radius: 30px; margin-bottom: 2rem;">
+                            <p style="color: var(--bloom-golden); font-size: 0.9rem; letter-spacing: 0.15em; text-transform: uppercase; margin: 0; font-weight: 500;">Week 1 · Lesson 1 Complete</p>
+                        </div>
+                        <h1 style="font-family: var(--font-display); font-size: clamp(3rem, 6vw, 4.5rem); font-weight: 300; line-height: 1.05; margin-bottom: 2rem; color: white;">
+                            Your Journey<br>
+                            <span style="font-weight: 600; font-style: italic;">Begins Now</span>
+                        </h1>
+                        <p style="font-size: 1.3rem; line-height: 1.6; color: rgba(255,255,255,0.9); margin-bottom: 1.5rem; font-weight: 300;">
+                            You've already taken the hardest step—<br>you showed up.
+                        </p>
+                        <p style="font-size: 1.1rem; line-height: 1.6; color: var(--bloom-peach); margin-bottom: 3rem; font-weight: 400;">
+                            Tomorrow, we'll explore what's normal<br>and what needs attention.
+                        </p>
+                        <p style="font-size: 1.2rem; line-height: 1.6; color: rgba(255,255,255,0.8); margin-bottom: 3rem; font-weight: 300;">
+                            Until then, be gentle with yourself.<br>
+                            <span style="color: var(--bloom-golden); font-weight: 500;">You're doing better than you think.</span>
+                        </p>
+                        <div style="display: flex; align-items: center; gap: 2rem;">
+                            <div style="width: 60px; height: 1px; background: var(--bloom-golden);"></div>
+                            <p style="color: rgba(255,255,255,0.7); font-size: 0.95rem; letter-spacing: 0.05em; margin: 0;">Welcome to Bloom</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/notes/notes.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/markdown/markdown.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/highlight/highlight.js"></script>
+    
+    <script>
+        Reveal.initialize({
+            hash: true,
+            controls: true,
+            progress: true,
+            center: false,
+            transition: 'fade',
+            transitionSpeed: 'default',
+            backgroundTransition: 'fade',
+            
+            width: '100%',
+            height: '100%',
+            margin: 0,
+            minScale: 1,
+            maxScale: 1,
+            disableLayout: false,
+            
+            // Professional presentation settings
+            autoSlide: 0,
+            loop: false,
+            rtl: false,
+            shuffle: false,
+            
+            plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+        });
+        
+        // All animations disabled for professional presentation
+    </script>
+</body>
+</html>

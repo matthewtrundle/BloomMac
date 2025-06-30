@@ -120,26 +120,7 @@ const availableImages = [
   '/images/biff01_imagine_young_mother_studying_while_baby_sleeps_textbo_dd1e3c54-b3dc-4365-91df-eb056f7834db_0.png',
   '/images/Team/jana10.png',
   
-  // Virtual therapy images
-  '/images/virtualimages/biff01_imagine_Dallas_suburban_home_with_mother_on_video_ther_b5f37bdb-aa66-4513-9461-f1fe95a1fee3_2.png',
-  '/images/virtualimages/biff01_imagine_Houston_skyline_in_background_with_woman_on_la_55fc9b17-cf2d-4f4d-a75c-eb9f0f5712c1_0.png',
-  '/images/virtualimages/biff01_imagine_clean_modern_virtual_waiting_room_interface_on_154d532c-6f25-4915-ad98-bec848e971c8_2.png',
-  '/images/virtualimages/biff01_imagine_cozy_evening_virtual_therapy_setup_laptop_with_bb5389eb-7793-4206-a1c0-6b220fd5d7c3_3.png',
-  '/images/virtualimages/biff01_imagine_cozy_home_therapy_setup_with_comfortable_armch_38c71038-1216-42da-8660-34a82cdabf60_3.png',
-  '/images/virtualimages/biff01_imagine_flat_lay_of_devices_for_virtual_therapy_laptop_44e8a1b2-105a-4cad-bdd0-79ba76746f50_3.png',
-  '/images/virtualimages/biff01_imagine_modern_laptop_showing_video_call_interface_wit_023af6ea-f83c-4e62-9cc4-42a27c1b75ed_3.png',
-  '/images/virtualimages/biff01_imagine_mother_with_toddler_playing_quietly_nearby_dur_ac428256-9ce4-4c19-84b3-482ba54aeb59_2.png',
-  '/images/virtualimages/biff01_imagine_new_mother_holding_sleeping_baby_while_on_vide_d153b34c-b91b-4cb0-874c-14ffd7b1c30b_1.png',
-  '/images/virtualimages/biff01_imagine_private_home_office_corner_perfect_for_therapy_78a12a8b-a352-4d90-bd48-07087daf27eb_3.png',
-  '/images/virtualimages/biff01_imagine_professional_therapists_home_office_setup_for__0d1d995b-7421-4a0b-964a-1fb848b2cbae_1.png',
-  '/images/virtualimages/biff01_imagine_professional_woman_in_her_30s_having_virtual_t_727f6da0-6bf9-4159-8fd0-61d3b530b1de_1.png',
-  '/images/virtualimages/biff01_imagine_split_screen_showing_4_stages_of_virtual_thera_a68f1bab-6e65-4c75-91b8-657d3334b028_2.png',
-  '/images/virtualimages/biff01_imagine_stylized_Texas_map_with_glowing_connection_poi_1b4a8309-fd19-4b40-9109-6c2e57574168_3.png',
-  '/images/virtualimages/biff01_imagine_woman_having_emotional_breakthrough_during_vir_c2c94744-8cbf-4923-a7c7-c92d6015a811_2.png',
-  '/images/virtualimages/biff01_imagine_woman_in_rural_Texas_setting_having_virtual_th_d4e304f0-fce5-49d3-a982-adcdb8c8b769_2.png',
-  '/images/virtualimages/biff01_imagine_woman_journaling_after_virtual_therapy_session_6976ee74-24f0-487b-8af2-9e9b829d8a2c_3.png',
-  '/images/virtualimages/biff01_imagine_woman_setting_up_quiet_space_for_virtual_thera_50ec7d92-9148-47f8-8030-c58ac8255b14_1.png',
-  '/images/virtualimages/biff01_imagine_woman_testing_internet_connection_before_thera_2c8452ed-ce73-431d-8a24-8702cb071d15_3.png',
+  // Virtual therapy images - removed due to missing files
   
   // Blog images
   '/images/Blog/biff01_imagine_new_mother_holding_baby_peaceful_nursery_soft__1142a756-4014-4606-aced-81dd4005e812_0.png',

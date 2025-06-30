@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Week 1 Format Variations - Bloom Psychology</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reset.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+    <link rel="stylesheet" href="../css/bloom-reveal-theme.css">
+    
+    <style>
+        /* New Format Variations for Week 1 */
+        
+        /* Variation 1: Circular Journey */
+        .circular-journey {
+            position: relative;
+            width: 800px;
+            height: 800px;
+            margin: 0 auto;
+        }
+        
+        .journey-circle {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .journey-circle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+        
+        .journey-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(135deg, var(--bloom-coral) 0%, var(--bloom-lavender) 100%);
+            color: white;
+            font-size: 2rem;
+            font-weight: 600;
+        }
+        
+        /* Variation 2: Timeline with Images */
+        .visual-timeline {
+            display: grid;
+            grid-template-columns: 100px 1fr;
+            gap: 2rem;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .timeline-marker {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .timeline-dot {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--bloom-coral);
+            margin-bottom: 1rem;
+            position: relative;
+        }
+        
+        .timeline-line {
+            width: 2px;
+            flex-grow: 1;
+            background: rgba(0,0,0,0.1);
+        }
+        
+        .timeline-content {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 3rem;
+            align-items: center;
+            padding: 2rem;
+            background: rgba(255,255,255,0.9);
+            border-radius: 20px;
+            margin-bottom: 2rem;
+        }
+        
+        .timeline-image {
+            width: 300px;
+            height: 200px;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        /* Variation 3: Emotional Spectrum Visualization */
+        .emotion-spectrum {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 4rem;
+            position: relative;
+        }
+        
+        .spectrum-bar {
+            position: absolute;
+            bottom: 3rem;
+            left: 4rem;
+            right: 4rem;
+            height: 8px;
+            background: linear-gradient(to right, 
+                #FF6B6B 0%, 
+                #FFB4A2 25%, 
+                #95E1D3 50%, 
+                #C589E8 75%, 
+                #8B9A82 100%);
+            border-radius: 4px;
+        }
+        
+        .emotion-point {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 2;
+        }
+        
+        .emotion-bubble {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            background: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            margin-bottom: 2rem;
+        }
+        
+        /* Variation 4: Polaroid Grid */
+        .polaroid-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            padding: 3rem;
+        }
+        
+        .polaroid {
+            background: white;
+            padding: 1rem 1rem 4rem 1rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transform: rotate(-2deg);
+            transition: all 0.3s ease;
+        }
+        
+        .polaroid:nth-child(even) {
+            transform: rotate(2deg);
+        }
+        
+        .polaroid:hover {
+            transform: rotate(0deg) scale(1.05);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+        
+        .polaroid img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        
+        .polaroid-caption {
+            text-align: center;
+            margin-top: 1rem;
+            font-family: 'Courier New', monospace;
+            font-size: 1.4rem;
+            color: #333;
+        }
+        
+        /* Variation 5: Split Screen Stories */
+        .story-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            height: 100vh;
+        }
+        
+        .story-side {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 4rem;
+        }
+        
+        .story-side.before {
+            background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+        }
+        
+        .story-side.after {
+            background: linear-gradient(135deg, var(--bloom-peach) 0%, var(--bloom-coral) 100%);
+            color: white;
+        }
+        
+        .story-label {
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 1rem;
+            opacity: 0.7;
+        }
+        
+        /* Variation 6: Interactive Cards */
+        .flip-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            padding: 3rem;
+            perspective: 1000px;
+        }
+        
+        .flip-card {
+            position: relative;
+            width: 300px;
+            height: 400px;
+            cursor: pointer;
+        }
+        
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .flip-card-back {
+            background: linear-gradient(135deg, var(--bloom-coral) 0%, var(--bloom-lavender) 100%);
+            color: white;
+            transform: rotateY(180deg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- Variation 1: Circular Journey -->
+            <section data-background-color="#faf8f5">
+                <h2 style="text-align: center; margin-bottom: 3rem;">Your Postpartum <span class="gradient-text">Journey</span></h2>
+                <div class="circular-journey">
+                    <div class="journey-center journey-circle">
+                        <h3>You Are Here</h3>
+                        <p>Ready to heal</p>
+                    </div>
+                    <div class="journey-circle fragment" style="top: 0; left: 50%; transform: translateX(-50%);">
+                        <span style="font-size: 2rem;">🌱</span>
+                        <h4>Week 1</h4>
+                        <p>Understanding</p>
+                    </div>
+                    <div class="journey-circle fragment" style="top: 20%; right: 10%;">
+                        <span style="font-size: 2rem;">🧠</span>
+                        <h4>Week 2</h4>
+                        <p>Cognitive Work</p>
+                    </div>
+                    <div class="journey-circle fragment" style="bottom: 20%; right: 10%;">
+                        <span style="font-size: 2rem;">✨</span>
+                        <h4>Week 3</h4>
+                        <p>Finding Joy</p>
+                    </div>
+                    <div class="journey-circle fragment" style="bottom: 0; left: 50%; transform: translateX(-50%);">
+                        <span style="font-size: 2rem;">🌊</span>
+                        <h4>Week 4</h4>
+                        <p>Managing Anxiety</p>
+                    </div>
+                    <div class="journey-circle fragment" style="bottom: 20%; left: 10%;">
+                        <span style="font-size: 2rem;">💞</span>
+                        <h4>Week 5</h4>
+                        <p>Relationships</p>
+                    </div>
+                    <div class="journey-circle fragment" style="top: 20%; left: 10%;">
+                        <span style="font-size: 2rem;">🎯</span>
+                        <h4>Week 6</h4>
+                        <p>Integration</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Variation 2: Visual Timeline -->
+            <section data-background-color="#ffffff">
+                <h2 style="margin-bottom: 3rem;">Your First Days <span class="gradient-text">Matter</span></h2>
+                <div class="visual-timeline">
+                    <div class="timeline-marker">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-line"></div>
+                    </div>
+                    <div class="timeline-content fragment">
+                        <div class="timeline-image">
+                            <img src="https://images.unsplash.com/photo-1492725764893-90b379c2b6e7?q=80&w=500" alt="Day 1">
+                        </div>
+                        <div>
+                            <h3>Day 1-3: The Fog</h3>
+                            <p>Everything feels surreal. You're in survival mode, and that's exactly where you need to be.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-marker">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-line"></div>
+                    </div>
+                    <div class="timeline-content fragment">
+                        <div class="timeline-image">
+                            <img src="https://images.unsplash.com/photo-1584515979956-d66f3a55f1ca?q=80&w=500" alt="Week 1">
+                        </div>
+                        <div>
+                            <h3>Week 1-2: The Questions</h3>
+                            <p>"Is this normal?" "Why do I feel this way?" Yes, it's normal. You're not alone.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-marker">
+                        <div class="timeline-dot"></div>
+                    </div>
+                    <div class="timeline-content fragment">
+                        <div class="timeline-image">
+                            <img src="https://images.unsplash.com/photo-1489516408517-0c0a15662682?q=80&w=500" alt="Moving Forward">
+                        </div>
+                        <div>
+                            <h3>Today: The Beginning</h3>
+                            <p>You're here, seeking support. This is the first step toward feeling like yourself again.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Variation 3: Emotion Spectrum -->
+            <section data-background-color="#f7f7f7">
+                <h2 style="text-align: center;">All Feelings Are <span class="gradient-text">Valid</span></h2>
+                <div class="emotion-spectrum">
+                    <div class="spectrum-bar"></div>
+                    <div class="emotion-point fragment">
+                        <div class="emotion-bubble" style="background: #FFE5E5;">😢</div>
+                        <h4>Sadness</h4>
+                        <p>Grieving your old life</p>
+                    </div>
+                    <div class="emotion-point fragment">
+                        <div class="emotion-bubble" style="background: #FFF5E5;">😰</div>
+                        <h4>Anxiety</h4>
+                        <p>Worry about everything</p>
+                    </div>
+                    <div class="emotion-point fragment">
+                        <div class="emotion-bubble" style="background: #E5F5F0;">😐</div>
+                        <h4>Numbness</h4>
+                        <p>Feeling disconnected</p>
+                    </div>
+                    <div class="emotion-point fragment">
+                        <div class="emotion-bubble" style="background: #F0E5F5;">😤</div>
+                        <h4>Anger</h4>
+                        <p>At the situation</p>
+                    </div>
+                    <div class="emotion-point fragment">
+                        <div class="emotion-bubble" style="background: #E5F0E5;">🥰</div>
+                        <h4>Love</h4>
+                        <p>Fierce and protective</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Variation 4: Polaroid Memories -->
+            <section data-background-color="#ffffff">
+                <h2 style="text-align: center; margin-bottom: 2rem;">Moments That <span class="gradient-text">Define Us</span></h2>
+                <div class="polaroid-grid">
+                    <div class="polaroid fragment">
+                        <img src="https://images.unsplash.com/photo-1492725764893-90b379c2b6e7?q=80&w=500" alt="First hold">
+                        <p class="polaroid-caption">"The first time I held you"</p>
+                    </div>
+                    <div class="polaroid fragment">
+                        <img src="https://images.unsplash.com/photo-1609220136736-443140cffec6?q=80&w=500" alt="3am feeding">
+                        <p class="polaroid-caption">"3am, just us two"</p>
+                    </div>
+                    <div class="polaroid fragment">
+                        <img src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?q=80&w=500" alt="Finding support">
+                        <p class="polaroid-caption">"The day I asked for help"</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Variation 5: Before/After Split -->
+            <section>
+                <div class="story-split">
+                    <div class="story-side before">
+                        <p class="story-label">What you might expect</p>
+                        <h2>Instant Joy</h2>
+                        <p style="font-size: 1.6rem;">Overwhelming happiness from day one</p>
+                        <p style="font-size: 1.6rem;">Natural maternal instincts</p>
+                        <p style="font-size: 1.6rem;">Everything falls into place</p>
+                    </div>
+                    <div class="story-side after">
+                        <p class="story-label">What's actually normal</p>
+                        <h2>Complex Feelings</h2>
+                        <p style="font-size: 1.6rem;">Joy mixed with fear and doubt</p>
+                        <p style="font-size: 1.6rem;">Learning as you go</p>
+                        <p style="font-size: 1.6rem;">Building connection over time</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Variation 6: Interactive Flip Cards -->
+            <section data-background-color="#faf8f5">
+                <h2 style="text-align: center; margin-bottom: 3rem;">Common Myths <span class="gradient-text">Debunked</span></h2>
+                <div class="flip-cards">
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front" style="background: url('https://images.unsplash.com/photo-1515191107209-c28698631303?q=80&w=500') center/cover;">
+                                <div style="background: rgba(0,0,0,0.5); height: 100%; display: flex; align-items: center; justify-content: center; color: white; border-radius: 20px;">
+                                    <h3>Myth #1</h3>
+                                </div>
+                            </div>
+                            <div class="flip-card-back">
+                                <h3>The Truth</h3>
+                                <p>Good mothers don't always feel happy. They feel human.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Add more flip cards -->
+                </div>
+            </section>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            controls: true,
+            progress: true,
+            center: false,
+            transition: 'fade'
+        });
+    </script>
+</body>
+</html>

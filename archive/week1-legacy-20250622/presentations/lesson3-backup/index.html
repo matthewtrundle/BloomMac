@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>Building Your Support Network | Bloom Psychology</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reset.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+    <link rel="stylesheet" href="../../css/bloom-reveal-theme.css">
+    
+    <style>
+        /* Lesson 3 specific adjustments - connection theme */
+        :root {
+            /* Using warm community colors */
+            --bloom-warm-peach: #FFB4A2;
+            --bloom-soft-mint: #B8E6D9;
+        }
+        
+        /* Special connection circles */
+        .connection-circle {
+            background: white;
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            font-size: 3rem;
+            margin: 0 auto;
+        }
+        
+        /* Network visualization */
+        .network-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+        }
+        
+        .network-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.98) 0%, rgba(250,248,245,0.98) 100%);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+        
+        .network-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+        }
+        
+        /* Enhanced Midjourney image styling */
+        .midjourney-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .support-grid-image {
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- Slide 1: Hero Opening -->
+            <section data-background-color="#1a1a1a">
+                <div class="hero-image-slide">
+                    <img class="midjourney-image" src="../assets/images/biff01_Group_of_diverse_women_in_supportive_circle_some_holdi_a447532e-8198-4552-ae76-a94440c3ae1e_1.png" alt="Women in supportive community circle">
+                    <div class="hero-scrim"></div>
+                    <div class="text-protection">
+                        <h1 class="fragment fade-in-up">Building Your<br/><span class="gradient-text">Support Network</span></h1>
+                        <p class="fragment fade-in-up" style="font-size: 2rem; margin-top: 2rem; color: rgba(255,255,255,0.95);">
+                            You don't have to do this alone
+                        </p>
+                        <p class="fragment fade-in-up" style="font-size: 1.3rem; margin-top: 3rem; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.1em;">
+                            Bloom Psychology • Week 1 • Lesson 3
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 2: Welcome Back -->
+            <section>
+                <div class="magazine-split">
+                    <div class="content-panel content-panel-gradient">
+                        <h1 class="fragment fade-in-up">You Were Never Meant<br/><span class="gradient-text">To Do This Alone</span></h1>
+                        <p class="fragment fade-in-up" style="margin-top: 2rem; font-size: 1.7rem;">
+                            In our culture of independence and self-reliance, asking for help can feel like failure. But the truth is, humans have always raised children in community.
+                        </p>
+                        <p class="fragment fade-in-up" style="font-size: 1.4rem; color: var(--bloom-sage); margin-top: 2rem; font-style: italic;">
+                            "It takes a village—and you deserve one."
+                        </p>
+                    </div>
+                    <div class="image-panel">
+                        <img class="midjourney-image" src="../assets/images/biff01_Friend_bringing_casserole_dish_to_doorstep_new_mother__ab0887d1-a309-465b-9ac2-786cbc4cc481_3.png" alt="Mother being supported by caring friend">
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 3: What Support Really Looks Like -->
+            <section data-background-color="#ffffff">
+                <div class="container">
+                    <h2 style="text-align: center; margin-bottom: 3rem;">What Support <span class="gradient-text">Really Looks Like</span></h2>
+                    <div class="image-grid" style="grid-template-columns: repeat(3, 1fr); height: auto;">
+                        <div class="image-grid-item fragment fade-in-up">
+                            <img class="support-grid-image" src="../assets/images/biff01_Friend_doing_dishes_while_mother_rests_with_baby_pract_8c360c28-392b-4857-b93d-be6d4af9a025_2.png" alt="Friend doing dishes while mother rests">
+                            <div class="image-caption">
+                                <h3>Practical Support</h3>
+                                <p>Meals, childcare, household tasks</p>
+                            </div>
+                        </div>
+                        <div class="image-grid-item fragment fade-in-up">
+                            <img class="support-grid-image" src="../assets/images/biff01_Two_women_in_deep_conversation_one_listening_intently__caba7cf1-41cd-46e1-9fdc-098c2eac510b_1.png" alt="Women in emotional conversation">
+                            <div class="image-caption">
+                                <h3>Emotional Support</h3>
+                                <p>Listening, validating, understanding</p>
+                            </div>
+                        </div>
+                        <div class="image-grid-item fragment fade-in-up">
+                            <img class="support-grid-image" src="../assets/images/biff01_Professional_postpartum_doula_or_therapist_with_mother_aacc63bb-46e3-445a-882d-d69059f91f54_3.png" alt="Professional therapy support">
+                            <div class="image-caption">
+                                <h3>Professional Support</h3>
+                                <p>Therapy, medical care, expertise</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 4: What Gets in the Way -->
+            <section>
+                <div class="image-with-card">
+                    <img class="midjourney-image" src="../assets/images/biff01_Woman_alone_looking_at_phone_hesitating_to_call_for_he_f45d368c-89ec-4fb0-ada9-e7635eebe56d_1.png" alt="Woman hesitating to call for help">
+                    <div class="floating-card floating-card-left text-protection-light">
+                        <h2 style="color: var(--bloom-coral); margin-bottom: 2rem;">What Gets in the Way</h2>
+                        <ul class="visual-list">
+                            <li class="fragment fade-in-up">
+                                <div class="visual-list-icon" style="background: linear-gradient(135deg, var(--bloom-coral) 0%, var(--bloom-peach) 100%);">🚫</div>
+                                "I should be able to handle this myself"
+                            </li>
+                            <li class="fragment fade-in-up">
+                                <div class="visual-list-icon" style="background: linear-gradient(135deg, var(--bloom-peach) 0%, var(--bloom-golden) 100%);">😰</div>
+                                Fear of being judged or misunderstood
+                            </li>
+                            <li class="fragment fade-in-up">
+                                <div class="visual-list-icon" style="background: linear-gradient(135deg, var(--bloom-lavender) 0%, var(--bloom-rose) 100%);">🔄</div>
+                                Not knowing what you need or how to ask
+                            </li>
+                            <li class="fragment fade-in-up">
+                                <div class="visual-list-icon" style="background: linear-gradient(135deg, var(--bloom-mint) 0%, var(--bloom-sky) 100%);">💭</div>
+                                Believing you're a burden to others
+                            </li>
+                        </ul>
+                        <p class="fragment fade-in" style="font-size: 1.3rem; margin-top: 2rem; font-style: italic; color: var(--bloom-warm-gray);">
+                            These barriers are real, but they don't have to be permanent.
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 5: The Different Types of Support You Need -->
+            <section data-background-color="#f7f7f7">
+                <div class="container">
+                    <h2 style="text-align: center; margin-bottom: 3rem;">The Different Types of <span class="gradient-text">Support You Need</span></h2>
+                    <div class="image-grid" style="grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 380px);">
+                        <div class="stat-image-card fragment fade-in-up">
+                            <img src="../assets/images/biff01_Friend_doing_dishes_while_mother_rests_with_baby_pract_8c360c28-392b-4857-b93d-be6d4af9a025_2.png" alt="Friend bringing meal to new mother">
+                            <div class="stat-overlay" style="background: linear-gradient(135deg, rgba(255, 107, 107, 0.85) 0%, rgba(255, 180, 162, 0.95) 100%);">
+                                <h3>The Village Helper</h3>
+                                <p>Someone who brings meals without asking</p>
+                            </div>
+                        </div>
+                        <div class="stat-image-card fragment fade-in-up">
+                            <img src="../assets/images/biff01_Two_women_in_deep_conversation_one_listening_intently__caba7cf1-41cd-46e1-9fdc-098c2eac510b_1.png" alt="Woman listening supportively to friend">
+                            <div class="stat-overlay" style="background: linear-gradient(135deg, rgba(255, 203, 119, 0.85) 0%, rgba(255, 180, 162, 0.95) 100%);">
+                                <h3>The Listener</h3>
+                                <p>Who holds space without fixing</p>
+                            </div>
+                        </div>
+                        <div class="stat-image-card fragment fade-in-up">
+                            <img src="../assets/images/biff01_Professional_female_therapist_in_warm_office_setting_s_b205e693-1077-427d-9f26-96a30aa68a39_1.png" alt="Professional therapist in session">
+                            <div class="stat-overlay" style="background: linear-gradient(135deg, rgba(149, 225, 211, 0.85) 0%, rgba(116, 192, 252, 0.95) 100%);">
+                                <h3>The Professional</h3>
+                                <p>Expert guidance when you need it</p>
+                            </div>
+                        </div>
+                        <div class="stat-image-card fragment fade-in-up">
+                            <img src="../assets/images/biff01_Group_of_diverse_mothers_sitting_in_circle_community_c_ccd87783-a1ca-422c-9c55-a714d07b91cf_3.png" alt="Group of mothers laughing together">
+                            <div class="stat-overlay" style="background: linear-gradient(135deg, rgba(116, 192, 252, 0.85) 0%, rgba(197, 137, 232, 0.95) 100%);">
+                                <h3>The Truth-Tellers</h3>
+                                <p>Other moms who get it</p>
+                            </div>
+                        </div>
+                        <div class="stat-image-card fragment fade-in-up">
+                            <img src="../assets/images/biff01_Postpartum_doula_helping_mother_with_baby_care_techniq_66935794-c576-4416-ac15-80a8002fbf66_1.png" alt="Partner providing emotional support">
+                            <div class="stat-overlay" style="background: linear-gradient(135deg, rgba(197, 137, 232, 0.85) 0%, rgba(255, 168, 197, 0.95) 100%);">
+                                <h3>The Partner</h3>
+                                <p>Learning together, growing together</p>
+                            </div>
+                        </div>
+                        <div class="stat-image-card fragment fade-in-up">
+                            <img src="../assets/images/biff01_Mother_with_hand_on_heart_self-compassion_gesture_eyes_e5d46d39-ab41-480c-95f7-064a9cb57855_2.png" alt="Woman practicing self-compassion">
+                            <div class="stat-overlay" style="background: linear-gradient(135deg, rgba(255, 168, 197, 0.85) 0%, rgba(139, 154, 130, 0.95) 100%);">
+                                <h3>The Inner Support</h3>
+                                <p>Self-compassion as foundation</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 6: Statistics -->
+            <section>
+                <div class="image-with-card">
+                    <img class="midjourney-image" src="../assets/images/biff01_Diverse_group_of_mothers_at_baby-wearing_meetup_in_par_63ad4719-7c57-44d7-9091-f17d9a981c18_3.png" alt="Diverse group of mothers supporting each other">
+                    <div class="floating-card floating-card-bottom floating-card-dark">
+                        <h2 style="text-align: center; margin-bottom: 3rem; color: white;">You're <span class="gradient-text">Not Alone</span> in Needing Help</h2>
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 4rem; text-align: center;">
+                            <div class="fragment scale-in">
+                                <div class="stat-big-number gradient-text">95%</div>
+                                <p style="font-size: 1.5rem; color: rgba(255,255,255,0.9);">of mothers feel isolated</p>
+                            </div>
+                            <div class="fragment scale-in">
+                                <div class="stat-big-number" style="color: var(--bloom-mint);">3x</div>
+                                <p style="font-size: 1.5rem; color: rgba(255,255,255,0.9);">better outcomes with support</p>
+                            </div>
+                            <div class="fragment scale-in">
+                                <div class="stat-big-number" style="color: var(--bloom-lavender);">67%</div>
+                                <p style="font-size: 1.5rem; color: rgba(255,255,255,0.9);">afraid to ask for help</p>
+                            </div>
+                        </div>
+                        <p class="fragment fade-in" style="text-align: center; margin-top: 2.5rem; font-size: 1.3rem; color: rgba(255,255,255,0.7);">
+                            <em>Connection is not a luxury—it's a necessity for healing</em>
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 7: Key Truth -->
+            <section data-background-gradient="linear-gradient(135deg, #8B9A82 0%, #95E1D3 50%, #C589E8 100%)">
+                <div class="container">
+                    <div class="quote-with-image">
+                        <div class="quote-portrait">
+                            <img src="../assets/images/biff01_Woman_with_expression_of_relief_after_asking_for_help__9611dd01-6e47-4520-b26e-22643dcf0571_2.png" alt="Woman with expression of relief after asking for help">
+                        </div>
+                        <div>
+                            <blockquote style="color: white; font-size: 3.5rem; margin: 0;">
+                                <span class="fragment fade-in-up">Asking for help is not</span><br/>
+                                <span class="fragment fade-in-up" style="font-weight: 600; font-size: 1.3em;">weakness</span>—
+                                <span class="fragment fade-in-up">it's</span> 
+                                <span class="fragment fade-in-up" style="font-weight: 600; font-size: 1.3em;">wisdom</span>
+                            </blockquote>
+                            <p class="fragment fade-in" style="color: rgba(255,255,255,0.8); font-size: 1.5rem; margin-top: 2.5rem;">
+                                It takes courage to reach out, and strength to receive.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 8: Journey Steps Part 1 -->
+            <section data-background-color="#faf8f5">
+                <div class="container">
+                    <h2 style="margin-bottom: 3rem;">Steps to Building Your <span class="gradient-text">Support Network</span></h2>
+                    <div style="display: grid; gap: 1.8rem;">
+                        <div class="journey-card fragment fade-in-up">
+                            <div class="journey-image">
+                                <img src="../assets/images/biff01_Woman_sitting_at_kitchen_table_making_list_on_paper_th_9149976b-2750-46ed-b2e9-e788d91fbc7c_0.png" alt="Woman reflecting on her needs">
+                                <div class="journey-number-overlay">1</div>
+                            </div>
+                            <div class="journey-content-panel">
+                                <h3>Identify Your Needs</h3>
+                                <p>What would actually help you feel supported right now?</p>
+                            </div>
+                        </div>
+                        <div class="journey-card fragment fade-in-up">
+                            <div class="journey-image">
+                                <img src="../assets/images/biff01_Woman_looking_through_phone_contacts_mapping_her_suppo_a5430b55-6ee2-4855-94f5-2e4b7bab17a9_2.png" alt="Woman making a list of supportive people">
+                                <div class="journey-number-overlay">2</div>
+                            </div>
+                            <div class="journey-content-panel">
+                                <h3>Map Your Current Circle</h3>
+                                <p>Who's already in your life? Who could you reconnect with?</p>
+                            </div>
+                        </div>
+                        <div class="journey-card fragment fade-in-up">
+                            <div class="journey-image">
+                                <img src="../assets/images/biff01_Woman_sending_text_message_asking_for_help_close-up_of_de9dde58-b77f-4e83-874c-b0dd199615ba_0.png" alt="Woman reaching out for help">
+                                <div class="journey-number-overlay">3</div>
+                            </div>
+                            <div class="journey-content-panel">
+                                <h3>Start Small</h3>
+                                <p>One text, one call, one "yes" to an offer of help</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 9: Journey Steps Part 2 -->
+            <section data-background-color="#faf8f5">
+                <div class="container">
+                    <div style="display: grid; gap: 1.8rem;">
+                        <div class="journey-card fragment fade-in-up">
+                            <div class="journey-image">
+                                <img src="../assets/images/biff01_Group_of_diverse_mothers_sitting_in_circle_community_c_ccd87783-a1ca-422c-9c55-a714d07b91cf_3.png" alt="Women in support group">
+                                <div class="journey-number-overlay">4</div>
+                            </div>
+                            <div class="journey-content-panel">
+                                <h3>Join a Community</h3>
+                                <p>Find groups where others understand your experience</p>
+                            </div>
+                        </div>
+                        <div class="journey-card fragment fade-in-up">
+                            <div class="journey-image">
+                                <img src="../assets/images/biff01_Mother_making_phone_call_for_help_determined_expressio_dfd8c759-5358-4645-b467-5a1e9fe86c8b_0.png" alt="Woman being specific about needs">
+                                <div class="journey-number-overlay">5</div>
+                            </div>
+                            <div class="journey-content-panel">
+                                <h3>Be Specific</h3>
+                                <p>"Can you watch the baby for 30 minutes?" is easier than "I need help"</p>
+                            </div>
+                        </div>
+                        <div class="journey-card fragment fade-in-up">
+                            <div class="journey-image">
+                                <img src="../assets/images/biff01_Woman_with_expression_of_relief_after_asking_for_help__9611dd01-6e47-4520-b26e-22643dcf0571_2.png" alt="Woman receiving support gratefully">
+                                <div class="journey-number-overlay">6</div>
+                            </div>
+                            <div class="journey-content-panel">
+                                <h3>Receive Gracefully</h3>
+                                <p>Let people help without feeling guilty</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 10: Resources -->
+            <section>
+                <div class="magazine-split magazine-split-reverse">
+                    <div class="content-panel">
+                        <h2>Resources to <span class="gradient-text">Support You</span></h2>
+                        <p style="font-size: 1.9rem; margin: 2.5rem 0; color: var(--bloom-sage);">
+                            Practical tools for building connection
+                        </p>
+                        <ul class="visual-list">
+                            <li class="fragment fade-in-up">
+                                <div class="visual-list-icon">📱</div>
+                                Local mom groups and online communities
+                            </li>
+                            <li class="fragment fade-in-up">
+                                <div class="visual-list-icon">📋</div>
+                                Support network mapping worksheet
+                            </li>
+                            <li class="fragment fade-in-up">
+                                <div class="visual-list-icon">📢</div>
+                                Scripts for asking for help
+                            </li>
+                            <li class="fragment fade-in-up">
+                                <div class="visual-list-icon">🤝</div>
+                                Professional support resources
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="image-panel">
+                        <img class="midjourney-image" src="../assets/images/biff01_Woman_looking_at_community_board_with_support_group_fl_0aa382f7-5577-430f-995e-e5d3ee74537f_0.png" alt="Woman finding support resources">
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 11: Practice -->
+            <section>
+                <div class="hero-image-slide">
+                    <img class="midjourney-image" src="../assets/images/biff01_Close-up_of_womans_hands_typing_heartfelt_message_on_p_76ab58ef-3f37-4e2b-b3a2-0ca044cf519f_2.png" alt="Woman with phone ready to connect">
+                    <div class="floating-card floating-card-bottom text-protection-light">
+                        <h2 style="text-align: center; margin-bottom: 2rem;">Your Connection Practice</h2>
+                        <p style="font-size: 1.7rem; text-align: center; color: var(--bloom-warm-gray);">
+                            This week, share one feeling with someone you trust:
+                        </p>
+                        <h1 style="text-align: center; font-size: 3.2rem; margin: 2.5rem 0;" class="gradient-text">
+                            "I'm feeling _____ today.<br/>Thank you for listening."
+                        </h1>
+                        <p style="text-align: center; font-size: 1.4rem; color: var(--bloom-sage); margin-top: 2rem;">
+                            Start with one person, one truth, one moment of connection.
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 12: Closing -->
+            <section>
+                <div class="hero-image-slide">
+                    <img class="midjourney-image" src="../assets/images/biff01_Mother_with_baby_surrounded_by_support_network_multipl_4438527c-ade9-4355-8d97-17dd77c60d5d_2.png" alt="Mother with baby surrounded by supportive community">
+                    <div class="hero-scrim"></div>
+                    <div class="text-protection" style="text-align: center;">
+                        <h1 class="fragment fade-in-up" style="color: white;">You Are Worth Supporting</h1>
+                        <p class="fragment fade-in-up" style="font-size: 2rem; margin-top: 2rem; color: rgba(255,255,255,0.95);">
+                            And there are people who want to help
+                        </p>
+                        <p class="fragment fade-in-up" style="font-size: 1.6rem; margin-top: 3rem; color: rgba(255,255,255,0.85);">
+                            Next week: Working with difficult thoughts
+                        </p>
+                        <div style="margin-top: 4rem; font-size: 1.3rem; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.1em;">
+                            Bloom Psychology
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/notes/notes.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/markdown/markdown.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/highlight/highlight.js"></script>
+    
+    <script>
+        Reveal.initialize({
+            hash: true,
+            controls: true,
+            progress: true,
+            center: false,
+            transition: 'fade',
+            transitionSpeed: 'slow',
+            backgroundTransition: 'fade',
+            
+            // View options
+            width: 1920,
+            height: 1080,
+            margin: 0,
+            minScale: 0.2,
+            maxScale: 2.0,
+            
+            // UI options
+            controlsTutorial: false,
+            controlsLayout: 'bottom-right',
+            controlsBackArrows: 'faded',
+            slideNumber: 'c/t',
+            showSlideNumber: 'all',
+            
+            // Features
+            history: true,
+            keyboard: true,
+            overview: true,
+            loop: false,
+            touch: true,
+            
+            // PDF export
+            pdfMaxPagesPerSlide: 1,
+            pdfSeparateFragments: false,
+            
+            plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+        });
+    </script>
+</body>
+</html>

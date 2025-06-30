@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>Welcome to Your Fourth Trimester | Bloom Psychology</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reset.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+    <link rel="stylesheet" href="../assets/css/bloom-professional.css">
+    
+    <style>
+        /* Enhanced color palette */
+        :root {
+            --bloom-coral: #FF6B6B;
+            --bloom-peach: #FFB4A2;
+            --bloom-golden: #FFCB77;
+            --bloom-mint: #95E1D3;
+            --bloom-lavender: #C589E8;
+            --bloom-sky: #74C0FC;
+            --bloom-rose: #FFA8C5;
+        }
+        
+        /* Vibrant gradients */
+        .gradient-warm {
+            background: linear-gradient(135deg, #FF6B6B 0%, #FFB4A2 50%, #FFCB77 100%);
+        }
+        
+        .gradient-cool {
+            background: linear-gradient(135deg, #95E1D3 0%, #74C0FC 50%, #C589E8 100%);
+        }
+        
+        .gradient-sunset {
+            background: linear-gradient(135deg, #FF6B6B 0%, #C589E8 100%);
+        }
+        
+        .gradient-morning {
+            background: linear-gradient(135deg, #FFCB77 0%, #95E1D3 100%);
+        }
+        
+        .gradient-bloom {
+            background: linear-gradient(135deg, #8B9A82 0%, #95E1D3 25%, #FFB4A2 50%, #FFA8C5 75%, #C589E8 100%);
+        }
+        
+        /* Overlay patterns */
+        .pattern-dots {
+            background-image: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        
+        .pattern-waves {
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='20' viewBox='0 0 100 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M21.184 20c.357-.13.72-.264 1.088-.402l1.768-.661C33.64 15.347 39.647 14 50 14c10.271 0 15.362 1.222 24.629 4.928.955.383 1.869.74 2.75 1.072h6.225c-2.51-.73-5.139-1.691-8.233-2.928C65.888 13.278 60.562 12 50 12c-10.626 0-16.855 1.397-26.66 5.063l-1.767.662c-2.475.923-4.66 1.674-6.724 2.275h6.335zm0-20C13.258 2.892 8.077 4 0 4V2c5.744 0 9.951-.574 14.85-2h6.334zM77.38 0C85.239 2.966 90.502 4 100 4V2c-6.842 0-11.386-.542-16.396-2h-6.225zM0 14c8.44 0 13.718-1.21 22.272-4.402l1.768-.661C33.64 5.347 39.647 4 50 4c10.271 0 15.362 1.222 24.629 4.928C84.112 12.722 89.438 14 100 14v-2c-10.271 0-15.362-1.222-24.629-4.928C65.888 3.278 60.562 2 50 2 39.374 2 33.145 3.397 23.34 7.063l-1.767.662C13.223 10.84 8.163 12 0 12v2z' fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+        
+        /* Enhanced components */
+        .colorful-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .colorful-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* Gradient text */
+        .gradient-text {
+            background: linear-gradient(135deg, #FF6B6B 0%, #C589E8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Vibrant timeline */
+        .vibrant-timeline .timeline-marker {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+        }
+        
+        .vibrant-timeline .timeline-item:nth-child(1) .timeline-marker {
+            background: linear-gradient(135deg, #FFB4A2 0%, #FF6B6B 100%);
+            color: white;
+        }
+        
+        .vibrant-timeline .timeline-item:nth-child(2) .timeline-marker {
+            background: linear-gradient(135deg, #FFCB77 0%, #FFB4A2 100%);
+            color: white;
+        }
+        
+        .vibrant-timeline .timeline-item:nth-child(3) .timeline-marker {
+            background: linear-gradient(135deg, #95E1D3 0%, #74C0FC 100%);
+            color: white;
+        }
+        
+        .vibrant-timeline .timeline-item.active .timeline-marker {
+            background: linear-gradient(135deg, #C589E8 0%, #FF6B6B 100%);
+            transform: scale(1.2);
+            box-shadow: 0 8px 24px rgba(197, 137, 232, 0.4);
+        }
+        
+        /* Colorful stats */
+        .stat-card-coral {
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.1) 0%, rgba(255, 107, 107, 0.05) 100%);
+            border: 1px solid rgba(255, 107, 107, 0.2);
+        }
+        
+        .stat-card-mint {
+            background: linear-gradient(135deg, rgba(149, 225, 211, 0.1) 0%, rgba(149, 225, 211, 0.05) 100%);
+            border: 1px solid rgba(149, 225, 211, 0.2);
+        }
+        
+        .stat-card-lavender {
+            background: linear-gradient(135deg, rgba(197, 137, 232, 0.1) 0%, rgba(197, 137, 232, 0.05) 100%);
+            border: 1px solid rgba(197, 137, 232, 0.2);
+        }
+        
+        /* Image overlay effects */
+        .image-overlay-gradient {
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.8) 0%, rgba(197, 137, 232, 0.8) 100%);
+        }
+        
+        .image-overlay-soft {
+            background: linear-gradient(180deg, transparent 0%, rgba(255, 255, 255, 0.9) 100%);
+        }
+        
+        /* Decorative elements */
+        .floating-shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(40px);
+            animation: float 20s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            33% { transform: translateY(-20px) rotate(120deg); }
+            66% { transform: translateY(20px) rotate(240deg); }
+        }
+        
+        .shape-coral {
+            width: 300px;
+            height: 300px;
+            background: var(--bloom-coral);
+            opacity: 0.3;
+        }
+        
+        .shape-mint {
+            width: 400px;
+            height: 400px;
+            background: var(--bloom-mint);
+            opacity: 0.2;
+        }
+        
+        .shape-lavender {
+            width: 350px;
+            height: 350px;
+            background: var(--bloom-lavender);
+            opacity: 0.25;
+        }
+        
+        /* Enhanced feature list */
+        .colorful-feature-list li::before {
+            content: '';
+            width: 24px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--bloom-coral) 0%, var(--bloom-lavender) 100%);
+        }
+        
+        /* Journey items with color */
+        .journey-item:nth-child(1) .journey-number {
+            background: linear-gradient(135deg, #FF6B6B 0%, #FFB4A2 100%);
+            color: white;
+        }
+        
+        .journey-item:nth-child(2) .journey-number {
+            background: linear-gradient(135deg, #FFB4A2 0%, #FFCB77 100%);
+            color: white;
+        }
+        
+        .journey-item:nth-child(3) .journey-number {
+            background: linear-gradient(135deg, #FFCB77 0%, #95E1D3 100%);
+            color: white;
+        }
+        
+        .journey-item:nth-child(4) .journey-number {
+            background: linear-gradient(135deg, #95E1D3 0%, #74C0FC 100%);
+            color: white;
+        }
+        
+        .journey-item:nth-child(5) .journey-number {
+            background: linear-gradient(135deg, #74C0FC 0%, #C589E8 100%);
+            color: white;
+        }
+        
+        .journey-item:nth-child(6) .journey-number {
+            background: linear-gradient(135deg, #C589E8 0%, #FFA8C5 100%);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- Slide 1: Opening with vibrant gradient -->
+            <section data-background-gradient="linear-gradient(135deg, #FFB4A2 0%, #C589E8 50%, #74C0FC 100%)">
+                <div class="container">
+                    <div class="hero-slide">
+                        <div class="floating-shape shape-coral" style="top: -100px; right: 10%;"></div>
+                        <div class="floating-shape shape-mint" style="bottom: -150px; left: -100px;"></div>
+                        <div class="hero-content" style="background: rgba(255,255,255,0.95); padding: 4rem; border-radius: 20px; backdrop-filter: blur(10px);">
+                            <h1 class="fragment fade-in-up">Welcome to Your<br/><span class="gradient-text">Fourth Trimester</span></h1>
+                            <p class="fragment fade-in-up" style="font-size: 1.5rem; margin-top: 2rem;">
+                                A journey through postpartum wellness
+                            </p>
+                        </div>
+                    </div>
+                    <div class="brand-footer" style="color: white;">Bloom Psychology</div>
+                </div>
+            </section>
+            
+            <!-- Slide 2: You're Here with image underlay -->
+            <section class="full-bleed" data-background-image="https://images.unsplash.com/photo-1520013817300-1f4c1cb245ef?q=80&w=2940" data-background-size="cover">
+                <div class="image-overlay-gradient" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 1;"></div>
+                <div class="container" style="position: relative; z-index: 2;">
+                    <div style="max-width: 800px;">
+                        <h1 class="fragment fade-in-up" style="color: white;">You're Here.<br/>That Takes Courage.</h1>
+                        <p class="fragment fade-in-up" style="font-size: 1.5rem; margin-top: 2rem; color: rgba(255,255,255,0.9);">
+                            Welcome to this safe space we're creating together
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 3: This Space Is with colorful accents -->
+            <section data-background-image="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2940" data-background-size="cover" data-background-opacity="0.1">
+                <div class="container">
+                    <div class="split-layout split-layout--weighted">
+                        <div class="content-block colorful-card" style="padding: 3rem; border-radius: 20px;">
+                            <h2>This Space Is</h2>
+                            <ul class="feature-list colorful-feature-list">
+                                <li class="fragment fade-in-up">A judgment-free zone where all feelings are valid</li>
+                                <li class="fragment fade-in-up">A place to learn practical, evidence-based strategies</li>
+                                <li class="fragment fade-in-up">Your time to focus on YOU, not just baby</li>
+                            </ul>
+                        </div>
+                        <div class="visual-block gradient-warm pattern-dots" style="height: 500px; border-radius: 20px; opacity: 0.8;"></div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 4: This Space Is NOT with gradient background -->
+            <section data-background-gradient="linear-gradient(135deg, #f7f7f7 0%, #FFE4E1 100%)">
+                <div class="container">
+                    <div class="split-layout">
+                        <div class="visual-block gradient-sunset pattern-waves" style="height: 500px; border-radius: 20px; opacity: 0.7;"></div>
+                        <div class="content-block colorful-card" style="padding: 3rem; border-radius: 20px;">
+                            <h2 style="color: var(--bloom-coral);">This Space is NOT</h2>
+                            <ul class="feature-list">
+                                <li class="fragment fade-in-up" style="color: var(--bloom-warm-gray);">A replacement for medical care or therapy</li>
+                                <li class="fragment fade-in-up" style="color: var(--bloom-warm-gray);">A place where you need to be perfect</li>
+                                <li class="fragment fade-in-up" style="color: var(--bloom-warm-gray);">Somewhere you'll be shamed for struggling</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 5: The Fourth Trimester Timeline with vibrant colors -->
+            <section data-background-image="https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=2940" data-background-size="cover" data-background-opacity="0.08">
+                <div class="container">
+                    <h2 style="text-align: center; margin-bottom: 4rem;">The <span class="gradient-text">Fourth Trimester</span></h2>
+                    <div class="timeline vibrant-timeline">
+                        <div class="timeline-item fragment fade-in-up">
+                            <div class="timeline-marker">1st</div>
+                            <div class="timeline-label">Trimester</div>
+                        </div>
+                        <div class="timeline-item fragment fade-in-up">
+                            <div class="timeline-marker">2nd</div>
+                            <div class="timeline-label">Trimester</div>
+                        </div>
+                        <div class="timeline-item fragment fade-in-up">
+                            <div class="timeline-marker">3rd</div>
+                            <div class="timeline-label">Trimester</div>
+                        </div>
+                        <div class="timeline-item active fragment fade-in-up scale-in">
+                            <div class="timeline-marker">4th</div>
+                            <div class="timeline-label">Trimester</div>
+                        </div>
+                    </div>
+                    <p class="fragment fade-in" style="text-align: center; font-size: 1.8rem; margin-top: 4rem;">
+                        The first 3 months after birth — <span style="color: var(--bloom-lavender);">and beyond</span>
+                    </p>
+                </div>
+            </section>
+            
+            <!-- Slide 6: Your Reality with colorful overlay -->
+            <section class="full-bleed" data-background-image="https://images.unsplash.com/photo-1555992336-03a23c7b20ee?q=80&w=2940" data-background-size="cover">
+                <div class="gradient-cool" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; opacity: 0.85; z-index: 1;"></div>
+                <div class="container" style="position: relative; z-index: 2;">
+                    <h2 style="margin-bottom: 3rem; color: white;">Your Fourth Trimester Reality</h2>
+                    <div class="stats-grid" style="max-width: 1000px;">
+                        <div class="stat-card colorful-card fragment fade-in-up">
+                            <div class="stat-label" style="color: var(--bloom-coral);">Physical</div>
+                            <p style="margin: 0; font-size: 1.1rem;">Major recovery</p>
+                        </div>
+                        <div class="stat-card colorful-card fragment fade-in-up">
+                            <div class="stat-label" style="color: var(--bloom-golden);">Hormonal</div>
+                            <p style="margin: 0; font-size: 1.1rem;">Massive shifts</p>
+                        </div>
+                        <div class="stat-card colorful-card fragment fade-in-up">
+                            <div class="stat-label" style="color: var(--bloom-mint);">Identity</div>
+                            <p style="margin: 0; font-size: 1.1rem;">Transformation</p>
+                        </div>
+                        <div class="stat-card colorful-card fragment fade-in-up">
+                            <div class="stat-label" style="color: var(--bloom-sky);">Relationships</div>
+                            <p style="margin: 0; font-size: 1.1rem;">Evolving dynamics</p>
+                        </div>
+                        <div class="stat-card colorful-card fragment fade-in-up">
+                            <div class="stat-label" style="color: var(--bloom-lavender);">Responsibility</div>
+                            <p style="margin: 0; font-size: 1.1rem;">24/7 care</p>
+                        </div>
+                        <div class="stat-card colorful-card fragment fade-in-up">
+                            <div class="stat-label" style="color: var(--bloom-rose);">Sleep</div>
+                            <p style="margin: 0; font-size: 1.1rem;">Severely limited</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 7: Statistics with colorful cards -->
+            <section data-background-gradient="linear-gradient(135deg, #faf8f5 0%, #FFE4E1 50%, #E8F5FF 100%)">
+                <div class="container">
+                    <h2 style="text-align: center; margin-bottom: 4rem;">You're Not Alone</h2>
+                    <div class="stats-grid" style="max-width: 900px; margin: 0 auto;">
+                        <div class="stat-card stat-card-coral colorful-card fragment scale-in">
+                            <div class="stat-number gradient-text">80%</div>
+                            <div class="stat-label">Baby Blues</div>
+                        </div>
+                        <div class="stat-card stat-card-mint colorful-card fragment scale-in">
+                            <div class="stat-number" style="color: var(--bloom-mint);">20%</div>
+                            <div class="stat-label">PPD</div>
+                        </div>
+                        <div class="stat-card stat-card-lavender colorful-card fragment scale-in">
+                            <div class="stat-number" style="color: var(--bloom-lavender);">10%</div>
+                            <div class="stat-label">PPA</div>
+                        </div>
+                    </div>
+                    <p class="fragment fade-in" style="text-align: center; margin-top: 3rem; font-size: 1rem; color: var(--bloom-warm-gray);">
+                        <em>Research indicates actual numbers may be significantly higher</em><br/>
+                        <small>Source: American Psychological Association, 2023</small>
+                    </p>
+                </div>
+            </section>
+            
+            <!-- Slide 8: Important Truth with gradient background -->
+            <section class="quote-slide" data-background-gradient="linear-gradient(135deg, #8B9A82 0%, #95E1D3 50%, #C589E8 100%)">
+                <div class="container">
+                    <blockquote style="color: white;">
+                        <span class="fragment fade-in-up">Mental health struggles after birth are</span><br/>
+                        <span class="fragment fade-in-up" style="font-weight: 600; font-size: 1.2em;">common</span>, 
+                        <span class="fragment fade-in-up" style="font-weight: 600; font-size: 1.2em;">treatable</span>, 
+                        <span class="fragment fade-in-up">and</span> 
+                        <span class="fragment fade-in-up" style="font-weight: 600; font-size: 1.2em;">not your fault</span>
+                    </blockquote>
+                </div>
+            </section>
+            
+            <!-- Slide 9: Journey with colorful numbers -->
+            <section data-background-image="https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=2940" data-background-size="cover" data-background-opacity="0.05">
+                <div class="container">
+                    <h2>Your Path to <span class="gradient-text">Wellness</span></h2>
+                    <div class="journey-path">
+                        <div class="journey-item fragment fade-in-up">
+                            <div class="journey-number">1</div>
+                            <div class="journey-content">
+                                <h4>Understanding your new reality</h4>
+                                <p>Building awareness and self-compassion</p>
+                            </div>
+                        </div>
+                        <div class="journey-item fragment fade-in-up">
+                            <div class="journey-number">2</div>
+                            <div class="journey-content">
+                                <h4>Working with difficult thoughts</h4>
+                                <p>Cognitive strategies that actually help</p>
+                            </div>
+                        </div>
+                        <div class="journey-item fragment fade-in-up">
+                            <div class="journey-number">3</div>
+                            <div class="journey-content">
+                                <h4>Rebuilding joy & meaningful activities</h4>
+                                <p>Finding yourself again</p>
+                            </div>
+                        </div>
+                        <div class="journey-item fragment fade-in-up">
+                            <div class="journey-number">4</div>
+                            <div class="journey-content">
+                                <h4>Managing anxiety & worry</h4>
+                                <p>Practical tools for racing thoughts</p>
+                            </div>
+                        </div>
+                        <div class="journey-item fragment fade-in-up">
+                            <div class="journey-number">5</div>
+                            <div class="journey-content">
+                                <h4>Strengthening relationships</h4>
+                                <p>Connection in isolation</p>
+                            </div>
+                        </div>
+                        <div class="journey-item fragment fade-in-up">
+                            <div class="journey-number">6</div>
+                            <div class="journey-content">
+                                <h4>Creating your long-term plan</h4>
+                                <p>Sustainable wellness strategies</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 10: What's Included with colorful background -->
+            <section data-background-gradient="linear-gradient(135deg, #f7f7f7 0%, #E8F5FF 50%, #FFE4E1 100%)">
+                <div class="container">
+                    <div class="split-layout">
+                        <div class="content-block">
+                            <h2>Designed for <span class="gradient-text">Real Moms</span></h2>
+                            <p style="font-size: 1.5rem; margin-bottom: 2rem; color: var(--bloom-sage);">
+                                Evidence-based support that fits your life
+                            </p>
+                            <ul class="feature-list colorful-feature-list">
+                                <li class="fragment fade-in-up">Video lessons short enough for nursing sessions</li>
+                                <li class="fragment fade-in-up">Downloadable workbook for your own pace</li>
+                                <li class="fragment fade-in-up">Guided meditations for immediate relief</li>
+                                <li class="fragment fade-in-up">Practical strategies you can use today</li>
+                            </ul>
+                        </div>
+                        <div class="visual-block">
+                            <div class="gradient-bloom pattern-dots" style="height: 100%; border-radius: 20px; opacity: 0.5;"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 11: Your Rights with colorful overlay -->
+            <section class="full-bleed" data-background-image="https://images.unsplash.com/photo-1609220136736-443140cffec6?q=80&w=2940" data-background-size="cover">
+                <div class="gradient-warm" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; opacity: 0.9; z-index: 1;"></div>
+                <div class="container" style="position: relative; z-index: 2;">
+                    <h2 style="text-align: center; color: white; margin-bottom: 3rem;">Your Fourth Trimester Rights</h2>
+                    <div style="columns: 2; column-gap: 4rem; max-width: 1000px; margin: 0 auto;">
+                        <p class="fragment fade-in-up" style="break-inside: avoid; margin-bottom: 1.5rem; color: white;">
+                            → You have the right to feel however you feel without judgment
+                        </p>
+                        <p class="fragment fade-in-up" style="break-inside: avoid; margin-bottom: 1.5rem; color: white;">
+                            → You have the right to ask for and receive help
+                        </p>
+                        <p class="fragment fade-in-up" style="break-inside: avoid; margin-bottom: 1.5rem; color: white;">
+                            → You have the right to prioritize your own wellbeing
+                        </p>
+                        <p class="fragment fade-in-up" style="break-inside: avoid; margin-bottom: 1.5rem; color: white;">
+                            → You have the right to make mistakes as you learn
+                        </p>
+                        <p class="fragment fade-in-up" style="break-inside: avoid; margin-bottom: 1.5rem; color: white;">
+                            → You have the right to rest when you need to
+                        </p>
+                        <p class="fragment fade-in-up" style="break-inside: avoid; margin-bottom: 1.5rem; color: white;">
+                            → You have the right to seek professional support
+                        </p>
+                        <p class="fragment fade-in-up" style="break-inside: avoid; margin-bottom: 1.5rem; color: white;">
+                            → You have the right to define motherhood on your own terms
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 12: Practice with colorful card -->
+            <section data-background-gradient="linear-gradient(135deg, #FFE4E1 0%, #E8F5FF 50%, #F0E6FF 100%)">
+                <div class="container">
+                    <div class="practice-card colorful-card" style="background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,248,245,0.95) 100%);">
+                        <h3>Your Only Homework</h3>
+                        <p style="font-size: 1.3rem; color: var(--bloom-warm-gray);">
+                            Place your hand on your heart once a day and say:
+                        </p>
+                        <p class="practice-quote gradient-text">
+                            "I'm doing the best I can,<br/>and that's enough."
+                        </p>
+                    </div>
+                    <div class="floating-shape shape-lavender" style="bottom: -200px; right: -100px; animation-delay: -5s;"></div>
+                </div>
+            </section>
+            
+            <!-- Slide 13: Closing with vibrant image -->
+            <section class="full-bleed" data-background-image="https://images.unsplash.com/photo-1519834785169-98be25ec3f84?q=80&w=2940" data-background-size="cover">
+                <div class="gradient-morning" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; opacity: 0.8; z-index: 1;"></div>
+                <div class="container" style="position: relative; z-index: 2;">
+                    <div style="text-align: center;">
+                        <h1 class="fragment fade-in-up" style="color: white;">See You in the Next Lesson</h1>
+                        <p class="fragment fade-in-up" style="font-size: 1.5rem; margin-top: 2rem; color: rgba(255,255,255,0.95);">
+                            Remember: This is YOUR journey, at YOUR pace
+                        </p>
+                        <div class="brand-footer" style="position: relative; margin-top: 4rem; text-align: center; opacity: 1; color: white;">
+                            Bloom Psychology
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/notes/notes.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/markdown/markdown.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/highlight/highlight.js"></script>
+    
+    <script>
+        Reveal.initialize({
+            hash: true,
+            controls: true,
+            progress: true,
+            center: false,
+            transition: 'fade',
+            transitionSpeed: 'slow',
+            backgroundTransition: 'fade',
+            
+            // View options
+            width: 1920,
+            height: 1080,
+            margin: 0,
+            minScale: 0.2,
+            maxScale: 2.0,
+            
+            // UI options
+            controlsTutorial: false,
+            controlsLayout: 'bottom-right',
+            controlsBackArrows: 'faded',
+            slideNumber: 'c/t',
+            showSlideNumber: 'all',
+            
+            // Features
+            history: true,
+            keyboard: true,
+            overview: true,
+            loop: false,
+            touch: true,
+            
+            // PDF export
+            pdfMaxPagesPerSlide: 1,
+            pdfSeparateFragments: false,
+            
+            plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+        });
+    </script>
+</body>
+</html>

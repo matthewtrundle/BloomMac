@@ -1,0 +1,971 @@
+{
+  "metadata": {
+    "presentationPath": "bloom-course-content/weeks/week-1-foundation/lesson-1-welcome/presentation-animated-complete.html",
+    "analyzedAt": "2025-06-26T19:28:08.094Z",
+    "slideCount": 12,
+    "analyzerVersion": "2.0",
+    "mode": "CRITICAL_VIDEO_EXCELLENCE"
+  },
+  "summary": {
+    "overallScore": 89,
+    "meetsWorldClass": false,
+    "gap": 6,
+    "totalIssues": 43,
+    "totalOpportunities": 48
+  },
+  "detailedAnalysis": {
+    "bySlide": [
+      {
+        "slideNumber": 1,
+        "scores": {
+          "typography": 95,
+          "hierarchy": 100,
+          "spacing": 100,
+          "color": 95,
+          "polish": 83
+        },
+        "critiques": [],
+        "polishOpportunities": [
+          {
+            "type": "FONT_RENDERING",
+            "suggestion": "Add -webkit-font-smoothing: antialiased for crisp video rendering",
+            "impact": "MEDIUM"
+          },
+          {
+            "type": "CONTRAST",
+            "suggestion": "Use darker text (#1a1a1a) for maximum video contrast",
+            "impact": "HIGH"
+          }
+        ],
+        "worldClassGaps": [
+          {
+            "type": "DEPTH",
+            "gap": "No shadows for depth perception",
+            "worldClassExample": "box-shadow: 0 10px 40px rgba(0,0,0,0.08)",
+            "impact": "Creates professional depth and hierarchy"
+          },
+          {
+            "type": "TYPOGRAPHY_DETAIL",
+            "gap": "Missing text-rendering optimization",
+            "worldClassExample": "text-rendering: optimizeLegibility",
+            "impact": "Subtle improvement in text clarity"
+          }
+        ],
+        "overallScore": 96,
+        "meetsWorldClass": true
+      },
+      {
+        "slideNumber": 2,
+        "scores": {
+          "typography": 72,
+          "hierarchy": 100,
+          "spacing": 95,
+          "color": 95,
+          "polish": 83
+        },
+        "critiques": [
+          {
+            "severity": "HIGH",
+            "issue": "Suboptimal text size: font-size: 1.15rem",
+            "fix": "Increase to at least 1.5rem for video recording"
+          },
+          {
+            "severity": "HIGH",
+            "issue": "Suboptimal text size: font-size: 0.9rem",
+            "fix": "Increase to at least 1.5rem for video recording"
+          },
+          {
+            "severity": "HIGH",
+            "issue": "Suboptimal text size: font-size: 1.1rem",
+            "fix": "Increase to at least 1.5rem for video recording"
+          },
+          {
+            "severity": "HIGH",
+            "issue": "Suboptimal text size: font-size: 0.95rem",
+            "fix": "Increase to at least 1.5rem for video recording"
+          }
+        ],
+        "polishOpportunities": [
+          {
+            "type": "FONT_RENDERING",
+            "suggestion": "Add -webkit-font-smoothing: antialiased for crisp video rendering",
+            "impact": "MEDIUM"
+          },
+          {
+            "type": "TYPOGRAPHY_REFINEMENT",
+            "suggestion": "Add subtle letter-spacing (-0.02em) to headers for professional polish",
+            "impact": "LOW"
+          },
+          {
+            "type": "MODERN_SPACING",
+            "suggestion": "Use CSS gap property for consistent spacing in flex/grid layouts",
+            "impact": "MEDIUM"
+          },
+          {
+            "type": "CONTRAST",
+            "suggestion": "Use darker text (#1a1a1a) for maximum video contrast",
+            "impact": "HIGH"
+          }
+        ],
+        "worldClassGaps": [
+          {
+            "type": "TYPOGRAPHY_DETAIL",
+            "gap": "Missing text-rendering optimization",
+            "worldClassExample": "text-rendering: optimizeLegibility",
+            "impact": "Subtle improvement in text clarity"
+          },
+          {
+            "type": "LAYOUT_MODERN",
+            "gap": "Not using modern layout techniques",
+            "worldClassExample": "CSS Grid or Flexbox for precise alignment",
+            "impact": "Professional, pixel-perfect layouts"
+          }
+        ],
+        "overallScore": 88,
+        "meetsWorldClass": false
+      },
+      {
+        "slideNumber": 3,
+        "scores": {
+          "typography": 65,
+          "hierarchy": 100,
+          "spacing": 95,
+          "color": 95,
+          "polish": 98
+        },
+        "critiques": [
+          {
+            "severity": "HIGH",
+            "issue": "Suboptimal text size: font-size: 0.9rem",
+            "fix": "Increase to at least 1.5rem for video recording"
+          },
+          {
+            "severity": "HIGH",
+            "issue": "Suboptimal text size: font-size: 1.05rem",
+            "fix": "Increase to at least 1.5rem for video recording"
+          },
+          {
+            "severity": "HIGH",
+            "issue": "Suboptimal text size: font-size: 1.05rem",
+            "fix": "Increase to at least 1.5rem for video recording"
+          },
+          {
+            "severity": "HIGH",
+            "issue": "Suboptimal text size: font-size: 1.05rem",
+            "fix": "Increase to at least 1.5rem for video recording"
+          },
+          {
+            "severity": "HIGH",
+            "issue": "Suboptimal text size: font-size: 1.05rem",
+            "fix": "Increase to at least 1.5rem for video recording"
+          }
+        ],
+        "polishOpportunities": [
+          {
+            "type": "TYPOGRAPHY_WEIGHT",
+            "suggestion": "Use font-weight: 600-700 for headers to create stronger hierarchy",
+            "impact": "HIGH"
+          },
+          {
+            "type": "FONT_RENDERING",
+            "suggestion": "Add -webkit-font-smoothing: antialiased for crisp video rendering",
+            "impact": "MEDIUM"
+          },
+          {
+            "type": "SPACING_RHYTHM",
+            "suggestion": "Add consistent vertical rhythm with margins (1rem, 1.5rem, 2rem)",
+            "impact": "HIGH"
+          },
+          {
+            "type": "CONTRAST",
+            "suggestion": "Use darker text (#1a1a1a) for maximum video contrast",
+            "impact": "HIGH"
+          }
+        ],
+        "worldClassGaps": [
+          {
+            "type": "TYPOGRAPHY_DETAIL",
+            "gap": "Missing text-rendering optimization",
+            "worldClassExample": "text-rendering: optimizeLegibility",
+            "impact": "Subtle improvement in text clarity"
+          }
+        ],
+        "overallScore": 88,
+        "meetsWorldClass": false
+      },
+      {
+        "slideNumber": 4,
+        "scores": {
+          "typography": 92,
+          "hierarchy": 100,
+          "spacing": 95,
+          "color": 90,
+          "polish": 83
+        },
+        "critiques": [],
+        "polishOpportunities": [
+          {
+            "type": "FONT_RENDERING",
+            "suggestion": "Add -webkit-font-smoothing: antialiased for crisp video rendering",
+            "impact": "MEDIUM"
+          },
+          {
+            "type": "TYPOGRAPHY_REFINEMENT",
+            "suggestion": "Add subtle letter-spacing (-0.02em) to headers for professional polish",
+            "impact": "LOW"
+          },
+          {
+            "type": "SPACING_RHYTHM",
+            "suggestion": "Add consistent vertical rhythm with margins (1rem, 1.5rem, 2rem)",
+            "impact": "HIGH"
+          },
+          {
+            "type": "CONTRAST",
+            "suggestion": "Use darker text (#1a1a1a) for maximum video contrast",
+            "impact": "HIGH"
+          },
+          {
+            "type": "COLOR_ACCENT",
+            "suggestion": "Add accent colors to highlight key information",
+            "impact": "MEDIUM"
+          }
+        ],
+        "worldClassGaps": [
+          {
+            "type": "DEPTH",
+            "gap": "No shadows for depth perception",
+            "worldClassExample": "box-shadow: 0 10px 40px rgba(0,0,0,0.08)",
+            "impact": "Creates professional depth and hierarchy"
+          },
+          {
+            "type": "TYPOGRAPHY_DETAIL",
+            "gap": "Missing text-rendering optimization",
+            "worldClassExample": "text-rendering: optimizeLegibility",
+            "impact": "Subtle improvement in text clarity"
+          }
+        ],
+        "overallScore": 93,
+        "meetsWorldClass": false
+      },
+      {
+        "slideNumber": 5,
+        "scores": {
+          "typography": 30,
+          "hierarchy": 100,
+          "spacing": 95,
+          "color": 95,
+          "polish": 98
+        },
+        "critiques": [
+          {
+            "severity": "HIGH",
+            "issue": "Suboptimal text size: font-size: 1.1rem",
+            "fix": "Increase to at least 1.5rem for video recording"
+          },
+          {
+            "severity": "HIGH",
+            "issue": "Suboptimal text size: font-size: 1.1rem",
+            "fix": "Increase to at least 1.5rem for video recording"
+          },
+          {
+            "severity": "HIGH",
+            "issue": "Suboptimal text size: font-size: 1.25rem",
+            "fix": "Increase to at least 1.5rem for video recording"
+          },
+          {
+            "severity": "HIGH",
+            "issue": "Suboptimal text size: font-size: 1.1rem",
+            "fix": "Increase to at least 1.5rem for video recording"
+          },
+          {
+            "severity": "HIGH",
+            "issue": "Suboptimal text size: font-size: 1.25rem",
+            "fix": "Increase to at least 1.5rem for video recording"
+          },
+          {
+            "severity": "HIGH",
+            "issue": "Suboptimal text size: font-size: 1.1rem",
+            "fix": "Increase to at least 1.5rem for video recording"
+          },
+          {
+            "severity": "HIGH",
+            "issue": "Suboptimal text size: font-size: 1.25rem",
+            "fix": "Increase to at least 1.5rem for video recording"
+          },
+          {
+            "severity": "HIGH",
+            "issue": "Suboptimal text size: font-size: 1.1rem",
+            "fix": "Increase to at least 1.5rem for video recording"
+          },
+          {
+            "severity": "HIGH",
+            "issue": "Suboptimal text size: font-size: 1.25rem",
+            "fix": "Increase to at least 1.5rem for video recording"
+          },
+          {
+            "severity": "HIGH",
+            "issue": "Suboptimal text size: font-size: 1.1rem",
+            "fix": "Increase to at least 1.5rem for video recording"
+          },
+          {
+            "severity": "HIGH",
+            "issue": "Suboptimal text size: font-size: 1.25rem",
+            "fix": "Increase to at least 1.5rem for video recording"
+          },
+          {
+            "severity": "HIGH",
+            "issue": "Suboptimal text size: font-size: 1.1rem",
+            "fix": "Increase to at least 1.5rem for video recording"
+          },
+          {
+            "severity": "HIGH",
+            "issue": "Suboptimal text size: font-size: 1.25rem",
+            "fix": "Increase to at least 1.5rem for video recording"
+          }
+        ],
+        "polishOpportunities": [
+          {
+            "type": "FONT_RENDERING",
+            "suggestion": "Add -webkit-font-smoothing: antialiased for crisp video rendering",
+            "impact": "MEDIUM"
+          },
+          {
+            "type": "SPACING_RHYTHM",
+            "suggestion": "Add consistent vertical rhythm with margins (1rem, 1.5rem, 2rem)",
+            "impact": "HIGH"
+          },
+          {
+            "type": "CONTRAST",
+            "suggestion": "Use darker text (#1a1a1a) for maximum video contrast",
+            "impact": "HIGH"
+          }
+        ],
+        "worldClassGaps": [
+          {
+            "type": "TYPOGRAPHY_DETAIL",
+            "gap": "Missing text-rendering optimization",
+            "worldClassExample": "text-rendering: optimizeLegibility",
+            "impact": "Subtle improvement in text clarity"
+          }
+        ],
+        "overallScore": 77,
+        "meetsWorldClass": false
+      },
+      {
+        "slideNumber": 6,
+        "scores": {
+          "typography": 65,
+          "hierarchy": 100,
+          "spacing": 95,
+          "color": 95,
+          "polish": 93
+        },
+        "critiques": [
+          {
+            "severity": "HIGH",
+            "issue": "Suboptimal text size: font-size: 0.9rem",
+            "fix": "Increase to at least 1.5rem for video recording"
+          },
+          {
+            "severity": "HIGH",
+            "issue": "Suboptimal text size: font-size: 1.1rem",
+            "fix": "Increase to at least 1.5rem for video recording"
+          },
+          {
+            "severity": "HIGH",
+            "issue": "Suboptimal text size: font-size: 1.05rem",
+            "fix": "Increase to at least 1.5rem for video recording"
+          },
+          {
+            "severity": "HIGH",
+            "issue": "Suboptimal text size: font-size: 1.1rem",
+            "fix": "Increase to at least 1.5rem for video recording"
+          },
+          {
+            "severity": "HIGH",
+            "issue": "Suboptimal text size: font-size: 1.05rem",
+            "fix": "Increase to at least 1.5rem for video recording"
+          },
+          {
+            "severity": "HIGH",
+            "issue": "Suboptimal text size: font-size: 1.1rem",
+            "fix": "Increase to at least 1.5rem for video recording"
+          }
+        ],
+        "polishOpportunities": [
+          {
+            "type": "FONT_RENDERING",
+            "suggestion": "Add -webkit-font-smoothing: antialiased for crisp video rendering",
+            "impact": "MEDIUM"
+          },
+          {
+            "type": "SPACING_RHYTHM",
+            "suggestion": "Add consistent vertical rhythm with margins (1rem, 1.5rem, 2rem)",
+            "impact": "HIGH"
+          },
+          {
+            "type": "CONTRAST",
+            "suggestion": "Use darker text (#1a1a1a) for maximum video contrast",
+            "impact": "HIGH"
+          }
+        ],
+        "worldClassGaps": [
+          {
+            "type": "TYPOGRAPHY_DETAIL",
+            "gap": "Missing text-rendering optimization",
+            "worldClassExample": "text-rendering: optimizeLegibility",
+            "impact": "Subtle improvement in text clarity"
+          }
+        ],
+        "overallScore": 87,
+        "meetsWorldClass": false
+      },
+      {
+        "slideNumber": 7,
+        "scores": {
+          "typography": 62,
+          "hierarchy": 100,
+          "spacing": 92,
+          "color": 90,
+          "polish": 93
+        },
+        "critiques": [
+          {
+            "severity": "HIGH",
+            "issue": "Suboptimal text size: font-size: 1rem",
+            "fix": "Increase to at least 1.5rem for video recording"
+          },
+          {
+            "severity": "HIGH",
+            "issue": "Suboptimal text size: font-size: 1rem",
+            "fix": "Increase to at least 1.5rem for video recording"
+          },
+          {
+            "severity": "HIGH",
+            "issue": "Suboptimal text size: font-size: 1rem",
+            "fix": "Increase to at least 1.5rem for video recording"
+          },
+          {
+            "severity": "HIGH",
+            "issue": "Suboptimal text size: font-size: 1rem",
+            "fix": "Increase to at least 1.5rem for video recording"
+          },
+          {
+            "severity": "HIGH",
+            "issue": "Suboptimal text size: font-size: 1.1rem",
+            "fix": "Increase to at least 1.5rem for video recording"
+          },
+          {
+            "severity": "MEDIUM",
+            "issue": "1 instances of insufficient padding",
+            "fix": "Minimum 1.5rem padding for breathing room"
+          }
+        ],
+        "polishOpportunities": [
+          {
+            "type": "TYPOGRAPHY_WEIGHT",
+            "suggestion": "Use font-weight: 600-700 for headers to create stronger hierarchy",
+            "impact": "HIGH"
+          },
+          {
+            "type": "FONT_RENDERING",
+            "suggestion": "Add -webkit-font-smoothing: antialiased for crisp video rendering",
+            "impact": "MEDIUM"
+          },
+          {
+            "type": "TYPOGRAPHY_REFINEMENT",
+            "suggestion": "Add subtle letter-spacing (-0.02em) to headers for professional polish",
+            "impact": "LOW"
+          },
+          {
+            "type": "SPACING_RHYTHM",
+            "suggestion": "Add consistent vertical rhythm with margins (1rem, 1.5rem, 2rem)",
+            "impact": "HIGH"
+          },
+          {
+            "type": "CONTRAST",
+            "suggestion": "Use darker text (#1a1a1a) for maximum video contrast",
+            "impact": "HIGH"
+          },
+          {
+            "type": "COLOR_ACCENT",
+            "suggestion": "Add accent colors to highlight key information",
+            "impact": "MEDIUM"
+          }
+        ],
+        "worldClassGaps": [
+          {
+            "type": "TYPOGRAPHY_DETAIL",
+            "gap": "Missing text-rendering optimization",
+            "worldClassExample": "text-rendering: optimizeLegibility",
+            "impact": "Subtle improvement in text clarity"
+          }
+        ],
+        "overallScore": 85,
+        "meetsWorldClass": false
+      },
+      {
+        "slideNumber": 8,
+        "scores": {
+          "typography": 87,
+          "hierarchy": 100,
+          "spacing": 92,
+          "color": 95,
+          "polish": 93
+        },
+        "critiques": [
+          {
+            "severity": "HIGH",
+            "issue": "Suboptimal text size: font-size: 0.9rem",
+            "fix": "Increase to at least 1.5rem for video recording"
+          },
+          {
+            "severity": "MEDIUM",
+            "issue": "1 instances of insufficient padding",
+            "fix": "Minimum 1.5rem padding for breathing room"
+          }
+        ],
+        "polishOpportunities": [
+          {
+            "type": "FONT_RENDERING",
+            "suggestion": "Add -webkit-font-smoothing: antialiased for crisp video rendering",
+            "impact": "MEDIUM"
+          },
+          {
+            "type": "TYPOGRAPHY_REFINEMENT",
+            "suggestion": "Add subtle letter-spacing (-0.02em) to headers for professional polish",
+            "impact": "LOW"
+          },
+          {
+            "type": "SPACING_RHYTHM",
+            "suggestion": "Add consistent vertical rhythm with margins (1rem, 1.5rem, 2rem)",
+            "impact": "HIGH"
+          },
+          {
+            "type": "CONTRAST",
+            "suggestion": "Use darker text (#1a1a1a) for maximum video contrast",
+            "impact": "HIGH"
+          }
+        ],
+        "worldClassGaps": [
+          {
+            "type": "TYPOGRAPHY_DETAIL",
+            "gap": "Missing text-rendering optimization",
+            "worldClassExample": "text-rendering: optimizeLegibility",
+            "impact": "Subtle improvement in text clarity"
+          }
+        ],
+        "overallScore": 93,
+        "meetsWorldClass": false
+      },
+      {
+        "slideNumber": 9,
+        "scores": {
+          "typography": 72,
+          "hierarchy": 100,
+          "spacing": 95,
+          "color": 95,
+          "polish": 73
+        },
+        "critiques": [
+          {
+            "severity": "HIGH",
+            "issue": "Suboptimal text size: font-size: 1.1rem",
+            "fix": "Increase to at least 1.5rem for video recording"
+          },
+          {
+            "severity": "MEDIUM",
+            "issue": "Missing explicit line-height definitions",
+            "fix": "Add line-height: 1.6-1.8 for optimal readability"
+          }
+        ],
+        "polishOpportunities": [
+          {
+            "type": "TYPOGRAPHY_WEIGHT",
+            "suggestion": "Use font-weight: 600-700 for headers to create stronger hierarchy",
+            "impact": "HIGH"
+          },
+          {
+            "type": "FONT_RENDERING",
+            "suggestion": "Add -webkit-font-smoothing: antialiased for crisp video rendering",
+            "impact": "MEDIUM"
+          },
+          {
+            "type": "TYPOGRAPHY_REFINEMENT",
+            "suggestion": "Add subtle letter-spacing (-0.02em) to headers for professional polish",
+            "impact": "LOW"
+          },
+          {
+            "type": "MODERN_SPACING",
+            "suggestion": "Use CSS gap property for consistent spacing in flex/grid layouts",
+            "impact": "MEDIUM"
+          },
+          {
+            "type": "CONTRAST",
+            "suggestion": "Use darker text (#1a1a1a) for maximum video contrast",
+            "impact": "HIGH"
+          }
+        ],
+        "worldClassGaps": [
+          {
+            "type": "DEPTH",
+            "gap": "No shadows for depth perception",
+            "worldClassExample": "box-shadow: 0 10px 40px rgba(0,0,0,0.08)",
+            "impact": "Creates professional depth and hierarchy"
+          },
+          {
+            "type": "TYPOGRAPHY_DETAIL",
+            "gap": "Missing text-rendering optimization",
+            "worldClassExample": "text-rendering: optimizeLegibility",
+            "impact": "Subtle improvement in text clarity"
+          },
+          {
+            "type": "LAYOUT_MODERN",
+            "gap": "Not using modern layout techniques",
+            "worldClassExample": "CSS Grid or Flexbox for precise alignment",
+            "impact": "Professional, pixel-perfect layouts"
+          }
+        ],
+        "overallScore": 87,
+        "meetsWorldClass": false
+      },
+      {
+        "slideNumber": 10,
+        "scores": {
+          "typography": 92,
+          "hierarchy": 100,
+          "spacing": 92,
+          "color": 95,
+          "polish": 93
+        },
+        "critiques": [
+          {
+            "severity": "MEDIUM",
+            "issue": "1 instances of insufficient padding",
+            "fix": "Minimum 1.5rem padding for breathing room"
+          }
+        ],
+        "polishOpportunities": [
+          {
+            "type": "FONT_RENDERING",
+            "suggestion": "Add -webkit-font-smoothing: antialiased for crisp video rendering",
+            "impact": "MEDIUM"
+          },
+          {
+            "type": "TYPOGRAPHY_REFINEMENT",
+            "suggestion": "Add subtle letter-spacing (-0.02em) to headers for professional polish",
+            "impact": "LOW"
+          },
+          {
+            "type": "SPACING_RHYTHM",
+            "suggestion": "Add consistent vertical rhythm with margins (1rem, 1.5rem, 2rem)",
+            "impact": "HIGH"
+          },
+          {
+            "type": "CONTRAST",
+            "suggestion": "Use darker text (#1a1a1a) for maximum video contrast",
+            "impact": "HIGH"
+          }
+        ],
+        "worldClassGaps": [
+          {
+            "type": "TYPOGRAPHY_DETAIL",
+            "gap": "Missing text-rendering optimization",
+            "worldClassExample": "text-rendering: optimizeLegibility",
+            "impact": "Subtle improvement in text clarity"
+          }
+        ],
+        "overallScore": 95,
+        "meetsWorldClass": true
+      },
+      {
+        "slideNumber": 11,
+        "scores": {
+          "typography": 87,
+          "hierarchy": 100,
+          "spacing": 92,
+          "color": 95,
+          "polish": 93
+        },
+        "critiques": [
+          {
+            "severity": "HIGH",
+            "issue": "Suboptimal text size: font-size: 1rem",
+            "fix": "Increase to at least 1.5rem for video recording"
+          },
+          {
+            "severity": "MEDIUM",
+            "issue": "1 instances of insufficient padding",
+            "fix": "Minimum 1.5rem padding for breathing room"
+          }
+        ],
+        "polishOpportunities": [
+          {
+            "type": "FONT_RENDERING",
+            "suggestion": "Add -webkit-font-smoothing: antialiased for crisp video rendering",
+            "impact": "MEDIUM"
+          },
+          {
+            "type": "TYPOGRAPHY_REFINEMENT",
+            "suggestion": "Add subtle letter-spacing (-0.02em) to headers for professional polish",
+            "impact": "LOW"
+          },
+          {
+            "type": "SPACING_RHYTHM",
+            "suggestion": "Add consistent vertical rhythm with margins (1rem, 1.5rem, 2rem)",
+            "impact": "HIGH"
+          },
+          {
+            "type": "CONTRAST",
+            "suggestion": "Use darker text (#1a1a1a) for maximum video contrast",
+            "impact": "HIGH"
+          }
+        ],
+        "worldClassGaps": [
+          {
+            "type": "TYPOGRAPHY_DETAIL",
+            "gap": "Missing text-rendering optimization",
+            "worldClassExample": "text-rendering: optimizeLegibility",
+            "impact": "Subtle improvement in text clarity"
+          }
+        ],
+        "overallScore": 93,
+        "meetsWorldClass": false
+      },
+      {
+        "slideNumber": 12,
+        "scores": {
+          "typography": 90,
+          "hierarchy": 100,
+          "spacing": 84,
+          "color": 95,
+          "polish": 83
+        },
+        "critiques": [
+          {
+            "severity": "HIGH",
+            "issue": "Suboptimal text size: font-size: clamp(1.1rem, 1.6vw, 1.5rem)",
+            "fix": "Increase to at least 1.5rem for video recording"
+          },
+          {
+            "severity": "MEDIUM",
+            "issue": "2 instances of insufficient padding",
+            "fix": "Minimum 1.5rem padding for breathing room"
+          }
+        ],
+        "polishOpportunities": [
+          {
+            "type": "FONT_RENDERING",
+            "suggestion": "Add -webkit-font-smoothing: antialiased for crisp video rendering",
+            "impact": "MEDIUM"
+          },
+          {
+            "type": "SPACING_RHYTHM",
+            "suggestion": "Add consistent vertical rhythm with margins (1rem, 1.5rem, 2rem)",
+            "impact": "HIGH"
+          },
+          {
+            "type": "MODERN_SPACING",
+            "suggestion": "Use CSS gap property for consistent spacing in flex/grid layouts",
+            "impact": "MEDIUM"
+          },
+          {
+            "type": "CONTRAST",
+            "suggestion": "Use darker text (#1a1a1a) for maximum video contrast",
+            "impact": "HIGH"
+          }
+        ],
+        "worldClassGaps": [
+          {
+            "type": "DEPTH",
+            "gap": "No shadows for depth perception",
+            "worldClassExample": "box-shadow: 0 10px 40px rgba(0,0,0,0.08)",
+            "impact": "Creates professional depth and hierarchy"
+          },
+          {
+            "type": "TYPOGRAPHY_DETAIL",
+            "gap": "Missing text-rendering optimization",
+            "worldClassExample": "text-rendering: optimizeLegibility",
+            "impact": "Subtle improvement in text clarity"
+          }
+        ],
+        "overallScore": 91,
+        "meetsWorldClass": false
+      }
+    ],
+    "patterns": {
+      "consistentIssues": [
+        {
+          "type": "Suboptimal text size",
+          "count": 37
+        },
+        {
+          "type": "1 instances of insufficient padding",
+          "count": 4
+        }
+      ],
+      "weakestAreas": [
+        {
+          "area": "typography",
+          "avgScore": 76
+        },
+        {
+          "area": "polish",
+          "avgScore": 89
+        },
+        {
+          "area": "spacing",
+          "avgScore": 94
+        },
+        {
+          "area": "color",
+          "avgScore": 94
+        },
+        {
+          "area": "hierarchy",
+          "avgScore": 100
+        }
+      ],
+      "worldClassSlides": [
+        1,
+        10
+      ],
+      "needsWorkSlides": [
+        5
+      ]
+    },
+    "priorities": [
+      {
+        "type": "CRITICAL_FIXES",
+        "items": [
+          {
+            "severity": "HIGH",
+            "issue": "Suboptimal text size: font-size: 1.15rem",
+            "fix": "Increase to at least 1.5rem for video recording"
+          },
+          {
+            "severity": "HIGH",
+            "issue": "Suboptimal text size: font-size: 0.9rem",
+            "fix": "Increase to at least 1.5rem for video recording"
+          },
+          {
+            "severity": "HIGH",
+            "issue": "Suboptimal text size: font-size: 1.1rem",
+            "fix": "Increase to at least 1.5rem for video recording"
+          },
+          {
+            "severity": "HIGH",
+            "issue": "Suboptimal text size: font-size: 0.95rem",
+            "fix": "Increase to at least 1.5rem for video recording"
+          },
+          {
+            "severity": "HIGH",
+            "issue": "Suboptimal text size: font-size: 0.9rem",
+            "fix": "Increase to at least 1.5rem for video recording"
+          }
+        ],
+        "estimatedImpact": "+10-15 points"
+      },
+      {
+        "type": "QUICK_WINS",
+        "items": [
+          {
+            "type": "CONTRAST",
+            "suggestion": "Use darker text (#1a1a1a) for maximum video contrast",
+            "impact": "HIGH"
+          },
+          {
+            "type": "CONTRAST",
+            "suggestion": "Use darker text (#1a1a1a) for maximum video contrast",
+            "impact": "HIGH"
+          },
+          {
+            "type": "TYPOGRAPHY_WEIGHT",
+            "suggestion": "Use font-weight: 600-700 for headers to create stronger hierarchy",
+            "impact": "HIGH"
+          },
+          {
+            "type": "SPACING_RHYTHM",
+            "suggestion": "Add consistent vertical rhythm with margins (1rem, 1.5rem, 2rem)",
+            "impact": "HIGH"
+          },
+          {
+            "type": "CONTRAST",
+            "suggestion": "Use darker text (#1a1a1a) for maximum video contrast",
+            "impact": "HIGH"
+          }
+        ],
+        "estimatedImpact": "+5-10 points"
+      },
+      {
+        "type": "EXCELLENCE_GAPS",
+        "items": [
+          {
+            "type": "DEPTH",
+            "gap": "No shadows for depth perception",
+            "worldClassExample": "box-shadow: 0 10px 40px rgba(0,0,0,0.08)",
+            "impact": "Creates professional depth and hierarchy"
+          },
+          {
+            "type": "TYPOGRAPHY_DETAIL",
+            "gap": "Missing text-rendering optimization",
+            "worldClassExample": "text-rendering: optimizeLegibility",
+            "impact": "Subtle improvement in text clarity"
+          },
+          {
+            "type": "TYPOGRAPHY_DETAIL",
+            "gap": "Missing text-rendering optimization",
+            "worldClassExample": "text-rendering: optimizeLegibility",
+            "impact": "Subtle improvement in text clarity"
+          }
+        ],
+        "estimatedImpact": "+5-8 points"
+      }
+    ]
+  },
+  "actionPlan": {
+    "immediate": [
+      {
+        "action": "Fix critical typography issues",
+        "slides": [
+          2,
+          3,
+          5,
+          6,
+          7,
+          9
+        ],
+        "effort": "1 hour",
+        "impact": "+10-15 points"
+      }
+    ],
+    "shortTerm": [
+      {
+        "action": "Implement consistent spacing system",
+        "details": "Use 8px grid: 8px, 16px, 24px, 32px, 48px",
+        "effort": "2-3 hours",
+        "impact": "+5-8 points"
+      },
+      {
+        "action": "Enhance visual hierarchy",
+        "details": "Add color accents, adjust font weights, improve contrast",
+        "effort": "2 hours",
+        "impact": "+5-7 points"
+      }
+    ],
+    "excellence": [
+      {
+        "action": "Professional image curation",
+        "details": "Replace all images with high-quality, on-brand photography",
+        "effort": "1-2 days",
+        "impact": "+5 points"
+      },
+      {
+        "action": "Micro-typography refinement",
+        "details": "Letter-spacing, text-rendering, custom font loading",
+        "effort": "2-3 hours",
+        "impact": "+3-5 points"
+      }
+    ]
+  }
+}
