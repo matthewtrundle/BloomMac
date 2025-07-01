@@ -4,7 +4,18 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/lib/supabase';
-import Button from '@/components/ui/Button';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Calendar } from '@/components/ui/calendar';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { format } from 'date-fns';
+import { cn } from '@/lib/utils';
 import { 
   User, 
   Phone, 
@@ -55,7 +66,7 @@ export default function EditProfilePage() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [phone, setPhone] = useState('');
-  const [postpartumDate, setPostpartumDate] = useState<string>('');
+  const [postpartumDate, setPostpartumDate] = useState<Date | undefined>();
   const [numberOfChildren, setNumberOfChildren] = useState(1);
   
   // Emergency contact
@@ -74,7 +85,7 @@ export default function EditProfilePage() {
     } else {
       router.push('/auth/login');
     }
-  }, [user, router]);
+  }, [user]);
 
   async function fetchProfile() {
     try {
@@ -93,7 +104,7 @@ export default function EditProfilePage() {
         setLastName(data.last_name || '');
         setPhone(data.phone || '');
         setAvatarUrl(data.avatar_url || null);
-        setPostpartumDate(data.postpartum_date || '');
+        setPostpartumDate(data.postpartum_date ? new Date(data.postpartum_date) : undefined);
         setNumberOfChildren(data.number_of_children || 1);
         setEmergencyName(data.emergency_contact_name || '');
         setEmergencyPhone(data.emergency_contact_phone || '');
@@ -165,7 +176,7 @@ export default function EditProfilePage() {
         first_name: firstName,
         last_name: lastName,
         phone,
-        postpartum_date: postpartumDate || null,
+        postpartum_date: postpartumDate ? format(postpartumDate, 'yyyy-MM-dd') : null,
         number_of_children: numberOfChildren,
         emergency_contact_name: emergencyName,
         emergency_contact_phone: emergencyPhone,
@@ -220,293 +231,250 @@ export default function EditProfilePage() {
       </div>
 
       {message && (
-        <div className={`mb-6 p-4 rounded-lg flex items-start space-x-3 ${
-          message.type === 'success' 
-            ? 'bg-green-50 border border-green-200' 
-            : 'bg-red-50 border border-red-200'
-        }`}>
+        <Alert className={cn(
+          "mb-6",
+          message.type === 'success' ? "border-green-500" : "border-red-500"
+        )}>
           {message.type === 'success' ? (
-            <CheckCircle className="h-5 w-5 text-green-500 mt-0.5" />
+            <CheckCircle className="h-4 w-4 text-green-500" />
           ) : (
-            <AlertCircle className="h-5 w-5 text-red-500 mt-0.5" />
+            <AlertCircle className="h-4 w-4 text-red-500" />
           )}
-          <p className="text-sm">{message.text}</p>
-        </div>
+          <AlertDescription>{message.text}</AlertDescription>
+        </Alert>
       )}
 
       <div className="space-y-6">
         {/* Profile Header */}
-        <div className="bg-white rounded-xl shadow-lg p-6">
-          <div className="flex items-center space-x-4">
-            <div className="relative h-20 w-20">
-              {avatarUrl ? (
-                <img 
-                  src={avatarUrl} 
-                  alt="Profile" 
-                  className="h-full w-full rounded-full object-cover"
+        <Card>
+          <CardContent className="p-6">
+            <div className="flex items-center space-x-4">
+              <Avatar className="h-20 w-20">
+                <AvatarImage src={avatarUrl || `https://api.dicebear.com/7.x/initials/svg?seed=${firstName} ${lastName}`} />
+                <AvatarFallback>{firstName[0]}{lastName[0]}</AvatarFallback>
+              </Avatar>
+              <div className="flex-1">
+                <h2 className="text-2xl font-semibold">{firstName} {lastName}</h2>
+                <p className="text-bloom-gray-600">{user?.email}</p>
+                <p className="text-sm text-bloom-gray-500 mt-1">
+                  Total Stars Earned: {profile?.total_stars || 0} ⭐
+                </p>
+              </div>
+              <div>
+                <input
+                  type="file"
+                  id="photo-upload"
+                  className="hidden"
+                  accept="image/*"
+                  onChange={handlePhotoUpload}
+                  disabled={uploadingPhoto}
                 />
-              ) : (
-                <div className="h-full w-full rounded-full bg-bloompink flex items-center justify-center text-white text-2xl font-bold">
-                  {firstName[0]}{lastName[0]}
-                </div>
-              )}
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  onClick={() => document.getElementById('photo-upload')?.click()}
+                  disabled={uploadingPhoto}
+                >
+                  {uploadingPhoto ? (
+                    <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                  ) : (
+                    <Camera className="h-4 w-4 mr-2" />
+                  )}
+                  {uploadingPhoto ? 'Uploading...' : 'Change Photo'}
+                </Button>
+              </div>
             </div>
-            <div className="flex-1">
-              <h2 className="text-2xl font-semibold">{firstName} {lastName}</h2>
-              <p className="text-bloom-gray-600">{user?.email}</p>
-              <p className="text-sm text-bloom-gray-500 mt-1">
-                Total Stars Earned: {profile?.total_stars || 0} ⭐
-              </p>
-            </div>
-            <div>
-              <input
-                type="file"
-                id="photo-upload"
-                className="hidden"
-                accept="image/*"
-                onChange={handlePhotoUpload}
-                disabled={uploadingPhoto}
-              />
-              <Button 
-                variant="outline" 
-                size="sm" 
-                onClick={() => document.getElementById('photo-upload')?.click()}
-                disabled={uploadingPhoto}
-              >
-                {uploadingPhoto ? (
-                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                ) : (
-                  <Camera className="h-4 w-4 mr-2" />
-                )}
-                {uploadingPhoto ? 'Uploading...' : 'Change Photo'}
-              </Button>
-            </div>
-          </div>
-        </div>
+          </CardContent>
+        </Card>
 
         {/* Tabs */}
-        <div className="bg-white rounded-xl shadow-lg overflow-hidden">
-          <div className="flex border-b">
-            <button
-              onClick={() => setActiveTab('personal')}
-              className={`flex-1 py-3 text-center font-medium transition-colors ${
-                activeTab === 'personal' 
-                  ? 'text-bloompink border-b-2 border-bloompink' 
-                  : 'text-bloom-gray-600 hover:text-bloom-gray-800'
-              }`}
-            >
-              Personal Info
-            </button>
-            <button
-              onClick={() => setActiveTab('emergency')}
-              className={`flex-1 py-3 text-center font-medium transition-colors ${
-                activeTab === 'emergency' 
-                  ? 'text-bloompink border-b-2 border-bloompink' 
-                  : 'text-bloom-gray-600 hover:text-bloom-gray-800'
-              }`}
-            >
-              Emergency Contact
-            </button>
-            <button
-              onClick={() => setActiveTab('insurance')}
-              className={`flex-1 py-3 text-center font-medium transition-colors ${
-                activeTab === 'insurance' 
-                  ? 'text-bloompink border-b-2 border-bloompink' 
-                  : 'text-bloom-gray-600 hover:text-bloom-gray-800'
-              }`}
-            >
-              Insurance
-            </button>
-          </div>
+        <Tabs value={activeTab} onValueChange={setActiveTab}>
+          <TabsList className="grid w-full grid-cols-3">
+            <TabsTrigger value="personal">Personal Info</TabsTrigger>
+            <TabsTrigger value="emergency">Emergency Contact</TabsTrigger>
+            <TabsTrigger value="insurance">Insurance</TabsTrigger>
+          </TabsList>
 
-          <div className="p-6">
-            {/* Personal Info Tab */}
-            {activeTab === 'personal' && (
-              <div className="space-y-4">
+          <TabsContent value="personal">
+            <Card>
+              <CardHeader>
+                <CardTitle>Personal Information</CardTitle>
+                <CardDescription>
+                  Update your basic profile information
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label htmlFor="firstName" className="block text-sm font-medium text-bloom-gray-700 mb-1">
-                      First Name
-                    </label>
-                    <input
+                    <Label htmlFor="firstName">First Name</Label>
+                    <Input
                       id="firstName"
-                      type="text"
                       value={firstName}
                       onChange={(e) => setFirstName(e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-bloompink focus:border-transparent"
                       placeholder="Enter your first name"
                     />
                   </div>
                   <div>
-                    <label htmlFor="lastName" className="block text-sm font-medium text-bloom-gray-700 mb-1">
-                      Last Name
-                    </label>
-                    <input
+                    <Label htmlFor="lastName">Last Name</Label>
+                    <Input
                       id="lastName"
-                      type="text"
                       value={lastName}
                       onChange={(e) => setLastName(e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-bloompink focus:border-transparent"
                       placeholder="Enter your last name"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label htmlFor="phone" className="block text-sm font-medium text-bloom-gray-700 mb-1">
-                    Phone Number
-                  </label>
-                  <div className="relative">
-                    <Phone className="absolute left-3 top-3 h-4 w-4 text-bloom-gray-400" />
-                    <input
+                  <Label htmlFor="phone">Phone Number</Label>
+                  <div className="flex items-center space-x-2">
+                    <Phone className="h-4 w-4 text-bloom-gray-400" />
+                    <Input
                       id="phone"
                       type="tel"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
-                      className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-bloompink focus:border-transparent"
                       placeholder="+1 (555) 123-4567"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label htmlFor="postpartumDate" className="block text-sm font-medium text-bloom-gray-700 mb-1">
-                    Postpartum Date
-                  </label>
-                  <div className="relative">
-                    <CalendarIcon className="absolute left-3 top-3 h-4 w-4 text-bloom-gray-400" />
-                    <input
-                      id="postpartumDate"
-                      type="date"
-                      value={postpartumDate}
-                      onChange={(e) => setPostpartumDate(e.target.value)}
-                      className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-bloompink focus:border-transparent"
-                    />
-                  </div>
+                  <Label>Postpartum Date</Label>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant="outline"
+                        className={cn(
+                          "w-full justify-start text-left font-normal",
+                          !postpartumDate && "text-muted-foreground"
+                        )}
+                      >
+                        <CalendarIcon className="mr-2 h-4 w-4" />
+                        {postpartumDate ? format(postpartumDate, "PPP") : "Select date"}
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0">
+                      <Calendar
+                        mode="single"
+                        selected={postpartumDate}
+                        onSelect={setPostpartumDate}
+                        initialFocus
+                        disabled={(date) => date > new Date()}
+                      />
+                    </PopoverContent>
+                  </Popover>
                 </div>
 
                 <div>
-                  <label htmlFor="children" className="block text-sm font-medium text-bloom-gray-700 mb-1">
-                    Number of Children
-                  </label>
-                  <div className="relative">
-                    <Baby className="absolute left-3 top-3 h-4 w-4 text-bloom-gray-400" />
-                    <input
+                  <Label htmlFor="children">Number of Children</Label>
+                  <div className="flex items-center space-x-2">
+                    <Baby className="h-4 w-4 text-bloom-gray-400" />
+                    <Input
                       id="children"
                       type="number"
                       min="1"
                       max="10"
                       value={numberOfChildren}
                       onChange={(e) => setNumberOfChildren(parseInt(e.target.value) || 1)}
-                      className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-bloompink focus:border-transparent"
                     />
                   </div>
                 </div>
-              </div>
-            )}
+              </CardContent>
+            </Card>
+          </TabsContent>
 
-            {/* Emergency Contact Tab */}
-            {activeTab === 'emergency' && (
-              <div className="space-y-4">
+          <TabsContent value="emergency">
+            <Card>
+              <CardHeader>
+                <CardTitle>Emergency Contact</CardTitle>
+                <CardDescription>
+                  Provide information for someone we can contact in case of emergency
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
                 <div>
-                  <label htmlFor="emergencyName" className="block text-sm font-medium text-bloom-gray-700 mb-1">
-                    Contact Name
-                  </label>
-                  <input
+                  <Label htmlFor="emergencyName">Contact Name</Label>
+                  <Input
                     id="emergencyName"
-                    type="text"
                     value={emergencyName}
                     onChange={(e) => setEmergencyName(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-bloompink focus:border-transparent"
                     placeholder="John Doe"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="emergencyPhone" className="block text-sm font-medium text-bloom-gray-700 mb-1">
-                    Contact Phone
-                  </label>
-                  <input
+                  <Label htmlFor="emergencyPhone">Contact Phone</Label>
+                  <Input
                     id="emergencyPhone"
                     type="tel"
                     value={emergencyPhone}
                     onChange={(e) => setEmergencyPhone(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-bloompink focus:border-transparent"
                     placeholder="+1 (555) 123-4567"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="emergencyRelationship" className="block text-sm font-medium text-bloom-gray-700 mb-1">
-                    Relationship
-                  </label>
-                  <input
+                  <Label htmlFor="emergencyRelationship">Relationship</Label>
+                  <Input
                     id="emergencyRelationship"
-                    type="text"
                     value={emergencyRelationship}
                     onChange={(e) => setEmergencyRelationship(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-bloompink focus:border-transparent"
                     placeholder="Spouse, Parent, Sibling, etc."
                   />
                 </div>
-              </div>
-            )}
+              </CardContent>
+            </Card>
+          </TabsContent>
 
-            {/* Insurance Tab */}
-            {activeTab === 'insurance' && (
-              <div className="space-y-4">
+          <TabsContent value="insurance">
+            <Card>
+              <CardHeader>
+                <CardTitle>Insurance Information</CardTitle>
+                <CardDescription>
+                  Keep your insurance details up to date for billing purposes
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
                 <div>
-                  <label htmlFor="insuranceProvider" className="block text-sm font-medium text-bloom-gray-700 mb-1">
-                    Insurance Provider
-                  </label>
-                  <input
+                  <Label htmlFor="insuranceProvider">Insurance Provider</Label>
+                  <Input
                     id="insuranceProvider"
-                    type="text"
                     value={insuranceProvider}
                     onChange={(e) => setInsuranceProvider(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-bloompink focus:border-transparent"
                     placeholder="Blue Cross Blue Shield"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="insuranceMemberId" className="block text-sm font-medium text-bloom-gray-700 mb-1">
-                    Member ID
-                  </label>
-                  <input
+                  <Label htmlFor="insuranceMemberId">Member ID</Label>
+                  <Input
                     id="insuranceMemberId"
-                    type="text"
                     value={insuranceMemberId}
                     onChange={(e) => setInsuranceMemberId(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-bloompink focus:border-transparent"
                     placeholder="ABC123456789"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="insuranceGroupNumber" className="block text-sm font-medium text-bloom-gray-700 mb-1">
-                    Group Number
-                  </label>
-                  <input
+                  <Label htmlFor="insuranceGroupNumber">Group Number</Label>
+                  <Input
                     id="insuranceGroupNumber"
-                    type="text"
                     value={insuranceGroupNumber}
                     onChange={(e) => setInsuranceGroupNumber(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-bloompink focus:border-transparent"
                     placeholder="12345"
                   />
                 </div>
-              </div>
-            )}
-          </div>
-        </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
 
         {/* Save Button */}
         <div className="flex justify-end">
           <Button
             onClick={updateProfile}
             disabled={saving}
-            variant="pink"
             className="min-w-[120px]"
           >
             {saving ? (
