@@ -177,6 +177,119 @@ export default function CoursesPage() {
         </div>
       </section>
 
+      {/* Course Preview Video */}
+      <section className="py-20 bg-white relative overflow-hidden">
+        <div className="container mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center max-w-4xl mx-auto"
+          >
+            <h2 className="text-4xl font-playfair text-bloom-dark mb-4">
+              A Personal Message from Dr. Jana
+            </h2>
+            
+            {/* Professional divider */}
+            <div className="w-32 h-0.5 bg-bloom-sage/20 rounded-full mx-auto mb-6"></div>
+            
+            {/* Emotional Context */}
+            <div className="bg-bloom-sage-50/20 p-4 rounded-lg mb-8">
+              <p className="text-bloom-dark/70">
+                You're not alone in feeling overwhelmed. Watch Dr. Jana share her warm, evidence-based approach to helping new moms find their footing.
+              </p>
+            </div>
+
+            {/* Video Container */}
+            <div className="relative max-w-4xl mx-auto">
+              {/* Video Controls Info */}
+              <div className="flex items-center justify-between mb-4 text-sm">
+                <div className="flex items-center gap-3">
+                  <span className="text-bloom-dark/60">Duration: 3 min</span>
+                  <span className="bg-bloom-sage/10 px-2 py-1 rounded text-xs">CC Available</span>
+                  <span className="text-bloom-pink/70">Licensed Clinical Psychologist</span>
+                </div>
+                <button className="text-bloom-pink hover:underline">
+                  Read Transcript
+                </button>
+              </div>
+              
+              <div className="relative overflow-hidden rounded-2xl shadow-2xl">
+                <div className="aspect-video">
+                  <iframe
+                    src="https://player.vimeo.com/video/1097658900?badge=0&autopause=0&player_id=0&app_id=58479"
+                    className="w-full h-full"
+                    frameBorder="0"
+                    allow="autoplay; fullscreen; picture-in-picture; clipboard-write"
+                    title="Dr. Jana Rundle - A Personal Message About Postpartum Wellness"
+                  ></iframe>
+                </div>
+              </div>
+              
+              {/* Post-Video CTA */}
+              <div className="mt-8 bg-gradient-to-r from-bloompink/10 to-bloom-sage/10 p-6 rounded-xl text-center">
+                <h3 className="text-2xl font-semibold mb-4">Ready to Experience This Transformation?</h3>
+                <p className="text-bloom-dark/70 mb-6">
+                  Join 500+ moms getting early access + 30% launch discount
+                </p>
+                <Button href="#courses" variant="pink" size="lg" className="mb-4">
+                  Secure My Spot Now
+                </Button>
+                <p className="text-sm text-bloom-dark/60">
+                  ⏰ Limited time: First 100 members get special pricing
+                </p>
+              </div>
+              
+              {/* Enhanced Feature Cards with Social Proof */}
+              <div className="mt-8 grid md:grid-cols-3 gap-6 text-left">
+                <div className="bg-bloom-sage-50/30 p-6 rounded-xl">
+                  <div className="flex items-start gap-3">
+                    <div className="w-8 h-8 bg-bloom-sage/20 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                      <svg className="w-4 h-4 text-bloom-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-bloom-dark mb-2">Evidence-Based Results</h4>
+                      <p className="text-sm text-bloom-dark/70">95% of mothers report reduced anxiety within 2 weeks of starting our program</p>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="bg-bloompink/10 p-6 rounded-xl">
+                  <div className="flex items-start gap-3">
+                    <div className="w-8 h-8 bg-bloompink/20 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                      <svg className="w-4 h-4 text-bloompink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-bloom-dark mb-2">Real Mom Stories</h4>
+                      <p className="text-sm text-bloom-dark/70">"I went from panic attacks to peaceful nights in just 3 weeks" - Sarah M.</p>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="bg-bloom-accent/10 p-6 rounded-xl">
+                  <div className="flex items-start gap-3">
+                    <div className="w-8 h-8 bg-bloom-accent/20 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                      <svg className="w-4 h-4 text-bloom-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-bloom-dark mb-2">Immediate Impact</h4>
+                      <p className="text-sm text-bloom-dark/70">Use tonight: 5-minute technique that stops overwhelm instantly</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Value Proposition */}
       <section className="py-16 bg-white/80 backdrop-blur-sm">
         <div className="container mx-auto px-6">
