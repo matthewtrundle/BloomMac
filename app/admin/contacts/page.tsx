@@ -30,10 +30,11 @@ interface ContactSubmission {
   service?: string;
   message: string;
   source?: string;
-  page?: string;
-  status: 'new' | 'read' | 'replied' | 'archived';
-  replied_at?: string;
-  notes?: string;
+  metadata?: any;
+  status: 'new' | 'in_progress' | 'responded' | 'archived';
+  admin_notes?: string;
+  responded_at?: string;
+  responded_by?: string;
   created_at: string;
   updated_at: string;
 }
@@ -42,7 +43,7 @@ export default function ContactsAdminPage() {
   const [contacts, setContacts] = useState<ContactSubmission[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedContact, setSelectedContact] = useState<ContactSubmission | null>(null);
-  const [filter, setFilter] = useState<'all' | 'new' | 'read' | 'replied' | 'archived'>('all');
+  const [filter, setFilter] = useState<'all' | 'new' | 'in_progress' | 'responded' | 'archived'>('all');
   const [searchTerm, setSearchTerm] = useState('');
   const [sortBy, setSortBy] = useState<'date' | 'name' | 'status'>('date');
   const [stats, setStats] = useState({

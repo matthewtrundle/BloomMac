@@ -1,0 +1,21 @@
+{
+  "timestamp": "2025-07-01T15:48:51.995Z",
+  "tables": {
+    "subscribers": 10,
+    "blog_posts": 19,
+    "contact_submissions": 0,
+    "career_applications": 0,
+    "analytics_events": 1000,
+    "chat_conversations": 0,
+    "email_queue": 0,
+    "admin_activity_log": 8,
+    "user_profiles": 1,
+    "appointment_data": 1,
+    "appointment_payments": 0,
+    "course_enrollments": 0,
+    "course_progress": 1,
+    "user_achievements": 1,
+    "workshop_registrations": 1
+  },
+  "totalRecords": 1042
+}

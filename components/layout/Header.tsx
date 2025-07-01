@@ -337,13 +337,54 @@ const Header = () => {
                 </svg>
               </Link>
               <DarkModeToggle />
-              <Button 
-                href="/book"
-                variant="pink"
-                size="sm"
-              >
-                Book Now
-              </Button>
+              
+              {/* Auth Buttons */}
+              {user ? (
+                <div className="flex items-center gap-3">
+                  <Link
+                    href="/dashboard"
+                    className="flex items-center gap-2 px-3 py-1.5 bg-bloom-sage/10 hover:bg-bloom-sage/20 rounded-full transition-all duration-300 group"
+                  >
+                    <div className="w-8 h-8 bg-bloom-sage rounded-full flex items-center justify-center text-white font-medium text-sm">
+                      {user.email?.charAt(0).toUpperCase()}
+                    </div>
+                    <span className="text-sm font-medium text-bloom-dark group-hover:text-bloom-sage transition-colors">
+                      My Wellness Hub
+                    </span>
+                  </Link>
+                  <Button 
+                    href="/book"
+                    variant="pink"
+                    size="sm"
+                  >
+                    Book Now
+                  </Button>
+                </div>
+              ) : (
+                <div className="flex items-center gap-3">
+                  <Link
+                    href="/auth/login"
+                    className="text-sm font-medium text-bloom-dark hover:text-bloom-sage transition-colors"
+                  >
+                    Login
+                  </Link>
+                  <Button
+                    href="/auth/signup"
+                    variant="sage"
+                    size="sm"
+                    className="bg-bloom-sage text-white hover:bg-bloom-sage/90"
+                  >
+                    Start Your Journey
+                  </Button>
+                  <Button 
+                    href="/book"
+                    variant="pink"
+                    size="sm"
+                  >
+                    Book Now
+                  </Button>
+                </div>
+              )}
             </div>
           </div>
           

@@ -35,7 +35,7 @@ export default function ContactPage() {
     setSubmitError('');
 
     try {
-      const res = await fetch('/api/send-email', {
+      const res = await fetch('/api/contact/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),

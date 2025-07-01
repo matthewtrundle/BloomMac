@@ -53,8 +53,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       try {
         setLoading(true);
         await authHelpers.signUp(email, password, fullName);
-        // Redirect to email verification page
-        router.push('/auth/verify-email');
+        // Redirect to onboarding flow for new users
+        router.push('/onboarding?source=signup');
       } catch (error) {
         setLoading(false);
         throw error;
@@ -64,8 +64,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       try {
         setLoading(true);
         await authHelpers.signIn(email, password);
-        // Redirect to dashboard or previous page
-        router.push('/my-courses');
+        // Redirect to dashboard for returning users
+        router.push('/dashboard');
       } catch (error) {
         setLoading(false);
         throw error;

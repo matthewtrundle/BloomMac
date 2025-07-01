@@ -1,0 +1,14 @@
+[
+  {
+    "id": "99f253b5-c010-48a1-a6e2-0e269ae20f36",
+    "user_id": "284c1874-aef8-41eb-9541-e3776484fd39",
+    "first_name": "Beta",
+    "last_name": "Tester",
+    "phone": "+1234567890",
+    "postpartum_date": "2024-01-01",
+    "number_of_children": 1,
+    "total_stars": 1,
+    "created_at": "2025-07-01T13:37:38.847468+00:00",
+    "updated_at": "2025-07-01T13:37:38.847468+00:00"
+  }
+]

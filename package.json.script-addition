@@ -1,0 +1,14 @@
+# Add this script to your package.json
+
+# In the "scripts" section, add:
+"check-db": "node scripts/check-database-status.js"
+
+# So your scripts section might look like:
+{
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build", 
+    "start": "next start",
+    "check-db": "node scripts/check-database-status.js"
+  }
+}

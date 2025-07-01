@@ -1,0 +1,17 @@
+[
+  {
+    "id": "b2d7673a-59d3-48ae-b421-5a0054074fda",
+    "user_id": "284c1874-aef8-41eb-9541-e3776484fd39",
+    "course_id": "test-course",
+    "week_number": 1,
+    "lesson_number": 1,
+    "status": "in_progress",
+    "started_at": null,
+    "completed_at": null,
+    "time_spent_minutes": 15,
+    "video_progress_percentage": 50,
+    "last_accessed_at": "2025-07-01T13:37:39.429837+00:00",
+    "created_at": "2025-07-01T13:37:39.429837+00:00",
+    "updated_at": "2025-07-01T13:37:39.429837+00:00"
+  }
+]

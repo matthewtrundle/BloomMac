@@ -1,0 +1,146 @@
+[
+  {
+    "id": "c71cedca-f613-4bee-8e73-1ae3435c7d8e",
+    "action": "newsletter_signup",
+    "entity_type": "subscriber",
+    "entity_id": "511dfa10-1b4a-47b1-8a33-30f6941b402a",
+    "details": {
+      "email": "kjstriber@gmail.com",
+      "source": "instagram-join",
+      "interests": [
+        "mental-wellness",
+        "self-care",
+        "therapy-resources"
+      ]
+    },
+    "ip_address": null,
+    "user_agent": null,
+    "created_at": "2025-05-31T18:09:19.311813+00:00"
+  },
+  {
+    "id": "e11a6653-223c-463f-9f46-615405677bb8",
+    "action": "newsletter_signup",
+    "entity_type": "subscriber",
+    "entity_id": "12169603-515b-4a51-a0f6-ad24149513e0",
+    "details": {
+      "email": "adrnauvoo2020@gmail.com",
+      "source": "instagram-join",
+      "interests": [
+        "mental-wellness",
+        "self-care",
+        "therapy-resources"
+      ]
+    },
+    "ip_address": null,
+    "user_agent": null,
+    "created_at": "2025-05-31T19:29:55.922966+00:00"
+  },
+  {
+    "id": "3ea85818-60ec-44e4-a562-fece821af37a",
+    "action": "newsletter_signup",
+    "entity_type": "subscriber",
+    "entity_id": "69db8ee3-096f-4935-8373-585ec7d0c624",
+    "details": {
+      "email": "jonescd519@gmail.com",
+      "source": "instagram-join",
+      "interests": [
+        "mental-wellness",
+        "self-care",
+        "therapy-resources"
+      ]
+    },
+    "ip_address": null,
+    "user_agent": null,
+    "created_at": "2025-05-31T19:31:07.367024+00:00"
+  },
+  {
+    "id": "d3a940df-368e-4ea8-9c96-ba1c4c466242",
+    "action": "newsletter_signup",
+    "entity_type": "subscriber",
+    "entity_id": "08e30a86-e5e5-456a-b4f7-b61a1b774016",
+    "details": {
+      "email": "beckyjanevincent@gmail.com",
+      "source": "instagram-join",
+      "interests": [
+        "mental-wellness",
+        "self-care",
+        "therapy-resources"
+      ]
+    },
+    "ip_address": null,
+    "user_agent": null,
+    "created_at": "2025-05-31T20:33:01.12337+00:00"
+  },
+  {
+    "id": "5d3a8627-c403-47e1-889a-910b86b7cf92",
+    "action": "newsletter_signup",
+    "entity_type": "subscriber",
+    "entity_id": "a5099d92-db6d-43c0-9908-0fcbb61c9d5a",
+    "details": {
+      "email": "michelle.hosie@gmail.com",
+      "source": "instagram-join",
+      "interests": [
+        "mental-wellness",
+        "self-care",
+        "therapy-resources"
+      ]
+    },
+    "ip_address": null,
+    "user_agent": null,
+    "created_at": "2025-05-31T21:00:45.840808+00:00"
+  },
+  {
+    "id": "01228a30-e5b4-4822-a184-548611e0866b",
+    "action": "newsletter_signup",
+    "entity_type": "subscriber",
+    "entity_id": "af99f3fa-2b57-4cff-a828-434d0f2f70d3",
+    "details": {
+      "email": "jrundle@johnson-center.org",
+      "source": "blog-page",
+      "interests": [
+        "mental-health",
+        "postpartum-support",
+        "wellness-tips"
+      ]
+    },
+    "ip_address": null,
+    "user_agent": null,
+    "created_at": "2025-06-20T17:02:20.438863+00:00"
+  },
+  {
+    "id": "70065c64-69b3-43d3-becf-cbbf11d38d49",
+    "action": "newsletter_signup",
+    "entity_type": "subscriber",
+    "entity_id": "d537545f-26fd-47db-94f7-3fc6d57370ac",
+    "details": {
+      "email": "test-6f53ixwyk@srv1.mail-tester.com",
+      "source": "blog-page",
+      "interests": [
+        "mental-health",
+        "postpartum-support",
+        "wellness-tips"
+      ]
+    },
+    "ip_address": null,
+    "user_agent": null,
+    "created_at": "2025-06-20T17:16:41.007982+00:00"
+  },
+  {
+    "id": "38383d6f-405f-4756-9a8c-7886c1e6cddd",
+    "action": "newsletter_signup",
+    "entity_type": "subscriber",
+    "entity_id": "d6cf05fd-8221-454e-a1d5-73cb59434c4a",
+    "details": {
+      "email": "jana@bloompsychologynorthaustin.com",
+      "source": "instagram-join",
+      "interests": [
+        "mental-wellness",
+        "self-care",
+        "therapy-resources"
+      ]
+    },
+    "ip_address": null,
+    "user_agent": null,
+    "created_at": "2025-06-23T21:11:52.467035+00:00"
+  }
+]

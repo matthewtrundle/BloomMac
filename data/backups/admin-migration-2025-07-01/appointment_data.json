@@ -1,0 +1,21 @@
+[
+  {
+    "id": "2ea300e7-431c-44e7-9259-d21304cceb80",
+    "user_id": "284c1874-aef8-41eb-9541-e3776484fd39",
+    "appointment_type": "consultation",
+    "calendly_event_uri": null,
+    "calendly_invitee_uri": null,
+    "appointment_date": "2025-07-15T13:37:39.388+00:00",
+    "appointment_end": "2025-07-15T14:07:39.388+00:00",
+    "status": "scheduled",
+    "payment_status": "pending",
+    "no_show_fee_charged": false,
+    "reminder_sent": false,
+    "confirmation_received": false,
+    "cancellation_policy": "24_hours",
+    "session_fee_dollars": 150,
+    "metadata": {},
+    "created_at": "2025-07-01T13:37:39.52877+00:00",
+    "updated_at": "2025-07-01T13:37:39.52877+00:00"
+  }
+]

@@ -7,15 +7,23 @@ import Button from '@/components/ui/Button';
 
 interface Application {
   id: string;
-  name: string;
+  first_name: string;
+  last_name: string;
   email: string;
   phone?: string;
   position: string;
-  experience: string;
-  message: string;
-  resumeUrl?: string;
-  timestamp: string;
-  status: 'new' | 'reviewed' | 'contacted' | 'archived';
+  experience_years: number;
+  current_role?: string;
+  cover_letter?: string;
+  resume_url?: string;
+  availability_date?: string;
+  status: 'new' | 'reviewing' | 'interviewing' | 'offer_made' | 'hired' | 'rejected' | 'withdrawn';
+  admin_notes?: string;
+  reviewed_by?: string;
+  reviewed_at?: string;
+  metadata?: any;
+  created_at: string;
+  updated_at: string;
 }
 
 export default function CareersAdminPage() {
@@ -29,21 +37,14 @@ export default function CareersAdminPage() {
 
   const fetchApplications = async () => {
     try {
-      // In a real implementation, this would fetch from your API
-      // For now, using mock data
-      setApplications([
-        {
-          id: '1',
-          name: 'Sarah Johnson',
-          email: 'sarah.j@example.com',
-          phone: '(512) 555-0123',
-          position: 'General Application',
-          experience: '5+ years in mental health counseling',
-          message: 'I am passionate about women\'s mental health and would love to join your team.',
-          timestamp: new Date().toISOString(),
-          status: 'new'
-        }
-      ]);
+      const response = await fetch('/api/admin/careers', {
+        credentials: 'include'
+      });
+      
+      if (!response.ok) throw new Error('Failed to fetch applications');
+      
+      const data = await response.json();
+      setApplications(data.applications);
     } catch (error) {
       console.error('Error fetching applications:', error);
     } finally {
@@ -52,9 +53,22 @@ export default function CareersAdminPage() {
   };
 
   const updateStatus = async (id: string, status: Application['status']) => {
-    setApplications(prev => 
-      prev.map(app => app.id === id ? { ...app, status } : app)
-    );
+    try {
+      const response = await fetch(`/api/admin/careers/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ status })
+      });
+      
+      if (!response.ok) throw new Error('Failed to update application');
+      
+      setApplications(prev => 
+        prev.map(app => app.id === id ? { ...app, status } : app)
+      );
+    } catch (error) {
+      console.error('Error updating application:', error);
+    }
   };
 
   return (
@@ -92,7 +106,7 @@ export default function CareersAdminPage() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-yellow-600">
-              {applications.filter(a => a.status === 'reviewed').length}
+              {applications.filter(a => a.status === 'reviewing').length}
             </div>
           </CardContent>
         </Card>
@@ -103,7 +117,7 @@ export default function CareersAdminPage() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-green-600">
-              {applications.filter(a => a.status === 'contacted').length}
+              {applications.filter(a => a.status === 'hired').length}
             </div>
           </CardContent>
         </Card>
@@ -126,11 +140,13 @@ export default function CareersAdminPage() {
                   <div className="flex justify-between items-start">
                     <div className="flex-1">
                       <div className="flex items-center space-x-4 mb-2">
-                        <h3 className="font-medium text-lg">{application.name}</h3>
+                        <h3 className="font-medium text-lg">{application.first_name} {application.last_name}</h3>
                         <span className={`text-xs px-2 py-1 rounded-full ${
                           application.status === 'new' ? 'bg-blue-100 text-blue-800' :
-                          application.status === 'reviewed' ? 'bg-yellow-100 text-yellow-800' :
-                          application.status === 'contacted' ? 'bg-green-100 text-green-800' :
+                          application.status === 'reviewing' ? 'bg-yellow-100 text-yellow-800' :
+                          application.status === 'interviewing' ? 'bg-purple-100 text-purple-800' :
+                          application.status === 'hired' ? 'bg-green-100 text-green-800' :
+                          application.status === 'rejected' ? 'bg-red-100 text-red-800' :
                           'bg-gray-100 text-gray-800'
                         }`}>
                           {application.status}
@@ -150,13 +166,13 @@ export default function CareersAdminPage() {
                         )}
                         <div className="flex items-center space-x-2">
                           <Calendar className="w-4 h-4" />
-                          <span>{new Date(application.timestamp).toLocaleDateString()}</span>
+                          <span>{new Date(application.created_at).toLocaleDateString()}</span>
                         </div>
                       </div>
                       
                       <div className="mt-3">
                         <p className="text-sm font-medium text-gray-700">Position: {application.position}</p>
-                        <p className="text-sm text-gray-600 mt-1">{application.experience}</p>
+                        <p className="text-sm text-gray-600 mt-1">{application.experience_years} years - {application.current_role}</p>
                       </div>
                     </div>
                     
@@ -169,7 +185,7 @@ export default function CareersAdminPage() {
                         <Eye className="w-4 h-4 mr-1" />
                         View
                       </Button>
-                      {application.resumeUrl && (
+                      {application.resume_url && (
                         <Button variant="secondary" size="sm">
                           <Download className="w-4 h-4 mr-1" />
                           Resume

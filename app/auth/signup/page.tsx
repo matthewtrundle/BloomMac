@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import { Mail, Lock, User, Loader2, Eye, EyeOff, AlertCircle, CheckCircle } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 export default function SignUpPage() {
   const [email, setEmail] = useState('');
@@ -18,6 +19,7 @@ export default function SignUpPage() {
   const [acceptTerms, setAcceptTerms] = useState(false);
   
   const { signUp } = useAuth();
+  const router = useRouter();
 
   const passwordRequirements = [
     { met: password.length >= 8, text: 'At least 8 characters' },

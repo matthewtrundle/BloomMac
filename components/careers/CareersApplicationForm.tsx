@@ -70,7 +70,7 @@ const CareersApplicationForm: React.FC = () => {
         submitData.append('resume', resume);
       }
 
-      const response = await fetch('/api/careers-application', {
+      const response = await fetch('/api/careers/apply', {
         method: 'POST',
         body: submitData,
       });

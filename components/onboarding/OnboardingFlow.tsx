@@ -132,14 +132,18 @@ export default function OnboardingFlow({
         })
       });
 
-      // Redirect based on access type
-      if (data.accessType === 'course' && data.courseId) {
-        router.push(`/course/${data.courseId}`);
-      } else if (data.accessType === 'workshop' && data.workshopId) {
-        router.push(`/workshops/${data.workshopId}`);
-      } else {
-        router.push('/dashboard');
-      }
+      // Award welcome star achievement
+      await fetch('/api/achievements', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          achievementId: 'welcome_star'
+        })
+      });
+
+      // Always redirect to dashboard after onboarding
+      // Users can access their courses/workshops from there
+      router.push('/dashboard');
     } catch (err) {
       setError('Failed to complete onboarding. Please try again.');
       console.error('Onboarding completion error:', err);
