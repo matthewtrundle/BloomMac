@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import Button from '@/components/ui/Button';
 import CourseWaitlist from '@/components/ui/CourseWaitlist';
 import CoursePurchaseButton from '@/components/ui/CoursePurchaseButton';
@@ -109,6 +109,7 @@ const testimonials = [
 
 export default function CoursesPage() {
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const [showVideoModal, setShowVideoModal] = useState(false);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-bloom-sage-50 via-white to-bloom-pink-50">
@@ -177,174 +178,7 @@ export default function CoursesPage() {
         </div>
       </section>
 
-      {/* Course Preview Video */}
-      <section className="py-20 bg-white relative overflow-hidden">
-        <div className="container mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center max-w-4xl mx-auto"
-          >
-            <h2 className="text-4xl font-playfair text-bloom-dark mb-4">
-              A Personal Message from Dr. Jana
-            </h2>
-            
-            {/* Professional divider */}
-            <div className="w-32 h-0.5 bg-bloom-sage/20 rounded-full mx-auto mb-6"></div>
-            
-            {/* Emotional Context */}
-            <div className="bg-bloom-sage-50/20 p-4 rounded-lg mb-8">
-              <p className="text-bloom-dark/70">
-                You're not alone in feeling overwhelmed. Watch Dr. Jana share her warm, evidence-based approach to helping new moms find their footing.
-              </p>
-            </div>
 
-            {/* Video Container */}
-            <div className="relative max-w-4xl mx-auto">
-              {/* Video Controls Info */}
-              <div className="flex items-center justify-between mb-4 text-sm">
-                <div className="flex items-center gap-3">
-                  <span className="text-bloom-dark/60">Duration: 3 min</span>
-                  <span className="bg-bloom-sage/10 px-2 py-1 rounded text-xs">CC Available</span>
-                  <span className="text-bloom-pink/70">Licensed Clinical Psychologist</span>
-                </div>
-                <button className="text-bloom-pink hover:underline">
-                  Read Transcript
-                </button>
-              </div>
-              
-              <div className="relative overflow-hidden rounded-2xl shadow-2xl">
-                <div className="aspect-video">
-                  <iframe
-                    src="https://player.vimeo.com/video/1097658900?badge=0&autopause=0&player_id=0&app_id=58479"
-                    className="w-full h-full"
-                    frameBorder="0"
-                    allow="autoplay; fullscreen; picture-in-picture; clipboard-write"
-                    title="Dr. Jana Rundle - A Personal Message About Postpartum Wellness"
-                  ></iframe>
-                </div>
-              </div>
-              
-              {/* Post-Video CTA */}
-              <div className="mt-8 bg-gradient-to-r from-bloompink/10 to-bloom-sage/10 p-6 rounded-xl text-center">
-                <h3 className="text-2xl font-semibold mb-4">Ready to Experience This Transformation?</h3>
-                <p className="text-bloom-dark/70 mb-6">
-                  Join 500+ moms getting early access + 30% launch discount
-                </p>
-                <Button href="#courses" variant="pink" size="lg" className="mb-4">
-                  Secure My Spot Now
-                </Button>
-                <p className="text-sm text-bloom-dark/60">
-                  ⏰ Limited time: First 100 members get special pricing
-                </p>
-              </div>
-              
-              {/* Enhanced Feature Cards with Social Proof */}
-              <div className="mt-8 grid md:grid-cols-3 gap-6 text-left">
-                <div className="bg-bloom-sage-50/30 p-6 rounded-xl">
-                  <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 bg-bloom-sage/20 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                      <svg className="w-4 h-4 text-bloom-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-bloom-dark mb-2">Evidence-Based Results</h4>
-                      <p className="text-sm text-bloom-dark/70">95% of mothers report reduced anxiety within 2 weeks of starting our program</p>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="bg-bloompink/10 p-6 rounded-xl">
-                  <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 bg-bloompink/20 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                      <svg className="w-4 h-4 text-bloompink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                      </svg>
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-bloom-dark mb-2">Real Mom Stories</h4>
-                      <p className="text-sm text-bloom-dark/70">"I went from panic attacks to peaceful nights in just 3 weeks" - Sarah M.</p>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="bg-bloom-accent/10 p-6 rounded-xl">
-                  <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 bg-bloom-accent/20 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                      <svg className="w-4 h-4 text-bloom-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                      </svg>
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-bloom-dark mb-2">Immediate Impact</h4>
-                      <p className="text-sm text-bloom-dark/70">Use tonight: 5-minute technique that stops overwhelm instantly</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Value Proposition */}
-      <section className="py-16 bg-white/80 backdrop-blur-sm">
-        <div className="container mx-auto px-6">
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              viewport={{ once: true }}
-              className="text-center"
-            >
-              <div className="w-16 h-16 bg-bloom-sage-50 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-bloom-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Learn at Your Pace</h3>
-              <p className="text-bloom-dark/70">Access lessons anytime, perfect for unpredictable baby schedules</p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              viewport={{ once: true }}
-              className="text-center"
-            >
-              <div className="w-16 h-16 bg-bloompink/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-bloompink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Designed for Moms</h3>
-              <p className="text-bloom-dark/70">Short, practical lessons you can complete while baby naps</p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              viewport={{ once: true }}
-              className="text-center"
-            >
-              <div className="w-16 h-16 bg-bloom-accent/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-bloom-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Real Tools for Real Life</h3>
-              <p className="text-bloom-dark/70">Backed by science with strategies you can actually use</p>
-            </motion.div>
-
-          </div>
-        </div>
-      </section>
 
       {/* Course Listing */}
       <section id="courses" className="py-20">
@@ -379,6 +213,36 @@ export default function CoursesPage() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
                     
+                    {/* Sneak Peek Button for Postpartum Wellness Foundations */}
+                    {course.id === 'postpartum-wellness-foundations' && (
+                      <div className="absolute top-4 right-4">
+                        <motion.button 
+                          onClick={() => setShowVideoModal(true)}
+                          className="bg-bloompink text-white px-3 py-1.5 rounded-full text-xs font-medium hover:bg-bloompink/90 transition-colors flex items-center gap-1.5 shadow-lg hover:shadow-xl"
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          animate={{ 
+                            boxShadow: [
+                              "0 0 0 0 rgba(236, 72, 153, 0.7)",
+                              "0 0 0 10px rgba(236, 72, 153, 0)",
+                              "0 0 0 0 rgba(236, 72, 153, 0)",
+                            ]
+                          }}
+                          transition={{
+                            boxShadow: {
+                              duration: 2,
+                              repeat: Infinity,
+                              repeatDelay: 1
+                            }
+                          }}
+                        >
+                          <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
+                          </svg>
+                          Watch Preview
+                        </motion.button>
+                      </div>
+                    )}
                     
                     <div className="absolute bottom-4 left-4 text-white">
                       <p className="text-sm opacity-90 flex items-center gap-2">
@@ -577,6 +441,119 @@ export default function CoursesPage() {
           </motion.div>
         </div>
       </section>
+
+      {/* Video Preview Modal */}
+      <AnimatePresence>
+        {showVideoModal && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+            onClick={() => setShowVideoModal(false)}
+          >
+            <motion.div 
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="relative w-full max-w-5xl bg-white rounded-2xl shadow-2xl overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Close Button */}
+              <button
+                onClick={() => setShowVideoModal(false)}
+                className="absolute top-4 right-4 z-10 w-10 h-10 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-lg transition-colors"
+                aria-label="Close video"
+              >
+                <svg className="w-5 h-5 text-bloom-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+
+              {/* Video Header */}
+              <div className="bg-gradient-to-r from-bloom-sage to-bloom-sage/80 text-white p-6 pb-4">
+                <h3 className="text-2xl font-playfair mb-2">Course Preview: Postpartum Wellness Foundations</h3>
+                <p className="text-white/90 text-sm">Get a glimpse of Dr. Jana's warm, evidence-based approach</p>
+              </div>
+
+              {/* Video Container */}
+              <div className="aspect-video bg-black">
+                <iframe 
+                  src="https://player.vimeo.com/video/1097658900?autoplay=1&title=0&byline=0&portrait=0"
+                  className="w-full h-full"
+                  frameBorder="0"
+                  allow="autoplay; fullscreen; picture-in-picture"
+                  title="Postpartum Wellness Course Preview"
+                />
+              </div>
+
+              {/* CTA Section */}
+              <div className="bg-gradient-to-br from-bloom-sage-50/30 to-white p-6">
+                <div className="text-center">
+                  <h4 className="text-xl font-semibold text-bloom-dark mb-3">Ready to Start Your Journey?</h4>
+                  <p className="text-bloom-dark/70 mb-4">Join 500+ moms who are transforming their postpartum experience</p>
+                  
+                  <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
+                    {COURSES_ENABLED ? (
+                      <CoursePurchaseButton
+                        courseId="postpartum-wellness-foundations"
+                        courseName="Postpartum Wellness Foundations"
+                        price={19700}
+                        originalPrice={29700}
+                        size="lg"
+                        variant="primary"
+                      />
+                    ) : (
+                      <Button 
+                        onClick={() => {
+                          setShowVideoModal(false);
+                          // Scroll to waitlist section
+                          document.querySelector('#courses')?.scrollIntoView({ behavior: 'smooth' });
+                        }}
+                        variant="pink" 
+                        size="lg"
+                      >
+                        Join the Waitlist - Save 30%
+                      </Button>
+                    )}
+                    
+                    <button
+                      onClick={() => setShowVideoModal(false)}
+                      className="text-sm text-bloom-dark/60 hover:text-bloom-dark underline"
+                    >
+                      Continue browsing courses
+                    </button>
+                  </div>
+
+                  {/* Trust Indicators */}
+                  <div className="flex flex-wrap justify-center gap-6 mt-6 pt-6 border-t border-bloom-sage/10">
+                    <div className="flex items-center gap-2 text-sm text-bloom-dark/60">
+                      <svg className="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                      </svg>
+                      <span>Lifetime Access</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-bloom-dark/60">
+                      <svg className="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                      </svg>
+                      <span>30-Day Guarantee</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-bloom-dark/60">
+                      <svg className="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                      </svg>
+                      <span>Evidence-Based Content</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
