@@ -1,15 +1,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useUser } from '@supabase/auth-helpers-react';
-import { useSupabaseClient } from '@supabase/auth-helpers-react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Label } from '@/components/ui/label';
-import { Switch } from '@/components/ui/switch';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Button } from '@/components/ui/button';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Input } from '@/components/ui/input';
+import { useAuth } from '@/contexts/AuthContext';
+import { supabase } from '@/lib/supabase';
+import Button from '@/components/ui/Button';
 import { 
   Bell, 
   Mail, 
@@ -18,68 +12,80 @@ import {
   DollarSign, 
   GraduationCap,
   Users,
-  CheckCircle,
-  AlertCircle,
+  Moon,
+  Check,
   Loader2
 } from 'lucide-react';
 
-interface NotificationSettings {
-  // Email notifications
-  email_appointments: boolean;
-  email_payments: boolean;
-  email_courses: boolean;
-  email_workshops: boolean;
-  email_achievements: boolean;
-  email_wellness_reminders: boolean;
-  email_marketing: boolean;
-  
-  // SMS notifications
-  sms_enabled: boolean;
-  sms_appointments: boolean;
-  sms_reminders_hours: number; // Hours before appointment
-  
-  // In-app notifications
-  push_enabled: boolean;
-  push_appointments: boolean;
-  push_achievements: boolean;
-  push_messages: boolean;
-  
-  // Preferences
-  quiet_hours_enabled: boolean;
-  quiet_hours_start: string;
-  quiet_hours_end: string;
-  timezone: string;
+interface NotificationSetting {
+  key: string;
+  label: string;
+  description: string;
+  icon: React.ReactNode;
+  email: boolean;
+  sms: boolean;
+  push: boolean;
 }
 
-const defaultSettings: NotificationSettings = {
-  email_appointments: true,
-  email_payments: true,
-  email_courses: true,
-  email_workshops: true,
-  email_achievements: true,
-  email_wellness_reminders: true,
-  email_marketing: true,
-  sms_enabled: false,
-  sms_appointments: true,
-  sms_reminders_hours: 24,
-  push_enabled: true,
-  push_appointments: true,
-  push_achievements: true,
-  push_messages: true,
-  quiet_hours_enabled: false,
-  quiet_hours_start: '22:00',
-  quiet_hours_end: '08:00',
-  timezone: 'America/Chicago'
-};
-
 export default function NotificationPreferences() {
-  const user = useUser();
-  const supabase = useSupabaseClient();
-  
+  const { user } = useAuth();
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [settings, setSettings] = useState<NotificationSettings>(defaultSettings);
   const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
+  
+  const [notifications, setNotifications] = useState<NotificationSetting[]>([
+    {
+      key: 'appointment_reminders',
+      label: 'Appointment Reminders',
+      description: 'Get reminders before your scheduled appointments',
+      icon: <Calendar className="h-5 w-5" />,
+      email: true,
+      sms: true,
+      push: true
+    },
+    {
+      key: 'course_updates',
+      label: 'Course Updates',
+      description: 'New lessons, content updates, and announcements',
+      icon: <GraduationCap className="h-5 w-5" />,
+      email: true,
+      sms: false,
+      push: true
+    },
+    {
+      key: 'community_activity',
+      label: 'Community Activity',
+      description: 'Replies to your posts and community mentions',
+      icon: <Users className="h-5 w-5" />,
+      email: false,
+      sms: false,
+      push: true
+    },
+    {
+      key: 'wellness_reminders',
+      label: 'Wellness Check-ins',
+      description: 'Gentle reminders for self-care and progress tracking',
+      icon: <Bell className="h-5 w-5" />,
+      email: true,
+      sms: false,
+      push: true
+    },
+    {
+      key: 'billing_updates',
+      label: 'Billing & Payments',
+      description: 'Payment confirmations and billing notifications',
+      icon: <DollarSign className="h-5 w-5" />,
+      email: true,
+      sms: false,
+      push: false
+    }
+  ]);
+
+  const [quietHours, setQuietHours] = useState({
+    enabled: false,
+    startTime: '22:00',
+    endTime: '08:00'
+  });
 
   useEffect(() => {
     if (user) {
@@ -89,16 +95,25 @@ export default function NotificationPreferences() {
 
   async function fetchPreferences() {
     try {
+      setLoading(true);
       const { data, error } = await supabase
         .from('user_preferences')
-        .select('reminder_settings')
+        .select('*')
         .eq('user_id', user!.id)
         .single();
 
-      if (error) throw error;
+      if (error && error.code !== 'PGRST116') throw error;
 
-      if (data?.reminder_settings) {
-        setSettings({ ...defaultSettings, ...data.reminder_settings });
+      if (data?.notification_preferences) {
+        // Update notifications state with saved preferences
+        setNotifications(prev => prev.map(notif => ({
+          ...notif,
+          ...(data.notification_preferences[notif.key] || {})
+        })));
+      }
+
+      if (data?.quiet_hours) {
+        setQuietHours(data.quiet_hours);
       }
     } catch (error) {
       console.error('Error fetching preferences:', error);
@@ -112,13 +127,25 @@ export default function NotificationPreferences() {
       setSaving(true);
       setMessage(null);
 
+      const notificationPrefs = notifications.reduce((acc, notif) => ({
+        ...acc,
+        [notif.key]: {
+          email: notif.email,
+          sms: notif.sms,
+          push: notif.push
+        }
+      }), {});
+
       const { error } = await supabase
         .from('user_preferences')
-        .update({
-          reminder_settings: settings,
+        .upsert({
+          user_id: user!.id,
+          notification_preferences: notificationPrefs,
+          quiet_hours: quietHours,
           updated_at: new Date().toISOString()
-        })
-        .eq('user_id', user!.id);
+        }, {
+          onConflict: 'user_id'
+        });
 
       if (error) throw error;
 
@@ -131,13 +158,15 @@ export default function NotificationPreferences() {
     }
   }
 
-  const updateSetting = (key: keyof NotificationSettings, value: any) => {
-    setSettings(prev => ({ ...prev, [key]: value }));
+  const toggleNotification = (key: string, type: 'email' | 'sms' | 'push') => {
+    setNotifications(prev => prev.map(notif => 
+      notif.key === key ? { ...notif, [type]: !notif[type] } : notif
+    ));
   };
 
   if (loading) {
     return (
-      <div className="flex justify-center p-8">
+      <div className="flex justify-center py-8">
         <Loader2 className="h-8 w-8 animate-spin text-bloompink" />
       </div>
     );
@@ -146,276 +175,137 @@ export default function NotificationPreferences() {
   return (
     <div className="space-y-6">
       {message && (
-        <Alert className={message.type === 'success' ? "border-green-500" : "border-red-500"}>
-          {message.type === 'success' ? (
-            <CheckCircle className="h-4 w-4 text-green-500" />
-          ) : (
-            <AlertCircle className="h-4 w-4 text-red-500" />
-          )}
-          <AlertDescription>{message.text}</AlertDescription>
-        </Alert>
+        <div className={`p-4 rounded-lg flex items-center space-x-2 ${
+          message.type === 'success' 
+            ? 'bg-green-50 text-green-800' 
+            : 'bg-red-50 text-red-800'
+        }`}>
+          <Check className="h-5 w-5" />
+          <p className="text-sm">{message.text}</p>
+        </div>
       )}
 
-      {/* Email Notifications */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Mail className="h-5 w-5" />
-            Email Notifications
-          </CardTitle>
-          <CardDescription>
-            Choose which emails you'd like to receive
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="flex items-center justify-between">
-            <div className="space-y-0.5">
-              <Label htmlFor="email-appointments">Appointment Reminders</Label>
-              <p className="text-sm text-muted-foreground">
-                Confirmations and reminders for your appointments
-              </p>
-            </div>
-            <Switch
-              id="email-appointments"
-              checked={settings.email_appointments}
-              onCheckedChange={(checked) => updateSetting('email_appointments', checked)}
-            />
-          </div>
-
-          <div className="flex items-center justify-between">
-            <div className="space-y-0.5">
-              <Label htmlFor="email-payments">Payment Notifications</Label>
-              <p className="text-sm text-muted-foreground">
-                Receipts and payment confirmations
-              </p>
-            </div>
-            <Switch
-              id="email-payments"
-              checked={settings.email_payments}
-              onCheckedChange={(checked) => updateSetting('email_payments', checked)}
-            />
-          </div>
-
-          <div className="flex items-center justify-between">
-            <div className="space-y-0.5">
-              <Label htmlFor="email-courses">Course Updates</Label>
-              <p className="text-sm text-muted-foreground">
-                New lessons and course announcements
-              </p>
-            </div>
-            <Switch
-              id="email-courses"
-              checked={settings.email_courses}
-              onCheckedChange={(checked) => updateSetting('email_courses', checked)}
-            />
-          </div>
-
-          <div className="flex items-center justify-between">
-            <div className="space-y-0.5">
-              <Label htmlFor="email-workshops">Workshop Invitations</Label>
-              <p className="text-sm text-muted-foreground">
-                Upcoming workshops and events
-              </p>
-            </div>
-            <Switch
-              id="email-workshops"
-              checked={settings.email_workshops}
-              onCheckedChange={(checked) => updateSetting('email_workshops', checked)}
-            />
-          </div>
-
-          <div className="flex items-center justify-between">
-            <div className="space-y-0.5">
-              <Label htmlFor="email-wellness">Wellness Check-ins</Label>
-              <p className="text-sm text-muted-foreground">
-                Daily wellness reminders and tips
-              </p>
-            </div>
-            <Switch
-              id="email-wellness"
-              checked={settings.email_wellness_reminders}
-              onCheckedChange={(checked) => updateSetting('email_wellness_reminders', checked)}
-            />
-          </div>
-
-          <div className="border-t pt-4">
-            <div className="flex items-center justify-between">
-              <div className="space-y-0.5">
-                <Label htmlFor="email-marketing">Marketing & Promotions</Label>
-                <p className="text-sm text-muted-foreground">
-                  Special offers and newsletter
-                </p>
-              </div>
-              <Switch
-                id="email-marketing"
-                checked={settings.email_marketing}
-                onCheckedChange={(checked) => updateSetting('email_marketing', checked)}
-              />
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* SMS Notifications */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <MessageSquare className="h-5 w-5" />
-            SMS Notifications
-          </CardTitle>
-          <CardDescription>
-            Text message reminders (standard rates apply)
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="flex items-center justify-between">
-            <div className="space-y-0.5">
-              <Label htmlFor="sms-enabled">Enable SMS Reminders</Label>
-              <p className="text-sm text-muted-foreground">
-                Receive appointment reminders via text
-              </p>
-            </div>
-            <Switch
-              id="sms-enabled"
-              checked={settings.sms_enabled}
-              onCheckedChange={(checked) => updateSetting('sms_enabled', checked)}
-            />
-          </div>
-
-          {settings.sms_enabled && (
-            <div className="pl-6 space-y-4">
-              <div>
-                <Label htmlFor="sms-timing">Reminder Timing</Label>
-                <Select
-                  value={settings.sms_reminders_hours.toString()}
-                  onValueChange={(value) => updateSetting('sms_reminders_hours', parseInt(value))}
-                >
-                  <SelectTrigger id="sms-timing" className="w-full">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="2">2 hours before</SelectItem>
-                    <SelectItem value="4">4 hours before</SelectItem>
-                    <SelectItem value="24">24 hours before</SelectItem>
-                    <SelectItem value="48">48 hours before</SelectItem>
-                  </SelectContent>
-                </Select>
+      {/* Notification Channels */}
+      <div>
+        <h3 className="text-lg font-medium mb-4">Notification Channels</h3>
+        <div className="space-y-4">
+          {notifications.map((notif) => (
+            <div key={notif.key} className="border rounded-lg p-4">
+              <div className="flex items-start space-x-3">
+                <div className="text-bloompink mt-1">{notif.icon}</div>
+                <div className="flex-1">
+                  <h4 className="font-medium">{notif.label}</h4>
+                  <p className="text-sm text-bloom-gray-600 mb-3">{notif.description}</p>
+                  
+                  <div className="flex flex-wrap gap-4">
+                    <label className="flex items-center space-x-2 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={notif.email}
+                        onChange={() => toggleNotification(notif.key, 'email')}
+                        className="rounded text-bloompink focus:ring-bloompink"
+                      />
+                      <span className="text-sm flex items-center">
+                        <Mail className="h-4 w-4 mr-1" />
+                        Email
+                      </span>
+                    </label>
+                    
+                    <label className="flex items-center space-x-2 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={notif.sms}
+                        onChange={() => toggleNotification(notif.key, 'sms')}
+                        className="rounded text-bloompink focus:ring-bloompink"
+                      />
+                      <span className="text-sm flex items-center">
+                        <MessageSquare className="h-4 w-4 mr-1" />
+                        SMS
+                      </span>
+                    </label>
+                    
+                    <label className="flex items-center space-x-2 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={notif.push}
+                        onChange={() => toggleNotification(notif.key, 'push')}
+                        className="rounded text-bloompink focus:ring-bloompink"
+                      />
+                      <span className="text-sm flex items-center">
+                        <Bell className="h-4 w-4 mr-1" />
+                        Push
+                      </span>
+                    </label>
+                  </div>
+                </div>
               </div>
             </div>
-          )}
-        </CardContent>
-      </Card>
-
-      {/* Push Notifications */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Bell className="h-5 w-5" />
-            Push Notifications
-          </CardTitle>
-          <CardDescription>
-            In-app and browser notifications
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="flex items-center justify-between">
-            <div className="space-y-0.5">
-              <Label htmlFor="push-enabled">Enable Push Notifications</Label>
-              <p className="text-sm text-muted-foreground">
-                Receive notifications in your browser
-              </p>
-            </div>
-            <Switch
-              id="push-enabled"
-              checked={settings.push_enabled}
-              onCheckedChange={(checked) => updateSetting('push_enabled', checked)}
-            />
-          </div>
-
-          {settings.push_enabled && (
-            <div className="pl-6 space-y-4">
-              <div className="flex items-center justify-between">
-                <Label htmlFor="push-appointments">Appointments</Label>
-                <Switch
-                  id="push-appointments"
-                  checked={settings.push_appointments}
-                  onCheckedChange={(checked) => updateSetting('push_appointments', checked)}
-                />
-              </div>
-              <div className="flex items-center justify-between">
-                <Label htmlFor="push-achievements">Achievements</Label>
-                <Switch
-                  id="push-achievements"
-                  checked={settings.push_achievements}
-                  onCheckedChange={(checked) => updateSetting('push_achievements', checked)}
-                />
-              </div>
-              <div className="flex items-center justify-between">
-                <Label htmlFor="push-messages">Messages</Label>
-                <Switch
-                  id="push-messages"
-                  checked={settings.push_messages}
-                  onCheckedChange={(checked) => updateSetting('push_messages', checked)}
-                />
-              </div>
-            </div>
-          )}
-        </CardContent>
-      </Card>
+          ))}
+        </div>
+      </div>
 
       {/* Quiet Hours */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Quiet Hours</CardTitle>
-          <CardDescription>
-            Pause notifications during specific hours
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="flex items-center justify-between">
-            <Label htmlFor="quiet-hours">Enable Quiet Hours</Label>
-            <Switch
-              id="quiet-hours"
-              checked={settings.quiet_hours_enabled}
-              onCheckedChange={(checked) => updateSetting('quiet_hours_enabled', checked)}
+      <div>
+        <h3 className="text-lg font-medium mb-4">Quiet Hours</h3>
+        <div className="border rounded-lg p-4">
+          <label className="flex items-center space-x-3 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={quietHours.enabled}
+              onChange={(e) => setQuietHours({ ...quietHours, enabled: e.target.checked })}
+              className="rounded text-bloompink focus:ring-bloompink"
             />
-          </div>
-
-          {settings.quiet_hours_enabled && (
-            <div className="grid grid-cols-2 gap-4">
+            <div className="flex-1">
+              <div className="flex items-center">
+                <Moon className="h-5 w-5 text-bloompink mr-2" />
+                <span className="font-medium">Enable Quiet Hours</span>
+              </div>
+              <p className="text-sm text-bloom-gray-600">
+                Pause non-urgent notifications during your quiet hours
+              </p>
+            </div>
+          </label>
+          
+          {quietHours.enabled && (
+            <div className="mt-4 pl-8 space-y-3">
               <div>
-                <Label htmlFor="quiet-start">Start Time</Label>
-                <Input
-                  id="quiet-start"
+                <label className="block text-sm font-medium text-bloom-gray-700 mb-1">
+                  Start Time
+                </label>
+                <input
                   type="time"
-                  value={settings.quiet_hours_start}
-                  onChange={(e) => updateSetting('quiet_hours_start', e.target.value)}
+                  value={quietHours.startTime}
+                  onChange={(e) => setQuietHours({ ...quietHours, startTime: e.target.value })}
+                  className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-bloompink focus:border-transparent"
                 />
               </div>
+              
               <div>
-                <Label htmlFor="quiet-end">End Time</Label>
-                <Input
-                  id="quiet-end"
+                <label className="block text-sm font-medium text-bloom-gray-700 mb-1">
+                  End Time
+                </label>
+                <input
                   type="time"
-                  value={settings.quiet_hours_end}
-                  onChange={(e) => updateSetting('quiet_hours_end', e.target.value)}
+                  value={quietHours.endTime}
+                  onChange={(e) => setQuietHours({ ...quietHours, endTime: e.target.value })}
+                  className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-bloompink focus:border-transparent"
                 />
               </div>
             </div>
           )}
-        </CardContent>
-      </Card>
+        </div>
+      </div>
 
       {/* Save Button */}
-      <div className="flex justify-end">
-        <Button 
-          onClick={savePreferences} 
+      <div className="flex justify-end pt-4">
+        <Button
+          onClick={savePreferences}
+          variant="pink"
           disabled={saving}
-          className="bg-bloompink hover:bg-bloompink/90"
         >
           {saving ? (
             <>
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              <Loader2 className="h-4 w-4 mr-2 animate-spin" />
               Saving...
             </>
           ) : (

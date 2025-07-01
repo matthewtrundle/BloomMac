@@ -3,7 +3,8 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/navigation';
-import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react';
+import { useAuth } from '@/contexts/AuthContext';
+import { supabase } from '@/lib/supabase';
 import WelcomeStep from './steps/WelcomeStep';
 import AccountStep from './steps/AccountStep';
 import ProfileStep from './steps/ProfileStep';
@@ -80,8 +81,7 @@ export default function OnboardingFlow({
   const [error, setError] = useState<string | null>(null);
   
   const router = useRouter();
-  const supabase = useSupabaseClient();
-  const user = useUser();
+  const { user } = useAuth();
 
   // If user is already logged in, skip to profile step
   useEffect(() => {
