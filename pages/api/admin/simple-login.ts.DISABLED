@@ -1,0 +1,11 @@
+// DISABLED FOR SECURITY - CONTAINED HARDCODED CREDENTIALS
+// This file has been disabled due to critical security vulnerability
+// Hardcoded credentials: admin@bloom.com / bloom-admin-2024
+// Replaced with secure Supabase authentication at /app/api/admin/auth/login
+
+// Original file moved to .DISABLED to prevent execution
+// DO NOT RE-ENABLE without proper authentication system
+
+export default function handler() {
+  return { error: 'This endpoint has been disabled for security reasons' };
+}
