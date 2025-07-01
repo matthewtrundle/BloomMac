@@ -97,19 +97,6 @@
             font-size: clamp(1rem, 2vw, 1.2rem);
         }
         
-        /* Remove all animations */
-        .reveal .slides section,
-        .reveal .slides section * {
-            transition: none !important;
-            animation: none !important;
-        }
-        
-        .reveal .fragment {
-            opacity: 1 !important;
-            visibility: visible !important;
-            transform: none !important;
-        }
-        
         /* Typography Classes */
         .display-serif {
             font-family: var(--font-display);
@@ -222,6 +209,50 @@
             text-shadow: 0 2px 20px rgba(0,0,0,0.3);
         }
         
+        /* Enhanced Timeline Styles */
+        .timeline-card {
+            background: white;
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+            text-align: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateY(0);
+        }
+        
+        .timeline-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.12);
+        }
+        
+        .timeline-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            font-size: 2rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .timeline-circle::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .timeline-card:hover .timeline-circle::before {
+            transform: translateY(0);
+        }
+        
         /* Responsive Design */
         @media (max-width: 768px) {
             .asymmetric-grid,
@@ -239,10 +270,10 @@
 <body>
     <div class="reveal">
         <div class="slides">
-            <!-- Slide 1: Cinematic Opening -->
+            <!-- Slide 1: Cinematic Opening (Fixed image position) -->
             <section data-background-image="../../../shared-assets/images/biff01_Woman_recognizing_she_needs_help_while_looking_at_slee_53bf119b-9a43-4f7e-8a5b-eff2727a4beb_3.png"
                      data-background-size="cover"
-                     data-background-position="center">
+                     data-background-position="center 40%">
                 <div style="position: absolute; inset: 0; background: linear-gradient(to right, rgba(26,26,26,0.9) 0%, rgba(26,26,26,0.7) 40%, transparent 70%); z-index: 1;"></div>
                 <div style="position: relative; z-index: 2; height: 100vh; display: flex; align-items: center; padding: 0 8%;">
                     <div style="max-width: 650px;">
@@ -258,7 +289,7 @@
                         </p>
                         <div style="display: flex; align-items: center; gap: 2rem;">
                             <div style="width: 60px; height: 1px; background: var(--bloom-golden);"></div>
-                            <p style="color: rgba(255,255,255,0.7); font-size: 0.95rem; letter-spacing: 0.05em; margin: 0;">Dr. Jana Williams · Bloom Psychology</p>
+                            <p style="color: rgba(255,255,255,0.7); font-size: 0.95rem; letter-spacing: 0.05em; margin: 0;">Dr. Jana Rundle · Bloom Psychology</p>
                         </div>
                     </div>
                 </div>
@@ -266,24 +297,24 @@
             
             <!-- Slide 2: The Spectrum of Normal -->
             <section data-background-color="#FFFFFF">
-                <div class="asymmetric-grid" style="padding: 1rem 4%; height: 100vh; align-items: flex-start; padding-top: 15vh;">
-                    <div class="content-panel" style="padding: 1rem;">
-                        <p class="subtitle-caps" style="color: var(--bloom-mint); margin-bottom: 0.8rem; font-size: 0.85rem;">Knowledge is Power</p>
-                        <h2 class="display-serif" style="font-size: clamp(2rem, 3.5vw, 3rem); line-height: 1.1; margin-bottom: 1rem;">
+                <div class="asymmetric-grid" style="padding: 2rem 4% 2rem 4%; height: 100vh; align-items: flex-start; padding-top: 6vh;">
+                    <div class="content-panel" style="padding: 2rem;">
+                        <p class="subtitle-caps" style="color: var(--bloom-mint); margin-bottom: 1.2rem; font-size: 1.1rem;">Knowledge is Power</p>
+                        <h2 class="display-serif" style="font-size: clamp(2.5rem, 4.5vw, 4rem); line-height: 1.1; margin-bottom: 1.5rem;">
                             The Spectrum of <span style="font-style: italic; color: var(--bloom-mint);">Normal</span>
                         </h2>
-                        <div class="elegant-divider" style="background: var(--bloom-mint); margin-bottom: 1rem;"></div>
-                        <p style="font-size: 1.1rem; line-height: 1.6; color: var(--bloom-warm-gray); margin-bottom: 0.8rem;">
+                        <div class="elegant-divider" style="background: var(--bloom-mint); margin-bottom: 1.5rem; height: 3px;"></div>
+                        <p style="font-size: 1.4rem; line-height: 1.6; color: var(--bloom-warm-gray); margin-bottom: 1.2rem;">
                             "Is this normal?" It's probably the question you ask yourself a dozen times a day.
                         </p>
-                        <p style="font-size: 0.95rem; line-height: 1.5; color: var(--bloom-warm-gray);">
+                        <p style="font-size: 1.2rem; line-height: 1.6; color: var(--bloom-warm-gray);">
                             Questioning whether your experience is normal isn't a sign of weakness. It's smart. It's protective. Today, we'll get specific about what falls within expected recovery and what needs attention.
                         </p>
                     </div>
-                    <div class="image-panel" style="padding-top: 0;">
-                        <div style="position: relative; width: 100%; max-width: 450px;">
+                    <div class="image-panel" style="padding-top: 0; display: flex; align-items: flex-start; justify-content: center; margin-top: 0;">
+                        <div style="position: relative; width: 100%; max-width: 550px;">
                             <img src="../../../shared-assets/images/biff01_Female_therapist_and_mother_in_bright_modern_office_wi_aecf3df6-ee57-4c10-864b-8d15b9b5c704_1.png" alt="Woman talking with healthcare provider" style="border-radius: 2px; width: 100%; height: auto;">
-                            <div style="position: absolute; top: -20px; left: -20px; width: 100px; height: 100px; background: var(--bloom-mint); opacity: 0.15; border-radius: 50%;"></div>
+                            <div style="position: absolute; top: -30px; left: -30px; width: 120px; height: 120px; background: var(--bloom-mint); opacity: 0.15; border-radius: 50%;"></div>
                         </div>
                     </div>
                 </div>
@@ -297,72 +328,72 @@
                         
                         <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; max-width: 1000px; margin: 0 auto;">
                             <!-- Bleeding -->
-                            <div style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+                            <div class="fragment fade-in-up" data-fragment-index="1" style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
                                 <div style="height: 100px; background: linear-gradient(135deg, var(--bloom-coral) 0%, var(--bloom-peach) 100%); display: flex; align-items: center; justify-content: center;">
-                                    <h3 style="color: white; font-size: 1.3rem; margin: 0;">Bleeding (Lochia)</h3>
+                                    <h3 style="color: white; font-size: 1.5rem; margin: 0;">Bleeding (Lochia)</h3>
                                 </div>
                                 <div style="padding: 1.2rem;">
-                                    <p style="color: var(--bloom-warm-gray); font-size: 0.85rem; line-height: 1.5; margin: 0;">
+                                    <p style="color: var(--bloom-warm-gray); font-size: 1rem; line-height: 1.5; margin: 0;">
                                         Up to 6 weeks, changing from red to pink to yellow. Clots up to golf ball size.
                                     </p>
                                 </div>
                             </div>
                             
                             <!-- Night Sweats -->
-                            <div style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+                            <div class="fragment fade-in-up" data-fragment-index="2" style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
                                 <div style="height: 100px; background: linear-gradient(135deg, var(--bloom-sky) 0%, var(--bloom-mint) 100%); display: flex; align-items: center; justify-content: center;">
-                                    <h3 style="color: white; font-size: 1.3rem; margin: 0;">Night Sweats</h3>
+                                    <h3 style="color: white; font-size: 1.5rem; margin: 0;">Night Sweats</h3>
                                 </div>
                                 <div style="padding: 1.2rem;">
-                                    <p style="color: var(--bloom-warm-gray); font-size: 0.85rem; line-height: 1.5; margin: 0;">
+                                    <p style="color: var(--bloom-warm-gray); font-size: 1rem; line-height: 1.5; margin: 0;">
                                         Soaking sheets as your body dumps extra pregnancy fluid. Temporary but intense.
                                     </p>
                                 </div>
                             </div>
                             
                             <!-- Hair Loss -->
-                            <div style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+                            <div class="fragment fade-in-up" data-fragment-index="3" style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
                                 <div style="height: 100px; background: linear-gradient(135deg, var(--bloom-lavender) 0%, var(--bloom-rose) 100%); display: flex; align-items: center; justify-content: center;">
-                                    <h3 style="color: white; font-size: 1.3rem; margin: 0;">Hair Loss</h3>
+                                    <h3 style="color: white; font-size: 1.5rem; margin: 0;">Hair Loss</h3>
                                 </div>
                                 <div style="padding: 1.2rem;">
-                                    <p style="color: var(--bloom-warm-gray); font-size: 0.85rem; line-height: 1.5; margin: 0;">
+                                    <p style="color: var(--bloom-warm-gray); font-size: 1rem; line-height: 1.5; margin: 0;">
                                         Months 3-4, all the hair you didn't lose during pregnancy falls out. You won't go bald.
                                     </p>
                                 </div>
                             </div>
                             
                             <!-- Breast Changes -->
-                            <div style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+                            <div class="fragment fade-in-up" data-fragment-index="4" style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
                                 <div style="height: 100px; background: linear-gradient(135deg, var(--bloom-golden) 0%, var(--bloom-peach) 100%); display: flex; align-items: center; justify-content: center;">
-                                    <h3 style="color: white; font-size: 1.3rem; margin: 0;">Breast Changes</h3>
+                                    <h3 style="color: white; font-size: 1.5rem; margin: 0;">Breast Changes</h3>
                                 </div>
                                 <div style="padding: 1.2rem;">
-                                    <p style="color: var(--bloom-warm-gray); font-size: 0.85rem; line-height: 1.5; margin: 0;">
+                                    <p style="color: var(--bloom-warm-gray); font-size: 1rem; line-height: 1.5; margin: 0;">
                                         Engorgement, leaking, size fluctuations. Your breasts are learning a new job.
                                     </p>
                                 </div>
                             </div>
                             
                             <!-- Pelvic Floor -->
-                            <div style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+                            <div class="fragment fade-in-up" data-fragment-index="5" style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
                                 <div style="height: 100px; background: linear-gradient(135deg, var(--bloom-teal) 0%, var(--bloom-mint) 100%); display: flex; align-items: center; justify-content: center;">
-                                    <h3 style="color: white; font-size: 1.3rem; margin: 0;">Pelvic Changes</h3>
+                                    <h3 style="color: white; font-size: 1.5rem; margin: 0;">Pelvic Changes</h3>
                                 </div>
                                 <div style="padding: 1.2rem;">
-                                    <p style="color: var(--bloom-warm-gray); font-size: 0.85rem; line-height: 1.5; margin: 0;">
+                                    <p style="color: var(--bloom-warm-gray); font-size: 1rem; line-height: 1.5; margin: 0;">
                                         Leaking urine, pressure, discomfort. These muscles supported 30+ pounds.
                                     </p>
                                 </div>
                             </div>
                             
                             <!-- Exhaustion -->
-                            <div style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+                            <div class="fragment fade-in-up" data-fragment-index="6" style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
                                 <div style="height: 100px; background: linear-gradient(135deg, var(--bloom-warm-gray) 0%, var(--bloom-charcoal) 100%); display: flex; align-items: center; justify-content: center;">
-                                    <h3 style="color: white; font-size: 1.3rem; margin: 0;">Deep Exhaustion</h3>
+                                    <h3 style="color: white; font-size: 1.5rem; margin: 0;">Deep Exhaustion</h3>
                                 </div>
                                 <div style="padding: 1.2rem;">
-                                    <p style="color: var(--bloom-warm-gray); font-size: 0.85rem; line-height: 1.5; margin: 0;">
+                                    <p style="color: var(--bloom-warm-gray); font-size: 1rem; line-height: 1.5; margin: 0;">
                                         Bone-deep depletion that sleep doesn't fix. Your body is in major recovery mode.
                                     </p>
                                 </div>
@@ -387,17 +418,17 @@
                                 "I remember the first time waking up after having a baby, and I had soaked through not only my nightgown, but all the way to the sheets at the bottom, feeling like, is this okay?"
                             </p>
                         </div>
-                        
-                        <p style="font-size: 1.1rem; line-height: 1.5; color: var(--bloom-warm-gray); margin: 0;">
-                            Let me just tell you, <strong>yes it is</strong>. It's normal for your body to release all that extra fluid. You're not sick. You're not broken. Your body is doing exactly what it needs to do.
-                        </p>
                     </div>
                     
-                    <div class="image-panel" style="display: flex; align-items: flex-start; justify-content: center; padding: 1rem; padding-top: 0;">
-                        <div style="position: relative; width: 100%; max-width: 450px;">
+                    <div style="display: flex; flex-direction: column; align-items: center; padding: 1rem; padding-top: 0;">
+                        <div style="position: relative; width: 100%; max-width: 350px; margin-bottom: 1.5rem;">
                             <img src="../../../shared-assets/images/biff01_Woman_looking_at_postpartum_body_in_mirror_with_compas_9ea51443-1c57-485d-ab4d-54e68d06d702_0.png" alt="Woman experiencing postpartum recovery" style="border-radius: 20px; width: 100%; height: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.12);">
                             <div style="position: absolute; bottom: -20px; left: -20px; width: 80px; height: 80px; background: var(--bloom-peach); opacity: 0.2; border-radius: 50%; filter: blur(40px);"></div>
                         </div>
+                        
+                        <p style="font-size: 1.1rem; line-height: 1.5; color: var(--bloom-warm-gray); margin: 0; text-align: center; max-width: 400px;">
+                            Let me just tell you, <strong>yes it is</strong>. It's normal for your body to release all that extra fluid. You're not sick. You're not broken. Your body is doing exactly what it needs to do.
+                        </p>
                     </div>
                 </div>
             </section>
@@ -408,28 +439,28 @@
                     <h2 class="section-title display-serif" style="text-align: center; margin-bottom: 3rem;">Normal <span style="font-style: italic; color: var(--bloom-lavender);">Emotional</span> Experiences</h2>
                     
                     <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; max-width: 1000px; margin: 0 auto;">
-                        <div class="symptom-card" style="border-left-color: var(--bloom-sky);">
+                        <div class="symptom-card fragment fade-in-up" data-fragment-index="1" style="border-left-color: var(--bloom-sky);">
                             <h3 style="color: var(--bloom-sky); font-size: 1.4rem; margin-bottom: 0.8rem;">Baby Blues (80% of mothers)</h3>
                             <p style="font-size: 1rem; line-height: 1.6; color: var(--bloom-warm-gray); margin: 0;">
                                 Days 3-5 when hormones plummet. Crying, overwhelm, mood swings. Peaks at day 5, improves by 2 weeks.
                             </p>
                         </div>
                         
-                        <div class="symptom-card" style="border-left-color: var(--bloom-lavender);">
+                        <div class="symptom-card fragment fade-in-up" data-fragment-index="2" style="border-left-color: var(--bloom-lavender);">
                             <h3 style="color: var(--bloom-lavender); font-size: 1.4rem; margin-bottom: 0.8rem;">Extreme Mood Swings</h3>
                             <p style="font-size: 1rem; line-height: 1.6; color: var(--bloom-warm-gray); margin: 0;">
                                 Intense love to feeling trapped. Rage at partner, then guilt. Your brain processing massive change.
                             </p>
                         </div>
                         
-                        <div class="symptom-card" style="border-left-color: var(--bloom-rose);">
+                        <div class="symptom-card fragment fade-in-up" data-fragment-index="3" style="border-left-color: var(--bloom-rose);">
                             <h3 style="color: var(--bloom-rose); font-size: 1.4rem; margin-bottom: 0.8rem;">Delayed Bonding</h3>
                             <p style="font-size: 1rem; line-height: 1.6; color: var(--bloom-warm-gray); margin: 0;">
                                 Not feeling "in love" immediately is common. For some it's instant, for others it grows slowly. Both normal.
                             </p>
                         </div>
                         
-                        <div class="symptom-card" style="border-left-color: var(--bloom-golden);">
+                        <div class="symptom-card fragment fade-in-up" data-fragment-index="4" style="border-left-color: var(--bloom-golden);">
                             <h3 style="color: var(--bloom-golden); font-size: 1.4rem; margin-bottom: 0.8rem;">Intrusive Thoughts</h3>
                             <p style="font-size: 1rem; line-height: 1.6; color: var(--bloom-warm-gray); margin: 0;">
                                 Scary "what if" thoughts. If you're horrified by them, that's good—they're just thoughts, not desires.
@@ -469,9 +500,9 @@
                 </div>
             </section>
             
-            <!-- Slide 4.5: Understanding Intrusive Thoughts -->
+            <!-- Slide 4.5: Understanding Intrusive Thoughts (Fixed image position) -->
             <section data-background-color="#FFF9F0">
-                <div class="asymmetric-grid" style="padding: 1.5rem 4% 1rem 4%; height: 100vh; align-items: flex-start; padding-top: 2rem;">
+                <div class="asymmetric-grid" style="padding: 1rem 4%; height: 100vh; align-items: flex-start; padding-top: 6vh;">
                     <div class="content-panel" style="padding: 0.5rem;">
                         <p class="subtitle-caps" style="color: var(--bloom-lavender); margin-bottom: 0.8rem; font-size: 0.85rem;">A Deeper Understanding</p>
                         <h2 class="display-serif" style="font-size: clamp(2rem, 3.5vw, 3rem); line-height: 1.1; margin-bottom: 0.8rem;">
@@ -495,7 +526,7 @@
                             </p>
                         </div>
                     </div>
-                    <div class="image-panel" style="display: flex; align-items: center; justify-content: center; padding: 1rem;">
+                    <div class="image-panel" style="display: flex; align-items: flex-start; justify-content: center; padding: 1rem; margin-top: 1rem;">
                         <div style="position: relative; width: 100%; max-width: 400px;">
                             <img src="../../../shared-assets/images/dark/darkphotos/biff01_Woman_having_intrusive_thought_visualization_protectiv_cba22b6a-d91f-48ef-a07b-170d7bf035a4_2.png" alt="Woman experiencing protective thoughts" style="border-radius: 20px; width: 100%; height: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.12);">
                             <div style="position: absolute; top: -20px; right: -20px; width: 80px; height: 80px; background: var(--bloom-lavender); opacity: 0.15; border-radius: 50%; filter: blur(40px);"></div>
@@ -513,22 +544,22 @@
                     <h1 class="display-title" style="color: white; text-align: center; margin-bottom: 3rem;">Physical <span style="color: var(--bloom-coral);">Warning Signs</span></h1>
                     
                     <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; max-width: 900px; margin: 0 auto;">
-                        <div class="warning-card" style="background: rgba(255,255,255,0.95);">
+                        <div class="warning-card fragment fade-in-up" data-fragment-index="1" style="background: rgba(255,255,255,0.95);">
                             <h3 style="color: var(--bloom-coral); font-size: 1.3rem; margin-bottom: 0.5rem;">Heavy Bleeding</h3>
                             <p style="font-size: 0.95rem; margin: 0;">Soaking a pad in an hour or clots bigger than golf ball</p>
                         </div>
                         
-                        <div class="warning-card" style="background: rgba(255,255,255,0.95);">
+                        <div class="warning-card fragment fade-in-up" data-fragment-index="2" style="background: rgba(255,255,255,0.95);">
                             <h3 style="color: var(--bloom-coral); font-size: 1.3rem; margin-bottom: 0.5rem;">Fever & Infection</h3>
                             <p style="font-size: 0.95rem; margin: 0;">Temperature over 100.4°F or foul-smelling discharge</p>
                         </div>
                         
-                        <div class="warning-card" style="background: rgba(255,255,255,0.95);">
+                        <div class="warning-card fragment fade-in-up" data-fragment-index="3" style="background: rgba(255,255,255,0.95);">
                             <h3 style="color: var(--bloom-coral); font-size: 1.3rem; margin-bottom: 0.5rem;">Severe Headaches</h3>
                             <p style="font-size: 0.95rem; margin: 0;">Especially with vision changes or unresponsive to medication</p>
                         </div>
                         
-                        <div class="warning-card" style="background: rgba(255,255,255,0.95);">
+                        <div class="warning-card fragment fade-in-up" data-fragment-index="4" style="background: rgba(255,255,255,0.95);">
                             <h3 style="color: var(--bloom-coral); font-size: 1.3rem; margin-bottom: 0.5rem;">Breathing Issues</h3>
                             <p style="font-size: 0.95rem; margin: 0;">Chest pain, trouble breathing, or leg pain with swelling</p>
                         </div>
@@ -551,20 +582,20 @@
                                 <h3 style="color: var(--bloom-coral); font-size: 1.5rem; margin-bottom: 1rem;">Seek Help Immediately If:</h3>
                                 
                                 <ul style="list-style: none; padding: 0;">
-                                    <li style="padding: 0.8rem 0; border-bottom: 1px solid #f0f0f0; font-size: 1.1rem;">
+                                    <li class="fragment fade-in" data-fragment-index="1" style="padding: 0.8rem 0; border-bottom: 1px solid #f0f0f0; font-size: 1.1rem;">
                                         <span style="color: var(--bloom-coral); font-weight: 600;">✓</span> Sadness or anxiety lasting more than 2 weeks without improvement
                                     </li>
-                                    <li style="padding: 0.8rem 0; border-bottom: 1px solid #f0f0f0; font-size: 1.1rem;">
+                                    <li class="fragment fade-in" data-fragment-index="2" style="padding: 0.8rem 0; border-bottom: 1px solid #f0f0f0; font-size: 1.1rem;">
                                         <span style="color: var(--bloom-coral); font-weight: 600;">✓</span> Can't sleep even when you have the opportunity
                                     </li>
-                                    <li style="padding: 0.8rem 0; border-bottom: 1px solid #f0f0f0; font-size: 1.1rem;">
+                                    <li class="fragment fade-in" data-fragment-index="3" style="padding: 0.8rem 0; border-bottom: 1px solid #f0f0f0; font-size: 1.1rem;">
                                         <span style="color: var(--bloom-coral); font-weight: 600;">✓</span> No interest in anything - not just baby, but food, shower, things you enjoyed
                                     </li>
-                                    <li style="padding: 0.8rem 0; border-bottom: 1px solid #f0f0f0; font-size: 1.1rem;">
+                                    <li class="fragment fade-in" data-fragment-index="4" style="padding: 0.8rem 0; border-bottom: 1px solid #f0f0f0; font-size: 1.1rem;">
                                         <span style="color: var(--bloom-coral); font-weight: 600;">✓</span> Thoughts of harming yourself or baby<br>
                                         <span style="font-size: 0.95rem; color: var(--bloom-coral); margin-left: 1.5rem; font-weight: 600;">→ If planning how, go to ER immediately</span>
                                     </li>
-                                    <li style="padding: 0.8rem 0; font-size: 1.1rem;">
+                                    <li class="fragment fade-in" data-fragment-index="5" style="padding: 0.8rem 0; font-size: 1.1rem;">
                                         <span style="color: var(--bloom-coral); font-weight: 600;">✓</span> Feeling disconnected from reality
                                     </li>
                                 </ul>
@@ -583,178 +614,130 @@
                 </div>
             </section>
             
-            <!-- Slide 6.5: Professional Medical Timeline of Recovery -->
-            <section data-background-color="#FAFAFA">
-                <div style="padding: 2rem 2rem 3rem 2rem; height: 100vh; display: flex; flex-direction: column;">
-                    <!-- Header Section -->
-                    <div style="text-align: center; margin-bottom: 2.5rem;">
-                        <div style="display: inline-block; padding: 0.4rem 1.2rem; background: rgba(255,203,119,0.15); border-radius: 20px; margin-bottom: 1rem;">
-                            <p style="color: var(--bloom-golden); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; margin: 0; font-weight: 600;">Clinical Recovery Overview</p>
+            <!-- Slide 6.5: Professional Recovery Timeline -->
+            <section data-background-color="#FFFFFF">
+                <div style="padding: 2rem; height: 100vh; display: flex; flex-direction: column;">
+                    <!-- Header -->
+                    <div style="text-align: center; margin-bottom: 2rem;">
+                        <div style="display: inline-block; padding: 0.5rem 1.5rem; background: rgba(139,154,130,0.1); border-radius: 25px; margin-bottom: 1rem;">
+                            <p style="color: var(--bloom-sage); font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; margin: 0; font-weight: 600;">Clinical Recovery Overview</p>
                         </div>
-                        <h2 class="section-title display-serif" style="font-size: clamp(2.2rem, 4vw, 3rem); margin: 0;">Your Recovery <span style="font-style: italic; color: var(--bloom-golden);">Timeline</span></h2>
+                        <h2 class="section-title display-serif" style="margin-bottom: 0.5rem;">Your Recovery <span style="font-style: italic; color: var(--bloom-golden);">Timeline</span></h2>
+                        <p style="color: var(--bloom-warm-gray); font-size: 1rem; margin: 0;">A comprehensive guide to postpartum physical and emotional recovery phases</p>
                     </div>
                     
-                    <!-- Professional Timeline Cards -->
+                    <!-- Timeline Container -->
                     <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
-                        <div style="width: 100%; max-width: 1400px; position: relative;">
+                        <div style="position: relative; width: 100%; max-width: 1200px;">
+                            <!-- Connection Line -->
+                            <div style="position: absolute; top: 45px; left: 8%; right: 8%; height: 3px; background: linear-gradient(to right, var(--bloom-coral) 0%, var(--bloom-peach) 20%, var(--bloom-golden) 40%, var(--bloom-mint) 60%, var(--bloom-sky) 80%, var(--bloom-lavender) 100%); z-index: 1; border-radius: 2px;"></div>
                             
-                            <!-- Progressive Connection Line -->
-                            <div style="position: absolute; top: 95px; left: 5%; right: 5%; height: 6px; background: linear-gradient(to right, 
-                                var(--bloom-coral) 0%, var(--bloom-coral) 16.6%, 
-                                var(--bloom-peach) 16.6%, var(--bloom-peach) 33.2%, 
-                                var(--bloom-golden) 33.2%, var(--bloom-golden) 49.8%, 
-                                var(--bloom-mint) 49.8%, var(--bloom-mint) 66.4%, 
-                                var(--bloom-sky) 66.4%, var(--bloom-sky) 83%, 
-                                var(--bloom-lavender) 83%, var(--bloom-lavender) 100%); 
-                                border-radius: 3px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); z-index: 1;"></div>
-                            
-                            <!-- Timeline Step Cards -->
-                            <div style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 1.2rem; position: relative; z-index: 2;">
+                            <!-- Timeline Steps -->
+                            <div style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 1rem; position: relative; z-index: 2;">
                                 
-                                <!-- Days 1-3: Initial Phase -->
-                                <div style="background: white; border-radius: 18px; box-shadow: 0 8px 32px rgba(255,107,107,0.15); overflow: hidden; position: relative; border: 2px solid rgba(255,107,107,0.1);">
-                                    <!-- Medical Icon Indicator -->
-                                    <div style="width: 70px; height: 70px; background: linear-gradient(135deg, var(--bloom-coral) 0%, #ff8b8b 100%); border-radius: 50%; margin: 1.5rem auto 0; border: 5px solid white; box-shadow: 0 4px 16px rgba(255,107,107,0.3); display: flex; align-items: center; justify-content: center; position: relative; top: 20px;">
-                                        <span style="color: white; font-weight: 700; font-size: 1.1rem;">1-3</span>
+                                <!-- Phase 1: Days 1-3 -->
+                                <div class="fragment fade-in-up" data-fragment-index="1" style="background: white; border-radius: 18px; padding: 2rem 1.5rem; text-align: center; box-shadow: 0 8px 25px rgba(255,107,107,0.15); border: 1px solid rgba(255,107,107,0.1); min-height: 300px;">
+                                    <div style="width: 85px; height: 85px; background: linear-gradient(135deg, var(--bloom-coral) 0%, var(--bloom-peach) 100%); border-radius: 50%; margin: 0 auto 1.2rem; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(255,107,107,0.3); border: 4px solid white;">
+                                        <span style="color: white; font-size: 2rem; font-weight: 700;">1-3</span>
                                     </div>
-                                    
-                                    <!-- Card Content -->
-                                    <div style="padding: 2rem 1.5rem 1.8rem; text-align: center;">
-                                        <h3 style="color: var(--bloom-coral); font-size: 1.3rem; font-weight: 700; margin-bottom: 1rem; letter-spacing: -0.02em;">Days 1-3</h3>
-                                        <div style="background: rgba(255,107,107,0.08); padding: 1rem; border-radius: 12px; margin-bottom: 0.8rem;">
-                                            <p style="font-size: 0.95rem; line-height: 1.5; color: var(--bloom-charcoal); margin: 0; font-weight: 500;">
-                                                <strong>Acute Phase</strong><br>
-                                                Bright red bleeding begins<br>
-                                                Deep physical exhaustion<br>
-                                                Emotional adjustment starts
-                                            </p>
-                                        </div>
-                                        <div style="font-size: 0.8rem; color: var(--bloom-coral); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">
-                                            Critical Monitoring Period
-                                        </div>
+                                    <div style="background: rgba(255,107,107,0.05); padding: 0.5rem 1rem; border-radius: 12px; margin-bottom: 1rem;">
+                                        <p style="color: var(--bloom-coral); font-size: 0.9rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin: 0;">Acute Phase</p>
                                     </div>
+                                    <h3 style="color: var(--bloom-coral); font-size: 1.4rem; margin-bottom: 1rem; font-weight: 600; letter-spacing: -0.01em;">Days 1-3</h3>
+                                    <ul style="list-style: none; padding: 0; margin: 0; font-size: 1.05rem; line-height: 1.6; color: var(--bloom-warm-gray);">
+                                        <li style="margin-bottom: 0.4rem; font-weight: 500;">• Bleeding starts bright red</li>
+                                        <li style="margin-bottom: 0.4rem; font-weight: 500;">• Exhaustion hits hard</li>
+                                        <li style="margin-bottom: 0; font-weight: 500;">• Baby blues begin</li>
+                                    </ul>
                                 </div>
                                 
-                                <!-- Day 5: Peak Challenge -->
-                                <div style="background: white; border-radius: 18px; box-shadow: 0 8px 32px rgba(255,180,162,0.15); overflow: hidden; position: relative; border: 2px solid rgba(255,180,162,0.1);">
-                                    <div style="width: 70px; height: 70px; background: linear-gradient(135deg, var(--bloom-peach) 0%, #ffcdb2 100%); border-radius: 50%; margin: 1.5rem auto 0; border: 5px solid white; box-shadow: 0 4px 16px rgba(255,180,162,0.3); display: flex; align-items: center; justify-content: center; position: relative; top: 20px;">
-                                        <span style="color: white; font-weight: 700; font-size: 1.3rem;">5</span>
+                                <!-- Phase 2: Day 5 -->
+                                <div class="fragment fade-in-up" data-fragment-index="2" style="background: white; border-radius: 18px; padding: 2rem 1.5rem; text-align: center; box-shadow: 0 8px 25px rgba(255,180,162,0.15); border: 1px solid rgba(255,180,162,0.1); min-height: 300px;">
+                                    <div style="width: 85px; height: 85px; background: linear-gradient(135deg, var(--bloom-peach) 0%, var(--bloom-golden) 100%); border-radius: 50%; margin: 0 auto 1.2rem; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(255,180,162,0.3); border: 4px solid white;">
+                                        <span style="color: white; font-size: 2rem; font-weight: 700;">5</span>
                                     </div>
-                                    
-                                    <div style="padding: 2rem 1.5rem 1.8rem; text-align: center;">
-                                        <h3 style="color: var(--bloom-peach); font-size: 1.3rem; font-weight: 700; margin-bottom: 1rem; letter-spacing: -0.02em;">Day 5</h3>
-                                        <div style="background: rgba(255,180,162,0.08); padding: 1rem; border-radius: 12px; margin-bottom: 0.8rem;">
-                                            <p style="font-size: 0.95rem; line-height: 1.5; color: var(--bloom-charcoal); margin: 0; font-weight: 500;">
-                                                <strong>Peak Challenge</strong><br>
-                                                Baby blues at maximum<br>
-                                                Intense night sweats<br>
-                                                Milk supply establishing
-                                            </p>
-                                        </div>
-                                        <div style="font-size: 0.8rem; color: var(--bloom-peach); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">
-                                            Hormonal Transition
-                                        </div>
+                                    <div style="background: rgba(255,180,162,0.05); padding: 0.5rem 1rem; border-radius: 12px; margin-bottom: 1rem;">
+                                        <p style="color: var(--bloom-peach); font-size: 0.9rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin: 0;">Peak Challenge</p>
                                     </div>
+                                    <h3 style="color: var(--bloom-peach); font-size: 1.4rem; margin-bottom: 1rem; font-weight: 600; letter-spacing: -0.01em;">Day 5</h3>
+                                    <ul style="list-style: none; padding: 0; margin: 0; font-size: 1.05rem; line-height: 1.6; color: var(--bloom-warm-gray);">
+                                        <li style="margin-bottom: 0.4rem; font-weight: 500;">• Baby blues peak</li>
+                                        <li style="margin-bottom: 0.4rem; font-weight: 500;">• Night sweats intense</li>
+                                        <li style="margin-bottom: 0; font-weight: 500;">• Milk fully in</li>
+                                    </ul>
                                 </div>
                                 
-                                <!-- Week 2: Stabilization -->
-                                <div style="background: white; border-radius: 18px; box-shadow: 0 8px 32px rgba(255,203,119,0.15); overflow: hidden; position: relative; border: 2px solid rgba(255,203,119,0.1);">
-                                    <div style="width: 70px; height: 70px; background: linear-gradient(135deg, var(--bloom-golden) 0%, #ffd700 100%); border-radius: 50%; margin: 1.5rem auto 0; border: 5px solid white; box-shadow: 0 4px 16px rgba(255,203,119,0.3); display: flex; align-items: center; justify-content: center; position: relative; top: 20px;">
-                                        <span style="color: white; font-weight: 700; font-size: 1rem;">2W</span>
+                                <!-- Phase 3: Week 2 -->
+                                <div class="fragment fade-in-up" data-fragment-index="3" style="background: white; border-radius: 18px; padding: 2rem 1.5rem; text-align: center; box-shadow: 0 8px 25px rgba(255,203,119,0.15); border: 1px solid rgba(255,203,119,0.1); min-height: 300px;">
+                                    <div style="width: 85px; height: 85px; background: linear-gradient(135deg, var(--bloom-golden) 0%, var(--bloom-mint) 100%); border-radius: 50%; margin: 0 auto 1.2rem; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(255,203,119,0.3); border: 4px solid white;">
+                                        <span style="color: white; font-size: 1.8rem; font-weight: 700;">2W</span>
                                     </div>
-                                    
-                                    <div style="padding: 2rem 1.5rem 1.8rem; text-align: center;">
-                                        <h3 style="color: var(--bloom-golden); font-size: 1.3rem; font-weight: 700; margin-bottom: 1rem; letter-spacing: -0.02em;">Week 2</h3>
-                                        <div style="background: rgba(255,203,119,0.08); padding: 1rem; border-radius: 12px; margin-bottom: 0.8rem;">
-                                            <p style="font-size: 0.95rem; line-height: 1.5; color: var(--bloom-charcoal); margin: 0; font-weight: 500;">
-                                                <strong>Stabilization</strong><br>
-                                                Baby blues improve<br>
-                                                Bleeding becomes lighter<br>
-                                                Energy slowly returns
-                                            </p>
-                                        </div>
-                                        <div style="font-size: 0.8rem; color: var(--bloom-golden); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">
-                                            Recovery Momentum
-                                        </div>
+                                    <div style="background: rgba(255,203,119,0.05); padding: 0.5rem 1rem; border-radius: 12px; margin-bottom: 1rem;">
+                                        <p style="color: var(--bloom-golden); font-size: 0.9rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin: 0;">Stabilization</p>
                                     </div>
+                                    <h3 style="color: var(--bloom-golden); font-size: 1.4rem; margin-bottom: 1rem; font-weight: 600; letter-spacing: -0.01em;">Week 2</h3>
+                                    <ul style="list-style: none; padding: 0; margin: 0; font-size: 1.05rem; line-height: 1.6; color: var(--bloom-warm-gray);">
+                                        <li style="margin-bottom: 0.4rem; font-weight: 500;">• Baby blues improve</li>
+                                        <li style="margin-bottom: 0.4rem; font-weight: 500;">• Bleeding lightens</li>
+                                        <li style="margin-bottom: 0; font-weight: 500;">• Energy slowly returns</li>
+                                    </ul>
                                 </div>
                                 
-                                <!-- Week 6: Medical Milestone -->
-                                <div style="background: white; border-radius: 18px; box-shadow: 0 8px 32px rgba(149,225,211,0.15); overflow: hidden; position: relative; border: 2px solid rgba(149,225,211,0.1);">
-                                    <div style="width: 70px; height: 70px; background: linear-gradient(135deg, var(--bloom-mint) 0%, #a8e6cf 100%); border-radius: 50%; margin: 1.5rem auto 0; border: 5px solid white; box-shadow: 0 4px 16px rgba(149,225,211,0.3); display: flex; align-items: center; justify-content: center; position: relative; top: 20px;">
-                                        <span style="color: white; font-weight: 700; font-size: 1rem;">6W</span>
+                                <!-- Phase 4: Week 6 -->
+                                <div class="fragment fade-in-up" data-fragment-index="4" style="background: white; border-radius: 18px; padding: 2rem 1.5rem; text-align: center; box-shadow: 0 8px 25px rgba(149,225,211,0.15); border: 1px solid rgba(149,225,211,0.1); min-height: 300px;">
+                                    <div style="width: 85px; height: 85px; background: linear-gradient(135deg, var(--bloom-mint) 0%, var(--bloom-sky) 100%); border-radius: 50%; margin: 0 auto 1.2rem; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(149,225,211,0.3); border: 4px solid white;">
+                                        <span style="color: white; font-size: 1.8rem; font-weight: 700;">6W</span>
                                     </div>
-                                    
-                                    <div style="padding: 2rem 1.5rem 1.8rem; text-align: center;">
-                                        <h3 style="color: var(--bloom-mint); font-size: 1.3rem; font-weight: 700; margin-bottom: 1rem; letter-spacing: -0.02em;">Week 6</h3>
-                                        <div style="background: rgba(149,225,211,0.08); padding: 1rem; border-radius: 12px; margin-bottom: 0.8rem;">
-                                            <p style="font-size: 0.95rem; line-height: 1.5; color: var(--bloom-charcoal); margin: 0; font-weight: 500;">
-                                                <strong>Medical Milestone</strong><br>
-                                                Bleeding typically stops<br>
-                                                Body significantly stronger<br>
-                                                New baseline emerging
-                                            </p>
-                                        </div>
-                                        <div style="font-size: 0.8rem; color: var(--bloom-mint); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">
-                                            Postpartum Checkup
-                                        </div>
+                                    <div style="background: rgba(149,225,211,0.05); padding: 0.5rem 1rem; border-radius: 12px; margin-bottom: 1rem;">
+                                        <p style="color: var(--bloom-mint); font-size: 0.9rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin: 0;">Recovery Phase</p>
                                     </div>
+                                    <h3 style="color: var(--bloom-mint); font-size: 1.4rem; margin-bottom: 1rem; font-weight: 600; letter-spacing: -0.01em;">Week 6</h3>
+                                    <ul style="list-style: none; padding: 0; margin: 0; font-size: 1.05rem; line-height: 1.6; color: var(--bloom-warm-gray);">
+                                        <li style="margin-bottom: 0.4rem; font-weight: 500;">• Bleeding may stop</li>
+                                        <li style="margin-bottom: 0.4rem; font-weight: 500;">• Body feels stronger</li>
+                                        <li style="margin-bottom: 0; font-weight: 500;">• Finding new normal</li>
+                                    </ul>
                                 </div>
                                 
-                                <!-- Months 3-4: Hormonal Shift -->
-                                <div style="background: white; border-radius: 18px; box-shadow: 0 8px 32px rgba(116,192,252,0.15); overflow: hidden; position: relative; border: 2px solid rgba(116,192,252,0.1);">
-                                    <div style="width: 70px; height: 70px; background: linear-gradient(135deg, var(--bloom-sky) 0%, #87ceeb 100%); border-radius: 50%; margin: 1.5rem auto 0; border: 5px solid white; box-shadow: 0 4px 16px rgba(116,192,252,0.3); display: flex; align-items: center; justify-content: center; position: relative; top: 20px;">
-                                        <span style="color: white; font-weight: 700; font-size: 0.9rem;">3-4M</span>
+                                <!-- Phase 5: Months 3-4 -->
+                                <div class="fragment fade-in-up" data-fragment-index="5" style="background: white; border-radius: 18px; padding: 2rem 1.5rem; text-align: center; box-shadow: 0 8px 25px rgba(116,192,252,0.15); border: 1px solid rgba(116,192,252,0.1); min-height: 300px;">
+                                    <div style="width: 85px; height: 85px; background: linear-gradient(135deg, var(--bloom-sky) 0%, var(--bloom-lavender) 100%); border-radius: 50%; margin: 0 auto 1.2rem; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(116,192,252,0.3); border: 4px solid white;">
+                                        <span style="color: white; font-size: 1.6rem; font-weight: 700;">3-4M</span>
                                     </div>
-                                    
-                                    <div style="padding: 2rem 1.5rem 1.8rem; text-align: center;">
-                                        <h3 style="color: var(--bloom-sky); font-size: 1.3rem; font-weight: 700; margin-bottom: 1rem; letter-spacing: -0.02em;">Months 3-4</h3>
-                                        <div style="background: rgba(116,192,252,0.08); padding: 1rem; border-radius: 12px; margin-bottom: 0.8rem;">
-                                            <p style="font-size: 0.95rem; line-height: 1.5; color: var(--bloom-charcoal); margin: 0; font-weight: 500;">
-                                                <strong>Hormonal Shift</strong><br>
-                                                Hair loss phase begins<br>
-                                                Hormones stabilizing<br>
-                                                Routines establishing
-                                            </p>
-                                        </div>
-                                        <div style="font-size: 0.8rem; color: var(--bloom-sky); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">
-                                            Metabolic Adjustment
-                                        </div>
+                                    <div style="background: rgba(116,192,252,0.05); padding: 0.5rem 1rem; border-radius: 12px; margin-bottom: 1rem;">
+                                        <p style="color: var(--bloom-sky); font-size: 0.9rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin: 0;">Transition</p>
                                     </div>
+                                    <h3 style="color: var(--bloom-sky); font-size: 1.4rem; margin-bottom: 1rem; font-weight: 600; letter-spacing: -0.01em;">Months 3-4</h3>
+                                    <ul style="list-style: none; padding: 0; margin: 0; font-size: 1.05rem; line-height: 1.6; color: var(--bloom-warm-gray);">
+                                        <li style="margin-bottom: 0.4rem; font-weight: 500;">• Hair loss begins</li>
+                                        <li style="margin-bottom: 0.4rem; font-weight: 500;">• Hormones stabilizing</li>
+                                        <li style="margin-bottom: 0; font-weight: 500;">• Finding your rhythm</li>
+                                    </ul>
                                 </div>
                                 
-                                <!-- Month 6+: Integration -->
-                                <div style="background: white; border-radius: 18px; box-shadow: 0 8px 32px rgba(197,137,232,0.15); overflow: hidden; position: relative; border: 2px solid rgba(197,137,232,0.1);">
-                                    <div style="width: 70px; height: 70px; background: linear-gradient(135deg, var(--bloom-lavender) 0%, #dda0dd 100%); border-radius: 50%; margin: 1.5rem auto 0; border: 5px solid white; box-shadow: 0 4px 16px rgba(197,137,232,0.3); display: flex; align-items: center; justify-content: center; position: relative; top: 20px;">
-                                        <span style="color: white; font-weight: 700; font-size: 0.9rem;">6M+</span>
+                                <!-- Phase 6: Month 6+ -->
+                                <div class="fragment fade-in-up" data-fragment-index="6" style="background: white; border-radius: 18px; padding: 2rem 1.5rem; text-align: center; box-shadow: 0 8px 25px rgba(197,137,232,0.15); border: 1px solid rgba(197,137,232,0.1); min-height: 300px;">
+                                    <div style="width: 85px; height: 85px; background: linear-gradient(135deg, var(--bloom-lavender) 0%, var(--bloom-rose) 100%); border-radius: 50%; margin: 0 auto 1.2rem; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(197,137,232,0.3); border: 4px solid white;">
+                                        <span style="color: white; font-size: 1.7rem; font-weight: 700;">6M+</span>
                                     </div>
-                                    
-                                    <div style="padding: 2rem 1.5rem 1.8rem; text-align: center;">
-                                        <h3 style="color: var(--bloom-lavender); font-size: 1.3rem; font-weight: 700; margin-bottom: 1rem; letter-spacing: -0.02em;">Month 6+</h3>
-                                        <div style="background: rgba(197,137,232,0.08); padding: 1rem; border-radius: 12px; margin-bottom: 0.8rem;">
-                                            <p style="font-size: 0.95rem; line-height: 1.5; color: var(--bloom-charcoal); margin: 0; font-weight: 500;">
-                                                <strong>Integration</strong><br>
-                                                Hair regrowth visible<br>
-                                                Body fully adapted<br>
-                                                Identity solidified
-                                            </p>
-                                        </div>
-                                        <div style="font-size: 0.8rem; color: var(--bloom-lavender); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">
-                                            Long-term Stability
-                                        </div>
+                                    <div style="background: rgba(197,137,232,0.05); padding: 0.5rem 1rem; border-radius: 12px; margin-bottom: 1rem;">
+                                        <p style="color: var(--bloom-lavender); font-size: 0.9rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin: 0;">Integration</p>
                                     </div>
+                                    <h3 style="color: var(--bloom-lavender); font-size: 1.4rem; margin-bottom: 1rem; font-weight: 600; letter-spacing: -0.01em;">Month 6+</h3>
+                                    <ul style="list-style: none; padding: 0; margin: 0; font-size: 1.05rem; line-height: 1.6; color: var(--bloom-warm-gray);">
+                                        <li style="margin-bottom: 0.4rem; font-weight: 500;">• Hair regrowth</li>
+                                        <li style="margin-bottom: 0.4rem; font-weight: 500;">• Body adjusted</li>
+                                        <li style="margin-bottom: 0; font-weight: 500;">• New identity settled</li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
                     
-                    <!-- Professional Footer -->
-                    <div style="text-align: center; margin-top: 2rem; padding: 1.5rem 2rem; background: white; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); max-width: 800px; margin-left: auto; margin-right: auto;">
-                        <p style="font-size: 1.1rem; color: var(--bloom-charcoal); font-weight: 500; margin-bottom: 0.5rem;">
-                            Clinical Note: Individual timelines vary based on delivery type, complications, and personal factors.
-                        </p>
-                        <p style="font-size: 1rem; color: var(--bloom-warm-gray); font-style: italic; margin: 0;">
-                            This represents typical recovery patterns - your experience may differ and that's completely normal.
+                    <!-- Footer -->
+                    <div style="text-align: center; margin-top: 1.5rem; padding: 1rem; background: rgba(139,154,130,0.03); border-radius: 15px;">
+                        <p style="font-size: 1rem; color: var(--bloom-charcoal); margin: 0;">
+                            <span style="font-weight: 600;">Clinical Note:</span> This timeline represents typical recovery patterns. Individual experiences may vary significantly and should be discussed with your healthcare provider.
                         </p>
                     </div>
                 </div>
@@ -856,7 +839,7 @@
             
             <!-- Slide 9: Today's Practice -->
             <section data-background-color="#FFFFFF">
-                <div class="asymmetric-grid reverse" style="padding: 1.5rem 4%; height: 100vh; align-items: center;">
+                <div class="asymmetric-grid reverse" style="padding: 1rem 4%; height: 100vh; align-items: flex-start; padding-top: 6vh;">
                     <div class="content-panel" style="padding: 1rem;">
                         <p class="subtitle-caps" style="color: var(--bloom-sage); margin-bottom: 0.8rem; font-size: 0.85rem;">Your Tool</p>
                         <h2 class="display-serif" style="font-size: clamp(2rem, 3.5vw, 2.8rem); margin-bottom: 1.2rem;">Daily <span style="font-style: italic; color: var(--bloom-golden);">Symptom Tracking</span></h2>
@@ -883,25 +866,25 @@
                                 </p>
                             </div>
                         </div>
+                    </div>
+                    <div style="display: flex; flex-direction: column; align-items: center; padding: 1rem;">
+                        <img src="../../../shared-assets/images/biff01_Woman_journaling_worries_with_cup_of_tea_processing_em_7ec028c6-a90b-46cb-9159-20b83a5e9320_0.png" alt="Woman tracking symptoms" style="border-radius: 20px; width: 100%; height: auto; max-height: 350px; object-fit: cover; margin-bottom: 1.5rem;">
                         
-                        <div style="background: white; border: 1px solid var(--bloom-golden); padding: 0.8rem; border-radius: 8px; margin-top: 1.2rem;">
-                            <p style="font-size: 0.85rem; color: var(--bloom-charcoal); margin-bottom: 0.3rem;">
+                        <div style="background: white; border: 1px solid var(--bloom-golden); padding: 0.8rem; border-radius: 8px; max-width: 400px;">
+                            <p style="font-size: 0.85rem; color: var(--bloom-charcoal); margin-bottom: 0.3rem; text-align: center;">
                                 <strong>Tracking Options:</strong> Your workbook, any notebook, or apps designed for this
                             </p>
-                            <p style="font-size: 0.8rem; color: var(--bloom-warm-gray); margin: 0; font-style: italic;">
+                            <p style="font-size: 0.8rem; color: var(--bloom-warm-gray); margin: 0; font-style: italic; text-align: center;">
                                 This data helps providers understand patterns and make accurate diagnoses.
                             </p>
                         </div>
-                    </div>
-                    <div class="image-panel" style="height: auto; display: flex; align-items: center;">
-                        <img src="../../../shared-assets/images/biff01_Woman_journaling_worries_with_cup_of_tea_processing_em_7ec028c6-a90b-46cb-9159-20b83a5e9320_0.png" alt="Woman tracking symptoms" style="border-radius: 20px; width: 100%; height: auto; max-height: 450px; object-fit: cover;">
                     </div>
                 </div>
             </section>
             
             <!-- Slide 10: Knowledge Brings Peace -->
             <section data-background-color="#FFF9F0">
-                <div style="padding: 2rem 3rem; text-align: center; height: 100vh; display: flex; flex-direction: column; justify-content: center;">
+                <div style="padding: 1.5rem 3rem 2rem 3rem; text-align: center; height: 100vh; display: flex; flex-direction: column; justify-content: flex-start; padding-top: 4rem;">
                     <h2 class="section-title display-serif" style="margin-bottom: 2rem;">Knowledge Brings <span style="font-style: italic; color: var(--bloom-sage);">Peace</span></h2>
                     
                     <div style="max-width: 1000px; margin: 0 auto;">
@@ -911,7 +894,7 @@
                         </p>
                         
                         <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 3rem;">
-                            <div style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.08);">
+                            <div class="fragment fade-in-up" data-fragment-index="1" style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.08);">
                                 <div style="height: 150px; overflow: hidden;">
                                     <img src="../../../shared-assets/images/biff01_Mother_holding_baby_looking_out_window_at_sunrise_hope_7f2de060-da80-41fa-8c95-705189ef01be_1.png" alt="Mother finding peace" style="width: 100%; height: 100%; object-fit: cover;">
                                 </div>
@@ -921,7 +904,7 @@
                                 </div>
                             </div>
                             
-                            <div style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.08);">
+                            <div class="fragment fade-in-up" data-fragment-index="2" style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.08);">
                                 <div style="height: 150px; overflow: hidden;">
                                     <img src="../../../shared-assets/images/biff01_Female_therapist_and_mother_in_bright_modern_office_wi_aecf3df6-ee57-4c10-864b-8d15b9b5c704_3.png" alt="Getting help and support" style="width: 100%; height: 100%; object-fit: cover;">
                                 </div>
@@ -931,7 +914,7 @@
                                 </div>
                             </div>
                             
-                            <div style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.08);">
+                            <div class="fragment fade-in-up" data-fragment-index="3" style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.08);">
                                 <div style="height: 150px; overflow: hidden;">
                                     <img src="../../../shared-assets/images/biff01_Mother_with_hand_on_heart_in_morning_light_self-compas_55242be0-e564-4de9-bee2-46be6a8e9bb6_1.png" alt="Trusting yourself" style="width: 100%; height: 100%; object-fit: cover;">
                                 </div>
@@ -987,8 +970,9 @@
             controls: true,
             progress: true,
             center: false,
-            transition: 'none',
-            backgroundTransition: 'none',
+            transition: 'fade',
+            transitionSpeed: 'slow',
+            backgroundTransition: 'fade',
             plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
         });
     </script>

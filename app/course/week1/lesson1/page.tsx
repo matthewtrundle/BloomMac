@@ -182,7 +182,9 @@ const slides = [
   }
 ];
 
-export default function Lesson1Page() {
+import CourseAuthWrapper from '@/components/CourseAuthWrapper';
+
+function Lesson1Content() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -1007,5 +1009,13 @@ export default function Lesson1Page() {
         Use arrow keys or click to navigate
       </div>
     </div>
+  );
+}
+
+export default function Lesson1Page() {
+  return (
+    <CourseAuthWrapper courseSlug="postpartum-wellness-foundations">
+      <Lesson1Content />
+    </CourseAuthWrapper>
   );
 }

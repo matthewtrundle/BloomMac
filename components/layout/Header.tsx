@@ -117,7 +117,11 @@ const Header = () => {
           <div className="hidden md:flex items-center justify-between relative">
             {/* Left Brand Logo - Larger and Better Positioned */}
             <Link href="/" className="absolute left-0 hidden xl:block z-20 hover:opacity-90 transition-all duration-500 group">
-              <div className="relative h-36 w-72 2xl:h-40 2xl:w-80 mt-6 ml-4 transform transition-all duration-700 group-hover:scale-105">
+              <div className={`relative ml-4 transform transition-all duration-700 group-hover:scale-105 ${
+                isScrolled 
+                  ? 'h-20 w-40 2xl:h-24 2xl:w-48 mt-0' 
+                  : 'h-36 w-72 2xl:h-40 2xl:w-80 mt-6'
+              }`}>
                 {/* Very subtle white glow for depth */}
                 <div className="absolute inset-0 bg-white/50 rounded-full blur-xl scale-75 opacity-30 group-hover:opacity-40 transition-opacity duration-500"></div>
                 

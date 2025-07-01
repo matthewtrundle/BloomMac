@@ -257,6 +257,33 @@ export default function CoursesPage() {
                     <p className="text-bloom-dark/60 mb-4">{course.subtitle}</p>
                     <p className="text-bloom-dark/80 mb-6">{course.description}</p>
                     
+                    {/* Watch Lesson 1 Button for Postpartum Wellness */}
+                    {course.id === 'postpartum-wellness-foundations' && (
+                      <div className="mb-6">
+                        <button
+                          onClick={() => setShowVideoModal(true)}
+                          className="w-full bg-gradient-to-r from-bloom-sage/10 to-bloom-sage/5 hover:from-bloom-sage/20 hover:to-bloom-sage/10 border border-bloom-sage/20 rounded-xl p-4 transition-all duration-300 group"
+                        >
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-3">
+                              <div className="w-12 h-12 bg-white rounded-full shadow-md flex items-center justify-center group-hover:shadow-lg transition-shadow">
+                                <svg className="w-6 h-6 text-bloom-sage" fill="currentColor" viewBox="0 0 20 20">
+                                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
+                                </svg>
+                              </div>
+                              <div className="text-left">
+                                <p className="font-semibold text-bloom-dark">Watch Lesson 1</p>
+                                <p className="text-xs text-bloom-dark/60">Get a preview of the course content</p>
+                              </div>
+                            </div>
+                            <svg className="w-5 h-5 text-bloom-sage/40 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                            </svg>
+                          </div>
+                        </button>
+                      </div>
+                    )}
+                    
                     <div className="mb-6">
                       <p className="font-semibold mb-2">You'll learn to:</p>
                       <ul className="space-y-1">

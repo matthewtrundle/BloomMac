@@ -41,7 +41,7 @@ export default function LayoutWrapper({ children }: LayoutWrapperProps) {
   return (
     <>
       {shouldShowHeader && <Header />}
-      <main className={shouldShowHeader ? "pt-20" : ""}>
+      <main className={shouldShowHeader ? "pt-32 xl:pt-40" : ""}>
         {children}
       </main>
       {shouldShowFooter && <Footer />}

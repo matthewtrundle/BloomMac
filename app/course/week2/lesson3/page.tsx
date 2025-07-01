@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ChevronLeft, ChevronRight, Menu, X, Users, Search, RefreshCw, Heart, Shield, Star, Compass, Layers, Lightbulb, Target, Sparkles } from 'lucide-react';
+import CourseAuthWrapper from '@/components/CourseAuthWrapper';
 
 // Beautiful slide data that matches the comprehensive course content
 const slides = [
@@ -445,7 +446,7 @@ const slides = [
   }
 ];
 
-export default function Week2Lesson3Page() {
+function Week2Lesson3Content() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -1634,5 +1635,13 @@ export default function Week2Lesson3Page() {
         Use arrow keys or click to navigate
       </div>
     </div>
+  );
+}
+
+export default function Week2Lesson3Page() {
+  return (
+    <CourseAuthWrapper courseSlug="postpartum-wellness-foundations">
+      <Week2Lesson3Content />
+    </CourseAuthWrapper>
   );
 }
