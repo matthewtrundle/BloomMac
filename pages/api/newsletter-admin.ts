@@ -2,6 +2,8 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { supabaseAdmin } from '@/lib/supabase';
 import { getResendClient } from '@/lib/resend-client';
 
+const resend = getResendClient();
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   // Auth is handled by middleware - check headers
   const userId = req.headers['x-user-id'];
@@ -176,11 +178,47 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
 
     case 'DELETE':
-      // Unsubscribe user
+      // Unsubscribe users (bulk or single)
+      const { subscriberIds } = req.body;
       const { email } = req.query;
       
-      if (!email || typeof email !== 'string') {
-        return res.status(400).json({ error: 'Email is required' });
+      // Handle single email unsubscribe (legacy support)
+      if (email && typeof email === 'string') {
+        try {
+          const { data, error } = await supabaseAdmin
+            .from('subscribers')
+            .update({ 
+              status: 'unsubscribed',
+              updated_at: new Date().toISOString()
+            })
+            .eq('email', email.toLowerCase())
+            .select()
+            .single();
+          
+          if (error) {
+            if (error.code === 'PGRST116') {
+              return res.status(404).json({ error: 'Subscriber not found' });
+            }
+            throw error;
+          }
+          
+          return res.status(200).json({ 
+            success: true,
+            message: 'Successfully unsubscribed'
+          });
+          
+        } catch (error) {
+          console.error('Unsubscribe error:', error);
+          return res.status(500).json({ 
+            error: 'Failed to unsubscribe',
+            details: error instanceof Error ? error.message : 'Unknown error'
+          });
+        }
+      }
+      
+      // Handle bulk unsubscribe
+      if (!subscriberIds || !Array.isArray(subscriberIds) || subscriberIds.length === 0) {
+        return res.status(400).json({ error: 'Subscriber IDs are required for bulk unsubscribe' });
       }
       
       try {
@@ -190,26 +228,36 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             status: 'unsubscribed',
             updated_at: new Date().toISOString()
           })
-          .eq('email', email.toLowerCase())
-          .select()
-          .single();
+          .in('id', subscriberIds)
+          .select();
         
         if (error) {
-          if (error.code === 'PGRST116') {
-            return res.status(404).json({ error: 'Subscriber not found' });
-          }
           throw error;
         }
         
+        // Log admin activity
+        await supabaseAdmin
+          .from('admin_activity_log')
+          .insert({
+            user_id: userId,
+            action: 'bulk_unsubscribe',
+            entity_type: 'subscribers',
+            details: {
+              subscriber_count: data?.length || 0,
+              subscriber_ids: subscriberIds
+            }
+          });
+        
         return res.status(200).json({ 
           success: true,
-          message: 'Successfully unsubscribed'
+          message: `Successfully unsubscribed ${data?.length || 0} subscriber(s)`,
+          unsubscribedCount: data?.length || 0
         });
         
       } catch (error) {
-        console.error('Unsubscribe error:', error);
+        console.error('Bulk unsubscribe error:', error);
         return res.status(500).json({ 
-          error: 'Failed to unsubscribe',
+          error: 'Failed to unsubscribe subscribers',
           details: error instanceof Error ? error.message : 'Unknown error'
         });
       }

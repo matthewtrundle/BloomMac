@@ -45,6 +45,11 @@ const NewsletterAdmin: React.FC = () => {
   const [preview, setPreview] = useState('');
   const [content, setContent] = useState('');
 
+  // Subscriber management
+  const [selectedSubscribers, setSelectedSubscribers] = useState<string[]>([]);
+  const [managingSubscribers, setManagingSubscribers] = useState(false);
+  const [managementResult, setManagementResult] = useState<string>('');
+
   useEffect(() => {
     fetchNewsletterData();
   }, []);
@@ -239,6 +244,62 @@ const NewsletterAdmin: React.FC = () => {
     setContent(template.content);
   };
 
+  const handleUnsubscribeSelected = async () => {
+    if (selectedSubscribers.length === 0) {
+      setManagementResult('❌ Please select subscribers to unsubscribe');
+      return;
+    }
+
+    if (!confirm(`Are you sure you want to unsubscribe ${selectedSubscribers.length} subscriber(s)? This action cannot be undone.`)) {
+      return;
+    }
+
+    setManagingSubscribers(true);
+    setManagementResult('');
+
+    try {
+      const response = await fetch('/api/newsletter-admin', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        credentials: 'include',
+        body: JSON.stringify({ subscriberIds: selectedSubscribers })
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        setManagementResult(`✅ Successfully unsubscribed ${selectedSubscribers.length} subscriber(s)`);
+        setSelectedSubscribers([]);
+        // Refresh data
+        await fetchNewsletterData();
+      } else {
+        setManagementResult(`❌ ${result.error}`);
+      }
+    } catch (error) {
+      setManagementResult('❌ Failed to unsubscribe subscribers');
+    } finally {
+      setManagingSubscribers(false);
+    }
+  };
+
+  const handleSelectSubscriber = (subscriberId: string) => {
+    setSelectedSubscribers(prev => 
+      prev.includes(subscriberId)
+        ? prev.filter(id => id !== subscriberId)
+        : [...prev, subscriberId]
+    );
+  };
+
+  const handleSelectAll = () => {
+    if (selectedSubscribers.length === data?.subscribers.length) {
+      setSelectedSubscribers([]);
+    } else {
+      setSelectedSubscribers(data?.subscribers.map(s => s.id) || []);
+    }
+  };
+
   if (loading) {
     return (
       <div className="flex items-center justify-center py-12">
@@ -407,15 +468,58 @@ const NewsletterAdmin: React.FC = () => {
         </div>
       </div>
 
-      {/* Recent Subscribers */}
+      {/* Subscriber Management */}
       <div className="bg-white rounded-lg shadow-sm border">
         <div className="p-6 border-b border-gray-200">
-          <h2 className="text-xl font-semibold text-gray-900">Recent Subscribers</h2>
+          <div className="flex items-center justify-between">
+            <div>
+              <h2 className="text-xl font-semibold text-gray-900">Subscriber Management</h2>
+              <p className="text-gray-600 mt-1">Manage your newsletter subscribers</p>
+            </div>
+            <div className="flex items-center space-x-3">
+              {selectedSubscribers.length > 0 && (
+                <div className="flex items-center space-x-2">
+                  <span className="text-sm text-gray-600">
+                    {selectedSubscribers.length} selected
+                  </span>
+                  <button
+                    onClick={handleUnsubscribeSelected}
+                    disabled={managingSubscribers}
+                    className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm"
+                  >
+                    {managingSubscribers ? 'Unsubscribing...' : 'Unsubscribe Selected'}
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+          
+          {managementResult && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className={`mt-4 p-3 rounded-md text-sm ${
+                managementResult.startsWith('✅') 
+                  ? 'bg-green-100 text-green-700' 
+                  : 'bg-red-100 text-red-700'
+              }`}
+            >
+              {managementResult}
+            </motion.div>
+          )}
         </div>
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead className="bg-gray-50">
               <tr>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <input
+                    type="checkbox"
+                    checked={selectedSubscribers.length === data.subscribers.length && data.subscribers.length > 0}
+                    onChange={handleSelectAll}
+                    className="rounded border-gray-300 text-bloompink focus:ring-bloompink"
+                  />
+                </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Email
                 </th>
@@ -428,11 +532,22 @@ const NewsletterAdmin: React.FC = () => {
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Date
                 </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Status
+                </th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {data.subscribers.slice(0, 10).map((subscriber) => (
-                <tr key={subscriber.id}>
+              {data.subscribers.map((subscriber) => (
+                <tr key={subscriber.id} className={selectedSubscribers.includes(subscriber.id) ? 'bg-blue-50' : ''}>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <input
+                      type="checkbox"
+                      checked={selectedSubscribers.includes(subscriber.id)}
+                      onChange={() => handleSelectSubscriber(subscriber.id)}
+                      className="rounded border-gray-300 text-bloompink focus:ring-bloompink"
+                    />
+                  </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                     {subscriber.email}
                   </td>
@@ -445,10 +560,21 @@ const NewsletterAdmin: React.FC = () => {
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                     {new Date(subscriber.timestamp).toLocaleDateString()}
                   </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                      Active
+                    </span>
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
+          
+          {data.subscribers.length === 0 && (
+            <div className="text-center py-12">
+              <div className="text-gray-500">No subscribers found</div>
+            </div>
+          )}
         </div>
       </div>
     </div>
