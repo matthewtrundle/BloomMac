@@ -1,0 +1,30 @@
+{
+  "name": "bloom-automated-tests",
+  "version": "1.0.0",
+  "description": "Automated testing suite for Bloom Psychology backend",
+  "main": "run-all-tests.js",
+  "scripts": {
+    "test": "node run-all-tests.js",
+    "test:database": "node test-database-connection.js",
+    "test:contact": "node test-contact-form-api.js",
+    "test:newsletter": "node test-newsletter-api.js",
+    "test:career": "node test-career-api.js",
+    "test:email": "node test-email-system-api.js",
+    "test:rate-limit": "node test-rate-limiting.js",
+    "test:admin": "node test-admin-api.js",
+    "test:migration": "node test-data-migration.js",
+    "test:security": "node test-security.js",
+    "test:performance": "node test-performance.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.38.0",
+    "chalk": "^4.1.2",
+    "dotenv": "^16.3.1",
+    "form-data": "^4.0.0",
+    "glob": "^10.3.10",
+    "jsonwebtoken": "^9.0.2",
+    "node-fetch": "^2.7.0"
+  },
+  "author": "Bloom Psychology",
+  "license": "MIT"
+}

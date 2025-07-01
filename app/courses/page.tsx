@@ -19,7 +19,8 @@ const courses = [
     subtitle: 'Your 6-Week Journey to Emotional Balance',
     description: 'A comprehensive self-paced program designed to help new mothers navigate the emotional challenges of postpartum life with confidence and clarity.',
     duration: '6 weeks',
-    modules: 6,
+    modules: 24,
+    workbooks: 6,
     price: 197,
     originalPrice: 297,
     image: '/images/optimized/biff01_imagine_new_mother_holding_baby_peaceful_nursery_soft__1c12cc3c-cebd-47e2-ad9b-66b9bbca6480_0.webp',
@@ -44,7 +45,8 @@ const courses = [
     subtitle: 'Practical Tools for Peace of Mind',
     description: 'Learn evidence-based techniques to manage postpartum anxiety and worry, specifically designed for the unique challenges of new motherhood.',
     duration: '4 weeks',
-    modules: 4,
+    modules: 16,
+    workbooks: 4,
     price: 127,
     image: '/images/optimized/biff01_imagine_woman_in_meditation_pose_serene_environment_br_1f66e17b-a951-4d9f-b895-127fabc89208_1.webp',
     features: [
@@ -67,7 +69,8 @@ const courses = [
     subtitle: 'For Partners Who Want to Help',
     description: 'Equip partners with the knowledge and skills to provide meaningful support during the postpartum period.',
     duration: '2 weeks',
-    modules: 4,
+    modules: 8,
+    workbooks: 2,
     price: 97,
     image: '/images/optimized/biff01_imagine_mixed-race_parents_with_newborn_tender_family__1caa7f06-30ca-47c7-a1cd-038dc0cea487_1.webp',
     features: [
@@ -247,7 +250,7 @@ export default function CoursesPage() {
                     <div className="absolute bottom-4 left-4 text-white">
                       <p className="text-sm opacity-90 flex items-center gap-2">
                         <span>⏱️</span>
-                        {course.duration} • {course.modules} modules
+                        {course.duration} • {course.modules} lessons • {course.workbooks} workbooks
                       </p>
                     </div>
                   </div>
@@ -508,7 +511,7 @@ export default function CoursesPage() {
               {/* Video Container */}
               <div className="aspect-video bg-black">
                 <iframe 
-                  src="https://player.vimeo.com/video/1097658900?autoplay=1&title=0&byline=0&portrait=0"
+                  src="https://player.vimeo.com/video/1097724383?autoplay=1&title=0&byline=0&portrait=0"
                   className="w-full h-full"
                   frameBorder="0"
                   allow="autoplay; fullscreen; picture-in-picture"
