@@ -102,189 +102,87 @@ export default function CompleteStep({
         <motion.div
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
-          transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
-          className="w-24 h-24 bg-gradient-to-br from-bloompink to-bloom-sage rounded-full flex items-center justify-center mx-auto mb-8"
+          transition={{ 
+            type: "spring",
+            stiffness: 260,
+            damping: 20,
+            delay: 0.2 
+          }}
+          className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-gradient-to-br from-bloompink to-bloom-sage mb-6"
         >
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.6 }}
-            className="text-4xl"
-          >
-            {accessMessage.icon}
-          </motion.div>
+          <span className="text-4xl">{accessMessage.icon}</span>
         </motion.div>
 
-        <motion.h2
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.4 }}
-          className="text-3xl md:text-4xl font-playfair text-bloom-dark mb-4"
-        >
+        <h1 className="text-3xl font-bold text-bloom-dark mb-4">
           {accessMessage.title}
-        </motion.h2>
-
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
-          className="text-lg text-bloom-dark/70 mb-8"
-        >
+        </h1>
+        
+        <p className="text-lg text-bloom-gray-600 mb-8 max-w-md mx-auto">
           {accessMessage.description}
-        </motion.p>
-
-        {/* User Summary */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6 }}
-          className="bg-bloom-sage-50/30 rounded-lg p-6 mb-8"
-        >
-          <h3 className="font-semibold text-bloom-dark mb-4">Your Account Summary</h3>
-          <div className="grid md:grid-cols-2 gap-4 text-sm">
-            <div className="text-left">
-              <p className="text-bloom-dark/60">Welcome,</p>
-              <p className="font-medium text-bloom-dark">
-                {data.firstName} {data.lastName}
-              </p>
-            </div>
-            <div className="text-left">
-              <p className="text-bloom-dark/60">Access Type</p>
-              <p className="font-medium text-bloom-dark capitalize">
-                {data.accessType === 'waitlist' ? 'Waitlist Member' : data.accessType}
-              </p>
-            </div>
-            {data.numberOfChildren && (
-              <div className="text-left">
-                <p className="text-bloom-dark/60">Children</p>
-                <p className="font-medium text-bloom-dark">
-                  {data.numberOfChildren} {data.numberOfChildren === 1 ? 'child' : 'children'}
-                </p>
-              </div>
-            )}
-            <div className="text-left">
-              <p className="text-bloom-dark/60">Email</p>
-              <p className="font-medium text-bloom-dark">{data.email}</p>
-            </div>
-          </div>
-        </motion.div>
+        </p>
 
         {/* Next Steps */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.7 }}
-          className="bg-bloompink/5 rounded-lg p-6 mb-8"
-        >
-          <h3 className="font-semibold text-bloom-dark mb-4 flex items-center justify-center gap-2">
-            <svg className="w-5 h-5 text-bloompink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-            What's Next?
-          </h3>
-          <div className="space-y-3">
+        <div className="bg-bloom-sage-50 rounded-xl p-6 mb-8 text-left max-w-md mx-auto">
+          <h3 className="font-semibold text-bloom-dark mb-4">Your Next Steps:</h3>
+          <ul className="space-y-3">
             {nextSteps.map((step, index) => (
-              <motion.div
+              <motion.li
                 key={index}
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.8 + index * 0.1 }}
-                className="flex items-start gap-3 text-left"
+                transition={{ delay: 0.5 + index * 0.1 }}
+                className="flex items-start"
               >
-                <span className="flex-shrink-0 w-6 h-6 bg-bloompink text-white rounded-full flex items-center justify-center text-xs font-bold">
-                  {index + 1}
-                </span>
-                <span className="text-sm text-bloom-dark/70">{step}</span>
-              </motion.div>
+                <span className="text-bloompink mr-2">✓</span>
+                <span className="text-bloom-gray-700">{step}</span>
+              </motion.li>
             ))}
-          </div>
-        </motion.div>
-
-        {/* Special Messages */}
-        {data.accessType === 'waitlist' && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.9 }}
-            className="bg-bloom-accent/10 rounded-lg p-4 mb-8"
-          >
-            <div className="flex items-center justify-center gap-2 mb-2">
-              <svg className="w-5 h-5 text-bloom-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              <span className="font-medium text-bloom-accent">Launch Date: July 2025</span>
-            </div>
-            <p className="text-sm text-bloom-dark/60">
-              You'll receive an email with early access pricing 30 days before our official launch
-            </p>
-          </motion.div>
-        )}
-
-        {/* Action Button */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.0 }}
-          className="space-y-4"
-        >
-          <Button
-            onClick={onComplete}
-            variant="pink"
-            size="lg"
-            className="w-full md:w-auto px-12"
-            disabled={isLoading}
-          >
-            {isLoading ? (
-              <div className="flex items-center gap-2">
-                <svg className="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-                Setting up your dashboard...
-              </div>
-            ) : (
-              accessMessage.action
-            )}
-          </Button>
-
-          <div className="flex items-center justify-center gap-4 text-sm text-bloom-dark/50">
-            <span>Need help?</span>
-            <a href="/contact" className="text-bloompink hover:underline">
-              Contact Support
-            </a>
-          </div>
+          </ul>
         </div>
 
-        {/* Celebration Confetti Effect */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.2 }}
-          className="absolute inset-0 pointer-events-none overflow-hidden"
+        {/* Action Button */}
+        <Button
+          onClick={onComplete}
+          disabled={isLoading}
+          variant="pink"
+          size="lg"
+          className="min-w-[200px]"
         >
-          {[...Array(6)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute w-2 h-2 bg-bloompink rounded-full"
-              initial={{ 
-                x: Math.random() * 400,
-                y: -20,
-                opacity: 0
-              }}
-              animate={{ 
-                y: 400,
-                opacity: [0, 1, 0],
-                rotate: 360
-              }}
-              transition={{ 
-                duration: 3,
-                delay: i * 0.2,
-                repeat: Infinity,
-                repeatDelay: 5
-              }}
-            />
-          ))}
-        </motion.div>
+          {isLoading ? 'Loading...' : accessMessage.action}
+        </Button>
+
+        {error && (
+          <p className="text-red-500 text-sm mt-4">{error}</p>
+        )}
+      </motion.div>
+
+      {/* Floating celebration elements */}
+      <motion.div className="absolute inset-0 pointer-events-none overflow-hidden">
+        {[...Array(6)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-4 h-4 bg-bloompink/20 rounded-full"
+            style={{
+              left: `${20 + i * 15}%`,
+              top: '100%'
+            }}
+            initial={{ 
+              y: 0,
+              opacity: 0
+            }}
+            animate={{ 
+              y: -400,
+              opacity: [0, 1, 0],
+              rotate: 360
+            }}
+            transition={{ 
+              duration: 3,
+              delay: i * 0.2,
+              repeat: Infinity,
+              repeatDelay: 5
+            }}
+          />
+        ))}
       </motion.div>
     </div>
   );

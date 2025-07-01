@@ -1,5 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
-import { Twilio } from 'twilio';
+// import { Twilio } from 'twilio'; // Optional - uncomment when Twilio is configured
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -7,10 +7,11 @@ const supabase = createClient(
 );
 
 // Initialize Twilio client
-const twilioClient = process.env.TWILIO_ACCOUNT_SID ? new Twilio(
-  process.env.TWILIO_ACCOUNT_SID,
-  process.env.TWILIO_AUTH_TOKEN
-) : null;
+// const twilioClient = process.env.TWILIO_ACCOUNT_SID ? new Twilio(
+//   process.env.TWILIO_ACCOUNT_SID,
+//   process.env.TWILIO_AUTH_TOKEN
+// ) : null;
+const twilioClient = null; // Twilio disabled until configured
 
 export interface ReminderSettings {
   email24Hours: boolean;
