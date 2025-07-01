@@ -33,6 +33,7 @@ const protectedApiRoutes = [
   '/api/generate-blog-image',
   '/api/upload-image',
   '/api/careers-application',
+  '/api/admin/careers',
   '/api/analytics'
   // Note: /api/test-analytics is intentionally not protected for testing
 ];
@@ -138,6 +139,7 @@ export const config = {
     '/api/generate-blog-image',
     '/api/upload-image',
     '/api/careers-application',
+    '/api/admin/careers',
     '/api/analytics'
   ]
 };
