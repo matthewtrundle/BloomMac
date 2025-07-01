@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const { createClient } = require('@supabase/supabase-js');
 require('dotenv').config({ path: '.env.local' });
 
@@ -8,62 +10,63 @@ const supabase = createClient(
 
 async function checkAdminUsers() {
   console.log('🔍 Checking admin users...\n');
-  
+
   try {
     // Check admin_users table
+    console.log('1. Admin users in database:');
     const { data: adminUsers, error: adminError } = await supabase
       .from('admin_users')
-      .select('*')
-      .order('created_at', { ascending: true });
-    
+      .select('*');
+
     if (adminError) {
-      console.error('Error fetching admin users:', adminError);
+      console.error('❌ Error fetching admin users:', adminError);
       return;
     }
-    
-    console.log(`Found ${adminUsers?.length || 0} admin users:`);
-    
-    if (adminUsers && adminUsers.length > 0) {
-      adminUsers.forEach(admin => {
-        console.log(`\n👤 Admin User:`);
-        console.log(`   ID: ${admin.id}`);
-        console.log(`   Role: ${admin.role}`);
-        console.log(`   Active: ${admin.is_active}`);
-        console.log(`   Permissions: ${JSON.stringify(admin.permissions)}`);
-        console.log(`   Last Login: ${admin.last_login_at || 'Never'}`);
-        console.log(`   Login Count: ${admin.login_count}`);
-      });
+
+    console.log(`Found ${adminUsers.length} admin users in database:`);
+    adminUsers.forEach(user => {
+      console.log(`  ${user.email} (${user.role}) - ${user.is_active ? 'Active' : 'Inactive'}`);
+    });
+
+    // Check auth users
+    console.log('\n2. Users in Supabase Auth:');
+    const { data: authData, error: authError } = await supabase.auth.admin.listUsers();
+
+    if (authError) {
+      console.error('❌ Error fetching auth users:', authError);
+      return;
     }
-    
-    // Check if we have any super admins
-    const superAdmins = adminUsers?.filter(u => u.role === 'super_admin' && u.is_active);
-    
-    if (!superAdmins || superAdmins.length === 0) {
-      console.log('\n⚠️  WARNING: No active super admins found!');
-      console.log('You need to set up at least one super admin.');
-    } else {
-      console.log(`\n✅ Found ${superAdmins.length} active super admin(s)`);
+
+    console.log(`Found ${authData.users.length} users in auth:`);
+    authData.users.forEach(user => {
+      console.log(`  ${user.email} - ${user.email_confirmed_at ? 'Confirmed' : 'Unconfirmed'}`);
+    });
+
+    // Find mismatches
+    console.log('\n3. Checking for mismatches:');
+    const adminEmails = new Set(adminUsers.map(u => u.email));
+    const authEmails = new Set(authData.users.map(u => u.email));
+
+    const adminOnlyEmails = [...adminEmails].filter(email => !authEmails.has(email));
+    const authOnlyEmails = [...authEmails].filter(email => !adminEmails.has(email));
+
+    if (adminOnlyEmails.length > 0) {
+      console.log('⚠️  Admin users without auth accounts:');
+      adminOnlyEmails.forEach(email => console.log(`  ${email}`));
     }
-    
-    // Check auth.users to see who might need admin access
-    const { data: authUsers, error: authError } = await supabase.auth.admin.listUsers();
-    
-    if (!authError && authUsers) {
-      const nonAdminUsers = authUsers.users.filter(
-        user => !adminUsers?.some(admin => admin.id === user.id)
-      );
-      
-      if (nonAdminUsers.length > 0) {
-        console.log('\n📋 Regular users who could be made admin:');
-        nonAdminUsers.forEach(user => {
-          console.log(`   - ${user.email} (ID: ${user.id})`);
-        });
-      }
+
+    if (authOnlyEmails.length > 0) {
+      console.log('⚠️  Auth users without admin records:');
+      authOnlyEmails.forEach(email => console.log(`  ${email}`));
     }
-    
+
+    if (adminOnlyEmails.length === 0 && authOnlyEmails.length === 0) {
+      console.log('✅ All admin users have matching auth accounts');
+    }
+
   } catch (error) {
-    console.error('Error:', error);
+    console.error('❌ Unexpected error:', error);
   }
 }
 
-checkAdminUsers();
+checkAdminUsers().catch(console.error);
