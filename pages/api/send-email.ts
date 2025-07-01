@@ -1,6 +1,7 @@
 import { Resend } from 'resend';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { supabaseAdmin } from '../../lib/supabase';
+import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
 
 // Lazy-load Resend client to avoid initialization errors
 let resend: Resend | null = null;
@@ -20,6 +21,26 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
     return res.status(405).end('Method Not Allowed');
+  }
+  
+  // Apply rate limiting
+  const identifier = 
+    req.headers['x-forwarded-for'] as string || 
+    req.headers['x-real-ip'] as string ||
+    req.socket.remoteAddress ||
+    'anonymous';
+    
+  const rateLimitResult = await rateLimit(RATE_LIMITS.emailSend, identifier);
+  
+  if (!rateLimitResult.success) {
+    res.setHeader('X-RateLimit-Limit', rateLimitResult.limit.toString());
+    res.setHeader('X-RateLimit-Remaining', rateLimitResult.remaining.toString());
+    res.setHeader('X-RateLimit-Reset', rateLimitResult.reset.toISOString());
+    res.setHeader('Retry-After', Math.ceil((rateLimitResult.reset.getTime() - Date.now()) / 1000).toString());
+    
+    return res.status(429).json({ 
+      error: 'Too many requests. Please try again later.' 
+    });
   }
   
   // Extract form data

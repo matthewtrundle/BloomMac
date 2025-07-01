@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { enhancedEmailTemplates, personalizeEmail } from '@/lib/email-templates/enhanced-emails';
 import { supabaseAdmin } from '@/lib/supabase';
 import { getResendClient } from '@/lib/resend-client';
+import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
 
 interface SignupRequest {
   email: string;
@@ -66,6 +67,26 @@ export default async function handler(
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
     return res.status(405).json({ error: 'Method Not Allowed' });
+  }
+
+  // Apply rate limiting
+  const identifier = 
+    req.headers['x-forwarded-for'] as string || 
+    req.headers['x-real-ip'] as string ||
+    req.socket.remoteAddress ||
+    'anonymous';
+    
+  const rateLimitResult = await rateLimit(RATE_LIMITS.newsletter, identifier);
+  
+  if (!rateLimitResult.success) {
+    res.setHeader('X-RateLimit-Limit', rateLimitResult.limit.toString());
+    res.setHeader('X-RateLimit-Remaining', rateLimitResult.remaining.toString());
+    res.setHeader('X-RateLimit-Reset', rateLimitResult.reset.toISOString());
+    res.setHeader('Retry-After', Math.ceil((rateLimitResult.reset.getTime() - Date.now()) / 1000).toString());
+    
+    return res.status(429).json({ 
+      error: `Too many newsletter signups. Please try again after ${rateLimitResult.reset.toLocaleTimeString()}.` 
+    });
   }
 
   try {

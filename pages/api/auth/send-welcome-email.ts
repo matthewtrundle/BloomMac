@@ -14,6 +14,25 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   try {
+    // Check for duplicate email first
+    const { data: recentEmail } = await supabase
+      .from('email_logs')
+      .select('id')
+      .eq('recipient', email)
+      .eq('type', 'welcome_course')
+      .eq('status', 'sent')
+      .gte('created_at', new Date(Date.now() - 60*60*1000).toISOString()) // Within last hour
+      .single();
+    
+    if (recentEmail) {
+      console.log(`Welcome email already sent to ${email} in the last hour, skipping duplicate`);
+      return res.status(200).json({ 
+        success: true,
+        message: 'Welcome email already sent recently',
+        duplicate: true
+      });
+    }
+
     // Generate magic link for the user
     const { data: { properties }, error } = await supabase.auth.admin.generateLink({
       type: 'magiclink',

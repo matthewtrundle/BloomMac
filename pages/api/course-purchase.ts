@@ -93,23 +93,67 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       // Don't fail the entire purchase if user creation fails
     }
 
-    // Send welcome email with login credentials
+    // Send welcome email with login credentials (with deduplication)
     try {
-      await sendEmail({
-        to: email,
-        subject: `Welcome to ${course.title} - Your Login Details`,
-        template: 'course-welcome',
-        data: {
-          firstName,
-          courseName: course.title,
-          loginEmail: email,
-          tempPassword: tempPassword,
-          loginUrl: `${process.env.NEXT_PUBLIC_APP_URL}/my-courses`,
-          supportEmail: 'jana@bloompsychology.com'
-        }
-      });
+      // Check if we've already sent a welcome email recently
+      const { data: recentEmail } = await supabase
+        .from('email_logs')
+        .select('id')
+        .eq('recipient', email)
+        .eq('type', 'welcome_course')
+        .eq('status', 'sent')
+        .gte('created_at', new Date(Date.now() - 60*60*1000).toISOString()) // Within last hour
+        .single();
+      
+      if (recentEmail) {
+        console.log(`Welcome email already sent to ${email} in the last hour, skipping duplicate`);
+      } else {
+        // Send the email
+        await sendEmail({
+          to: email,
+          subject: `Welcome to ${course.title} - Your Login Details`,
+          template: 'course-welcome',
+          data: {
+            firstName,
+            courseName: course.title,
+            loginEmail: email,
+            tempPassword: tempPassword,
+            loginUrl: `${process.env.NEXT_PUBLIC_APP_URL}/my-courses`,
+            supportEmail: 'jana@bloompsychology.com'
+          }
+        });
+        
+        // Log the email send
+        await supabase
+          .from('email_logs')
+          .insert({
+            recipient: email,
+            type: 'welcome_course',
+            status: 'sent',
+            metadata: {
+              course_id: courseId,
+              course_name: course.title,
+              enrollment_id: enrollment.id
+            }
+          });
+      }
     } catch (emailError) {
       console.error('Email send error:', emailError);
+      
+      // Log failed email
+      await supabase
+        .from('email_logs')
+        .insert({
+          recipient: email,
+          type: 'welcome_course',
+          status: 'failed',
+          error: emailError instanceof Error ? emailError.message : 'Unknown error',
+          metadata: {
+            course_id: courseId,
+            course_name: course.title
+          }
+        });
+      
       // Don't fail the purchase if email fails
     }
 
