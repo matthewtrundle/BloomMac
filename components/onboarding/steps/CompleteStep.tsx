@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { useUser } from '@supabase/auth-helpers-react';
+import { useAuth } from '@/contexts/AuthContext';
 import Button from '@/components/ui/Button';
 import { OnboardingData } from '../OnboardingFlow';
 
@@ -26,7 +26,7 @@ export default function CompleteStep({
   error,
   setError
 }: CompleteStepProps) {
-  const user = useUser();
+  const { user } = useAuth();
 
   const getAccessTypeMessage = () => {
     switch (data.accessType) {
