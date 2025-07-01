@@ -3,8 +3,8 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Script from 'next/script';
-import { useUser } from '@supabase/auth-helpers-react';
-import { useSupabaseClient } from '@supabase/auth-helpers-react';
+import { useAuth } from '@/contexts/AuthContext';
+import { supabase } from '@/lib/supabase';
 import { awardAchievement } from '@/lib/achievements';
 import { getUserPaymentMethods, createAppointmentPaymentIntent } from '@/lib/payment-management';
 import PaymentRequiredModal from './PaymentRequiredModal';
@@ -31,8 +31,7 @@ export default function AppointmentScheduler({
   const [appointments, setAppointments] = useState<any[]>([]);
   const [showPaymentModal, setShowPaymentModal] = useState(false);
   const [paymentMethods, setPaymentMethods] = useState<any[]>([]);
-  const user = useUser();
-  const supabase = useSupabaseClient();
+  const { user } = useAuth();
 
   // Appointment type configurations
   const appointmentConfigs = {

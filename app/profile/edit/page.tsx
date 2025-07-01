@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { useUser } from '@supabase/auth-helpers-react';
-import { useSupabaseClient } from '@supabase/auth-helpers-react';
+import { useAuth } from '@/contexts/AuthContext';
+import { supabase } from '@/lib/supabase';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -52,8 +52,7 @@ interface UserProfile {
 
 export default function EditProfilePage() {
   const router = useRouter();
-  const user = useUser();
-  const supabase = useSupabaseClient();
+  const { user } = useAuth();
   
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);

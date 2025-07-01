@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { useSupabaseClient } from '@supabase/auth-helpers-react';
+import { supabase } from '@/lib/supabase';
 import { getUserAchievements, ACHIEVEMENTS } from '@/lib/achievements';
 import { getCourseStats, getNextLesson } from '@/lib/course-progress';
 import AppointmentScheduler from '@/components/appointments/AppointmentScheduler';
@@ -46,7 +46,6 @@ interface CourseProgress {
 export default function DashboardPage() {
   const { user, loading: authLoading } = useAuth();
   const router = useRouter();
-  const supabase = useSupabaseClient();
   
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [enrollments, setEnrollments] = useState<CourseEnrollment[]>([]);

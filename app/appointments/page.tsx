@@ -3,15 +3,14 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
-import { useSupabaseClient } from '@supabase/auth-helpers-react';
+import { supabase } from '@/lib/supabase';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import AppointmentScheduler from '@/components/appointments/AppointmentScheduler';
 import PaymentMethodManager from '@/components/payments/PaymentMethodManager';
 import { getUserPaymentHistory, getUserPaymentMethods } from '@/lib/payment-management';
 import { Calendar, Clock, AlertCircle, ExternalLink } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Alert, AlertDescription } from '@/components/ui/alert';
+import Button from '@/components/ui/Button';
 
 interface Appointment {
   id: string;
@@ -41,7 +40,6 @@ interface PaymentRecord {
 export default function AppointmentsPage() {
   const { user, loading: authLoading } = useAuth();
   const router = useRouter();
-  const supabase = useSupabaseClient();
   
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [paymentHistory, setPaymentHistory] = useState<PaymentRecord[]>([]);
@@ -293,7 +291,6 @@ function AppointmentCard({
   onUpdate: (appointmentId: string) => void;
 }) {
   const appointmentDate = new Date(appointment.appointment_date);
-  const supabase = useSupabaseClient();
   const [showCancelWarning, setShowCancelWarning] = useState(false);
   const [cancelling, setCancelling] = useState(false);
   const router = useRouter();
@@ -441,9 +438,9 @@ function AppointmentCard({
 
         {/* Cancellation warning */}
         {showCancelWarning && (
-          <Alert className="border-orange-200 bg-orange-50">
-            <AlertCircle className="h-4 w-4 text-orange-600" />
-            <AlertDescription className="text-sm">
+          <div className="border border-orange-200 bg-orange-50 rounded-lg p-4 flex items-start space-x-3">
+            <AlertCircle className="h-4 w-4 text-orange-600 mt-0.5" />
+            <div className="text-sm">
               <strong className="block mb-1">Cancellation Policy:</strong>
               {canCancelWithoutFee ? (
                 <span>You can cancel this appointment without any fees.</span>
@@ -469,8 +466,8 @@ function AppointmentCard({
                   Keep Appointment
                 </Button>
               </div>
-            </AlertDescription>
-          </Alert>
+            </div>
+          </div>
         )}
 
         {/* Session notes for completed appointments */}
