@@ -32,6 +32,9 @@ export default function ConsentStep({
     termsAccepted: data.termsAccepted || false
   });
 
+  // Check if terms were already accepted (e.g., during signup)
+  const termsAlreadyAccepted = data.termsAccepted === true;
+
   const handleConsentChange = (consentType: keyof typeof consents, value: boolean) => {
     setConsents(prev => ({
       ...prev,
@@ -141,40 +144,56 @@ export default function ConsentStep({
             </div>
           </div>
 
-          {/* Terms of Service - Required */}
-          <div className="bg-bloompink/5 rounded-lg p-6 border-2 border-bloompink/20">
-            <div className="flex items-start gap-4">
-              <div className="flex-shrink-0 mt-1">
-                <label className="relative inline-flex items-center cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={consents.termsAccepted}
-                    onChange={(e) => handleConsentChange('termsAccepted', e.target.checked)}
-                    className="sr-only peer"
-                  />
-                  <div className="w-6 h-6 bg-white border-2 border-bloompink peer-focus:ring-2 peer-focus:ring-bloompink rounded peer-checked:bg-bloompink peer-checked:border-bloompink transition-colors">
-                    {consents.termsAccepted && (
-                      <svg className="w-4 h-4 text-white m-0.5" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                      </svg>
-                    )}
-                  </div>
-                </label>
-              </div>
-              
-              <div className="flex-1">
-                <div className="flex items-center gap-2 mb-2">
-                  <h3 className="font-semibold text-bloom-dark">Terms of Service</h3>
-                  <span className="text-xs bg-red-100 text-red-800 px-2 py-1 rounded-full font-medium">Required</span>
+          {/* Terms of Service - Required (only show if not already accepted) */}
+          {!termsAlreadyAccepted && (
+            <div className="bg-bloompink/5 rounded-lg p-6 border-2 border-bloompink/20">
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0 mt-1">
+                  <label className="relative inline-flex items-center cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={consents.termsAccepted}
+                      onChange={(e) => handleConsentChange('termsAccepted', e.target.checked)}
+                      className="sr-only peer"
+                    />
+                    <div className="w-6 h-6 bg-white border-2 border-bloompink peer-focus:ring-2 peer-focus:ring-bloompink rounded peer-checked:bg-bloompink peer-checked:border-bloompink transition-colors">
+                      {consents.termsAccepted && (
+                        <svg className="w-4 h-4 text-white m-0.5" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        </svg>
+                      )}
+                    </div>
+                  </label>
                 </div>
-                <p className="text-sm text-bloom-dark/70">
-                  I have read and agree to the 
-                  <a href="/terms" target="_blank" className="text-bloompink hover:underline"> Terms of Service</a> and 
-                  <a href="/privacy-policy" target="_blank" className="text-bloompink hover:underline"> Privacy Policy</a>.
+                
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-2">
+                    <h3 className="font-semibold text-bloom-dark">Terms of Service</h3>
+                    <span className="text-xs bg-red-100 text-red-800 px-2 py-1 rounded-full font-medium">Required</span>
+                  </div>
+                  <p className="text-sm text-bloom-dark/70">
+                    I have read and agree to the 
+                    <a href="/terms" target="_blank" className="text-bloompink hover:underline"> Terms of Service</a> and 
+                    <a href="/privacy-policy" target="_blank" className="text-bloompink hover:underline"> Privacy Policy</a>.
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Show confirmation if terms already accepted */}
+          {termsAlreadyAccepted && (
+            <div className="bg-green-50 rounded-lg p-4 border border-green-200">
+              <div className="flex items-center gap-3">
+                <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <p className="text-sm text-green-800">
+                  You already accepted our Terms of Service and Privacy Policy during signup.
                 </p>
               </div>
             </div>
-          </div>
+          )}
 
           {/* Marketing Consent - Optional */}
           <div className="bg-bloom-accent/5 rounded-lg p-6 border border-bloom-accent/20">

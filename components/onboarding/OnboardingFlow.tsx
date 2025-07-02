@@ -66,12 +66,18 @@ export default function OnboardingFlow({
   workshopId,
   source = 'direct'
 }: OnboardingFlowProps) {
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
+  const router = useRouter();
   
-  // If user is authenticated and coming from signup, start at profile step
+  // Determine initial step based on auth state and source
   const getInitialStep = (): OnboardingStep => {
+    // If coming from signup, we know user just created account
+    if (source === 'signup') {
+      return 'profile'; // Go to profile to collect additional info (phone, etc)
+    }
+    // If user is already authenticated, skip to profile
     if (user) {
-      return 'profile'; // Always start at profile for authenticated users
+      return 'profile';
     }
     return initialStep;
   };
@@ -86,32 +92,40 @@ export default function OnboardingFlow({
       email: true,
       sms: false,
       push: true
-    }
+    },
+    // If coming from signup, user already accepted terms
+    termsAccepted: source === 'signup' ? true : false
   });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  
-  const router = useRouter();
 
-  // If user is already logged in, skip account creation steps
+  // Update step when auth state changes
   useEffect(() => {
-    if (user) {
-      if (currentStep === 'welcome') {
-        // Skip welcome for authenticated users coming from signup
-        if (source === 'signup') {
-          setCurrentStep('profile');
-        }
-      } else if (currentStep === 'account') {
-        // Always skip account step for authenticated users
+    if (!authLoading && user) {
+      // If user is authenticated and on welcome/account steps, skip to profile
+      if (currentStep === 'welcome' || currentStep === 'account') {
         setCurrentStep('profile');
       }
+      // Update email if available
+      if (user.email && !data.email) {
+        setData(prev => ({ ...prev, email: user.email }));
+      }
     }
-  }, [user, currentStep, source]);
+  }, [user, authLoading, currentStep]);
 
-  // Dynamic steps based on authentication status
-  const steps: OnboardingStep[] = user 
-    ? ['profile', 'access', 'consent', 'complete'] // Skip welcome and account for authenticated users from signup
-    : ['welcome', 'account', 'profile', 'access', 'consent', 'complete'];
+  // Dynamic steps based on authentication status and source
+  const steps: OnboardingStep[] = (() => {
+    if (source === 'signup' && user) {
+      // User just signed up - skip welcome and account, but still need profile for additional info
+      return ['profile', 'consent', 'access', 'complete'];
+    } else if (user) {
+      // Existing authenticated user
+      return ['profile', 'access', 'consent', 'complete'];
+    } else {
+      // New user, not authenticated
+      return ['welcome', 'account', 'profile', 'access', 'consent', 'complete'];
+    }
+  })();
     
   const currentStepIndex = steps.indexOf(currentStep);
   const progress = ((currentStepIndex + 1) / steps.length) * 100;
