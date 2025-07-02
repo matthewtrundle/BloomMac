@@ -143,35 +143,33 @@ const Header = () => {
 
             {/* Centered Navigation Container */}
             <div className="flex items-center justify-center w-full">
-              {/* Left Nav Items */}
-              <nav className="flex items-center space-x-8 mr-8">
-                <Link href="/about" className="text-bloom font-normal hover:text-bloom-blush transition-all duration-500 text-sm tracking-wide">
+              {/* Center Nav Items with proper spacing */}
+              <nav className="flex items-center gap-10">
+                <Link href="/about" className="text-bloom font-medium hover:text-bloom-blush transition-all duration-300 text-sm tracking-wider">
                   ABOUT
                 </Link>
+                
                 <div className="relative group">
-                  <button className="text-bloom font-normal hover:text-bloom-blush transition-all duration-500 flex items-center text-sm tracking-wide">
+                  <button className="text-bloom font-medium hover:text-bloom-blush transition-all duration-300 flex items-center text-sm tracking-wider">
                     SERVICES
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5 ml-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                     </svg>
                   </button>
-                  <div className="absolute left-0 mt-2 w-64 opacity-0 translate-y-2 invisible group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-300 glass-panel-pink rounded-md py-2 shadow-xl z-50">
-                    <div className="px-4 py-3 border-b border-bloom-blush/20">
-                      <span className="text-xs font-medium text-bloom-dark/60 uppercase tracking-wider">Our Services</span>
-                    </div>
+                  <div className="absolute left-0 mt-2 w-64 opacity-0 translate-y-2 invisible group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-300 bg-white rounded-lg py-3 shadow-lg border border-gray-100 z-50">
                     {services.map((service) => (
                       <Link 
                         key={service.id}
                         href={`/services/${service.slug}`}
-                        className="block px-4 py-2 text-sm text-bloom hover:bg-bloom-blush/20 transition duration-300"
+                        className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-bloom transition duration-200"
                       >
                         {service.title}
                       </Link>
                     ))}
-                    <div className="border-t border-bloom-blush/20 my-2"></div>
+                    <div className="border-t border-gray-100 my-2"></div>
                     <Link 
                       href="/virtual-therapy"
-                      className="block px-4 py-2 text-sm text-bloompink font-medium hover:bg-bloom-blush/20 transition duration-300 flex items-center"
+                      className="block px-4 py-2.5 text-sm text-bloom font-medium hover:bg-gray-50 transition duration-200 flex items-center"
                     >
                       <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -180,133 +178,95 @@ const Header = () => {
                     </Link>
                   </div>
                 </div>
+                
                 <div className="relative group">
-                  <button className="text-bloom font-normal hover:text-bloom-blush transition-all duration-500 flex items-center text-sm tracking-wide">
+                  <button className="text-bloom font-medium hover:text-bloom-blush transition-all duration-300 flex items-center text-sm tracking-wider">
                     COURSES
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5 ml-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                     </svg>
                   </button>
-                  <div className="absolute right-0 mt-2 w-64 opacity-0 translate-y-2 invisible group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-300 glass-panel-pink rounded-md py-2 shadow-xl z-50">
-                    <div className="px-4 py-3 border-b border-bloom-blush/20">
-                      <span className="text-xs font-medium text-bloom-dark/60 uppercase tracking-wider">Courses & Resources</span>
-                    </div>
-                    
+                  <div className="absolute left-0 mt-2 w-72 opacity-0 translate-y-2 invisible group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-300 bg-white rounded-lg py-3 shadow-lg border border-gray-100 z-50">
                     <Link 
                       href="/courses"
-                      className="block px-4 py-2 text-sm text-bloom hover:bg-bloom-blush/20 transition duration-300 flex items-center"
+                      className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-bloom transition duration-200 flex items-center font-medium"
                     >
-                      <svg className="w-4 h-4 mr-2 text-bloom-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                       </svg>
                       Browse All Courses
                     </Link>
                     
-                    <div className="px-4 py-2">
-                      <p className="text-xs font-medium text-bloom-dark/60 uppercase">Courses for Moms</p>
-                    </div>
+                    <div className="border-t border-gray-100 my-2"></div>
                     
                     <Link 
                       href="/courses/postpartum-wellness-foundations"
-                      className="block px-4 py-2 pl-8 text-sm text-bloom hover:bg-bloom-blush/20 transition duration-300 flex items-center"
+                      className="block px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-bloom transition duration-200"
                     >
-                      Postpartum Wellness Foundations
+                      Postpartum Wellness
                     </Link>
                     
                     <Link 
                       href="/courses/anxiety-management-new-moms"
-                      className="block px-4 py-2 pl-8 text-sm text-bloom hover:bg-bloom-blush/20 transition duration-300 flex items-center"
+                      className="block px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-bloom transition duration-200"
                     >
-                      Anxiety Management for New Moms
+                      Anxiety Management
                     </Link>
-                    
-                    <div className="px-4 py-2 mt-2">
-                      <p className="text-xs font-medium text-bloom-dark/60 uppercase">Courses for Support Network</p>
-                    </div>
                     
                     <Link 
                       href="/courses/partner-support-bootcamp"
-                      className="block px-4 py-2 pl-8 text-sm text-bloom hover:bg-bloom-blush/20 transition duration-300 flex items-center"
+                      className="block px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-bloom transition duration-200"
                     >
-                      Partner Support Bootcamp
+                      Partner Support
                     </Link>
                     
-                    <div className="border-t border-bloom-blush/20 my-2"></div>
-                    
-                    <div className="px-4 py-2">
-                      <p className="text-xs font-medium text-bloom-dark/60 uppercase">Free Support Guides</p>
-                    </div>
-                    
-                    <Link 
-                      href="/supporting-your-partner"
-                      className="block px-4 py-2 pl-8 text-sm text-bloom hover:bg-bloom-blush/20 transition duration-300 flex items-center"
-                    >
-                      Supporting Your Partner
-                    </Link>
-                    
-                    <Link 
-                      href="/when-family-wants-to-help"
-                      className="block px-4 py-2 pl-8 text-sm text-bloom hover:bg-bloom-blush/20 transition duration-300 flex items-center"
-                    >
-                      When Family Wants to Help
-                    </Link>
+                    <div className="border-t border-gray-100 my-2"></div>
                     
                     <Link 
                       href="/resources"
-                      className="block px-4 py-2 pl-8 text-sm text-bloom hover:bg-bloom-blush/20 transition duration-300 flex items-center"
+                      className="block px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-bloom transition duration-200"
                     >
-                      Resource Library
+                      Free Resources
                     </Link>
-                    
-                    <div className="border-t border-bloom-blush/20 my-2"></div>
-                    
-                    <div className="px-4 py-2">
-                      <p className="text-xs font-medium text-bloom-dark/60 uppercase">My Learning</p>
-                    </div>
                     
                     {user ? (
                       <>
+                        <div className="border-t border-gray-100 my-2"></div>
                         <Link 
                           href="/my-courses"
-                          className="block px-4 py-2 pl-8 text-sm text-bloompink font-medium hover:bg-bloom-blush/20 transition duration-300 flex items-center"
+                          className="block px-4 py-2.5 text-sm text-bloom font-medium hover:bg-gray-50 transition duration-200 flex items-center"
                         >
                           <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                           </svg>
                           My Courses
                         </Link>
-                        <button 
-                          onClick={async () => {
-                            await signOut();
-                          }}
-                          className="block w-full text-left px-4 py-2 pl-8 text-sm text-bloom-dark/60 hover:bg-bloom-blush/20 transition duration-300"
-                        >
-                          Sign Out
-                        </button>
                       </>
                     ) : (
-                      <Link 
-                        href="/auth/login"
-                        className="block px-4 py-2 pl-8 text-sm text-bloom hover:bg-bloom-blush/20 transition duration-300 flex items-center"
-                      >
-                        <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
-                        </svg>
-                        Course Login
-                      </Link>
+                      <>
+                        <div className="border-t border-gray-100 my-2"></div>
+                        <Link 
+                          href="/auth/login?redirect=/my-courses"
+                          className="block px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-bloom transition duration-200"
+                        >
+                          Sign In to Access Courses
+                        </Link>
+                      </>
                     )}
                   </div>
                 </div>
-                <Link href="/contact" className="text-bloom font-normal hover:text-bloom-blush transition-all duration-500 text-sm tracking-wide">
+                
+                <div className="w-px h-4 bg-gray-300"></div>
+                
+                <Link href="/contact" className="text-bloom font-medium hover:text-bloom-blush transition-all duration-300 text-sm tracking-wider">
                   CONTACT
                 </Link>
-                <Link href="/faq" className="text-bloom font-normal hover:text-bloom-blush transition-all duration-500 text-sm tracking-wide">
+                
+                <Link href="/faq" className="text-bloom font-medium hover:text-bloom-blush transition-all duration-300 text-sm tracking-wider">
                   FAQ
                 </Link>
-                <Link 
-                  href="/blog" 
-                  className="text-bloom font-normal hover:text-bloom-blush transition-all duration-500 text-sm tracking-wide"
-                >
+                
+                <Link href="/blog" className="text-bloom font-medium hover:text-bloom-blush transition-all duration-300 text-sm tracking-wider">
                   BLOG
                 </Link>
               </nav>

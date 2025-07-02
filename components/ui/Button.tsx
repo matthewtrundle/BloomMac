@@ -7,7 +7,7 @@ import { twMerge } from 'tailwind-merge';
 import { motion, Variants } from 'framer-motion';
 
 interface ButtonProps {
-  variant?: 'primary' | 'accent' | 'outline' | 'ghost' | 'pink' | 'pink-outline';
+  variant?: 'primary' | 'accent' | 'outline' | 'ghost' | 'pink' | 'pink-outline' | 'sage';
   size?: 'sm' | 'md' | 'lg';
   className?: string;
   href?: string;
@@ -28,7 +28,8 @@ const variantClasses = {
   outline: 'btn-outline',
   ghost: 'text-bloom hover:text-bloompink transition-colors duration-300',
   pink: 'bg-bloompink/90 hover:bg-bloompink text-white font-normal shadow-sm transition-all duration-500 hover:shadow-md',
-  'pink-outline': 'border border-bloompink/70 text-bloompink/90 hover:bg-bloompink/5 transition-all duration-500'
+  'pink-outline': 'border border-bloompink/70 text-bloompink/90 hover:bg-bloompink/5 transition-all duration-500',
+  sage: 'bg-bloom-sage hover:bg-bloom-sage/90 text-white font-normal shadow-sm transition-all duration-500 hover:shadow-md'
 };
 
 const sizeClasses = {
