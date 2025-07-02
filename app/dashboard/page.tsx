@@ -9,6 +9,7 @@ import { supabase } from '@/lib/supabase';
 import { getUserAchievements, ACHIEVEMENTS } from '@/lib/achievements';
 import { getCourseStats, getNextLesson } from '@/lib/course-progress';
 import AppointmentScheduler from '@/components/appointments/AppointmentScheduler';
+import WorkbookProgress from '@/components/dashboard/WorkbookProgress';
 
 interface UserProfile {
   id: string;
@@ -329,6 +330,13 @@ export default function DashboardPage() {
 
           {/* Sidebar */}
           <div className="space-y-6">
+            {/* Workbook Progress */}
+            {enrollments.length > 0 && user && (
+              <WorkbookProgress 
+                userId={user.id} 
+                courseId={enrollments[0].course_id}
+              />
+            )}
             {/* Upcoming Appointment */}
             <motion.div
               initial={{ opacity: 0, x: 20 }}
