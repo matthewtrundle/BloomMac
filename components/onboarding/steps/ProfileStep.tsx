@@ -27,6 +27,10 @@ export default function ProfileStep({
   error, 
   setError 
 }: ProfileStepProps) {
+  const supabase = useSupabaseClient();
+  const user = useUser();
+
+  // Initialize form data
   const [formData, setFormData] = useState({
     firstName: data.firstName || '',
     lastName: data.lastName || '',
@@ -40,8 +44,21 @@ export default function ProfileStep({
     timezone: data.timezone || Intl.DateTimeFormat().resolvedOptions().timeZone
   });
 
-  const supabase = useSupabaseClient();
-  const user = useUser();
+  // Update form data when user metadata becomes available
+  useEffect(() => {
+    if (user?.user_metadata?.full_name && !formData.firstName && !formData.lastName) {
+      const fullName = user.user_metadata.full_name;
+      const nameParts = fullName.trim().split(' ');
+      const extractedFirstName = nameParts[0] || '';
+      const extractedLastName = nameParts.slice(1).join(' ') || '';
+      
+      setFormData(prev => ({
+        ...prev,
+        firstName: extractedFirstName,
+        lastName: extractedLastName
+      }));
+    }
+  }, [user]);
 
   const validateForm = () => {
     if (!formData.firstName.trim()) {
@@ -166,10 +183,10 @@ export default function ProfileStep({
       >
         <div className="text-center mb-8">
           <h2 className="text-3xl font-playfair text-bloom-dark mb-4">
-            Tell Us About Yourself
+            Complete Your Profile
           </h2>
           <p className="text-bloom-dark/70">
-            This helps us personalize your experience and provide better support
+            {formData.firstName ? `Welcome ${formData.firstName}! Let's add some additional information to personalize your experience.` : 'This helps us personalize your experience and provide better support'}
           </p>
         </div>
 
@@ -180,8 +197,19 @@ export default function ProfileStep({
               <svg className="w-5 h-5 text-bloom-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
               </svg>
-              Basic Information
+              {formData.firstName && formData.lastName ? 'Your Information' : 'Basic Information'}
             </h3>
+            
+            {formData.firstName && formData.lastName && (
+              <div className="mb-4 p-3 bg-bloom-sage-50/50 rounded-lg">
+                <p className="text-sm text-bloom-dark/70 flex items-center gap-2">
+                  <svg className="w-4 h-4 text-bloom-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  We already have your name from signup
+                </p>
+              </div>
+            )}
             
             <div className="grid md:grid-cols-2 gap-4">
               <div>
@@ -193,7 +221,9 @@ export default function ProfileStep({
                   id="firstName"
                   value={formData.firstName}
                   onChange={(e) => updateFormData('firstName', e.target.value)}
-                  className="w-full px-4 py-3 border border-bloom-sage/20 rounded-lg focus:ring-2 focus:ring-bloompink focus:border-transparent transition-colors"
+                  className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-bloompink focus:border-transparent transition-colors ${
+                    user?.user_metadata?.full_name ? 'bg-bloom-sage-50/20 border-bloom-sage/30' : 'border-bloom-sage/20'
+                  }`}
                   placeholder="Your first name"
                   required
                 />
@@ -208,7 +238,9 @@ export default function ProfileStep({
                   id="lastName"
                   value={formData.lastName}
                   onChange={(e) => updateFormData('lastName', e.target.value)}
-                  className="w-full px-4 py-3 border border-bloom-sage/20 rounded-lg focus:ring-2 focus:ring-bloompink focus:border-transparent transition-colors"
+                  className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-bloompink focus:border-transparent transition-colors ${
+                    user?.user_metadata?.full_name ? 'bg-bloom-sage-50/20 border-bloom-sage/30' : 'border-bloom-sage/20'
+                  }`}
                   placeholder="Your last name"
                   required
                 />
