@@ -174,8 +174,8 @@ const Header = () => {
 
             {/* Centered Navigation Container */}
             <div className="flex items-center justify-center w-full">
-              {/* Center Nav Items with proper spacing */}
-              <nav className="flex items-center gap-10">
+              {/* Center Nav Items with tighter spacing */}
+              <nav className="flex items-center gap-6 mr-16">
                 <Link href="/about" className="text-bloom font-medium hover:text-bloom-blush transition-all duration-300 text-sm tracking-wider">
                   ABOUT
                 </Link>

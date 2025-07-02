@@ -126,13 +126,13 @@ export default function Home() {
         <div className="absolute bottom-0 left-20 w-96 h-96 bg-[#1e3a5f]/5 rounded-full"></div>
         
         <div className="container mx-auto px-6 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-12 items-center min-h-[70vh] md:min-h-[80vh] py-20">
+          <div className="grid lg:grid-cols-2 gap-12 items-center min-h-[70vh] md:min-h-[80vh] py-12">
             {/* Left column - Text content */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="xl:pl-12"
+              className="xl:pl-12 pt-4"
             >
               {/* Small accent */}
               <div className="flex items-center gap-2 mb-6">
