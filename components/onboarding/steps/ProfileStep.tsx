@@ -179,14 +179,24 @@ export default function ProfileStep({
       if (!response.ok) {
         console.error('Profile creation error details:', result);
         
-        if (result.error?.includes('Unauthorized')) {
-          setError('Session expired. Please log in again.');
+        if (result.code === 'AUTH_REQUIRED' || result.error?.includes('Session expired')) {
+          setError('Your session has expired. Redirecting to login...');
           setTimeout(() => {
             window.location.href = '/auth/login';
           }, 2000);
+        } else if (response.status === 400) {
+          setError(`Validation Error: ${result.error || 'Please check your information'}`);
+        } else if (response.status === 500) {
+          setError(`Server Error: ${result.error || 'Please try again in a moment'}`);
         } else {
-          setError(`Failed to save profile: ${result.error || 'Unknown error'}`);
+          setError(`Error (${response.status}): ${result.error || 'Something went wrong'}`);
         }
+        
+        // If there are additional details, log them
+        if (result.details) {
+          console.error('Additional error details:', result.details);
+        }
+        
         return;
       }
       
@@ -217,8 +227,15 @@ export default function ProfileStep({
       // Move to next step
       nextStep();
     } catch (err: any) {
-      setError('Failed to save profile. Please try again.');
-      console.error('Profile save error:', err);
+      console.error('Profile save network error:', err);
+      
+      if (err.name === 'TypeError' && err.message.includes('fetch')) {
+        setError('Network connection failed. Please check your internet and try again.');
+      } else if (err.name === 'AbortError') {
+        setError('Request was cancelled. Please try again.');
+      } else {
+        setError(`Network Error: ${err.message || 'Unable to reach server'}`);
+      }
     } finally {
       setIsLoading(false);
     }
