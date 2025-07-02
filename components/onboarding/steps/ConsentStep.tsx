@@ -26,14 +26,14 @@ export default function ConsentStep({
   error,
   setError
 }: ConsentStepProps) {
+  // Check if terms were already accepted (e.g., during signup)
+  const termsAlreadyAccepted = data.termsAccepted === true;
+
   const [consents, setConsents] = useState({
     hipaaConsent: data.hipaaConsent || false,
     marketingConsent: data.marketingConsent || false,
-    termsAccepted: data.termsAccepted || false
+    termsAccepted: termsAlreadyAccepted || data.termsAccepted || false
   });
-
-  // Check if terms were already accepted (e.g., during signup)
-  const termsAlreadyAccepted = data.termsAccepted === true;
 
   const handleConsentChange = (consentType: keyof typeof consents, value: boolean) => {
     setConsents(prev => ({
@@ -65,19 +65,28 @@ export default function ConsentStep({
       updateData(consents);
 
       // Track consent completion
-      await fetch('/api/analytics/track', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          event: 'consent_completed',
-          data: {
-            hipaa_consent: consents.hipaaConsent,
-            marketing_consent: consents.marketingConsent,
-            terms_accepted: consents.termsAccepted,
-            onboarding_step: 'consent'
-          }
-        })
-      });
+      try {
+        const response = await fetch('/api/analytics/track', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            event: 'consent_completed',
+            data: {
+              hipaa_consent: consents.hipaaConsent,
+              marketing_consent: consents.marketingConsent,
+              terms_accepted: consents.termsAccepted,
+              onboarding_step: 'consent'
+            }
+          })
+        });
+
+        if (!response.ok) {
+          console.error('Analytics tracking failed:', await response.text());
+        }
+      } catch (analyticsError) {
+        console.error('Analytics error:', analyticsError);
+        // Don't block on analytics errors
+      }
 
       nextStep();
     } catch (err) {

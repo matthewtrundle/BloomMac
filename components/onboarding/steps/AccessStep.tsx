@@ -96,41 +96,56 @@ export default function AccessStep({
       updateData({ accessType: selectedAccess });
 
       // Track access type selection
-      await fetch('/api/analytics/track', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          event: 'access_type_selected',
-          data: {
-            access_type: selectedAccess,
-            onboarding_step: 'access'
-          }
-        })
-      });
-
-      // If waitlist, add to subscribers table
-      if (selectedAccess === 'waitlist' && data.email) {
-        const response = await fetch('/api/newsletter-signup', {
+      try {
+        const analyticsResponse = await fetch('/api/analytics/track', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            email: data.email,
-            firstName: data.firstName || '',
-            lastName: data.lastName || '',
-            source: 'onboarding_waitlist'
+            event: 'access_type_selected',
+            data: {
+              access_type: selectedAccess,
+              onboarding_step: 'access'
+            }
           })
         });
 
-        if (!response.ok) {
-          const errorData = await response.json();
-          console.error('Newsletter signup error:', errorData);
-          // Don't throw error here, just log it - we don't want to block onboarding
+        if (!analyticsResponse.ok) {
+          console.error('Analytics tracking failed:', await analyticsResponse.text());
+        }
+      } catch (analyticsError) {
+        console.error('Analytics error:', analyticsError);
+        // Don't block on analytics errors
+      }
+
+      // If waitlist, add to subscribers table
+      if (selectedAccess === 'waitlist' && data.email) {
+        try {
+          const response = await fetch('/api/newsletter-signup', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              email: data.email,
+              firstName: data.firstName || '',
+              lastName: data.lastName || '',
+              source: 'onboarding_waitlist'
+            })
+          });
+
+          if (!response.ok) {
+            const errorData = await response.json();
+            console.error('Newsletter signup error:', errorData);
+            // Don't throw error here, just log it - we don't want to block onboarding
+          }
+        } catch (newsletterError) {
+          console.error('Newsletter signup exception:', newsletterError);
+          // Don't block on newsletter errors
         }
       }
 
       nextStep();
-    } catch (err) {
-      setError('Failed to save your selection. Please try again.');
+    } catch (err: any) {
+      const errorMessage = err?.message || 'Failed to save your selection. Please try again.';
+      setError(errorMessage);
       console.error('Access selection error:', err);
     } finally {
       setIsLoading(false);
