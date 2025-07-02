@@ -62,6 +62,11 @@ function makeRequest(path, method = 'GET', data = null, headers = {}) {
       options.headers['Content-Length'] = Buffer.byteLength(JSON.stringify(data));
     }
 
+    // Handle localhost IPv4/IPv6 issues
+    if (options.hostname === 'localhost') {
+      options.hostname = '127.0.0.1';
+    }
+    
     const req = client.request(options, (res) => {
       let responseData = '';
       
