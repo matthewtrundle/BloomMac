@@ -7,6 +7,7 @@ import { ChevronLeft, BookOpen, Play, CheckCircle } from 'lucide-react';
 import CourseAuthWrapper from '@/components/CourseAuthWrapper';
 import WorkbookContainer from '@/components/workbook/WorkbookContainer';
 import { enhancedCourseData } from '@/lib/data/enhanced-course-content';
+import { transformWorkbookData } from '@/lib/workbook-utils';
 
 // We'll render the video content inline instead of importing the page directly
 
@@ -18,7 +19,8 @@ function LessonWithWorkbook() {
   // Get workbook data for Week 1
   const courseData = enhancedCourseData['postpartum-wellness-foundations'];
   const week1Data = courseData.curriculum[0]; // Week 1
-  const workbookData = week1Data.workbook;
+  const rawWorkbookData = week1Data.workbook;
+  const workbookData = transformWorkbookData(rawWorkbookData);
 
   const handleWorkbookComplete = () => {
     setWorkbookCompleted(true);

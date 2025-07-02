@@ -8,6 +8,7 @@ import Button from '@/components/ui/Button';
 import QuestionRenderer from './QuestionRenderer';
 import { WorkbookProgress } from './WorkbookProgress';
 import { debounce } from 'lodash';
+import { supabase } from '@/lib/supabase';
 
 interface WorkbookQuestion {
   id: string;
@@ -82,9 +83,12 @@ export default function WorkbookContainer({
     if (!user) return;
 
     try {
+      // Get session for auth token
+      const { data: { session } } = await supabase.auth.getSession();
+      
       const response = await fetch(`/api/workbook/${weekNumber}`, {
         headers: {
-          'Authorization': `Bearer ${await user.getIdToken()}`,
+          'Authorization': `Bearer ${session?.access_token}`,
         },
       });
 
@@ -118,11 +122,14 @@ export default function WorkbookContainer({
       setIsSaving(true);
       
       try {
+        // Get session for auth token
+        const { data: { session } } = await supabase.auth.getSession();
+        
         const response = await fetch('/api/workbook/save', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${await user.getIdToken()}`,
+            'Authorization': `Bearer ${session?.access_token}`,
           },
           body: JSON.stringify({
             courseId,
@@ -226,11 +233,14 @@ export default function WorkbookContainer({
     setIsSubmitting(true);
     
     try {
+      // Get session for auth token
+      const { data: { session } } = await supabase.auth.getSession();
+      
       const response = await fetch(`/api/workbook/${weekNumber}/submit`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${await user.getIdToken()}`,
+          'Authorization': `Bearer ${session?.access_token}`,
         },
         body: JSON.stringify({
           courseId,
