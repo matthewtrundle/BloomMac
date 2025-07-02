@@ -31,7 +31,20 @@ export default function LoginPage() {
         await signIn(email, password);
       }
     } catch (err: any) {
-      setError(err.message || 'An error occurred during login');
+      // Handle specific error for non-existent users trying magic link
+      if (err.message?.includes('User not found') || err.message?.includes('Invalid login credentials')) {
+        if (useMagicLink) {
+          setError('No account found with this email. Please sign up first to create an account.');
+          // Optionally redirect to signup after a delay
+          setTimeout(() => {
+            router.push(`/auth/signup?email=${encodeURIComponent(email)}`);
+          }, 3000);
+        } else {
+          setError('Invalid email or password');
+        }
+      } else {
+        setError(err.message || 'An error occurred during login');
+      }
       setLoading(false);
     }
   };

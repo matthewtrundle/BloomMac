@@ -9,7 +9,11 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
 export default function SignUpPage() {
-  const [email, setEmail] = useState('');
+  const router = useRouter();
+  const searchParams = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '');
+  const emailFromUrl = searchParams.get('email') || '';
+  
+  const [email, setEmail] = useState(emailFromUrl);
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [fullName, setFullName] = useState('');
@@ -19,7 +23,6 @@ export default function SignUpPage() {
   const [acceptTerms, setAcceptTerms] = useState(false);
   
   const { signUp } = useAuth();
-  const router = useRouter();
 
   const passwordRequirements = [
     { met: password.length >= 8, text: 'At least 8 characters' },
