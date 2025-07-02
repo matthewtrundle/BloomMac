@@ -54,17 +54,26 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setLoading(true);
         const result = await authHelpers.signUp(email, password, fullName);
         
+        // Check if email confirmation is required
+        if (result?.user && !result?.session) {
+          // User was created but no session (email confirmation required)
+          setLoading(false);
+          router.push('/auth/check-email?type=signup');
+          return;
+        }
+        
         // Wait for the auth state to update
-        if (result?.user) {
+        if (result?.user && result?.session) {
           setUser(result.user);
           // Small delay to ensure session is established
           await new Promise(resolve => setTimeout(resolve, 500));
+          setLoading(false);
+          // Redirect to onboarding flow for confirmed users
+          router.push('/onboarding?source=signup');
+        } else {
+          setLoading(false);
+          throw new Error('Signup failed - no user data returned');
         }
-        
-        setLoading(false);
-        
-        // Redirect to onboarding flow for new users
-        router.push('/onboarding?source=signup');
       } catch (error) {
         setLoading(false);
         throw error;

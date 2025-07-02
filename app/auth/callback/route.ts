@@ -29,7 +29,7 @@ export async function GET(request: Request) {
     const supabase = createRouteHandlerClient({ cookies });
     
     try {
-      const { error: sessionError } = await supabase.auth.exchangeCodeForSession(code);
+      const { data, error: sessionError } = await supabase.auth.exchangeCodeForSession(code);
       
       if (sessionError) {
         console.error('Error exchanging code for session:', sessionError);
@@ -41,6 +41,22 @@ export async function GET(request: Request) {
         return NextResponse.redirect(
           new URL(`/auth/error?${errorParams.toString()}`, requestUrl.origin)
         );
+      }
+
+      // Check if this is a new user who needs onboarding
+      if (data?.user) {
+        const { data: profile } = await supabase
+          .from('user_profiles')
+          .select('id')
+          .eq('id', data.user.id)
+          .single();
+
+        // If no profile exists, this is a new user - redirect to onboarding
+        if (!profile) {
+          return NextResponse.redirect(
+            new URL('/onboarding?source=signup', requestUrl.origin)
+          );
+        }
       }
     } catch (error) {
       console.error('Error exchanging code for session:', error);
