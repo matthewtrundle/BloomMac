@@ -7,6 +7,8 @@
     "build": "next build",
     "start": "next start -p ${PORT:-3000}",
     "lint": "next lint",
+    "test:onboarding": "node scripts/test-onboarding-api.js",
+    "test:onboarding:browser": "node scripts/test-onboarding-flow.js",
     "analyze": "node scripts/smart-presentation-analyzer.js",
     "dev:prod": "npm run build && npm start",
     "start:3012": "PORT=3012 npm start",
