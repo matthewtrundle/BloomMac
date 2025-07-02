@@ -14,15 +14,52 @@ export default async function handler(
     console.log('🔍 API - Checking authentication...');
     console.log('🔍 Headers:', {
       authorization: req.headers.authorization ? 'Present' : 'Missing',
-      cookie: req.headers.cookie ? 'Present' : 'Missing'
+      cookie: req.headers.cookie ? 'Present' : 'Missing',
+      userAgent: req.headers['user-agent']?.includes('Chrome') ? 'Chrome' : 'Other'
     });
     
-    // Get the authenticated user
-    const supabaseAuth = createServerSupabaseClient({ req, res });
-    const { data: { user }, error: authError } = await supabaseAuth.auth.getUser();
+    let user = null;
+    let authError = null;
+    
+    // First try with Authorization header (better for incognito)
+    if (req.headers.authorization) {
+      const token = req.headers.authorization.replace('Bearer ', '');
+      console.log('🔍 Trying Authorization header...');
+      
+      const supabaseService = createClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.SUPABASE_SERVICE_ROLE_KEY!
+      );
+      
+      const { data: { user: tokenUser }, error: tokenError } = await supabaseService.auth.getUser(token);
+      
+      if (tokenUser && !tokenError) {
+        user = tokenUser;
+        console.log('✅ Auth successful via Authorization header');
+      } else {
+        console.log('❌ Authorization header auth failed:', tokenError?.message);
+        authError = tokenError;
+      }
+    }
+    
+    // Fallback to cookie-based auth
+    if (!user) {
+      console.log('🔍 Trying cookie-based auth...');
+      const supabaseAuth = createServerSupabaseClient({ req, res });
+      const result = await supabaseAuth.auth.getUser();
+      user = result.data.user;
+      authError = result.error;
+      
+      if (user) {
+        console.log('✅ Auth successful via cookies');
+      } else {
+        console.log('❌ Cookie auth failed:', authError?.message);
+      }
+    }
 
-    console.log('🔍 API - Auth check:', { 
+    console.log('🔍 API - Final auth result:', { 
       hasUser: !!user, 
+      authMethod: req.headers.authorization ? 'token' : 'cookie',
       authError: authError?.message, 
       userId: user?.id,
       userEmail: user?.email 

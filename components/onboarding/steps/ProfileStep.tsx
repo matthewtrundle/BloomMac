@@ -196,6 +196,11 @@ export default function ProfileStep({
   const handleSaveProfile = async () => {
     setError(null);
     console.log('🚀 Starting profile save...');
+    console.log('🔍 Browser info:', {
+      isIncognito: navigator.cookieEnabled && !window.localStorage.getItem('test'),
+      cookiesEnabled: navigator.cookieEnabled,
+      userAgent: navigator.userAgent.includes('Chrome') ? 'Chrome' : 'Other'
+    });
     
     if (!validateForm()) {
       console.log('❌ Form validation failed');
@@ -205,35 +210,31 @@ export default function ProfileStep({
     setIsLoading(true);
 
     try {
-      // Check auth state thoroughly
-      console.log('🔍 Auth check:', { authLoading, hasUser: !!user, userId: user?.id });
+      // Force session refresh first in incognito mode
+      console.log('🔍 Getting fresh session...');
+      const { data: { session: freshSession }, error: sessionError } = await supabase.auth.getSession();
       
-      if (authLoading) {
-        setError('⏳ Loading user session...');
-        console.log('⏳ Auth still loading');
-        setIsLoading(false);
-        return;
-      }
-
-      if (!user) {
-        console.error('❌ No user found in session');
-        setError('Session expired. Checking session...');
+      console.log('🔍 Fresh session check:', { 
+        hasSession: !!freshSession, 
+        sessionUserId: freshSession?.user?.id,
+        sessionError,
+        expiresAt: freshSession?.expires_at ? new Date(freshSession.expires_at * 1000).toISOString() : 'N/A',
+        accessToken: freshSession?.access_token ? 'Present' : 'Missing'
+      });
+      
+      if (!freshSession || sessionError) {
+        console.error('❌ No fresh session available');
         
-        // Check Supabase session directly
-        const { data: { session }, error: sessionError } = await supabase.auth.getSession();
-        console.log('🔍 Direct session check:', { 
-          hasSession: !!session, 
-          sessionUserId: session?.user?.id,
-          sessionError 
-        });
+        // Try to refresh the session
+        console.log('🔄 Attempting session refresh...');
+        const { data: refreshData, error: refreshError } = await supabase.auth.refreshSession();
         
-        if (session?.user) {
-          console.log('✅ Found session, retrying...');
-          setError(null);
-          // Don't return, continue with the session user
+        if (refreshData.session) {
+          console.log('✅ Session refreshed successfully');
+          setError('✅ Session refreshed, continuing...');
         } else {
-          console.error('❌ No valid session found, redirecting to login');
-          setError('Session expired. Redirecting to login...');
+          console.error('❌ Session refresh failed:', refreshError);
+          setError('Session expired. Please log in again.');
           setIsLoading(false);
           setTimeout(() => {
             window.location.href = '/auth/login';
@@ -241,10 +242,25 @@ export default function ProfileStep({
           return;
         }
       }
+      
+      // Use the fresh session user or fallback to context user
+      const currentUser = freshSession?.user || user;
+      
+      if (!currentUser) {
+        console.error('❌ No user available after session checks');
+        setError('Unable to authenticate. Please log in again.');
+        setIsLoading(false);
+        setTimeout(() => {
+          window.location.href = '/auth/login';
+        }, 2000);
+        return;
+      }
+      
+      console.log('✅ Using user:', { id: currentUser.id, email: currentUser.email });
 
       // Create or update user profile
       const profileData = {
-        id: user.id,
+        id: currentUser.id,
         first_name: formData.firstName.trim(),
         last_name: formData.lastName.trim(),
         phone: formData.phone.trim() || null,
