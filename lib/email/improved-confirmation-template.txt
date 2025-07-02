@@ -1,0 +1,30 @@
+Welcome to Your Wellness Journey at Bloom Psychology! 🌸
+
+Hi there!
+
+I'm so glad you're here! Taking the first step toward wellness is brave, and I'm honored to support you on this journey.
+
+Let's get your account set up so you can access all the resources and support waiting for you.
+
+CONFIRM YOUR EMAIL:
+{{ .ConfirmationURL }}
+
+What happens next? ✨
+- Access your personalized wellness dashboard
+- Browse our resource library and self-care guides
+- Book your first appointment when you're ready
+- Join our supportive community of women
+
+"Remember, asking for help is not a sign of weakness, but a sign of strength. You deserve to feel supported, understood, and empowered."
+— Dr. Jana Rundle
+
+Need help? We're here for you.
+Email: support@bloompsychologynorthaustin.com
+
+Follow us:
+Instagram: @bloompsychology.atx
+YouTube: @BloomPsychology
+
+© 2025 Bloom Psychology | Austin, TX
+
+If you didn't create an account with us, please ignore this email.
