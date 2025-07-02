@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useAuth } from '@/contexts/AuthContext';
-import { supabaseAuth } from '@/lib/supabase-auth';
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import Button from '@/components/ui/Button';
 import { OnboardingData } from '../OnboardingFlow';
 
@@ -28,7 +28,7 @@ export default function ProfileStep({
   error, 
   setError 
 }: ProfileStepProps) {
-  const supabase = supabaseAuth;
+  const supabase = createClientComponentClient();
   const { user, loading: authLoading } = useAuth();
   
   // Debug logging
@@ -164,33 +164,32 @@ export default function ProfileStep({
 
       console.log('Attempting to save profile data:', profileData);
       
-      const { data: profileResult, error: profileError } = await supabase
-        .from('user_profiles')
-        .upsert(profileData, { onConflict: 'id' });
+      // Use API endpoint to bypass RLS issues
+      const response = await fetch('/api/profile/save', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(profileData),
+      });
 
-      if (profileError) {
-        console.error('Profile creation error details:', {
-          error: profileError,
-          message: profileError.message,
-          code: profileError.code,
-          details: profileError.details,
-          hint: profileError.hint
-        });
+      const result = await response.json();
+
+      if (!response.ok) {
+        console.error('Profile creation error details:', result);
         
-        // More specific error messages based on common issues
-        if (profileError.code === '42P01') {
-          setError('Profile table not found. Please contact support.');
-        } else if (profileError.code === '23505') {
-          setError('Profile already exists. Please try refreshing the page.');
-        } else if (profileError.message?.includes('permission')) {
-          setError('Permission denied. Please try logging in again.');
+        if (result.error?.includes('Unauthorized')) {
+          setError('Session expired. Please log in again.');
+          setTimeout(() => {
+            window.location.href = '/auth/login';
+          }, 2000);
         } else {
-          setError(`Failed to save profile: ${profileError.message || 'Unknown error'}`);
+          setError(`Failed to save profile: ${result.error || 'Unknown error'}`);
         }
         return;
       }
       
-      console.log('Profile saved successfully:', profileResult);
+      console.log('Profile saved successfully:', result);
 
       // Track profile completion
       try {
