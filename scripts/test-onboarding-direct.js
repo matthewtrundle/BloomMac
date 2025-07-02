@@ -109,18 +109,36 @@ async function createTestUser() {
   const email = `test_${Date.now()}@example.com`;
   const password = 'TestPass123!';
   
-  const { data: user, error } = await supabase.auth.signUp({
+  // For testing, we'll create a user directly in the database
+  // to bypass email confirmation
+  const { data: authUser, error: authError } = await supabase.auth.admin.createUser({
     email,
     password,
-    options: {
-      data: {
-        full_name: 'Test User'
-      }
+    email_confirm: true, // Auto-confirm email
+    user_metadata: {
+      full_name: 'Test User'
     }
   });
   
-  if (error) throw error;
-  return user.user;
+  if (authError) {
+    // Fallback to regular signup if admin API not available
+    log.warning('Admin API not available, using regular signup');
+    const { data: user, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: {
+          full_name: 'Test User'
+        },
+        emailRedirectTo: 'http://localhost:3000' // Prevent email send
+      }
+    });
+    
+    if (error) throw error;
+    return user.user;
+  }
+  
+  return authUser.user;
 }
 
 async function testProfileSave(testCase, userId) {
