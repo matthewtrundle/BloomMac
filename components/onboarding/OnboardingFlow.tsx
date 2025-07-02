@@ -66,8 +66,19 @@ export default function OnboardingFlow({
   workshopId,
   source = 'direct'
 }: OnboardingFlowProps) {
-  const [currentStep, setCurrentStep] = useState<OnboardingStep>(initialStep);
+  const { user } = useAuth();
+  
+  // If user is authenticated and coming from signup, start at profile step
+  const getInitialStep = (): OnboardingStep => {
+    if (user && source === 'signup') {
+      return 'profile';
+    }
+    return initialStep;
+  };
+  
+  const [currentStep, setCurrentStep] = useState<OnboardingStep>(getInitialStep());
   const [data, setData] = useState<OnboardingData>({
+    email: user?.email, // Prefill email if user is authenticated
     courseId,
     workshopId,
     timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
@@ -81,7 +92,6 @@ export default function OnboardingFlow({
   const [error, setError] = useState<string | null>(null);
   
   const router = useRouter();
-  const { user } = useAuth();
 
   // If user is already logged in, skip account creation steps
   useEffect(() => {
@@ -98,7 +108,11 @@ export default function OnboardingFlow({
     }
   }, [user, currentStep, source]);
 
-  const steps: OnboardingStep[] = ['welcome', 'account', 'profile', 'access', 'consent', 'complete'];
+  // Dynamic steps based on authentication status
+  const steps: OnboardingStep[] = user 
+    ? ['welcome', 'profile', 'access', 'consent', 'complete'] // Skip account for authenticated users
+    : ['welcome', 'account', 'profile', 'access', 'consent', 'complete'];
+    
   const currentStepIndex = steps.indexOf(currentStep);
   const progress = ((currentStepIndex + 1) / steps.length) * 100;
 
