@@ -322,33 +322,29 @@ const Header = () => {
                   <Button 
                     href="/book"
                     variant="pink"
-                    size="sm"
+                    size="md"
+                    className="shadow-sm hover:shadow-md"
                   >
-                    Book Now
+                    Book Session
                   </Button>
                 </div>
               ) : (
-                <div className="flex items-center gap-2">
-                  <Link
+                <div className="flex items-center gap-3">
+                  <Button
                     href="/auth/login"
-                    className="text-sm font-medium text-bloom-dark hover:text-bloom-sage transition-colors px-3"
+                    variant="ghost"
+                    size="sm"
+                    className="text-bloom-dark hover:text-bloom-sage border border-gray-200 hover:border-bloom-sage/30"
                   >
                     Login
-                  </Link>
-                  <Button
-                    href="/auth/signup"
-                    variant="sage"
-                    size="sm"
-                    className="bg-bloom-sage text-white hover:bg-bloom-sage/90"
-                  >
-                    Start Your Journey
                   </Button>
                   <Button 
                     href="/book"
                     variant="pink"
-                    size="sm"
+                    size="md"
+                    className="shadow-sm hover:shadow-md"
                   >
-                    Book Now
+                    Book Free Consultation
                   </Button>
                 </div>
               )}
