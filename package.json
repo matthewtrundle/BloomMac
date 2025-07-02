@@ -9,6 +9,8 @@
     "lint": "next lint",
     "test:onboarding": "node scripts/test-onboarding-api.js",
     "test:onboarding:browser": "node scripts/test-onboarding-flow.js",
+    "test:onboarding:full": "node scripts/test-onboarding-comprehensive.js",
+    "test:onboarding:direct": "node scripts/test-onboarding-direct.js",
     "analyze": "node scripts/smart-presentation-analyzer.js",
     "dev:prod": "npm run build && npm start",
     "start:3012": "PORT=3012 npm start",
