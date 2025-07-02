@@ -378,6 +378,7 @@ export default function ProfileStep({
                 onChange={(e) => updateFormData('numberOfChildren', parseInt(e.target.value))}
                 className="w-full px-4 py-3 border border-bloom-sage/20 rounded-lg focus:ring-2 focus:ring-bloompink focus:border-transparent transition-colors"
               >
+                <option value={0}>Expecting first child</option>
                 {[1, 2, 3, 4, 5, 6].map(num => (
                   <option key={num} value={num}>
                     {num} {num === 1 ? 'child' : 'children'}
