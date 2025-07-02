@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react';
+import { useSupabaseClient } from '@supabase/auth-helpers-react';
+import { useAuth } from '@/contexts/AuthContext';
 import Button from '@/components/ui/Button';
 import { OnboardingData } from '../OnboardingFlow';
 
@@ -28,7 +29,7 @@ export default function ProfileStep({
   setError 
 }: ProfileStepProps) {
   const supabase = useSupabaseClient();
-  const user = useUser();
+  const { user, loading: authLoading } = useAuth();
 
   // Initialize form data
   const [formData, setFormData] = useState({
@@ -111,10 +112,21 @@ export default function ProfileStep({
     setIsLoading(true);
 
     try {
+      if (authLoading) {
+        setError('Loading user session...');
+        console.log('Auth still loading');
+        setIsLoading(false);
+        return;
+      }
+
       if (!user) {
         setError('Session expired. Please sign in again.');
-        console.error('No user found in session');
+        console.error('No user found in session', { authLoading, user });
         setIsLoading(false);
+        // Redirect to login after a delay
+        setTimeout(() => {
+          window.location.href = '/auth/login';
+        }, 2000);
         return;
       }
 
@@ -180,6 +192,18 @@ export default function ProfileStep({
     setFormData(prev => ({ ...prev, [field]: value }));
     setError(null); // Clear error when user starts typing
   };
+
+  // Show loading state while auth is loading
+  if (authLoading) {
+    return (
+      <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12">
+        <div className="text-center">
+          <div className="animate-spin h-12 w-12 border-4 border-bloom-sage border-t-transparent rounded-full mx-auto mb-4"></div>
+          <p className="text-bloom-dark/70">Loading your session...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12">
@@ -406,7 +430,7 @@ export default function ProfileStep({
               variant="pink"
               size="lg"
               className="w-full"
-              disabled={isLoading}
+              disabled={isLoading || authLoading}
             >
               {isLoading ? (
                 <div className="flex items-center gap-2">
