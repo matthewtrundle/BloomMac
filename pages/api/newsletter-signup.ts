@@ -125,6 +125,14 @@ export default async function handler(
           throw reactivateError;
         }
         
+        // Send welcome email for reactivated subscribers too
+        try {
+          await sendWelcomeEmail(reactivated);
+        } catch (emailError) {
+          console.error('Failed to send welcome email to reactivated subscriber:', emailError);
+          // Continue - subscriber is still reactivated
+        }
+        
         return res.status(200).json({
           success: true,
           message: 'Welcome back! You\'ve been resubscribed to our newsletter.',
