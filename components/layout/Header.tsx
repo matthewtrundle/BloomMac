@@ -6,7 +6,6 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { services } from '@/lib/data/services';
 import Button from '@/components/ui/Button';
-import DarkModeToggle from '@/components/ui/DarkModeToggle';
 import { useAuth } from '@/contexts/AuthContext';
 
 const Header = () => {
@@ -79,7 +78,7 @@ const Header = () => {
         <div className="absolute inset-0 bg-white/5"></div>
         <div className="container mx-auto px-4 py-2.5 relative">
           <div className="flex items-center justify-between">
-            {/* Left side - Social icons and dark mode */}
+            {/* Left side - Social icons */}
             <div className="flex items-center gap-4">
               <Link 
                 href="https://www.instagram.com/bloompsychology.atx/" 
@@ -93,18 +92,16 @@ const Header = () => {
                 </svg>
               </Link>
               <Link 
-                href="https://www.facebook.com/profile.php?id=61564681768097" 
+                href="https://www.youtube.com/@BloomPsychology" 
                 className="text-white/70 hover:text-white transition duration-300"
-                aria-label="Visit our Facebook"
+                aria-label="Visit our YouTube"
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
                 </svg>
               </Link>
-              <div className="w-px h-4 bg-white/30"></div>
-              <DarkModeToggle />
             </div>
             
             {/* Center - Announcement */}
@@ -146,7 +143,7 @@ const Header = () => {
       
       {/* Main Navigation */}
       <div className={`transition-all duration-300 ${isScrolled ? 'py-4 bg-white shadow-md' : 'py-6 bg-white'}`}>
-        <div className="container mx-auto px-4 md:px-6 lg:px-8">
+        <div className="container mx-auto px-4 md:px-6 lg:px-8 xl:px-12">
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center justify-between relative">
             {/* Left Brand Logo - Larger and Better Positioned */}
@@ -306,8 +303,8 @@ const Header = () => {
               </nav>
             </div>
             
-            {/* Right Actions - Absolute positioned */}
-            <div className="absolute right-0 flex items-center space-x-4">
+            {/* Right Actions - Absolute positioned with more margin */}
+            <div className="absolute right-0 flex items-center">
               {/* Auth Buttons */}
               {user ? (
                 <div className="flex items-center gap-3">
@@ -331,10 +328,10 @@ const Header = () => {
                   </Button>
                 </div>
               ) : (
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2">
                   <Link
                     href="/auth/login"
-                    className="text-sm font-medium text-bloom-dark hover:text-bloom-sage transition-colors"
+                    className="text-sm font-medium text-bloom-dark hover:text-bloom-sage transition-colors px-3"
                   >
                     Login
                   </Link>
