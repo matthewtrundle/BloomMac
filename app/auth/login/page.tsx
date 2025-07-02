@@ -57,7 +57,7 @@ export default function LoginPage() {
             </Link>
             <h1 className="text-2xl font-playfair text-bloom-dark mt-4">Welcome Back</h1>
             <p className="text-bloom-dark/60 mt-2">
-              {useMagicLink ? 'Enter your email for a magic link' : 'Sign in to access your courses'}
+              {useMagicLink ? 'Enter your email for a magic link' : 'Sign in to continue your wellness journey'}
             </p>
           </div>
 
@@ -150,8 +150,11 @@ export default function LoginPage() {
             <p className="text-sm text-bloom-dark/60">
               Don't have an account?{' '}
               <Link href="/auth/signup" className="text-bloompink hover:text-bloom-pink-dark font-medium">
-                Sign up
+                Sign up free
               </Link>
+            </p>
+            <p className="text-xs text-bloom-dark/40 mt-1">
+              Get access to resources, track progress, and more
             </p>
           </div>
 

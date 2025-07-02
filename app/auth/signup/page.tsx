@@ -68,7 +68,7 @@ export default function SignUpPage() {
       >
         <div className="bg-white rounded-2xl shadow-xl p-8">
           {/* Logo */}
-          <div className="text-center mb-8">
+          <div className="text-center mb-6">
             <Link href="/" className="inline-block">
               <Image
                 src="/images/Logo/BLOOM-LOGO.png"
@@ -79,7 +79,30 @@ export default function SignUpPage() {
               />
             </Link>
             <h1 className="text-2xl font-playfair text-bloom-dark mt-4">Create Your Account</h1>
-            <p className="text-bloom-dark/60 mt-2">Join our community of empowered mothers</p>
+            <p className="text-bloom-dark/60 mt-2">Start your wellness journey today</p>
+          </div>
+
+          {/* Value Proposition */}
+          <div className="bg-bloom-sage-50 rounded-lg p-4 mb-6 border border-bloom-sage/20">
+            <h3 className="font-semibold text-bloom-dark mb-2 text-sm">Your free account includes:</h3>
+            <ul className="space-y-1.5 text-sm text-bloom-dark/70">
+              <li className="flex items-start gap-2">
+                <CheckCircle className="w-4 h-4 text-bloom-sage flex-shrink-0 mt-0.5" />
+                <span>Access to wellness resources and self-care guides</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <CheckCircle className="w-4 h-4 text-bloom-sage flex-shrink-0 mt-0.5" />
+                <span>Personalized dashboard to track your progress</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <CheckCircle className="w-4 h-4 text-bloom-sage flex-shrink-0 mt-0.5" />
+                <span>Easy appointment booking and management</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <CheckCircle className="w-4 h-4 text-bloom-sage flex-shrink-0 mt-0.5" />
+                <span>Exclusive course discounts and early access</span>
+              </li>
+            </ul>
           </div>
 
           {error && (
