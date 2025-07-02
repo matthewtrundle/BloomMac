@@ -13,7 +13,7 @@ const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isLoggedInToCourses, setIsLoggedInToCourses] = useState(false);
   const headerRef = useRef<HTMLDivElement>(null);
-  const { user, signOut } = useAuth();
+  const { user, signOut, loading: authLoading } = useAuth();
   
   // Handle scroll effect
   useEffect(() => {
@@ -306,14 +306,20 @@ const Header = () => {
             {/* Right Actions - Absolute positioned with more margin */}
             <div className="absolute right-0 flex items-center">
               {/* Auth Buttons */}
-              {user ? (
+              {authLoading ? (
+                // Show loading state
+                <div className="flex items-center gap-3">
+                  <div className="w-20 h-9 bg-gray-200 animate-pulse rounded-md"></div>
+                  <div className="w-32 h-9 bg-gray-200 animate-pulse rounded-md"></div>
+                </div>
+              ) : user ? (
                 <div className="flex items-center gap-3">
                   <Link
                     href="/dashboard"
                     className="flex items-center gap-2 px-3 py-1.5 bg-bloom-sage/10 hover:bg-bloom-sage/20 rounded-full transition-all duration-300 group"
                   >
                     <div className="w-8 h-8 bg-bloom-sage rounded-full flex items-center justify-center text-white font-medium text-sm">
-                      {user.email?.charAt(0).toUpperCase()}
+                      {user.email?.charAt(0).toUpperCase() || 'U'}
                     </div>
                     <span className="text-sm font-medium text-bloom-dark group-hover:text-bloom-sage transition-colors">
                       My Wellness Hub

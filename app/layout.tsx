@@ -9,6 +9,7 @@ import { AuthProvider } from '@/contexts/AuthContext';
 import DarkModeToggle from '@/components/ui/DarkModeToggle';
 import LoadingScreenProvider from '@/components/ui/LoadingScreenProvider';
 import GoogleAnalytics from '@/components/GoogleAnalytics';
+import AuthDebug from '@/components/auth/AuthDebug';
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -151,6 +152,7 @@ export default function RootLayout({
                 {children}
               </LayoutWrapper>
               <DarkModeToggle />
+              <AuthDebug />
             </AnalyticsProvider>
           </AuthProvider>
         </LoadingScreenProvider>

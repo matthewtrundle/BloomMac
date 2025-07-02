@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clear Auth State - Bloom Psychology</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        button {
+            background-color: #ff4081;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #e91e63;
+        }
+        .status {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #f0f0f0;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Clear Authentication State</h1>
+        <p>Use this page to clear any stuck authentication state in your browser.</p>
+        
+        <div id="status" class="status info">
+            <h3>Current Status:</h3>
+            <p>Checking authentication state...</p>
+        </div>
+        
+        <div style="margin-top: 20px;">
+            <button onclick="clearAll()">Clear Everything</button>
+            <button onclick="clearSupabase()">Clear Supabase Auth Only</button>
+            <button onclick="window.location.href='/'">Go to Homepage</button>
+        </div>
+    </div>
+
+    <script>
+        // Check current state
+        function checkState() {
+            const status = document.getElementById('status');
+            let html = '<h3>Current Status:</h3>';
+            
+            // Check localStorage
+            const localStorageKeys = Object.keys(localStorage);
+            const authKeys = localStorageKeys.filter(key => 
+                key.includes('supabase') || 
+                key.includes('auth') || 
+                key.includes('token')
+            );
+            
+            html += '<p><strong>LocalStorage Auth Keys:</strong> ' + (authKeys.length || 'None') + '</p>';
+            if (authKeys.length > 0) {
+                html += '<ul>';
+                authKeys.forEach(key => {
+                    html += '<li>' + key + '</li>';
+                });
+                html += '</ul>';
+            }
+            
+            // Check cookies
+            const cookies = document.cookie.split(';').map(c => c.trim());
+            const authCookies = cookies.filter(c => 
+                c.includes('supabase') || 
+                c.includes('auth') || 
+                c.includes('sb-')
+            );
+            
+            html += '<p><strong>Auth Cookies:</strong> ' + (authCookies.length || 'None') + '</p>';
+            
+            status.innerHTML = html;
+        }
+        
+        // Clear all auth-related data
+        function clearAll() {
+            // Clear all localStorage items with auth-related keys
+            const keys = Object.keys(localStorage);
+            keys.forEach(key => {
+                if (key.includes('supabase') || key.includes('auth') || key.includes('token')) {
+                    localStorage.removeItem(key);
+                }
+            });
+            
+            // Clear cookies (limited to what JavaScript can access)
+            document.cookie.split(";").forEach(function(c) { 
+                document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); 
+            });
+            
+            const status = document.getElementById('status');
+            status.className = 'status success';
+            status.innerHTML = '<h3>Success!</h3><p>All authentication data has been cleared. Redirecting to homepage in 3 seconds...</p>';
+            
+            setTimeout(() => {
+                window.location.href = '/';
+            }, 3000);
+        }
+        
+        // Clear only Supabase auth
+        function clearSupabase() {
+            const keys = Object.keys(localStorage);
+            keys.forEach(key => {
+                if (key.includes('supabase') || key.includes('sb-')) {
+                    localStorage.removeItem(key);
+                }
+            });
+            
+            const status = document.getElementById('status');
+            status.className = 'status success';
+            status.innerHTML = '<h3>Success!</h3><p>Supabase authentication data has been cleared. Redirecting to homepage in 3 seconds...</p>';
+            
+            setTimeout(() => {
+                window.location.href = '/';
+            }, 3000);
+        }
+        
+        // Check state on load
+        checkState();
+    </script>
+</body>
+</html>
