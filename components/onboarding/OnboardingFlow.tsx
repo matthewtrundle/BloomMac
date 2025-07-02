@@ -70,8 +70,8 @@ export default function OnboardingFlow({
   
   // If user is authenticated and coming from signup, start at profile step
   const getInitialStep = (): OnboardingStep => {
-    if (user && source === 'signup') {
-      return 'profile';
+    if (user) {
+      return 'profile'; // Always start at profile for authenticated users
     }
     return initialStep;
   };
@@ -110,7 +110,7 @@ export default function OnboardingFlow({
 
   // Dynamic steps based on authentication status
   const steps: OnboardingStep[] = user 
-    ? ['welcome', 'profile', 'access', 'consent', 'complete'] // Skip account for authenticated users
+    ? ['profile', 'access', 'consent', 'complete'] // Skip welcome and account for authenticated users from signup
     : ['welcome', 'account', 'profile', 'access', 'consent', 'complete'];
     
   const currentStepIndex = steps.indexOf(currentStep);
