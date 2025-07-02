@@ -13,10 +13,16 @@ export default async function handler(
   try {
     // Get the authenticated user
     const supabaseAuth = createServerSupabaseClient({ req, res });
-    const { data: { user } } = await supabaseAuth.auth.getUser();
+    const { data: { user }, error: authError } = await supabaseAuth.auth.getUser();
 
-    if (!user) {
-      return res.status(401).json({ error: 'Unauthorized' });
+    console.log('API - Auth check:', { hasUser: !!user, authError, userId: user?.id });
+
+    if (authError || !user) {
+      console.error('API - Auth error:', authError);
+      return res.status(401).json({ 
+        error: 'Unauthorized - Please log in again',
+        details: authError?.message 
+      });
     }
 
     // Use service role client to bypass RLS

@@ -170,6 +170,7 @@ export default function ProfileStep({
         headers: {
           'Content-Type': 'application/json',
         },
+        credentials: 'include', // Important: include cookies for auth
         body: JSON.stringify(profileData),
       });
 
