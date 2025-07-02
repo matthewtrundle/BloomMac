@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useRef, useEffect } from 'react';
-import { motion, useInView } from 'framer-motion';
+import React, { useRef, useEffect, useState } from 'react';
+import { motion, useInView, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
@@ -31,6 +31,9 @@ import { OrganizationSchema } from '@/components/seo/JsonLd';
 // Use route handlers for data revalidation instead
 
 export default function Home() {
+  // Video modal state
+  const [showVideoModal, setShowVideoModal] = useState(false);
+  
   // Refs for scroll effects
   const teamImageRef = useRef<HTMLDivElement>(null);
   const welcomeTitleRef = useRef<HTMLDivElement>(null);
@@ -363,6 +366,31 @@ export default function Home() {
                 <h3 className="text-2xl font-bold text-[#1e3a5f] mb-2">🌸 Postpartum Wellness</h3>
                 <p className="text-sm text-gray-500 mb-4">6-week program</p>
                 <p className="text-gray-600 mb-6">Build emotional regulation skills and develop lasting confidence in your new role</p>
+                
+                {/* Watch Lesson 1 Button */}
+                <div className="mb-6">
+                  <button
+                    onClick={() => setShowVideoModal(true)}
+                    className="w-full bg-gradient-to-r from-[#f8b5c4]/10 to-[#f8b5c4]/5 hover:from-[#f8b5c4]/20 hover:to-[#f8b5c4]/10 border border-[#f8b5c4]/20 rounded-xl p-4 transition-all duration-300 group"
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className="w-12 h-12 bg-white rounded-full shadow-md flex items-center justify-center group-hover:shadow-lg transition-shadow">
+                          <svg className="w-6 h-6 text-[#f8b5c4]" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
+                          </svg>
+                        </div>
+                        <div className="text-left">
+                          <p className="font-semibold text-[#1e3a5f]">Watch First Lesson</p>
+                          <p className="text-xs text-gray-600">Get a preview of the course content</p>
+                        </div>
+                      </div>
+                      <svg className="w-5 h-5 text-[#f8b5c4]/40 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </div>
+                  </button>
+                </div>
                 <ul className="space-y-2 mb-6">
                   <li className="flex items-center gap-2">
                     <div className="w-1 h-1 bg-[#f8b5c4] rounded-full"></div>
@@ -784,6 +812,105 @@ export default function Home() {
           </motion.div>
         </div>
       </section>
+
+      {/* Video Preview Modal */}
+      <AnimatePresence>
+        {showVideoModal && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+            onClick={() => setShowVideoModal(false)}
+          >
+            <motion.div 
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="relative w-full max-w-5xl bg-white rounded-2xl shadow-2xl overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Close Button */}
+              <button
+                onClick={() => setShowVideoModal(false)}
+                className="absolute top-4 right-4 z-10 w-10 h-10 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-lg transition-colors"
+                aria-label="Close video"
+              >
+                <svg className="w-5 h-5 text-[#1e3a5f]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+
+              {/* Video Header */}
+              <div className="bg-gradient-to-r from-[#f8b5c4] to-[#f472b6] text-white p-6 pb-4">
+                <h3 className="text-2xl font-bold mb-2">Course Preview: Postpartum Wellness Foundations</h3>
+                <p className="text-white/90 text-sm">Get a glimpse of Dr. Jana's warm, evidence-based approach</p>
+              </div>
+
+              {/* Video Container */}
+              <div className="aspect-video bg-black">
+                <iframe 
+                  src="https://player.vimeo.com/video/1097724383?autoplay=1&title=0&byline=0&portrait=0"
+                  className="w-full h-full"
+                  frameBorder="0"
+                  allow="autoplay; fullscreen; picture-in-picture"
+                  title="Postpartum Wellness Course Preview"
+                />
+              </div>
+
+              {/* CTA Section */}
+              <div className="bg-gradient-to-br from-gray-50/30 to-white p-6">
+                <div className="text-center">
+                  <h4 className="text-xl font-semibold text-[#1e3a5f] mb-3">Ready to Start Your Journey?</h4>
+                  <p className="text-gray-600 mb-4">Join 500+ moms who are transforming their postpartum experience</p>
+                  
+                  <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
+                    <Link href="/courses/postpartum-wellness-foundations">
+                      <button 
+                        onClick={() => setShowVideoModal(false)}
+                        className="bg-[#1e3a5f] text-white px-8 py-3 rounded-lg hover:bg-[#152a47] transition-colors font-medium"
+                      >
+                        Learn More About This Course
+                      </button>
+                    </Link>
+                    
+                    <button
+                      onClick={() => setShowVideoModal(false)}
+                      className="text-sm text-gray-600 hover:text-gray-800 underline"
+                    >
+                      Continue browsing
+                    </button>
+                  </div>
+
+                  {/* Trust Indicators */}
+                  <div className="flex flex-wrap justify-center gap-6 mt-6 pt-6 border-t border-gray-200">
+                    <div className="flex items-center gap-2 text-sm text-gray-600">
+                      <svg className="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                      </svg>
+                      <span>Lifetime Access</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-gray-600">
+                      <svg className="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                      </svg>
+                      <span>Self-Paced Learning</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-gray-600">
+                      <svg className="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                      </svg>
+                      <span>Evidence-Based Content</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
