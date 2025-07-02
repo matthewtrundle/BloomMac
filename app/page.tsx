@@ -120,13 +120,15 @@ export default function Home() {
       />
       
       {/* Hero Section - Modern Maternal Design */}
-      <section className="relative min-h-[70vh] md:min-h-[80vh] bg-white overflow-hidden">
-        {/* Geometric background elements */}
-        <div className="absolute top-20 right-0 w-64 h-64 bg-[#f8b5c4]/10 rounded-full"></div>
-        <div className="absolute bottom-0 left-20 w-96 h-96 bg-[#1e3a5f]/5 rounded-full"></div>
+      <section className="relative min-h-[85vh] bg-gradient-to-br from-[#fdf8f5] via-white to-[#f0f9ff] overflow-hidden">
+        {/* Subtle background pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-[#f8b5c4] rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#4b7c80] rounded-full blur-3xl"></div>
+        </div>
         
         <div className="container mx-auto px-6 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-12 items-center min-h-[70vh] md:min-h-[80vh] py-20">
+          <div className="grid lg:grid-cols-2 gap-12 items-center min-h-[85vh] py-20">
             {/* Left column - Text content */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -135,44 +137,48 @@ export default function Home() {
               className="xl:pl-12"
             >
               {/* Small accent */}
-              <div className="flex items-center gap-2 mb-6">
-                <div className="w-12 h-px bg-[#f8b5c4]"></div>
-                <span className="text-sm font-medium text-[#f8b5c4] uppercase tracking-wide">Austin & All of Texas</span>
+              <div className="mb-6">
+                <span className="text-sm font-medium text-[#f8b5c4] uppercase tracking-widest">AUSTIN & ALL OF TEXAS</span>
               </div>
               
-              {/* New animated tagline */}
-              <AnimatedTagline />
-              
-              {/* Removed all experimental typography options */}
+              {/* Main heading with animated tagline - includes subtitle */}
+              <div className="mb-8">
+                <AnimatedTagline />
+              </div>
             
-              <div className="flex flex-col sm:flex-row gap-4 mb-12 mt-8">
+              <div className="flex flex-col sm:flex-row gap-4 mb-12">
                 <Link href="/new-mom-program">
-                  <button className="bg-[#1e3a5f] text-white px-8 py-4 rounded-lg hover:bg-[#152a47] transition-colors font-medium">
+                  <Button 
+                    variant="primary"
+                    size="lg"
+                    className="w-full sm:w-auto"
+                  >
                     Learn About New Mom Program
-                  </button>
+                  </Button>
                 </Link>
                 <Link href="/book">
-                  <button className="border-2 border-[#1e3a5f] text-[#1e3a5f] px-8 py-4 rounded-lg hover:bg-gray-50 transition-colors font-medium">
+                  <Button 
+                    variant="outline"
+                    size="lg"
+                    className="w-full sm:w-auto"
+                  >
                     Book Now
-                  </button>
+                  </Button>
                 </Link>
               </div>
               
-              {/* Modern trust badges */}
-              <div className="flex flex-wrap gap-4">
-                <div className="bg-gray-50 px-4 py-2 rounded-full">
+              {/* Trust badges */}
+              <div className="flex flex-wrap gap-3">
+                <div className="bg-white/80 backdrop-blur px-4 py-2 rounded-full shadow-sm">
                   <span className="text-sm font-medium text-gray-700">New Mom Program Available</span>
                 </div>
-                <div className="bg-gray-50 px-4 py-2 rounded-full">
+                <div className="bg-white/80 backdrop-blur px-4 py-2 rounded-full shadow-sm">
                   <span className="text-sm font-medium text-gray-700">Evidence-Based Therapy</span>
-                </div>
-                <div className="bg-gray-50 px-4 py-2 rounded-full">
-                  <span className="text-sm font-medium text-gray-700">Virtual & In-Person</span>
                 </div>
               </div>
             </motion.div>
             
-            {/* Right column - Modern image treatment */}
+            {/* Right column - Professional image */}
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
@@ -180,22 +186,23 @@ export default function Home() {
               className="relative hidden lg:block"
             >
               <div className="relative">
-                {/* Geometric frame */}
-                <div className="absolute -inset-4 bg-gradient-to-br from-[#f8b5c4]/20 to-[#1e3a5f]/10 rounded-2xl transform rotate-3"></div>
-                <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+                {/* Soft background shape */}
+                <div className="absolute -inset-8 bg-[#4b7c80]/20 rounded-[3rem] transform rotate-3"></div>
+                <div className="relative rounded-[2rem] overflow-hidden shadow-2xl">
                   <Image
-                    src="/images/optimized/Team/img_1602.webp"
+                    src="/images/optimized/Team/img_1623.webp"
                     alt="Dr. Jana Rundle"
-                    width={500}
-                    height={600}
+                    width={600}
+                    height={700}
                     className="object-cover"
+                    priority
                   />
-                  {/* Modern overlay */}
-                  <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-[#1e3a5f]/80 to-transparent flex items-end p-8">
+                  {/* Professional overlay */}
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#1e3a5f]/90 via-[#1e3a5f]/70 to-transparent p-8">
                     <div className="text-white">
-                      <p className="font-bold text-xl">Dr. Jana Rundle</p>
-                      <p className="text-sm opacity-90">Licensed Clinical Psychologist</p>
-                      <p className="text-xs opacity-80">Perinatal Mental Health Specialist</p>
+                      <p className="font-bold text-2xl mb-1">Dr. Jana Rundle</p>
+                      <p className="text-base opacity-95">Licensed Clinical Psychologist</p>
+                      <p className="text-sm opacity-85">Perinatal Mental Health Specialist</p>
                     </div>
                   </div>
                 </div>
@@ -299,14 +306,20 @@ export default function Home() {
 
                 <div className="flex flex-wrap gap-4 pt-4">
                   <Link href="/about">
-                    <button className="bg-[#1e3a5f] text-white px-6 py-3 rounded-lg hover:bg-[#152a47] transition-colors font-medium">
+                    <Button 
+                      variant="primary"
+                      size="md"
+                    >
                       Read Full Bio
-                    </button>
+                    </Button>
                   </Link>
                   <Link href="/consultation">
-                    <button className="border-2 border-[#1e3a5f] text-[#1e3a5f] px-6 py-3 rounded-lg hover:bg-[#1e3a5f] hover:text-white transition-all font-medium">
+                    <Button 
+                      variant="outline"
+                      size="md"
+                    >
                       Book Now
-                    </button>
+                    </Button>
                   </Link>
                 </div>
               </motion.div>
