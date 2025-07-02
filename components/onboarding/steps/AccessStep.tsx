@@ -109,18 +109,23 @@ export default function AccessStep({
       });
 
       // If waitlist, add to subscribers table
-      if (selectedAccess === 'waitlist') {
-        await fetch('/api/newsletter/subscribe', {
+      if (selectedAccess === 'waitlist' && data.email) {
+        const response = await fetch('/api/newsletter-signup', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             email: data.email,
-            firstName: data.firstName,
-            lastName: data.lastName,
-            source: 'onboarding_waitlist',
-            tags: ['course_waitlist', 'new_user']
+            firstName: data.firstName || '',
+            lastName: data.lastName || '',
+            source: 'onboarding_waitlist'
           })
         });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          console.error('Newsletter signup error:', errorData);
+          // Don't throw error here, just log it - we don't want to block onboarding
+        }
       }
 
       nextStep();
