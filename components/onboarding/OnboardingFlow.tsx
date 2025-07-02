@@ -271,7 +271,8 @@ export default function OnboardingFlow({
             </svg>
             <div>
               <p className="font-medium">Something went wrong</p>
-              <p className="text-sm opacity-90">{error}</p>
+              <p className="text-sm opacity-90">{error || 'An unexpected error occurred'}</p>
+              <p className="text-xs opacity-75 mt-1">Step: {currentStep}</p>
             </div>
             <button 
               onClick={() => setError(null)}

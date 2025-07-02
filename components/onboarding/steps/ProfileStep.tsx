@@ -61,19 +61,21 @@ export default function ProfileStep({
   }, [user]);
 
   const validateForm = () => {
+    console.log('Validating form data:', formData);
+    
     if (!formData.firstName.trim()) {
-      setError('First name is required');
+      setError('First name is required. Please enter your first name.');
       return false;
     }
     
     if (!formData.lastName.trim()) {
-      setError('Last name is required');
+      setError('Last name is required. Please enter your last name.');
       return false;
     }
 
     // Phone validation (optional but if provided, should be valid)
     if (formData.phone && !/^\+?[\d\s\-\(\)]+$/.test(formData.phone)) {
-      setError('Please enter a valid phone number');
+      setError('Please enter a valid phone number (e.g., (555) 123-4567)');
       return false;
     }
 
@@ -81,15 +83,15 @@ export default function ProfileStep({
     const hasEmergencyContact = formData.emergencyContactName || formData.emergencyContactPhone || formData.emergencyContactRelationship;
     if (hasEmergencyContact) {
       if (!formData.emergencyContactName.trim()) {
-        setError('Emergency contact name is required');
+        setError('If adding an emergency contact, please provide their full name');
         return false;
       }
       if (!formData.emergencyContactPhone.trim()) {
-        setError('Emergency contact phone is required');
+        setError('If adding an emergency contact, please provide their phone number');
         return false;
       }
       if (!formData.emergencyContactRelationship.trim()) {
-        setError('Emergency contact relationship is required');
+        setError('If adding an emergency contact, please select their relationship to you');
         return false;
       }
     }
@@ -99,14 +101,19 @@ export default function ProfileStep({
 
   const handleSaveProfile = async () => {
     setError(null);
+    console.log('Starting profile save...');
     
-    if (!validateForm()) return;
+    if (!validateForm()) {
+      console.log('Form validation failed');
+      return;
+    }
 
     setIsLoading(true);
 
     try {
       if (!user) {
-        setError('Please sign in first');
+        setError('Session expired. Please sign in again.');
+        console.error('No user found in session');
         setIsLoading(false);
         return;
       }
