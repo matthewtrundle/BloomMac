@@ -206,7 +206,7 @@ export default function ProfileStep({
                   <svg className="w-4 h-4 text-bloom-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  We already have your name from signup
+                  Name captured from signup (you can update if needed)
                 </p>
               </div>
             )}
@@ -214,7 +214,7 @@ export default function ProfileStep({
             <div className="grid md:grid-cols-2 gap-4">
               <div>
                 <label htmlFor="firstName" className="block text-sm font-medium text-bloom-dark mb-2">
-                  First Name *
+                  First Name {user?.user_metadata?.full_name && <span className="text-bloom-sage text-xs font-normal">(from signup)</span>}
                 </label>
                 <input
                   type="text"
@@ -222,7 +222,7 @@ export default function ProfileStep({
                   value={formData.firstName}
                   onChange={(e) => updateFormData('firstName', e.target.value)}
                   className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-bloompink focus:border-transparent transition-colors ${
-                    user?.user_metadata?.full_name ? 'bg-bloom-sage-50/20 border-bloom-sage/30' : 'border-bloom-sage/20'
+                    user?.user_metadata?.full_name ? 'bg-bloom-sage-50/30 border-bloom-sage/40 font-medium' : 'border-bloom-sage/20'
                   }`}
                   placeholder="Your first name"
                   required
@@ -231,7 +231,7 @@ export default function ProfileStep({
               
               <div>
                 <label htmlFor="lastName" className="block text-sm font-medium text-bloom-dark mb-2">
-                  Last Name *
+                  Last Name {user?.user_metadata?.full_name && <span className="text-bloom-sage text-xs font-normal">(from signup)</span>}
                 </label>
                 <input
                   type="text"
@@ -239,7 +239,7 @@ export default function ProfileStep({
                   value={formData.lastName}
                   onChange={(e) => updateFormData('lastName', e.target.value)}
                   className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-bloompink focus:border-transparent transition-colors ${
-                    user?.user_metadata?.full_name ? 'bg-bloom-sage-50/20 border-bloom-sage/30' : 'border-bloom-sage/20'
+                    user?.user_metadata?.full_name ? 'bg-bloom-sage-50/30 border-bloom-sage/40 font-medium' : 'border-bloom-sage/20'
                   }`}
                   placeholder="Your last name"
                   required
