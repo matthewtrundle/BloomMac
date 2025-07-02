@@ -83,12 +83,20 @@ export default function OnboardingFlow({
   const router = useRouter();
   const { user } = useAuth();
 
-  // If user is already logged in, skip to profile step
+  // If user is already logged in, skip account creation steps
   useEffect(() => {
-    if (user && currentStep === 'welcome') {
-      setCurrentStep('profile');
+    if (user) {
+      if (currentStep === 'welcome') {
+        // Skip welcome for authenticated users coming from signup
+        if (source === 'signup') {
+          setCurrentStep('profile');
+        }
+      } else if (currentStep === 'account') {
+        // Always skip account step for authenticated users
+        setCurrentStep('profile');
+      }
     }
-  }, [user, currentStep]);
+  }, [user, currentStep, source]);
 
   const steps: OnboardingStep[] = ['welcome', 'account', 'profile', 'access', 'consent', 'complete'];
   const currentStepIndex = steps.indexOf(currentStep);
@@ -185,7 +193,7 @@ export default function OnboardingFlow({
   return (
     <div className="min-h-screen bg-gradient-to-br from-bloom-sage-50 via-white to-bloom-pink-50">
       {/* Progress Bar */}
-      <div className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-sm border-b border-bloom-sage/10">
+      <div className="fixed top-[88px] left-0 right-0 z-40 bg-white/90 backdrop-blur-sm border-b border-bloom-sage/10">
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between mb-2">
             <h1 className="text-lg font-semibold text-bloom-dark">Welcome to Bloom Psychology</h1>
@@ -205,7 +213,7 @@ export default function OnboardingFlow({
       </div>
 
       {/* Main Content */}
-      <div className="pt-24 pb-12">
+      <div className="pt-48 pb-12">
         <div className="container mx-auto px-6">
           <AnimatePresence mode="wait">
             <motion.div

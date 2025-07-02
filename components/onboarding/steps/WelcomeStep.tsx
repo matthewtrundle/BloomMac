@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import Button from '@/components/ui/Button';
 import { OnboardingData } from '../OnboardingFlow';
+import { useAuth } from '@/contexts/AuthContext';
 
 interface WelcomeStepProps {
   data: OnboardingData;
@@ -12,8 +13,18 @@ interface WelcomeStepProps {
 }
 
 export default function WelcomeStep({ data, updateData, nextStep, source }: WelcomeStepProps) {
+  const { user } = useAuth();
   
   const getWelcomeMessage = () => {
+    // Special message for users who just signed up
+    if (source === 'signup' && user) {
+      return {
+        title: "Welcome to Bloom Psychology!",
+        subtitle: "Your account is ready",
+        description: "Let's personalize your experience in just a few quick steps."
+      };
+    }
+    
     switch (source) {
       case 'teaser-video':
         return {
