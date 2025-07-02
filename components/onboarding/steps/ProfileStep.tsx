@@ -162,15 +162,35 @@ export default function ProfileStep({
         updated_at: new Date().toISOString()
       };
 
-      const { error: profileError } = await supabase
+      console.log('Attempting to save profile data:', profileData);
+      
+      const { data: profileResult, error: profileError } = await supabase
         .from('user_profiles')
         .upsert(profileData, { onConflict: 'id' });
 
       if (profileError) {
-        console.error('Profile creation error:', profileError);
-        setError('Failed to save profile. Please try again.');
+        console.error('Profile creation error details:', {
+          error: profileError,
+          message: profileError.message,
+          code: profileError.code,
+          details: profileError.details,
+          hint: profileError.hint
+        });
+        
+        // More specific error messages based on common issues
+        if (profileError.code === '42P01') {
+          setError('Profile table not found. Please contact support.');
+        } else if (profileError.code === '23505') {
+          setError('Profile already exists. Please try refreshing the page.');
+        } else if (profileError.message?.includes('permission')) {
+          setError('Permission denied. Please try logging in again.');
+        } else {
+          setError(`Failed to save profile: ${profileError.message || 'Unknown error'}`);
+        }
         return;
       }
+      
+      console.log('Profile saved successfully:', profileResult);
 
       // Track profile completion
       try {
