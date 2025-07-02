@@ -11,11 +11,22 @@ export default async function handler(
   }
 
   try {
+    console.log('🔍 API - Checking authentication...');
+    console.log('🔍 Headers:', {
+      authorization: req.headers.authorization ? 'Present' : 'Missing',
+      cookie: req.headers.cookie ? 'Present' : 'Missing'
+    });
+    
     // Get the authenticated user
     const supabaseAuth = createServerSupabaseClient({ req, res });
     const { data: { user }, error: authError } = await supabaseAuth.auth.getUser();
 
-    console.log('API - Auth check:', { hasUser: !!user, authError, userId: user?.id });
+    console.log('🔍 API - Auth check:', { 
+      hasUser: !!user, 
+      authError: authError?.message, 
+      userId: user?.id,
+      userEmail: user?.email 
+    });
 
     if (authError || !user) {
       console.error('API - Auth error:', authError);

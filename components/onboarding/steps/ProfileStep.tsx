@@ -31,20 +31,48 @@ export default function ProfileStep({
   const supabase = createClientComponentClient();
   const { user, loading: authLoading } = useAuth();
   
-  // Debug logging
+  // Enhanced session monitoring
   useEffect(() => {
-    console.log('ProfileStep - Auth state:', { user: !!user, authLoading, userId: user?.id });
+    console.log('🔍 ProfileStep - Auth state changed:', { 
+      user: !!user, 
+      authLoading, 
+      userId: user?.id,
+      email: user?.email 
+    });
     
-    // Also check Supabase session directly
+    // Check session every time auth state changes
     const checkSession = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      console.log('ProfileStep - Direct Supabase session:', { 
+      const { data: { session }, error } = await supabase.auth.getSession();
+      console.log('🔍 ProfileStep - Direct Supabase session:', { 
         hasSession: !!session, 
         sessionUserId: session?.user?.id,
-        sessionEmail: session?.user?.email 
+        sessionEmail: session?.user?.email,
+        sessionError: error?.message,
+        expiresAt: session?.expires_at ? new Date(session.expires_at * 1000).toISOString() : 'N/A'
       });
+      
+      if (session && !user && !authLoading) {
+        console.log('⚠️ Session exists but user context missing - potential auth issue');
+        setSessionStatus('invalid');
+      } else if (session && user) {
+        setSessionStatus('valid');
+      } else {
+        setSessionStatus('invalid');
+      }
     };
     checkSession();
+    
+    // Set up session monitoring
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      console.log('🔄 Auth state change:', { event, hasSession: !!session });
+      if (event === 'SIGNED_OUT' || event === 'TOKEN_REFRESHED') {
+        console.log(`🔄 Auth event: ${event}`);
+      }
+    });
+    
+    return () => {
+      subscription.unsubscribe();
+    };
   }, [user, authLoading, supabase]);
 
   // Initialize form data
@@ -64,6 +92,7 @@ export default function ProfileStep({
   // Real-time validation state
   const [fieldErrors, setFieldErrors] = useState<{[key: string]: string}>({});
   const [isFormValid, setIsFormValid] = useState(false);
+  const [sessionStatus, setSessionStatus] = useState<'checking' | 'valid' | 'invalid'>('checking');
 
   // Update form data when user metadata becomes available
   useEffect(() => {
@@ -166,32 +195,51 @@ export default function ProfileStep({
 
   const handleSaveProfile = async () => {
     setError(null);
-    console.log('Starting profile save...');
+    console.log('🚀 Starting profile save...');
     
     if (!validateForm()) {
-      console.log('Form validation failed');
+      console.log('❌ Form validation failed');
       return;
     }
 
     setIsLoading(true);
 
     try {
+      // Check auth state thoroughly
+      console.log('🔍 Auth check:', { authLoading, hasUser: !!user, userId: user?.id });
+      
       if (authLoading) {
-        setError('Loading user session...');
-        console.log('Auth still loading');
+        setError('⏳ Loading user session...');
+        console.log('⏳ Auth still loading');
         setIsLoading(false);
         return;
       }
 
       if (!user) {
-        setError('Session expired. Please sign in again.');
-        console.error('No user found in session', { authLoading, user });
-        setIsLoading(false);
-        // Redirect to login after a delay
-        setTimeout(() => {
-          window.location.href = '/auth/login';
-        }, 2000);
-        return;
+        console.error('❌ No user found in session');
+        setError('Session expired. Checking session...');
+        
+        // Check Supabase session directly
+        const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+        console.log('🔍 Direct session check:', { 
+          hasSession: !!session, 
+          sessionUserId: session?.user?.id,
+          sessionError 
+        });
+        
+        if (session?.user) {
+          console.log('✅ Found session, retrying...');
+          setError(null);
+          // Don't return, continue with the session user
+        } else {
+          console.error('❌ No valid session found, redirecting to login');
+          setError('Session expired. Redirecting to login...');
+          setIsLoading(false);
+          setTimeout(() => {
+            window.location.href = '/auth/login';
+          }, 2000);
+          return;
+        }
       }
 
       // Create or update user profile
@@ -212,43 +260,74 @@ export default function ProfileStep({
 
       console.log('Attempting to save profile data:', profileData);
       
+      // Double-check session before API call
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        throw new Error('Session lost before API call');
+      }
+      
+      console.log('📤 Making API call with data:', profileData);
+      
       // Use API endpoint to bypass RLS issues
       const response = await fetch('/api/profile/save', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${session.access_token}`, // Explicit auth header
         },
         credentials: 'include', // Important: include cookies for auth
         body: JSON.stringify(profileData),
       });
+      
+      console.log('📥 API response status:', response.status);
 
       const result = await response.json();
 
       if (!response.ok) {
-        console.error('Profile creation error details:', result);
+        console.error('❌ Profile creation error:', {
+          status: response.status,
+          statusText: response.statusText,
+          result
+        });
         
-        if (result.code === 'AUTH_REQUIRED' || result.error?.includes('Session expired')) {
+        if (result.code === 'AUTH_REQUIRED' || result.error?.includes('Session expired') || response.status === 401) {
+          console.error('❌ Auth error, attempting session refresh...');
+          
+          try {
+            const { data, error } = await supabase.auth.refreshSession();
+            if (data.session) {
+              console.log('✅ Session refreshed, retrying save...');
+              setError('Session refreshed, retrying...');
+              // Retry the save operation
+              setTimeout(() => handleSaveProfile(), 1000);
+              return;
+            }
+          } catch (refreshError) {
+            console.error('❌ Session refresh failed:', refreshError);
+          }
+          
           setError('Your session has expired. Redirecting to login...');
           setTimeout(() => {
             window.location.href = '/auth/login';
           }, 2000);
         } else if (response.status === 400) {
-          setError(`Validation Error: ${result.error || 'Please check your information'}`);
+          setError(`❌ Validation Error: ${result.error || 'Please check your information'}`);
         } else if (response.status === 500) {
-          setError(`Server Error: ${result.error || 'Please try again in a moment'}`);
+          setError(`❌ Server Error: ${result.error || 'Please try again in a moment'}`);
         } else {
-          setError(`Error (${response.status}): ${result.error || 'Something went wrong'}`);
+          setError(`❌ Error (${response.status}): ${result.error || 'Something went wrong'}`);
         }
         
         // If there are additional details, log them
         if (result.details) {
-          console.error('Additional error details:', result.details);
+          console.error('🔍 Additional error details:', result.details);
         }
         
         return;
       }
       
-      console.log('Profile saved successfully:', result);
+      console.log('✅ Profile saved successfully:', result);
+      setError('✅ Profile saved! Moving to next step...');
 
       // Track profile completion
       try {
@@ -339,14 +418,57 @@ export default function ProfileStep({
             </div>
           )}
           
+          {/* Session status indicator */}
+          <div className={`mt-4 p-3 rounded-lg border ${
+            sessionStatus === 'valid' 
+              ? 'bg-green-50 border-green-200' 
+              : sessionStatus === 'invalid'
+                ? 'bg-red-50 border-red-200'
+                : 'bg-yellow-50 border-yellow-200'
+          }`}>
+            <p className={`text-sm font-medium flex items-center gap-2 ${
+              sessionStatus === 'valid' 
+                ? 'text-green-700' 
+                : sessionStatus === 'invalid'
+                  ? 'text-red-700'
+                  : 'text-yellow-700'
+            }`}>
+              {sessionStatus === 'valid' && (
+                <>
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                  Session active - Ready to save
+                </>
+              )}
+              {sessionStatus === 'invalid' && (
+                <>
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                  </svg>
+                  Session issue - May need to login again
+                </>
+              )}
+              {sessionStatus === 'checking' && (
+                <>
+                  <svg className="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Checking session...
+                </>
+              )}
+            </p>
+          </div>
+          
           {/* Success indicator */}
-          {isFormValid && formData.firstName && formData.lastName && (
-            <div className="mt-4 p-3 bg-green-50 border border-green-200 rounded-lg">
-              <p className="text-green-700 text-sm font-medium flex items-center gap-2">
+          {isFormValid && formData.firstName && formData.lastName && sessionStatus === 'valid' && (
+            <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+              <p className="text-blue-700 text-sm font-medium flex items-center gap-2">
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                 </svg>
-                Form looks good! Ready to continue.
+                All systems go! Ready to continue.
               </p>
             </div>
           )}
