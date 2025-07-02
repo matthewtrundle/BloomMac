@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { useSupabaseClient } from '@supabase/auth-helpers-react';
 import { useAuth } from '@/contexts/AuthContext';
+import { supabaseAuth } from '@/lib/supabase-auth';
 import Button from '@/components/ui/Button';
 import { OnboardingData } from '../OnboardingFlow';
 
@@ -28,8 +28,24 @@ export default function ProfileStep({
   error, 
   setError 
 }: ProfileStepProps) {
-  const supabase = useSupabaseClient();
+  const supabase = supabaseAuth;
   const { user, loading: authLoading } = useAuth();
+  
+  // Debug logging
+  useEffect(() => {
+    console.log('ProfileStep - Auth state:', { user: !!user, authLoading, userId: user?.id });
+    
+    // Also check Supabase session directly
+    const checkSession = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      console.log('ProfileStep - Direct Supabase session:', { 
+        hasSession: !!session, 
+        sessionUserId: session?.user?.id,
+        sessionEmail: session?.user?.email 
+      });
+    };
+    checkSession();
+  }, [user, authLoading, supabase]);
 
   // Initialize form data
   const [formData, setFormData] = useState({

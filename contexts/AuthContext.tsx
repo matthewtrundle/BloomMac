@@ -52,7 +52,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     signUp: async (email: string, password: string, fullName?: string) => {
       try {
         setLoading(true);
-        await authHelpers.signUp(email, password, fullName);
+        const result = await authHelpers.signUp(email, password, fullName);
+        
+        // Wait for the auth state to update
+        if (result?.user) {
+          setUser(result.user);
+          // Small delay to ensure session is established
+          await new Promise(resolve => setTimeout(resolve, 500));
+        }
+        
+        setLoading(false);
+        
         // Redirect to onboarding flow for new users
         router.push('/onboarding?source=signup');
       } catch (error) {
