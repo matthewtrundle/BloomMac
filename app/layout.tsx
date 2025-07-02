@@ -152,7 +152,7 @@ export default function RootLayout({
                 {children}
               </LayoutWrapper>
               <DarkModeToggle />
-              <AuthDebug />
+              {process.env.NODE_ENV === 'development' && <AuthDebug />}
             </AnalyticsProvider>
           </AuthProvider>
         </LoadingScreenProvider>

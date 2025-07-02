@@ -23,13 +23,30 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const router = useRouter();
 
   useEffect(() => {
+    // Skip on server
+    if (!supabaseAuth || typeof window === 'undefined') {
+      setLoading(false);
+      return;
+    }
+
     // Check active sessions and sets the user
     const initializeAuth = async () => {
       try {
-        const { data: { session } } = await supabaseAuth.auth.getSession();
-        setUser(session?.user ?? null);
+        // Ensure we start clean
+        setUser(null);
+        setLoading(true);
+        
+        const { data: { session }, error } = await supabaseAuth.auth.getSession();
+        
+        if (error) {
+          console.error('Auth session error:', error);
+          setUser(null);
+        } else {
+          setUser(session?.user ?? null);
+        }
       } catch (error) {
         console.error('Error checking auth session:', error);
+        setUser(null);
       } finally {
         setLoading(false);
       }
@@ -43,7 +60,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setLoading(false);
     });
 
-    return () => subscription.unsubscribe();
+    return () => subscription?.unsubscribe();
   }, []);
 
   const value = {

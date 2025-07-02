@@ -2,7 +2,9 @@ import { createClient } from '@supabase/supabase-js';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 
 // Client-side Supabase client for auth
-export const supabaseAuth = createClientComponentClient();
+export const supabaseAuth = typeof window !== 'undefined' 
+  ? createClientComponentClient() 
+  : null as any;
 
 // Types for user data
 export interface UserProfile {
