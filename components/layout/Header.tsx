@@ -7,14 +7,22 @@ import { motion } from 'framer-motion';
 import { services } from '@/lib/data/services';
 import Button from '@/components/ui/Button';
 import { useAuth } from '@/contexts/AuthContext';
+import HeaderAuthSection from './HeaderAuthSection';
+import ClientOnly from '@/components/ClientOnly';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isLoggedInToCourses, setIsLoggedInToCourses] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const headerRef = useRef<HTMLDivElement>(null);
   const { user, signOut, loading: authLoading } = useAuth();
   
+  // Handle client-side mounting
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   // Handle scroll effect
   useEffect(() => {
     const handleScroll = () => {
@@ -305,55 +313,30 @@ const Header = () => {
             
             {/* Right Actions - Absolute positioned with more margin */}
             <div className="absolute right-0 flex items-center">
-              {/* Auth Buttons */}
-              {authLoading ? (
-                // Show loading state
-                <div className="flex items-center gap-3">
-                  <div className="w-20 h-9 bg-gray-200 animate-pulse rounded-md"></div>
-                  <div className="w-32 h-9 bg-gray-200 animate-pulse rounded-md"></div>
-                </div>
-              ) : user && user.email ? (
-                <div className="flex items-center gap-3">
-                  <Link
-                    href="/dashboard"
-                    className="flex items-center gap-2 px-3 py-1.5 bg-bloom-sage/10 hover:bg-bloom-sage/20 rounded-full transition-all duration-300 group"
-                  >
-                    <div className="w-8 h-8 bg-bloom-sage rounded-full flex items-center justify-center text-white font-medium text-sm">
-                      {user.email.charAt(0).toUpperCase()}
-                    </div>
-                    <span className="text-sm font-medium text-bloom-dark group-hover:text-bloom-sage transition-colors">
-                      My Wellness Hub
-                    </span>
-                  </Link>
-                  <Button 
-                    href="/book"
-                    variant="pink"
-                    size="md"
-                    className="shadow-sm hover:shadow-md"
-                  >
-                    Book Session
-                  </Button>
-                </div>
-              ) : (
-                <div className="flex items-center gap-3">
-                  <Button
-                    href="/auth/login"
-                    variant="ghost"
-                    size="sm"
-                    className="text-bloom-dark hover:text-bloom-sage border border-gray-200 hover:border-bloom-sage/30"
-                  >
-                    Login
-                  </Button>
-                  <Button 
-                    href="/book"
-                    variant="pink"
-                    size="md"
-                    className="shadow-sm hover:shadow-md"
-                  >
-                    Book Free Consultation
-                  </Button>
-                </div>
-              )}
+              <ClientOnly
+                fallback={
+                  <div className="flex items-center gap-3">
+                    <Button
+                      href="/auth/login"
+                      variant="ghost"
+                      size="sm"
+                      className="text-bloom-dark hover:text-bloom-sage border border-gray-200 hover:border-bloom-sage/30"
+                    >
+                      Login
+                    </Button>
+                    <Button 
+                      href="/book"
+                      variant="pink"
+                      size="md"
+                      className="shadow-sm hover:shadow-md"
+                    >
+                      Book Free Consultation
+                    </Button>
+                  </div>
+                }
+              >
+                <HeaderAuthSection />
+              </ClientOnly>
             </div>
           </div>
           
