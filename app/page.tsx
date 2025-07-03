@@ -381,6 +381,56 @@ export default function Home() {
         </div>
       </section>
       
+      {/* Personal Message Video Section */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-6">
+          <div className="max-w-4xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+              className="text-center"
+            >
+              <h2 className="text-3xl md:text-4xl font-playfair text-[#1e3a5f] mb-4">
+                A Personal Message from Dr. Jana
+              </h2>
+              <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+                Discover how our evidence-based courses can support your journey through motherhood, 
+                designed with the same expertise and care as our individual therapy sessions.
+              </p>
+              
+              {/* Video Container */}
+              <div className="relative max-w-3xl mx-auto">
+                <div className="aspect-video bg-gray-100 rounded-xl overflow-hidden shadow-xl">
+                  <iframe 
+                    src="https://player.vimeo.com/video/1098649802?badge=0&autopause=0&player_id=0&app_id=58479"
+                    className="w-full h-full"
+                    title="Personal message from Dr. Jana Rundle about Bloom Psychology courses"
+                    allow="autoplay; fullscreen; picture-in-picture"
+                    allowFullScreen
+                  />
+                </div>
+                <div className="mt-6 flex flex-col sm:flex-row gap-4 justify-center">
+                  <Link 
+                    href="/courses" 
+                    className="bg-[#f8b5c4] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#f8b5c4]/90 transition-colors"
+                  >
+                    Explore Our Courses
+                  </Link>
+                  <Link 
+                    href="/book" 
+                    className="border-2 border-[#1e3a5f] text-[#1e3a5f] px-6 py-3 rounded-lg font-semibold hover:bg-[#1e3a5f] hover:text-white transition-colors"
+                  >
+                    Book Individual Session
+                  </Link>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+      
       {/* Team Showcase Section - Professional Photography */}
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-6">

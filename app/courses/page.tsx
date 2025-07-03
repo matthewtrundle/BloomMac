@@ -143,6 +143,27 @@ export default function CoursesPage() {
             {/* Professional divider */}
             <div className="w-32 h-0.5 bg-bloom-sage/20 rounded-full mx-auto mb-8"></div>
             
+            {/* Welcome Video */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="max-w-3xl mx-auto mb-8"
+            >
+              <div className="relative aspect-video bg-gray-100 rounded-xl overflow-hidden shadow-lg">
+                <iframe 
+                  src="https://player.vimeo.com/video/1098649802?badge=0&autopause=0&player_id=0&app_id=58479"
+                  className="w-full h-full"
+                  title="Welcome to Bloom Psychology Courses - Dr. Jana Rundle"
+                  allow="autoplay; fullscreen; picture-in-picture"
+                  allowFullScreen
+                />
+              </div>
+              <p className="text-sm text-bloom-dark/60 mt-3 text-center">
+                A personal welcome from Dr. Jana Rundle
+              </p>
+            </motion.div>
+            
             <p className="text-xl text-bloom-dark/80 mb-8">
               Self-paced, evidence-based programs designed by Dr. Jana Rundle to support your journey through motherhood
             </p>
