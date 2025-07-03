@@ -50,52 +50,7 @@ export async function GET(request: NextRequest) {
     
     // For each enrolled course, get workbook status
     for (const enrollment of enrollments) {
-      // Handle the free "Becoming Mom" course
-      if (enrollment.course_id === 'becoming-mom') {
-        const { data: responses } = await supabase
-          .from('user_workbook_responses')
-          .select('week_number, question_id, is_draft, updated_at')
-          .eq('user_id', session.user.id)
-          .eq('course_id', 'becoming-mom');
-        
-        const { data: submissions } = await supabase
-          .from('user_week_submissions')
-          .select('week_number, submitted_at, completion_percentage')
-          .eq('user_id', session.user.id)
-          .eq('course_id', 'becoming-mom');
-        
-        // Create workbook statuses for 4 lessons
-        const workbooks: WorkbookStatus[] = [];
-        for (let week = 1; week <= 4; week++) {
-          const weekResponses = responses?.filter(r => r.week_number === week) || [];
-          const submission = submissions?.find(s => s.week_number === week);
-          
-          const totalQuestions = 3; // 3 questions per lesson
-          const answeredQuestions = weekResponses.length;
-          const completionPercentage = submission?.completion_percentage || 
-            Math.round((answeredQuestions / totalQuestions) * 100);
-          
-          workbooks.push({
-            weekNumber: week,
-            totalQuestions,
-            answeredQuestions,
-            isDraft: weekResponses.some(r => r.is_draft) && !submission,
-            isSubmitted: !!submission,
-            lastUpdated: weekResponses.length > 0 
-              ? weekResponses.reduce((latest, r) => 
-                  r.updated_at > latest ? r.updated_at : latest, weekResponses[0].updated_at)
-              : undefined,
-            completionPercentage
-          });
-        }
-        
-        courseWorkbooks.push({
-          courseId: 'becoming-mom',
-          courseName: 'Becoming Mom',
-          workbooks
-        });
-      } else {
-        // Handle other courses (6-week format)
+        // Handle enrolled courses (6-week format)
         const { data: responses } = await supabase
           .from('user_workbook_responses')
           .select('week_number, question_id, is_draft, updated_at')
@@ -143,7 +98,6 @@ export async function GET(request: NextRequest) {
           courseName,
           workbooks
         });
-      }
     }
     
     return NextResponse.json({

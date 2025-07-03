@@ -5,15 +5,6 @@ import { cookies } from 'next/headers';
 // Define all available courses
 const ALL_COURSES = [
   {
-    id: 'becoming-mom',
-    title: 'Becoming Mom',
-    subtitle: 'Free Introduction',
-    totalLessons: 4,
-    duration: '40 minutes',
-    price: 0,
-    isFree: true
-  },
-  {
     id: 'postpartum-wellness-foundations',
     title: 'Postpartum Wellness',
     subtitle: '6-Week Journey',

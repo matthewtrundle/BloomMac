@@ -35,20 +35,20 @@ Execute the migration script in Supabase:
 
 ### Step 3: Seed Initial Data (Optional)
 ```sql
--- Add sample workbook questions for Becoming Mom course
+-- Add sample workbook questions for Postpartum Wellness course
 INSERT INTO workbook_questions (course_id, week_number, question_number, question_text, question_type) VALUES
-('becoming-mom', 1, 1, 'What brought you to this course today?', 'textarea'),
-('becoming-mom', 1, 2, 'What emotions are you experiencing most often?', 'textarea'),
-('becoming-mom', 1, 3, 'What do you hope to gain from this journey?', 'textarea'),
-('becoming-mom', 2, 1, 'What physical changes have surprised you most?', 'textarea'),
-('becoming-mom', 2, 2, 'How has your thinking or memory changed?', 'textarea'),
-('becoming-mom', 2, 3, 'What self-care practice could you commit to this week?', 'textarea'),
-('becoming-mom', 3, 1, 'Who are the key people in your support network?', 'textarea'),
-('becoming-mom', 3, 2, 'What kind of help is hardest for you to ask for?', 'textarea'),
-('becoming-mom', 3, 3, 'What boundaries do you need to set?', 'textarea'),
-('becoming-mom', 4, 1, 'What warning signs will you watch for?', 'textarea'),
-('becoming-mom', 4, 2, 'What daily practice will you implement?', 'textarea'),
-('becoming-mom', 4, 3, 'What additional support might you need?', 'textarea');
+('postpartum-wellness-foundations', 1, 1, 'What brought you to this course today?', 'textarea'),
+('postpartum-wellness-foundations', 1, 2, 'What emotions are you experiencing most often?', 'textarea'),
+('postpartum-wellness-foundations', 1, 3, 'What do you hope to gain from this journey?', 'textarea'),
+('postpartum-wellness-foundations', 2, 1, 'What physical changes have surprised you most?', 'textarea'),
+('postpartum-wellness-foundations', 2, 2, 'How has your thinking or memory changed?', 'textarea'),
+('postpartum-wellness-foundations', 2, 3, 'What self-care practice could you commit to this week?', 'textarea'),
+('postpartum-wellness-foundations', 3, 1, 'Who are the key people in your support network?', 'textarea'),
+('postpartum-wellness-foundations', 3, 2, 'What kind of help is hardest for you to ask for?', 'textarea'),
+('postpartum-wellness-foundations', 3, 3, 'What boundaries do you need to set?', 'textarea'),
+('postpartum-wellness-foundations', 4, 1, 'What warning signs will you watch for?', 'textarea'),
+('postpartum-wellness-foundations', 4, 2, 'What daily practice will you implement?', 'textarea'),
+('postpartum-wellness-foundations', 4, 3, 'What additional support might you need?', 'textarea');
 ```
 
 ### Step 4: Update Application Code

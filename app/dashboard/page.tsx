@@ -636,7 +636,7 @@ export default function SimpleDashboardPage() {
                     <div className="ml-4">
                       {course.isEnrolled ? (
                         <a
-                          href={course.id === 'becoming-mom' ? '/courses/becoming-mom/lessons' : '/my-courses'}
+                          href="/my-courses"
                           className="px-4 py-2 bg-bloom-sage text-white rounded-lg hover:bg-bloom-sage/90 transition-colors text-sm font-medium"
                         >
                           {course.progress === 100 ? 'Review' : 'Continue'}
@@ -829,7 +829,7 @@ export default function SimpleDashboardPage() {
                   <div>
                     <h3 className="text-lg font-semibold text-bloom-dark">{course.courseName} Workbooks</h3>
                     <p className="text-xs text-bloom-dark/60">
-                      {course.courseId === 'becoming-mom' ? '4 reflection prompts' : '6 weekly workbooks'}
+                      {course.workbooks.length} weekly workbooks
                     </p>
                   </div>
                 </div>
@@ -875,7 +875,7 @@ export default function SimpleDashboardPage() {
                         </div>
                         <div>
                           <h4 className="font-medium text-bloom-dark">
-                            {course.courseId === 'becoming-mom' ? `Lesson ${workbook.weekNumber}` : `Week ${workbook.weekNumber}`}
+                            Week ${workbook.weekNumber}
                           </h4>
                           <p className="text-sm text-bloom-dark/60">
                             {workbook.isSubmitted ? 'Submitted' : 
@@ -885,7 +885,7 @@ export default function SimpleDashboardPage() {
                         </div>
                       </div>
                       <a
-                        href={course.courseId === 'becoming-mom' ? `/courses/becoming-mom/lessons/${workbook.weekNumber}/workbook` : "/simple-workbooks"}
+                        href="/simple-workbooks"
                         className={`px-3 py-1 rounded text-sm font-medium transition-colors ${
                           workbook.isSubmitted
                             ? 'bg-gray-100 text-gray-600 hover:bg-gray-200'

@@ -58,7 +58,6 @@ export async function GET(request: NextRequest) {
     
     // Get total lessons for enrolled courses (rough estimate)
     const totalLessonsPerCourse = {
-      'becoming-mom': 4,
       'postpartum-wellness-foundations': 24,
       'anxiety-management-new-moms': 16,
       'partner-support-bootcamp': 8
