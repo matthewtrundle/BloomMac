@@ -115,11 +115,8 @@ const Header = () => {
             {/* Center - Announcement */}
             <Link href="/virtual-therapy" className="flex items-center gap-3 group">
               <div className="flex items-center gap-3">
-                {/* Pulse animation for attention */}
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#f8b5c4] opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-[#f8b5c4]"></span>
-                </span>
+                {/* Solid pink dot indicator */}
+                <span className="inline-flex rounded-full h-2 w-2 bg-[#f8b5c4]"></span>
                 
                 <span className="text-sm font-light tracking-wide">
                   Now accepting virtual clients across Texas
