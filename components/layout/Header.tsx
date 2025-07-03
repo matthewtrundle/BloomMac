@@ -341,16 +341,19 @@ const Header = () => {
           </div>
           
           {/* Mobile Navigation */}
-          <div className="flex md:hidden items-center justify-between py-2">
-            {/* Logo */}
-            <Link href="/" className="flex items-center">
-              <div className="relative h-10 w-28 mr-2">
+          <div className="flex md:hidden items-center justify-between py-3">
+            {/* Logo - Improved mobile version */}
+            <Link href="/" className="flex items-center mobile-header-logo">
+              <div className="relative h-12 w-36 mr-2">
                 <Image 
-                  src="/images/Logo/logo2.png" 
+                  src="/images/Logo/BLOOM-LOGO.png" 
                   alt="Bloom Psychology" 
                   fill
-                  className="object-contain"
+                  className="object-contain object-left"
                   priority
+                  style={{
+                    filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.1))'
+                  }}
                 />
               </div>
             </Link>

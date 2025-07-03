@@ -543,7 +543,7 @@ section:not(.hero-section) {
   main > div:first-child > section:first-child,
   [class*="pt-20"],
   [class*="pt-24"] {
-    padding-top: 160px !important; /* Increased for header + announcement bar clearance */
+    padding-top: 170px !important; /* Increased for larger mobile logo + header + announcement bar */
   }
   
   .hero-section {
@@ -554,7 +554,7 @@ section:not(.hero-section) {
     height: auto;
     display: flex;
     align-items: center;
-    padding-top: 160px !important; /* Increased for header and announcement bar */
+    padding-top: 170px !important; /* Increased for larger mobile logo + header and announcement bar */
   }
   
   /* Ensure all buttons are visible on mobile */
@@ -834,22 +834,31 @@ section:not(.hero-section) {
     padding-bottom: 100px !important;
   }
   
-  /* Service title optimization for mobile */
+  /* Service title optimization for all screen sizes */
   .service-title, 
   h1.service-title {
-    font-size: 1.5rem !important;
-    line-height: 1.35 !important;
     word-break: normal !important;
     overflow-wrap: normal !important;
     hyphens: none !important;
     white-space: normal !important;
     text-wrap: pretty !important;
+    word-spacing: normal !important;
+  }
+  
+  /* Mobile-specific font sizing */
+  @media (max-width: 768px) {
+    .service-title, 
+    h1.service-title {
+      font-size: 1.5rem !important;
+      line-height: 1.35 !important;
+    }
   }
   
   /* Specific adjustments for longest titles */
   .service-title {
     max-width: 100% !important;
     overflow-wrap: break-word !important;
+    min-width: 0 !important; /* Allow flex shrinking */
   }
   
   /* Remove forced line breaks on mobile for better flow */
@@ -860,6 +869,16 @@ section:not(.hero-section) {
   /* Keep natural line breaks but allow proper wrapping */
   .service-title {
     white-space: normal !important;
+  }
+  
+  /* Desktop adjustments for better text flow */
+  @media (min-width: 769px) {
+    .service-title, 
+    h1.service-title {
+      max-width: 90% !important; /* Prevent container constraint issues */
+      word-break: keep-all !important; /* Prefer keeping words together */
+      overflow-wrap: break-word !important; /* Only break if absolutely necessary */
+    }
   }
   
   /* Extra small screens - make titles even smaller to prevent breaking */
@@ -882,7 +901,12 @@ section:not(.hero-section) {
   
   /* Additional padding for pages with longer titles */
   .service-page-header {
-    padding-top: 180px !important;
+    padding-top: 190px !important; /* Adjusted for larger mobile logo */
+  }
+  
+  /* Mobile header logo optimizations */
+  .mobile-header-logo {
+    max-width: calc(100vw - 80px); /* Leave space for menu button */
   }
   
   /* Prevent text shifting with stable containers */

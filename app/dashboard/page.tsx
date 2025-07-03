@@ -10,12 +10,25 @@ interface UserProfile {
   last_name: string;
   postpartum_date?: string;
   number_of_children?: number;
+  phone?: string;
+  emergency_contact_name?: string;
+  total_stars?: number;
+}
+
+interface Achievement {
+  id: string;
+  name: string;
+  description: string;
+  icon: string;
+  earnedAt?: string;
+  points: number;
 }
 
 export default function SimpleDashboardPage() {
   const { user, loading: authLoading } = useAuth();
   const router = useRouter();
   const [profile, setProfile] = useState<UserProfile | null>(null);
+  const [achievements, setAchievements] = useState<Achievement[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -47,6 +60,25 @@ export default function SimpleDashboardPage() {
       if (response.ok) {
         const data = await response.json();
         setProfile(data.profile);
+        
+        // Fetch achievements if profile loaded successfully
+        if (data.profile) {
+          try {
+            const achievementsResponse = await fetch('/api/achievements/get', {
+              headers: {
+                'Authorization': `Bearer ${user.access_token || ''}`,
+              },
+            });
+            
+            if (achievementsResponse.ok) {
+              const achievementsData = await achievementsResponse.json();
+              setAchievements(achievementsData.achievements || []);
+            }
+          } catch (achievementError) {
+            console.error('Failed to fetch achievements:', achievementError);
+            // Don't fail the whole dashboard for achievements
+          }
+        }
       } else {
         console.error('Failed to fetch profile');
       }
@@ -63,6 +95,36 @@ export default function SimpleDashboardPage() {
     if (hour < 12) return 'Good morning';
     if (hour < 18) return 'Good afternoon';
     return 'Good evening';
+  };
+
+  const getDaysSincePostpartum = () => {
+    if (!profile?.postpartum_date) return null;
+    try {
+      const postpartumDate = new Date(profile.postpartum_date);
+      if (isNaN(postpartumDate.getTime())) return null;
+      
+      const today = new Date();
+      const diffTime = Math.abs(today.getTime() - postpartumDate.getTime());
+      const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+      return diffDays;
+    } catch (error) {
+      console.error('Error calculating days since postpartum:', error);
+      return null;
+    }
+  };
+
+  const getProfileCompleteness = () => {
+    if (!profile) return 0;
+    const fields = [
+      profile.first_name,
+      profile.last_name,
+      profile.phone,
+      profile.postpartum_date,
+      profile.number_of_children,
+      profile.emergency_contact_name
+    ];
+    const completed = fields.filter(field => field && field.toString().trim()).length;
+    return Math.round((completed / fields.length) * 100);
   };
 
   if (authLoading || loading) {
@@ -110,6 +172,9 @@ export default function SimpleDashboardPage() {
                 {getGreeting()}, {profile?.first_name || user?.user_metadata?.first_name || 'Beautiful'}
               </h1>
               <p className="text-bloom-dark/60 mt-1">
+                {getDaysSincePostpartum() !== null && (
+                  <>Day {getDaysSincePostpartum()} of your journey • </>
+                )}
                 Welcome to your wellness hub
               </p>
             </div>
@@ -146,6 +211,65 @@ export default function SimpleDashboardPage() {
               </div>
             </div>
           </div>
+
+          {/* Achievements Section */}
+          {achievements.length > 0 && (
+            <div className="bg-white rounded-2xl shadow-lg p-6">
+              <h3 className="text-xl font-semibold text-bloom-dark mb-4 flex items-center justify-between">
+                <span className="flex items-center gap-2">
+                  <span className="text-2xl">⭐</span>
+                  Your Stars
+                </span>
+                <span className="text-sm text-bloom-sage">
+                  {profile?.total_stars || achievements.length} stars earned
+                </span>
+              </h3>
+              <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4">
+                {achievements.slice(0, 12).map((achievement) => (
+                  <div key={achievement.id} className="text-center group">
+                    <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 to-yellow-500 rounded-full flex items-center justify-center mx-auto mb-2 shadow-lg group-hover:scale-110 transition-transform">
+                      <span className="text-xl">{achievement.icon}</span>
+                    </div>
+                    <p className="text-xs text-bloom-dark/60 leading-tight">{achievement.name}</p>
+                  </div>
+                ))}
+                {achievements.length === 0 && (
+                  <div className="col-span-full text-center py-4">
+                    <p className="text-bloom-dark/60 text-sm">Complete activities to earn your first star!</p>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* Profile Completeness */}
+          {profile && getProfileCompleteness() < 100 && (
+            <div className="bg-gradient-to-r from-bloom-sage-50 to-bloompink/10 rounded-2xl shadow-lg p-6">
+              <h3 className="text-lg font-semibold text-bloom-dark mb-3 flex items-center gap-2">
+                <span className="text-xl">✨</span>
+                Complete Your Profile
+              </h3>
+              <div className="flex items-center gap-4 mb-4">
+                <div className="flex-1 bg-white rounded-full h-3 overflow-hidden">
+                  <div 
+                    className="h-full bg-gradient-to-r from-bloom-sage to-bloompink transition-all duration-300"
+                    style={{ width: `${getProfileCompleteness()}%` }}
+                  ></div>
+                </div>
+                <span className="text-sm font-medium text-bloom-dark">{getProfileCompleteness()}%</span>
+              </div>
+              <p className="text-sm text-bloom-dark/70 mb-3">
+                A complete profile helps us provide better personalized support.
+              </p>
+              <a 
+                href="/profile"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-bloom-sage text-white rounded-lg hover:bg-bloom-sage/90 transition-colors text-sm"
+              >
+                <span>Update Profile</span>
+                <span>→</span>
+              </a>
+            </div>
+          )}
 
           {/* Quick Actions */}
           <div className="bg-white rounded-2xl shadow-lg p-6">

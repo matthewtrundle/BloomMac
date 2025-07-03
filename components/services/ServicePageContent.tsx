@@ -44,7 +44,7 @@ export default function ServicePageContent({ service, primaryQuestions, addition
             transition={{ duration: 0.6 }}
           >
             <GlassmorphismPanel variant="prominent" className="p-8 md:p-12">
-              <h1 className="service-title text-4xl md:text-5xl lg:text-6xl font-playfair text-bloom-dark mb-6">
+              <h1 className="service-title text-4xl md:text-5xl lg:text-6xl font-playfair text-bloom-dark mb-6" style={{wordBreak: 'normal', overflowWrap: 'break-word'}}>
                 {service.title}
               </h1>
               

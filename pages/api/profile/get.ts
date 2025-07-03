@@ -53,10 +53,16 @@ export default async function handler(
       process.env.SUPABASE_SERVICE_ROLE_KEY!
     );
 
-    // Fetch user profile
+    // Fetch user profile with more comprehensive data
     const { data: profile, error: profileError } = await supabaseService
       .from('user_profiles')
-      .select('*')
+      .select(`
+        id, first_name, last_name, phone, 
+        postpartum_date, baby_due_date, number_of_children,
+        emergency_contact_name, emergency_contact_phone, emergency_contact_relationship,
+        total_stars, marketing_consent, timezone,
+        created_at, updated_at
+      `)
       .eq('id', user.id)
       .single();
 
@@ -66,9 +72,12 @@ export default async function handler(
       return res.status(200).json({ 
         profile: {
           id: user.id,
-          first_name: user.user_metadata?.first_name || '',
-          last_name: user.user_metadata?.last_name || '',
-          email: user.email
+          first_name: user.user_metadata?.first_name || user.user_metadata?.full_name?.split(' ')[0] || '',
+          last_name: user.user_metadata?.last_name || user.user_metadata?.full_name?.split(' ').slice(1).join(' ') || '',
+          email: user.email,
+          total_stars: 0,
+          number_of_children: 1,
+          created_at: user.created_at
         }
       });
     }
