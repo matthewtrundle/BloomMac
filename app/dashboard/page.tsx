@@ -1151,8 +1151,6 @@ export default function SimpleDashboardPage() {
               );
             })()}
 
-          </div>
-
             {/* Compact Motivational Insight */}
             <div className="mt-4 p-3 bg-gradient-to-r from-yellow-50 to-orange-50 rounded-lg border border-yellow-200">
               <div className="text-sm text-bloom-dark/80">
