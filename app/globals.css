@@ -875,9 +875,11 @@ section:not(.hero-section) {
   @media (min-width: 769px) {
     .service-title, 
     h1.service-title {
-      max-width: 90% !important; /* Prevent container constraint issues */
-      word-break: keep-all !important; /* Prefer keeping words together */
-      overflow-wrap: break-word !important; /* Only break if absolutely necessary */
+      max-width: 100% !important; /* Full width for proper text flow */
+      word-break: normal !important; /* Normal word breaking */
+      overflow-wrap: normal !important; /* Normal overflow wrap */
+      white-space: nowrap !important; /* Prevent breaking on desktop */
+      text-wrap: nowrap !important; /* Modern text-wrap property */
     }
   }
   

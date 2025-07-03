@@ -401,7 +401,7 @@ export default function SimpleDashboardPage() {
                 </div>
               </a>
               <a 
-                href="/my-workbooks"
+                href="/simple-workbooks"
                 className="flex items-center gap-3 p-4 bg-bloompink/5 hover:bg-bloompink/10 rounded-lg border border-bloompink/10 hover:border-bloompink/20 transition-all duration-200"
               >
                 <svg className="w-5 h-5 text-bloompink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -413,7 +413,7 @@ export default function SimpleDashboardPage() {
                 </div>
               </a>
               <a 
-                href="/appointments"
+                href="/simple-appointments"
                 className="flex items-center gap-3 p-4 bg-bloom-accent/5 hover:bg-bloom-accent/10 rounded-lg border border-bloom-accent/10 hover:border-bloom-accent/20 transition-all duration-200"
               >
                 <svg className="w-5 h-5 text-bloom-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -503,7 +503,7 @@ export default function SimpleDashboardPage() {
                 <h3 className="text-lg font-semibold text-bloom-dark">Appointments</h3>
               </div>
               <a 
-                href="/appointments"
+                href="/simple-appointments"
                 className="text-sm font-medium text-bloom-accent hover:text-bloom-accent/80 transition-colors"
               >
                 View all →
@@ -576,7 +576,7 @@ export default function SimpleDashboardPage() {
                 })}
                 {upcomingAppointments.length > 3 && (
                   <div className="text-center pt-2">
-                    <a href="/appointments" className="text-bloom-sage hover:text-bloom-sage/80 text-sm underline">
+                    <a href="/simple-appointments" className="text-bloom-sage hover:text-bloom-sage/80 text-sm underline">
                       View {upcomingAppointments.length - 3} more appointments →
                     </a>
                   </div>
@@ -606,7 +606,7 @@ export default function SimpleDashboardPage() {
                   </div>
                 </div>
                 <a 
-                  href="/appointments"
+                  href="/simple-appointments"
                   className="inline-flex items-center gap-2 px-6 py-3 bg-bloom-sage text-white rounded-lg hover:bg-bloom-sage/90 transition-colors"
                 >
                   <span>📅</span>
@@ -678,7 +678,7 @@ export default function SimpleDashboardPage() {
                         </div>
                       </div>
                       <a
-                        href="/my-workbooks"
+                        href="/simple-workbooks"
                         className={`px-3 py-1 rounded text-sm font-medium transition-colors ${
                           workbook.isSubmitted
                             ? 'bg-gray-100 text-gray-600 hover:bg-gray-200'
@@ -826,7 +826,7 @@ export default function SimpleDashboardPage() {
 
               {/* Payment Methods */}
               <a 
-                href="/appointments"
+                href="/simple-appointments"
                 className="flex flex-col items-center gap-2 p-3 bg-green-50 rounded-lg hover:bg-green-100 transition-colors group text-center"
               >
                 <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
@@ -1017,7 +1017,7 @@ export default function SimpleDashboardPage() {
                 </div>
               </a>
               <a 
-                href="/my-workbooks" 
+                href="/simple-workbooks" 
                 className="flex items-center gap-3 p-4 bg-bloompink/10 rounded-lg hover:bg-bloompink/20 transition-colors"
               >
                 <span className="text-2xl">📝</span>
@@ -1027,7 +1027,7 @@ export default function SimpleDashboardPage() {
                 </div>
               </a>
               <a 
-                href="/appointments" 
+                href="/simple-appointments" 
                 className="flex items-center gap-3 p-4 bg-bloom-accent/10 rounded-lg hover:bg-bloom-accent/20 transition-colors"
               >
                 <span className="text-2xl">📅</span>
