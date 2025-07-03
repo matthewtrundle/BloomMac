@@ -414,6 +414,14 @@ const Header = () => {
               </Link>
               
               <Link 
+                href="/services"
+                onClick={() => setIsMenuOpen(false)}
+                className="px-4 py-3 text-lg font-medium text-bloom hover:text-bloom-blush transition duration-300 hover:bg-gray-50 rounded-lg"
+              >
+                Services
+              </Link>
+              
+              <Link 
                 href="/new-mom-program"
                 onClick={() => setIsMenuOpen(false)}
                 className="px-4 py-3 text-lg font-medium text-bloom hover:text-bloom-blush transition duration-300 hover:bg-gray-50 rounded-lg"

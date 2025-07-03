@@ -17,11 +17,34 @@ CREATE TABLE IF NOT EXISTS profiles (
 );
 
 -- 2. Update course_enrollments table (add missing columns)
+-- First check if table exists and add basic required columns
 ALTER TABLE course_enrollments 
+ADD COLUMN IF NOT EXISTS id UUID DEFAULT gen_random_uuid(),
+ADD COLUMN IF NOT EXISTS user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE,
+ADD COLUMN IF NOT EXISTS course_id TEXT,
+ADD COLUMN IF NOT EXISTS enrolled_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+ADD COLUMN IF NOT EXISTS status TEXT DEFAULT 'active' CHECK (status IN ('active', 'completed', 'cancelled')),
 ADD COLUMN IF NOT EXISTS enrollment_method TEXT DEFAULT 'paid' CHECK (enrollment_method IN ('free', 'paid', 'gifted')),
 ADD COLUMN IF NOT EXISTS amount_paid DECIMAL(10,2) DEFAULT 0,
 ADD COLUMN IF NOT EXISTS stripe_payment_id TEXT,
-ADD COLUMN IF NOT EXISTS completed_at TIMESTAMP WITH TIME ZONE;
+ADD COLUMN IF NOT EXISTS completed_at TIMESTAMP WITH TIME ZONE,
+ADD COLUMN IF NOT EXISTS created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW();
+
+-- Add primary key if not exists
+DO $$ 
+BEGIN
+  IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'course_enrollments_pkey') THEN
+    ALTER TABLE course_enrollments ADD PRIMARY KEY (id);
+  END IF;
+END $$;
+
+-- Add unique constraint if not exists
+DO $$ 
+BEGIN
+  IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'course_enrollments_user_id_course_id_key') THEN
+    ALTER TABLE course_enrollments ADD UNIQUE(user_id, course_id);
+  END IF;
+END $$;
 
 -- 3. Create user_progress table
 CREATE TABLE IF NOT EXISTS user_progress (

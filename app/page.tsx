@@ -175,14 +175,15 @@ export default function Home() {
               </div>
             </motion.div>
             
-            {/* Mobile-only hero image - shown at top on mobile */}
+            {/* Enhanced Mobile Hero Section */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               className="lg:hidden order-first mb-8"
             >
-              <div className="relative rounded-2xl overflow-hidden shadow-xl mx-auto max-w-sm">
+              {/* Photo with credentials */}
+              <div className="relative rounded-2xl overflow-hidden shadow-xl mx-auto max-w-sm mb-6">
                 <div className="absolute inset-0 bg-gradient-to-br from-[#f8b5c4]/10 to-[#1e3a5f]/5 z-10" />
                 <Image
                   src="/images/optimized/Team/Jana Rundle.webp"
@@ -197,6 +198,60 @@ export default function Home() {
                   <p className="text-white/90 text-sm">Licensed Clinical Psychologist</p>
                   <p className="text-white/80 text-xs">Perinatal Mental Health Specialist</p>
                 </div>
+              </div>
+              
+              {/* Clear value proposition */}
+              <div className="text-center mb-6">
+                <h2 className="text-xl font-semibold text-[#1e3a5f] mb-2">
+                  Specialized Mental Health Support for Moms
+                </h2>
+                <p className="text-gray-600 text-sm px-4">
+                  Expert therapy for pregnancy, postpartum, and motherhood challenges
+                </p>
+              </div>
+              
+              {/* Service highlights */}
+              <div className="grid grid-cols-3 gap-2 mb-6">
+                <div className="bg-white border border-[#f8b5c4]/30 rounded-lg p-3 text-center">
+                  <div className="text-[#f8b5c4] mb-1">
+                    <svg className="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                    </svg>
+                  </div>
+                  <p className="text-xs text-gray-700 font-medium">Postpartum Depression</p>
+                </div>
+                <div className="bg-white border border-[#f8b5c4]/30 rounded-lg p-3 text-center">
+                  <div className="text-[#f8b5c4] mb-1">
+                    <svg className="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                    </svg>
+                  </div>
+                  <p className="text-xs text-gray-700 font-medium">Mom Anxiety</p>
+                </div>
+                <div className="bg-white border border-[#f8b5c4]/30 rounded-lg p-3 text-center">
+                  <div className="text-[#f8b5c4] mb-1">
+                    <svg className="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </div>
+                  <p className="text-xs text-gray-700 font-medium">Birth Trauma</p>
+                </div>
+              </div>
+              
+              {/* Trust indicators */}
+              <div className="flex justify-center gap-4 text-xs text-gray-600 mb-6">
+                <span className="flex items-center gap-1">
+                  <svg className="w-4 h-4 text-[#f8b5c4]" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                  500+ Moms Helped
+                </span>
+                <span className="flex items-center gap-1">
+                  <svg className="w-4 h-4 text-[#f8b5c4]" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                  Insurance Accepted
+                </span>
               </div>
             </motion.div>
             
@@ -230,6 +285,99 @@ export default function Home() {
               </div>
             </motion.div>
           </div>
+        </div>
+      </section>
+      
+      {/* What I Do - Mobile Service Clarity Section */}
+      <section className="py-12 bg-white lg:hidden">
+        <div className="container mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-2xl font-bold text-[#1e3a5f] text-center mb-8">What I Do</h2>
+            
+            {/* Service cards grid */}
+            <div className="grid grid-cols-1 gap-4 mb-8">
+              {/* Individual Therapy */}
+              <Link href="/services/therapy-for-women" className="block">
+                <div className="bg-gray-50 rounded-lg p-4 border border-gray-200 hover:border-[#f8b5c4] transition-colors">
+                  <div className="flex items-start gap-4">
+                    <div className="text-[#f8b5c4] flex-shrink-0">
+                      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                      </svg>
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="font-semibold text-[#1e3a5f] mb-1">Individual Therapy</h3>
+                      <p className="text-sm text-gray-600">One-on-one support for anxiety, depression, life transitions, and personal growth</p>
+                    </div>
+                  </div>
+                </div>
+              </Link>
+              
+              {/* Postpartum Support */}
+              <Link href="/services/postpartum-depression-support" className="block">
+                <div className="bg-gray-50 rounded-lg p-4 border border-gray-200 hover:border-[#f8b5c4] transition-colors">
+                  <div className="flex items-start gap-4">
+                    <div className="text-[#f8b5c4] flex-shrink-0">
+                      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                      </svg>
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="font-semibold text-[#1e3a5f] mb-1">Postpartum Care</h3>
+                      <p className="text-sm text-gray-600">Specialized support for postpartum depression, anxiety, and adjustment</p>
+                    </div>
+                  </div>
+                </div>
+              </Link>
+              
+              {/* New Mom Program */}
+              <Link href="/new-mom-program" className="block">
+                <div className="bg-gradient-to-r from-[#f8b5c4]/10 to-[#f8b5c4]/5 rounded-lg p-4 border border-[#f8b5c4]/30 hover:border-[#f8b5c4] transition-colors">
+                  <div className="flex items-start gap-4">
+                    <div className="text-[#f8b5c4] flex-shrink-0">
+                      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                      </svg>
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="font-semibold text-[#1e3a5f] mb-1">Becoming Mom Program</h3>
+                      <p className="text-sm text-gray-600">8-week comprehensive support program for new and expecting mothers</p>
+                      <span className="text-xs text-[#f8b5c4] font-medium">Featured Program</span>
+                    </div>
+                  </div>
+                </div>
+              </Link>
+              
+              {/* Virtual Therapy */}
+              <Link href="/virtual-therapy" className="block">
+                <div className="bg-gray-50 rounded-lg p-4 border border-gray-200 hover:border-[#f8b5c4] transition-colors">
+                  <div className="flex items-start gap-4">
+                    <div className="text-[#f8b5c4] flex-shrink-0">
+                      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                      </svg>
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="font-semibold text-[#1e3a5f] mb-1">Virtual Therapy</h3>
+                      <p className="text-sm text-gray-600">Convenient online sessions available throughout Texas</p>
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            </div>
+            
+            {/* View all services link */}
+            <div className="text-center">
+              <Link href="/services" className="text-[#f8b5c4] font-medium text-sm hover:text-[#1e3a5f] transition-colors">
+                View All Services →
+              </Link>
+            </div>
+          </motion.div>
         </div>
       </section>
       
