@@ -97,6 +97,68 @@ export default function SimpleDashboardPage() {
     return 'Good evening';
   };
 
+  const getPersonalizedMessage = () => {
+    const firstName = profile?.first_name || user?.user_metadata?.first_name || 'Beautiful Mama';
+    const numChildren = profile?.number_of_children || 0;
+    const daysSince = getDaysSincePostpartum();
+    
+    if (daysSince !== null) {
+      if (daysSince < 40) {
+        return {
+          greeting: `${getGreeting()}, ${firstName}`,
+          subtitle: "You're in the sacred fourth trimester, embracing one of life's most transformative seasons",
+          quote: "\"Just as a seed needs time in the dark soil to grow, your body and soul are doing the beautiful work of becoming.\"",
+          journeyInfo: `Day ${daysSince} of your postpartum journey • Your body created life, and now it's creating a new version of you`
+        };
+      } else if (daysSince < 365) {
+        return {
+          greeting: `${getGreeting()}, amazing ${firstName}`,
+          subtitle: "Every day you're growing stronger, wiser, and more beautiful in your motherhood",
+          quote: "\"You are not the same woman who entered motherhood. You are braver, more intuitive, and infinitely more capable than you knew.\"",
+          journeyInfo: `${Math.floor(daysSince / 30)} months into this incredible journey • You're becoming exactly who you were meant to be`
+        };
+      }
+    }
+    
+    if (numChildren === 0) {
+      return {
+        greeting: `${getGreeting()}, beautiful ${firstName}`,
+        subtitle: "Your heart is preparing for the greatest love story you'll ever know",
+        quote: "\"A baby is something you carry inside you for nine months, in your arms for three years, and in your heart until the day you die.\"",
+        journeyInfo: "Expecting your first miracle • Your body is creating life, and your heart is expanding in ways you never imagined"
+      };
+    } else if (numChildren === 1) {
+      return {
+        greeting: `${getGreeting()}, wonderful ${firstName}`,
+        subtitle: "You're writing the most important story of your life, one loving moment at a time",
+        quote: "\"The moment a child is born, the mother is also born. She never existed before. The woman existed, but the mother, never.\"",
+        journeyInfo: `Mama to 1 precious soul • You're learning that the love in your heart multiplies, never divides`
+      };
+    } else if (numChildren <= 3) {
+      return {
+        greeting: `${getGreeting()}, incredible ${firstName}`,
+        subtitle: "You're orchestrating a beautiful symphony of love, chaos, and endless grace",
+        quote: "\"The days are long, but the years are short. You're doing more important work than you realize.\"",
+        journeyInfo: `Mama to ${numChildren} amazing children • You're proof that hearts can stretch infinitely without ever breaking`
+      };
+    } else {
+      return {
+        greeting: `${getGreeting()}, superhero ${firstName}`,
+        subtitle: "You've created a whole world of love, laughter, and little humans who call you their everything",
+        quote: "\"You are the heart of your home, the center of your children's universe, and stronger than you'll ever know.\"",
+        journeyInfo: `Mama to ${numChildren} incredible children • You're living proof that miracles happen every single day`
+      };
+    }
+    
+    // Default fallback
+    return {
+      greeting: `${getGreeting()}, ${firstName}`,
+      subtitle: "Your wellness journey is as unique and beautiful as you are",
+      quote: "\"Take care of yourself first. You can't pour from an empty cup.\"",
+      journeyInfo: "Welcome to your personal sanctuary of growth and healing"
+    };
+  };
+
   const getDaysSincePostpartum = () => {
     if (!profile?.postpartum_date) return null;
     try {
@@ -165,28 +227,30 @@ export default function SimpleDashboardPage() {
     <div className="min-h-screen bg-gradient-to-br from-bloom-sage-50 via-white to-bloom-pink-50">
       {/* Dashboard Header */}
       <div className="bg-white/80 backdrop-blur-sm border-b border-bloom-sage/10">
-        <div className="container mx-auto px-6 py-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-playfair text-bloom-dark">
-                {getGreeting()}, {profile?.first_name || user?.user_metadata?.first_name || 'Beautiful'}
-              </h1>
-              <p className="text-bloom-dark/60 mt-1">
-                {getDaysSincePostpartum() !== null ? (
-                  <>Day {getDaysSincePostpartum()} of your journey • </>
-                ) : profile?.number_of_children ? (
-                  <>Parent of {profile.number_of_children} {profile.number_of_children === 1 ? 'child' : 'children'} • </>
-                ) : null}
-                Welcome to your wellness hub
+        <div className="container mx-auto px-6 py-8">
+          <div className="max-w-4xl">
+            <h1 className="text-3xl font-playfair text-bloom-dark mb-2">
+              {getPersonalizedMessage().greeting}
+            </h1>
+            <p className="text-lg text-bloom-dark/70 mb-4 font-light">
+              {getPersonalizedMessage().subtitle}
+            </p>
+            <div className="bg-gradient-to-r from-bloom-sage-50 to-bloompink/10 rounded-xl p-4 mb-4">
+              <p className="text-bloom-dark/80 italic text-center font-light">
+                {getPersonalizedMessage().quote}
               </p>
-              {/* Debug info - remove later */}
-              {process.env.NODE_ENV === 'development' && profile && (
-                <div className="text-xs text-gray-500 mt-1">
-                  Debug: postpartum_date = {profile.postpartum_date || 'not set'}, 
-                  children = {profile.number_of_children || 'not set'}
-                </div>
-              )}
             </div>
+            <p className="text-bloom-dark/60">
+              {getPersonalizedMessage().journeyInfo}
+            </p>
+            {/* Debug info - remove later */}
+            {process.env.NODE_ENV === 'development' && profile && (
+              <div className="text-xs text-gray-500 mt-2">
+                Debug: postpartum_date = {profile.postpartum_date || 'not set'}, 
+                children = {profile.number_of_children || 'not set'}, 
+                days_since = {getDaysSincePostpartum()}
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -209,23 +273,27 @@ export default function SimpleDashboardPage() {
                 'Loading your personalized wellness experience...'
               )}
             </p>
-            {/* Show additional profile info if available */}
+            {/* Show wellness focus areas */}
             {profile && (
               <div className="bg-bloom-sage-50 rounded-lg p-4 mb-6 text-left">
-                <h4 className="font-medium text-bloom-dark mb-2">Your Journey Info:</h4>
-                <div className="grid md:grid-cols-2 gap-2 text-sm text-bloom-dark/70">
-                  {profile.number_of_children && (
-                    <div>• {profile.number_of_children} {profile.number_of_children === 1 ? 'child' : 'children'}</div>
-                  )}
-                  {getDaysSincePostpartum() && (
-                    <div>• Day {getDaysSincePostpartum()} postpartum</div>
-                  )}
-                  {profile.phone && (
-                    <div>• Contact info on file</div>
-                  )}
-                  {profile.emergency_contact_name && (
-                    <div>• Emergency contact: {profile.emergency_contact_name}</div>
-                  )}
+                <h4 className="font-medium text-bloom-dark mb-3">Your Wellness Focus:</h4>
+                <div className="grid md:grid-cols-2 gap-3 text-sm">
+                  <div className="flex items-center gap-2 text-bloom-dark/70">
+                    <span className="text-lg">🧘‍♀️</span>
+                    <span>Mind & emotional wellbeing</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-bloom-dark/70">
+                    <span className="text-lg">💪</span>
+                    <span>Physical recovery & strength</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-bloom-dark/70">
+                    <span className="text-lg">👥</span>
+                    <span>Connection & community</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-bloom-dark/70">
+                    <span className="text-lg">🌱</span>
+                    <span>Personal growth & healing</span>
+                  </div>
                 </div>
               </div>
             )}
