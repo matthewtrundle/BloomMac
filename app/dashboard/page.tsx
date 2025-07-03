@@ -334,124 +334,181 @@ export default function SimpleDashboardPage() {
       {/* Main Dashboard Content */}
       <div className="container mx-auto px-6 py-8">
         <div className="grid gap-8">
-          {/* Welcome Card */}
-          <div className="bg-white rounded-2xl shadow-lg p-8 text-center">
-            <div className="w-20 h-20 bg-gradient-to-br from-bloompink to-bloom-sage rounded-full flex items-center justify-center mx-auto mb-6">
-              <span className="text-3xl">🌸</span>
+          {/* Unified Welcome Section */}
+          <div className="bg-white rounded-xl shadow-sm border border-bloom-sage/10 p-6">
+            <div className="flex items-start gap-4 mb-6">
+              <div className="w-14 h-14 bg-gradient-to-br from-bloom-sage to-bloompink rounded-xl flex items-center justify-center flex-shrink-0">
+                <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+              </div>
+              <div className="flex-1">
+                <h2 className="text-xl font-semibold text-bloom-dark mb-2">
+                  {profile?.first_name ? `Welcome back, ${profile.first_name}!` : 'Welcome to Your Journey'}
+                </h2>
+                <p className="text-bloom-dark/70 text-sm">
+                  {profile ? (
+                    `Your personalized wellness experience is ready and waiting.`
+                  ) : (
+                    'Loading your personalized wellness experience...'
+                  )}
+                </p>
+              </div>
             </div>
-            <h2 className="text-2xl font-bold text-bloom-dark mb-4">
-              {profile?.first_name ? `Welcome ${profile.first_name}!` : 'Welcome to Your Wellness Journey'}
-            </h2>
-            <p className="text-bloom-gray-600 mb-6">
-              {profile ? (
-                `You've successfully completed onboarding! Your personalized wellness experience is ready.`
-              ) : (
-                'Loading your personalized wellness experience...'
-              )}
-            </p>
-            {/* Show wellness focus areas */}
+            
+            {/* Wellness Focus Areas - Streamlined */}
             {profile && (
-              <div className="bg-bloom-sage-50 rounded-lg p-4 mb-6 text-left">
-                <h4 className="font-medium text-bloom-dark mb-3">Your Wellness Focus:</h4>
-                <div className="grid md:grid-cols-2 gap-3 text-sm">
-                  <div className="flex items-center gap-2 text-bloom-dark/70">
-                    <span className="text-lg">🧘‍♀️</span>
-                    <span>Mind & emotional wellbeing</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-bloom-dark/70">
-                    <span className="text-lg">💪</span>
-                    <span>Physical recovery & strength</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-bloom-dark/70">
-                    <span className="text-lg">👥</span>
-                    <span>Connection & community</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-bloom-dark/70">
-                    <span className="text-lg">🌱</span>
-                    <span>Personal growth & healing</span>
-                  </div>
+              <div className="grid md:grid-cols-4 gap-3 mb-6">
+                <div className="flex items-center gap-2 text-sm text-bloom-dark/70 bg-bloom-sage/5 rounded-lg p-3">
+                  <svg className="w-4 h-4 text-bloom-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                  </svg>
+                  <span>Mindfulness</span>
+                </div>
+                <div className="flex items-center gap-2 text-sm text-bloom-dark/70 bg-bloom-sage/5 rounded-lg p-3">
+                  <svg className="w-4 h-4 text-bloom-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                  </svg>
+                  <span>Recovery</span>
+                </div>
+                <div className="flex items-center gap-2 text-sm text-bloom-dark/70 bg-bloom-sage/5 rounded-lg p-3">
+                  <svg className="w-4 h-4 text-bloom-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                  </svg>
+                  <span>Community</span>
+                </div>
+                <div className="flex items-center gap-2 text-sm text-bloom-dark/70 bg-bloom-sage/5 rounded-lg p-3">
+                  <svg className="w-4 h-4 text-bloom-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                  <span>Growth</span>
                 </div>
               </div>
             )}
-            <div className="grid md:grid-cols-3 gap-4">
-              <div className="bg-bloom-sage-50 rounded-lg p-4">
-                <h3 className="font-semibold text-bloom-dark mb-2">Courses</h3>
-                <p className="text-sm text-bloom-gray-600">Explore our wellness programs</p>
-              </div>
-              <div className="bg-bloompink/10 rounded-lg p-4">
-                <h3 className="font-semibold text-bloom-dark mb-2">Community</h3>
-                <p className="text-sm text-bloom-gray-600">Connect with other mothers</p>
-              </div>
-              <div className="bg-bloom-accent/10 rounded-lg p-4">
-                <h3 className="font-semibold text-bloom-dark mb-2">Support</h3>
-                <p className="text-sm text-bloom-gray-600">Book sessions with Dr. Jana</p>
-              </div>
+
+            {/* Primary Actions */}
+            <div className="grid md:grid-cols-3 gap-3">
+              <a 
+                href="/my-courses"
+                className="flex items-center gap-3 p-4 bg-bloom-sage/5 hover:bg-bloom-sage/10 rounded-lg border border-bloom-sage/10 hover:border-bloom-sage/20 transition-all duration-200"
+              >
+                <svg className="w-5 h-5 text-bloom-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                </svg>
+                <div>
+                  <h3 className="font-medium text-bloom-dark text-sm">Continue Learning</h3>
+                  <p className="text-xs text-bloom-dark/60">Wellness courses</p>
+                </div>
+              </a>
+              <a 
+                href="/my-workbooks"
+                className="flex items-center gap-3 p-4 bg-bloompink/5 hover:bg-bloompink/10 rounded-lg border border-bloompink/10 hover:border-bloompink/20 transition-all duration-200"
+              >
+                <svg className="w-5 h-5 text-bloompink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                </svg>
+                <div>
+                  <h3 className="font-medium text-bloom-dark text-sm">Reflect & Journal</h3>
+                  <p className="text-xs text-bloom-dark/60">Weekly workbooks</p>
+                </div>
+              </a>
+              <a 
+                href="/appointments"
+                className="flex items-center gap-3 p-4 bg-bloom-accent/5 hover:bg-bloom-accent/10 rounded-lg border border-bloom-accent/10 hover:border-bloom-accent/20 transition-all duration-200"
+              >
+                <svg className="w-5 h-5 text-bloom-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                <div>
+                  <h3 className="font-medium text-bloom-dark text-sm">Book Session</h3>
+                  <p className="text-xs text-bloom-dark/60">Meet with Dr. Jana</p>
+                </div>
+              </a>
             </div>
           </div>
 
           {/* Course Progress Section */}
           {courseStats && (
-            <div className="bg-white rounded-2xl shadow-lg p-6">
-              <h3 className="text-xl font-semibold text-bloom-dark mb-4 flex items-center justify-between">
-                <span className="flex items-center gap-2">
-                  <span className="text-2xl">🎓</span>
-                  Course Progress
-                </span>
-                <span className="text-sm text-bloom-sage">
+            <div className="bg-white rounded-xl shadow-sm border border-bloom-sage/10 p-6">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-bloom-sage/10 rounded-lg flex items-center justify-center">
+                    <svg className="w-5 h-5 text-bloom-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                    </svg>
+                  </div>
+                  <h3 className="text-lg font-semibold text-bloom-dark">Course Progress</h3>
+                </div>
+                <span className="text-sm font-medium text-bloom-sage bg-bloom-sage/10 px-3 py-1 rounded-full">
                   {courseStats.completionPercentage}% Complete
                 </span>
-              </h3>
+              </div>
               
-              <div className="grid md:grid-cols-3 gap-4 mb-6">
-                <div className="bg-bloom-sage-50 rounded-lg p-4 text-center">
-                  <div className="text-2xl font-bold text-bloom-dark">{courseStats.weeksCompleted}</div>
-                  <div className="text-sm text-bloom-dark/60">Weeks Completed</div>
+              {/* Stats Grid */}
+              <div className="grid grid-cols-3 gap-4 mb-6">
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-bloom-dark mb-1">{courseStats.weeksCompleted}</div>
+                  <div className="text-xs text-bloom-dark/60">Weeks Done</div>
                 </div>
-                <div className="bg-bloompink/10 rounded-lg p-4 text-center">
-                  <div className="text-2xl font-bold text-bloom-dark">{courseStats.lessonsCompleted}</div>
-                  <div className="text-sm text-bloom-dark/60">Lessons Finished</div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-bloom-dark mb-1">{courseStats.lessonsCompleted}</div>
+                  <div className="text-xs text-bloom-dark/60">Lessons</div>
                 </div>
-                <div className="bg-bloom-accent/10 rounded-lg p-4 text-center">
-                  <div className="text-2xl font-bold text-bloom-dark">{Math.floor(courseStats.totalTimeSpentMinutes / 60)}h</div>
-                  <div className="text-sm text-bloom-dark/60">Time Invested</div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-bloom-dark mb-1">{Math.floor(courseStats.totalTimeSpentMinutes / 60)}h</div>
+                  <div className="text-xs text-bloom-dark/60">Learning Time</div>
                 </div>
               </div>
 
-              <div className="w-full h-3 bg-gray-200 rounded-full overflow-hidden mb-4">
-                <div 
-                  className="h-full bg-gradient-to-r from-bloom-sage to-bloompink transition-all duration-300"
-                  style={{ width: `${courseStats.completionPercentage}%` }}
-                ></div>
+              {/* Progress Bar */}
+              <div className="mb-4">
+                <div className="w-full h-2 bg-bloom-sage/10 rounded-full overflow-hidden">
+                  <div 
+                    className="h-full bg-bloom-sage transition-all duration-500 ease-out"
+                    style={{ width: `${courseStats.completionPercentage}%` }}
+                  ></div>
+                </div>
+                <div className="flex justify-between items-center mt-2">
+                  <span className="text-xs text-bloom-dark/60">
+                    {courseStats.lessonsCompleted} of {courseStats.totalLessons} lessons
+                  </span>
+                  <span className="text-xs font-medium text-bloom-sage">
+                    {courseStats.completionPercentage}%
+                  </span>
+                </div>
               </div>
               
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-bloom-dark/60">
-                  {courseStats.lessonsCompleted} of {courseStats.totalLessons} lessons
-                </span>
-                <a 
-                  href="/my-courses"
-                  className="px-4 py-2 bg-bloom-sage text-white rounded-lg hover:bg-bloom-sage/90 transition-colors text-sm"
-                >
-                  Continue Learning →
-                </a>
-              </div>
+              {/* Action Button */}
+              <a 
+                href="/my-courses"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-bloom-sage hover:bg-bloom-sage/90 text-white rounded-lg transition-all duration-200 text-sm font-medium"
+              >
+                <span>Continue Learning</span>
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </a>
             </div>
           )}
 
           {/* Appointments Section */}
-          <div className="bg-white rounded-2xl shadow-lg p-6">
-            <h3 className="text-xl font-semibold text-bloom-dark mb-4 flex items-center justify-between">
-              <span className="flex items-center gap-2">
-                <span className="text-2xl">📅</span>
-                Appointments & Sessions
-              </span>
+          <div className="bg-white rounded-xl shadow-sm border border-bloom-sage/10 p-6">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-bloom-accent/10 rounded-lg flex items-center justify-center">
+                  <svg className="w-5 h-5 text-bloom-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                </div>
+                <h3 className="text-lg font-semibold text-bloom-dark">Appointments</h3>
+              </div>
               <a 
                 href="/appointments"
-                className="text-sm text-bloom-sage hover:text-bloom-sage/80 underline"
+                className="text-sm font-medium text-bloom-accent hover:text-bloom-accent/80 transition-colors"
               >
                 View all →
               </a>
-            </h3>
+            </div>
             
             {upcomingAppointments.length > 0 ? (
               <div className="space-y-4">
