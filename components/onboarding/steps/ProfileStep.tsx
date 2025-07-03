@@ -284,6 +284,7 @@ export default function ProfileStep({
         emergency_contact_phone: formData.emergencyContactPhone.trim() || null,
         emergency_contact_relationship: formData.emergencyContactRelationship.trim() || null,
         timezone: formData.timezone,
+        marketing_consent: data.marketingConsent || false, // Include marketing consent from onboarding data
         updated_at: new Date().toISOString()
       };
 

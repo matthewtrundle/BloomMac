@@ -137,9 +137,13 @@ export default async function handler(
       });
     }
     
+    // Extract marketing consent (it comes from onboarding data)
+    const { marketing_consent, ...profileFields } = req.body;
+    
     const profileData = {
-      ...req.body,
+      ...profileFields,
       id: user.id, // Ensure the ID matches the authenticated user
+      marketing_consent: marketing_consent || false, // Store marketing consent
       updated_at: new Date().toISOString()
     };
     
@@ -183,6 +187,45 @@ export default async function handler(
       });
     }
 
+    // If user opted in for marketing, subscribe them to newsletter
+    if (marketing_consent) {
+      try {
+        console.log('User opted in for marketing, subscribing to newsletter...');
+        
+        // Call the newsletter signup endpoint
+        const newsletterResponse = await fetch(
+          `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/newsletter-signup`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              // Pass the original request headers for IP tracking
+              'x-forwarded-for': req.headers['x-forwarded-for'] as string || '',
+              'user-agent': req.headers['user-agent'] || ''
+            },
+            body: JSON.stringify({
+              email: user.email,
+              firstName: profileData.first_name,
+              lastName: profileData.last_name,
+              source: 'onboarding',
+              interests: ['wellness', 'mental-health'] // Default interests
+            })
+          }
+        );
+        
+        if (!newsletterResponse.ok) {
+          const errorData = await newsletterResponse.json();
+          console.error('Newsletter signup failed:', errorData);
+          // Don't fail the profile save if newsletter fails
+        } else {
+          console.log('Successfully subscribed user to newsletter');
+        }
+      } catch (newsletterError) {
+        console.error('Failed to subscribe to newsletter:', newsletterError);
+        // Don't fail the profile save if newsletter fails
+      }
+    }
+    
     return res.status(200).json({ success: true, data });
   } catch (error: any) {
     console.error('API critical error:', {
