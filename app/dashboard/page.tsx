@@ -24,11 +24,34 @@ interface Achievement {
   points: number;
 }
 
+interface WorkbookStatus {
+  weekNumber: number;
+  totalQuestions: number;
+  answeredQuestions: number;
+  isDraft: boolean;
+  isSubmitted: boolean;
+  lastUpdated?: string;
+  completionPercentage: number;
+}
+
+interface CourseStats {
+  weeksStarted: number;
+  weeksCompleted: number;
+  lessonsCompleted: number;
+  totalLessons: number;
+  completionPercentage: number;
+  totalTimeSpentMinutes: number;
+  lastActivity: string;
+  courseCompleted: boolean;
+}
+
 export default function SimpleDashboardPage() {
   const { user, loading: authLoading } = useAuth();
   const router = useRouter();
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [achievements, setAchievements] = useState<Achievement[]>([]);
+  const [workbookStatuses, setWorkbookStatuses] = useState<WorkbookStatus[]>([]);
+  const [courseStats, setCourseStats] = useState<CourseStats | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -50,41 +73,72 @@ export default function SimpleDashboardPage() {
     try {
       setError(null);
       
-      // Simple fetch without external dependencies
-      const response = await fetch('/api/profile/get', {
-        headers: {
-          'Authorization': `Bearer ${user.access_token || ''}`,
-        },
-      });
+      // Fetch all dashboard data in parallel
+      const [profileResponse, achievementsResponse, workbookResponse, courseResponse] = await Promise.allSettled([
+        fetch('/api/profile/get', {
+          headers: { 'Authorization': `Bearer ${user.access_token || ''}` },
+        }),
+        fetch('/api/achievements/get', {
+          headers: { 'Authorization': `Bearer ${user.access_token || ''}` },
+        }),
+        fetch('/api/workbook/status', {
+          headers: { 'Authorization': `Bearer ${user.access_token || ''}` },
+        }),
+        fetch('/api/course/stats', {
+          headers: { 'Authorization': `Bearer ${user.access_token || ''}` },
+        })
+      ]);
 
-      if (response.ok) {
-        const data = await response.json();
+      // Handle profile response
+      if (profileResponse.status === 'fulfilled' && profileResponse.value.ok) {
+        const data = await profileResponse.value.json();
         setProfile(data.profile);
-        
-        // Fetch achievements if profile loaded successfully
-        if (data.profile) {
-          try {
-            const achievementsResponse = await fetch('/api/achievements/get', {
-              headers: {
-                'Authorization': `Bearer ${user.access_token || ''}`,
-              },
-            });
-            
-            if (achievementsResponse.ok) {
-              const achievementsData = await achievementsResponse.json();
-              setAchievements(achievementsData.achievements || []);
-            }
-          } catch (achievementError) {
-            console.error('Failed to fetch achievements:', achievementError);
-            // Don't fail the whole dashboard for achievements
-          }
-        }
-      } else {
-        console.error('Failed to fetch profile');
       }
+
+      // Handle achievements response
+      if (achievementsResponse.status === 'fulfilled' && achievementsResponse.value.ok) {
+        const data = await achievementsResponse.value.json();
+        setAchievements(data.achievements || []);
+      }
+
+      // Handle workbook response (may not exist yet)
+      if (workbookResponse.status === 'fulfilled' && workbookResponse.value.ok) {
+        const data = await workbookResponse.value.json();
+        setWorkbookStatuses(data.workbooks || []);
+      } else {
+        // Create mock workbook data for now
+        const mockWorkbooks: WorkbookStatus[] = Array.from({ length: 6 }, (_, i) => ({
+          weekNumber: i + 1,
+          totalQuestions: 12,
+          answeredQuestions: 0,
+          isDraft: false,
+          isSubmitted: false,
+          completionPercentage: 0,
+        }));
+        setWorkbookStatuses(mockWorkbooks);
+      }
+
+      // Handle course response (may not exist yet)
+      if (courseResponse.status === 'fulfilled' && courseResponse.value.ok) {
+        const data = await courseResponse.value.json();
+        setCourseStats(data.stats || null);
+      } else {
+        // Create default course stats
+        setCourseStats({
+          weeksStarted: 0,
+          weeksCompleted: 0,
+          lessonsCompleted: 0,
+          totalLessons: 24, // 6 weeks × 4 lessons
+          completionPercentage: 0,
+          totalTimeSpentMinutes: 0,
+          lastActivity: new Date().toISOString(),
+          courseCompleted: false,
+        });
+      }
+
     } catch (error) {
-      console.error('Error fetching profile:', error);
-      setError('Unable to load profile data');
+      console.error('Error fetching dashboard data:', error);
+      setError('Unable to load dashboard data');
     } finally {
       setLoading(false);
     }
@@ -313,35 +367,191 @@ export default function SimpleDashboardPage() {
             </div>
           </div>
 
-          {/* Achievements Section */}
-          {achievements.length > 0 && (
+          {/* Course Progress Section */}
+          {courseStats && (
             <div className="bg-white rounded-2xl shadow-lg p-6">
               <h3 className="text-xl font-semibold text-bloom-dark mb-4 flex items-center justify-between">
                 <span className="flex items-center gap-2">
-                  <span className="text-2xl">⭐</span>
-                  Your Stars
+                  <span className="text-2xl">🎓</span>
+                  Course Progress
                 </span>
                 <span className="text-sm text-bloom-sage">
-                  {profile?.total_stars || achievements.length} stars earned
+                  {courseStats.completionPercentage}% Complete
                 </span>
               </h3>
-              <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4">
-                {achievements.slice(0, 12).map((achievement) => (
-                  <div key={achievement.id} className="text-center group">
-                    <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 to-yellow-500 rounded-full flex items-center justify-center mx-auto mb-2 shadow-lg group-hover:scale-110 transition-transform">
-                      <span className="text-xl">{achievement.icon}</span>
-                    </div>
-                    <p className="text-xs text-bloom-dark/60 leading-tight">{achievement.name}</p>
-                  </div>
-                ))}
-                {achievements.length === 0 && (
-                  <div className="col-span-full text-center py-4">
-                    <p className="text-bloom-dark/60 text-sm">Complete activities to earn your first star!</p>
-                  </div>
-                )}
+              
+              <div className="grid md:grid-cols-3 gap-4 mb-6">
+                <div className="bg-bloom-sage-50 rounded-lg p-4 text-center">
+                  <div className="text-2xl font-bold text-bloom-dark">{courseStats.weeksCompleted}</div>
+                  <div className="text-sm text-bloom-dark/60">Weeks Completed</div>
+                </div>
+                <div className="bg-bloompink/10 rounded-lg p-4 text-center">
+                  <div className="text-2xl font-bold text-bloom-dark">{courseStats.lessonsCompleted}</div>
+                  <div className="text-sm text-bloom-dark/60">Lessons Finished</div>
+                </div>
+                <div className="bg-bloom-accent/10 rounded-lg p-4 text-center">
+                  <div className="text-2xl font-bold text-bloom-dark">{Math.floor(courseStats.totalTimeSpentMinutes / 60)}h</div>
+                  <div className="text-sm text-bloom-dark/60">Time Invested</div>
+                </div>
+              </div>
+
+              <div className="w-full h-3 bg-gray-200 rounded-full overflow-hidden mb-4">
+                <div 
+                  className="h-full bg-gradient-to-r from-bloom-sage to-bloompink transition-all duration-300"
+                  style={{ width: `${courseStats.completionPercentage}%` }}
+                ></div>
+              </div>
+              
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-bloom-dark/60">
+                  {courseStats.lessonsCompleted} of {courseStats.totalLessons} lessons
+                </span>
+                <a 
+                  href="/my-courses"
+                  className="px-4 py-2 bg-bloom-sage text-white rounded-lg hover:bg-bloom-sage/90 transition-colors text-sm"
+                >
+                  Continue Learning →
+                </a>
               </div>
             </div>
           )}
+
+          {/* Workbook Progress Section */}
+          {workbookStatuses.length > 0 && (
+            <div className="bg-white rounded-2xl shadow-lg p-6">
+              <h3 className="text-xl font-semibold text-bloom-dark mb-4 flex items-center justify-between">
+                <span className="flex items-center gap-2">
+                  <span className="text-2xl">📝</span>
+                  Weekly Workbooks
+                </span>
+                <span className="text-sm text-bloom-sage">
+                  {workbookStatuses.filter(w => w.isSubmitted).length} of 6 submitted
+                </span>
+              </h3>
+              
+              <div className="grid md:grid-cols-2 gap-3">
+                {workbookStatuses.slice(0, 6).map((workbook) => (
+                  <div 
+                    key={workbook.weekNumber}
+                    className={`border rounded-lg p-4 transition-all hover:shadow-md ${
+                      workbook.isSubmitted 
+                        ? 'bg-green-50 border-green-200' 
+                        : workbook.isDraft 
+                        ? 'bg-yellow-50 border-yellow-200'
+                        : workbook.answeredQuestions > 0
+                        ? 'bg-blue-50 border-blue-200'
+                        : 'bg-gray-50 border-gray-200'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm">
+                          {workbook.isSubmitted ? (
+                            <span className="text-green-600">✓</span>
+                          ) : workbook.isDraft ? (
+                            <span className="text-yellow-600">⏳</span>
+                          ) : workbook.answeredQuestions > 0 ? (
+                            <span className="text-blue-600">📄</span>
+                          ) : (
+                            <span className="text-gray-400">○</span>
+                          )}
+                        </div>
+                        <div>
+                          <h4 className="font-medium text-bloom-dark">Week {workbook.weekNumber}</h4>
+                          <p className="text-sm text-bloom-dark/60">
+                            {workbook.isSubmitted ? 'Submitted' : 
+                             workbook.isDraft ? 'In Progress' : 
+                             workbook.answeredQuestions > 0 ? 'Started' : 'Not Started'}
+                          </p>
+                        </div>
+                      </div>
+                      <a
+                        href={`/workbook/week-${workbook.weekNumber}`}
+                        className={`px-3 py-1 rounded text-sm font-medium transition-colors ${
+                          workbook.isSubmitted
+                            ? 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                            : 'bg-bloom-sage text-white hover:bg-bloom-sage/90'
+                        }`}
+                      >
+                        {workbook.isSubmitted ? 'Review' : 'Open'}
+                      </a>
+                    </div>
+                    
+                    {!workbook.isSubmitted && workbook.answeredQuestions > 0 && (
+                      <div className="mt-3">
+                        <div className="w-full h-1.5 bg-gray-200 rounded-full overflow-hidden">
+                          <div
+                            className="h-full bg-gradient-to-r from-bloom-sage to-bloompink transition-all duration-300"
+                            style={{ width: `${workbook.completionPercentage}%` }}
+                          />
+                        </div>
+                        <div className="text-xs text-bloom-dark/60 mt-1">
+                          {workbook.completionPercentage}% complete
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Enhanced Achievements Section */}
+          <div className="bg-white rounded-2xl shadow-lg p-6">
+            <h3 className="text-xl font-semibold text-bloom-dark mb-4 flex items-center justify-between">
+              <span className="flex items-center gap-2">
+                <span className="text-2xl">⭐</span>
+                Your Stars & Achievements
+              </span>
+              <span className="text-sm text-bloom-sage">
+                {profile?.total_stars || achievements.reduce((sum, a) => sum + a.points, 0)} stars earned
+              </span>
+            </h3>
+            
+            {achievements.length > 0 ? (
+              <div className="space-y-3">
+                {achievements.slice(0, 6).map((achievement) => (
+                  <div key={achievement.id} className="flex items-center gap-4 p-3 bg-gradient-to-r from-yellow-50 to-orange-50 rounded-lg border border-yellow-200">
+                    <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 to-yellow-500 rounded-full flex items-center justify-center shadow-lg">
+                      <span className="text-xl">{achievement.icon}</span>
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="font-medium text-bloom-dark">{achievement.name}</h4>
+                      <p className="text-sm text-bloom-dark/60">{achievement.description}</p>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-sm font-medium text-bloom-dark">{achievement.points} stars</div>
+                      {achievement.earnedAt && (
+                        <div className="text-xs text-bloom-dark/60">
+                          {new Date(achievement.earnedAt).toLocaleDateString()}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ))}
+                {achievements.length > 6 && (
+                  <div className="text-center pt-2">
+                    <a href="/achievements" className="text-bloom-sage hover:text-bloom-sage/80 text-sm underline">
+                      View all {achievements.length} achievements →
+                    </a>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div className="text-center py-8">
+                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                  <span className="text-2xl text-gray-400">⭐</span>
+                </div>
+                <p className="text-bloom-dark/60 text-sm mb-4">Complete activities to earn your first stars!</p>
+                <div className="grid grid-cols-2 gap-2 text-xs text-bloom-dark/50">
+                  <div>• Complete lessons</div>
+                  <div>• Submit workbooks</div>
+                  <div>• Attend workshops</div>
+                  <div>• Book appointments</div>
+                </div>
+              </div>
+            )}
+          </div>
 
           {/* Profile Completeness */}
           {profile && getProfileCompleteness() < 100 && (
@@ -390,25 +600,45 @@ export default function SimpleDashboardPage() {
           {/* Quick Actions */}
           <div className="bg-white rounded-2xl shadow-lg p-6">
             <h3 className="text-xl font-semibold text-bloom-dark mb-4">Quick Actions</h3>
-            <div className="grid md:grid-cols-2 gap-4">
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
               <a 
-                href="/courses" 
+                href="/my-courses" 
                 className="flex items-center gap-3 p-4 bg-bloom-sage-50 rounded-lg hover:bg-bloom-sage-100 transition-colors"
               >
-                <span className="text-2xl">📚</span>
+                <span className="text-2xl">🎓</span>
                 <div>
-                  <h4 className="font-medium text-bloom-dark">Browse Courses</h4>
-                  <p className="text-sm text-bloom-gray-600">Discover wellness programs</p>
+                  <h4 className="font-medium text-bloom-dark">My Courses</h4>
+                  <p className="text-sm text-bloom-gray-600">Continue learning</p>
+                </div>
+              </a>
+              <a 
+                href="/my-workbooks" 
+                className="flex items-center gap-3 p-4 bg-bloompink/10 rounded-lg hover:bg-bloompink/20 transition-colors"
+              >
+                <span className="text-2xl">📝</span>
+                <div>
+                  <h4 className="font-medium text-bloom-dark">My Workbooks</h4>
+                  <p className="text-sm text-bloom-gray-600">View submissions</p>
                 </div>
               </a>
               <a 
                 href="/appointments" 
-                className="flex items-center gap-3 p-4 bg-bloompink/10 rounded-lg hover:bg-bloompink/20 transition-colors"
+                className="flex items-center gap-3 p-4 bg-bloom-accent/10 rounded-lg hover:bg-bloom-accent/20 transition-colors"
               >
                 <span className="text-2xl">📅</span>
                 <div>
-                  <h4 className="font-medium text-bloom-dark">Book Session</h4>
-                  <p className="text-sm text-bloom-gray-600">Schedule with Dr. Jana</p>
+                  <h4 className="font-medium text-bloom-dark">Appointments</h4>
+                  <p className="text-sm text-bloom-gray-600">Book with Dr. Jana</p>
+                </div>
+              </a>
+              <a 
+                href="/settings" 
+                className="flex items-center gap-3 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+              >
+                <span className="text-2xl">⚙️</span>
+                <div>
+                  <h4 className="font-medium text-bloom-dark">Settings</h4>
+                  <p className="text-sm text-bloom-gray-600">Manage account</p>
                 </div>
               </a>
             </div>
