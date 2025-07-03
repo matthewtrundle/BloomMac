@@ -609,7 +609,7 @@ export default function SimpleDashboardPage() {
                         </div>
                       </div>
                       <a
-                        href={`/workbook/week-${workbook.weekNumber}`}
+                        href="/my-workbooks"
                         className={`px-3 py-1 rounded text-sm font-medium transition-colors ${
                           workbook.isSubmitted
                             ? 'bg-gray-100 text-gray-600 hover:bg-gray-200'
@@ -696,318 +696,235 @@ export default function SimpleDashboardPage() {
             )}
           </div>
 
-          {/* Enhanced Profile Management Hub */}
-          <div className="bg-white rounded-2xl shadow-lg p-6">
-            <h3 className="text-xl font-semibold text-bloom-dark mb-4 flex items-center justify-between">
+          {/* Compact Profile & Settings Hub */}
+          <div className="bg-white rounded-2xl shadow-lg p-4">
+            <h3 className="text-lg font-semibold text-bloom-dark mb-3 flex items-center justify-between">
               <span className="flex items-center gap-2">
-                <span className="text-2xl">👤</span>
-                Profile & Account Management
+                <span className="text-xl">👤</span>
+                Profile & Settings
               </span>
-              <a 
-                href="/settings"
-                className="text-sm text-bloom-sage hover:text-bloom-sage/80 underline"
-              >
-                All settings →
-              </a>
+              {profile && getProfileCompleteness() < 100 && (
+                <span className="text-xs text-bloom-sage bg-bloom-sage-50 px-2 py-1 rounded-full">
+                  {getProfileCompleteness()}% complete
+                </span>
+              )}
             </h3>
             
-            {/* Profile Completeness Bar */}
-            {profile && getProfileCompleteness() < 100 && (
-              <div className="bg-gradient-to-r from-bloom-sage-50 to-bloompink/10 rounded-lg p-4 mb-6">
-                <h4 className="font-medium text-bloom-dark mb-3 flex items-center gap-2">
-                  <span>✨</span>
-                  Complete Your Profile ({getProfileCompleteness()}%)
-                </h4>
-                <div className="flex items-center gap-4 mb-3">
-                  <div className="flex-1 bg-white rounded-full h-2 overflow-hidden">
-                    <div 
-                      className="h-full bg-gradient-to-r from-bloom-sage to-bloompink transition-all duration-300"
-                      style={{ width: `${getProfileCompleteness()}%` }}
-                    ></div>
-                  </div>
-                </div>
-                <div className="flex flex-wrap gap-2 text-xs mb-3">
-                  {!profile.phone && (
-                    <span className="px-2 py-1 bg-white rounded-full text-bloom-dark/70">• Phone number</span>
-                  )}
-                  {!profile.postpartum_date && (
-                    <span className="px-2 py-1 bg-white rounded-full text-bloom-dark/70">• Baby's birth date</span>
-                  )}
-                  {!profile.emergency_contact_name && (
-                    <span className="px-2 py-1 bg-white rounded-full text-bloom-dark/70">• Emergency contact</span>
-                  )}
-                </div>
-              </div>
-            )}
-
-            {/* Profile Management Grid */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {/* Compact Profile Management Grid */}
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
               {/* Edit Profile */}
               <a 
                 href="/profile/edit"
-                className="flex items-center gap-3 p-4 bg-bloom-sage-50 rounded-lg hover:bg-bloom-sage-100 transition-colors group"
+                className="flex flex-col items-center gap-2 p-3 bg-bloom-sage-50 rounded-lg hover:bg-bloom-sage-100 transition-colors group text-center"
               >
-                <div className="w-10 h-10 bg-bloom-sage rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <span className="text-white">✏️</span>
+                <div className="w-8 h-8 bg-bloom-sage rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <span className="text-white text-sm">✏️</span>
                 </div>
                 <div>
-                  <h4 className="font-medium text-bloom-dark">Edit Profile</h4>
-                  <p className="text-sm text-bloom-dark/60">Update personal info</p>
+                  <h4 className="text-xs font-medium text-bloom-dark">Edit Profile</h4>
                 </div>
               </a>
 
-              {/* Notification Settings */}
+              {/* Notification Settings - Remove hash navigation for now */}
               <a 
-                href="/settings#notifications"
-                className="flex items-center gap-3 p-4 bg-bloompink/10 rounded-lg hover:bg-bloompink/20 transition-colors group"
+                href="/profile/edit"
+                className="flex flex-col items-center gap-2 p-3 bg-bloompink/10 rounded-lg hover:bg-bloompink/20 transition-colors group text-center"
               >
-                <div className="w-10 h-10 bg-bloompink rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <span className="text-white">🔔</span>
+                <div className="w-8 h-8 bg-bloompink rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <span className="text-white text-sm">🔔</span>
                 </div>
                 <div>
-                  <h4 className="font-medium text-bloom-dark">Notifications</h4>
-                  <p className="text-sm text-bloom-dark/60">Manage preferences</p>
+                  <h4 className="text-xs font-medium text-bloom-dark">Notifications</h4>
                 </div>
               </a>
 
               {/* Privacy Settings */}
               <a 
-                href="/settings#privacy"
-                className="flex items-center gap-3 p-4 bg-bloom-accent/10 rounded-lg hover:bg-bloom-accent/20 transition-colors group"
+                href="/profile/edit"
+                className="flex flex-col items-center gap-2 p-3 bg-bloom-accent/10 rounded-lg hover:bg-bloom-accent/20 transition-colors group text-center"
               >
-                <div className="w-10 h-10 bg-bloom-accent rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <span className="text-white">🔒</span>
+                <div className="w-8 h-8 bg-bloom-accent rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <span className="text-white text-sm">🔒</span>
                 </div>
                 <div>
-                  <h4 className="font-medium text-bloom-dark">Privacy</h4>
-                  <p className="text-sm text-bloom-dark/60">Data & security</p>
+                  <h4 className="text-xs font-medium text-bloom-dark">Privacy</h4>
                 </div>
               </a>
 
               {/* Payment Methods */}
               <a 
-                href="/settings#payment"
-                className="flex items-center gap-3 p-4 bg-green-50 rounded-lg hover:bg-green-100 transition-colors group"
+                href="/appointments"
+                className="flex flex-col items-center gap-2 p-3 bg-green-50 rounded-lg hover:bg-green-100 transition-colors group text-center"
               >
-                <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <span className="text-white">💳</span>
+                <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <span className="text-white text-sm">💳</span>
                 </div>
                 <div>
-                  <h4 className="font-medium text-bloom-dark">Payment</h4>
-                  <p className="text-sm text-bloom-dark/60">Cards & billing</p>
+                  <h4 className="text-xs font-medium text-bloom-dark">Payment</h4>
                 </div>
               </a>
 
               {/* Account Settings */}
               <a 
-                href="/settings#account"
-                className="flex items-center gap-3 p-4 bg-purple-50 rounded-lg hover:bg-purple-100 transition-colors group"
+                href="/profile/edit"
+                className="flex flex-col items-center gap-2 p-3 bg-purple-50 rounded-lg hover:bg-purple-100 transition-colors group text-center"
               >
-                <div className="w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <span className="text-white">⚙️</span>
+                <div className="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <span className="text-white text-sm">⚙️</span>
                 </div>
                 <div>
-                  <h4 className="font-medium text-bloom-dark">Account</h4>
-                  <p className="text-sm text-bloom-dark/60">Email & password</p>
+                  <h4 className="text-xs font-medium text-bloom-dark">Account</h4>
                 </div>
               </a>
 
               {/* Data Management */}
               <a 
-                href="/settings#data"
-                className="flex items-center gap-3 p-4 bg-orange-50 rounded-lg hover:bg-orange-100 transition-colors group"
+                href="/profile/edit"
+                className="flex flex-col items-center gap-2 p-3 bg-orange-50 rounded-lg hover:bg-orange-100 transition-colors group text-center"
               >
-                <div className="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <span className="text-white">📊</span>
+                <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <span className="text-white text-sm">📊</span>
                 </div>
                 <div>
-                  <h4 className="font-medium text-bloom-dark">Data</h4>
-                  <p className="text-sm text-bloom-dark/60">Export & manage</p>
+                  <h4 className="text-xs font-medium text-bloom-dark">Data</h4>
                 </div>
               </a>
             </div>
 
-            {/* Profile Summary */}
-            {profile && (
-              <div className="mt-6 pt-6 border-t border-bloom-sage/20">
-                <h4 className="font-medium text-bloom-dark mb-3">Your Profile Summary</h4>
-                <div className="grid md:grid-cols-2 gap-4 text-sm">
-                  <div>
-                    <p className="text-bloom-dark/60">Full Name</p>
-                    <p className="font-medium">{profile.first_name} {profile.last_name}</p>
-                  </div>
-                  <div>
-                    <p className="text-bloom-dark/60">Account Status</p>
-                    <p className="font-medium text-green-600">Active Member</p>
-                  </div>
-                  {profile.number_of_children && (
-                    <div>
-                      <p className="text-bloom-dark/60">Family</p>
-                      <p className="font-medium">{profile.number_of_children} {profile.number_of_children === 1 ? 'child' : 'children'}</p>
-                    </div>
-                  )}
-                  {profile.postpartum_date && (
-                    <div>
-                      <p className="text-bloom-dark/60">Journey Stage</p>
-                      <p className="font-medium">Day {getDaysSincePostpartum()} postpartum</p>
-                    </div>
-                  )}
-                </div>
+            {/* Profile completeness reminder if needed */}
+            {profile && getProfileCompleteness() < 100 && (
+              <div className="mt-3 p-2 bg-bloom-sage-50 rounded text-xs text-bloom-dark/70">
+                <span className="font-medium">Quick tip:</span> Complete your profile for better personalized support
+                {!profile.phone && <span> • Add phone</span>}
+                {!profile.postpartum_date && <span> • Add birth date</span>}
+                {!profile.emergency_contact_name && <span> • Add emergency contact</span>}
               </div>
             )}
           </div>
 
-          {/* Progress Analytics & Insights */}
-          <div className="bg-white rounded-2xl shadow-lg p-6">
-            <h3 className="text-xl font-semibold text-bloom-dark mb-4 flex items-center gap-2">
-              <span className="text-2xl">📊</span>
-              Your Wellness Analytics
+          {/* Compact Progress Analytics */}
+          <div className="bg-white rounded-2xl shadow-lg p-4">
+            <h3 className="text-lg font-semibold text-bloom-dark mb-3 flex items-center gap-2">
+              <span className="text-xl">📊</span>
+              Your Progress
             </h3>
             
-            <div className="space-y-6">
-              {/* Overall Progress Summary */}
-              <div className="bg-gradient-to-r from-bloom-sage-50 to-bloompink/10 rounded-lg p-4">
-                <h4 className="font-medium text-bloom-dark mb-3">This Week's Progress</h4>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-bloom-sage">
-                      {courseStats ? Math.round(courseStats.totalTimeSpentMinutes / 60) : 0}h
-                    </div>
-                    <div className="text-xs text-bloom-dark/60">Learning Time</div>
+            {/* Overall Progress Summary */}
+            <div className="bg-gradient-to-r from-bloom-sage-50 to-bloompink/10 rounded-lg p-3 mb-4">
+              <div className="grid grid-cols-4 gap-3 text-center">
+                <div>
+                  <div className="text-lg font-bold text-bloom-sage">
+                    {courseStats ? Math.round(courseStats.totalTimeSpentMinutes / 60) : 0}h
                   </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-bloompink">
-                      {workbookStatuses.filter(w => w.isSubmitted).length}
-                    </div>
-                    <div className="text-xs text-bloom-dark/60">Workbooks Done</div>
+                  <div className="text-xs text-bloom-dark/60">Learning</div>
+                </div>
+                <div>
+                  <div className="text-lg font-bold text-bloompink">
+                    {workbookStatuses.filter(w => w.isSubmitted).length}
                   </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-bloom-accent">
-                      {upcomingAppointments.length}
-                    </div>
-                    <div className="text-xs text-bloom-dark/60">Sessions Booked</div>
+                  <div className="text-xs text-bloom-dark/60">Workbooks</div>
+                </div>
+                <div>
+                  <div className="text-lg font-bold text-bloom-accent">
+                    {upcomingAppointments.length}
                   </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-purple-600">
-                      {achievements.length}
-                    </div>
-                    <div className="text-xs text-bloom-dark/60">Stars Earned</div>
+                  <div className="text-xs text-bloom-dark/60">Sessions</div>
+                </div>
+                <div>
+                  <div className="text-lg font-bold text-purple-600">
+                    {achievements.length}
+                  </div>
+                  <div className="text-xs text-bloom-dark/60">Stars</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Compact Progress Bars */}
+            <div className="space-y-3">
+              {/* Course Progress */}
+              <div className="flex items-center gap-3">
+                <span className="text-sm">🎓</span>
+                <div className="flex-1">
+                  <div className="flex justify-between text-xs mb-1">
+                    <span>Course Progress</span>
+                    <span className="font-medium">{courseStats?.completionPercentage || 0}%</span>
+                  </div>
+                  <div className="w-full h-1.5 bg-gray-200 rounded-full overflow-hidden">
+                    <div 
+                      className="h-full bg-bloom-sage transition-all duration-300"
+                      style={{ width: `${courseStats?.completionPercentage || 0}%` }}
+                    ></div>
                   </div>
                 </div>
               </div>
 
-              {/* Progress Metrics */}
-              <div className="grid md:grid-cols-3 gap-4">
-                {/* Course Progress */}
-                <div className="bg-bloom-sage-50 rounded-lg p-4">
-                  <h5 className="font-medium text-bloom-dark mb-2 flex items-center gap-2">
-                    <span>🎓</span>
-                    Course Journey
-                  </h5>
-                  <div className="space-y-2">
-                    <div className="flex justify-between text-sm">
-                      <span>Overall Progress</span>
-                      <span className="font-medium">{courseStats?.completionPercentage || 0}%</span>
-                    </div>
-                    <div className="w-full h-2 bg-white rounded-full overflow-hidden">
-                      <div 
-                        className="h-full bg-bloom-sage transition-all duration-300"
-                        style={{ width: `${courseStats?.completionPercentage || 0}%` }}
-                      ></div>
-                    </div>
-                    <div className="text-xs text-bloom-dark/60">
-                      {courseStats?.lessonsCompleted || 0} of {courseStats?.totalLessons || 24} lessons
-                    </div>
+              {/* Workbook Progress */}
+              <div className="flex items-center gap-3">
+                <span className="text-sm">📝</span>
+                <div className="flex-1">
+                  <div className="flex justify-between text-xs mb-1">
+                    <span>Workbook Progress</span>
+                    <span className="font-medium">{Math.round((workbookStatuses.filter(w => w.isSubmitted).length / 6) * 100)}%</span>
                   </div>
-                </div>
-
-                {/* Workbook Progress */}
-                <div className="bg-bloompink/10 rounded-lg p-4">
-                  <h5 className="font-medium text-bloom-dark mb-2 flex items-center gap-2">
-                    <span>📝</span>
-                    Reflection Journey
-                  </h5>
-                  <div className="space-y-2">
-                    <div className="flex justify-between text-sm">
-                      <span>Submissions</span>
-                      <span className="font-medium">{Math.round((workbookStatuses.filter(w => w.isSubmitted).length / 6) * 100)}%</span>
-                    </div>
-                    <div className="w-full h-2 bg-white rounded-full overflow-hidden">
-                      <div 
-                        className="h-full bg-bloompink transition-all duration-300"
-                        style={{ width: `${(workbookStatuses.filter(w => w.isSubmitted).length / 6) * 100}%` }}
-                      ></div>
-                    </div>
-                    <div className="text-xs text-bloom-dark/60">
-                      {workbookStatuses.filter(w => w.isSubmitted).length} of 6 weeks completed
-                    </div>
-                  </div>
-                </div>
-
-                {/* Engagement Score */}
-                <div className="bg-bloom-accent/10 rounded-lg p-4">
-                  <h5 className="font-medium text-bloom-dark mb-2 flex items-center gap-2">
-                    <span>💫</span>
-                    Engagement
-                  </h5>
-                  <div className="space-y-2">
-                    {(() => {
-                      const engagementScore = Math.min(100, Math.round(
-                        ((courseStats?.lessonsCompleted || 0) * 2) + 
-                        (workbookStatuses.filter(w => w.isSubmitted).length * 10) + 
-                        (achievements.length * 5) + 
-                        (upcomingAppointments.length * 10)
-                      ));
-                      return (
-                        <>
-                          <div className="flex justify-between text-sm">
-                            <span>Your Score</span>
-                            <span className="font-medium">{engagementScore}%</span>
-                          </div>
-                          <div className="w-full h-2 bg-white rounded-full overflow-hidden">
-                            <div 
-                              className="h-full bg-bloom-accent transition-all duration-300"
-                              style={{ width: `${engagementScore}%` }}
-                            ></div>
-                          </div>
-                          <div className="text-xs text-bloom-dark/60">
-                            {engagementScore > 80 ? 'Excellent engagement!' : 
-                             engagementScore > 60 ? 'Great progress!' : 
-                             engagementScore > 40 ? 'Good start!' : 
-                             'Just getting started'}
-                          </div>
-                        </>
-                      );
-                    })()}
+                  <div className="w-full h-1.5 bg-gray-200 rounded-full overflow-hidden">
+                    <div 
+                      className="h-full bg-bloompink transition-all duration-300"
+                      style={{ width: `${(workbookStatuses.filter(w => w.isSubmitted).length / 6) * 100}%` }}
+                    ></div>
                   </div>
                 </div>
               </div>
 
-              {/* Motivational Insights */}
-              <div className="bg-gradient-to-r from-yellow-50 to-orange-50 rounded-lg p-4 border border-yellow-200">
-                <h5 className="font-medium text-bloom-dark mb-2 flex items-center gap-2">
-                  <span>💡</span>
-                  Your Wellness Insights
-                </h5>
-                <div className="text-sm text-bloom-dark/80 space-y-1">
+              {/* Engagement Score */}
+              <div className="flex items-center gap-3">
+                <span className="text-sm">💫</span>
+                <div className="flex-1">
                   {(() => {
-                    const courseProgress = courseStats?.completionPercentage || 0;
-                    const workbookProgress = (workbookStatuses.filter(w => w.isSubmitted).length / 6) * 100;
-                    const hasUpcomingAppointments = upcomingAppointments.length > 0;
-                    
-                    if (courseProgress > 50 && workbookProgress > 50) {
-                      return <p>🌟 You're making incredible progress! Your dedication to both learning and reflection shows real commitment to your wellness journey.</p>;
-                    } else if (courseProgress > 25) {
-                      return <p>📚 You're building great momentum with your courses! Consider adding some workbook reflections to deepen your insights.</p>;
-                    } else if (workbookProgress > 25) {
-                      return <p>📝 Your thoughtful reflections are powerful! Pairing them with course lessons could accelerate your growth.</p>;
-                    } else if (hasUpcomingAppointments) {
-                      return <p>🤝 Great job scheduling your appointment! This shows you're taking action toward your wellness goals.</p>;
-                    } else {
-                      return <p>🌱 Every wellness journey starts with a single step. You're here, and that's what matters most.</p>;
-                    }
+                    const engagementScore = Math.min(100, Math.round(
+                      ((courseStats?.lessonsCompleted || 0) * 2) + 
+                      (workbookStatuses.filter(w => w.isSubmitted).length * 10) + 
+                      (achievements.length * 5) + 
+                      (upcomingAppointments.length * 10)
+                    ));
+                    return (
+                      <>
+                        <div className="flex justify-between text-xs mb-1">
+                          <span>Engagement Score</span>
+                          <span className="font-medium">{engagementScore}%</span>
+                        </div>
+                        <div className="w-full h-1.5 bg-gray-200 rounded-full overflow-hidden">
+                          <div 
+                            className="h-full bg-bloom-accent transition-all duration-300"
+                            style={{ width: `${engagementScore}%` }}
+                          ></div>
+                        </div>
+                      </>
+                    );
                   })()}
                 </div>
+              </div>
+            </div>
+
+            {/* Compact Motivational Insight */}
+            <div className="mt-4 p-3 bg-gradient-to-r from-yellow-50 to-orange-50 rounded-lg border border-yellow-200">
+              <div className="text-sm text-bloom-dark/80">
+                {(() => {
+                  const courseProgress = courseStats?.completionPercentage || 0;
+                  const workbookProgress = (workbookStatuses.filter(w => w.isSubmitted).length / 6) * 100;
+                  const hasUpcomingAppointments = upcomingAppointments.length > 0;
+                  
+                  if (courseProgress > 50 && workbookProgress > 50) {
+                    return <span>🌟 Incredible progress! Your commitment is showing real results.</span>;
+                  } else if (courseProgress > 25) {
+                    return <span>📚 Great learning momentum! Consider adding workbook reflections.</span>;
+                  } else if (workbookProgress > 25) {
+                    return <span>📝 Thoughtful reflections! Pair with course lessons for more growth.</span>;
+                  } else if (hasUpcomingAppointments) {
+                    return <span>🤝 Great job scheduling! You're taking action toward your goals.</span>;
+                  } else {
+                    return <span>🌱 Every wellness journey starts with a single step. You're here!</span>;
+                  }
+                })()}
               </div>
             </div>
           </div>
