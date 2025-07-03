@@ -28,6 +28,11 @@ export interface CourseAccess {
 export const authHelpers = {
   // Sign up new user
   async signUp(email: string, password: string, fullName?: string) {
+    if (!supabaseAuth) throw new Error('Supabase client not initialized');
+    
+    const redirectTo = `${window.location.origin}/auth/callback`;
+    console.log('Signup redirect URL:', redirectTo); // Debug log
+    
     const { data, error } = await supabaseAuth.auth.signUp({
       email,
       password,
@@ -35,7 +40,7 @@ export const authHelpers = {
         data: {
           full_name: fullName,
         },
-        emailRedirectTo: `${window.location.origin}/auth/callback`,
+        emailRedirectTo: redirectTo.trim(), // Ensure no spaces
       },
     });
 
