@@ -34,6 +34,12 @@ interface WorkbookStatus {
   completionPercentage: number;
 }
 
+interface CourseWorkbook {
+  courseId: string;
+  courseName: string;
+  workbooks: WorkbookStatus[];
+}
+
 interface CourseStats {
   weeksStarted: number;
   weeksCompleted: number;
@@ -59,7 +65,7 @@ export default function SimpleDashboardPage() {
   const router = useRouter();
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [achievements, setAchievements] = useState<Achievement[]>([]);
-  const [workbookStatuses, setWorkbookStatuses] = useState<WorkbookStatus[]>([]);
+  const [courseWorkbooks, setCourseWorkbooks] = useState<CourseWorkbook[]>([]);
   const [courseStats, setCourseStats] = useState<CourseStats | null>(null);
   const [upcomingAppointments, setUpcomingAppointments] = useState<UpcomingAppointment[]>([]);
   const [loading, setLoading] = useState(true);
@@ -91,7 +97,7 @@ export default function SimpleDashboardPage() {
         fetch('/api/achievements/get', {
           headers: { 'Authorization': `Bearer ${user.access_token || ''}` },
         }),
-        fetch('/api/workbook/status', {
+        fetch('/api/workbook/enrolled', {
           headers: { 'Authorization': `Bearer ${user.access_token || ''}` },
         }),
         fetch('/api/course/stats', {
@@ -114,21 +120,10 @@ export default function SimpleDashboardPage() {
         setAchievements(data.achievements || []);
       }
 
-      // Handle workbook response (may not exist yet)
+      // Handle workbook response
       if (workbookResponse.status === 'fulfilled' && workbookResponse.value.ok) {
         const data = await workbookResponse.value.json();
-        setWorkbookStatuses(data.workbooks || []);
-      } else {
-        // Create mock workbook data for now
-        const mockWorkbooks: WorkbookStatus[] = Array.from({ length: 6 }, (_, i) => ({
-          weekNumber: i + 1,
-          totalQuestions: 12,
-          answeredQuestions: 0,
-          isDraft: false,
-          isSubmitted: false,
-          completionPercentage: 0,
-        }));
-        setWorkbookStatuses(mockWorkbooks);
+        setCourseWorkbooks(data.courses || []);
       }
 
       // Handle course response (may not exist yet)
@@ -617,8 +612,8 @@ export default function SimpleDashboardPage() {
           </div>
 
           {/* Workbook Progress Section */}
-          {workbookStatuses.length > 0 && (
-            <div className="bg-white rounded-xl shadow-sm border border-bloom-sage/10 p-6">
+          {courseWorkbooks.length > 0 && courseWorkbooks.map((course) => (
+            <div key={course.courseId} className="bg-white rounded-xl shadow-sm border border-bloom-sage/10 p-6">
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 bg-bloompink/10 rounded-lg flex items-center justify-center">
@@ -626,15 +621,20 @@ export default function SimpleDashboardPage() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                     </svg>
                   </div>
-                  <h3 className="text-lg font-semibold text-bloom-dark">Weekly Workbooks</h3>
+                  <div>
+                    <h3 className="text-lg font-semibold text-bloom-dark">{course.courseName} Workbooks</h3>
+                    <p className="text-xs text-bloom-dark/60">
+                      {course.courseId === 'becoming-mom' ? '4 reflection prompts' : '6 weekly workbooks'}
+                    </p>
+                  </div>
                 </div>
                 <span className="text-sm font-medium text-bloompink bg-bloompink/10 px-3 py-1 rounded-full">
-                  {workbookStatuses.filter(w => w.isSubmitted).length} of 6 done
+                  {course.workbooks.filter(w => w.isSubmitted).length} of {course.workbooks.length} done
                 </span>
               </div>
               
               <div className="grid md:grid-cols-2 gap-3">
-                {workbookStatuses.slice(0, 6).map((workbook) => (
+                {course.workbooks.map((workbook) => (
                   <div 
                     key={workbook.weekNumber}
                     className={`border rounded-lg p-4 transition-all hover:shadow-md ${
@@ -669,7 +669,9 @@ export default function SimpleDashboardPage() {
                           )}
                         </div>
                         <div>
-                          <h4 className="font-medium text-bloom-dark">Week {workbook.weekNumber}</h4>
+                          <h4 className="font-medium text-bloom-dark">
+                            {course.courseId === 'becoming-mom' ? `Lesson ${workbook.weekNumber}` : `Week ${workbook.weekNumber}`}
+                          </h4>
                           <p className="text-sm text-bloom-dark/60">
                             {workbook.isSubmitted ? 'Submitted' : 
                              workbook.isDraft ? 'In Progress' : 
@@ -678,7 +680,7 @@ export default function SimpleDashboardPage() {
                         </div>
                       </div>
                       <a
-                        href="/simple-workbooks"
+                        href={course.courseId === 'becoming-mom' ? `/courses/becoming-mom/lessons/${workbook.weekNumber}/workbook` : "/simple-workbooks"}
                         className={`px-3 py-1 rounded text-sm font-medium transition-colors ${
                           workbook.isSubmitted
                             ? 'bg-gray-100 text-gray-600 hover:bg-gray-200'
@@ -706,7 +708,7 @@ export default function SimpleDashboardPage() {
                 ))}
               </div>
             </div>
-          )}
+          ))}
 
           {/* Enhanced Achievements Section */}
           <div className="bg-white rounded-xl shadow-sm border border-bloom-sage/10 p-6">

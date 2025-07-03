@@ -14,6 +14,33 @@ const LAUNCH_DATE = 'July 2025';
 
 const courses = [
   {
+    id: 'becoming-mom',
+    title: 'Becoming Mom',
+    subtitle: 'Your Free Introduction to Postpartum Wellness',
+    description: 'A gentle introduction to understanding and navigating the emotional journey of new motherhood.',
+    duration: '4 lessons',
+    modules: 4,
+    workbooks: 1,
+    price: 0,
+    originalPrice: 0,
+    isFree: true,
+    image: '/images/optimized/biff01_Mother_holding_baby_looking_out_window_at_sunrise_hope_7f2de060-da80-41fa-8c95-705189ef01be_1.webp',
+    features: [
+      '4 video lessons (10 minutes each)',
+      'Downloadable self-care guide',
+      'Reflection workbook',
+      'Resource directory',
+      'Community access'
+    ],
+    outcomes: [
+      'Understand normal postpartum changes',
+      'Recognize when to seek help',
+      'Build basic self-care habits',
+      'Connect with support resources'
+    ],
+    highlighted: false
+  },
+  {
     id: 'postpartum-wellness-foundations',
     title: 'Postpartum Wellness Foundations',
     subtitle: 'Your 6-Week Journey to Emotional Balance',
@@ -303,13 +330,31 @@ export default function CoursesPage() {
                     
                     <div className="mt-auto">
                       <div className="flex items-baseline gap-2 mb-4">
-                        <span className="text-3xl font-bold text-bloompink">${course.price}</span>
-                        {course.originalPrice && (
-                          <span className="text-lg text-bloom-dark/40 line-through">${course.originalPrice}</span>
+                        {course.isFree ? (
+                          <span className="text-3xl font-bold text-green-600">FREE</span>
+                        ) : (
+                          <>
+                            <span className="text-3xl font-bold text-bloompink">${course.price}</span>
+                            {course.originalPrice && (
+                              <span className="text-lg text-bloom-dark/40 line-through">${course.originalPrice}</span>
+                            )}
+                          </>
                         )}
                       </div>
                       
-                      {COURSES_ENABLED ? (
+                      {course.isFree ? (
+                        <div className="space-y-3">
+                          <Link
+                            href={`/courses/${course.id}`}
+                            className="block w-full py-3 rounded-lg font-medium text-center transition-all duration-300 bg-green-600 text-white hover:bg-green-700"
+                          >
+                            Start Free Course
+                          </Link>
+                          <p className="text-xs text-center text-bloom-dark/60">
+                            No credit card required
+                          </p>
+                        </div>
+                      ) : COURSES_ENABLED ? (
                         <div className="space-y-3">
                           <CoursePurchaseButton
                             courseId={course.id}
