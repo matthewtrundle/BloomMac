@@ -919,6 +919,17 @@ section:not(.hero-section) {
     padding: 0 1rem !important;
   }
   
+  /* Add bottom padding to prevent sticky CTA overlap */
+  body {
+    padding-bottom: 100px !important; /* Space for sticky CTA */
+  }
+  
+  /* Sticky CTA styling */
+  .sticky-cta {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  
   /* Prevent text shifting with stable containers */
   .hero-text,
   .service-hero-text {

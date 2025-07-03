@@ -82,7 +82,7 @@ const Header = () => {
   return (
     <header ref={headerRef} className="fixed w-full z-50">
       {/* Top Announcement Bar - Refined Design */}
-      <div className="bg-gradient-to-r from-[#1e3a5f] to-[#2a4a7f] text-white relative overflow-hidden">
+      <div className="announcement-bar bg-gradient-to-r from-[#1e3a5f] to-[#2a4a7f] text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-white/5"></div>
         <div className="container mx-auto px-4 py-2.5 relative">
           <div className="flex items-center justify-between">
@@ -395,177 +395,90 @@ const Header = () => {
             scrollbarColor: '#C06B93 #f3f4f6'
           }}
         >
-          <div className="container mx-auto px-4 py-3 pb-6">
+          <div className="container mx-auto px-6 py-6">
+            {/* Primary CTA at top */}
+            <div className="mb-6">
+              <Link 
+                href="/book"
+                onClick={() => setIsMenuOpen(false)}
+                className="block w-full bg-gradient-to-r from-[#f8b5c4] to-[#f472b6] text-white py-4 px-6 rounded-xl text-center font-semibold text-lg shadow-lg"
+              >
+                📅 Book Free Consultation
+              </Link>
+            </div>
+
             <nav className="flex flex-col space-y-4">
               <Link 
                 href="/about"
                 onClick={() => setIsMenuOpen(false)}
-                className="px-3 py-2 text-bloom hover:text-bloom-blush transition duration-300 border-b border-gray-100 pb-2"
+                className="px-4 py-3 text-lg font-medium text-bloom hover:text-bloom-blush transition duration-300 hover:bg-gray-50 rounded-lg"
               >
-                ABOUT
-              </Link>
-              
-              <div className="px-3 py-2 border-b border-gray-100 pb-2">
-                <h3 className="font-medium mb-2">SERVICES</h3>
-                <div className="pl-2 flex flex-col space-y-3">
-                  {services.map((service) => (
-                    <Link 
-                      key={service.id}
-                      href={`/services/${service.slug}`}
-                      onClick={() => setIsMenuOpen(false)}
-                      className="text-sm text-bloom hover:text-bloom-blush transition duration-300"
-                    >
-                      {service.title}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-              
-              <div className="px-3 py-2 border-b border-gray-100 pb-2">
-                <h3 className="font-medium mb-2">COURSES & RESOURCES</h3>
-                <div className="pl-2 flex flex-col space-y-3">
-                  <Link 
-                    href="/courses"
-                    onClick={() => setIsMenuOpen(false)}
-                    className="text-sm text-bloom hover:text-bloom-blush transition duration-300 flex items-center"
-                  >
-                    <svg className="w-4 h-4 mr-2 text-bloom-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                    </svg>
-                    Browse All Courses
-                  </Link>
-                  
-                  <p className="text-xs font-medium text-bloom-dark/60 uppercase mt-2">Courses for Moms</p>
-                  <Link 
-                    href="/courses/postpartum-wellness-foundations"
-                    onClick={() => setIsMenuOpen(false)}
-                    className="text-sm text-bloom hover:text-bloom-blush transition duration-300 pl-4 flex items-center"
-                  >
-                    <span className="text-bloompink mr-2">🌸</span>
-                    Postpartum Wellness Foundations
-                  </Link>
-                  <Link 
-                    href="/courses/anxiety-management-new-moms"
-                    onClick={() => setIsMenuOpen(false)}
-                    className="text-sm text-bloom hover:text-bloom-blush transition duration-300 pl-4 flex items-center"
-                  >
-                    <span className="text-bloom-accent mr-2">🧘‍♀️</span>
-                    Anxiety Management for New Moms
-                  </Link>
-                  
-                  <p className="text-xs font-medium text-bloom-dark/60 uppercase mt-2">Courses for Support Network</p>
-                  <Link 
-                    href="/courses/partner-support-bootcamp"
-                    onClick={() => setIsMenuOpen(false)}
-                    className="text-sm text-bloom hover:text-bloom-blush transition duration-300 pl-4 flex items-center"
-                  >
-                    <span className="text-bloom mr-2">👥</span>
-                    Partner Support Bootcamp
-                  </Link>
-                  
-                  <p className="text-xs font-medium text-bloom-dark/60 uppercase mt-2">Free Support Guides</p>
-                  <Link 
-                    href="/supporting-your-partner"
-                    onClick={() => setIsMenuOpen(false)}
-                    className="text-sm text-bloom hover:text-bloom-blush transition duration-300 pl-4 flex items-center"
-                  >
-                    <span className="text-bloompink mr-2">💝</span>
-                    Supporting Your Partner
-                  </Link>
-                  <Link 
-                    href="/when-family-wants-to-help"
-                    onClick={() => setIsMenuOpen(false)}
-                    className="text-sm text-bloom hover:text-bloom-blush transition duration-300 pl-4 flex items-center"
-                  >
-                    <span className="text-bloom-accent mr-2">👨‍👩‍👧</span>
-                    When Family Wants to Help
-                  </Link>
-                  <Link 
-                    href="/resources"
-                    onClick={() => setIsMenuOpen(false)}
-                    className="text-sm text-bloom hover:text-bloom-blush transition duration-300 pl-4 flex items-center"
-                  >
-                    <span className="text-bloom mr-2">📚</span>
-                    Resource Library
-                  </Link>
-                  
-                  {isLoggedInToCourses && (
-                    <>
-                      <p className="text-xs font-medium text-bloom-dark/60 uppercase mt-2">My Learning</p>
-                      <Link 
-                        href="/my-courses"
-                        onClick={() => setIsMenuOpen(false)}
-                        className="text-sm text-bloompink font-medium hover:text-bloom-blush transition duration-300 flex items-center pl-4"
-                      >
-                        <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                        </svg>
-                        My Courses
-                      </Link>
-                    </>
-                  )}
-                </div>
-              </div>
-              
-              <Link 
-                href="/contact"
-                onClick={() => setIsMenuOpen(false)}
-                className="px-3 py-2 text-bloom hover:text-bloom-blush transition duration-300 border-b border-gray-100 pb-2"
-              >
-                CONTACT
+                About Dr. Jana
               </Link>
               
               <Link 
-                href="/faq"
+                href="/new-mom-program"
                 onClick={() => setIsMenuOpen(false)}
-                className="px-3 py-2 text-bloom hover:text-bloom-blush transition duration-300 border-b border-gray-100 pb-2"
+                className="px-4 py-3 text-lg font-medium text-bloom hover:text-bloom-blush transition duration-300 hover:bg-gray-50 rounded-lg"
               >
-                FAQ
+                New Mom Program
               </Link>
               
               <Link 
-                href="/blog"
+                href="/virtual-therapy"
                 onClick={() => setIsMenuOpen(false)}
-                className="px-3 py-2 text-bloom hover:text-bloom-blush transition duration-300 border-b border-gray-100 pb-2"
+                className="px-4 py-3 text-lg font-medium text-bloom hover:text-bloom-blush transition duration-300 hover:bg-gray-50 rounded-lg"
               >
-                BLOG
+                Virtual Therapy
+              </Link>
+              
+              <Link 
+                href="/courses"
+                onClick={() => setIsMenuOpen(false)}
+                className="px-4 py-3 text-lg font-medium text-bloom hover:text-bloom-blush transition duration-300 hover:bg-gray-50 rounded-lg"
+              >
+                Online Courses
+              </Link>
+              
+              <Link 
+                href="/resources"
+                onClick={() => setIsMenuOpen(false)}
+                className="px-4 py-3 text-lg font-medium text-bloom hover:text-bloom-blush transition duration-300 hover:bg-gray-50 rounded-lg"
+              >
+                Free Resources
+              </Link>
+            </nav>
+            
+            {/* Contact Information */}
+            <div className="border-t border-gray-200 pt-6 mt-6">
+              <Link 
+                href="tel:+15128989510"
+                onClick={() => setIsMenuOpen(false)}
+                className="flex items-center justify-center text-[#1e3a5f] font-medium text-lg py-3 hover:text-bloom-blush transition duration-300"
+              >
+                <span className="mr-2">📞</span>
+                <span>(512) 898-9510</span>
               </Link>
               
               <Link 
                 href="https://www.instagram.com/bloompsychology.atx/"
                 onClick={() => setIsMenuOpen(false)}
-                className="flex items-center px-3 py-2 text-bloom hover:text-bloom-blush transition duration-300 border-b border-gray-100 pb-2"
+                className="flex items-center justify-center text-bloom hover:text-bloom-blush transition duration-300 py-2"
                 aria-label="Visit our Instagram"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
                 </svg>
-                <span>Instagram</span>
+                <span>Follow on Instagram</span>
               </Link>
-              
-              <Link 
-                href="/book"
-                onClick={() => setIsMenuOpen(false)}
-                className="btn-pink text-center mx-3 my-4"
-              >
-                Book Now
-              </Link>
-              
-              <Link 
-                href="/book"
-                onClick={() => setIsMenuOpen(false)}
-                className="text-center text-sm text-bloom font-medium mx-3"
-              >
-                Book Now →
-              </Link>
-            </nav>
+            </div>
           </div>
         </motion.div>
       )}
     </header>
   );
-};
+}
 
 export default Header;

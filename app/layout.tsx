@@ -10,6 +10,7 @@ import DarkModeToggle from '@/components/ui/DarkModeToggle';
 import LoadingScreenProvider from '@/components/ui/LoadingScreenProvider';
 import GoogleAnalytics from '@/components/GoogleAnalytics';
 import AuthDebug from '@/components/auth/AuthDebug';
+import StickyCTA from '@/components/ui/StickyCTA';
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -151,6 +152,7 @@ export default function RootLayout({
               <LayoutWrapper>
                 {children}
               </LayoutWrapper>
+              <StickyCTA />
               <DarkModeToggle />
               {process.env.NODE_ENV === 'development' && <AuthDebug />}
             </AnalyticsProvider>
