@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface StickyCTAProps {
@@ -10,6 +11,10 @@ interface StickyCTAProps {
 
 export default function StickyCTA({ className = '' }: StickyCTAProps) {
   const [isVisible, setIsVisible] = useState(false);
+  const pathname = usePathname();
+  
+  // Hide call/text option on New Mom Program page
+  const isNewMomPage = pathname === '/new-mom-program';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -41,13 +46,15 @@ export default function StickyCTA({ className = '' }: StickyCTAProps) {
                 </button>
               </Link>
               
-              {/* Secondary CTA */}
-              <Link href="tel:+15128989510">
-                <button className="w-full border-2 border-[#1e3a5f] text-[#1e3a5f] py-3 rounded-xl font-medium hover:bg-[#1e3a5f] hover:text-white transition-all duration-300 flex items-center justify-center gap-2">
-                  <span>📞</span>
-                  <span>Call/Text: (512) 898-9510</span>
-                </button>
-              </Link>
+              {/* Secondary CTA - Hidden on New Mom Program page */}
+              {!isNewMomPage && (
+                <Link href="tel:+15128989510">
+                  <button className="w-full border-2 border-[#1e3a5f] text-[#1e3a5f] py-3 rounded-xl font-medium hover:bg-[#1e3a5f] hover:text-white transition-all duration-300 flex items-center justify-center gap-2">
+                    <span>📞</span>
+                    <span>Call/Text: (512) 898-9510</span>
+                  </button>
+                </Link>
+              )}
             </div>
             
             {/* Trust indicator */}
