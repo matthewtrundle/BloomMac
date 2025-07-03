@@ -319,154 +319,215 @@ export default function SimpleDashboardPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-bloom-sage-50 via-white to-bloom-pink-50">
-      {/* Dashboard Header */}
-      <div className="bg-white/80 backdrop-blur-sm border-b border-bloom-sage/10">
-        <div className="container mx-auto px-6 py-8">
-          <div className="max-w-4xl">
-            <h1 className="text-3xl font-playfair text-bloom-dark mb-2">
-              {getPersonalizedMessage().greeting}
-            </h1>
-            <p className="text-lg text-bloom-dark/70 mb-4 font-light">
-              {getPersonalizedMessage().subtitle}
-            </p>
-            <div className="bg-gradient-to-r from-bloom-sage-50 to-bloompink/10 rounded-xl p-4 mb-4">
-              <p className="text-bloom-dark/80 italic text-center font-light">
-                {getPersonalizedMessage().quote}
+    <div className="min-h-screen bg-gradient-to-br from-bloom-sage-50 via-white to-bloom-pink-50 flex">
+      {/* Left Sidebar */}
+      <div className="w-64 bg-white border-r border-bloom-sage/10 flex-shrink-0 flex flex-col h-screen">
+        {/* Profile Section */}
+        <div className="p-6 border-b border-bloom-sage/10">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-12 h-12 bg-gradient-to-br from-bloom-sage to-bloompink rounded-full flex items-center justify-center text-white font-semibold">
+              {profile?.first_name?.[0] || 'M'}
+            </div>
+            <div>
+              <h3 className="font-semibold text-bloom-dark">
+                {profile?.first_name || 'Mama'} {profile?.last_name?.[0] || ''}
+              </h3>
+              <p className="text-xs text-bloom-dark/60">
+                {profile && getProfileCompleteness() < 100 ? `${getProfileCompleteness()}% complete` : 'Member'}
               </p>
             </div>
-            <p className="text-bloom-dark/60">
-              {getPersonalizedMessage().journeyInfo}
-            </p>
-            {/* Debug info - remove later */}
-            {process.env.NODE_ENV === 'development' && profile && (
-              <div className="text-xs text-gray-500 mt-2">
-                Debug: postpartum_date = {profile.postpartum_date || 'not set'}, 
-                children = {profile.number_of_children || 'not set'}, 
-                days_since = {getDaysSincePostpartum()}
+          </div>
+          
+          {/* Profile Actions */}
+          <div className="space-y-2">
+            <a 
+              href="/profile/edit"
+              className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-bloom-sage-50 transition-colors text-sm"
+            >
+              <svg className="w-4 h-4 text-bloom-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+              </svg>
+              <span>Edit Profile</span>
+            </a>
+            <a 
+              href="/simple-settings"
+              className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-bloom-sage-50 transition-colors text-sm"
+            >
+              <svg className="w-4 h-4 text-bloom-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              <span>Settings</span>
+            </a>
+          </div>
+        </div>
+
+        {/* Navigation Menu */}
+        <div className="p-4">
+          <h4 className="text-xs font-semibold text-bloom-dark/40 uppercase tracking-wider mb-3">Quick Actions</h4>
+          <nav className="space-y-1">
+            <a 
+              href="/my-courses"
+              className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-bloom-sage-50 transition-colors group"
+            >
+              <div className="w-8 h-8 bg-bloom-sage/10 rounded-lg flex items-center justify-center group-hover:bg-bloom-sage/20 transition-colors">
+                <svg className="w-4 h-4 text-bloom-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                </svg>
               </div>
-            )}
+              <div className="flex-1">
+                <span className="text-sm font-medium text-bloom-dark">My Courses</span>
+                <p className="text-xs text-bloom-dark/60">Continue learning</p>
+              </div>
+            </a>
+            
+            <a 
+              href="/simple-workbooks"
+              className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-bloompink/10 transition-colors group"
+            >
+              <div className="w-8 h-8 bg-bloompink/10 rounded-lg flex items-center justify-center group-hover:bg-bloompink/20 transition-colors">
+                <svg className="w-4 h-4 text-bloompink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                </svg>
+              </div>
+              <div className="flex-1">
+                <span className="text-sm font-medium text-bloom-dark">Workbooks</span>
+                <p className="text-xs text-bloom-dark/60">Track reflections</p>
+              </div>
+            </a>
+            
+            <a 
+              href="/simple-appointments"
+              className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-bloom-accent/10 transition-colors group"
+            >
+              <div className="w-8 h-8 bg-bloom-accent/10 rounded-lg flex items-center justify-center group-hover:bg-bloom-accent/20 transition-colors">
+                <svg className="w-4 h-4 text-bloom-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <div className="flex-1">
+                <span className="text-sm font-medium text-bloom-dark">Appointments</span>
+                <p className="text-xs text-bloom-dark/60">Schedule sessions</p>
+              </div>
+            </a>
+            
+            <a 
+              href="/courses"
+              className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-purple-50 transition-colors group"
+            >
+              <div className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center group-hover:bg-purple-200 transition-colors">
+                <svg className="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </div>
+              <div className="flex-1">
+                <span className="text-sm font-medium text-bloom-dark">Browse Courses</span>
+                <p className="text-xs text-bloom-dark/60">Explore options</p>
+              </div>
+            </a>
+          </nav>
+        </div>
+
+        {/* Stats Summary */}
+        <div className="p-4 mt-auto">
+          <div className="bg-gradient-to-r from-bloom-sage-50 to-bloompink-50 rounded-lg p-4">
+            <h4 className="text-xs font-semibold text-bloom-dark/60 mb-3">Your Progress</h4>
+            <div className="space-y-2">
+              <div className="flex justify-between items-center">
+                <span className="text-xs text-bloom-dark/60">Stars Earned</span>
+                <span className="text-sm font-semibold text-bloom-dark">{profile?.total_stars || 0}</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-xs text-bloom-dark/60">Active Courses</span>
+                <span className="text-sm font-semibold text-bloom-dark">{allCourses.filter(c => c.isEnrolled).length}</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-xs text-bloom-dark/60">Workbooks Done</span>
+                <span className="text-sm font-semibold text-bloom-dark">
+                  {courseWorkbooks.reduce((total, course) => 
+                    total + course.workbooks.filter(w => w.isSubmitted).length, 0
+                  )}
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Main Dashboard Content */}
-      <div className="container mx-auto px-6 py-8">
-        <div className="grid gap-8">
-          {/* Unified Welcome Section */}
-          <div className="bg-white rounded-xl shadow-sm border border-bloom-sage/10 p-6">
-            <div className="flex items-start gap-4 mb-6">
-              <div className="w-14 h-14 bg-gradient-to-br from-bloom-sage to-bloompink rounded-xl flex items-center justify-center flex-shrink-0">
-                <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-                </svg>
-              </div>
-              <div className="flex-1">
-                <h2 className="text-xl font-semibold text-bloom-dark mb-2">
-                  {profile?.first_name ? `Welcome back, ${profile.first_name}!` : 'Welcome to Your Journey'}
-                </h2>
-                <p className="text-bloom-dark/70 text-sm">
-                  {profile ? (
-                    `Your personalized wellness experience is ready and waiting.`
-                  ) : (
-                    'Loading your personalized wellness experience...'
-                  )}
-                </p>
-              </div>
-            </div>
-            
-            {/* Wellness Focus Areas - Enhanced with Colors */}
-            {profile && (
-              <>
-                <div className="grid md:grid-cols-4 gap-3 mb-4">
-                  {/* Mindfulness - Sage/Green */}
-                  <div className="flex items-center gap-2 text-sm bg-gradient-to-r from-bloom-sage/20 to-bloom-sage/10 rounded-lg p-3 border border-bloom-sage/20 hover:border-bloom-sage/30 transition-all group cursor-pointer hover:shadow-md">
-                    <div className="w-8 h-8 bg-bloom-sage rounded-full flex items-center justify-center group-hover:scale-110 transition-transform shadow-sm">
-                      <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                      </svg>
-                    </div>
-                    <span className="font-medium text-bloom-sage">Mindfulness</span>
+      {/* Main Content Area */}
+      <div className="flex-1 overflow-y-auto">
+        {/* Dashboard Header */}
+        <div className="bg-white/80 backdrop-blur-sm border-b border-bloom-sage/10">
+          <div className="px-8 py-6">
+            <h1 className="text-3xl font-playfair text-bloom-dark mb-2">
+              {getPersonalizedMessage().greeting}
+            </h1>
+            <p className="text-lg text-bloom-dark/70 font-light">
+              {getPersonalizedMessage().subtitle}
+            </p>
+          </div>
+        </div>
+
+        {/* Main Dashboard Content */}
+        <div className="px-8 py-6">
+          {/* Inspirational Quote */}
+          <div className="bg-gradient-to-r from-bloom-sage-50 to-bloompink/10 rounded-xl p-4 mb-6">
+            <p className="text-bloom-dark/80 italic text-center font-light">
+              {getPersonalizedMessage().quote}
+            </p>
+          </div>
+          
+          <div className="grid gap-6">
+            {/* Wellness Focus Areas */}
+            <div className="bg-white rounded-xl shadow-sm border border-bloom-sage/10 p-6">
+              <h2 className="text-xl font-semibold text-bloom-dark mb-4">Your Wellness Journey</h2>
+              <div className="grid md:grid-cols-4 gap-3 mb-4">
+                {/* Mindfulness - Sage/Green */}
+                <div className="flex items-center gap-2 text-sm bg-gradient-to-r from-bloom-sage/20 to-bloom-sage/10 rounded-lg p-3 border border-bloom-sage/20 hover:border-bloom-sage/30 transition-all group cursor-pointer hover:shadow-md">
+                  <div className="w-8 h-8 bg-bloom-sage rounded-full flex items-center justify-center group-hover:scale-110 transition-transform shadow-sm">
+                    <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                    </svg>
                   </div>
+                  <span className="font-medium text-bloom-sage">Mindfulness</span>
+                </div>
                   
-                  {/* Recovery - Pink */}
-                  <div className="flex items-center gap-2 text-sm bg-gradient-to-r from-bloompink/20 to-bloompink/10 rounded-lg p-3 border border-bloompink/20 hover:border-bloompink/30 transition-all group cursor-pointer hover:shadow-md">
-                    <div className="w-8 h-8 bg-bloompink rounded-full flex items-center justify-center group-hover:scale-110 transition-transform shadow-sm">
-                      <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                      </svg>
-                    </div>
-                    <span className="font-medium text-bloompink">Recovery</span>
+                {/* Recovery - Pink */}
+                <div className="flex items-center gap-2 text-sm bg-gradient-to-r from-bloompink/20 to-bloompink/10 rounded-lg p-3 border border-bloompink/20 hover:border-bloompink/30 transition-all group cursor-pointer hover:shadow-md">
+                  <div className="w-8 h-8 bg-bloompink rounded-full flex items-center justify-center group-hover:scale-110 transition-transform shadow-sm">
+                    <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                    </svg>
                   </div>
-                  
-                  {/* Community - Accent/Blue */}
-                  <div className="flex items-center gap-2 text-sm bg-gradient-to-r from-bloom-accent/20 to-bloom-accent/10 rounded-lg p-3 border border-bloom-accent/20 hover:border-bloom-accent/30 transition-all group cursor-pointer hover:shadow-md">
-                    <div className="w-8 h-8 bg-bloom-accent rounded-full flex items-center justify-center group-hover:scale-110 transition-transform shadow-sm">
-                      <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                      </svg>
-                    </div>
-                    <span className="font-medium text-bloom-accent">Community</span>
-                  </div>
-                  
-                  {/* Growth - Purple */}
-                  <div className="flex items-center gap-2 text-sm bg-gradient-to-r from-purple-200 to-purple-100 rounded-lg p-3 border border-purple-300 hover:border-purple-400 transition-all group cursor-pointer hover:shadow-md">
-                    <div className="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform shadow-sm">
-                      <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                      </svg>
-                    </div>
-                    <span className="font-medium text-purple-700">Growth</span>
-                  </div>
+                  <span className="font-medium text-bloompink">Recovery</span>
                 </div>
                 
-                {/* Wellness Journey Explanation */}
-                <div className="bg-gradient-to-r from-bloom-sage-50/30 via-bloompink-50/30 to-purple-50/30 rounded-lg p-3 mb-6 text-xs text-center text-bloom-dark/70">
-                  <span className="font-medium">Your Wellness Journey:</span> Each course incorporates these four pillars • Workbooks help you reflect on each area • Track progress across all dimensions
+                {/* Community - Accent/Blue */}
+                <div className="flex items-center gap-2 text-sm bg-gradient-to-r from-bloom-accent/20 to-bloom-accent/10 rounded-lg p-3 border border-bloom-accent/20 hover:border-bloom-accent/30 transition-all group cursor-pointer hover:shadow-md">
+                  <div className="w-8 h-8 bg-bloom-accent rounded-full flex items-center justify-center group-hover:scale-110 transition-transform shadow-sm">
+                    <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                  </div>
+                  <span className="font-medium text-bloom-accent">Community</span>
                 </div>
-              </>
-            )}
-
-            {/* Primary Actions */}
-            <div className="grid md:grid-cols-3 gap-3">
-              <a 
-                href="/my-courses"
-                className="flex items-center gap-3 p-4 bg-bloom-sage/5 hover:bg-bloom-sage/10 rounded-lg border border-bloom-sage/10 hover:border-bloom-sage/20 transition-all duration-200"
-              >
-                <svg className="w-5 h-5 text-bloom-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                </svg>
-                <div>
-                  <h3 className="font-medium text-bloom-dark text-sm">Continue Learning</h3>
-                  <p className="text-xs text-bloom-dark/60">Wellness courses</p>
+                
+                {/* Growth - Purple */}
+                <div className="flex items-center gap-2 text-sm bg-gradient-to-r from-purple-200 to-purple-100 rounded-lg p-3 border border-purple-300 hover:border-purple-400 transition-all group cursor-pointer hover:shadow-md">
+                  <div className="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform shadow-sm">
+                    <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                  </div>
+                  <span className="font-medium text-purple-700">Growth</span>
                 </div>
-              </a>
-              <a 
-                href="/simple-workbooks"
-                className="flex items-center gap-3 p-4 bg-bloompink/5 hover:bg-bloompink/10 rounded-lg border border-bloompink/10 hover:border-bloompink/20 transition-all duration-200"
-              >
-                <svg className="w-5 h-5 text-bloompink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                </svg>
-                <div>
-                  <h3 className="font-medium text-bloom-dark text-sm">Reflect & Journal</h3>
-                  <p className="text-xs text-bloom-dark/60">Weekly workbooks</p>
-                </div>
-              </a>
-              <a 
-                href="/simple-appointments"
-                className="flex items-center gap-3 p-4 bg-bloom-accent/5 hover:bg-bloom-accent/10 rounded-lg border border-bloom-accent/10 hover:border-bloom-accent/20 transition-all duration-200"
-              >
-                <svg className="w-5 h-5 text-bloom-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-                <div>
-                  <h3 className="font-medium text-bloom-dark text-sm">Book Session</h3>
-                  <p className="text-xs text-bloom-dark/60">Meet with Dr. Jana</p>
-                </div>
-              </a>
+              </div>
+              
+              {/* Wellness Journey Explanation */}
+              <div className="bg-gradient-to-r from-bloom-sage-50/30 via-bloompink-50/30 to-purple-50/30 rounded-lg p-3 text-xs text-center text-bloom-dark/70">
+                <span className="font-medium">Your Wellness Journey:</span> Each course incorporates these four pillars • Workbooks help you reflect on each area • Track progress across all dimensions
+              </div>
             </div>
-          </div>
 
           {/* All Courses Progress Section */}
           <div className="bg-white rounded-xl shadow-sm border border-bloom-sage/10 p-6">
@@ -904,111 +965,6 @@ export default function SimpleDashboardPage() {
             )}
           </div>
 
-          {/* Compact Profile & Settings Hub */}
-          <div className="bg-white rounded-2xl shadow-lg p-4">
-            <h3 className="text-lg font-semibold text-bloom-dark mb-3 flex items-center justify-between">
-              <span className="flex items-center gap-2">
-                <span className="text-xl">👤</span>
-                Profile & Settings
-              </span>
-              {profile && getProfileCompleteness() < 100 && (
-                <span className="text-xs text-bloom-sage bg-bloom-sage-50 px-2 py-1 rounded-full">
-                  {getProfileCompleteness()}% complete
-                </span>
-              )}
-            </h3>
-            
-            {/* Compact Profile Management Grid */}
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
-              {/* Edit Profile */}
-              <a 
-                href="/profile/edit"
-                className="flex flex-col items-center gap-2 p-3 bg-bloom-sage-50 rounded-lg hover:bg-bloom-sage-100 transition-colors group text-center"
-              >
-                <div className="w-8 h-8 bg-bloom-sage rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <span className="text-white text-sm">✏️</span>
-                </div>
-                <div>
-                  <h4 className="text-xs font-medium text-bloom-dark">Edit Profile</h4>
-                </div>
-              </a>
-
-              {/* Notification Settings */}
-              <a 
-                href="/simple-settings"
-                className="flex flex-col items-center gap-2 p-3 bg-bloompink/10 rounded-lg hover:bg-bloompink/20 transition-colors group text-center"
-              >
-                <div className="w-8 h-8 bg-bloompink rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <span className="text-white text-sm">🔔</span>
-                </div>
-                <div>
-                  <h4 className="text-xs font-medium text-bloom-dark">Notifications</h4>
-                </div>
-              </a>
-
-              {/* Privacy Settings */}
-              <a 
-                href="/simple-settings"
-                className="flex flex-col items-center gap-2 p-3 bg-bloom-accent/10 rounded-lg hover:bg-bloom-accent/20 transition-colors group text-center"
-              >
-                <div className="w-8 h-8 bg-bloom-accent rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <span className="text-white text-sm">🔒</span>
-                </div>
-                <div>
-                  <h4 className="text-xs font-medium text-bloom-dark">Privacy</h4>
-                </div>
-              </a>
-
-              {/* Payment Methods */}
-              <a 
-                href="/simple-appointments"
-                className="flex flex-col items-center gap-2 p-3 bg-green-50 rounded-lg hover:bg-green-100 transition-colors group text-center"
-              >
-                <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <span className="text-white text-sm">💳</span>
-                </div>
-                <div>
-                  <h4 className="text-xs font-medium text-bloom-dark">Payment</h4>
-                </div>
-              </a>
-
-              {/* Account Settings */}
-              <a 
-                href="/simple-settings"
-                className="flex flex-col items-center gap-2 p-3 bg-purple-50 rounded-lg hover:bg-purple-100 transition-colors group text-center"
-              >
-                <div className="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <span className="text-white text-sm">⚙️</span>
-                </div>
-                <div>
-                  <h4 className="text-xs font-medium text-bloom-dark">Account</h4>
-                </div>
-              </a>
-
-              {/* Data Management */}
-              <a 
-                href="/simple-settings"
-                className="flex flex-col items-center gap-2 p-3 bg-orange-50 rounded-lg hover:bg-orange-100 transition-colors group text-center"
-              >
-                <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <span className="text-white text-sm">📊</span>
-                </div>
-                <div>
-                  <h4 className="text-xs font-medium text-bloom-dark">Data</h4>
-                </div>
-              </a>
-            </div>
-
-            {/* Profile completeness reminder if needed */}
-            {profile && getProfileCompleteness() < 100 && (
-              <div className="mt-3 p-2 bg-bloom-sage-50 rounded text-xs text-bloom-dark/70">
-                <span className="font-medium">Quick tip:</span> Complete your profile for better personalized support
-                {!profile.phone && <span> • Add phone</span>}
-                {!profile.postpartum_date && <span> • Add birth date</span>}
-                {!profile.emergency_contact_name && <span> • Add emergency contact</span>}
-              </div>
-            )}
-          </div>
 
           {/* Compact Progress Analytics */}
           <div className="bg-white rounded-2xl shadow-lg p-4">
@@ -1170,51 +1126,6 @@ export default function SimpleDashboardPage() {
             </div>
           </div>
 
-          {/* Quick Actions */}
-          <div className="bg-white rounded-2xl shadow-lg p-6">
-            <h3 className="text-xl font-semibold text-bloom-dark mb-4">Quick Actions</h3>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-              <a 
-                href="/my-courses" 
-                className="flex items-center gap-3 p-4 bg-bloom-sage-50 rounded-lg hover:bg-bloom-sage-100 transition-colors"
-              >
-                <span className="text-2xl">🎓</span>
-                <div>
-                  <h4 className="font-medium text-bloom-dark">My Courses</h4>
-                  <p className="text-sm text-bloom-gray-600">Continue learning</p>
-                </div>
-              </a>
-              <a 
-                href="/simple-workbooks" 
-                className="flex items-center gap-3 p-4 bg-bloompink/10 rounded-lg hover:bg-bloompink/20 transition-colors"
-              >
-                <span className="text-2xl">📝</span>
-                <div>
-                  <h4 className="font-medium text-bloom-dark">My Workbooks</h4>
-                  <p className="text-sm text-bloom-gray-600">View submissions</p>
-                </div>
-              </a>
-              <a 
-                href="/simple-appointments" 
-                className="flex items-center gap-3 p-4 bg-bloom-accent/10 rounded-lg hover:bg-bloom-accent/20 transition-colors"
-              >
-                <span className="text-2xl">📅</span>
-                <div>
-                  <h4 className="font-medium text-bloom-dark">Appointments</h4>
-                  <p className="text-sm text-bloom-gray-600">Book with Dr. Jana</p>
-                </div>
-              </a>
-              <a 
-                href="/simple-settings" 
-                className="flex items-center gap-3 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
-              >
-                <span className="text-2xl">⚙️</span>
-                <div>
-                  <h4 className="font-medium text-bloom-dark">Settings</h4>
-                  <p className="text-sm text-bloom-gray-600">Manage account</p>
-                </div>
-              </a>
-            </div>
           </div>
         </div>
       </div>
