@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
+import Toast, { ToastMessage } from '@/components/ui/Toast';
 
 interface UserProfile {
   id: string;
@@ -85,6 +86,7 @@ export default function SimpleDashboardPage() {
   const [upcomingAppointments, setUpcomingAppointments] = useState<UpcomingAppointment[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [toastMessages, setToastMessages] = useState<ToastMessage[]>([]);
 
   useEffect(() => {
     if (!authLoading && !user) {
@@ -97,6 +99,15 @@ export default function SimpleDashboardPage() {
       fetchBasicData();
     }
   }, [user]);
+
+  const addToast = (type: ToastMessage['type'], message: string) => {
+    const id = Date.now().toString();
+    setToastMessages(prev => [...prev, { id, type, message }]);
+  };
+
+  const removeToast = (id: string) => {
+    setToastMessages(prev => prev.filter(msg => msg.id !== id));
+  };
 
   const fetchBasicData = async () => {
     if (!user) return;
@@ -130,18 +141,24 @@ export default function SimpleDashboardPage() {
       if (profileResponse.status === 'fulfilled' && profileResponse.value.ok) {
         const data = await profileResponse.value.json();
         setProfile(data.profile);
+      } else {
+        addToast('error', 'Unable to load profile information');
       }
 
       // Handle achievements response
       if (achievementsResponse.status === 'fulfilled' && achievementsResponse.value.ok) {
         const data = await achievementsResponse.value.json();
         setAchievements(data.achievements || []);
+      } else {
+        addToast('warning', 'Could not load achievements');
       }
 
       // Handle workbook response
       if (workbookResponse.status === 'fulfilled' && workbookResponse.value.ok) {
         const data = await workbookResponse.value.json();
         setCourseWorkbooks(data.courses || []);
+      } else {
+        addToast('warning', 'Could not load workbook data');
       }
 
       // Handle course response (may not exist yet)
@@ -180,6 +197,7 @@ export default function SimpleDashboardPage() {
     } catch (error) {
       console.error('Error fetching dashboard data:', error);
       setError('Unable to load dashboard data');
+      addToast('error', 'Failed to load dashboard data. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -746,7 +764,7 @@ export default function SimpleDashboardPage() {
                             {appointment.status}
                           </span>
                           <a
-                            href={`/appointments`}
+                            href="/simple-appointments"
                             className="px-3 py-1 bg-bloom-sage text-white rounded text-sm hover:bg-bloom-sage/90 transition-colors"
                           >
                             Manage
@@ -943,9 +961,9 @@ export default function SimpleDashboardPage() {
                 ))}
                 {achievements.length > 6 && (
                   <div className="text-center pt-2">
-                    <a href="/achievements" className="text-bloom-sage hover:text-bloom-sage/80 text-sm underline">
-                      View all {achievements.length} achievements →
-                    </a>
+                    <p className="text-bloom-sage text-sm">
+                      Showing 6 of {achievements.length} achievements
+                    </p>
                   </div>
                 )}
               </div>
@@ -1130,5 +1148,8 @@ export default function SimpleDashboardPage() {
         </div>
       </div>
     </div>
+    
+    {/* Toast Notifications */}
+    <Toast messages={toastMessages} onRemove={removeToast} />
   );
 }
