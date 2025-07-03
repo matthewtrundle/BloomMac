@@ -876,10 +876,11 @@ section:not(.hero-section) {
     .service-title, 
     h1.service-title {
       max-width: 100% !important; /* Full width for proper text flow */
-      word-break: normal !important; /* Normal word breaking */
+      word-break: keep-all !important; /* Keep words together */
       overflow-wrap: normal !important; /* Normal overflow wrap */
-      white-space: nowrap !important; /* Prevent breaking on desktop */
-      text-wrap: nowrap !important; /* Modern text-wrap property */
+      hyphens: none !important; /* No hyphenation */
+      font-size: clamp(2rem, 4vw, 3.75rem) !important; /* Responsive font size */
+      line-height: 1.2 !important; /* Tighter line height */
     }
   }
   
