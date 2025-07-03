@@ -80,28 +80,60 @@ export default async function handler(
       process.env.SUPABASE_SERVICE_ROLE_KEY!
     );
 
+    // Log incoming request data for debugging
+    console.log('📝 API - Incoming profile data:', {
+      ...req.body,
+      // Show which fields are present
+      fields_present: Object.keys(req.body).filter(key => req.body[key] !== null && req.body[key] !== undefined)
+    });
+    
     // Validate required fields
     const { first_name, last_name } = req.body;
+    const validationErrors: string[] = [];
     
     if (!first_name?.trim()) {
-      return res.status(400).json({ 
-        error: 'First name is required',
-        code: 'MISSING_FIRST_NAME'
-      });
+      validationErrors.push('First name is required');
     }
     
     if (!last_name?.trim()) {
-      return res.status(400).json({ 
-        error: 'Last name is required',
-        code: 'MISSING_LAST_NAME'
-      });
+      validationErrors.push('Last name is required');
     }
     
     // Validate phone if provided
     if (req.body.phone && !/^[\+]?[\d\s\-\(\)]+$/.test(req.body.phone)) {
+      validationErrors.push('Invalid phone number format (e.g., (555) 123-4567)');
+    }
+    
+    // Validate emergency contact fields if any are provided
+    const hasEmergencyContact = req.body.emergency_contact_name || req.body.emergency_contact_phone || req.body.emergency_contact_relationship;
+    if (hasEmergencyContact) {
+      if (!req.body.emergency_contact_name?.trim()) {
+        validationErrors.push('Emergency contact name is required when adding emergency contact');
+      }
+      if (!req.body.emergency_contact_phone?.trim()) {
+        validationErrors.push('Emergency contact phone is required when adding emergency contact');
+      }
+      if (!req.body.emergency_contact_relationship?.trim()) {
+        validationErrors.push('Emergency contact relationship is required when adding emergency contact');
+      }
+    }
+    
+    if (validationErrors.length > 0) {
+      console.log('❌ API - Validation failed:', validationErrors);
       return res.status(400).json({ 
-        error: 'Invalid phone number format',
-        code: 'INVALID_PHONE'
+        error: 'Please fix the following issues:\n• ' + validationErrors.join('\n• '),
+        code: 'VALIDATION_ERROR',
+        validationErrors,
+        fields: {
+          first_name: !first_name?.trim() ? 'Required' : 'Valid',
+          last_name: !last_name?.trim() ? 'Required' : 'Valid',
+          phone: req.body.phone && !/^[\+]?[\d\s\-\(\)]+$/.test(req.body.phone) ? 'Invalid format' : 'Valid',
+          emergency_contact: hasEmergencyContact ? {
+            name: !req.body.emergency_contact_name?.trim() ? 'Required' : 'Valid',
+            phone: !req.body.emergency_contact_phone?.trim() ? 'Required' : 'Valid',
+            relationship: !req.body.emergency_contact_relationship?.trim() ? 'Required' : 'Valid'
+          } : 'Not provided'
+        }
       });
     }
     
@@ -134,6 +166,12 @@ export default async function handler(
         userMessage = 'Database table not found - please contact support';
       } else if (error.code === '42703') {
         userMessage = 'Invalid data format - please check your entries';
+      } else if (error.message?.includes('violates not-null constraint')) {
+        // Parse which field is causing the issue
+        const match = error.message.match(/column "(\w+)"/);
+        const fieldName = match ? match[1] : 'unknown';
+        userMessage = `Required field missing: ${fieldName.replace(/_/g, ' ')}`;
+        console.log('🔍 Not-null constraint violation:', { fieldName, fullError: error.message });
       } else if (error.message?.includes('violates')) {
         userMessage = 'Data validation failed - please check required fields';
       }

@@ -142,26 +142,31 @@ export default function ProfileStep({
       case 'emergencyContactName':
       case 'emergencyContactPhone':
       case 'emergencyContactRelationship':
-        const hasAnyEmergency = formData.emergencyContactName || formData.emergencyContactPhone || formData.emergencyContactRelationship || value;
+        // Check if any emergency contact field has been filled
+        const updatedFormData = { ...formData, [field]: value };
+        const hasAnyEmergency = updatedFormData.emergencyContactName || updatedFormData.emergencyContactPhone || updatedFormData.emergencyContactRelationship;
+        
         if (hasAnyEmergency) {
-          if (!formData.emergencyContactName?.trim() && field !== 'emergencyContactName') {
+          // If any field is filled, all fields become required
+          if (!updatedFormData.emergencyContactName?.trim()) {
             errors.emergencyContactName = 'Name required if adding emergency contact';
-          } else if (field === 'emergencyContactName' && value?.trim()) {
+          } else {
             delete errors.emergencyContactName;
           }
           
-          if (!formData.emergencyContactPhone?.trim() && field !== 'emergencyContactPhone') {
+          if (!updatedFormData.emergencyContactPhone?.trim()) {
             errors.emergencyContactPhone = 'Phone required if adding emergency contact';
-          } else if (field === 'emergencyContactPhone' && value?.trim()) {
+          } else {
             delete errors.emergencyContactPhone;
           }
           
-          if (!formData.emergencyContactRelationship?.trim() && field !== 'emergencyContactRelationship') {
+          if (!updatedFormData.emergencyContactRelationship?.trim()) {
             errors.emergencyContactRelationship = 'Relationship required if adding emergency contact';
-          } else if (field === 'emergencyContactRelationship' && value?.trim()) {
+          } else {
             delete errors.emergencyContactRelationship;
           }
         } else {
+          // If all fields are empty, no errors
           delete errors.emergencyContactName;
           delete errors.emergencyContactPhone;
           delete errors.emergencyContactRelationship;
@@ -184,9 +189,17 @@ export default function ProfileStep({
   const validateForm = () => {
     console.log('Final form validation:', { formData, fieldErrors, isFormValid });
     
+    // Run all validations one more time to ensure everything is caught
+    validateField('firstName', formData.firstName);
+    validateField('lastName', formData.lastName);
+    validateField('phone', formData.phone);
+    validateField('emergencyContactName', formData.emergencyContactName);
+    validateField('emergencyContactPhone', formData.emergencyContactPhone);
+    validateField('emergencyContactRelationship', formData.emergencyContactRelationship);
+    
     if (!isFormValid) {
       const firstError = Object.values(fieldErrors)[0];
-      setError(firstError || 'Please fix the errors above');
+      setError(firstError || 'Please fix the errors highlighted in red above');
       return false;
     }
     
@@ -326,12 +339,43 @@ export default function ProfileStep({
           setTimeout(() => {
             window.location.href = '/auth/login';
           }, 2000);
+        } else if (response.status === 400 && result.validationErrors) {
+          // Show detailed validation errors
+          setError(result.error || 'Please fix the validation errors');
+          
+          // Update field errors based on server response
+          if (result.fields) {
+            const newFieldErrors: {[key: string]: string} = {};
+            
+            if (result.fields.first_name === 'Required') {
+              newFieldErrors.firstName = 'First name is required';
+            }
+            if (result.fields.last_name === 'Required') {
+              newFieldErrors.lastName = 'Last name is required';
+            }
+            if (result.fields.phone === 'Invalid format') {
+              newFieldErrors.phone = 'Invalid phone number format';
+            }
+            if (result.fields.emergency_contact && typeof result.fields.emergency_contact === 'object') {
+              if (result.fields.emergency_contact.name === 'Required') {
+                newFieldErrors.emergencyContactName = 'Emergency contact name is required';
+              }
+              if (result.fields.emergency_contact.phone === 'Required') {
+                newFieldErrors.emergencyContactPhone = 'Emergency contact phone is required';
+              }
+              if (result.fields.emergency_contact.relationship === 'Required') {
+                newFieldErrors.emergencyContactRelationship = 'Emergency contact relationship is required';
+              }
+            }
+            
+            setFieldErrors(newFieldErrors);
+          }
         } else if (response.status === 400) {
-          setError(`❌ Validation Error: ${result.error || 'Please check your information'}`);
+          setError(result.error || 'Please check your information');
         } else if (response.status === 500) {
-          setError(`❌ Server Error: ${result.error || 'Please try again in a moment'}`);
+          setError(result.error || 'Server error - please try again');
         } else {
-          setError(`❌ Error (${response.status}): ${result.error || 'Something went wrong'}`);
+          setError(result.error || 'Something went wrong');
         }
         
         // If there are additional details, log them
@@ -417,20 +461,31 @@ export default function ProfileStep({
             {formData.firstName ? `Welcome ${formData.firstName}! Let's add some additional information to personalize your experience.` : 'This helps us personalize your experience and provide better support'}
           </p>
           
-          {/* Validation Summary */}
-          {Object.keys(fieldErrors).length > 0 && (
-            <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg">
-              <p className="text-red-700 text-sm font-medium mb-2 flex items-center gap-2">
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+          {/* Error Display - Show server error or validation summary */}
+          {error && (
+            <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg">
+              <div className="flex items-start gap-3">
+                <svg className="w-5 h-5 text-red-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
                 </svg>
-                Please fix the following issues:
-              </p>
-              <ul className="text-red-600 text-xs space-y-1">
-                {Object.entries(fieldErrors).map(([field, error]) => (
-                  <li key={field}>• {error}</li>
-                ))}
-              </ul>
+                <div className="flex-1">
+                  <p className="text-red-700 text-sm font-semibold mb-1">Something went wrong</p>
+                  <p className="text-red-600 text-sm whitespace-pre-line">{error}</p>
+                  {Object.keys(fieldErrors).length > 0 && (
+                    <div className="mt-3 pt-3 border-t border-red-200">
+                      <p className="text-red-700 text-xs font-medium mb-2">Please fix these fields:</p>
+                      <ul className="text-red-600 text-xs space-y-1">
+                        {Object.entries(fieldErrors).map(([field, error]) => (
+                          <li key={field} className="flex items-start gap-1">
+                            <span className="text-red-500 mt-0.5">•</span>
+                            <span>{error}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
           )}
           
@@ -680,9 +735,19 @@ export default function ProfileStep({
                   id="emergencyContactName"
                   value={formData.emergencyContactName}
                   onChange={(e) => updateFormData('emergencyContactName', e.target.value)}
-                  className="w-full px-4 py-3 border border-bloom-sage/20 rounded-lg focus:ring-2 focus:ring-bloompink focus:border-transparent transition-colors"
+                  className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-bloompink focus:border-transparent transition-colors ${
+                    fieldErrors.emergencyContactName ? 'border-red-500 bg-red-50/30' : 'border-bloom-sage/20'
+                  }`}
                   placeholder="Full name"
                 />
+                {fieldErrors.emergencyContactName && (
+                  <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
+                    <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                    </svg>
+                    {fieldErrors.emergencyContactName}
+                  </p>
+                )}
               </div>
               
               <div className="grid md:grid-cols-2 gap-4">
@@ -695,9 +760,19 @@ export default function ProfileStep({
                     id="emergencyContactPhone"
                     value={formData.emergencyContactPhone}
                     onChange={(e) => updateFormData('emergencyContactPhone', e.target.value)}
-                    className="w-full px-4 py-3 border border-bloom-sage/20 rounded-lg focus:ring-2 focus:ring-bloompink focus:border-transparent transition-colors"
+                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-bloompink focus:border-transparent transition-colors ${
+                      fieldErrors.emergencyContactPhone ? 'border-red-500 bg-red-50/30' : 'border-bloom-sage/20'
+                    }`}
                     placeholder="(555) 123-4567"
                   />
+                  {fieldErrors.emergencyContactPhone && (
+                    <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
+                      <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                      </svg>
+                      {fieldErrors.emergencyContactPhone}
+                    </p>
+                  )}
                 </div>
                 
                 <div>
@@ -708,7 +783,9 @@ export default function ProfileStep({
                     id="emergencyContactRelationship"
                     value={formData.emergencyContactRelationship}
                     onChange={(e) => updateFormData('emergencyContactRelationship', e.target.value)}
-                    className="w-full px-4 py-3 border border-bloom-sage/20 rounded-lg focus:ring-2 focus:ring-bloompink focus:border-transparent transition-colors"
+                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-bloompink focus:border-transparent transition-colors ${
+                      fieldErrors.emergencyContactRelationship ? 'border-red-500 bg-red-50/30' : 'border-bloom-sage/20'
+                    }`}
                   >
                     <option value="">Select relationship</option>
                     <option value="spouse">Spouse</option>
@@ -718,6 +795,14 @@ export default function ProfileStep({
                     <option value="friend">Friend</option>
                     <option value="other">Other</option>
                   </select>
+                  {fieldErrors.emergencyContactRelationship && (
+                    <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
+                      <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                      </svg>
+                      {fieldErrors.emergencyContactRelationship}
+                    </p>
+                  )}
                 </div>
               </div>
             </div>
