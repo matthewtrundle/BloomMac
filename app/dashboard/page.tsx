@@ -725,9 +725,9 @@ export default function SimpleDashboardPage() {
                 </div>
               </a>
 
-              {/* Notification Settings - Remove hash navigation for now */}
+              {/* Notification Settings */}
               <a 
-                href="/profile/edit"
+                href="/simple-settings"
                 className="flex flex-col items-center gap-2 p-3 bg-bloompink/10 rounded-lg hover:bg-bloompink/20 transition-colors group text-center"
               >
                 <div className="w-8 h-8 bg-bloompink rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
@@ -740,7 +740,7 @@ export default function SimpleDashboardPage() {
 
               {/* Privacy Settings */}
               <a 
-                href="/profile/edit"
+                href="/simple-settings"
                 className="flex flex-col items-center gap-2 p-3 bg-bloom-accent/10 rounded-lg hover:bg-bloom-accent/20 transition-colors group text-center"
               >
                 <div className="w-8 h-8 bg-bloom-accent rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
@@ -766,7 +766,7 @@ export default function SimpleDashboardPage() {
 
               {/* Account Settings */}
               <a 
-                href="/profile/edit"
+                href="/simple-settings"
                 className="flex flex-col items-center gap-2 p-3 bg-purple-50 rounded-lg hover:bg-purple-100 transition-colors group text-center"
               >
                 <div className="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
@@ -779,7 +779,7 @@ export default function SimpleDashboardPage() {
 
               {/* Data Management */}
               <a 
-                href="/profile/edit"
+                href="/simple-settings"
                 className="flex flex-col items-center gap-2 p-3 bg-orange-50 rounded-lg hover:bg-orange-100 transition-colors group text-center"
               >
                 <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
@@ -964,7 +964,7 @@ export default function SimpleDashboardPage() {
                 </div>
               </a>
               <a 
-                href="/settings" 
+                href="/simple-settings" 
                 className="flex items-center gap-3 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
               >
                 <span className="text-2xl">⚙️</span>

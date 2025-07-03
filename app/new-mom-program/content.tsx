@@ -145,7 +145,7 @@ export default function NewMomProgramContent() {
       <FAQSchema faqs={faqData} />
 
       {/* Hero Section */}
-      <section className="pt-32 pb-16 bg-gradient-to-br from-gray-50 to-white relative">{/* Removed organic shapes and simplified gradient */}
+      <section className="pt-32 pb-16 bg-gradient-to-br from-bloom-blush/10 via-white to-bloompink/5 relative">
         
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
@@ -155,7 +155,7 @@ export default function NewMomProgramContent() {
               transition={{ duration: 0.6 }}
             >
               <h1 className="text-5xl md:text-6xl font-playfair text-bloom mb-4 flex items-center justify-center gap-4">
-                <svg className="w-12 h-12 text-bloom" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="1.5">
+                <svg className="w-12 h-12 text-bloompink" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="1.5">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M12 3c0 4.418-3.582 8-8 8s-8-3.582-8-8 3.582-8 8-8 8 3.582 8 8zm0 0v18m8-10c0 4.418-3.582 8-8 8s-8-3.582-8-8 3.582-8 8-8 8 3.582 8 8z"/>
                   <circle cx="12" cy="12" r="2" fill="currentColor"/>
                 </svg>
@@ -174,7 +174,7 @@ export default function NewMomProgramContent() {
                   Welcome
                 </h2>
                 <p className="text-lg text-gray-700 mb-4">
-                  You're working hard to care for your baby — but who's helping you care for <span className="font-semibold text-bloom">you</span>?
+                  You're working hard to care for your baby — but who's helping you care for <span className="font-semibold text-bloompink">you</span>?
                 </p>
                 <p className="text-gray-600 italic">
                   Everyone asks how the baby is doing. This is for you.
@@ -215,26 +215,26 @@ export default function NewMomProgramContent() {
             >
               <p className="text-lg text-gray-700 mb-8 text-center">
                 Becoming a mom is one of the most powerful transformations we go through — physically, emotionally, and spiritually. 
-                But it's also one of the most <span className="font-semibold text-bloom">invisible</span>.
+                But it's also one of the most <span className="font-semibold text-bloompink">invisible</span>.
               </p>
 
-              <div className="bg-blue-50 border-l-4 border-bloom rounded-lg p-8 mb-8">
+              <div className="bg-gradient-to-r from-bloom-blush/10 to-bloompink/5 border-l-4 border-bloompink rounded-lg p-8 mb-8">
                 <h3 className="text-2xl font-semibold text-bloom mb-6">You might feel:</h3>
                 <ul className="space-y-4">
                   <li className="flex items-start">
-                    <span className="text-bloom mr-3 text-xl">•</span>
+                    <span className="text-bloompink mr-3 text-xl">•</span>
                     <span className="text-gray-700">Like you've lost yourself in the process</span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-bloom mr-3 text-xl">•</span>
+                    <span className="text-bloompink mr-3 text-xl">•</span>
                     <span className="text-gray-700">Emotionally drained and constantly "on"</span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-bloom mr-3 text-xl">•</span>
+                    <span className="text-bloompink mr-3 text-xl">•</span>
                     <span className="text-gray-700">Caught between exhaustion, guilt, and pressure to hold it all together</span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-bloom mr-3 text-xl">•</span>
+                    <span className="text-bloompink mr-3 text-xl">•</span>
                     <span className="text-gray-700">Unsure how to ask for help — or even what you need</span>
                   </li>
                 </ul>
@@ -243,7 +243,7 @@ export default function NewMomProgramContent() {
               <div className="text-center">
                 <p className="text-2xl font-semibold text-bloom mb-4">You are not alone.</p>
                 <p className="text-lg text-gray-700">
-                  <span className="font-semibold text-bloom">Becoming Mom</span> is here to help you feel seen, supported, and reconnected to yourself — 
+                  <span className="font-semibold text-bloompink">Becoming Mom</span> is here to help you feel seen, supported, and reconnected to yourself — 
                   with weekly 1:1 sessions, personalized guidance, and practical tools designed just for this season.
                 </p>
               </div>
@@ -258,7 +258,7 @@ export default function NewMomProgramContent() {
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-bloom mb-4 flex items-center justify-center gap-3">
-                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-8 h-8 text-bloompink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                 </svg>
                 What's Included
@@ -279,7 +279,7 @@ export default function NewMomProgramContent() {
                 >
                   <div className="bg-white border border-gray-200 rounded-lg shadow-sm h-full p-6 hover:shadow-md transition-shadow duration-200">
                     <div className="flex items-start">
-                      <div className="text-bloom mr-4 mt-1">{feature.icon}</div>
+                      <div className="text-bloompink mr-4 mt-1">{feature.icon}</div>
                       <div>
                         <h3 className="font-semibold text-bloom text-lg mb-2">{feature.title}</h3>
                         <p className="text-gray-600">{feature.description}</p>
@@ -312,7 +312,7 @@ export default function NewMomProgramContent() {
             <div className="overflow-x-auto">
               <table className="w-full bg-white rounded-xl shadow-sm border border-gray-200 table-auto">
                 <thead>
-                  <tr className="bg-blue-50 border-b border-gray-200">
+                  <tr className="bg-gradient-to-r from-bloom-blush/10 to-bloompink/5 border-b border-gray-200">
                     <th className="px-6 py-4 text-left text-sm font-semibold text-bloom whitespace-nowrap w-24">Week</th>
                     <th className="px-6 py-4 text-left text-sm font-semibold text-bloom">Theme</th>
                     <th className="px-6 py-4 text-left text-sm font-semibold text-bloom">What You'll Explore</th>
@@ -328,7 +328,7 @@ export default function NewMomProgramContent() {
                       viewport={{ once: true }}
                       className="border-b border-gray-100 hover:bg-gray-50 transition-colors"
                     >
-                      <td className="px-6 py-4 text-bloom font-semibold whitespace-nowrap">Week {week.week}</td>
+                      <td className="px-6 py-4 text-bloompink font-semibold whitespace-nowrap">Week {week.week}</td>
                       <td className="px-6 py-4 font-medium text-bloom">{week.theme}</td>
                       <td className="px-6 py-4 text-gray-600">{week.description}</td>
                     </motion.tr>
@@ -341,7 +341,7 @@ export default function NewMomProgramContent() {
       </section>
 
       {/* Investment Section */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-gradient-to-br from-bloom-blush/5 to-white">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-bloom mb-6 flex items-center justify-center gap-3">
@@ -402,7 +402,7 @@ export default function NewMomProgramContent() {
                 <p className="text-gray-700 mb-6">
                   I'm a licensed clinical psychologist (Psy.D.) and perinatal mental health specialist (PMH-C) based in Austin. 
                   I've walked with hundreds of moms through anxiety, burnout, grief, and identity shifts — and I created 
-                  <span className="font-semibold text-bloom"> Becoming Mom</span> to offer the support I wish every woman had when entering motherhood.
+                  <span className="font-semibold text-bloompink"> Becoming Mom</span> to offer the support I wish every woman had when entering motherhood.
                 </p>
                 <div className="space-y-2 mb-6">
                   <div className="flex items-center text-sm text-gray-600">
