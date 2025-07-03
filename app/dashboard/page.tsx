@@ -45,6 +45,15 @@ interface CourseStats {
   courseCompleted: boolean;
 }
 
+interface UpcomingAppointment {
+  id: string;
+  appointment_date: string;
+  appointment_type: string;
+  status: string;
+  payment_status: string;
+  confirmation_received: boolean;
+}
+
 export default function SimpleDashboardPage() {
   const { user, loading: authLoading } = useAuth();
   const router = useRouter();
@@ -52,6 +61,7 @@ export default function SimpleDashboardPage() {
   const [achievements, setAchievements] = useState<Achievement[]>([]);
   const [workbookStatuses, setWorkbookStatuses] = useState<WorkbookStatus[]>([]);
   const [courseStats, setCourseStats] = useState<CourseStats | null>(null);
+  const [upcomingAppointments, setUpcomingAppointments] = useState<UpcomingAppointment[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -74,7 +84,7 @@ export default function SimpleDashboardPage() {
       setError(null);
       
       // Fetch all dashboard data in parallel
-      const [profileResponse, achievementsResponse, workbookResponse, courseResponse] = await Promise.allSettled([
+      const [profileResponse, achievementsResponse, workbookResponse, courseResponse, appointmentsResponse] = await Promise.allSettled([
         fetch('/api/profile/get', {
           headers: { 'Authorization': `Bearer ${user.access_token || ''}` },
         }),
@@ -85,6 +95,9 @@ export default function SimpleDashboardPage() {
           headers: { 'Authorization': `Bearer ${user.access_token || ''}` },
         }),
         fetch('/api/course/stats', {
+          headers: { 'Authorization': `Bearer ${user.access_token || ''}` },
+        }),
+        fetch('/api/appointments/upcoming', {
           headers: { 'Authorization': `Bearer ${user.access_token || ''}` },
         })
       ]);
@@ -134,6 +147,15 @@ export default function SimpleDashboardPage() {
           lastActivity: new Date().toISOString(),
           courseCompleted: false,
         });
+      }
+
+      // Handle appointments response (may not exist yet)
+      if (appointmentsResponse.status === 'fulfilled' && appointmentsResponse.value.ok) {
+        const data = await appointmentsResponse.value.json();
+        setUpcomingAppointments(data.appointments || []);
+      } else {
+        // Create mock upcoming appointment for demonstration
+        setUpcomingAppointments([]);
       }
 
     } catch (error) {
@@ -416,6 +438,127 @@ export default function SimpleDashboardPage() {
             </div>
           )}
 
+          {/* Appointments Section */}
+          <div className="bg-white rounded-2xl shadow-lg p-6">
+            <h3 className="text-xl font-semibold text-bloom-dark mb-4 flex items-center justify-between">
+              <span className="flex items-center gap-2">
+                <span className="text-2xl">📅</span>
+                Appointments & Sessions
+              </span>
+              <a 
+                href="/appointments"
+                className="text-sm text-bloom-sage hover:text-bloom-sage/80 underline"
+              >
+                View all →
+              </a>
+            </h3>
+            
+            {upcomingAppointments.length > 0 ? (
+              <div className="space-y-4">
+                <h4 className="text-lg font-medium text-bloom-dark">Upcoming Appointments</h4>
+                {upcomingAppointments.slice(0, 3).map((appointment) => {
+                  const appointmentDate = new Date(appointment.appointment_date);
+                  const isToday = appointmentDate.toDateString() === new Date().toDateString();
+                  const isTomorrow = appointmentDate.toDateString() === new Date(Date.now() + 24 * 60 * 60 * 1000).toDateString();
+                  
+                  return (
+                    <div 
+                      key={appointment.id}
+                      className={`border rounded-lg p-4 transition-all hover:shadow-md ${
+                        isToday 
+                          ? 'bg-blue-50 border-blue-200' 
+                          : 'bg-bloom-sage-50 border-bloom-sage-200'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <div className={`w-12 h-12 rounded-full flex items-center justify-center ${
+                            isToday ? 'bg-blue-500' : 'bg-bloom-sage'
+                          }`}>
+                            <span className="text-white text-lg">
+                              {isToday ? '🕐' : '📅'}
+                            </span>
+                          </div>
+                          <div>
+                            <h4 className="font-medium text-bloom-dark">
+                              {appointment.appointment_type.replace(/-/g, ' ').replace(/\b\w/g, (l: string) => l.toUpperCase())}
+                            </h4>
+                            <p className="text-sm text-bloom-dark/60">
+                              {isToday ? 'Today' : isTomorrow ? 'Tomorrow' : appointmentDate.toLocaleDateString('en-US', {
+                                weekday: 'long',
+                                month: 'short',
+                                day: 'numeric'
+                              })} at {appointmentDate.toLocaleTimeString('en-US', {
+                                hour: 'numeric',
+                                minute: '2-digit'
+                              })}
+                            </p>
+                            {!appointment.confirmation_received && (
+                              <p className="text-xs text-orange-600 mt-1">⚠️ Confirmation needed</p>
+                            )}
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                            appointment.status === 'scheduled' 
+                              ? 'bg-green-100 text-green-800'
+                              : 'bg-gray-100 text-gray-800'
+                          }`}>
+                            {appointment.status}
+                          </span>
+                          <a
+                            href={`/appointments`}
+                            className="px-3 py-1 bg-bloom-sage text-white rounded text-sm hover:bg-bloom-sage/90 transition-colors"
+                          >
+                            Manage
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+                {upcomingAppointments.length > 3 && (
+                  <div className="text-center pt-2">
+                    <a href="/appointments" className="text-bloom-sage hover:text-bloom-sage/80 text-sm underline">
+                      View {upcomingAppointments.length - 3} more appointments →
+                    </a>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div className="text-center py-8">
+                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-2xl text-gray-400">📅</span>
+                </div>
+                <h4 className="font-medium text-bloom-dark mb-2">No upcoming appointments</h4>
+                <p className="text-bloom-dark/60 text-sm mb-6">
+                  Ready to connect with Dr. Jana? Book your session today.
+                </p>
+                <div className="grid md:grid-cols-3 gap-3 mb-6">
+                  <div className="bg-bloom-sage-50 rounded-lg p-3 text-center">
+                    <div className="text-lg mb-1">💬</div>
+                    <div className="text-xs text-bloom-dark/70">Consultation</div>
+                  </div>
+                  <div className="bg-bloompink/10 rounded-lg p-3 text-center">
+                    <div className="text-lg mb-1">🌱</div>
+                    <div className="text-xs text-bloom-dark/70">Follow-up</div>
+                  </div>
+                  <div className="bg-bloom-accent/10 rounded-lg p-3 text-center">
+                    <div className="text-lg mb-1">🎯</div>
+                    <div className="text-xs text-bloom-dark/70">Focused Session</div>
+                  </div>
+                </div>
+                <a 
+                  href="/appointments"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-bloom-sage text-white rounded-lg hover:bg-bloom-sage/90 transition-colors"
+                >
+                  <span>📅</span>
+                  Book Your First Appointment
+                </a>
+              </div>
+            )}
+          </div>
+
           {/* Workbook Progress Section */}
           {workbookStatuses.length > 0 && (
             <div className="bg-white rounded-2xl shadow-lg p-6">
@@ -553,29 +696,37 @@ export default function SimpleDashboardPage() {
             )}
           </div>
 
-          {/* Profile Completeness */}
-          {profile && getProfileCompleteness() < 100 && (
-            <div className="bg-gradient-to-r from-bloom-sage-50 to-bloompink/10 rounded-2xl shadow-lg p-6">
-              <h3 className="text-lg font-semibold text-bloom-dark mb-3 flex items-center gap-2">
-                <span className="text-xl">✨</span>
-                Complete Your Profile
-              </h3>
-              <div className="flex items-center gap-4 mb-4">
-                <div className="flex-1 bg-white rounded-full h-3 overflow-hidden">
-                  <div 
-                    className="h-full bg-gradient-to-r from-bloom-sage to-bloompink transition-all duration-300"
-                    style={{ width: `${getProfileCompleteness()}%` }}
-                  ></div>
+          {/* Enhanced Profile Management Hub */}
+          <div className="bg-white rounded-2xl shadow-lg p-6">
+            <h3 className="text-xl font-semibold text-bloom-dark mb-4 flex items-center justify-between">
+              <span className="flex items-center gap-2">
+                <span className="text-2xl">👤</span>
+                Profile & Account Management
+              </span>
+              <a 
+                href="/settings"
+                className="text-sm text-bloom-sage hover:text-bloom-sage/80 underline"
+              >
+                All settings →
+              </a>
+            </h3>
+            
+            {/* Profile Completeness Bar */}
+            {profile && getProfileCompleteness() < 100 && (
+              <div className="bg-gradient-to-r from-bloom-sage-50 to-bloompink/10 rounded-lg p-4 mb-6">
+                <h4 className="font-medium text-bloom-dark mb-3 flex items-center gap-2">
+                  <span>✨</span>
+                  Complete Your Profile ({getProfileCompleteness()}%)
+                </h4>
+                <div className="flex items-center gap-4 mb-3">
+                  <div className="flex-1 bg-white rounded-full h-2 overflow-hidden">
+                    <div 
+                      className="h-full bg-gradient-to-r from-bloom-sage to-bloompink transition-all duration-300"
+                      style={{ width: `${getProfileCompleteness()}%` }}
+                    ></div>
+                  </div>
                 </div>
-                <span className="text-sm font-medium text-bloom-dark">{getProfileCompleteness()}%</span>
-              </div>
-              <p className="text-sm text-bloom-dark/70 mb-3">
-                A complete profile helps us provide better personalized support.
-              </p>
-              {/* Show specific missing items */}
-              <div className="mb-4">
-                <p className="text-xs text-bloom-dark/60 mb-2">Missing information:</p>
-                <div className="flex flex-wrap gap-2 text-xs">
+                <div className="flex flex-wrap gap-2 text-xs mb-3">
                   {!profile.phone && (
                     <span className="px-2 py-1 bg-white rounded-full text-bloom-dark/70">• Phone number</span>
                   )}
@@ -587,15 +738,279 @@ export default function SimpleDashboardPage() {
                   )}
                 </div>
               </div>
+            )}
+
+            {/* Profile Management Grid */}
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {/* Edit Profile */}
               <a 
                 href="/profile/edit"
-                className="inline-flex items-center gap-2 px-4 py-2 bg-bloom-sage text-white rounded-lg hover:bg-bloom-sage/90 transition-colors text-sm"
+                className="flex items-center gap-3 p-4 bg-bloom-sage-50 rounded-lg hover:bg-bloom-sage-100 transition-colors group"
               >
-                <span>Update Profile</span>
-                <span>→</span>
+                <div className="w-10 h-10 bg-bloom-sage rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <span className="text-white">✏️</span>
+                </div>
+                <div>
+                  <h4 className="font-medium text-bloom-dark">Edit Profile</h4>
+                  <p className="text-sm text-bloom-dark/60">Update personal info</p>
+                </div>
+              </a>
+
+              {/* Notification Settings */}
+              <a 
+                href="/settings#notifications"
+                className="flex items-center gap-3 p-4 bg-bloompink/10 rounded-lg hover:bg-bloompink/20 transition-colors group"
+              >
+                <div className="w-10 h-10 bg-bloompink rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <span className="text-white">🔔</span>
+                </div>
+                <div>
+                  <h4 className="font-medium text-bloom-dark">Notifications</h4>
+                  <p className="text-sm text-bloom-dark/60">Manage preferences</p>
+                </div>
+              </a>
+
+              {/* Privacy Settings */}
+              <a 
+                href="/settings#privacy"
+                className="flex items-center gap-3 p-4 bg-bloom-accent/10 rounded-lg hover:bg-bloom-accent/20 transition-colors group"
+              >
+                <div className="w-10 h-10 bg-bloom-accent rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <span className="text-white">🔒</span>
+                </div>
+                <div>
+                  <h4 className="font-medium text-bloom-dark">Privacy</h4>
+                  <p className="text-sm text-bloom-dark/60">Data & security</p>
+                </div>
+              </a>
+
+              {/* Payment Methods */}
+              <a 
+                href="/settings#payment"
+                className="flex items-center gap-3 p-4 bg-green-50 rounded-lg hover:bg-green-100 transition-colors group"
+              >
+                <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <span className="text-white">💳</span>
+                </div>
+                <div>
+                  <h4 className="font-medium text-bloom-dark">Payment</h4>
+                  <p className="text-sm text-bloom-dark/60">Cards & billing</p>
+                </div>
+              </a>
+
+              {/* Account Settings */}
+              <a 
+                href="/settings#account"
+                className="flex items-center gap-3 p-4 bg-purple-50 rounded-lg hover:bg-purple-100 transition-colors group"
+              >
+                <div className="w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <span className="text-white">⚙️</span>
+                </div>
+                <div>
+                  <h4 className="font-medium text-bloom-dark">Account</h4>
+                  <p className="text-sm text-bloom-dark/60">Email & password</p>
+                </div>
+              </a>
+
+              {/* Data Management */}
+              <a 
+                href="/settings#data"
+                className="flex items-center gap-3 p-4 bg-orange-50 rounded-lg hover:bg-orange-100 transition-colors group"
+              >
+                <div className="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <span className="text-white">📊</span>
+                </div>
+                <div>
+                  <h4 className="font-medium text-bloom-dark">Data</h4>
+                  <p className="text-sm text-bloom-dark/60">Export & manage</p>
+                </div>
               </a>
             </div>
-          )}
+
+            {/* Profile Summary */}
+            {profile && (
+              <div className="mt-6 pt-6 border-t border-bloom-sage/20">
+                <h4 className="font-medium text-bloom-dark mb-3">Your Profile Summary</h4>
+                <div className="grid md:grid-cols-2 gap-4 text-sm">
+                  <div>
+                    <p className="text-bloom-dark/60">Full Name</p>
+                    <p className="font-medium">{profile.first_name} {profile.last_name}</p>
+                  </div>
+                  <div>
+                    <p className="text-bloom-dark/60">Account Status</p>
+                    <p className="font-medium text-green-600">Active Member</p>
+                  </div>
+                  {profile.number_of_children && (
+                    <div>
+                      <p className="text-bloom-dark/60">Family</p>
+                      <p className="font-medium">{profile.number_of_children} {profile.number_of_children === 1 ? 'child' : 'children'}</p>
+                    </div>
+                  )}
+                  {profile.postpartum_date && (
+                    <div>
+                      <p className="text-bloom-dark/60">Journey Stage</p>
+                      <p className="font-medium">Day {getDaysSincePostpartum()} postpartum</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Progress Analytics & Insights */}
+          <div className="bg-white rounded-2xl shadow-lg p-6">
+            <h3 className="text-xl font-semibold text-bloom-dark mb-4 flex items-center gap-2">
+              <span className="text-2xl">📊</span>
+              Your Wellness Analytics
+            </h3>
+            
+            <div className="space-y-6">
+              {/* Overall Progress Summary */}
+              <div className="bg-gradient-to-r from-bloom-sage-50 to-bloompink/10 rounded-lg p-4">
+                <h4 className="font-medium text-bloom-dark mb-3">This Week's Progress</h4>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-bloom-sage">
+                      {courseStats ? Math.round(courseStats.totalTimeSpentMinutes / 60) : 0}h
+                    </div>
+                    <div className="text-xs text-bloom-dark/60">Learning Time</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-bloompink">
+                      {workbookStatuses.filter(w => w.isSubmitted).length}
+                    </div>
+                    <div className="text-xs text-bloom-dark/60">Workbooks Done</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-bloom-accent">
+                      {upcomingAppointments.length}
+                    </div>
+                    <div className="text-xs text-bloom-dark/60">Sessions Booked</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-purple-600">
+                      {achievements.length}
+                    </div>
+                    <div className="text-xs text-bloom-dark/60">Stars Earned</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Progress Metrics */}
+              <div className="grid md:grid-cols-3 gap-4">
+                {/* Course Progress */}
+                <div className="bg-bloom-sage-50 rounded-lg p-4">
+                  <h5 className="font-medium text-bloom-dark mb-2 flex items-center gap-2">
+                    <span>🎓</span>
+                    Course Journey
+                  </h5>
+                  <div className="space-y-2">
+                    <div className="flex justify-between text-sm">
+                      <span>Overall Progress</span>
+                      <span className="font-medium">{courseStats?.completionPercentage || 0}%</span>
+                    </div>
+                    <div className="w-full h-2 bg-white rounded-full overflow-hidden">
+                      <div 
+                        className="h-full bg-bloom-sage transition-all duration-300"
+                        style={{ width: `${courseStats?.completionPercentage || 0}%` }}
+                      ></div>
+                    </div>
+                    <div className="text-xs text-bloom-dark/60">
+                      {courseStats?.lessonsCompleted || 0} of {courseStats?.totalLessons || 24} lessons
+                    </div>
+                  </div>
+                </div>
+
+                {/* Workbook Progress */}
+                <div className="bg-bloompink/10 rounded-lg p-4">
+                  <h5 className="font-medium text-bloom-dark mb-2 flex items-center gap-2">
+                    <span>📝</span>
+                    Reflection Journey
+                  </h5>
+                  <div className="space-y-2">
+                    <div className="flex justify-between text-sm">
+                      <span>Submissions</span>
+                      <span className="font-medium">{Math.round((workbookStatuses.filter(w => w.isSubmitted).length / 6) * 100)}%</span>
+                    </div>
+                    <div className="w-full h-2 bg-white rounded-full overflow-hidden">
+                      <div 
+                        className="h-full bg-bloompink transition-all duration-300"
+                        style={{ width: `${(workbookStatuses.filter(w => w.isSubmitted).length / 6) * 100}%` }}
+                      ></div>
+                    </div>
+                    <div className="text-xs text-bloom-dark/60">
+                      {workbookStatuses.filter(w => w.isSubmitted).length} of 6 weeks completed
+                    </div>
+                  </div>
+                </div>
+
+                {/* Engagement Score */}
+                <div className="bg-bloom-accent/10 rounded-lg p-4">
+                  <h5 className="font-medium text-bloom-dark mb-2 flex items-center gap-2">
+                    <span>💫</span>
+                    Engagement
+                  </h5>
+                  <div className="space-y-2">
+                    {(() => {
+                      const engagementScore = Math.min(100, Math.round(
+                        ((courseStats?.lessonsCompleted || 0) * 2) + 
+                        (workbookStatuses.filter(w => w.isSubmitted).length * 10) + 
+                        (achievements.length * 5) + 
+                        (upcomingAppointments.length * 10)
+                      ));
+                      return (
+                        <>
+                          <div className="flex justify-between text-sm">
+                            <span>Your Score</span>
+                            <span className="font-medium">{engagementScore}%</span>
+                          </div>
+                          <div className="w-full h-2 bg-white rounded-full overflow-hidden">
+                            <div 
+                              className="h-full bg-bloom-accent transition-all duration-300"
+                              style={{ width: `${engagementScore}%` }}
+                            ></div>
+                          </div>
+                          <div className="text-xs text-bloom-dark/60">
+                            {engagementScore > 80 ? 'Excellent engagement!' : 
+                             engagementScore > 60 ? 'Great progress!' : 
+                             engagementScore > 40 ? 'Good start!' : 
+                             'Just getting started'}
+                          </div>
+                        </>
+                      );
+                    })()}
+                  </div>
+                </div>
+              </div>
+
+              {/* Motivational Insights */}
+              <div className="bg-gradient-to-r from-yellow-50 to-orange-50 rounded-lg p-4 border border-yellow-200">
+                <h5 className="font-medium text-bloom-dark mb-2 flex items-center gap-2">
+                  <span>💡</span>
+                  Your Wellness Insights
+                </h5>
+                <div className="text-sm text-bloom-dark/80 space-y-1">
+                  {(() => {
+                    const courseProgress = courseStats?.completionPercentage || 0;
+                    const workbookProgress = (workbookStatuses.filter(w => w.isSubmitted).length / 6) * 100;
+                    const hasUpcomingAppointments = upcomingAppointments.length > 0;
+                    
+                    if (courseProgress > 50 && workbookProgress > 50) {
+                      return <p>🌟 You're making incredible progress! Your dedication to both learning and reflection shows real commitment to your wellness journey.</p>;
+                    } else if (courseProgress > 25) {
+                      return <p>📚 You're building great momentum with your courses! Consider adding some workbook reflections to deepen your insights.</p>;
+                    } else if (workbookProgress > 25) {
+                      return <p>📝 Your thoughtful reflections are powerful! Pairing them with course lessons could accelerate your growth.</p>;
+                    } else if (hasUpcomingAppointments) {
+                      return <p>🤝 Great job scheduling your appointment! This shows you're taking action toward your wellness goals.</p>;
+                    } else {
+                      return <p>🌱 Every wellness journey starts with a single step. You're here, and that's what matters most.</p>;
+                    }
+                  })()}
+                </div>
+              </div>
+            </div>
+          </div>
 
           {/* Quick Actions */}
           <div className="bg-white rounded-2xl shadow-lg p-6">
