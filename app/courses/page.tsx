@@ -152,10 +152,10 @@ export default function CoursesPage() {
             >
               <div className="relative aspect-video bg-gray-100 rounded-xl overflow-hidden shadow-lg">
                 <iframe 
-                  src="https://player.vimeo.com/video/1098654169?badge=0&autopause=0&player_id=0&app_id=58479"
+                  src="https://player.vimeo.com/video/1098654169?badge=0&autopause=0&player_id=0&app_id=58479&loop=0&autoplay=0&muted=0&background=0&byline=0&portrait=0&title=0&transparent=0&dnt=1"
                   className="w-full h-full"
                   title="Welcome to Bloom Psychology Courses - Dr. Jana Rundle"
-                  allow="autoplay; fullscreen; picture-in-picture"
+                  allow="fullscreen; picture-in-picture"
                   allowFullScreen
                 />
               </div>

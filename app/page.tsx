@@ -404,10 +404,10 @@ export default function Home() {
               <div className="relative max-w-3xl mx-auto">
                 <div className="aspect-video bg-gray-100 rounded-xl overflow-hidden shadow-xl">
                   <iframe 
-                    src="https://player.vimeo.com/video/1098654169?badge=0&autopause=0&player_id=0&app_id=58479"
+                    src="https://player.vimeo.com/video/1098654169?badge=0&autopause=0&player_id=0&app_id=58479&loop=0&autoplay=0&muted=0&background=0&byline=0&portrait=0&title=0&transparent=0&dnt=1"
                     className="w-full h-full"
                     title="Personal message from Dr. Jana Rundle about Bloom Psychology courses"
-                    allow="autoplay; fullscreen; picture-in-picture"
+                    allow="fullscreen; picture-in-picture"
                     allowFullScreen
                   />
                 </div>

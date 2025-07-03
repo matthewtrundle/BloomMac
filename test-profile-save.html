@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Profile Save</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .field { margin: 10px 0; }
+        label { display: block; margin-bottom: 5px; }
+        input, select { width: 300px; padding: 5px; }
+        button { padding: 10px 20px; background: #f8b5c4; color: white; border: none; cursor: pointer; }
+        #result { margin-top: 20px; padding: 10px; background: #f0f0f0; white-space: pre-wrap; }
+        .error { color: red; }
+        .success { color: green; }
+    </style>
+</head>
+<body>
+    <h1>Test Profile Save</h1>
+    
+    <div class="field">
+        <label>First Name: *</label>
+        <input type="text" id="firstName" value="Test" />
+    </div>
+    
+    <div class="field">
+        <label>Last Name: *</label>
+        <input type="text" id="lastName" value="User" />
+    </div>
+    
+    <div class="field">
+        <label>Phone:</label>
+        <input type="text" id="phone" value="(555) 123-4567" />
+    </div>
+    
+    <div class="field">
+        <label>Number of Children:</label>
+        <select id="numberOfChildren">
+            <option value="0">Expecting first child</option>
+            <option value="1" selected>1 child</option>
+            <option value="2">2 children</option>
+            <option value="3">3 children</option>
+        </select>
+    </div>
+    
+    <div class="field">
+        <label>Baby's Birth Date:</label>
+        <input type="date" id="postpartumDate" />
+    </div>
+    
+    <div class="field">
+        <label>Due Date (if expecting):</label>
+        <input type="date" id="babyDueDate" />
+    </div>
+    
+    <button onclick="testSave()">Test Save Profile</button>
+    
+    <div id="result"></div>
+
+    <script>
+        async function testSave() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = 'Testing profile save...';
+            resultDiv.className = '';
+            
+            try {
+                // Get the current user session
+                const authResponse = await fetch('/api/auth/debug');
+                const authData = await authResponse.json();
+                
+                if (!authData.user) {
+                    resultDiv.innerHTML = 'ERROR: Not logged in. Please log in first at /auth/login';
+                    resultDiv.className = 'error';
+                    return;
+                }
+                
+                const profileData = {
+                    id: authData.user.id,
+                    first_name: document.getElementById('firstName').value,
+                    last_name: document.getElementById('lastName').value,
+                    phone: document.getElementById('phone').value,
+                    number_of_children: parseInt(document.getElementById('numberOfChildren').value),
+                    postpartum_date: document.getElementById('postpartumDate').value || null,
+                    baby_due_date: document.getElementById('babyDueDate').value || null,
+                    emergency_contact_name: '',
+                    emergency_contact_phone: '',
+                    emergency_contact_relationship: '',
+                    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone
+                };
+                
+                console.log('Sending profile data:', profileData);
+                
+                const response = await fetch('/api/profile/save', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${authData.accessToken || ''}`
+                    },
+                    body: JSON.stringify(profileData)
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    resultDiv.innerHTML = 'SUCCESS!\n\nResponse:\n' + JSON.stringify(data, null, 2);
+                    resultDiv.className = 'success';
+                } else {
+                    resultDiv.innerHTML = 'ERROR:\n\nStatus: ' + response.status + '\n\nResponse:\n' + JSON.stringify(data, null, 2);
+                    resultDiv.className = 'error';
+                }
+                
+            } catch (error) {
+                resultDiv.innerHTML = 'EXCEPTION:\n\n' + error.toString() + '\n\nCheck browser console for details.';
+                resultDiv.className = 'error';
+                console.error('Full error:', error);
+            }
+        }
+    </script>
+</body>
+</html>
