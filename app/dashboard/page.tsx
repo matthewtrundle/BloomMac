@@ -51,6 +51,20 @@ interface CourseStats {
   courseCompleted: boolean;
 }
 
+interface CourseProgress {
+  id: string;
+  title: string;
+  subtitle: string;
+  totalLessons: number;
+  duration: string;
+  price: number;
+  isFree?: boolean;
+  isEnrolled: boolean;
+  progress: number;
+  lessonsCompleted: number;
+  lastActivity: string | null;
+}
+
 interface UpcomingAppointment {
   id: string;
   appointment_date: string;
@@ -67,6 +81,7 @@ export default function SimpleDashboardPage() {
   const [achievements, setAchievements] = useState<Achievement[]>([]);
   const [courseWorkbooks, setCourseWorkbooks] = useState<CourseWorkbook[]>([]);
   const [courseStats, setCourseStats] = useState<CourseStats | null>(null);
+  const [allCourses, setAllCourses] = useState<CourseProgress[]>([]);
   const [upcomingAppointments, setUpcomingAppointments] = useState<UpcomingAppointment[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -90,7 +105,7 @@ export default function SimpleDashboardPage() {
       setError(null);
       
       // Fetch all dashboard data in parallel
-      const [profileResponse, achievementsResponse, workbookResponse, courseResponse, appointmentsResponse] = await Promise.allSettled([
+      const [profileResponse, achievementsResponse, workbookResponse, courseResponse, allCoursesResponse, appointmentsResponse] = await Promise.allSettled([
         fetch('/api/profile/get', {
           headers: { 'Authorization': `Bearer ${user.access_token || ''}` },
         }),
@@ -101,6 +116,9 @@ export default function SimpleDashboardPage() {
           headers: { 'Authorization': `Bearer ${user.access_token || ''}` },
         }),
         fetch('/api/course/stats', {
+          headers: { 'Authorization': `Bearer ${user.access_token || ''}` },
+        }),
+        fetch('/api/courses/all-progress', {
           headers: { 'Authorization': `Bearer ${user.access_token || ''}` },
         }),
         fetch('/api/appointments/upcoming', {
@@ -142,6 +160,12 @@ export default function SimpleDashboardPage() {
           lastActivity: new Date().toISOString(),
           courseCompleted: false,
         });
+      }
+
+      // Handle all courses response
+      if (allCoursesResponse.status === 'fulfilled' && allCoursesResponse.value.ok) {
+        const data = await allCoursesResponse.value.json();
+        setAllCourses(data.courses || []);
       }
 
       // Handle appointments response (may not exist yet)
@@ -422,69 +446,149 @@ export default function SimpleDashboardPage() {
             </div>
           </div>
 
-          {/* Course Progress Section */}
-          {courseStats && (
-            <div className="bg-white rounded-xl shadow-sm border border-bloom-sage/10 p-6">
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-bloom-sage/10 rounded-lg flex items-center justify-center">
-                    <svg className="w-5 h-5 text-bloom-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                    </svg>
-                  </div>
-                  <h3 className="text-lg font-semibold text-bloom-dark">Course Progress</h3>
+          {/* All Courses Progress Section */}
+          <div className="bg-white rounded-xl shadow-sm border border-bloom-sage/10 p-6">
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-bloom-sage/10 rounded-lg flex items-center justify-center">
+                  <svg className="w-5 h-5 text-bloom-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                  </svg>
                 </div>
-                <span className="text-sm font-medium text-bloom-sage bg-bloom-sage/10 px-3 py-1 rounded-full">
-                  {courseStats.completionPercentage}% Complete
-                </span>
+                <h3 className="text-lg font-semibold text-bloom-dark">Your Courses</h3>
               </div>
-              
-              {/* Stats Grid */}
-              <div className="grid grid-cols-3 gap-4 mb-6">
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-bloom-dark mb-1">{courseStats.weeksCompleted}</div>
-                  <div className="text-xs text-bloom-dark/60">Weeks Done</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-bloom-dark mb-1">{courseStats.lessonsCompleted}</div>
-                  <div className="text-xs text-bloom-dark/60">Lessons</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-bloom-dark mb-1">{Math.floor(courseStats.totalTimeSpentMinutes / 60)}h</div>
-                  <div className="text-xs text-bloom-dark/60">Learning Time</div>
-                </div>
-              </div>
-
-              {/* Progress Bar */}
-              <div className="mb-4">
-                <div className="w-full h-2 bg-bloom-sage/10 rounded-full overflow-hidden">
-                  <div 
-                    className="h-full bg-bloom-sage transition-all duration-500 ease-out"
-                    style={{ width: `${courseStats.completionPercentage}%` }}
-                  ></div>
-                </div>
-                <div className="flex justify-between items-center mt-2">
-                  <span className="text-xs text-bloom-dark/60">
-                    {courseStats.lessonsCompleted} of {courseStats.totalLessons} lessons
-                  </span>
-                  <span className="text-xs font-medium text-bloom-sage">
-                    {courseStats.completionPercentage}%
-                  </span>
-                </div>
-              </div>
-              
-              {/* Action Button */}
               <a 
-                href="/my-courses"
-                className="inline-flex items-center gap-2 px-4 py-2 bg-bloom-sage hover:bg-bloom-sage/90 text-white rounded-lg transition-all duration-200 text-sm font-medium"
+                href="/courses"
+                className="text-sm font-medium text-bloom-sage hover:text-bloom-sage/80 transition-colors"
               >
-                <span>Continue Learning</span>
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                </svg>
+                Browse All →
               </a>
             </div>
-          )}
+            
+            <div className="space-y-3">
+              {allCourses.map((course) => (
+                <div 
+                  key={course.id}
+                  className={`border rounded-lg p-4 transition-all hover:shadow-md ${
+                    course.isEnrolled 
+                      ? 'bg-gradient-to-r from-bloom-sage-50/30 to-transparent border-bloom-sage/20' 
+                      : 'bg-gray-50 border-gray-200'
+                  }`}
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3 flex-1">
+                      <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${
+                        course.isEnrolled 
+                          ? course.progress === 100 
+                            ? 'bg-green-100' 
+                            : 'bg-bloom-sage/10'
+                          : 'bg-gray-200'
+                      }`}>
+                        {course.isEnrolled ? (
+                          course.progress === 100 ? (
+                            <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                          ) : (
+                            <svg className="w-6 h-6 text-bloom-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                            </svg>
+                          )
+                        ) : (
+                          <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                          </svg>
+                        )}
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2">
+                          <h4 className="font-medium text-bloom-dark">{course.title}</h4>
+                          {course.isFree && (
+                            <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                              FREE
+                            </span>
+                          )}
+                        </div>
+                        <p className="text-sm text-bloom-dark/60">
+                          {course.subtitle} • {course.duration}
+                        </p>
+                        {course.isEnrolled && (
+                          <div className="mt-2">
+                            <div className="flex items-center justify-between text-xs mb-1">
+                              <span className="text-bloom-dark/60">
+                                {course.lessonsCompleted} of {course.totalLessons} lessons
+                              </span>
+                              <span className="font-medium text-bloom-sage">{course.progress}%</span>
+                            </div>
+                            <div className="w-full h-1.5 bg-gray-200 rounded-full overflow-hidden">
+                              <div 
+                                className="h-full bg-gradient-to-r from-bloom-sage to-bloompink transition-all duration-300"
+                                style={{ width: `${course.progress}%` }}
+                              />
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    
+                    {/* Action Button */}
+                    <div className="ml-4">
+                      {course.isEnrolled ? (
+                        <a
+                          href={course.id === 'becoming-mom' ? '/courses/becoming-mom/lessons' : '/my-courses'}
+                          className="px-4 py-2 bg-bloom-sage text-white rounded-lg hover:bg-bloom-sage/90 transition-colors text-sm font-medium"
+                        >
+                          {course.progress === 100 ? 'Review' : 'Continue'}
+                        </a>
+                      ) : (
+                        <a
+                          href={`/courses/${course.id}`}
+                          className={`px-4 py-2 rounded-lg transition-colors text-sm font-medium ${
+                            course.isFree 
+                              ? 'bg-green-600 text-white hover:bg-green-700'
+                              : 'bg-bloompink text-white hover:bg-bloompink/90'
+                          }`}
+                        >
+                          {course.isFree ? 'Start Free' : `$${course.price}`}
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            
+            {/* Overall Stats */}
+            {allCourses.some(c => c.isEnrolled) && (
+              <div className="mt-6 pt-6 border-t border-bloom-sage/10">
+                <div className="grid grid-cols-3 gap-4 text-center">
+                  <div>
+                    <div className="text-2xl font-bold text-bloom-dark">
+                      {allCourses.filter(c => c.isEnrolled).length}
+                    </div>
+                    <div className="text-xs text-bloom-dark/60">Enrolled</div>
+                  </div>
+                  <div>
+                    <div className="text-2xl font-bold text-bloom-dark">
+                      {allCourses.reduce((sum, c) => sum + (c.isEnrolled ? c.lessonsCompleted : 0), 0)}
+                    </div>
+                    <div className="text-xs text-bloom-dark/60">Lessons Done</div>
+                  </div>
+                  <div>
+                    <div className="text-2xl font-bold text-bloom-dark">
+                      {Math.round(
+                        allCourses
+                          .filter(c => c.isEnrolled)
+                          .reduce((sum, c) => sum + c.progress, 0) / 
+                        (allCourses.filter(c => c.isEnrolled).length || 1)
+                      )}%
+                    </div>
+                    <div className="text-xs text-bloom-dark/60">Avg Progress</div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
 
           {/* Appointments Section */}
           <div className="bg-white rounded-xl shadow-sm border border-bloom-sage/10 p-6">
@@ -889,9 +993,9 @@ export default function SimpleDashboardPage() {
               <div className="grid grid-cols-4 gap-3 text-center">
                 <div>
                   <div className="text-lg font-bold text-bloom-sage">
-                    {courseStats ? Math.round(courseStats.totalTimeSpentMinutes / 60) : 0}h
+                    {allCourses.filter(c => c.isEnrolled).length}
                   </div>
-                  <div className="text-xs text-bloom-dark/60">Learning</div>
+                  <div className="text-xs text-bloom-dark/60">Courses</div>
                 </div>
                 <div>
                   <div className="text-lg font-bold text-bloompink">
@@ -924,12 +1028,22 @@ export default function SimpleDashboardPage() {
                 <div className="flex-1">
                   <div className="flex justify-between text-xs mb-1">
                     <span>Course Progress</span>
-                    <span className="font-medium">{courseStats?.completionPercentage || 0}%</span>
+                    <span className="font-medium">{(() => {
+                      const enrolledCourses = allCourses.filter(c => c.isEnrolled);
+                      return enrolledCourses.length > 0 
+                        ? Math.round(enrolledCourses.reduce((sum, c) => sum + c.progress, 0) / enrolledCourses.length)
+                        : 0;
+                    })()}%</span>
                   </div>
                   <div className="w-full h-1.5 bg-gray-200 rounded-full overflow-hidden">
                     <div 
                       className="h-full bg-bloom-sage transition-all duration-300"
-                      style={{ width: `${courseStats?.completionPercentage || 0}%` }}
+                      style={{ width: `${(() => {
+                        const enrolledCourses = allCourses.filter(c => c.isEnrolled);
+                        return enrolledCourses.length > 0 
+                          ? enrolledCourses.reduce((sum, c) => sum + c.progress, 0) / enrolledCourses.length
+                          : 0;
+                      })()}%` }}
                     ></div>
                   </div>
                 </div>
@@ -1000,7 +1114,10 @@ export default function SimpleDashboardPage() {
             <div className="mt-4 p-3 bg-gradient-to-r from-yellow-50 to-orange-50 rounded-lg border border-yellow-200">
               <div className="text-sm text-bloom-dark/80">
                 {(() => {
-                  const courseProgress = courseStats?.completionPercentage || 0;
+                  const enrolledCourses = allCourses.filter(c => c.isEnrolled);
+                  const courseProgress = enrolledCourses.length > 0 
+                    ? enrolledCourses.reduce((sum, c) => sum + c.progress, 0) / enrolledCourses.length
+                    : 0;
                   const totalWorkbooks = courseWorkbooks.reduce((total, course) => total + course.workbooks.length, 0);
                   const completedWorkbooks = courseWorkbooks.reduce((total, course) => 
                     total + course.workbooks.filter(w => w.isSubmitted).length, 0
