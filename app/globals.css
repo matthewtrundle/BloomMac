@@ -543,7 +543,7 @@ section:not(.hero-section) {
   main > div:first-child > section:first-child,
   [class*="pt-20"],
   [class*="pt-24"] {
-    padding-top: 170px !important; /* Increased for larger mobile logo + header + announcement bar */
+    padding-top: 120px !important; /* Optimized for better content visibility */
   }
   
   .hero-section {
@@ -554,7 +554,7 @@ section:not(.hero-section) {
     height: auto;
     display: flex;
     align-items: center;
-    padding-top: 170px !important; /* Increased for larger mobile logo + header and announcement bar */
+    padding-top: 120px !important; /* Optimized for better content visibility */
   }
   
   /* Ensure all buttons are visible on mobile */
@@ -901,12 +901,22 @@ section:not(.hero-section) {
   
   /* Additional padding for pages with longer titles */
   .service-page-header {
-    padding-top: 190px !important; /* Adjusted for larger mobile logo */
+    padding-top: 140px !important; /* Optimized mobile header spacing */
   }
   
   /* Mobile header logo optimizations */
   .mobile-header-logo {
     max-width: calc(100vw - 80px); /* Leave space for menu button */
+  }
+  
+  /* Compact announcement bar on mobile */
+  .announcement-bar {
+    padding: 6px 0 !important;
+    font-size: 0.875rem !important;
+  }
+  
+  .announcement-bar .container {
+    padding: 0 1rem !important;
   }
   
   /* Prevent text shifting with stable containers */

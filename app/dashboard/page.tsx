@@ -172,11 +172,20 @@ export default function SimpleDashboardPage() {
                 {getGreeting()}, {profile?.first_name || user?.user_metadata?.first_name || 'Beautiful'}
               </h1>
               <p className="text-bloom-dark/60 mt-1">
-                {getDaysSincePostpartum() !== null && (
+                {getDaysSincePostpartum() !== null ? (
                   <>Day {getDaysSincePostpartum()} of your journey • </>
-                )}
+                ) : profile?.number_of_children ? (
+                  <>Parent of {profile.number_of_children} {profile.number_of_children === 1 ? 'child' : 'children'} • </>
+                ) : null}
                 Welcome to your wellness hub
               </p>
+              {/* Debug info - remove later */}
+              {process.env.NODE_ENV === 'development' && profile && (
+                <div className="text-xs text-gray-500 mt-1">
+                  Debug: postpartum_date = {profile.postpartum_date || 'not set'}, 
+                  children = {profile.number_of_children || 'not set'}
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -191,11 +200,35 @@ export default function SimpleDashboardPage() {
               <span className="text-3xl">🌸</span>
             </div>
             <h2 className="text-2xl font-bold text-bloom-dark mb-4">
-              Welcome to Your Wellness Journey
+              {profile?.first_name ? `Welcome ${profile.first_name}!` : 'Welcome to Your Wellness Journey'}
             </h2>
             <p className="text-bloom-gray-600 mb-6">
-              You've successfully completed onboarding! Your personalized wellness experience is ready.
+              {profile ? (
+                `You've successfully completed onboarding! Your personalized wellness experience is ready.`
+              ) : (
+                'Loading your personalized wellness experience...'
+              )}
             </p>
+            {/* Show additional profile info if available */}
+            {profile && (
+              <div className="bg-bloom-sage-50 rounded-lg p-4 mb-6 text-left">
+                <h4 className="font-medium text-bloom-dark mb-2">Your Journey Info:</h4>
+                <div className="grid md:grid-cols-2 gap-2 text-sm text-bloom-dark/70">
+                  {profile.number_of_children && (
+                    <div>• {profile.number_of_children} {profile.number_of_children === 1 ? 'child' : 'children'}</div>
+                  )}
+                  {getDaysSincePostpartum() && (
+                    <div>• Day {getDaysSincePostpartum()} postpartum</div>
+                  )}
+                  {profile.phone && (
+                    <div>• Contact info on file</div>
+                  )}
+                  {profile.emergency_contact_name && (
+                    <div>• Emergency contact: {profile.emergency_contact_name}</div>
+                  )}
+                </div>
+              </div>
+            )}
             <div className="grid md:grid-cols-3 gap-4">
               <div className="bg-bloom-sage-50 rounded-lg p-4">
                 <h3 className="font-semibold text-bloom-dark mb-2">Courses</h3>
@@ -261,8 +294,23 @@ export default function SimpleDashboardPage() {
               <p className="text-sm text-bloom-dark/70 mb-3">
                 A complete profile helps us provide better personalized support.
               </p>
+              {/* Show specific missing items */}
+              <div className="mb-4">
+                <p className="text-xs text-bloom-dark/60 mb-2">Missing information:</p>
+                <div className="flex flex-wrap gap-2 text-xs">
+                  {!profile.phone && (
+                    <span className="px-2 py-1 bg-white rounded-full text-bloom-dark/70">• Phone number</span>
+                  )}
+                  {!profile.postpartum_date && (
+                    <span className="px-2 py-1 bg-white rounded-full text-bloom-dark/70">• Baby's birth date</span>
+                  )}
+                  {!profile.emergency_contact_name && (
+                    <span className="px-2 py-1 bg-white rounded-full text-bloom-dark/70">• Emergency contact</span>
+                  )}
+                </div>
+              </div>
               <a 
-                href="/profile"
+                href="/profile/edit"
                 className="inline-flex items-center gap-2 px-4 py-2 bg-bloom-sage text-white rounded-lg hover:bg-bloom-sage/90 transition-colors text-sm"
               >
                 <span>Update Profile</span>
