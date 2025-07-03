@@ -102,7 +102,7 @@ export default function ServicePage({
         <div className="container mx-auto px-6 py-24 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="order-2 lg:order-1">
-              <h1 className="font-playfair text-bloom text-3xl lg:text-4xl xl:text-5xl mb-6 max-w-[90%] lg:max-w-[95%] break-words hyphens-manual">
+              <h1 className="service-title font-playfair text-bloom text-3xl lg:text-4xl xl:text-5xl mb-6 max-w-[90%] lg:max-w-[95%] break-words hyphens-manual">
                 {service.title.split('\n').map((line, i) => (
                   <React.Fragment key={i}>
                     {i === 0 ? (

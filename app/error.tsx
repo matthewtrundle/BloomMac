@@ -11,8 +11,15 @@ export default function Error({
   reset: () => void;
 }) {
   useEffect(() => {
-    // Log the error to an error reporting service
-    console.error('Dashboard error:', error);
+    // Log detailed error information
+    console.error('=== DASHBOARD ERROR DETAILS ===');
+    console.error('Error message:', error.message);
+    console.error('Error stack:', error.stack);
+    console.error('Error name:', error.name);
+    console.error('Error digest:', error.digest);
+    console.error('Current URL:', window.location.href);
+    console.error('User agent:', navigator.userAgent);
+    console.error('=== END ERROR DETAILS ===');
   }, [error]);
 
   return (
@@ -50,17 +57,28 @@ export default function Error({
           </Button>
         </div>
 
-        {process.env.NODE_ENV === 'development' && (
-          <details className="mt-6 text-left">
-            <summary className="cursor-pointer text-sm text-bloom-gray-500">
-              Error details (development only)
-            </summary>
-            <pre className="mt-2 text-xs bg-gray-100 p-2 rounded overflow-auto">
-              {error.message}
-              {error.stack}
-            </pre>
-          </details>
-        )}
+        <details className="mt-6 text-left">
+          <summary className="cursor-pointer text-sm text-bloom-gray-500">
+            Error details (click to expand)
+          </summary>
+          <div className="mt-2 text-xs bg-gray-100 p-2 rounded overflow-auto max-h-40">
+            <div className="mb-2">
+              <strong>Error:</strong> {error.message}
+            </div>
+            <div className="mb-2">
+              <strong>Component:</strong> Dashboard Page
+            </div>
+            <div className="mb-2">
+              <strong>URL:</strong> {typeof window !== 'undefined' ? window.location.href : 'Unknown'}
+            </div>
+            {error.stack && (
+              <div>
+                <strong>Stack trace:</strong>
+                <pre className="text-xs mt-1 whitespace-pre-wrap">{error.stack}</pre>
+              </div>
+            )}
+          </div>
+        </details>
       </div>
     </div>
   );

@@ -846,12 +846,37 @@ section:not(.hero-section) {
     text-wrap: pretty !important;
   }
   
+  /* Specific adjustments for longest titles */
+  .service-title {
+    max-width: 100% !important;
+    overflow-wrap: break-word !important;
+  }
+  
+  /* Remove forced line breaks on mobile for better flow */
+  .service-title br {
+    display: none !important;
+  }
+  
+  /* Keep natural line breaks but allow proper wrapping */
+  .service-title {
+    white-space: normal !important;
+  }
+  
   /* Extra small screens - make titles even smaller to prevent breaking */
   @media (max-width: 480px) {
     .service-title, 
     h1.service-title {
-      font-size: 1.35rem !important;
+      font-size: 1.25rem !important;
       line-height: 1.4 !important;
+    }
+  }
+  
+  /* For very small screens - even more aggressive sizing */
+  @media (max-width: 375px) {
+    .service-title, 
+    h1.service-title {
+      font-size: 1.15rem !important;
+      line-height: 1.45 !important;
     }
   }
   
