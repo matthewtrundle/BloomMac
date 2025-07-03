@@ -618,16 +618,20 @@ export default function SimpleDashboardPage() {
 
           {/* Workbook Progress Section */}
           {workbookStatuses.length > 0 && (
-            <div className="bg-white rounded-2xl shadow-lg p-6">
-              <h3 className="text-xl font-semibold text-bloom-dark mb-4 flex items-center justify-between">
-                <span className="flex items-center gap-2">
-                  <span className="text-2xl">📝</span>
-                  Weekly Workbooks
+            <div className="bg-white rounded-xl shadow-sm border border-bloom-sage/10 p-6">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-bloompink/10 rounded-lg flex items-center justify-center">
+                    <svg className="w-5 h-5 text-bloompink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                    </svg>
+                  </div>
+                  <h3 className="text-lg font-semibold text-bloom-dark">Weekly Workbooks</h3>
+                </div>
+                <span className="text-sm font-medium text-bloompink bg-bloompink/10 px-3 py-1 rounded-full">
+                  {workbookStatuses.filter(w => w.isSubmitted).length} of 6 done
                 </span>
-                <span className="text-sm text-bloom-sage">
-                  {workbookStatuses.filter(w => w.isSubmitted).length} of 6 submitted
-                </span>
-              </h3>
+              </div>
               
               <div className="grid md:grid-cols-2 gap-3">
                 {workbookStatuses.slice(0, 6).map((workbook) => (
@@ -645,15 +649,23 @@ export default function SimpleDashboardPage() {
                   >
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm">
+                        <div className="w-10 h-10 rounded-lg bg-white flex items-center justify-center shadow-sm border border-bloom-sage/10">
                           {workbook.isSubmitted ? (
-                            <span className="text-green-600">✓</span>
+                            <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
                           ) : workbook.isDraft ? (
-                            <span className="text-yellow-600">⏳</span>
+                            <svg className="w-5 h-5 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
                           ) : workbook.answeredQuestions > 0 ? (
-                            <span className="text-blue-600">📄</span>
+                            <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
                           ) : (
-                            <span className="text-gray-400">○</span>
+                            <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
                           )}
                         </div>
                         <div>
@@ -697,16 +709,20 @@ export default function SimpleDashboardPage() {
           )}
 
           {/* Enhanced Achievements Section */}
-          <div className="bg-white rounded-2xl shadow-lg p-6">
-            <h3 className="text-xl font-semibold text-bloom-dark mb-4 flex items-center justify-between">
-              <span className="flex items-center gap-2">
-                <span className="text-2xl">⭐</span>
-                Your Stars & Achievements
+          <div className="bg-white rounded-xl shadow-sm border border-bloom-sage/10 p-6">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-yellow-100 rounded-lg flex items-center justify-center">
+                  <svg className="w-5 h-5 text-yellow-600" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                  </svg>
+                </div>
+                <h3 className="text-lg font-semibold text-bloom-dark">Achievements</h3>
+              </div>
+              <span className="text-sm font-medium text-yellow-600 bg-yellow-100 px-3 py-1 rounded-full">
+                {profile?.total_stars || achievements.reduce((sum, a) => sum + a.points, 0)} stars
               </span>
-              <span className="text-sm text-bloom-sage">
-                {profile?.total_stars || achievements.reduce((sum, a) => sum + a.points, 0)} stars earned
-              </span>
-            </h3>
+            </div>
             
             {achievements.length > 0 ? (
               <div className="space-y-3">
