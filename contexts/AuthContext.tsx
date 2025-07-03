@@ -76,7 +76,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         if (result?.user && !result?.session) {
           // User was created but no session (email confirmation required)
           setLoading(false);
-          router.push('/auth/check-email?type=signup');
+          router.push(`/auth/check-email?type=signup&email=${encodeURIComponent(email)}`);
           return;
         }
         

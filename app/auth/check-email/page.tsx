@@ -1,16 +1,49 @@
 'use client';
 
+import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, ArrowRight, UserPlus } from 'lucide-react';
+import { Mail, ArrowRight, UserPlus, RefreshCw } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
+import { supabaseAuth } from '@/lib/supabase-auth';
 
 export default function CheckEmailPage() {
   const searchParams = useSearchParams();
   const type = searchParams.get('type') || 'magic-link';
+  const email = searchParams.get('email') || '';
+  
+  const [isResending, setIsResending] = useState(false);
+  const [resendMessage, setResendMessage] = useState('');
   
   const isSignup = type === 'signup';
+  
+  const handleResendConfirmation = async () => {
+    if (!email || !supabaseAuth) return;
+    
+    setIsResending(true);
+    setResendMessage('');
+    
+    try {
+      const { error } = await supabaseAuth.auth.resend({
+        type: 'signup',
+        email: email,
+        options: {
+          emailRedirectTo: `${window.location.origin}/auth/callback`
+        }
+      });
+      
+      if (error) {
+        setResendMessage('Failed to resend email. Please try again.');
+      } else {
+        setResendMessage('Confirmation email resent! Check your inbox.');
+      }
+    } catch (error) {
+      setResendMessage('An error occurred. Please try again.');
+    } finally {
+      setIsResending(false);
+    }
+  };
   
   return (
     <div className="min-h-screen bg-gradient-to-br from-bloom-sage-50 via-white to-bloom-pink-50 flex items-center justify-center p-4">
@@ -50,6 +83,36 @@ export default function CheckEmailPage() {
               </p>
             )}
           </div>
+
+          {/* Resend confirmation button for signup */}
+          {isSignup && email && (
+            <div className="mb-6">
+              <button
+                onClick={handleResendConfirmation}
+                disabled={isResending}
+                className="w-full flex items-center justify-center gap-2 px-4 py-2 border border-bloom-sage/30 text-bloom-sage hover:bg-bloom-sage/10 rounded-lg transition-colors disabled:opacity-50"
+              >
+                {isResending ? (
+                  <>
+                    <RefreshCw className="w-4 h-4 animate-spin" />
+                    Resending...
+                  </>
+                ) : (
+                  <>
+                    <Mail className="w-4 h-4" />
+                    Resend Confirmation Email
+                  </>
+                )}
+              </button>
+              {resendMessage && (
+                <p className={`mt-2 text-sm text-center ${
+                  resendMessage.includes('resent') ? 'text-green-600' : 'text-red-600'
+                }`}>
+                  {resendMessage}
+                </p>
+              )}
+            </div>
+          )}
 
           <Link
             href="/auth/login"
