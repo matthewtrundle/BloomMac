@@ -117,7 +117,7 @@ export default function CompleteStep({
                 <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
               </svg>
               <span>
-                <strong>You\'re subscribed!</strong> You\'ll receive wellness tips and course updates. 
+                <strong>You're subscribed!</strong> You'll receive wellness tips and course updates. 
                 You can unsubscribe anytime from your dashboard.
               </span>
             </p>

@@ -837,11 +837,22 @@ section:not(.hero-section) {
   /* Service title optimization for mobile */
   .service-title, 
   h1.service-title {
-    font-size: 1.75rem !important;
-    line-height: 1.3 !important;
-    word-wrap: break-word;
-    hyphens: manual;
-    text-wrap: balance;
+    font-size: 1.5rem !important;
+    line-height: 1.35 !important;
+    word-break: normal !important;
+    overflow-wrap: normal !important;
+    hyphens: none !important;
+    white-space: normal !important;
+    text-wrap: pretty !important;
+  }
+  
+  /* Extra small screens - make titles even smaller to prevent breaking */
+  @media (max-width: 480px) {
+    .service-title, 
+    h1.service-title {
+      font-size: 1.35rem !important;
+      line-height: 1.4 !important;
+    }
   }
   
   /* Additional padding for pages with longer titles */

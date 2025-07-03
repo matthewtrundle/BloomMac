@@ -54,6 +54,7 @@ export default function DashboardPage() {
   const [courseProgress, setCourseProgress] = useState<CourseProgress | null>(null);
   const [appointments, setAppointments] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!authLoading && !user) {
@@ -71,6 +72,7 @@ export default function DashboardPage() {
     if (!user) return;
 
     try {
+      setError(null);
       // Fetch user profile
       const { data: profileData, error: profileError } = await supabase
         .from('user_profiles')
@@ -78,6 +80,11 @@ export default function DashboardPage() {
         .eq('id', user.id)
         .single();
 
+      if (profileError) {
+        console.error('Profile fetch error:', profileError);
+        // Profile is critical, but don't fail entirely
+      }
+      
       if (profileData) {
         setProfile(profileData);
       }
@@ -88,6 +95,11 @@ export default function DashboardPage() {
         .select('*')
         .eq('user_id', user.id);
 
+      if (enrollmentError) {
+        console.error('Enrollment fetch error:', enrollmentError);
+        // Continue - enrollments are optional
+      }
+      
       if (enrollmentData) {
         setEnrollments(enrollmentData);
       }
@@ -127,6 +139,7 @@ export default function DashboardPage() {
       }
     } catch (error) {
       console.error('Error fetching user data:', error);
+      setError('Unable to load dashboard data. Please try refreshing.');
     } finally {
       setLoading(false);
     }
@@ -141,11 +154,19 @@ export default function DashboardPage() {
 
   const getDaysSincePostpartum = () => {
     if (!profile?.postpartum_date) return null;
-    const postpartumDate = new Date(profile.postpartum_date);
-    const today = new Date();
-    const diffTime = Math.abs(today.getTime() - postpartumDate.getTime());
-    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-    return diffDays;
+    try {
+      const postpartumDate = new Date(profile.postpartum_date);
+      // Check if date is valid
+      if (isNaN(postpartumDate.getTime())) return null;
+      
+      const today = new Date();
+      const diffTime = Math.abs(today.getTime() - postpartumDate.getTime());
+      const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+      return diffDays;
+    } catch (error) {
+      console.error('Error calculating days since postpartum:', error);
+      return null;
+    }
   };
 
   if (authLoading || loading) {
@@ -160,6 +181,32 @@ export default function DashboardPage() {
   }
 
   if (!user) return null;
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-bloom-sage-50 via-white to-bloom-pink-50 flex items-center justify-center p-4">
+        <div className="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full text-center">
+          <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg className="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
+          </div>
+          <h2 className="text-xl font-bold text-bloom-dark mb-2">Dashboard Error</h2>
+          <p className="text-bloom-gray-600 mb-6">{error}</p>
+          <button
+            onClick={() => {
+              setError(null);
+              setLoading(true);
+              fetchUserData();
+            }}
+            className="w-full px-6 py-3 bg-bloom-sage text-white rounded-lg hover:bg-bloom-sage/90 transition-colors"
+          >
+            Try Again
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-bloom-sage-50 via-white to-bloom-pink-50">
@@ -331,7 +378,7 @@ export default function DashboardPage() {
           {/* Sidebar */}
           <div className="space-y-6">
             {/* Workbook Progress */}
-            {enrollments.length > 0 && user && (
+            {enrollments.length > 0 && enrollments[0]?.course_id && user && (
               <WorkbookProgress 
                 userId={user.id} 
                 courseId={enrollments[0].course_id}

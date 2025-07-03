@@ -24,6 +24,7 @@ interface WorkbookProgressProps {
 export default function WorkbookProgress({ userId, courseId }: WorkbookProgressProps) {
   const [workbookStatuses, setWorkbookStatuses] = useState<WorkbookStatus[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [overallProgress, setOverallProgress] = useState(0);
 
   useEffect(() => {
@@ -31,7 +32,14 @@ export default function WorkbookProgress({ userId, courseId }: WorkbookProgressP
   }, [userId, courseId]);
 
   const fetchWorkbookProgress = async () => {
+    if (!userId || !courseId) {
+      setError('Missing required parameters');
+      setLoading(false);
+      return;
+    }
+    
     try {
+      setError(null);
       // Fetch all workbook responses for this user and course
       const { data: responses, error: responsesError } = await supabase
         .from('user_workbook_responses')
@@ -85,6 +93,7 @@ export default function WorkbookProgress({ userId, courseId }: WorkbookProgressP
       setOverallProgress(Math.round((totalCompleted / 6) * 100));
     } catch (error) {
       console.error('Error fetching workbook progress:', error);
+      setError('Unable to load workbook progress');
     } finally {
       setLoading(false);
     }
@@ -136,6 +145,27 @@ export default function WorkbookProgress({ userId, courseId }: WorkbookProgressP
               <div key={i} className="h-20 bg-gray-100 rounded"></div>
             ))}
           </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="bg-white rounded-xl shadow-sm p-6">
+        <div className="text-center py-4">
+          <AlertCircle className="w-8 h-8 text-red-500 mx-auto mb-2" />
+          <p className="text-red-600 text-sm">{error}</p>
+          <button 
+            onClick={() => {
+              setError(null);
+              setLoading(true);
+              fetchWorkbookProgress();
+            }}
+            className="mt-2 text-bloom-sage hover:text-bloom-sage/80 text-sm underline"
+          >
+            Try Again
+          </button>
         </div>
       </div>
     );
