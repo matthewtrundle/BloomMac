@@ -337,9 +337,9 @@ export default function SimpleDashboardPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-bloom-sage-50 via-white to-bloom-pink-50 flex">
+    <div className="min-h-screen bg-gradient-to-br from-bloom-sage-50 via-white to-bloom-pink-50 flex flex-col lg:flex-row">
       {/* Left Sidebar */}
-      <div className="w-64 bg-white border-r border-bloom-sage/10 flex-shrink-0 flex flex-col h-screen">
+      <div className="w-full lg:w-64 bg-white border-b lg:border-r lg:border-b-0 border-bloom-sage/10 flex-shrink-0 flex flex-col lg:h-screen order-2 lg:order-1">
         {/* Profile Section */}
         <div className="p-6 border-b border-bloom-sage/10">
           <div className="flex items-center gap-3 mb-4">
@@ -382,8 +382,63 @@ export default function SimpleDashboardPage() {
 
         {/* Navigation Menu */}
         <div className="p-4">
-          <h4 className="text-xs font-semibold text-bloom-dark/40 uppercase tracking-wider mb-3">Quick Actions</h4>
-          <nav className="space-y-1">
+          <h4 className="text-xs font-semibold text-bloom-dark/40 uppercase tracking-wider mb-3 hidden lg:block">Quick Actions</h4>
+          
+          {/* Mobile horizontal scroll navigation */}
+          <div className="lg:hidden overflow-x-auto pb-2">
+            <div className="flex gap-3 min-w-max">
+              <a 
+                href="/my-courses"
+                className="flex flex-col items-center gap-1 px-3 py-2 rounded-lg hover:bg-bloom-sage-50 transition-colors group min-w-20"
+              >
+                <div className="w-8 h-8 bg-bloom-sage/10 rounded-lg flex items-center justify-center group-hover:bg-bloom-sage/20 transition-colors">
+                  <svg className="w-4 h-4 text-bloom-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                  </svg>
+                </div>
+                <span className="text-xs font-medium text-bloom-dark text-center">Courses</span>
+              </a>
+              
+              <a 
+                href="/simple-workbooks"
+                className="flex flex-col items-center gap-1 px-3 py-2 rounded-lg hover:bg-bloompink/10 transition-colors group min-w-20"
+              >
+                <div className="w-8 h-8 bg-bloompink/10 rounded-lg flex items-center justify-center group-hover:bg-bloompink/20 transition-colors">
+                  <svg className="w-4 h-4 text-bloompink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                  </svg>
+                </div>
+                <span className="text-xs font-medium text-bloom-dark text-center">Workbooks</span>
+              </a>
+              
+              <a 
+                href="/simple-appointments"
+                className="flex flex-col items-center gap-1 px-3 py-2 rounded-lg hover:bg-bloom-accent/10 transition-colors group min-w-20"
+              >
+                <div className="w-8 h-8 bg-bloom-accent/10 rounded-lg flex items-center justify-center group-hover:bg-bloom-accent/20 transition-colors">
+                  <svg className="w-4 h-4 text-bloom-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                </div>
+                <span className="text-xs font-medium text-bloom-dark text-center">Appointments</span>
+              </a>
+              
+              <a 
+                href="/courses"
+                className="flex flex-col items-center gap-1 px-3 py-2 rounded-lg hover:bg-purple-50 transition-colors group min-w-20"
+              >
+                <div className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center group-hover:bg-purple-200 transition-colors">
+                  <svg className="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
+                </div>
+                <span className="text-xs font-medium text-bloom-dark text-center">Browse</span>
+              </a>
+            </div>
+          </div>
+          
+          {/* Desktop vertical navigation */}
+          <nav className="space-y-1 hidden lg:block">
             <a 
               href="/my-courses"
               className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-bloom-sage-50 transition-colors group"
@@ -473,23 +528,23 @@ export default function SimpleDashboardPage() {
       </div>
 
       {/* Main Content Area */}
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1 overflow-y-auto order-1 lg:order-2">
         {/* Dashboard Header */}
         <div className="bg-white/80 backdrop-blur-sm border-b border-bloom-sage/10">
-          <div className="px-8 py-6">
+          <div className="px-4 lg:px-8 py-4 lg:py-6">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
                 <div>
-                  <h1 className="text-3xl font-playfair text-bloom-dark mb-2">
+                  <h1 className="text-2xl lg:text-3xl font-playfair text-bloom-dark mb-2">
                     {getPersonalizedMessage().greeting}
                     {achievements.length > 0 && (
-                      <span className="ml-3 inline-flex items-center gap-1 px-3 py-1 bg-gradient-to-r from-yellow-100 to-amber-100 border border-yellow-300 rounded-full text-sm font-medium text-amber-800">
-                        <span className="text-lg">{achievements[0]?.icon || '🏆'}</span>
-                        <span>{achievements[0]?.name || 'Achiever'}</span>
+                      <span className="ml-2 lg:ml-3 inline-flex items-center gap-1 px-2 lg:px-3 py-1 bg-gradient-to-r from-yellow-100 to-amber-100 border border-yellow-300 rounded-full text-xs lg:text-sm font-medium text-amber-800">
+                        <span className="text-sm lg:text-lg">{achievements[0]?.icon || '🏆'}</span>
+                        <span className="hidden sm:inline">{achievements[0]?.name || 'Achiever'}</span>
                       </span>
                     )}
                   </h1>
-                  <p className="text-lg text-bloom-dark/70 font-light">
+                  <p className="text-base lg:text-lg text-bloom-dark/70 font-light">
                     {getPersonalizedMessage().subtitle}
                   </p>
                 </div>
@@ -516,7 +571,7 @@ export default function SimpleDashboardPage() {
         </div>
 
         {/* Main Dashboard Content */}
-        <div className="px-8 py-6">
+        <div className="px-4 lg:px-8 py-4 lg:py-6">
           {/* Inspirational Quote */}
           <div className="bg-gradient-to-r from-bloom-sage-50 to-bloompink/10 rounded-xl p-4 mb-6">
             <p className="text-bloom-dark/80 italic text-center font-light">
@@ -525,7 +580,7 @@ export default function SimpleDashboardPage() {
           </div>
           
           <div className="grid gap-6">
-            {/* Your Wellness Journey - Timeline Style */}
+            {/* Your Wellness Journey - Enhanced with Progress */}
             <div className="bg-white rounded-xl shadow-sm border border-bloom-sage/10 p-6">
               <div className="flex items-center justify-between mb-6">
                 <h2 className="text-xl font-semibold text-bloom-dark">Your Wellness Journey</h2>
@@ -534,74 +589,251 @@ export default function SimpleDashboardPage() {
                 </div>
               </div>
               
-              {/* Achievement Timeline */}
-              <div className="space-y-4 mb-6">
-                {achievements.length > 0 ? (
-                  achievements.slice(0, 3).map((achievement, index) => (
-                    <div key={achievement.id} className="flex items-center gap-4 p-3 bg-gradient-to-r from-yellow-50 to-amber-50 border border-yellow-200 rounded-lg">
-                      <div className="w-12 h-12 bg-gradient-to-br from-yellow-200 to-amber-300 rounded-full flex items-center justify-center text-lg shadow-sm">
-                        {achievement.icon}
+              {(() => {
+                const enrolledCourses = allCourses.filter(c => c.isEnrolled).length;
+                const completedWorkbooks = courseWorkbooks.reduce((total, course) => 
+                  total + course.workbooks.filter(w => w.isSubmitted).length, 0
+                );
+                const hasActivity = enrolledCourses > 0 || completedWorkbooks > 0 || achievements.length > 0;
+                
+                if (!hasActivity) {
+                  return (
+                    <div className="text-center py-8">
+                      <div className="w-16 h-16 bg-gradient-to-br from-bloom-sage-100 to-bloompink-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg className="w-8 h-8 text-bloom-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
                       </div>
-                      <div className="flex-1">
-                        <h4 className="font-semibold text-amber-800">{achievement.name}</h4>
-                        <p className="text-sm text-amber-700">{achievement.description}</p>
-                        <p className="text-xs text-amber-600 mt-1">Earned {achievement.earnedAt ? new Date(achievement.earnedAt).toLocaleDateString() : 'recently'} • +{achievement.points} stars</p>
+                      <h3 className="text-lg font-semibold text-bloom-dark mb-2">Ready to Begin Your Journey?</h3>
+                      <p className="text-bloom-dark/60 mb-6">Choose how you'd like to start building your wellness foundation:</p>
+                      
+                      <div className="grid gap-3 max-w-md mx-auto">
+                        <a 
+                          href="/courses" 
+                          className="flex items-center gap-3 p-3 bg-gradient-to-r from-bloom-sage-50 to-bloom-sage-100 border border-bloom-sage-200 rounded-lg hover:border-bloom-sage-300 transition-all group"
+                        >
+                          <div className="w-10 h-10 bg-bloom-sage rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                            </svg>
+                          </div>
+                          <div className="flex-1 text-left">
+                            <div className="font-semibold text-bloom-sage">Start a Course</div>
+                            <div className="text-xs text-bloom-dark/60">Self-paced learning</div>
+                          </div>
+                        </a>
+                        
+                        <a 
+                          href="/simple-appointments" 
+                          className="flex items-center gap-3 p-3 bg-gradient-to-r from-bloompink-50 to-bloompink-100 border border-bloompink-200 rounded-lg hover:border-bloompink-300 transition-all group"
+                        >
+                          <div className="w-10 h-10 bg-bloompink rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                          </div>
+                          <div className="flex-1 text-left">
+                            <div className="font-semibold text-bloompink">Book a Session</div>
+                            <div className="text-xs text-bloom-dark/60">1:1 support</div>
+                          </div>
+                        </a>
                       </div>
                     </div>
-                  ))
-                ) : (
-                  <div className="text-center py-8">
-                    <div className="w-16 h-16 bg-gradient-to-br from-bloom-sage-100 to-bloompink-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <svg className="w-8 h-8 text-bloom-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                      </svg>
+                  );
+                }
+                
+                return (
+                  <>
+                    {/* Progress Summary */}
+                    <div className="bg-gradient-to-r from-bloom-sage-50 to-bloompink/10 rounded-lg p-4 mb-6">
+                      <div className="grid grid-cols-4 gap-3 text-center">
+                        <div>
+                          <div className="text-2xl font-bold text-bloom-sage">{enrolledCourses}</div>
+                          <div className="text-xs text-bloom-dark/60">Active Courses</div>
+                        </div>
+                        <div>
+                          <div className="text-2xl font-bold text-bloompink">{completedWorkbooks}</div>
+                          <div className="text-xs text-bloom-dark/60">Workbooks Done</div>
+                        </div>
+                        <div>
+                          <div className="text-2xl font-bold text-bloom-accent">{upcomingAppointments.length}</div>
+                          <div className="text-xs text-bloom-dark/60">Upcoming Sessions</div>
+                        </div>
+                        <div>
+                          <div className="text-2xl font-bold text-purple-600">{profile?.total_stars || 0}</div>
+                          <div className="text-xs text-bloom-dark/60">Stars Earned</div>
+                        </div>
+                      </div>
                     </div>
-                    <h3 className="text-lg font-semibold text-bloom-dark mb-2">Ready to Begin?</h3>
-                    <p className="text-bloom-dark/60 mb-4">Start a course or complete a workbook to unlock your first achievement!</p>
-                    <a href="/courses" className="inline-flex items-center gap-2 px-4 py-2 bg-bloom-sage text-white rounded-lg hover:bg-bloom-sage/90 transition-colors text-sm font-medium">
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                      </svg>
-                      Start Your Journey
-                    </a>
-                  </div>
-                )}
-              </div>
+                    
+                    {/* Achievement Timeline */}
+                    {achievements.length > 0 && (
+                      <div className="space-y-4 mb-6">
+                        <h4 className="font-medium text-bloom-dark">Recent Achievements</h4>
+                        {achievements.slice(0, 3).map((achievement, index) => (
+                          <div key={achievement.id} className="flex items-center gap-4 p-3 bg-gradient-to-r from-yellow-50 to-amber-50 border border-yellow-200 rounded-lg">
+                            <div className="w-12 h-12 bg-gradient-to-br from-yellow-200 to-amber-300 rounded-full flex items-center justify-center text-lg shadow-sm">
+                              {achievement.icon}
+                            </div>
+                            <div className="flex-1">
+                              <h4 className="font-semibold text-amber-800">{achievement.name}</h4>
+                              <p className="text-sm text-amber-700">{achievement.description}</p>
+                              <p className="text-xs text-amber-600 mt-1">Earned {achievement.earnedAt ? new Date(achievement.earnedAt).toLocaleDateString() : 'recently'} • +{achievement.points} stars</p>
+                            </div>
+                          </div>
+                        ))}
+                        {achievements.length > 3 && (
+                          <div className="text-center">
+                            <p className="text-bloom-sage text-sm">
+                              {achievements.length - 3} more achievements earned! 🎉
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                    )}
+                    
+                    {/* Smart Recommendations */}
+                    <div className="mb-6">
+                      <h4 className="font-medium text-bloom-dark mb-3">Recommended Next Steps</h4>
+                      <div className="grid grid-cols-2 gap-3">
+                        {(() => {
+                          const enrolledCourses = allCourses.filter(c => c.isEnrolled);
+                          const avgCourseProgress = enrolledCourses.length > 0 
+                            ? enrolledCourses.reduce((sum, c) => sum + c.progress, 0) / enrolledCourses.length
+                            : 0;
+                          const totalWorkbooks = courseWorkbooks.reduce((total, course) => total + course.workbooks.length, 0);
+                          const completedWorkbooks = courseWorkbooks.reduce((total, course) => 
+                            total + course.workbooks.filter(w => w.isSubmitted).length, 0
+                          );
+                          const workbookProgress = totalWorkbooks > 0 ? (completedWorkbooks / totalWorkbooks) * 100 : 0;
+                          
+                          if (avgCourseProgress > 25 && workbookProgress < 25) {
+                            return (
+                              <>
+                                <a 
+                                  href="/simple-workbooks" 
+                                  className="flex items-center gap-2 p-3 bg-bloompink/10 rounded-lg hover:bg-bloompink/20 transition-colors"
+                                >
+                                  <svg className="w-4 h-4 text-bloompink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5" />
+                                  </svg>
+                                  <span className="text-sm font-medium text-bloompink">Complete Reflections</span>
+                                </a>
+                                <a 
+                                  href="/my-courses" 
+                                  className="flex items-center gap-2 p-3 bg-bloom-sage/10 rounded-lg hover:bg-bloom-sage/20 transition-colors"
+                                >
+                                  <svg className="w-4 h-4 text-bloom-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                  </svg>
+                                  <span className="text-sm font-medium text-bloom-sage">Continue Learning</span>
+                                </a>
+                              </>
+                            );
+                          } else if (workbookProgress > 25 && avgCourseProgress < 25) {
+                            return (
+                              <>
+                                <a 
+                                  href="/my-courses" 
+                                  className="flex items-center gap-2 p-3 bg-bloom-sage/10 rounded-lg hover:bg-bloom-sage/20 transition-colors"
+                                >
+                                  <svg className="w-4 h-4 text-bloom-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                  </svg>
+                                  <span className="text-sm font-medium text-bloom-sage">Continue Courses</span>
+                                </a>
+                                <a 
+                                  href="/simple-appointments" 
+                                  className="flex items-center gap-2 p-3 bg-bloom-accent/10 rounded-lg hover:bg-bloom-accent/20 transition-colors"
+                                >
+                                  <svg className="w-4 h-4 text-bloom-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                  </svg>
+                                  <span className="text-sm font-medium text-bloom-accent">Book Session</span>
+                                </a>
+                              </>
+                            );
+                          } else {
+                            return (
+                              <>
+                                <a 
+                                  href="/my-courses" 
+                                  className="flex items-center gap-2 p-3 bg-bloom-sage/10 rounded-lg hover:bg-bloom-sage/20 transition-colors"
+                                >
+                                  <svg className="w-4 h-4 text-bloom-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                  </svg>
+                                  <span className="text-sm font-medium text-bloom-sage">Continue Learning</span>
+                                </a>
+                                <a 
+                                  href="/simple-workbooks" 
+                                  className="flex items-center gap-2 p-3 bg-bloompink/10 rounded-lg hover:bg-bloompink/20 transition-colors"
+                                >
+                                  <svg className="w-4 h-4 text-bloompink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5" />
+                                  </svg>
+                                  <span className="text-sm font-medium text-bloompink">Work on Reflection</span>
+                                </a>
+                              </>
+                            );
+                          }
+                        })()}
+                      </div>
+                    </div>
+                  </>
+                );
+              })()}
               
-              {/* Wellness Pillars - Simplified */}
+              {/* Wellness Pillars - Functional */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                <div className="text-center p-3 bg-gradient-to-br from-bloom-sage-50 to-bloom-sage-100 rounded-lg border border-bloom-sage-200">
-                  <div className="w-8 h-8 bg-bloom-sage rounded-full flex items-center justify-center mx-auto mb-2">
+                <a 
+                  href="/courses?category=mindfulness"
+                  className="text-center p-3 bg-gradient-to-br from-bloom-sage-50 to-bloom-sage-100 rounded-lg border border-bloom-sage-200 hover:border-bloom-sage-300 transition-all group cursor-pointer"
+                >
+                  <div className="w-8 h-8 bg-bloom-sage rounded-full flex items-center justify-center mx-auto mb-2 group-hover:scale-110 transition-transform">
                     <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                     </svg>
                   </div>
                   <span className="text-xs font-medium text-bloom-sage">Mindfulness</span>
-                </div>
-                <div className="text-center p-3 bg-gradient-to-br from-bloompink-50 to-bloompink-100 rounded-lg border border-bloompink-200">
-                  <div className="w-8 h-8 bg-bloompink rounded-full flex items-center justify-center mx-auto mb-2">
+                  <div className="text-xs text-bloom-dark/50 mt-1">Explore courses</div>
+                </a>
+                <a 
+                  href="/courses?category=recovery"
+                  className="text-center p-3 bg-gradient-to-br from-bloompink-50 to-bloompink-100 rounded-lg border border-bloompink-200 hover:border-bloompink-300 transition-all group cursor-pointer"
+                >
+                  <div className="w-8 h-8 bg-bloompink rounded-full flex items-center justify-center mx-auto mb-2 group-hover:scale-110 transition-transform">
                     <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                     </svg>
                   </div>
                   <span className="text-xs font-medium text-bloompink">Recovery</span>
-                </div>
-                <div className="text-center p-3 bg-gradient-to-br from-bloom-accent-50 to-bloom-accent-100 rounded-lg border border-bloom-accent-200">
-                  <div className="w-8 h-8 bg-bloom-accent rounded-full flex items-center justify-center mx-auto mb-2">
+                  <div className="text-xs text-bloom-dark/50 mt-1">Healing focus</div>
+                </a>
+                <a 
+                  href="/simple-appointments"
+                  className="text-center p-3 bg-gradient-to-br from-bloom-accent-50 to-bloom-accent-100 rounded-lg border border-bloom-accent-200 hover:border-bloom-accent-300 transition-all group cursor-pointer"
+                >
+                  <div className="w-8 h-8 bg-bloom-accent rounded-full flex items-center justify-center mx-auto mb-2 group-hover:scale-110 transition-transform">
                     <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                     </svg>
                   </div>
                   <span className="text-xs font-medium text-bloom-accent">Community</span>
-                </div>
-                <div className="text-center p-3 bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg border border-purple-200">
-                  <div className="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center mx-auto mb-2">
+                  <div className="text-xs text-bloom-dark/50 mt-1">Book session</div>
+                </a>
+                <a 
+                  href="/courses?category=growth"
+                  className="text-center p-3 bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg border border-purple-200 hover:border-purple-300 transition-all group cursor-pointer"
+                >
+                  <div className="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center mx-auto mb-2 group-hover:scale-110 transition-transform">
                     <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                     </svg>
                   </div>
                   <span className="text-xs font-medium text-purple-700">Growth</span>
-                </div>
+                  <div className="text-xs text-bloom-dark/50 mt-1">Personal dev</div>
+                </a>
               </div>
             </div>
 
@@ -980,207 +1212,8 @@ export default function SimpleDashboardPage() {
             </div>
           ))}
 
-          {/* Enhanced Achievements Section */}
-          <div className="bg-white rounded-xl shadow-sm border border-bloom-sage/10 p-6">
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-yellow-100 rounded-lg flex items-center justify-center">
-                  <svg className="w-5 h-5 text-yellow-600" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                  </svg>
-                </div>
-                <h3 className="text-lg font-semibold text-bloom-dark">Achievements</h3>
-              </div>
-              <span className="text-sm font-medium text-yellow-600 bg-yellow-100 px-3 py-1 rounded-full">
-                {profile?.total_stars || achievements.reduce((sum, a) => sum + a.points, 0)} stars
-              </span>
-            </div>
-            
-            {achievements.length > 0 ? (
-              <div className="space-y-3">
-                {achievements.slice(0, 6).map((achievement) => (
-                  <div key={achievement.id} className="flex items-center gap-4 p-3 bg-gradient-to-r from-yellow-50 to-orange-50 rounded-lg border border-yellow-200">
-                    <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 to-yellow-500 rounded-full flex items-center justify-center shadow-lg">
-                      <span className="text-xl">{achievement.icon}</span>
-                    </div>
-                    <div className="flex-1">
-                      <h4 className="font-medium text-bloom-dark">{achievement.name}</h4>
-                      <p className="text-sm text-bloom-dark/60">{achievement.description}</p>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-sm font-medium text-bloom-dark">{achievement.points} stars</div>
-                      {achievement.earnedAt && (
-                        <div className="text-xs text-bloom-dark/60">
-                          {new Date(achievement.earnedAt).toLocaleDateString()}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                ))}
-                {achievements.length > 6 && (
-                  <div className="text-center pt-2">
-                    <p className="text-bloom-sage text-sm">
-                      Showing 6 of {achievements.length} achievements
-                    </p>
-                  </div>
-                )}
-              </div>
-            ) : (
-              <div className="text-center py-8">
-                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                  <span className="text-2xl text-gray-400">⭐</span>
-                </div>
-                <p className="text-bloom-dark/60 text-sm mb-4">Complete activities to earn your first stars!</p>
-                <div className="grid grid-cols-2 gap-2 text-xs text-bloom-dark/50">
-                  <div>• Complete lessons</div>
-                  <div>• Submit workbooks</div>
-                  <div>• Attend workshops</div>
-                  <div>• Book appointments</div>
-                </div>
-              </div>
-            )}
-          </div>
 
 
-          {/* Your Progress & Next Steps */}
-          <div className="bg-white rounded-2xl shadow-lg p-6">
-            <h3 className="text-lg font-semibold text-bloom-dark mb-4 flex items-center gap-2">
-              <span className="text-xl">📊</span>
-              Your Progress & Next Steps
-            </h3>
-            
-            {(() => {
-              const enrolledCourses = allCourses.filter(c => c.isEnrolled).length;
-              const completedWorkbooks = courseWorkbooks.reduce((total, course) => 
-                total + course.workbooks.filter(w => w.isSubmitted).length, 0
-              );
-              const hasActivity = enrolledCourses > 0 || completedWorkbooks > 0 || achievements.length > 0;
-              
-              if (!hasActivity) {
-                return (
-                  <div className="text-center py-6">
-                    <div className="w-16 h-16 bg-gradient-to-br from-bloom-sage-100 to-bloompink-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <svg className="w-8 h-8 text-bloom-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                      </svg>
-                    </div>
-                    <h4 className="text-lg font-semibold text-bloom-dark mb-2">Ready to Begin Your Journey?</h4>
-                    <p className="text-bloom-dark/60 mb-6">Choose how you'd like to start building your wellness foundation:</p>
-                    
-                    <div className="grid gap-3 max-w-md mx-auto">
-                      <a 
-                        href="/courses" 
-                        className="flex items-center gap-3 p-3 bg-gradient-to-r from-bloom-sage-50 to-bloom-sage-100 border border-bloom-sage-200 rounded-lg hover:border-bloom-sage-300 transition-all group"
-                      >
-                        <div className="w-10 h-10 bg-bloom-sage rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
-                          <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                          </svg>
-                        </div>
-                        <div className="flex-1 text-left">
-                          <div className="font-semibold text-bloom-sage">Start a Course</div>
-                          <div className="text-xs text-bloom-dark/60">Self-paced learning</div>
-                        </div>
-                      </a>
-                      
-                      <a 
-                        href="/book" 
-                        className="flex items-center gap-3 p-3 bg-gradient-to-r from-bloompink-50 to-bloompink-100 border border-bloompink-200 rounded-lg hover:border-bloompink-300 transition-all group"
-                      >
-                        <div className="w-10 h-10 bg-bloompink rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
-                          <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                          </svg>
-                        </div>
-                        <div className="flex-1 text-left">
-                          <div className="font-semibold text-bloompink">Book a Session</div>
-                          <div className="text-xs text-bloom-dark/60">1:1 support</div>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                );
-              }
-              
-              return (
-                <div className="space-y-4">
-                  {/* Progress Summary */}
-                  <div className="bg-gradient-to-r from-bloom-sage-50 to-bloompink/10 rounded-lg p-4">
-                    <div className="grid grid-cols-4 gap-3 text-center">
-                      <div>
-                        <div className="text-2xl font-bold text-bloom-sage">{enrolledCourses}</div>
-                        <div className="text-xs text-bloom-dark/60">Active Courses</div>
-                      </div>
-                      <div>
-                        <div className="text-2xl font-bold text-bloompink">{completedWorkbooks}</div>
-                        <div className="text-xs text-bloom-dark/60">Workbooks Done</div>
-                      </div>
-                      <div>
-                        <div className="text-2xl font-bold text-bloom-accent">{upcomingAppointments.length}</div>
-                        <div className="text-xs text-bloom-dark/60">Upcoming Sessions</div>
-                      </div>
-                      <div>
-                        <div className="text-2xl font-bold text-purple-600">{profile?.total_stars || 0}</div>
-                        <div className="text-xs text-bloom-dark/60">Stars Earned</div>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {/* Quick Actions */}
-                  <div className="grid grid-cols-2 gap-3">
-                    <a 
-                      href="/my-courses" 
-                      className="flex items-center gap-2 p-3 bg-bloom-sage/10 rounded-lg hover:bg-bloom-sage/20 transition-colors"
-                    >
-                      <svg className="w-4 h-4 text-bloom-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                      </svg>
-                      <span className="text-sm font-medium text-bloom-sage">Continue Learning</span>
-                    </a>
-                    <a 
-                      href="/simple-workbooks" 
-                      className="flex items-center gap-2 p-3 bg-bloompink/10 rounded-lg hover:bg-bloompink/20 transition-colors"
-                    >
-                      <svg className="w-4 h-4 text-bloompink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5" />
-                      </svg>
-                      <span className="text-sm font-medium text-bloompink">Work on Reflection</span>
-                    </a>
-                  </div>
-                </div>
-              );
-            })()}
-
-            {/* Compact Motivational Insight */}
-            <div className="mt-4 p-3 bg-gradient-to-r from-yellow-50 to-orange-50 rounded-lg border border-yellow-200">
-              <div className="text-sm text-bloom-dark/80">
-                {(() => {
-                  const enrolledCourses = allCourses.filter(c => c.isEnrolled);
-                  const courseProgress = enrolledCourses.length > 0 
-                    ? enrolledCourses.reduce((sum, c) => sum + c.progress, 0) / enrolledCourses.length
-                    : 0;
-                  const totalWorkbooks = courseWorkbooks.reduce((total, course) => total + course.workbooks.length, 0);
-                  const completedWorkbooks = courseWorkbooks.reduce((total, course) => 
-                    total + course.workbooks.filter(w => w.isSubmitted).length, 0
-                  );
-                  const workbookProgress = totalWorkbooks > 0 ? (completedWorkbooks / totalWorkbooks) * 100 : 0;
-                  const hasUpcomingAppointments = upcomingAppointments.length > 0;
-                  
-                  if (courseProgress > 50 && workbookProgress > 50) {
-                    return <span>🌟 Incredible progress! Your commitment is showing real results.</span>;
-                  } else if (courseProgress > 25) {
-                    return <span>📚 Great learning momentum! Consider adding workbook reflections.</span>;
-                  } else if (workbookProgress > 25) {
-                    return <span>📝 Thoughtful reflections! Pair with course lessons for more growth.</span>;
-                  } else if (hasUpcomingAppointments) {
-                    return <span>🤝 Great job scheduling! You're taking action toward your goals.</span>;
-                  } else {
-                    return <span>🌱 Every wellness journey starts with a single step. You're here!</span>;
-                  }
-                })()}
-              </div>
-            </div>
-          </div>
 
           </div>
         </div>
