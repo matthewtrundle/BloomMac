@@ -1147,9 +1147,9 @@ export default function SimpleDashboardPage() {
           </div>
         </div>
       </div>
+      
+      {/* Toast Notifications */}
+      <Toast messages={toastMessages} onRemove={removeToast} />
     </div>
-    
-    {/* Toast Notifications */}
-    <Toast messages={toastMessages} onRemove={removeToast} />
   );
 }
