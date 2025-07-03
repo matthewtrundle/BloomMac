@@ -895,7 +895,9 @@ export default function SimpleDashboardPage() {
                 </div>
                 <div>
                   <div className="text-lg font-bold text-bloompink">
-                    {workbookStatuses.filter(w => w.isSubmitted).length}
+                    {courseWorkbooks.reduce((total, course) => 
+                      total + course.workbooks.filter(w => w.isSubmitted).length, 0
+                    )}
                   </div>
                   <div className="text-xs text-bloom-dark/60">Workbooks</div>
                 </div>
@@ -939,12 +941,24 @@ export default function SimpleDashboardPage() {
                 <div className="flex-1">
                   <div className="flex justify-between text-xs mb-1">
                     <span>Workbook Progress</span>
-                    <span className="font-medium">{Math.round((workbookStatuses.filter(w => w.isSubmitted).length / 6) * 100)}%</span>
+                    <span className="font-medium">{(() => {
+                      const totalWorkbooks = courseWorkbooks.reduce((total, course) => total + course.workbooks.length, 0);
+                      const completedWorkbooks = courseWorkbooks.reduce((total, course) => 
+                        total + course.workbooks.filter(w => w.isSubmitted).length, 0
+                      );
+                      return totalWorkbooks > 0 ? Math.round((completedWorkbooks / totalWorkbooks) * 100) : 0;
+                    })()}%</span>
                   </div>
                   <div className="w-full h-1.5 bg-gray-200 rounded-full overflow-hidden">
                     <div 
                       className="h-full bg-bloompink transition-all duration-300"
-                      style={{ width: `${(workbookStatuses.filter(w => w.isSubmitted).length / 6) * 100}%` }}
+                      style={{ width: `${(() => {
+                        const totalWorkbooks = courseWorkbooks.reduce((total, course) => total + course.workbooks.length, 0);
+                        const completedWorkbooks = courseWorkbooks.reduce((total, course) => 
+                          total + course.workbooks.filter(w => w.isSubmitted).length, 0
+                        );
+                        return totalWorkbooks > 0 ? (completedWorkbooks / totalWorkbooks) * 100 : 0;
+                      })()}%` }}
                     ></div>
                   </div>
                 </div>
@@ -957,7 +971,9 @@ export default function SimpleDashboardPage() {
                   {(() => {
                     const engagementScore = Math.min(100, Math.round(
                       ((courseStats?.lessonsCompleted || 0) * 2) + 
-                      (workbookStatuses.filter(w => w.isSubmitted).length * 10) + 
+                      (courseWorkbooks.reduce((total, course) => 
+                        total + course.workbooks.filter(w => w.isSubmitted).length, 0
+                      ) * 10) + 
                       (achievements.length * 5) + 
                       (upcomingAppointments.length * 10)
                     ));
@@ -985,7 +1001,11 @@ export default function SimpleDashboardPage() {
               <div className="text-sm text-bloom-dark/80">
                 {(() => {
                   const courseProgress = courseStats?.completionPercentage || 0;
-                  const workbookProgress = (workbookStatuses.filter(w => w.isSubmitted).length / 6) * 100;
+                  const totalWorkbooks = courseWorkbooks.reduce((total, course) => total + course.workbooks.length, 0);
+                  const completedWorkbooks = courseWorkbooks.reduce((total, course) => 
+                    total + course.workbooks.filter(w => w.isSubmitted).length, 0
+                  );
+                  const workbookProgress = totalWorkbooks > 0 ? (completedWorkbooks / totalWorkbooks) * 100 : 0;
                   const hasUpcomingAppointments = upcomingAppointments.length > 0;
                   
                   if (courseProgress > 50 && workbookProgress > 50) {
