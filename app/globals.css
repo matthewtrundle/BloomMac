@@ -543,7 +543,7 @@ section:not(.hero-section) {
   main > div:first-child > section:first-child,
   [class*="pt-20"],
   [class*="pt-24"] {
-    padding-top: 140px !important; /* Increased from 120px for better clearance */
+    padding-top: 160px !important; /* Increased for header + announcement bar clearance */
   }
   
   .hero-section {
@@ -554,7 +554,7 @@ section:not(.hero-section) {
     height: auto;
     display: flex;
     align-items: center;
-    padding-top: 140px !important; /* Increased for header and announcement bar */
+    padding-top: 160px !important; /* Increased for header and announcement bar */
   }
   
   /* Ensure all buttons are visible on mobile */
@@ -832,5 +832,48 @@ section:not(.hero-section) {
   /* Ensure course content doesn't get cut off */
   .course-container {
     padding-bottom: 100px !important;
+  }
+  
+  /* Service title optimization for mobile */
+  .service-title, 
+  h1.service-title {
+    font-size: 1.75rem !important;
+    line-height: 1.3 !important;
+    word-wrap: break-word;
+    hyphens: manual;
+    text-wrap: balance;
+  }
+  
+  /* Additional padding for pages with longer titles */
+  .service-page-header {
+    padding-top: 180px !important;
+  }
+  
+  /* Prevent text shifting with stable containers */
+  .hero-text,
+  .service-hero-text {
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  /* Better touch targets for interactive elements */
+  button, 
+  a.btn,
+  [role="button"] {
+    min-height: 44px !important;
+    min-width: 44px !important;
+  }
+  
+  /* Service cards on mobile */
+  .service-card {
+    padding: 1.5rem !important;
+    margin-bottom: 1rem !important;
+  }
+  
+  /* Prevent orphan words in headings */
+  h1, h2, h3, h4 {
+    text-wrap: balance;
   }
 }

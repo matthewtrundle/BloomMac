@@ -129,7 +129,7 @@ export default function Home() {
         <div className="absolute bottom-0 left-20 w-96 h-96 bg-[#1e3a5f]/5 rounded-full"></div>
         
         <div className="container mx-auto px-6 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-12 items-center min-h-[70vh] md:min-h-[80vh] py-12">
+          <div className="flex flex-col lg:grid lg:grid-cols-2 gap-12 items-center min-h-[70vh] md:min-h-[80vh] py-12">
             {/* Left column - Text content */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -171,6 +171,31 @@ export default function Home() {
                 </div>
                 <div className="bg-gray-50 px-4 py-2 rounded-full">
                   <span className="text-sm font-medium text-gray-700">Virtual & In-Person</span>
+                </div>
+              </div>
+            </motion.div>
+            
+            {/* Mobile-only hero image - shown at top on mobile */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="lg:hidden order-first mb-8"
+            >
+              <div className="relative rounded-2xl overflow-hidden shadow-xl mx-auto max-w-sm">
+                <div className="absolute inset-0 bg-gradient-to-br from-[#f8b5c4]/10 to-[#1e3a5f]/5 z-10" />
+                <Image
+                  src="/images/optimized/Team/Jana Rundle.webp"
+                  alt="Dr. Jana Rundle"
+                  width={400}
+                  height={300}
+                  className="object-cover w-full"
+                  priority
+                />
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#1e3a5f]/90 to-transparent p-4 z-20">
+                  <p className="text-white font-bold text-lg">Dr. Jana Rundle</p>
+                  <p className="text-white/90 text-sm">Licensed Clinical Psychologist</p>
+                  <p className="text-white/80 text-xs">Perinatal Mental Health Specialist</p>
                 </div>
               </div>
             </motion.div>
@@ -353,16 +378,16 @@ export default function Home() {
           </div>
           
           {/* Modern Course Cards */}
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-4 md:gap-8 max-w-5xl mx-auto px-4 md:px-0">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
               viewport={{ once: true }}
-              className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all"
+              className="service-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all"
             >
               <div className="h-3 bg-gradient-to-r from-[#f8b5c4] to-[#f472b6]"></div>
-              <div className="p-8">
+              <div className="p-6 md:p-8">
                 <h3 className="text-2xl font-bold text-[#1e3a5f] mb-2">🌸 Postpartum Wellness</h3>
                 <p className="text-sm text-gray-500 mb-4">6-week program</p>
                 <p className="text-gray-600 mb-6">Build emotional regulation skills and develop lasting confidence in your new role</p>
@@ -416,10 +441,10 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
               viewport={{ once: true }}
-              className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all"
+              className="service-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all"
             >
               <div className="h-3 bg-gradient-to-r from-[#1e3a5f] to-[#3b82f6]"></div>
-              <div className="p-8">
+              <div className="p-6 md:p-8">
                 <h3 className="text-2xl font-bold text-[#1e3a5f] mb-2">🧘‍♀️ Anxiety Management</h3>
                 <p className="text-sm text-gray-500 mb-4">4-week program</p>
                 <p className="text-gray-600 mb-6">Learn evidence-based techniques to manage anxiety and calm your mind</p>
@@ -448,10 +473,10 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
               viewport={{ once: true }}
-              className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all"
+              className="service-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all"
             >
               <div className="h-3 bg-gradient-to-r from-[#d4a574] to-[#f59e0b]"></div>
-              <div className="p-8">
+              <div className="p-6 md:p-8">
                 <h3 className="text-2xl font-bold text-[#1e3a5f] mb-2">💑 Partner Support</h3>
                 <p className="text-sm text-gray-500 mb-4">3-week program</p>
                 <p className="text-gray-600 mb-6">Strengthen your relationship with communication tools and mutual support strategies</p>

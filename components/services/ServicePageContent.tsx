@@ -19,7 +19,7 @@ export default function ServicePageContent({ service, primaryQuestions, addition
   return (
     <>
       {/* Hero Section */}
-      <section className="relative pt-32 pb-16 overflow-hidden">
+      <section className="relative pt-32 pb-16 overflow-hidden service-page-header">
         <OrganicShape 
           variant="blob-1" 
           color="var(--bloom-pink)" 
@@ -44,7 +44,7 @@ export default function ServicePageContent({ service, primaryQuestions, addition
             transition={{ duration: 0.6 }}
           >
             <GlassmorphismPanel variant="prominent" className="p-8 md:p-12">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-playfair text-bloom-dark mb-6">
+              <h1 className="service-title text-4xl md:text-5xl lg:text-6xl font-playfair text-bloom-dark mb-6">
                 {service.title}
               </h1>
               

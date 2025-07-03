@@ -52,6 +52,7 @@ export type OnboardingData = {
 };
 
 type OnboardingStep = 'welcome' | 'account' | 'profile' | 'access' | 'consent' | 'complete';
+// Note: 'access' step is currently skipped in the flow but kept for future use
 
 interface OnboardingFlowProps {
   initialStep?: OnboardingStep;
@@ -116,14 +117,14 @@ export default function OnboardingFlow({
   // Dynamic steps based on authentication status and source
   const steps: OnboardingStep[] = (() => {
     if (source === 'signup' && user) {
-      // User just signed up - skip welcome and account, but still need profile for additional info
-      return ['profile', 'consent', 'access', 'complete'];
+      // User just signed up - skip welcome and account, and skip access (course selection)
+      return ['profile', 'consent', 'complete'];
     } else if (user) {
-      // Existing authenticated user
-      return ['profile', 'access', 'consent', 'complete'];
+      // Existing authenticated user - skip access (course selection)
+      return ['profile', 'consent', 'complete'];
     } else {
-      // New user, not authenticated
-      return ['welcome', 'account', 'profile', 'access', 'consent', 'complete'];
+      // New user, not authenticated - skip access (course selection)
+      return ['welcome', 'account', 'profile', 'consent', 'complete'];
     }
   })();
     

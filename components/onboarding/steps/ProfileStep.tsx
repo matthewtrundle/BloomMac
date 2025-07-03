@@ -387,8 +387,8 @@ export default function ProfileStep({
       }
       
       console.log('✅ Profile saved successfully:', result);
-      setError('✅ Profile saved! Moving to next step...');
-
+      // Don't show success as error - just move to next step
+      
       // Track profile completion
       try {
         await fetch('/api/analytics/track', {

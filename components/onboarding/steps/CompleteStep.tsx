@@ -29,63 +29,26 @@ export default function CompleteStep({
   const { user } = useAuth();
 
   const getAccessTypeMessage = () => {
-    switch (data.accessType) {
-      case 'course':
-        return {
-          title: 'Course Access Ready!',
-          description: 'You now have access to Dr. Jana\'s complete wellness program',
-          action: 'Start Your Course',
-          icon: '📚'
-        };
-      case 'workshop':
-        return {
-          title: 'Workshop Registration Complete!',
-          description: 'You\'ll receive details about upcoming live sessions',
-          action: 'View Workshop Schedule',
-          icon: '👥'
-        };
-      case 'waitlist':
-        return {
-          title: 'Welcome to the Waitlist!',
-          description: 'You\'ll be the first to know when courses and workshops launch',
-          action: 'Go to Dashboard',
-          icon: '⭐'
-        };
-      default:
-        return {
-          title: 'Welcome to Bloom Psychology!',
-          description: 'Your wellness journey starts now',
-          action: 'Continue',
-          icon: '🌸'
-        };
-    }
+    // Since we're not doing course selection, always show welcome message
+    const firstName = data.firstName || user?.user_metadata?.first_name || '';
+    return {
+      title: firstName ? `Welcome to Bloom, ${firstName}!` : 'Welcome to Bloom Psychology!',
+      description: 'Your personalized wellness journey begins here. We\'re so glad you\'re joining our community.',
+      action: 'Explore Your Dashboard',
+      icon: '🌸'
+    };
   };
 
   const accessMessage = getAccessTypeMessage();
 
   const getNextSteps = () => {
-    if (data.accessType === 'waitlist') {
-      return [
-        'Check your email for a welcome message',
-        'Follow us on social media for updates',
-        'Look out for early access notifications',
-        'Explore our free resources in the meantime'
-      ];
-    } else if (data.accessType === 'workshop') {
-      return [
-        'Check your email for workshop details',
-        'Add workshop dates to your calendar',
-        'Prepare any questions you\'d like to ask',
-        'Join our community discussion group'
-      ];
-    } else {
-      return [
-        'Start with Week 1: Understanding Your Journey',
-        'Complete your wellness assessment',
-        'Set up your daily meditation practice',
-        'Join our private community group'
-      ];
-    }
+    // Welcome steps for all new users
+    return [
+      'Explore your personalized dashboard',
+      'Browse our upcoming courses and workshops',
+      'Join our supportive community',
+      'Check your email for wellness tips and updates'
+    ];
   };
 
   const nextSteps = getNextSteps();
@@ -123,7 +86,7 @@ export default function CompleteStep({
 
         {/* Next Steps */}
         <div className="bg-bloom-sage-50 rounded-xl p-6 mb-8 text-left max-w-md mx-auto">
-          <h3 className="font-semibold text-bloom-dark mb-4">Your Next Steps:</h3>
+          <h3 className="font-semibold text-bloom-dark mb-4">What\'s Next:</h3>
           <ul className="space-y-3">
             {nextSteps.map((step, index) => (
               <motion.li
@@ -139,6 +102,27 @@ export default function CompleteStep({
             ))}
           </ul>
         </div>
+
+        {/* Marketing consent reminder if they opted in */}
+        {data.marketingConsent && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1 }}
+            className="mb-6 p-4 bg-blue-50 rounded-lg max-w-md mx-auto"
+          >
+            <p className="text-sm text-blue-800 flex items-start gap-2">
+              <svg className="w-5 h-5 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+              </svg>
+              <span>
+                <strong>You\'re subscribed!</strong> You\'ll receive wellness tips and course updates. 
+                You can unsubscribe anytime from your dashboard.
+              </span>
+            </p>
+          </motion.div>
+        )}
 
         {/* Action Button */}
         <Button
@@ -157,32 +141,17 @@ export default function CompleteStep({
       </motion.div>
 
       {/* Floating celebration elements */}
-      <motion.div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {[...Array(6)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-4 h-4 bg-bloompink/20 rounded-full"
-            style={{
-              left: `${20 + i * 15}%`,
-              top: '100%'
-            }}
-            initial={{ 
-              y: 0,
-              opacity: 0
-            }}
-            animate={{ 
-              y: -400,
-              opacity: [0, 1, 0],
-              rotate: 360
-            }}
-            transition={{ 
-              duration: 3,
-              delay: i * 0.2,
-              repeat: Infinity,
-              repeatDelay: 5
-            }}
-          />
-        ))}
+      {/* Personal welcome message */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.5 }}
+        className="mt-8 text-center"
+      >
+        <p className="text-sm text-bloom-gray-600 italic">
+          "Welcome to our community. Your journey to wellness is unique, and we\'re here to support you every step of the way."
+        </p>
+        <p className="text-xs text-bloom-gray-500 mt-2">— Dr. Jana Rundle</p>
       </motion.div>
     </div>
   );
