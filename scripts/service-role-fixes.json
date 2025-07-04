@@ -1,0 +1,232 @@
+[
+  {
+    "file": "app/api/admin/auth/login/route.ts",
+    "severity": "high",
+    "action": "Replace with user-authenticated Supabase client"
+  },
+  {
+    "file": "app/api/admin/auth/logout/route.ts",
+    "severity": "high",
+    "action": "Replace with user-authenticated Supabase client"
+  },
+  {
+    "file": "app/api/admin/auth/session/route.ts",
+    "severity": "high",
+    "action": "Replace with user-authenticated Supabase client"
+  },
+  {
+    "file": "app/api/admin/careers/[id]/route.ts",
+    "severity": "high",
+    "action": "Replace with user-authenticated Supabase client"
+  },
+  {
+    "file": "app/api/admin/careers/route.ts",
+    "severity": "high",
+    "action": "Replace with user-authenticated Supabase client"
+  },
+  {
+    "file": "app/api/admin/contacts/[id]/route.ts",
+    "severity": "high",
+    "action": "Replace with user-authenticated Supabase client"
+  },
+  {
+    "file": "app/api/admin/contacts/route.ts",
+    "severity": "high",
+    "action": "Replace with user-authenticated Supabase client"
+  },
+  {
+    "file": "app/api/auth/signup/route.ts",
+    "severity": "high",
+    "action": "Replace with user-authenticated Supabase client"
+  },
+  {
+    "file": "app/api/careers/apply/route.ts",
+    "severity": "high",
+    "action": "Replace with user-authenticated Supabase client"
+  },
+  {
+    "file": "app/api/contact/submit/route.ts",
+    "severity": "high",
+    "action": "Replace with user-authenticated Supabase client"
+  },
+  {
+    "file": "app/api/payments/charge-no-show/route.ts",
+    "severity": "high",
+    "action": "Replace with user-authenticated Supabase client"
+  },
+  {
+    "file": "app/api/profile/save/route.ts",
+    "severity": "high",
+    "action": "Replace with user-authenticated Supabase client"
+  },
+  {
+    "file": "app/api/profile/update/route.ts",
+    "severity": "high",
+    "action": "Replace with user-authenticated Supabase client"
+  },
+  {
+    "file": "app/api/unsubscribe/route.ts",
+    "severity": "high",
+    "action": "Replace with user-authenticated Supabase client"
+  },
+  {
+    "file": "app/api/user/newsletter-preferences/route.ts",
+    "severity": "high",
+    "action": "Replace with user-authenticated Supabase client"
+  },
+  {
+    "file": "app/api/user/newsletter-unsubscribe/route.ts",
+    "severity": "high",
+    "action": "Replace with user-authenticated Supabase client"
+  },
+  {
+    "file": "app/api/webhooks/calendly/route.ts",
+    "severity": "high",
+    "action": "Replace with user-authenticated Supabase client"
+  },
+  {
+    "file": "archive/pages/api/backup.ts",
+    "severity": "high",
+    "action": "Replace with user-authenticated Supabase client"
+  },
+  {
+    "file": "archive/pages/api/debug/debug-email-save.ts",
+    "severity": "high",
+    "action": "Replace with user-authenticated Supabase client"
+  },
+  {
+    "file": "archive/pages/api/debug/test-registration.ts",
+    "severity": "high",
+    "action": "Replace with user-authenticated Supabase client"
+  },
+  {
+    "file": "archive/pages/api/test/test-env.ts",
+    "severity": "high",
+    "action": "Replace with user-authenticated Supabase client"
+  },
+  {
+    "file": "pages/api/analytics.ts",
+    "severity": "high",
+    "action": "Replace with user-authenticated Supabase client"
+  },
+  {
+    "file": "pages/api/calendly-webhook.ts",
+    "severity": "high",
+    "action": "Replace with user-authenticated Supabase client"
+  },
+  {
+    "file": "pages/api/chat-capture.ts",
+    "severity": "high",
+    "action": "Replace with user-authenticated Supabase client"
+  },
+  {
+    "file": "pages/api/chatbot.ts",
+    "severity": "high",
+    "action": "Replace with user-authenticated Supabase client"
+  },
+  {
+    "file": "pages/api/course/content.ts",
+    "severity": "high",
+    "action": "Replace with user-authenticated Supabase client"
+  },
+  {
+    "file": "pages/api/email-analytics.ts",
+    "severity": "high",
+    "action": "Replace with user-authenticated Supabase client"
+  },
+  {
+    "file": "pages/api/email-automations.ts",
+    "severity": "high",
+    "action": "Replace with user-authenticated Supabase client"
+  },
+  {
+    "file": "pages/api/email-templates.ts",
+    "severity": "high",
+    "action": "Replace with user-authenticated Supabase client"
+  },
+  {
+    "file": "pages/api/heatmap-data.ts",
+    "severity": "high",
+    "action": "Replace with user-authenticated Supabase client"
+  },
+  {
+    "file": "pages/api/images-v2.ts",
+    "severity": "high",
+    "action": "Replace with user-authenticated Supabase client"
+  },
+  {
+    "file": "pages/api/newsletter-admin.ts",
+    "severity": "high",
+    "action": "Replace with user-authenticated Supabase client"
+  },
+  {
+    "file": "pages/api/newsletter-signup.ts",
+    "severity": "high",
+    "action": "Replace with user-authenticated Supabase client"
+  },
+  {
+    "file": "pages/api/stripe/webhook-with-auth.ts",
+    "severity": "high",
+    "action": "Replace with user-authenticated Supabase client"
+  },
+  {
+    "file": "pages/api/track-clicks.ts",
+    "severity": "high",
+    "action": "Replace with user-authenticated Supabase client"
+  },
+  {
+    "file": "pages/api/track-email-click.ts",
+    "severity": "high",
+    "action": "Replace with user-authenticated Supabase client"
+  },
+  {
+    "file": "pages/api/track-email-open.ts",
+    "severity": "high",
+    "action": "Replace with user-authenticated Supabase client"
+  },
+  {
+    "file": "pages/api/track-event.ts",
+    "severity": "high",
+    "action": "Replace with user-authenticated Supabase client"
+  },
+  {
+    "file": "pages/api/trigger-resource-download.ts",
+    "severity": "high",
+    "action": "Replace with user-authenticated Supabase client"
+  },
+  {
+    "file": "pages/api/upload-blog-image.ts",
+    "severity": "high",
+    "action": "Replace with user-authenticated Supabase client"
+  },
+  {
+    "file": "lib/auth-secure.ts",
+    "severity": "medium",
+    "action": "Create separate server-only module or remove"
+  },
+  {
+    "file": "lib/auth.ts",
+    "severity": "medium",
+    "action": "Create separate server-only module or remove"
+  },
+  {
+    "file": "lib/blog-storage-supabase.ts",
+    "severity": "medium",
+    "action": "Create separate server-only module or remove"
+  },
+  {
+    "file": "lib/email-automation.ts",
+    "severity": "medium",
+    "action": "Create separate server-only module or remove"
+  },
+  {
+    "file": "lib/supabase.ts",
+    "severity": "medium",
+    "action": "Create separate server-only module or remove"
+  },
+  {
+    "file": "supabase/functions/process-email-automation/index.ts",
+    "severity": "medium",
+    "action": "Review and update based on context"
+  }
+]

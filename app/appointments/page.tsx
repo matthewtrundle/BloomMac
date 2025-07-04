@@ -48,6 +48,16 @@ export default function AppointmentsPage() {
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<'schedule' | 'history' | 'payments'>('schedule');
 
+  // Handle hash navigation to specific tabs
+  useEffect(() => {
+    const hash = window.location.hash.replace('#', '');
+    if (hash === 'payments') {
+      setActiveTab('payments');
+    } else if (hash === 'history') {
+      setActiveTab('history');
+    }
+  }, []);
+
   const handleCancelAppointment = async (appointmentId: string) => {
     // Refresh appointments after cancellation
     fetchUserData();

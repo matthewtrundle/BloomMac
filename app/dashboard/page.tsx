@@ -377,6 +377,15 @@ export default function SimpleDashboardPage() {
               </svg>
               <span>Settings</span>
             </a>
+            <a 
+              href="/appointments#payments"
+              className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-bloom-sage-50 transition-colors text-sm"
+            >
+              <svg className="w-4 h-4 text-bloom-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+              </svg>
+              <span>Payment Methods</span>
+            </a>
           </div>
         </div>
 
@@ -412,7 +421,7 @@ export default function SimpleDashboardPage() {
               </a>
               
               <a 
-                href="/simple-appointments"
+                href="/appointments"
                 className="flex flex-col items-center gap-1 px-3 py-2 rounded-lg hover:bg-bloom-accent/10 transition-colors group min-w-20"
               >
                 <div className="w-8 h-8 bg-bloom-accent/10 rounded-lg flex items-center justify-center group-hover:bg-bloom-accent/20 transition-colors">
@@ -470,7 +479,7 @@ export default function SimpleDashboardPage() {
             </a>
             
             <a 
-              href="/simple-appointments"
+              href="/appointments"
               className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-bloom-accent/10 transition-colors group"
             >
               <div className="w-8 h-8 bg-bloom-accent/10 rounded-lg flex items-center justify-center group-hover:bg-bloom-accent/20 transition-colors">
@@ -624,7 +633,7 @@ export default function SimpleDashboardPage() {
                         </a>
                         
                         <a 
-                          href="/simple-appointments" 
+                          href="/appointments" 
                           className="flex items-center gap-3 p-3 bg-gradient-to-r from-bloompink-50 to-bloompink-100 border border-bloompink-200 rounded-lg hover:border-bloompink-300 transition-all group"
                         >
                           <div className="w-10 h-10 bg-bloompink rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
@@ -743,7 +752,7 @@ export default function SimpleDashboardPage() {
                                   <span className="text-sm font-medium text-bloom-sage">Continue Courses</span>
                                 </a>
                                 <a 
-                                  href="/simple-appointments" 
+                                  href="/appointments" 
                                   className="flex items-center gap-2 p-3 bg-bloom-accent/10 rounded-lg hover:bg-bloom-accent/20 transition-colors"
                                 >
                                   <svg className="w-4 h-4 text-bloom-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -811,7 +820,7 @@ export default function SimpleDashboardPage() {
                   <div className="text-xs text-bloom-dark/50 mt-1">Healing focus</div>
                 </a>
                 <a 
-                  href="/simple-appointments"
+                  href="/appointments"
                   className="text-center p-3 bg-gradient-to-br from-bloom-accent-50 to-bloom-accent-100 rounded-lg border border-bloom-accent-200 hover:border-bloom-accent-300 transition-all group cursor-pointer"
                 >
                   <div className="w-8 h-8 bg-bloom-accent rounded-full flex items-center justify-center mx-auto mb-2 group-hover:scale-110 transition-transform">
@@ -993,7 +1002,7 @@ export default function SimpleDashboardPage() {
                 <h3 className="text-lg font-semibold text-bloom-dark">Appointments</h3>
               </div>
               <a 
-                href="/simple-appointments"
+                href="/appointments"
                 className="text-sm font-medium text-bloom-accent hover:text-bloom-accent/80 transition-colors"
               >
                 View all →
@@ -1054,7 +1063,7 @@ export default function SimpleDashboardPage() {
                             {appointment.status}
                           </span>
                           <a
-                            href="/simple-appointments"
+                            href="/appointments"
                             className="px-3 py-1 bg-bloom-sage text-white rounded text-sm hover:bg-bloom-sage/90 transition-colors"
                           >
                             Manage
@@ -1066,7 +1075,7 @@ export default function SimpleDashboardPage() {
                 })}
                 {upcomingAppointments.length > 3 && (
                   <div className="text-center pt-2">
-                    <a href="/simple-appointments" className="text-bloom-sage hover:text-bloom-sage/80 text-sm underline">
+                    <a href="/appointments" className="text-bloom-sage hover:text-bloom-sage/80 text-sm underline">
                       View {upcomingAppointments.length - 3} more appointments →
                     </a>
                   </div>
@@ -1096,7 +1105,7 @@ export default function SimpleDashboardPage() {
                   </div>
                 </div>
                 <a 
-                  href="/simple-appointments"
+                  href="/appointments"
                   className="inline-flex items-center gap-2 px-6 py-3 bg-bloom-sage text-white rounded-lg hover:bg-bloom-sage/90 transition-colors"
                 >
                   <span>📅</span>

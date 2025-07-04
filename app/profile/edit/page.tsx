@@ -58,11 +58,7 @@ export default function SimpleEditProfilePage() {
     try {
       setLoading(true);
       
-      const response = await fetch('/api/profile/get', {
-        headers: {
-          'Authorization': `Bearer ${user.access_token || ''}`,
-        },
-      });
+      const response = await fetch('/api/profile/get');
 
       if (response.ok) {
         const data = await response.json();
@@ -81,6 +77,9 @@ export default function SimpleEditProfilePage() {
             timezone: data.profile.timezone || Intl.DateTimeFormat().resolvedOptions().timeZone
           });
         }
+      } else {
+        console.error('Failed to fetch profile:', response.status);
+        setMessage({ type: 'error', text: 'Failed to load profile data' });
       }
     } catch (error) {
       console.error('Error fetching profile:', error);

@@ -14,9 +14,9 @@ export async function GET(request: NextRequest) {
       );
     }
     
-    // Get user profile from profiles table
+    // Get user profile from user_profiles table
     const { data: profile, error } = await supabase
-      .from('profiles')
+      .from('user_profiles')
       .select('*')
       .eq('id', session.user.id)
       .single();
@@ -27,10 +27,9 @@ export async function GET(request: NextRequest) {
       // If profile doesn't exist, create a basic one
       if (error.code === 'PGRST116') {
         const { data: newProfile, error: insertError } = await supabase
-          .from('profiles')
+          .from('user_profiles')
           .insert({
             id: session.user.id,
-            email: session.user.email,
             first_name: session.user.user_metadata?.first_name || '',
             last_name: session.user.user_metadata?.last_name || '',
             created_at: new Date().toISOString()

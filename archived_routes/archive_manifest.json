@@ -1,0 +1,180 @@
+{
+  "timestamp": "2025-07-04T14:31:08.881Z",
+  "routes": [
+    {
+      "oldRoute": "app/api/admin/auth/login/route.ts",
+      "secureRoute": "app/api/admin/auth/login/route-secure.ts",
+      "oldExists": true,
+      "secureExists": true,
+      "action": "READY"
+    },
+    {
+      "oldRoute": "app/api/admin/auth/logout/route.ts",
+      "secureRoute": "app/api/admin/auth/logout/route-secure.ts",
+      "oldExists": true,
+      "secureExists": true,
+      "action": "READY"
+    },
+    {
+      "oldRoute": "app/api/admin/auth/session/route.ts",
+      "secureRoute": "app/api/admin/auth/session/route-secure.ts",
+      "oldExists": true,
+      "secureExists": true,
+      "action": "READY"
+    },
+    {
+      "oldRoute": "app/api/admin/contacts/route.ts",
+      "secureRoute": "app/api/admin/contacts/route-secure.ts",
+      "oldExists": true,
+      "secureExists": true,
+      "action": "READY"
+    },
+    {
+      "oldRoute": "app/api/admin/contacts/[id]/route.ts",
+      "secureRoute": "app/api/admin/contacts/[id]/route-secure.ts",
+      "oldExists": true,
+      "secureExists": true,
+      "action": "READY"
+    },
+    {
+      "oldRoute": "app/api/admin/careers/route.ts",
+      "secureRoute": "app/api/admin/careers/route-secure.ts",
+      "oldExists": true,
+      "secureExists": true,
+      "action": "READY"
+    },
+    {
+      "oldRoute": "app/api/admin/careers/[id]/route.ts",
+      "secureRoute": "app/api/admin/careers/[id]/route-secure.ts",
+      "oldExists": true,
+      "secureExists": true,
+      "action": "READY"
+    },
+    {
+      "oldRoute": "app/api/auth/signup/route.ts",
+      "secureRoute": "app/api/auth/signup/route-secure.ts",
+      "oldExists": true,
+      "secureExists": true,
+      "action": "READY"
+    },
+    {
+      "oldRoute": "app/api/profile/save/route.ts",
+      "secureRoute": "app/api/profile/save/route-secure.ts",
+      "oldExists": true,
+      "secureExists": true,
+      "action": "READY"
+    },
+    {
+      "oldRoute": "app/api/profile/update/route.ts",
+      "secureRoute": "app/api/profile/update/route-secure.ts",
+      "oldExists": true,
+      "secureExists": true,
+      "action": "READY"
+    },
+    {
+      "oldRoute": "app/api/contact/submit/route.ts",
+      "secureRoute": "app/api/contact/submit/route-secure.ts",
+      "oldExists": true,
+      "secureExists": true,
+      "action": "READY"
+    },
+    {
+      "oldRoute": "app/api/careers/apply/route.ts",
+      "secureRoute": "app/api/careers/apply/route-secure.ts",
+      "oldExists": true,
+      "secureExists": true,
+      "action": "READY"
+    },
+    {
+      "oldRoute": "app/api/unsubscribe/route.ts",
+      "secureRoute": "app/api/unsubscribe/route-secure.ts",
+      "oldExists": true,
+      "secureExists": true,
+      "action": "READY"
+    },
+    {
+      "oldRoute": "app/api/user/newsletter-preferences/route.ts",
+      "secureRoute": "app/api/user/newsletter-preferences/route-secure.ts",
+      "oldExists": true,
+      "secureExists": true,
+      "action": "READY"
+    },
+    {
+      "oldRoute": "app/api/user/newsletter-unsubscribe/route.ts",
+      "secureRoute": "app/api/user/newsletter-unsubscribe/route-secure.ts",
+      "oldExists": true,
+      "secureExists": true,
+      "action": "READY"
+    },
+    {
+      "oldRoute": "pages/api/analytics.ts",
+      "secureRoute": "pages/api/analytics-secure.ts",
+      "oldExists": true,
+      "secureExists": true,
+      "action": "READY"
+    },
+    {
+      "oldRoute": "pages/api/chatbot.ts",
+      "secureRoute": "pages/api/chatbot-secure.ts",
+      "oldExists": true,
+      "secureExists": true,
+      "action": "READY"
+    },
+    {
+      "oldRoute": "pages/api/email-analytics.ts",
+      "secureRoute": "pages/api/email-analytics-secure.ts",
+      "oldExists": true,
+      "secureExists": true,
+      "action": "READY"
+    },
+    {
+      "oldRoute": "pages/api/newsletter-admin.ts",
+      "secureRoute": "pages/api/newsletter-admin-secure.ts",
+      "oldExists": true,
+      "secureExists": true,
+      "action": "READY"
+    },
+    {
+      "oldRoute": "pages/api/newsletter-signup.ts",
+      "secureRoute": "pages/api/newsletter-signup-secure.ts",
+      "oldExists": true,
+      "secureExists": true,
+      "action": "READY"
+    },
+    {
+      "oldRoute": "pages/api/track-email-click.ts",
+      "secureRoute": "pages/api/track-email-click-secure.ts",
+      "oldExists": true,
+      "secureExists": true,
+      "action": "READY"
+    },
+    {
+      "oldRoute": "pages/api/track-email-open.ts",
+      "secureRoute": "pages/api/track-email-open-secure.ts",
+      "oldExists": true,
+      "secureExists": true,
+      "action": "READY"
+    },
+    {
+      "oldRoute": "pages/api/track-event.ts",
+      "secureRoute": "pages/api/track-event-secure.ts",
+      "oldExists": true,
+      "secureExists": true,
+      "action": "READY"
+    },
+    {
+      "oldRoute": "app/api/webhooks/calendly/route.ts",
+      "secureRoute": "app/api/webhooks/calendly/route-secure.ts",
+      "oldExists": true,
+      "secureExists": true,
+      "action": "READY"
+    },
+    {
+      "oldRoute": "app/api/payments/charge-no-show/route.ts",
+      "secureRoute": "app/api/payments/charge-no-show/route-secure.ts",
+      "oldExists": true,
+      "secureExists": true,
+      "action": "READY"
+    }
+  ]
+}
