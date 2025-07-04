@@ -5,12 +5,14 @@ import { cookies } from 'next/headers';
 
 export async function GET(request: NextRequest) {
   try {
-    // Verify cron secret to prevent unauthorized access
+    // Verify this is a Vercel Cron job
     const authHeader = request.headers.get('authorization');
-    const cronSecret = process.env.CRON_SECRET;
     
-    if (!cronSecret || authHeader !== `Bearer ${cronSecret}`) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    // In production, Vercel adds CRON_SECRET automatically to cron requests
+    if (process.env.NODE_ENV === 'production') {
+      if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+      }
     }
 
     console.log('[Cron] Starting no-show processing job...');

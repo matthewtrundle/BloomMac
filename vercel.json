@@ -3,6 +3,29 @@
     {
       "path": "/api/process-email-automation",
       "schedule": "0 * * * *"
+    },
+    {
+      "path": "/api/cron/send-reminders",
+      "schedule": "0 * * * *"
+    },
+    {
+      "path": "/api/cron/capture-payments",
+      "schedule": "0 * * * *"
+    },
+    {
+      "path": "/api/cron/process-no-shows",
+      "schedule": "*/30 * * * *"
     }
-  ]
+  ],
+  "functions": {
+    "app/api/cron/send-reminders/route.ts": {
+      "maxDuration": 60
+    },
+    "app/api/cron/capture-payments/route.ts": {
+      "maxDuration": 60
+    },
+    "app/api/cron/process-no-shows/route.ts": {
+      "maxDuration": 60
+    }
+  }
 }
