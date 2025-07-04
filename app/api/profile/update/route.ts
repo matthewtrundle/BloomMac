@@ -48,14 +48,27 @@ export async function POST(request: NextRequest) {
       .eq('id', user.id)
       .single();
     
+    // Check error only for unexpected errors (not "no rows" error)
+    if (checkError && checkError.code !== 'PGRST116') {
+      console.error('Error checking profile:', checkError);
+      return NextResponse.json(
+        { 
+          error: 'Failed to check existing profile',
+          details: checkError.message
+        },
+        { status: 500 }
+      );
+    }
+    
     let result;
     
     if (existingProfile) {
       // Update existing profile
       console.log('Updating existing profile');
+      const { id, ...updateData } = profileData;
       result = await supabaseAdmin
         .from('user_profiles')
-        .update(profileData)
+        .update(updateData)
         .eq('id', user.id)
         .select()
         .single();

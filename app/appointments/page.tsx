@@ -3,12 +3,12 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
-import { supabase } from '@/lib/supabase';
+import { useSupabaseClient } from '@supabase/auth-helpers-react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import AppointmentScheduler from '@/components/appointments/AppointmentScheduler';
 import PaymentMethodManager from '@/components/payments/PaymentMethodManager';
-import { getUserPaymentHistory, getUserPaymentMethods } from '@/lib/payment-management';
+import { getUserPaymentHistory, getUserPaymentMethods } from '@/lib/payment-management-client';
 import { Calendar, Clock, AlertCircle, ExternalLink } from 'lucide-react';
 import Button from '@/components/ui/Button';
 
@@ -40,6 +40,7 @@ interface PaymentRecord {
 export default function AppointmentsPage() {
   const { user, loading: authLoading } = useAuth();
   const router = useRouter();
+  const supabase = useSupabaseClient();
   
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [paymentHistory, setPaymentHistory] = useState<PaymentRecord[]>([]);

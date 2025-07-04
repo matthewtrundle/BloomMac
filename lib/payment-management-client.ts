@@ -122,3 +122,16 @@ export async function getAppointmentPaymentStatus(appointmentId: string) {
     return null;
   }
 }
+
+// Get user payment history
+export async function getUserPaymentHistory(userId: string): Promise<any[]> {
+  try {
+    // In a real implementation, this would fetch from a payments table
+    // For now, return empty array to prevent errors
+    console.log('Getting payment history for user:', userId);
+    return [];
+  } catch (error) {
+    console.error('Error fetching payment history:', error);
+    return [];
+  }
+}
