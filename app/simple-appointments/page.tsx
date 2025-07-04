@@ -4,12 +4,13 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import Link from 'next/link';
-import { supabase } from '@/lib/supabase';
+import { useSupabaseClient } from '@supabase/auth-helpers-react';
 import AppointmentScheduler from '@/components/appointments/AppointmentScheduler';
 
 export default function SimpleAppointmentsPage() {
   const { user, loading: authLoading } = useAuth();
   const router = useRouter();
+  const supabase = useSupabaseClient();
   const [activeTab, setActiveTab] = useState<'schedule' | 'history'>('schedule');
   const [appointments, setAppointments] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);

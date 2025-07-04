@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import { useSupabaseClient } from '@supabase/auth-helpers-react';
 import { motion } from 'framer-motion';
-import { getNoShowStats, markAppointmentNoShow } from '@/lib/no-show-management';
+import { getNoShowStats, markAppointmentNoShow } from '@/lib/no-show-management-client';
 import { getReminderStats } from '@/lib/reminder-system';
 
 interface ProviderAppointment {

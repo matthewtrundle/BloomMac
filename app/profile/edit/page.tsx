@@ -98,36 +98,42 @@ export default function SimpleEditProfilePage() {
     setMessage(null);
 
     try {
-      const response = await fetch('/api/profile/save', {
+      const response = await fetch('/api/profile/update', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${user.access_token || ''}`,
         },
         body: JSON.stringify({
-          id: user.id,
           first_name: profile.first_name.trim(),
           last_name: profile.last_name.trim(),
           phone: profile.phone?.trim() || null,
           postpartum_date: profile.postpartum_date || null,
           baby_due_date: profile.baby_due_date || null,
-          number_of_children: profile.number_of_children,
+          number_of_children: profile.number_of_children || null,
           emergency_contact_name: profile.emergency_contact_name?.trim() || null,
           emergency_contact_phone: profile.emergency_contact_phone?.trim() || null,
           emergency_contact_relationship: profile.emergency_contact_relationship?.trim() || null,
-          timezone: profile.timezone,
-          updated_at: new Date().toISOString()
+          timezone: profile.timezone || null,
         }),
       });
 
       if (response.ok) {
+        const data = await response.json();
         setMessage({ type: 'success', text: 'Profile updated successfully!' });
+        // Update local state with the saved data
+        if (data.profile) {
+          setProfile(prev => ({ ...prev, ...data.profile }));
+        }
         setTimeout(() => {
           router.push('/dashboard');
         }, 2000);
       } else {
         const errorData = await response.json();
-        setMessage({ type: 'error', text: errorData.error || 'Failed to update profile' });
+        console.error('Profile update failed:', errorData);
+        setMessage({ 
+          type: 'error', 
+          text: errorData.details || errorData.error || 'Failed to update profile. Please try again.' 
+        });
       }
     } catch (error) {
       console.error('Error updating profile:', error);

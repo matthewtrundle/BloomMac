@@ -87,7 +87,7 @@ async function processReminders(targetTime: Date, reminderType: '24_hour' | '2_h
         const { data: profile } = await supabase
           .from('user_profiles')
           .select('first_name, last_name, phone')
-          .eq('user_id', appointment.user_id)
+          .eq('id', appointment.user_id)
           .single();
 
         const { data: user } = await supabase.auth.admin.getUserById(appointment.user_id);
