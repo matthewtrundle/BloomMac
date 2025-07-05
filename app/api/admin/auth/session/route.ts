@@ -1,10 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+import { createSupabaseServiceClient } from '@/lib/supabase-server';
 
 export async function GET(request: NextRequest) {
   try {
@@ -12,6 +7,9 @@ export async function GET(request: NextRequest) {
     const userId = request.headers.get('x-user-id');
     const userEmail = request.headers.get('x-user-email');
     const userRole = request.headers.get('x-user-role');
+    
+    // Use service client to verify admin status
+    const supabase = createSupabaseServiceClient();
 
     if (!userId) {
       return NextResponse.json(

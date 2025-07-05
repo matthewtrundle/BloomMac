@@ -1,15 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
-import { cookies } from 'next/headers';
-import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
+import { createSupabaseServiceClient, createSupabaseRouteHandlerClient } from '@/lib/supabase-server';
 
 export async function POST(request: NextRequest) {
   try {
     console.log('Profile update endpoint called');
     
     // Get the user from cookies
-    const cookieStore = cookies();
-    const supabase = createRouteHandlerClient({ cookies: () => cookieStore });
+    const { supabase, applySetCookies } = createSupabaseRouteHandlerClient(request);
     
     const { data: { user }, error: authError } = await supabase.auth.getUser();
     
@@ -26,10 +23,7 @@ export async function POST(request: NextRequest) {
     console.log('Profile data:', body);
     
     // Create admin client for database operations
-    const supabaseAdmin = createClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.SUPABASE_SERVICE_ROLE_KEY!
-    );
+    const supabaseAdmin = createSupabaseServiceClient();
     
     // Remove fields that might cause issues
     const { id, email, created_at, ...updateData } = body;

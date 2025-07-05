@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
-import { createClient } from '@supabase/supabase-js';
+import { createSupabaseServiceClient, createSupabaseRouteHandlerClient } from '@/lib/supabase-server';
 
 export async function POST(request: NextRequest) {
   try {
@@ -24,10 +24,7 @@ export async function POST(request: NextRequest) {
       const token = authHeader.replace('Bearer ', '');
       console.log('🔍 Trying Authorization header...');
       
-      const supabaseService = createClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        process.env.SUPABASE_SERVICE_ROLE_KEY!
-      );
+      const supabaseService = createSupabaseServiceClient();
       
       const { data: { user: tokenUser }, error: tokenError } = await supabaseService.auth.getUser(token);
       
@@ -43,8 +40,7 @@ export async function POST(request: NextRequest) {
     // Fallback to cookie-based auth
     if (!user) {
       console.log('🔍 Trying cookie-based auth...');
-      const cookieStore = cookies();
-      const supabase = createRouteHandlerClient({ cookies: () => cookieStore });
+      const { supabase, applySetCookies } = createSupabaseRouteHandlerClient(request);
       
       const { data: { user: cookieUser }, error: cookieError } = await supabase.auth.getUser();
       
@@ -115,10 +111,7 @@ export async function POST(request: NextRequest) {
     }
     
     // Use service role client to bypass RLS
-    const supabaseService = createClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.SUPABASE_SERVICE_ROLE_KEY!
-    );
+    const supabaseService = createSupabaseServiceClient();
     
     // Prepare profile data
     const profileData = {

@@ -1,10 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+import { createSupabaseServiceClient } from '@/lib/supabase-server';
 
 export async function GET(request: NextRequest) {
   try {
@@ -14,6 +9,9 @@ export async function GET(request: NextRequest) {
     if (!userId) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
+
+    // Create Supabase service client for admin operations
+    const supabase = createSupabaseServiceClient();
 
     // Get query parameters
     const { searchParams } = new URL(request.url);
@@ -101,6 +99,9 @@ export async function PATCH(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
+    // Create Supabase service client for admin operations
+    const supabase = createSupabaseServiceClient();
+
     const { action, applicationIds, newStatus } = await request.json();
 
     if (action === 'bulk_update_status') {
@@ -149,6 +150,9 @@ export async function DELETE(request: NextRequest) {
     if (!userId) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
+
+    // Create Supabase service client for admin operations
+    const supabase = createSupabaseServiceClient();
 
     const { ids } = await request.json();
     

@@ -1,11 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
+import { createSupabaseServiceClient } from '@/lib/supabase-server';
 import Stripe from 'stripe';
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: '2023-10-16',
@@ -21,6 +16,9 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     }
+
+    // Create Supabase service client for payment operations
+    const supabase = createSupabaseServiceClient();
 
     // Get user's Stripe customer ID
     const { data: profile, error: profileError } = await supabase

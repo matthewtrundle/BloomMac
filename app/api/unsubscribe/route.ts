@@ -1,13 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
-
-// Create Supabase client
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+import { createPublicClient } from '@/lib/supabase-server';
 
 export async function GET(request: NextRequest) {
+  const supabase = createPublicClient();
   const { searchParams } = new URL(request.url);
   const email = searchParams.get('email');
   const token = searchParams.get('token'); // Optional security token
@@ -213,6 +208,8 @@ export async function GET(request: NextRequest) {
 
 // Handle POST requests for form-based unsubscribe
 export async function POST(request: NextRequest) {
+  const supabase = createPublicClient();
+  
   try {
     const formData = await request.formData();
     const email = formData.get('email') as string;

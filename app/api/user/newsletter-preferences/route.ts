@@ -1,22 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+import { createSupabaseRouteHandlerClient, getAuthenticatedUser } from '@/lib/supabase-server';
 
 export async function GET(request: NextRequest) {
   try {
-    // Get user from session (you'll need to implement auth middleware)
-    const authHeader = request.headers.get('authorization');
-    if (!authHeader) {
+    const { supabase, applySetCookies } = createSupabaseRouteHandlerClient(request);
+    
+    // Get authenticated user
+    const user = await getAuthenticatedUser(supabase);
+    
+    if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    // For now, let's get email from query params (in production, get from auth)
-    const { searchParams } = new URL(request.url);
-    const email = searchParams.get('email');
+    // Get user's email
+    const email = user.email;
 
     if (!email) {
       return NextResponse.json({ error: 'Email required' }, { status: 400 });
@@ -31,24 +28,27 @@ export async function GET(request: NextRequest) {
 
     if (error && error.code === 'PGRST116') {
       // Not subscribed
-      return NextResponse.json({
+      const response = NextResponse.json({
         isSubscribed: false,
         email: email,
         subscriptionSource: '',
         subscribedAt: ''
       });
+      return applySetCookies(response);
     }
 
     if (error) {
       throw error;
     }
 
-    return NextResponse.json({
+    const response = NextResponse.json({
       isSubscribed: subscriber.status === 'active',
       email: subscriber.email,
       subscriptionSource: subscriber.source || 'website',
       subscribedAt: subscriber.created_at
     });
+    
+    return applySetCookies(response);
 
   } catch (error) {
     console.error('Newsletter preferences error:', error);

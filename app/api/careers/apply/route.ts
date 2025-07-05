@@ -1,12 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
+import { createPublicClient } from '@/lib/supabase-server';
 import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
-
-// Create Supabase client
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
 
 export async function POST(request: NextRequest) {
   // Apply rate limiting
@@ -113,6 +107,9 @@ export async function POST(request: NextRequest) {
         experienceYears = parseInt(yearMatch[1]);
       }
     }
+
+    // Create public Supabase client for anonymous submissions
+    const supabase = createPublicClient();
 
     // Save to database
     const { data: application, error: dbError } = await supabase

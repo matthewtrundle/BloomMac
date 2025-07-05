@@ -65,11 +65,19 @@ export async function middleware(request: NextRequest) {
   const isProtectedRoute = protectedRoutes.some(route => path.startsWith(route)) && !isExcludedRoute;
   const isProtectedApiRoute = protectedApiRoutes.some(route => path.startsWith(route));
   
-  if (isProtectedRoute || isProtectedApiRoute) {
+  // Admin auth routes should also get headers but don't require protection
+  const isAdminAuthRoute = path.startsWith('/api/admin/auth/');
+  
+  if (isProtectedRoute || isProtectedApiRoute || isAdminAuthRoute) {
     // Get token from cookie
     const token = request.cookies.get('adminToken')?.value;
     
     if (!token) {
+      // For admin auth routes, allow access without token (they handle their own auth)
+      if (isAdminAuthRoute && !isProtectedApiRoute) {
+        return NextResponse.next();
+      }
+      
       console.log(`[Middleware] No token for protected route: ${path}`);
       // Redirect to login if no token
       if (isProtectedApiRoute) {
@@ -94,7 +102,7 @@ export async function middleware(request: NextRequest) {
     console.log(`[Middleware] Valid token for user: ${decoded.email}`);
     
     // Add user info to headers for API routes
-    if (isProtectedApiRoute) {
+    if (isProtectedApiRoute || isAdminAuthRoute) {
       const requestHeaders = new Headers(request.headers);
       requestHeaders.set('x-user-id', decoded.userId || decoded.id);
       requestHeaders.set('x-user-email', decoded.email);

@@ -1,12 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
+import { createSupabaseServiceClient } from '@/lib/supabase-server';
 import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
-
-// Create Supabase client
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
 
 export async function POST(request: NextRequest) {
   // Apply rate limiting
@@ -46,6 +40,9 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     }
+
+    // Create Supabase service client for user creation
+    const supabase = createSupabaseServiceClient();
 
     // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

@@ -43,11 +43,8 @@ export function createSupabaseServerClient() {
  * Create a Supabase client for route handlers with proper auth
  */
 export function createSupabaseRouteHandlerClient(request: NextRequest) {
-  const response = NextResponse.next({
-    request: {
-      headers: request.headers,
-    },
-  });
+  // Store cookies that need to be set
+  const cookiesToSet: Array<{ name: string; value: string; options: CookieOptions }> = [];
 
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -58,18 +55,28 @@ export function createSupabaseRouteHandlerClient(request: NextRequest) {
           return request.cookies.get(name)?.value;
         },
         set(name: string, value: string, options: CookieOptions) {
-          request.cookies.set({ name, value, ...options });
-          response.cookies.set({ name, value, ...options });
+          cookiesToSet.push({ name, value, options });
         },
         remove(name: string, options: CookieOptions) {
-          request.cookies.set({ name, value: '', ...options });
-          response.cookies.set({ name, value: '', ...options });
+          cookiesToSet.push({ name, value: '', options });
         },
       },
     }
   );
 
-  return { supabase, response };
+  // Helper function to apply cookies to a response
+  const applySetCookies = (response: NextResponse) => {
+    cookiesToSet.forEach(({ name, value, options }) => {
+      if (value) {
+        response.cookies.set(name, value, options);
+      } else {
+        response.cookies.delete(name);
+      }
+    });
+    return response;
+  };
+
+  return { supabase, applySetCookies };
 }
 
 /**

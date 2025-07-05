@@ -1,18 +1,30 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+import { createSupabaseRouteHandlerClient, getAuthenticatedUser } from '@/lib/supabase-server';
 
 export async function POST(request: NextRequest) {
   try {
+    const { supabase, applySetCookies } = createSupabaseRouteHandlerClient(request);
+    
+    // Get authenticated user
+    const user = await getAuthenticatedUser(supabase);
+    
+    if (!user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const body = await request.json();
     const { email } = body;
 
-    if (!email) {
+    // Use authenticated user's email if not provided
+    const unsubscribeEmail = email || user.email;
+
+    if (!unsubscribeEmail) {
       return NextResponse.json({ error: 'Email is required' }, { status: 400 });
+    }
+
+    // Verify the email matches the authenticated user
+    if (unsubscribeEmail.toLowerCase() !== user.email?.toLowerCase()) {
+      return NextResponse.json({ error: 'Unauthorized to unsubscribe this email' }, { status: 403 });
     }
 
     // Unsubscribe user
@@ -22,7 +34,7 @@ export async function POST(request: NextRequest) {
         status: 'unsubscribed',
         updated_at: new Date().toISOString()
       })
-      .eq('email', email.toLowerCase())
+      .eq('email', unsubscribeEmail.toLowerCase())
       .select()
       .single();
 
@@ -41,16 +53,18 @@ export async function POST(request: NextRequest) {
         page: '/profile/settings',
         session_id: crypto.randomUUID(),
         data: {
-          email: email,
+          email: unsubscribeEmail,
           unsubscribe_method: 'profile_settings'
         }
       });
 
-    return NextResponse.json({
+    const response = NextResponse.json({
       success: true,
       message: 'Successfully unsubscribed from newsletter',
       isSubscribed: false
     });
+    
+    return applySetCookies(response);
 
   } catch (error) {
     console.error('Newsletter unsubscribe error:', error);

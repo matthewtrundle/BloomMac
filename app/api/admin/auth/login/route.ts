@@ -1,12 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
 import { SignJWT } from 'jose';
-
-// Create Supabase admin client
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+import { createSupabaseServiceClient } from '@/lib/supabase-server';
 
 const JWT_SECRET = new TextEncoder().encode(
   process.env.JWT_SECRET || 'bloom-admin-secret-key-change-in-production'
@@ -15,6 +9,9 @@ const JWT_SECRET = new TextEncoder().encode(
 export async function POST(request: NextRequest) {
   try {
     const { email, password } = await request.json();
+    
+    // Use service client for authentication operations
+    const supabase = createSupabaseServiceClient();
 
     if (!email || !password) {
       return NextResponse.json(

@@ -1,12 +1,7 @@
 import { headers } from 'next/headers';
 import { NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
+import { createSupabaseServiceClient } from '@/lib/supabase-server';
 import crypto from 'crypto';
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
 
 const webhookSecret = process.env.CALENDLY_WEBHOOK_SECRET!;
 
@@ -88,6 +83,9 @@ export async function POST(req: Request) {
     }
 
     const event: CalendlyEvent = JSON.parse(body);
+
+    // Create Supabase service client for webhook operations
+    const supabase = createSupabaseServiceClient();
 
     // Store webhook event to prevent duplicate processing
     const eventUuid = event.payload.event?.uuid || event.payload.invitee?.uuid || crypto.randomUUID();
@@ -184,6 +182,9 @@ async function handleInviteeCreated(event: CalendlyEvent) {
     throw new Error('Missing invitee or event data');
   }
 
+  // Create Supabase service client
+  const supabase = createSupabaseServiceClient();
+
   // Extract user ID from custom answers
   const userIdAnswer = invitee.questions_and_answers?.find(qa => qa.question === 'User ID');
   const userId = userIdAnswer?.answer;
@@ -272,6 +273,9 @@ async function handleInviteeCanceled(event: CalendlyEvent) {
     throw new Error('Missing invitee or event data');
   }
 
+  // Create Supabase service client
+  const supabase = createSupabaseServiceClient();
+
   // Update appointment status
   const { data: appointment, error } = await supabase
     .from('appointment_data')
@@ -340,6 +344,9 @@ async function handleInviteeRescheduled(event: CalendlyEvent) {
   if (!invitee || !eventData) {
     throw new Error('Missing invitee or event data');
   }
+
+  // Create Supabase service client
+  const supabase = createSupabaseServiceClient();
 
   // Update appointment with new time
   const { data: appointment, error } = await supabase

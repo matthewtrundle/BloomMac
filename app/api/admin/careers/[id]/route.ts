@@ -1,10 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+import { createSupabaseServiceClient } from '@/lib/supabase-server';
 
 // Get single application
 export async function GET(
@@ -16,6 +11,9 @@ export async function GET(
     if (!userId) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
+
+    // Create Supabase service client for admin operations
+    const supabase = createSupabaseServiceClient();
 
     const { data: application, error } = await supabase
       .from('career_applications')
@@ -60,6 +58,9 @@ export async function PATCH(
     if (!userId) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
+
+    // Create Supabase service client for admin operations
+    const supabase = createSupabaseServiceClient();
 
     const updates = await request.json();
     const allowedUpdates = ['status', 'admin_notes', 'reviewed_at', 'reviewed_by'];
@@ -122,6 +123,9 @@ export async function DELETE(
     if (!userId) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
+
+    // Create Supabase service client for admin operations
+    const supabase = createSupabaseServiceClient();
 
     // Get application info before deleting for logging
     const { data: application } = await supabase
