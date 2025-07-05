@@ -4,15 +4,15 @@ import { headers } from 'next/headers';
 // In-memory store for rate limiting (consider Redis for production)
 const rateLimitStore = new Map<string, { count: number; resetTime: number }>();
 
-// Clean up expired entries every 5 minutes
-setInterval(() => {
+// Clean up expired entries when checking rate limits
+function cleanupExpiredEntries() {
   const now = Date.now();
   for (const [key, value] of rateLimitStore.entries()) {
     if (value.resetTime < now) {
       rateLimitStore.delete(key);
     }
   }
-}, 5 * 60 * 1000);
+}
 
 export interface RateLimitConfig {
   interval: number; // Time window in milliseconds
@@ -48,13 +48,23 @@ export async function rateLimit(
   config: RateLimitConfig,
   identifier?: string
 ): Promise<RateLimitResult> {
+  // Clean up expired entries periodically
+  if (Math.random() < 0.01) { // 1% chance to cleanup
+    cleanupExpiredEntries();
+  }
+  
   // Get identifier from IP address if not provided
   if (!identifier) {
-    const headersList = headers();
-    identifier = 
-      headersList.get('x-forwarded-for') || 
-      headersList.get('x-real-ip') || 
-      'anonymous';
+    try {
+      const headersList = headers();
+      identifier = 
+        headersList.get('x-forwarded-for') || 
+        headersList.get('x-real-ip') || 
+        'anonymous';
+    } catch (e) {
+      // headers() might not be available in all contexts
+      identifier = 'anonymous';
+    }
   }
   
   const now = Date.now();
