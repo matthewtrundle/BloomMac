@@ -156,7 +156,7 @@ export async function POST(request: NextRequest) {
         .insert({
           email: email.toLowerCase().trim(),
           source,
-          subscribed: true,
+          status: 'active',
           created_at: new Date().toISOString()
         })
         .select()

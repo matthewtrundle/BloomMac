@@ -54,7 +54,7 @@ export async function GET(request: NextRequest) {
       
       // Newsletter signups
       supabase
-        .from('newsletter_subscribers')
+        .from('subscribers')
         .select('status, created_at')
         .gte('created_at', startDate.toISOString())
     ]);

@@ -17,8 +17,8 @@ export async function GET(request: NextRequest) {
     const { error } = await supabase
       .from('subscribers')
       .update({ 
-        subscribed: false,
-        unsubscribed_at: new Date().toISOString()
+        status: 'unsubscribed',
+        updated_at: new Date().toISOString()
       })
       .eq('email', email);
 
