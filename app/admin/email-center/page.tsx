@@ -84,13 +84,6 @@ export default function EmailCenterPage() {
 
   const loadData = async () => {
     try {
-      // Check authentication
-      const authResponse = await fetch('/api/admin/activity-log');
-      if (!authResponse.ok) {
-        window.location.href = '/admin/login';
-        return;
-      }
-
       // Load newsletter data (this works)
       const newsletterResponse = await fetch('/api/newsletter-admin');
       if (newsletterResponse.ok) {
