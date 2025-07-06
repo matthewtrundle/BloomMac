@@ -29,12 +29,78 @@ export default function SettingsPage() {
   const { user, loading: authLoading } = useAuth();
   const [activeTab, setActiveTab] = useState('notifications');
   const [loading, setLoading] = useState(false);
+  
+  // Privacy settings state
+  const [privacySettings, setPrivacySettings] = useState({
+    share_data_research: false,
+    profile_visibility: 'private',
+    analytics_enabled: true,
+    contact_visibility: 'friends'
+  });
+  const [savingPrivacy, setSavingPrivacy] = useState(false);
+  const [privacyMessage, setPrivacyMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
+  
+  // Password change state
+  const [passwordData, setPasswordData] = useState({
+    currentPassword: '',
+    newPassword: '',
+    confirmPassword: ''
+  });
+  const [passwordError, setPasswordError] = useState('');
+  const [passwordSuccess, setPasswordSuccess] = useState('');
 
   useEffect(() => {
     if (!authLoading && !user) {
       router.push('/auth/login');
     }
   }, [user, authLoading, router]);
+
+  // Fetch privacy settings when tab becomes active
+  useEffect(() => {
+    if (user && activeTab === 'privacy') {
+      fetchPrivacySettings();
+    }
+  }, [user, activeTab]);
+
+  async function fetchPrivacySettings() {
+    try {
+      const response = await fetch('/api/user/settings/privacy');
+      const data = await response.json();
+      
+      if (data.success && data.privacy_settings) {
+        setPrivacySettings(data.privacy_settings);
+      }
+    } catch (error) {
+      console.error('Failed to fetch privacy settings:', error);
+      setPrivacyMessage({ type: 'error', text: 'Failed to load privacy settings' });
+    }
+  }
+
+  async function savePrivacySettings() {
+    try {
+      setSavingPrivacy(true);
+      setPrivacyMessage(null);
+      
+      const response = await fetch('/api/user/settings/privacy', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ privacy_settings: privacySettings })
+      });
+      
+      const data = await response.json();
+      
+      if (data.success) {
+        setPrivacyMessage({ type: 'success', text: 'Privacy settings saved successfully!' });
+      } else {
+        throw new Error(data.error || 'Failed to save settings');
+      }
+    } catch (error) {
+      console.error('Failed to save privacy settings:', error);
+      setPrivacyMessage({ type: 'error', text: 'Failed to save privacy settings' });
+    } finally {
+      setSavingPrivacy(false);
+    }
+  }
 
   if (authLoading) {
     return (
@@ -50,11 +116,58 @@ export default function SettingsPage() {
   if (!user) {
     return null;
   }
-
-  const handlePasswordReset = async () => {
+  
+  const handlePasswordChange = async () => {
     setLoading(true);
-    // Password reset logic would go here
-    setLoading(false);
+    setPasswordError('');
+    setPasswordSuccess('');
+    
+    // Validate passwords
+    if (!passwordData.currentPassword || !passwordData.newPassword) {
+      setPasswordError('Please fill in all password fields');
+      setLoading(false);
+      return;
+    }
+    
+    if (passwordData.newPassword.length < 8) {
+      setPasswordError('New password must be at least 8 characters');
+      setLoading(false);
+      return;
+    }
+    
+    if (passwordData.newPassword !== passwordData.confirmPassword) {
+      setPasswordError('New passwords do not match');
+      setLoading(false);
+      return;
+    }
+    
+    try {
+      const response = await fetch('/api/user/settings/security/change-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          currentPassword: passwordData.currentPassword,
+          newPassword: passwordData.newPassword
+        })
+      });
+      
+      const data = await response.json();
+      
+      if (response.ok && data.success) {
+        setPasswordSuccess('Password changed successfully!');
+        setPasswordData({ currentPassword: '', newPassword: '', confirmPassword: '' });
+        // Sign out after password change
+        setTimeout(() => {
+          router.push('/auth/login');
+        }, 2000);
+      } else {
+        setPasswordError(data.error || 'Failed to change password');
+      }
+    } catch (error) {
+      setPasswordError('An error occurred. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleDataExport = async () => {
@@ -209,15 +322,89 @@ export default function SettingsPage() {
                         </div>
                       </div>
                       
-                      <div>
-                        <Button 
-                          onClick={handlePasswordReset}
-                          variant="outline"
-                          disabled={loading}
-                        >
-                          <Lock className="h-4 w-4 mr-2" />
-                          Reset Password
-                        </Button>
+                      <div className="border-t pt-4">
+                        <h4 className="font-medium mb-3">Change Password</h4>
+                        
+                        {/* Password change messages */}
+                        {passwordError && (
+                          <div className="mb-4 p-3 bg-red-50 text-red-700 rounded-lg text-sm">
+                            {passwordError}
+                          </div>
+                        )}
+                        {passwordSuccess && (
+                          <div className="mb-4 p-3 bg-green-50 text-green-700 rounded-lg text-sm">
+                            {passwordSuccess}
+                          </div>
+                        )}
+                        
+                        <div className="space-y-3">
+                          <div>
+                            <label className="block text-sm font-medium text-bloom-gray-700 mb-1">
+                              Current Password
+                            </label>
+                            <input
+                              type="password"
+                              value={passwordData.currentPassword}
+                              onChange={(e) => setPasswordData({
+                                ...passwordData,
+                                currentPassword: e.target.value
+                              })}
+                              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-bloompink focus:border-transparent"
+                              placeholder="Enter current password"
+                            />
+                          </div>
+                          
+                          <div>
+                            <label className="block text-sm font-medium text-bloom-gray-700 mb-1">
+                              New Password
+                            </label>
+                            <input
+                              type="password"
+                              value={passwordData.newPassword}
+                              onChange={(e) => setPasswordData({
+                                ...passwordData,
+                                newPassword: e.target.value
+                              })}
+                              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-bloompink focus:border-transparent"
+                              placeholder="Enter new password (min 8 characters)"
+                            />
+                          </div>
+                          
+                          <div>
+                            <label className="block text-sm font-medium text-bloom-gray-700 mb-1">
+                              Confirm New Password
+                            </label>
+                            <input
+                              type="password"
+                              value={passwordData.confirmPassword}
+                              onChange={(e) => setPasswordData({
+                                ...passwordData,
+                                confirmPassword: e.target.value
+                              })}
+                              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-bloompink focus:border-transparent"
+                              placeholder="Confirm new password"
+                            />
+                          </div>
+                          
+                          <Button 
+                            onClick={handlePasswordChange}
+                            variant="pink"
+                            disabled={loading}
+                            className="w-full"
+                          >
+                            {loading ? (
+                              <>
+                                <Lock className="h-4 w-4 mr-2 animate-spin" />
+                                Changing Password...
+                              </>
+                            ) : (
+                              <>
+                                <Lock className="h-4 w-4 mr-2" />
+                                Change Password
+                              </>
+                            )}
+                          </Button>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -247,10 +434,29 @@ export default function SettingsPage() {
                   </p>
                 </div>
                 <div className="p-6 space-y-6">
+                  {/* Status message */}
+                  {privacyMessage && (
+                    <div className={`p-4 rounded-lg flex items-center space-x-2 ${
+                      privacyMessage.type === 'success' 
+                        ? 'bg-green-50 text-green-800' 
+                        : 'bg-red-50 text-red-800'
+                    }`}>
+                      <p className="text-sm">{privacyMessage.text}</p>
+                    </div>
+                  )}
+                  
                   <div className="space-y-4">
-                    <label className="flex items-center justify-between p-4 border rounded-lg">
+                    <label className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50 cursor-pointer">
                       <div className="flex items-center">
-                        <input type="checkbox" className="mr-3" />
+                        <input 
+                          type="checkbox" 
+                          className="mr-3 w-4 h-4 text-bloompink rounded focus:ring-bloompink"
+                          checked={privacySettings.share_data_research}
+                          onChange={(e) => setPrivacySettings({
+                            ...privacySettings,
+                            share_data_research: e.target.checked
+                          })}
+                        />
                         <div>
                           <p className="font-medium">Share data for research</p>
                           <p className="text-sm text-bloom-gray-600">
@@ -260,17 +466,72 @@ export default function SettingsPage() {
                       </div>
                     </label>
                     
-                    <label className="flex items-center justify-between p-4 border rounded-lg">
+                    <label className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50 cursor-pointer">
                       <div className="flex items-center">
-                        <input type="checkbox" className="mr-3" />
+                        <input 
+                          type="checkbox" 
+                          className="mr-3 w-4 h-4 text-bloompink rounded focus:ring-bloompink"
+                          checked={privacySettings.analytics_enabled}
+                          onChange={(e) => setPrivacySettings({
+                            ...privacySettings,
+                            analytics_enabled: e.target.checked
+                          })}
+                        />
                         <div>
-                          <p className="font-medium">Profile visibility</p>
+                          <p className="font-medium">Analytics & Improvements</p>
                           <p className="text-sm text-bloom-gray-600">
-                            Allow other community members to see your profile
+                            Allow us to collect usage data to improve your experience
                           </p>
                         </div>
                       </div>
                     </label>
+                    
+                    <div className="border rounded-lg p-4">
+                      <label className="block">
+                        <p className="font-medium mb-2">Profile Visibility</p>
+                        <select 
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-bloompink focus:border-transparent"
+                          value={privacySettings.profile_visibility}
+                          onChange={(e) => setPrivacySettings({
+                            ...privacySettings,
+                            profile_visibility: e.target.value
+                          })}
+                        >
+                          <option value="private">Private - Only you can see</option>
+                          <option value="friends">Friends - Visible to connections</option>
+                          <option value="public">Public - Visible to all members</option>
+                        </select>
+                      </label>
+                    </div>
+                    
+                    <div className="border rounded-lg p-4">
+                      <label className="block">
+                        <p className="font-medium mb-2">Contact Visibility</p>
+                        <select 
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-bloompink focus:border-transparent"
+                          value={privacySettings.contact_visibility}
+                          onChange={(e) => setPrivacySettings({
+                            ...privacySettings,
+                            contact_visibility: e.target.value
+                          })}
+                        >
+                          <option value="private">Private - Hidden from all</option>
+                          <option value="friends">Friends - Visible to connections</option>
+                          <option value="public">Public - Visible to all members</option>
+                        </select>
+                      </label>
+                    </div>
+                  </div>
+                  
+                  <div className="pt-4">
+                    <Button
+                      onClick={savePrivacySettings}
+                      variant="pink"
+                      disabled={savingPrivacy}
+                      className="w-full"
+                    >
+                      {savingPrivacy ? 'Saving...' : 'Save Privacy Settings'}
+                    </Button>
                   </div>
                 </div>
               </div>

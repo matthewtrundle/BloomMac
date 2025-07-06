@@ -36,9 +36,9 @@ export const RATE_LIMITS = {
   // More lenient for authenticated endpoints
   emailSend: { interval: 60 * 1000, uniqueTokenPerInterval: 10 }, // 10 per minute
   
-  // Very strict for auth endpoints (TEMPORARILY INCREASED FOR TESTING)
-  login: { interval: 15 * 60 * 1000, uniqueTokenPerInterval: 50 }, // 50 per 15 minutes (was 5)
-  signup: { interval: 60 * 60 * 1000, uniqueTokenPerInterval: 100 }, // 100 per hour (was 3) - TESTING ONLY
+  // Very strict for auth endpoints
+  login: { interval: 15 * 60 * 1000, uniqueTokenPerInterval: 5 }, // 5 per 15 minutes
+  signup: { interval: 60 * 60 * 1000, uniqueTokenPerInterval: 3 }, // 3 per hour
   
   // General API limit
   api: { interval: 60 * 1000, uniqueTokenPerInterval: 60 }, // 60 per minute

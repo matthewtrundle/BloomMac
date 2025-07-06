@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createPublicClient } from '@/lib/supabase-server';
+import { supabaseAdmin } from '@/lib/supabase';
 import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
 import { z } from 'zod';
-import { sendEmail } from '@/lib/email-automation';
+import { enrollmentManager } from '@/lib/email-automation/enrollment-manager';
 
 // Input validation schema
 const contactSchema = z.object({
@@ -113,20 +114,57 @@ export async function POST(request: NextRequest) {
     console.log('Contact form submission successful:', submission?.id);
     
     try {
-      await sendEmail({
-        to: email,
-        firstName: firstName || name?.split(' ')[0] || 'Friend',
-        sequenceType: 'contact_followup',
-        step: 0,
+      // First, check if subscriber exists or create one
+      const { data: existingSubscriber } = await supabaseAdmin
+        .from('subscribers')
+        .select('id')
+        .eq('email', email.toLowerCase())
+        .single();
+      
+      let subscriberId;
+      if (existingSubscriber) {
+        subscriberId = existingSubscriber.id;
+      } else {
+        // Create subscriber record for contact form submission
+        const { data: newSubscriber, error: subscriberError } = await supabaseAdmin
+          .from('subscribers')
+          .insert({
+            email: email.toLowerCase(),
+            first_name: name.split(' ')[0] || 'Friend',
+            last_name: name.split(' ').slice(1).join(' ') || '',
+            status: 'pending', // Not subscribed to newsletter yet
+            source: 'contact_form',
+            metadata: {
+              contact_submission_id: submission?.id,
+              service: service || 'general',
+              initial_message: message
+            }
+          })
+          .select()
+          .single();
+        
+        if (subscriberError || !newSubscriber) {
+          console.error('Failed to create subscriber:', subscriberError);
+          throw subscriberError;
+        }
+        subscriberId = newSubscriber.id;
+      }
+      
+      // Enroll in contact form sequence
+      await enrollmentManager.enrollSubscriber({
+        subscriberId: subscriberId,
+        trigger: 'contact_form',
+        source: 'contact_form_submission',
         metadata: {
-          submissionId: submission?.id,
-          service: service || concerns || 'General Inquiry',
-          message: message || concerns
+          submission_id: submission?.id,
+          service: service || 'general',
+          message: message
         }
       });
+      
       console.log('Contact follow-up email sequence initiated');
     } catch (emailError) {
-      console.error('Failed to send follow-up email:', emailError);
+      console.error('Failed to initiate follow-up sequence:', emailError);
       // Don't fail the submission if email fails
     }
 
