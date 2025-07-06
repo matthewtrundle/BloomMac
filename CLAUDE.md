@@ -329,6 +329,21 @@ This validates schema matches expectations and catches common errors.
 - `last_name` (text)
 - **NO EMAIL COLUMN - email is in auth.users**
 
+#### `user_preferences` table:
+- `id` (uuid)
+- `user_id` (uuid) - references auth.users
+- `privacy_settings` (jsonb) - contains contact_visibility, profile_visibility
+- `security_settings` (jsonb)
+- `notification_preferences` (jsonb)
+- `communication_preferences` (jsonb)
+- `reminder_settings` (jsonb)
+- `quiet_hours` (jsonb)
+- `theme_preference` (varchar)
+- `language` (varchar)
+- `timezone` (varchar)
+- `created_at` (timestamp)
+- `updated_at` (timestamp)
+
 ## 🔧 How to Update Schema Documentation
 
 When you discover schema changes:

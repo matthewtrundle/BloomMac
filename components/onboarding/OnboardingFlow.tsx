@@ -162,6 +162,14 @@ export default function OnboardingFlow({
       if (source === 'signup' && user) {
         console.log('Verifying session for new signup...');
         
+        // Check if supabase client is available
+        if (!supabase) {
+          console.error('Supabase client not initialized');
+          setError('Configuration error. Please try again later.');
+          setIsLoading(false);
+          return;
+        }
+
         // Try to refresh the session
         const { data: { session }, error: sessionError } = await supabase.auth.getSession();
         

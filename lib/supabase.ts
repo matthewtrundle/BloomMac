@@ -7,12 +7,26 @@ const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
 // Client for public operations (browser-safe)
 // Add runtime checks to prevent "supabaseKey is required" error
 export const supabase = (() => {
-  if (!supabaseUrl || !supabaseAnonKey) {
-    console.error('Missing Supabase environment variables');
-    // Return a dummy client to prevent app crash
+  if (typeof window !== 'undefined') {
+    // Client-side: Check if environment variables are available
+    if (!supabaseUrl || !supabaseAnonKey) {
+      console.error('Missing Supabase environment variables:', {
+        hasUrl: !!supabaseUrl,
+        hasKey: !!supabaseAnonKey,
+        url: supabaseUrl ? 'present' : 'missing',
+        key: supabaseAnonKey ? 'present' : 'missing'
+      });
+      // Return a dummy client to prevent app crash
+      return null as any;
+    }
+  }
+  
+  try {
+    return createClient(supabaseUrl, supabaseAnonKey);
+  } catch (error) {
+    console.error('Failed to create Supabase client:', error);
     return null as any;
   }
-  return createClient(supabaseUrl, supabaseAnonKey);
 })();
 
 // Admin client for server-side operations (never expose to browser)
