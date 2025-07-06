@@ -24,8 +24,8 @@ export async function GET(request: NextRequest) {
 
     // Calculate stats
     const totalSubscribers = subscribers.length;
-    const activeSubscribers = subscribers.filter(s => s.subscribed === true).length;
-    const unsubscribed = subscribers.filter(s => s.subscribed === false).length;
+    const activeSubscribers = subscribers.filter(s => s.status === 'active').length;
+    const unsubscribed = subscribers.filter(s => s.status === 'unsubscribed').length;
     
     // Recent signups (last 30 days)
     const thirtyDaysAgo = new Date();
@@ -79,12 +79,12 @@ export async function GET(request: NextRequest) {
       subscribers: subscribers.map(s => ({
         id: s.id,
         email: s.email,
-        first_name: s.first_name || '',
-        last_name: s.last_name || '',
-        status: s.subscribed ? 'active' : 'unsubscribed',
-        source: s.source || 'unknown',
+        firstName: s.first_name || '',
+        lastName: s.last_name || '',
+        status: s.status || 'active',
+        signupSource: s.signup_source || s.source || 'unknown',
         created_at: s.created_at,
-        unsubscribed_at: s.unsubscribed_at
+        unsubscribed_at: s.unsubscribe_reason
       }))
     });
 
@@ -114,7 +114,7 @@ export async function POST(request: NextRequest) {
         .insert({
           email: email.toLowerCase().trim(),
           source,
-          subscribed: true,
+          status: 'active',
           created_at: new Date().toISOString()
         })
         .select()
@@ -137,7 +137,7 @@ export async function POST(request: NextRequest) {
       const { data: activeSubscribers, error: subError } = await supabase
         .from('subscribers')
         .select('email')
-        .eq('subscribed', true);
+        .eq('status', 'active');
 
       if (subError) throw subError;
 
@@ -189,8 +189,8 @@ export async function DELETE(request: NextRequest) {
     const { error } = await supabase
       .from('subscribers')
       .update({ 
-        subscribed: false,
-        unsubscribed_at: new Date().toISOString()
+        status: 'unsubscribed',
+        updated_at: new Date().toISOString()
       })
       .eq('email', email);
 

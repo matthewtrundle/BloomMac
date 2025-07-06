@@ -104,25 +104,10 @@ export default function EmailCenterPage() {
       if (templatesResponse.ok) {
         const templatesData = await templatesResponse.json();
         console.log('Templates data:', templatesData);
-        // Extract templates from the enhanced structure
-        const allTemplates = [];
-        if (templatesData.sequences) {
-          templatesData.sequences.forEach(sequence => {
-            sequence.emails.forEach((email, index) => {
-              allTemplates.push({
-                id: `${sequence.id}-${index}`,
-                name: email.name,
-                subject: email.subject,
-                content: email.content,
-                category: sequence.name,
-                sequence: sequence.id,
-                step: index
-              });
-            });
-          });
+        // Use templates directly from the database
+        if (templatesData.templates) {
+          setTemplates(templatesData.templates);
         }
-        console.log('Extracted templates:', allTemplates);
-        setTemplates(allTemplates);
       } else {
         console.error('Failed to load templates:', templatesResponse.status, templatesResponse.statusText);
       }
@@ -178,8 +163,6 @@ export default function EmailCenterPage() {
         credentials: 'include',
         body: JSON.stringify({
           id: selectedTemplate.id,
-          sequence: selectedTemplate.sequence,
-          step: selectedTemplate.step,
           subject: selectedTemplate.subject,
           content: selectedTemplate.content
         })
