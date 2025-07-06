@@ -31,13 +31,23 @@ export async function GET(request: NextRequest) {
     console.log('Unique subscribed values:', [...new Set(subscribers.map(s => s.subscribed))]);
     console.log('Unique status values:', [...new Set(subscribers.map(s => s.status))]);
 
-    // Calculate stats - check both 'subscribed' and 'status' fields
+    // Calculate stats - check multiple possible field names
     const totalSubscribers = subscribers.length;
     const activeSubscribers = subscribers.filter(s => 
-      s.subscribed === true || s.status === 'active' || s.status === 'subscribed'
+      s.subscribed === true || 
+      s.is_subscribed === true ||
+      s.active === true ||
+      s.status === 'active' || 
+      s.status === 'subscribed' ||
+      // If no explicit status field, assume active unless marked otherwise
+      (!s.status && !s.subscribed && !s.is_subscribed && !s.active)
     ).length;
     const unsubscribed = subscribers.filter(s => 
-      s.subscribed === false || s.status === 'unsubscribed' || s.status === 'inactive'
+      s.subscribed === false || 
+      s.is_subscribed === false ||
+      s.active === false ||
+      s.status === 'unsubscribed' || 
+      s.status === 'inactive'
     ).length;
     
     // Recent signups (last 30 days)
@@ -86,9 +96,15 @@ export async function GET(request: NextRequest) {
       growth_trend: growthTrend
     };
 
-    // Filter active subscribers - check both 'subscribed' and 'status' fields
+    // Filter active subscribers - check multiple possible field names
     const activeSubscribersList = subscribers.filter(s => 
-      s.subscribed === true || s.status === 'active' || s.status === 'subscribed'
+      s.subscribed === true || 
+      s.is_subscribed === true ||
+      s.active === true ||
+      s.status === 'active' || 
+      s.status === 'subscribed' ||
+      // If no explicit status field, assume active unless marked otherwise
+      (!s.status && !s.subscribed && !s.is_subscribed && !s.active)
     );
     console.log('Active subscribers after filter:', activeSubscribersList.length);
     
@@ -131,13 +147,23 @@ export async function POST(request: NextRequest) {
     if (body.subject && body.content) {
       const { subject, content, preview } = body;
       
-      // Get active subscribers - check both possible fields
-      const { data: activeSubscribers, error: subError } = await supabase
+      // Get active subscribers - use a simple select and filter in code
+      const { data: allSubscribers, error: subError } = await supabase
         .from('subscribers')
-        .select('email')
-        .or('subscribed.eq.true,status.eq.active,status.eq.subscribed');
-
+        .select('*');
+        
       if (subError) throw subError;
+      
+      // Filter active subscribers based on available fields
+      const activeSubscribers = allSubscribers.filter(s => 
+        s.subscribed === true || 
+        s.is_subscribed === true ||
+        s.active === true ||
+        s.status === 'active' || 
+        s.status === 'subscribed' ||
+        // If no explicit status field, assume active unless marked otherwise
+        (!s.status && !s.subscribed && !s.is_subscribed && !s.active)
+      );
 
       // Add to email queue for each subscriber
       const emailJobs = activeSubscribers.map(subscriber => ({
@@ -262,17 +288,29 @@ export async function DELETE(request: NextRequest) {
     
     console.log('[Newsletter Admin DELETE] Sample subscriber fields:', sampleSubscriber ? Object.keys(sampleSubscriber) : 'No subscribers found');
     
-    // Try to update with just subscribed field first
-    const updateData: any = { subscribed: false };
+    // Build update data based on what columns exist
+    const updateData: any = {};
+    
+    // Check which subscription-related column exists
+    if (sampleSubscriber && 'subscribed' in sampleSubscriber) {
+      updateData.subscribed = false;
+    } else if (sampleSubscriber && 'status' in sampleSubscriber) {
+      updateData.status = 'unsubscribed';
+    } else if (sampleSubscriber && 'is_subscribed' in sampleSubscriber) {
+      updateData.is_subscribed = false;
+    } else if (sampleSubscriber && 'active' in sampleSubscriber) {
+      updateData.active = false;
+    } else {
+      // If we can't find any column from the sample, try common patterns
+      console.log('[Newsletter Admin DELETE] No sample subscriber, trying status field');
+      updateData.status = 'unsubscribed';
+    }
     
     // Only add unsubscribed_at if the field exists
     if (sampleSubscriber && 'unsubscribed_at' in sampleSubscriber) {
       updateData.unsubscribed_at = new Date().toISOString();
-    }
-    
-    // If there's a status field, update that too
-    if (sampleSubscriber && 'status' in sampleSubscriber) {
-      updateData.status = 'unsubscribed';
+    } else if (sampleSubscriber && 'updated_at' in sampleSubscriber) {
+      updateData.updated_at = new Date().toISOString();
     }
     
     console.log('[Newsletter Admin DELETE] Updating with data:', updateData);
