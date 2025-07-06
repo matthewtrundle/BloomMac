@@ -327,7 +327,7 @@ const NewsletterAdmin: React.FC = () => {
         </div>
         <div className="bg-white rounded-lg shadow-sm border p-6 text-center">
           <div className="text-3xl font-bold text-blue-600 mb-2">
-            {data.stats.signup_sources[0]?.source || 'N/A'}
+            {(data.stats.signup_sources[0]?.source || 'N/A').replace('_', ' ')}
           </div>
           <div className="text-sm text-gray-600">Top Source</div>
         </div>
@@ -456,7 +456,7 @@ const NewsletterAdmin: React.FC = () => {
               <div key={index} className="flex items-center justify-between">
                 <div className="flex items-center">
                   <div className="w-3 h-3 bg-bloompink rounded-full mr-3"></div>
-                  <span className="capitalize">{source.source.replace('_', ' ')}</span>
+                  <span className="capitalize">{(source.source || 'unknown').replace('_', ' ')}</span>
                 </div>
                 <div className="flex items-center space-x-4">
                   <span className="text-sm text-gray-600">{source.count} subscribers</span>
@@ -555,7 +555,7 @@ const NewsletterAdmin: React.FC = () => {
                     {subscriber.firstName ? `${subscriber.firstName} ${subscriber.lastName || ''}`.trim() : '-'}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 capitalize">
-                    {subscriber.signupSource.replace('_', ' ')}
+                    {(subscriber.signupSource || 'unknown').replace('_', ' ')}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                     {new Date(subscriber.timestamp).toLocaleDateString()}
