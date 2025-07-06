@@ -42,6 +42,11 @@ export const supabase = new Proxy({} as any, {
 
 // Admin client for server-side operations (never expose to browser)
 function createAdminClient() {
+  // Only allow admin client creation on server-side
+  if (typeof window !== 'undefined') {
+    throw new Error('Admin client cannot be used in browser environment');
+  }
+  
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
   
@@ -52,7 +57,24 @@ function createAdminClient() {
   return createClient(supabaseUrl, supabaseServiceKey);
 }
 
-export const supabaseAdmin = createAdminClient();
+// Lazy-loaded admin client to prevent browser initialization
+let _supabaseAdmin: any = null;
+
+export function getSupabaseAdmin() {
+  if (!_supabaseAdmin) {
+    _supabaseAdmin = createAdminClient();
+  }
+  return _supabaseAdmin;
+}
+
+// Legacy export for backward compatibility - DO NOT USE IN NEW CODE
+export const supabaseAdmin = new Proxy({} as any, {
+  get(target, prop) {
+    console.warn('DEPRECATED: Use getSupabaseAdmin() instead of supabaseAdmin');
+    const client = getSupabaseAdmin();
+    return client[prop];
+  }
+});
 
 // Helper to get the correct client
 export function getSupabaseClient(isServerSide = false) {
