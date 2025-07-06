@@ -354,7 +354,7 @@ export default function EmailCenterPage() {
                         <td className="py-2 px-4">{subscriber.email}</td>
                         <td className="py-2 px-4">{subscriber.firstName} {subscriber.lastName}</td>
                         <td className="py-2 px-4">
-                          <span className="text-sm capitalize">{subscriber.signupSource.replace('_', ' ')}</span>
+                          <span className="text-sm capitalize">{(subscriber.signupSource || 'unknown').replace('_', ' ')}</span>
                         </td>
                         <td className="py-2 px-4">
                           <span className={`text-sm ${subscriber.status === 'active' ? 'text-green-600' : 'text-gray-600'}`}>
