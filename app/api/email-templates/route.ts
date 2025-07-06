@@ -1,20 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServiceSupabase } from '@/lib/supabase-unified';
+import { enhancedEmailTemplates } from '@/lib/email-templates/enhanced-emails';
 
 export async function GET(request: NextRequest) {
   try {
     const supabase = getServiceSupabase();
     
     // Get all email templates from database
-    const { data: templates, error } = await supabase
+    const { data: dbTemplates, error } = await supabase
       .from('email_templates')
       .select('*')
       .order('created_at', { ascending: true });
 
     if (error) throw error;
 
-    // Format templates for the email center
-    const formattedTemplates = templates.map(template => ({
+    // Format database templates
+    const formattedDbTemplates = dbTemplates.map(template => ({
       id: template.id,
       name: template.name,
       subject: template.subject,
@@ -22,12 +23,60 @@ export async function GET(request: NextRequest) {
       category: template.category,
       variables: template.variables || [],
       lastModified: template.updated_at,
-      modifiedBy: template.created_by || 'System'
+      modifiedBy: template.created_by || 'System',
+      source: 'database'
     }));
 
+    // Format enhanced templates from code
+    const formattedEnhancedTemplates = [];
+    const sequences = [];
+    
+    Object.entries(enhancedEmailTemplates).forEach(([sequenceKey, sequence]) => {
+      const sequenceInfo = {
+        id: sequenceKey,
+        name: getSequenceName(sequenceKey),
+        emails: []
+      };
+      
+      Object.entries(sequence).forEach(([emailKey, email]: [string, any]) => {
+        const template = {
+          id: `${sequenceKey}-${emailKey}`,
+          name: `${getSequenceName(sequenceKey)} - ${getEmailName(emailKey)}`,
+          subject: email.subject,
+          content: typeof email.content === 'function' ? email.content('{{firstName}}') : email.content,
+          category: sequenceKey,
+          variables: ['firstName', 'unsubscribeLink'],
+          lastModified: null,
+          modifiedBy: 'System',
+          source: 'enhanced',
+          sequence: sequenceKey,
+          step: emailKey,
+          delay: email.delay
+        };
+        
+        formattedEnhancedTemplates.push(template);
+        sequenceInfo.emails.push({
+          id: emailKey,
+          name: getEmailName(emailKey),
+          subject: email.subject,
+          delay: email.delay
+        });
+      });
+      
+      sequences.push(sequenceInfo);
+    });
+
+    // Combine all templates
+    const allTemplates = [...formattedDbTemplates, ...formattedEnhancedTemplates];
+
     return NextResponse.json({ 
-      templates: formattedTemplates,
-      sequences: [] // For compatibility with existing code
+      templates: allTemplates,
+      sequences: sequences,
+      stats: {
+        databaseTemplates: formattedDbTemplates.length,
+        enhancedTemplates: formattedEnhancedTemplates.length,
+        totalTemplates: allTemplates.length
+      }
     });
 
   } catch (error) {
@@ -37,6 +86,37 @@ export async function GET(request: NextRequest) {
       { status: 500 }
     );
   }
+}
+
+function getSequenceName(key: string): string {
+  const names = {
+    newsletter: 'Newsletter Welcome Series',
+    contactFollowup: 'Contact Form Follow-up',
+    bookingConfirmation: 'Booking Confirmations',
+    leadNurture: 'Lead Nurture Campaign'
+  };
+  return names[key] || key;
+}
+
+function getEmailName(key: string): string {
+  const names = {
+    welcome: 'Welcome Email',
+    day3: 'Day 3 Follow-up',
+    day7: 'Week 1 Check-in',
+    day14: '2 Week Follow-up',
+    day30: 'Month 1 Check-in',
+    immediate: 'Immediate Response',
+    followup72: '72 Hour Follow-up',
+    resources7: 'Week 1 Resources',
+    confirmation: 'Booking Confirmation',
+    reminder24: '24 Hour Reminder',
+    followup48: '48 Hour Follow-up',
+    thankYou: 'Thank You Email',
+    helpful72: '72 Hour Check-in',
+    successStory7: 'Success Story',
+    readyWhen14: '2 Week Follow-up'
+  };
+  return names[key] || key;
 }
 
 export async function PUT(request: NextRequest) {
