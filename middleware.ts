@@ -37,7 +37,8 @@ const protectedApiRoutes = [
   '/api/generate-blog-image',
   '/api/upload-image',
   '/api/careers-application',
-  '/api/analytics'
+  '/api/analytics',
+  '/api/admin/activity-log'
   // Note: /api/test-analytics is intentionally not protected for testing
 ];
 
