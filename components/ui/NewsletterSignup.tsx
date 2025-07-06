@@ -41,7 +41,13 @@ const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
         }),
       });
 
-      const data = await response.json();
+      let data;
+      try {
+        data = await response.json();
+      } catch (jsonError) {
+        console.error('Failed to parse response as JSON:', jsonError);
+        throw new Error('Invalid response from server. Please try again.');
+      }
 
       if (!response.ok) {
         // Provide more specific error messages based on status code
