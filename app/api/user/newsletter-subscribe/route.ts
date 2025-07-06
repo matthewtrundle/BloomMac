@@ -4,8 +4,13 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     
+    // Get the base URL for API calls (localhost in dev, production URL in prod)
+    const baseUrl = process.env.NODE_ENV === 'development' 
+      ? `http://localhost:3000`
+      : process.env.NEXT_PUBLIC_SITE_URL || 'https://bloompsychologynorthaustin.com';
+    
     // Forward to the main newsletter signup endpoint
-    const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/newsletter-signup`, {
+    const response = await fetch(`${baseUrl}/api/newsletter-signup`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -19,6 +24,7 @@ export async function POST(request: NextRequest) {
     const result = await response.json();
     
     if (!response.ok) {
+      console.error('Newsletter signup forwarding failed:', result);
       return NextResponse.json(result, { status: response.status });
     }
 
