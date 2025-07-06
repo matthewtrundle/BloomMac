@@ -131,11 +131,11 @@ export async function POST(request: NextRequest) {
     if (body.subject && body.content) {
       const { subject, content, preview } = body;
       
-      // Get active subscribers
+      // Get active subscribers - check both possible fields
       const { data: activeSubscribers, error: subError } = await supabase
         .from('subscribers')
         .select('email')
-        .eq('subscribed', true);
+        .or('subscribed.eq.true,status.eq.active,status.eq.subscribed');
 
       if (subError) throw subError;
 
@@ -210,26 +210,52 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ error: 'Subscriber IDs are required' }, { status: 400 });
     }
 
+    console.log('Unsubscribing subscriber IDs:', subscriberIds);
+
     const supabase = getServiceSupabase();
+    
+    // First check if the field exists
+    const { data: sampleSubscriber } = await supabase
+      .from('subscribers')
+      .select('*')
+      .limit(1)
+      .single();
+      
+    console.log('Sample subscriber fields:', sampleSubscriber ? Object.keys(sampleSubscriber) : 'No subscribers found');
+    
+    // Try to update with just subscribed field first
+    const updateData: any = { subscribed: false };
+    
+    // Only add unsubscribed_at if the field exists
+    if (sampleSubscriber && 'unsubscribed_at' in sampleSubscriber) {
+      updateData.unsubscribed_at = new Date().toISOString();
+    }
+    
+    // If there's a status field, update that too
+    if (sampleSubscriber && 'status' in sampleSubscriber) {
+      updateData.status = 'unsubscribed';
+    }
+    
+    console.log('Updating with data:', updateData);
     
     const { error } = await supabase
       .from('subscribers')
-      .update({ 
-        subscribed: false,
-        unsubscribed_at: new Date().toISOString()
-      })
+      .update(updateData)
       .in('id', subscriberIds);
 
-    if (error) throw error;
+    if (error) {
+      console.error('Supabase update error:', error);
+      throw error;
+    }
 
     return NextResponse.json({ 
       success: true, 
       message: `Successfully unsubscribed ${subscriberIds.length} subscriber(s)` 
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error unsubscribing:', error);
     return NextResponse.json(
-      { error: 'Failed to unsubscribe', details: error.message },
+      { error: 'Failed to unsubscribe', details: error.message || 'Unknown error' },
       { status: 500 }
     );
   }
