@@ -4,24 +4,12 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
-import { courses } from '@/lib/data/courses';
+import { courses, Course } from '@/lib/data/courses';
 import Button from '@/components/ui/Button';
 import AnimatedTagline from '@/components/ui/AnimatedTagline';
 import { Star, Clock, Users, BookOpen, ChevronRight, Heart, Brain, UserGroup, Sparkles } from 'lucide-react';
 
-interface Course {
-  id: string;
-  title: string;
-  description: string;
-  shortDescription: string;
-  price: number;
-  image: string;
-  duration: string;
-  lessons: number;
-  category: 'mindfulness' | 'recovery' | 'community' | 'growth';
-  difficulty: 'beginner' | 'intermediate' | 'advanced';
-  features: string[];
-}
+// Course interface is imported from lib/data/courses
 
 const categoryConfig = {
   mindfulness: {
@@ -99,7 +87,7 @@ export default function Portfolio() {
               All Courses
             </button>
             {Object.entries(categoryConfig).map(([key, config]) => {
-              const Icon = config.icon;
+              const IconComponent = config.icon;
               return (
                 <button
                   key={key}
@@ -110,7 +98,7 @@ export default function Portfolio() {
                       : 'bg-white text-bloom-charcoal hover:bg-bloom-sage/10'
                   }`}
                 >
-                  <Icon className="w-4 h-4" />
+                  {IconComponent && <IconComponent className="w-4 h-4" />}
                   {config.name}
                 </button>
               );
@@ -125,7 +113,7 @@ export default function Portfolio() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredCourses.map((course, index) => {
               const category = categoryConfig[course.category];
-              const Icon = category.icon;
+              const IconComponent = category?.icon;
               
               return (
                 <motion.div
@@ -154,12 +142,14 @@ export default function Portfolio() {
                   {/* Course Content */}
                   <div className="p-6">
                     {/* Category Badge */}
-                    <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full ${category.bgLight} mb-4`}>
-                      <Icon className={`w-4 h-4 bg-gradient-to-r ${category.gradient} bg-clip-text text-transparent`} />
-                      <span className={`text-sm font-medium bg-gradient-to-r ${category.gradient} bg-clip-text text-transparent`}>
-                        {category.name}
-                      </span>
-                    </div>
+                    {category && (
+                      <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full ${category.bgLight} mb-4`}>
+                        {IconComponent && <IconComponent className={`w-4 h-4 bg-gradient-to-r ${category.gradient} bg-clip-text text-transparent`} />}
+                        <span className={`text-sm font-medium bg-gradient-to-r ${category.gradient} bg-clip-text text-transparent`}>
+                          {category.name}
+                        </span>
+                      </div>
+                    )}
 
                     <h3 className="text-xl font-bold text-bloom-charcoal mb-2">
                       {course.title}

@@ -3,17 +3,38 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-export default function AnimatedTagline() {
+interface AnimatedTaglineProps {
+  text?: string;
+  className?: string;
+  animated?: boolean;
+}
+
+export default function AnimatedTagline({ 
+  text,
+  className = '',
+  animated = true 
+}: AnimatedTaglineProps) {
   const words = ['self', 'life', 'journey', 'story', 'future'];
   const [currentIndex, setCurrentIndex] = useState(0);
   
   useEffect(() => {
+    if (!animated) return;
+    
     const interval = setInterval(() => {
       setCurrentIndex(prev => (prev + 1) % words.length);
     }, 2500); // Change every 2.5 seconds
     
     return () => clearInterval(interval);
-  }, []);
+  }, [animated]);
+  
+  // If text prop is provided, use it as a simple text component
+  if (text) {
+    return (
+      <div className={className}>
+        {text}
+      </div>
+    );
+  }
   
   return (
     <div className="space-y-4">

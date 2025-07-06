@@ -324,7 +324,7 @@ export default function CoursesPage() {
                     
                     <div className="mt-auto">
                       <div className="flex items-baseline gap-2 mb-4">
-                        {course.isFree ? (
+                        {course.price === 0 ? (
                           <span className="text-3xl font-bold text-green-600">FREE</span>
                         ) : (
                           <>
@@ -336,7 +336,7 @@ export default function CoursesPage() {
                         )}
                       </div>
                       
-                      {course.isFree ? (
+                      {course.price === 0 ? (
                         <div className="space-y-3">
                           <Link
                             href={`/courses/${course.id}`}
