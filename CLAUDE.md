@@ -362,10 +362,42 @@ Uncertain about anything?
 
 | Task | Command | When to Use |
 |------|---------|-------------|
-| Check all tables | `node scripts/check-database.js` | Before ANY database work |
-| Validate schema | `node scripts/validate-schema.js` | Before deploying |
-| Check specific table | `node scripts/check-database.js \| grep -A 20 "table_name"` | When working with specific table |
-| Save schema snapshot | `node scripts/check-database.js > schema-backup-$(date +%Y%m%d).txt` | Before major changes |
+| Check all tables | `npm run db:check` | Before ANY database work |
+| Validate schema | `npm run db:validate` | Before deploying |
+| Query database | `npm run db:query "SELECT * FROM table"` | Test queries before using |
+| Test queries | `npm run db:test` | Verify queries work |
+| Build-test loop | `npm run db:build-test` | Test code matches database |
+| Check specific table | `npm run db:check \| grep -A 20 "table_name"` | When working with specific table |
+| Save schema snapshot | `npm run db:check > schema-$(date +%Y%m%d).txt` | Before major changes |
+
+## 🔄 Build-Test Loop (CLOSE THE GAP!)
+
+### Before Writing ANY Database Code:
+1. **Test the query first**:
+   ```bash
+   npm run db:query "SELECT * FROM subscribers WHERE status = 'active'"
+   ```
+
+2. **Verify columns exist**:
+   ```bash
+   npm run db:test
+   # This will check common problem areas
+   ```
+
+3. **Generate types from real data**:
+   ```bash
+   npm run db:build-test
+   # This generates TypeScript interfaces from actual data
+   ```
+
+### Testing API Endpoints:
+```bash
+# Test if your queries work before building
+node scripts/test-queries.js
+
+# Validate a specific file's queries
+node scripts/build-test-loop.js app/api/newsletter-admin/route.ts
+```
 
 ## 🏗️ PRODUCTION SAFETY RULES
 
