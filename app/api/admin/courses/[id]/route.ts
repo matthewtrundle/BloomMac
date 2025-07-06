@@ -1,6 +1,72 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createSupabaseServiceClient } from '@/lib/supabase-server';
 
+export async function GET(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  try {
+    // Get user info from headers (set by middleware)
+    const userId = request.headers.get('x-user-id');
+    
+    if (!userId) {
+      return NextResponse.json(
+        { error: 'Not authenticated' },
+        { status: 401 }
+      );
+    }
+
+    const courseId = params.id;
+    const supabase = createSupabaseServiceClient();
+
+    // Fetch course details
+    const { data: course, error: courseError } = await supabase
+      .from('courses')
+      .select('*')
+      .eq('id', courseId)
+      .single();
+
+    if (courseError || !course) {
+      return NextResponse.json({ error: 'Course not found' }, { status: 404 });
+    }
+
+    // Fetch course modules/weeks
+    const { data: modules, error: modulesError } = await supabase
+      .from('course_modules')
+      .select(`
+        *,
+        course_lessons (*)
+      `)
+      .eq('course_id', courseId)
+      .order('week_number', { ascending: true });
+
+    if (modulesError) {
+      console.error('Error fetching modules:', modulesError);
+    }
+
+    // Rename modules to weeks for frontend compatibility
+    const weeks = modules?.map(module => ({
+      ...module,
+      course_lessons: module.course_lessons || []
+    })) || [];
+
+    // Fetch course assets (if table exists)
+    const { data: assets } = await supabase
+      .from('course_resources')
+      .select('*')
+      .eq('course_id', courseId);
+
+    return NextResponse.json({ 
+      course,
+      weeks,
+      assets: assets || []
+    });
+  } catch (error) {
+    console.error('Course fetch error:', error);
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+  }
+}
+
 export async function PATCH(
   request: NextRequest,
   { params }: { params: { id: string } }

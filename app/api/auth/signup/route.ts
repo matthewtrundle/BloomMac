@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createSupabaseServiceClient } from '@/lib/supabase-server';
+import { createSupabaseRouteHandlerClient } from '@/lib/supabase-server';
 import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
 
 export async function POST(request: NextRequest) {
@@ -41,8 +41,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Create Supabase service client for user creation
-    const supabase = createSupabaseServiceClient();
+    // Create Supabase client with cookie handling
+    const { supabase, applySetCookies } = createSupabaseRouteHandlerClient(request);
 
     // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -61,16 +61,17 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Create user with Supabase Auth
-    const { data: authData, error: authError } = await supabase.auth.admin.createUser({
+    // Create user with Supabase Auth (using signUp instead of admin.createUser)
+    const { data: authData, error: authError } = await supabase.auth.signUp({
       email: email.toLowerCase().trim(),
       password,
-      email_confirm: false, // Require email confirmation
-      user_metadata: {
-        first_name: firstName.trim(),
-        last_name: lastName?.trim() || '',
-        phone: phone?.trim() || '',
-        signup_source: 'website'
+      options: {
+        data: {
+          first_name: firstName.trim(),
+          last_name: lastName?.trim() || '',
+          phone: phone?.trim() || '',
+          signup_source: 'website'
+        }
       }
     });
 
@@ -95,6 +96,15 @@ export async function POST(request: NextRequest) {
         { error: 'Failed to create user account' },
         { status: 500 }
       );
+    }
+
+    // If email confirmation is disabled, sign the user in immediately
+    if (authData.session) {
+      // Session was created, user can access protected routes immediately
+      console.log('User signed up with immediate session');
+    } else {
+      // Email confirmation is required
+      console.log('User signed up, email confirmation required');
     }
 
     // Create user profile
@@ -159,16 +169,23 @@ export async function POST(request: NextRequest) {
       // Continue with signup even if analytics fails
     }
 
-    return NextResponse.json({
+    // Create response with proper session cookies
+    const response = NextResponse.json({
       success: true,
-      message: 'Account created successfully! Please check your email to verify your account.',
+      message: authData.session 
+        ? 'Account created successfully!' 
+        : 'Account created successfully! Please check your email to verify your account.',
       user: {
         id: authData.user.id,
         email: authData.user.email,
         firstName: firstName.trim(),
         lastName: lastName?.trim() || ''
-      }
+      },
+      requiresEmailConfirmation: !authData.session
     });
+
+    // Apply any cookies that Supabase needs to set (for session management)
+    return applySetCookies(response);
 
   } catch (error) {
     console.error('Signup error:', error);
