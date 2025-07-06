@@ -100,9 +100,10 @@ export default function EmailCenterPage() {
       const templatesResponse = await fetch('/api/email-templates', {
         credentials: 'include'
       });
+      console.log('Templates response status:', templatesResponse.status);
       if (templatesResponse.ok) {
         const templatesData = await templatesResponse.json();
-        console.log('Templates loaded:', templatesData);
+        console.log('Templates data:', templatesData);
         // Extract templates from the enhanced structure
         const allTemplates = [];
         if (templatesData.sequences) {
@@ -120,7 +121,10 @@ export default function EmailCenterPage() {
             });
           });
         }
+        console.log('Extracted templates:', allTemplates);
         setTemplates(allTemplates);
+      } else {
+        console.error('Failed to load templates:', templatesResponse.status, templatesResponse.statusText);
       }
 
       // Load email analytics
@@ -325,7 +329,7 @@ export default function EmailCenterPage() {
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">{subscribers.length}</div>
-                <p className="text-xs text-green-600 mt-1">+12% from last month</p>
+                <p className="text-xs text-green-600 mt-1">{subscribers.filter(s => s.status === 'active').length} active</p>
               </CardContent>
             </Card>
 
@@ -378,26 +382,9 @@ export default function EmailCenterPage() {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                <div className="flex items-center justify-between py-2 border-b">
-                  <div>
-                    <p className="font-medium">Monthly Newsletter</p>
-                    <p className="text-sm text-gray-600">Sent to 245 subscribers</p>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-sm text-gray-600">2 hours ago</p>
-                    <p className="text-sm">Open rate: 38%</p>
-                  </div>
-                </div>
-                <div className="flex items-center justify-between py-2 border-b">
-                  <div>
-                    <p className="font-medium">Welcome Series - Email 1</p>
-                    <p className="text-sm text-gray-600">Sent to 12 new subscribers</p>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-sm text-gray-600">Yesterday</p>
-                    <p className="text-sm">Open rate: 65%</p>
-                  </div>
-                </div>
+                <p className="text-sm text-gray-500 text-center py-4">
+                  Email tracking data not available yet. Send some campaigns to see activity here.
+                </p>
               </div>
             </CardContent>
           </Card>
