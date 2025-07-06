@@ -23,7 +23,7 @@ export default function InstagramNewsletterPage() {
     setStatus('idle');
 
     try {
-      const response = await fetch('/api/newsletter-signup', {
+      const response = await fetch('/api/user/newsletter-subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

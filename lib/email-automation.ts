@@ -169,7 +169,7 @@ function addTrackingToEmail(content: string, logId: string, subscriberId: string
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://bloompsychologynorthaustin.com';
   
   // Add tracking pixel before closing body tag
-  const trackingPixel = `<img src="${baseUrl}/api/track-email-open?id=${logId}&subscriber=${subscriberId}" width="1" height="1" style="display:block;" alt="" />`;
+  const trackingPixel = `<img src="${baseUrl}/api/email-analytics/track/open?id=${logId}&subscriber=${subscriberId}" width="1" height="1" style="display:block;" alt="" />`;
   
   // Replace all links with tracked versions
   const trackedContent = content.replace(
@@ -179,7 +179,7 @@ function addTrackingToEmail(content: string, logId: string, subscriberId: string
       if (url.includes('unsubscribe')) {
         return match;
       }
-      const trackedUrl = `${baseUrl}/api/track-email-click?id=${logId}&subscriber=${subscriberId}&url=${encodeURIComponent(url)}`;
+      const trackedUrl = `${baseUrl}/api/email-analytics/track/click?id=${logId}&subscriber=${subscriberId}&url=${encodeURIComponent(url)}`;
       return `<a href="${trackedUrl}"`;
     }
   );
