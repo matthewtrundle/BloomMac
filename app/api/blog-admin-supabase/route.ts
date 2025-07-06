@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getAllPosts, getPost, createPost, updatePost, deletePost } from '@/lib/blog-storage-supabase';
+import { loadBlogPosts, getBlogPost, createBlogPost, updateBlogPost, deleteBlogPost } from '@/lib/blog-storage-supabase';
 
 export async function GET(request: NextRequest) {
   try {
@@ -8,7 +8,7 @@ export async function GET(request: NextRequest) {
     const slug = searchParams.get('slug');
 
     if (slug) {
-      const post = await getPost(slug);
+      const post = await getBlogPost(slug);
       if (!post) {
         return NextResponse.json({ error: 'Post not found' }, { status: 404 });
       }
@@ -16,7 +16,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Fetch all posts
-    const posts = await getAllPosts();
+    const posts = await loadBlogPosts();
     return NextResponse.json(posts);
   } catch (error) {
     console.error('Error fetching blog posts:', error);
@@ -30,7 +30,7 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const post = await request.json();
-    const newPost = await createPost(post);
+    const newPost = await createBlogPost(post);
     return NextResponse.json(newPost, { status: 201 });
   } catch (error) {
     console.error('Error creating blog post:', error);
@@ -51,7 +51,7 @@ export async function PUT(request: NextRequest) {
     }
 
     const updates = await request.json();
-    const updatedPost = await updatePost(slug, updates);
+    const updatedPost = await updateBlogPost(slug, updates);
     return NextResponse.json(updatedPost);
   } catch (error) {
     console.error('Error updating blog post:', error);
@@ -71,7 +71,7 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ error: 'Slug is required' }, { status: 400 });
     }
 
-    await deletePost(slug);
+    await deleteBlogPost(slug);
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error('Error deleting blog post:', error);
