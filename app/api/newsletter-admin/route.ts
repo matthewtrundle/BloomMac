@@ -76,16 +76,17 @@ export async function GET(request: NextRequest) {
     // Return the expected structure
     return NextResponse.json({
       stats,
-      subscribers: subscribers.map(s => ({
-        id: s.id,
-        email: s.email,
-        first_name: s.first_name || '',
-        last_name: s.last_name || '',
-        status: s.subscribed ? 'active' : 'unsubscribed',
-        source: s.source || 'unknown',
-        created_at: s.created_at,
-        unsubscribed_at: s.unsubscribed_at
-      }))
+      subscribers: subscribers
+        .filter(s => s.subscribed === true) // Only show active subscribers
+        .map(s => ({
+          id: s.id,
+          email: s.email,
+          firstName: s.first_name || '',
+          lastName: s.last_name || '',
+          signupSource: s.source || 'unknown',
+          timestamp: s.created_at,
+          interests: []
+        }))
     });
 
   } catch (error) {
@@ -99,11 +100,47 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    const { action, ...data } = await request.json();
+    const body = await request.json();
     const supabase = getServiceSupabase();
 
-    if (action === 'add_subscriber') {
-      const { email, source = 'admin' } = data;
+    // Check if this is a newsletter send request (has subject and content)
+    if (body.subject && body.content) {
+      const { subject, content, preview } = body;
+      
+      // Get active subscribers
+      const { data: activeSubscribers, error: subError } = await supabase
+        .from('subscribers')
+        .select('email')
+        .eq('subscribed', true);
+
+      if (subError) throw subError;
+
+      // Add to email queue for each subscriber
+      const emailJobs = activeSubscribers.map(subscriber => ({
+        to_email: subscriber.email,
+        subject,
+        template_id: 'newsletter',
+        template_data: { content, preview },
+        status: 'pending',
+        scheduled_at: new Date().toISOString()
+      }));
+
+      const { error: queueError } = await supabase
+        .from('email_queue')
+        .insert(emailJobs);
+
+      if (queueError) throw queueError;
+
+      return NextResponse.json({ 
+        success: true, 
+        queued: emailJobs.length,
+        message: `Newsletter queued for ${emailJobs.length} subscribers`
+      });
+    }
+
+    // Check if this is an add subscriber request (has action)
+    if (body.action === 'add_subscriber') {
+      const { email, source = 'admin' } = body;
       
       if (!email) {
         return NextResponse.json({ error: 'Email is required' }, { status: 400 });
@@ -130,41 +167,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(newSubscriber, { status: 201 });
     }
 
-    if (action === 'send_newsletter') {
-      const { subject, content, template_id } = data;
-      
-      // Get active subscribers
-      const { data: activeSubscribers, error: subError } = await supabase
-        .from('subscribers')
-        .select('email')
-        .eq('subscribed', true);
-
-      if (subError) throw subError;
-
-      // Add to email queue for each subscriber
-      const emailJobs = activeSubscribers.map(subscriber => ({
-        to_email: subscriber.email,
-        subject,
-        template_id: template_id || 'newsletter',
-        template_data: { content },
-        status: 'pending',
-        scheduled_at: new Date().toISOString()
-      }));
-
-      const { error: queueError } = await supabase
-        .from('email_queue')
-        .insert(emailJobs);
-
-      if (queueError) throw queueError;
-
-      return NextResponse.json({ 
-        success: true, 
-        queued: emailJobs.length,
-        message: `Newsletter queued for ${emailJobs.length} subscribers`
-      });
-    }
-
-    return NextResponse.json({ error: 'Unknown action' }, { status: 400 });
+    return NextResponse.json({ error: 'Invalid request format' }, { status: 400 });
 
   } catch (error) {
     console.error('Error processing newsletter action:', error);
@@ -177,11 +180,10 @@ export async function POST(request: NextRequest) {
 
 export async function DELETE(request: NextRequest) {
   try {
-    const { searchParams } = new URL(request.url);
-    const email = searchParams.get('email');
+    const { subscriberIds } = await request.json();
 
-    if (!email) {
-      return NextResponse.json({ error: 'Email is required' }, { status: 400 });
+    if (!subscriberIds || !Array.isArray(subscriberIds) || subscriberIds.length === 0) {
+      return NextResponse.json({ error: 'Subscriber IDs are required' }, { status: 400 });
     }
 
     const supabase = getServiceSupabase();
@@ -192,11 +194,14 @@ export async function DELETE(request: NextRequest) {
         subscribed: false,
         unsubscribed_at: new Date().toISOString()
       })
-      .eq('email', email);
+      .in('id', subscriberIds);
 
     if (error) throw error;
 
-    return NextResponse.json({ success: true });
+    return NextResponse.json({ 
+      success: true, 
+      message: `Successfully unsubscribed ${subscriberIds.length} subscriber(s)` 
+    });
   } catch (error) {
     console.error('Error unsubscribing:', error);
     return NextResponse.json(
