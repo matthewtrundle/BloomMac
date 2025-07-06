@@ -87,27 +87,8 @@ export default function CourseRegisterPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-bloom-sage-50 via-white to-bloom-pink-50 py-12 px-4 relative overflow-hidden">
-      {/* Garden lattice pattern background */}
-      <div className="absolute inset-0 opacity-5">
-        <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-          <defs>
-            <pattern id="register-lattice" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
-              <path d="M0,5 L10,5 M5,0 L5,10" stroke="currentColor" strokeWidth="0.5" className="text-bloom-sage"/>
-            </pattern>
-          </defs>
-          <rect width="100" height="100" fill="url(#register-lattice)" />
-        </svg>
-      </div>
-      
-      {/* Floating garden elements */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-20 right-20 w-3 h-3 bg-pink-300 rounded-full opacity-20 animate-pulse"></div>
-        <div className="absolute bottom-32 left-20 w-2 h-2 bg-bloom-sage/30 rounded-full animate-bounce"></div>
-        <div className="absolute top-1/2 right-1/4 w-4 h-4 bg-yellow-300 rounded-full opacity-15 animate-pulse"></div>
-      </div>
-      
-      <div className="max-w-2xl mx-auto relative z-10">
+    <div className="min-h-screen bg-gradient-to-br from-bloom-sage-50 via-white to-bloom-pink-50 py-12 px-4">
+      <div className="max-w-2xl mx-auto">
         <div className="bg-gradient-to-br from-white to-bloom-sage-50/20 border border-bloom-sage/10 rounded-2xl shadow-soft p-8">
           {/* Header */}
           <div className="text-center mb-8">

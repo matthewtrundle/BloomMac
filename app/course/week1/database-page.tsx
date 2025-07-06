@@ -92,18 +92,7 @@ export default function Week1DatabasePage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-bloom-sage-50 via-white to-bloom-pink-50 relative overflow-hidden">
-      {/* Garden lattice pattern background */}
-      <div className="absolute inset-0 opacity-5">
-        <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-          <defs>
-            <pattern id="week-lattice" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
-              <path d="M0,5 L10,5 M5,0 L5,10" stroke="currentColor" strokeWidth="0.5" className="text-bloom-sage"/>
-            </pattern>
-          </defs>
-          <rect width="100" height="100" fill="url(#week-lattice)" />
-        </svg>
-      </div>
+    <div className="min-h-screen bg-gradient-to-br from-bloom-sage-50 via-white to-bloom-pink-50">
       
       {/* Header */}
       <div className="bg-white/80 backdrop-blur-sm border-b border-gray-100 relative z-10">

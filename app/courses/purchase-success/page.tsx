@@ -73,39 +73,8 @@ function PurchaseSuccessContent() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-bloom-sage-50 via-white to-bloom-pink-50">
-      {/* Celebration Header with Garden Theme */}
-      <section className="py-20 relative overflow-hidden">
-        {/* Garden lattice pattern background */}
-        <div className="absolute inset-0 opacity-5">
-          <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-            <defs>
-              <pattern id="celebration-lattice" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
-                <path d="M0,5 L10,5 M5,0 L5,10" stroke="currentColor" strokeWidth="0.5" className="text-bloom-sage"/>
-              </pattern>
-            </defs>
-            <rect width="100" height="100" fill="url(#celebration-lattice)" />
-          </svg>
-        </div>
-        
-        {/* Floating celebration elements */}
-        <div className="absolute inset-0 pointer-events-none">
-          <motion.div
-            animate={{ y: [0, -30, 0], rotate: [0, 360] }}
-            transition={{ duration: 15, repeat: Infinity }}
-            className="absolute top-20 right-20 w-4 h-4 bg-pink-300 rounded-full opacity-30"
-          />
-          <motion.div
-            animate={{ y: [0, -25, 0], scale: [1, 1.2, 1] }}
-            transition={{ duration: 18, repeat: Infinity, delay: 5 }}
-            className="absolute bottom-20 left-40 w-3 h-3 bg-bloom-sage/30 rounded-full"
-          />
-          <motion.div
-            animate={{ y: [0, -20, 0] }}
-            transition={{ duration: 20, repeat: Infinity, delay: 10 }}
-            className="absolute top-1/2 right-1/3 w-2 h-2 bg-yellow-300 rounded-full opacity-25"
-          />
-        </div>
-
+      {/* Celebration Header */}
+      <section className="py-20 relative">
         <div className="container mx-auto px-6 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -130,18 +99,8 @@ function PurchaseSuccessContent() {
               <span className="text-bloompink">Wellness Journey!</span>
             </h1>
             
-            {/* Decorative flower divider */}
-            <div className="flex items-center justify-center gap-4 mb-6">
-              <div className="w-16 h-0.5 bg-gradient-to-r from-transparent to-bloom-sage/30 rounded-full"></div>
-              <Image 
-                src="/images/flower no stem.svg" 
-                alt="" 
-                width={24} 
-                height={24} 
-                className="opacity-50"
-              />
-              <div className="w-16 h-0.5 bg-gradient-to-l from-transparent to-bloom-sage/30 rounded-full"></div>
-            </div>
+            {/* Professional divider */}
+            <div className="w-32 h-0.5 bg-bloom-sage/20 rounded-full mx-auto mb-6"></div>
             
             <p className="text-xl text-bloom-dark/80 mb-8">
               🎉 Congratulations! You've successfully enrolled in <strong>{course.title}</strong>
