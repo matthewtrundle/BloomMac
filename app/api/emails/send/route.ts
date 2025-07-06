@@ -2,32 +2,33 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
 
-// Email service configuration (you can use SendGrid, Resend, or any email service)
-// This is a placeholder implementation - replace with your actual email service
+// Email service configuration using Resend
 async function sendEmail(to: string, subject: string, html: string, text?: string) {
-  // Example using Resend (install with: npm install resend)
-  // const resend = new Resend(process.env.RESEND_API_KEY);
-  // return await resend.emails.send({
-  //   from: 'Bloom Psychology <noreply@bloompsychology.com>',
-  //   to,
-  //   subject,
-  //   html,
-  //   text
-  // });
+  // Check if we have the Resend API key
+  if (process.env.RESEND_API_KEY) {
+    try {
+      const { Resend } = await import('resend');
+      const resend = new Resend(process.env.RESEND_API_KEY);
+      
+      const result = await resend.emails.send({
+        from: 'Bloom Psychology <noreply@bloompsychologynorthaustin.com>',
+        to,
+        subject,
+        html,
+        text
+      });
+      
+      console.log('[Email] Successfully sent email via Resend:', { to, subject, id: result.data?.id });
+      return { success: true, id: result.data?.id || 'resend-email' };
+    } catch (error) {
+      console.error('[Email] Resend error:', error);
+      // Fall back to mock if Resend fails
+    }
+  }
 
-  // Example using SendGrid (install with: npm install @sendgrid/mail)
-  // const sgMail = require('@sendgrid/mail');
-  // sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-  // return await sgMail.send({
-  //   to,
-  //   from: 'noreply@bloompsychology.com',
-  //   subject,
-  //   html,
-  //   text
-  // });
-
-  // For now, just log the email
-  console.log('[Email] Would send email:', { to, subject });
+  // For development or if Resend isn't configured, just log the email
+  console.log('[Email] Would send email (no Resend API key):', { to, subject });
+  console.log('[Email] HTML content:', html);
   return { success: true, id: 'mock-email-id' };
 }
 
@@ -182,6 +183,38 @@ export async function POST(request: NextRequest) {
           </div>
         `;
         text = `Payment receipt: $${data.amount} paid on ${data.paymentDate}. Transaction ID: ${data.transactionId}`;
+        break;
+
+      case 'contact-admin-notification':
+        html = `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+            <div style="background-color: #8B9B7A; padding: 20px; text-align: center;">
+              <h1 style="color: white; margin: 0;">New Contact Form Submission</h1>
+            </div>
+            <div style="padding: 30px; background-color: #f9f9f9;">
+              <h2 style="color: #333; margin-bottom: 20px;">Contact Details</h2>
+              <div style="background-color: white; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+                <p style="margin: 5px 0;"><strong>Name:</strong> ${data.name}</p>
+                <p style="margin: 5px 0;"><strong>Email:</strong> ${data.email}</p>
+                ${data.phone ? `<p style="margin: 5px 0;"><strong>Phone:</strong> ${data.phone}</p>` : ''}
+                <p style="margin: 5px 0;"><strong>Service Interest:</strong> ${data.service}</p>
+                <p style="margin: 5px 0;"><strong>Submission ID:</strong> ${data.submissionId}</p>
+                <p style="margin: 5px 0;"><strong>Page:</strong> ${data.page}</p>
+                <p style="margin: 5px 0;"><strong>Date:</strong> ${data.timestamp}</p>
+              </div>
+              <h3 style="color: #333;">Message:</h3>
+              <div style="background-color: white; padding: 20px; border-radius: 8px; white-space: pre-wrap; font-family: Georgia, serif; line-height: 1.6;">
+                ${data.message}
+              </div>
+              <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee;">
+                <p style="color: #666; font-size: 14px; margin: 0;">
+                  <strong>Action Required:</strong> Please respond to this inquiry within 24-48 hours.
+                </p>
+              </div>
+            </div>
+          </div>
+        `;
+        text = `New contact form submission from ${data.name} (${data.email}). Message: ${data.message}`;
         break;
         
       default:

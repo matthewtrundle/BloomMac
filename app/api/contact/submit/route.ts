@@ -168,6 +168,75 @@ export async function POST(request: NextRequest) {
       // Don't fail the submission if email fails
     }
 
+    // Send admin notification email
+    try {
+      const adminEmails = ['drjana@bloompsychologynorthaustin.com', 'matt@bloompsychologynorthaustin.com'];
+      
+      for (const adminEmail of adminEmails) {
+        const emailHtml = `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+            <div style="background-color: #8B9B7A; padding: 20px; text-align: center;">
+              <h1 style="color: white; margin: 0;">New Contact Form Submission</h1>
+            </div>
+            <div style="padding: 30px; background-color: #f9f9f9;">
+              <h2 style="color: #333; margin-bottom: 20px;">Contact Details</h2>
+              <div style="background-color: white; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+                <p style="margin: 5px 0;"><strong>Name:</strong> ${name}</p>
+                <p style="margin: 5px 0;"><strong>Email:</strong> ${email}</p>
+                ${phone ? `<p style="margin: 5px 0;"><strong>Phone:</strong> ${phone}</p>` : ''}
+                <p style="margin: 5px 0;"><strong>Service Interest:</strong> ${service || 'General'}</p>
+                <p style="margin: 5px 0;"><strong>Submission ID:</strong> ${submission?.id}</p>
+                <p style="margin: 5px 0;"><strong>Page:</strong> ${page}</p>
+                <p style="margin: 5px 0;"><strong>Date:</strong> ${new Date().toLocaleString()}</p>
+              </div>
+              <h3 style="color: #333;">Message:</h3>
+              <div style="background-color: white; padding: 20px; border-radius: 8px; white-space: pre-wrap; font-family: Georgia, serif; line-height: 1.6;">
+                ${message}
+              </div>
+              <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee;">
+                <p style="color: #666; font-size: 14px; margin: 0;">
+                  <strong>Action Required:</strong> Please respond to this inquiry within 24-48 hours.
+                </p>
+              </div>
+            </div>
+          </div>
+        `;
+
+        // Send using the internal email API
+        const response = await fetch(new URL('/api/emails/send', request.url), {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-api-key': process.env.INTERNAL_API_KEY || 'fallback-key'
+          },
+          body: JSON.stringify({
+            to: adminEmail,
+            subject: `New Contact Form Submission from ${name}`,
+            template: 'contact-admin-notification',
+            data: {
+              name,
+              email,
+              phone,
+              service: service || 'General',
+              message,
+              submissionId: submission?.id,
+              page,
+              timestamp: new Date().toLocaleString()
+            }
+          })
+        });
+
+        if (response.ok) {
+          console.log(`Admin notification sent to ${adminEmail}`);
+        } else {
+          console.error(`Failed to send admin notification to ${adminEmail}:`, await response.text());
+        }
+      }
+    } catch (adminEmailError) {
+      console.error('Failed to send admin notification emails:', adminEmailError);
+      // Don't fail the submission if admin email fails
+    }
+
     return NextResponse.json({
       success: true,
       message: 'Thank you for contacting us. We will respond within 24-48 hours.',
