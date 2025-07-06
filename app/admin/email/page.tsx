@@ -462,8 +462,8 @@ const EmailAdminPage: React.FC = () => {
                       <CardTitle className="text-sm font-medium text-gray-600">Emails Sent</CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <div className="text-2xl font-bold">{emailAnalytics.overview.totalSent.toLocaleString()}</div>
-                      <p className="text-xs text-gray-500 mt-1">{emailAnalytics.overview.period}</p>
+                      <div className="text-2xl font-bold">{(emailAnalytics.overview.totalSent || 0).toLocaleString()}</div>
+                      <p className="text-xs text-gray-500 mt-1">{emailAnalytics.overview.period || 'No period data'}</p>
                     </CardContent>
                   </Card>
                   
@@ -472,7 +472,7 @@ const EmailAdminPage: React.FC = () => {
                       <CardTitle className="text-sm font-medium text-gray-600">Avg Open Rate</CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <div className="text-2xl font-bold">{emailAnalytics.overview.avgOpenRate}%</div>
+                      <div className="text-2xl font-bold">{emailAnalytics.overview.avgOpenRate || 0}%</div>
                       <p className="text-xs text-green-600 mt-1">Industry avg: 21.5%</p>
                     </CardContent>
                   </Card>
@@ -482,7 +482,7 @@ const EmailAdminPage: React.FC = () => {
                       <CardTitle className="text-sm font-medium text-gray-600">Avg Click Rate</CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <div className="text-2xl font-bold">{emailAnalytics.overview.avgClickRate}%</div>
+                      <div className="text-2xl font-bold">{emailAnalytics.overview.avgClickRate || 0}%</div>
                       <p className="text-xs text-green-600 mt-1">Industry avg: 2.3%</p>
                     </CardContent>
                   </Card>
@@ -492,7 +492,7 @@ const EmailAdminPage: React.FC = () => {
                       <CardTitle className="text-sm font-medium text-gray-600">Unsubscribes</CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <div className="text-2xl font-bold">{emailAnalytics.overview.totalUnsubscribed}</div>
+                      <div className="text-2xl font-bold">{emailAnalytics.overview.totalUnsubscribed || 0}</div>
                       <p className="text-xs text-gray-500 mt-1">Keep under 1%</p>
                     </CardContent>
                   </Card>
@@ -517,21 +517,29 @@ const EmailAdminPage: React.FC = () => {
                           </tr>
                         </thead>
                         <tbody>
-                          {emailAnalytics.campaigns.map((campaign: any) => (
-                            <tr key={campaign.id} className="border-b">
-                              <td className="py-3">
-                                <div>
-                                  <p className="font-medium text-sm">{campaign.subject}</p>
-                                  <p className="text-xs text-gray-500">{new Date(campaign.sentAt).toLocaleDateString()}</p>
-                                </div>
+                          {emailAnalytics.campaigns && emailAnalytics.campaigns.length > 0 ? (
+                            emailAnalytics.campaigns.map((campaign: any) => (
+                              <tr key={campaign.id} className="border-b">
+                                <td className="py-3">
+                                  <div>
+                                    <p className="font-medium text-sm">{campaign.subject || 'Untitled'}</p>
+                                    <p className="text-xs text-gray-500">{campaign.sentAt ? new Date(campaign.sentAt).toLocaleDateString() : 'Unknown date'}</p>
+                                  </div>
+                                </td>
+                                <td className="py-3 text-right text-sm">{campaign.sent || 0}</td>
+                                <td className="py-3 text-right text-sm">{campaign.opened || 0}</td>
+                                <td className="py-3 text-right text-sm">{campaign.clicked || 0}</td>
+                                <td className="py-3 text-right text-sm font-medium">{campaign.openRate || 0}%</td>
+                                <td className="py-3 text-right text-sm font-medium">{campaign.clickRate || 0}%</td>
+                              </tr>
+                            ))
+                          ) : (
+                            <tr>
+                              <td colSpan={6} className="py-8 text-center text-gray-500">
+                                No campaign data available yet
                               </td>
-                              <td className="py-3 text-right text-sm">{campaign.sent}</td>
-                              <td className="py-3 text-right text-sm">{campaign.opened}</td>
-                              <td className="py-3 text-right text-sm">{campaign.clicked}</td>
-                              <td className="py-3 text-right text-sm font-medium">{campaign.openRate}%</td>
-                              <td className="py-3 text-right text-sm font-medium">{campaign.clickRate}%</td>
                             </tr>
-                          ))}
+                          )}
                         </tbody>
                       </table>
                     </div>
@@ -548,20 +556,20 @@ const EmailAdminPage: React.FC = () => {
                       <div className="space-y-3">
                         <div className="flex justify-between items-center">
                           <span className="text-sm text-gray-600">Active Subscribers</span>
-                          <span className="font-semibold">{emailAnalytics.subscriberMetrics.totalActive}</span>
+                          <span className="font-semibold">{emailAnalytics.subscriberMetrics.totalActive || 0}</span>
                         </div>
                         <div className="flex justify-between items-center">
                           <span className="text-sm text-gray-600">New This Month</span>
-                          <span className="font-semibold text-green-600">+{emailAnalytics.subscriberMetrics.newThisMonth}</span>
+                          <span className="font-semibold text-green-600">+{emailAnalytics.subscriberMetrics.newThisMonth || 0}</span>
                         </div>
                         <div className="flex justify-between items-center">
                           <span className="text-sm text-gray-600">Unsubscribed</span>
-                          <span className="font-semibold text-red-600">-{emailAnalytics.subscriberMetrics.unsubscribedThisMonth}</span>
+                          <span className="font-semibold text-red-600">-{emailAnalytics.subscriberMetrics.unsubscribedThisMonth || 0}</span>
                         </div>
                         <div className="pt-3 border-t">
                           <div className="flex justify-between items-center">
                             <span className="text-sm font-medium">Growth Rate</span>
-                            <span className="font-bold text-bloom-primary">{emailAnalytics.subscriberMetrics.growthRate}%</span>
+                            <span className="font-bold text-bloom-primary">{emailAnalytics.subscriberMetrics.growthRate || 0}%</span>
                           </div>
                         </div>
                       </div>
@@ -574,15 +582,19 @@ const EmailAdminPage: React.FC = () => {
                     </CardHeader>
                     <CardContent>
                       <div className="space-y-3">
-                        {emailAnalytics.subscriberMetrics.mostEngaged.map((subscriber: any, index: number) => (
-                          <div key={index} className="flex justify-between items-center">
-                            <span className="text-sm">{subscriber.email}</span>
-                            <div className="flex items-center space-x-3 text-sm">
-                              <span className="text-gray-500">{subscriber.opens} opens</span>
-                              <span className="text-gray-500">{subscriber.clicks} clicks</span>
+                        {emailAnalytics.subscriberMetrics.mostEngaged && emailAnalytics.subscriberMetrics.mostEngaged.length > 0 ? (
+                          emailAnalytics.subscriberMetrics.mostEngaged.map((subscriber: any, index: number) => (
+                            <div key={index} className="flex justify-between items-center">
+                              <span className="text-sm">{subscriber.email || 'Unknown'}</span>
+                              <div className="flex items-center space-x-3 text-sm">
+                                <span className="text-gray-500">{subscriber.opens || 0} opens</span>
+                                <span className="text-gray-500">{subscriber.clicks || 0} clicks</span>
+                              </div>
                             </div>
-                          </div>
-                        ))}
+                          ))
+                        ) : (
+                          <p className="text-sm text-gray-500">No engagement data available yet</p>
+                        )}
                       </div>
                     </CardContent>
                   </Card>
@@ -595,19 +607,19 @@ const EmailAdminPage: React.FC = () => {
                   </CardHeader>
                   <CardContent>
                     <div className="mb-4">
-                      <p className="text-sm text-gray-600 mb-2">Best Send Time: <span className="font-semibold text-bloom-primary">{emailAnalytics.engagement.bestSendTime}</span></p>
+                      <p className="text-sm text-gray-600 mb-2">Best Send Time: <span className="font-semibold text-bloom-primary">{emailAnalytics.engagement.bestSendTime || 'Not enough data'}</span></p>
                     </div>
                     <div className="space-y-4">
                       <div>
                         <h4 className="text-sm font-medium text-gray-700 mb-2">Opens by Day of Week</h4>
                         <div className="flex items-end justify-between h-32 space-x-2">
-                          {emailAnalytics.engagement.byDay.map((day: any) => (
+                          {emailAnalytics.engagement.byDay && emailAnalytics.engagement.byDay.map((day: any) => (
                             <div key={day.day} className="flex-1 flex flex-col items-center">
                               <div 
                                 className="w-full bg-bloom-primary rounded-t"
-                                style={{ height: `${(day.opens / 120) * 100}%` }}
+                                style={{ height: `${((day.opens || 0) / 120) * 100}%` }}
                               />
-                              <span className="text-xs mt-1">{day.day}</span>
+                              <span className="text-xs mt-1">{day.day || ''}</span>
                             </div>
                           ))}
                         </div>
