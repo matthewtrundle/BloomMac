@@ -30,7 +30,7 @@ import {
   Target,
   Activity
 } from 'lucide-react';
-import { NewsletterAdmin } from '@/components/admin/NewsletterAdmin';
+import NewsletterAdmin from '@/components/admin/NewsletterAdmin';
 import { motion } from 'framer-motion';
 
 interface EmailTemplate {
@@ -139,9 +139,9 @@ export default function EmailCenterPage() {
   };
 
   const filteredSubscribers = subscribers.filter(sub => 
-    sub.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    sub.firstName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    sub.lastName?.toLowerCase().includes(searchTerm.toLowerCase())
+    sub?.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    sub?.firstName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    sub?.lastName?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   if (loading) {
