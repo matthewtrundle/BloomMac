@@ -158,6 +158,35 @@ export default function OnboardingFlow({
     setError(null);
 
     try {
+      // For new signups, ensure session is established before proceeding
+      if (source === 'signup' && user) {
+        console.log('Verifying session for new signup...');
+        
+        // Try to refresh the session
+        const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+        
+        if (sessionError || !session) {
+          console.error('Session not ready:', sessionError);
+          
+          // Wait a bit and try again
+          await new Promise(resolve => setTimeout(resolve, 2000));
+          
+          // Force a session refresh
+          const { data: { session: retrySession } } = await supabase.auth.getSession();
+          
+          if (!retrySession) {
+            setError('Your session is being established. Please wait a moment and try again.');
+            setIsLoading(false);
+            
+            // Retry after 3 seconds
+            setTimeout(() => {
+              completeOnboarding();
+            }, 3000);
+            return;
+          }
+        }
+      }
+      
       // Track onboarding completion
       await fetch('/api/analytics/track', {
         method: 'POST',

@@ -1,84 +1,84 @@
+#!/usr/bin/env node
+
+/**
+ * Test script to verify session creation after signup
+ */
+
 const fetch = require('node-fetch');
 
-const API_URL = process.env.API_URL || 'http://localhost:3000';
-const TEST_EMAIL = `test-${Date.now()}@example.com`;
-const TEST_PASSWORD = 'Test123456!';
-
-async function testSignupWithSession() {
-  console.log('Testing signup with session establishment...\n');
-
+async function testSignupSession() {
+  const baseUrl = 'http://localhost:3000';
+  const testEmail = `test-${Date.now()}@example.com`;
+  const testPassword = 'TestPassword123!';
+  
+  console.log('🧪 Testing signup and session creation...\n');
+  
   try {
-    // 1. Test signup
-    console.log('1. Creating account...');
-    const signupResponse = await fetch(`${API_URL}/api/auth/signup`, {
+    // Step 1: Create account
+    console.log('1️⃣ Creating account...');
+    const signupResponse = await fetch(`${baseUrl}/api/auth/signup`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        email: TEST_EMAIL,
-        password: TEST_PASSWORD,
+        email: testEmail,
+        password: testPassword,
         firstName: 'Test',
         lastName: 'User',
-        phone: '1234567890'
-      }),
+        phone: '555-1234'
+      })
     });
-
+    
     const signupData = await signupResponse.json();
     console.log('Signup response:', {
       status: signupResponse.status,
-      data: signupData,
-      cookies: signupResponse.headers.get('set-cookie')
+      success: signupData.success,
+      requiresEmailConfirmation: signupData.requiresEmailConfirmation,
+      hasUser: !!signupData.user
     });
-
-    if (!signupResponse.ok) {
-      throw new Error(`Signup failed: ${signupData.error}`);
+    
+    // Extract cookies
+    const cookies = signupResponse.headers.get('set-cookie');
+    console.log('\nCookies set:', cookies ? 'Yes' : 'No');
+    
+    if (!signupData.success) {
+      throw new Error('Signup failed: ' + (signupData.error || 'Unknown error'));
     }
-
-    // Extract cookies from signup response
-    const cookies = signupResponse.headers.raw()['set-cookie'] || [];
-    const cookieString = cookies.join('; ');
     
-    console.log('\nCookies received:', cookies.length > 0 ? 'Yes' : 'No');
+    // Step 2: Wait a bit for session to propagate
+    console.log('\n2️⃣ Waiting 2 seconds for session to establish...');
+    await new Promise(resolve => setTimeout(resolve, 2000));
     
-    // 2. Test if session was established by accessing protected route
-    console.log('\n2. Testing protected route access...');
-    const profileResponse = await fetch(`${API_URL}/api/profile/get`, {
-      method: 'GET',
+    // Step 3: Try to access profile
+    console.log('\n3️⃣ Attempting to fetch profile...');
+    const profileResponse = await fetch(`${baseUrl}/api/profile/get`, {
       headers: {
-        'Cookie': cookieString
+        'Cookie': cookies || ''
       }
     });
-
+    
     const profileData = await profileResponse.json();
     console.log('Profile response:', {
       status: profileResponse.status,
       success: profileData.success,
       hasProfile: !!profileData.profile
     });
-
-    if (profileResponse.ok && profileData.success) {
-      console.log('\n✅ SUCCESS: User can access protected routes after signup!');
-      console.log('Profile data:', profileData.profile);
-    } else {
-      console.log('\n❌ ISSUE: User cannot access protected routes after signup');
-      console.log('This might be because:');
-      console.log('1. Email confirmation is required');
-      console.log('2. Session cookies are not being set properly');
-      console.log('3. There\'s a timing issue with session establishment');
+    
+    // Summary
+    console.log('\n📊 Summary:');
+    console.log('- Account created:', signupData.success ? '✅' : '❌');
+    console.log('- Session cookies:', cookies ? '✅' : '❌');
+    console.log('- Profile accessible:', profileResponse.status === 200 ? '✅' : '❌');
+    console.log('- Email confirmation required:', signupData.requiresEmailConfirmation ? 'Yes' : 'No');
+    
+    if (profileResponse.status === 401) {
+      console.log('\n⚠️  Issue confirmed: Session not immediately available after signup');
+      console.log('This explains the 401 errors users are experiencing.');
     }
-
-    // 3. Check if email confirmation is required
-    if (signupData.requiresEmailConfirmation) {
-      console.log('\n⚠️  Email confirmation is required for this account');
-      console.log('User will need to confirm their email before accessing protected routes');
-    }
-
+    
   } catch (error) {
     console.error('\n❌ Test failed:', error.message);
-    console.error(error);
   }
 }
 
 // Run the test
-testSignupWithSession().catch(console.error);
+testSignupSession();

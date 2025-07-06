@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabaseAdmin } from '@/lib/supabase';
-import { enhancedEmailTemplates, personalizeEmail } from '@/lib/email-templates/enhanced-emails';
 import { getResendClient } from '@/lib/resend-client';
 
 // Send welcome email to new subscriber
@@ -14,15 +13,26 @@ async function sendWelcomeEmail(subscriber: any, isReactivated: boolean = false)
       return;
     }
     
-    // Get the appropriate email template
-    const template = isReactivated 
-      ? enhancedEmailTemplates.newsletter.welcomeBack
-      : enhancedEmailTemplates.newsletter.welcome;
+    // Get the appropriate email template from database
+    const templateName = isReactivated ? 'Newsletter Welcome Back' : 'Newsletter Welcome';
+    const { data: template, error: templateError } = await supabaseAdmin
+      .from('email_templates')
+      .select('*')
+      .eq('name', templateName)
+      .single();
     
-    const personalizedEmail = personalizeEmail(template, {
-      firstName,
-      name: firstName
-    });
+    if (templateError || !template) {
+      console.error(`Failed to fetch ${templateName} template:`, templateError);
+      return;
+    }
+    
+    // Replace variables in the template
+    let emailContent = template.content;
+    let emailSubject = template.subject;
+    
+    // Replace {{firstName}} with actual value
+    emailContent = emailContent.replace(/\{\{firstName\}\}/g, firstName);
+    emailSubject = emailSubject.replace(/\{\{firstName\}\}/g, firstName);
     
     const resend = getResendClient();
     if (!resend) {
@@ -33,12 +43,12 @@ async function sendWelcomeEmail(subscriber: any, isReactivated: boolean = false)
     await resend.emails.send({
       from: 'Dr. Jana Rundle <jana@bloompsychologynorthaustin.com>',
       to: subscriber.email,
-      subject: personalizedEmail.subject,
-      html: personalizedEmail.content,
+      subject: emailSubject,
+      html: emailContent,
       tags: [
         { name: 'sequence', value: 'newsletter' },
         { name: 'step', value: isReactivated ? 'welcome_back' : 'welcome' },
-        { name: 'enhanced', value: 'true' }
+        { name: 'template_id', value: template.id }
       ]
     });
     console.log(`${isReactivated ? 'Welcome back' : 'Welcome'} email sent to:`, subscriber.email);

@@ -362,6 +362,17 @@ When you discover schema changes:
 - **Updated**: Edit profile page now uses /api/profile/save endpoint
 - **Created**: Migration scripts in scripts/migrate-profiles-cleanup.js and scripts/sql/cleanup-profiles-table.sql
 - **Decision**: Use only user_profiles table, remove profiles table after migration
+- **Fixed**: Added session verification in onboarding flow to prevent 401 errors
+- **Issue**: If Supabase email confirmation is enabled, users won't get session until email confirmed
+
+### Authentication Flow Issues & Solutions
+- **Problem**: Users getting 401 errors after signup when accessing wellness hub
+- **Cause**: Email confirmation enabled in Supabase prevents immediate session creation
+- **Solution 1**: Disable email confirmation in Supabase Dashboard (for development)
+- **Solution 2**: Handle email confirmation flow properly (for production):
+  - Check `requiresEmailConfirmation` flag from signup response
+  - Redirect to "check email" page instead of dashboard
+  - Only allow dashboard access after email confirmation
 
 ---
 
