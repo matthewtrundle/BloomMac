@@ -24,15 +24,34 @@ import {
   Download,
   ChevronRight,
   Star,
-  Sparkles
+  Sparkles,
+  LucideIcon
 } from 'lucide-react';
 import Button from '@/components/ui/Button';
 import NewsletterSignup from '@/components/ui/NewsletterSignup';
 
+interface Resource {
+  category: string;
+  title: string;
+  description: string;
+  type: string;
+  icon: LucideIcon;
+  iconColor: string;
+  bgColor: string;
+  link: string;
+}
+
+interface Category {
+  id: string;
+  label: string;
+  icon: LucideIcon;
+  iconColor: string;
+}
+
 export default function ResourcesPage() {
   const [activeCategory, setActiveCategory] = useState('all');
 
-  const resources = [
+  const resources: Resource[] = [
     // For New Moms
     {
       category: 'moms',
@@ -159,7 +178,7 @@ export default function ResourcesPage() {
     }
   ];
 
-  const categories = [
+  const categories: Category[] = [
     { id: 'all', label: 'All Resources', icon: BookOpen, iconColor: 'text-bloom-dark' },
     { id: 'moms', label: 'For New Moms', icon: Baby, iconColor: 'text-bloompink' },
     { id: 'partners', label: 'For Partners', icon: HeartHandshake, iconColor: 'text-bloom-sage' },
@@ -228,7 +247,11 @@ export default function ResourcesPage() {
                       : 'bg-white text-bloom-dark hover:bg-bloom-sage-50 border border-bloom-sage/20 hover:border-bloom-sage/40'
                   }`}
                 >
-                  <IconComponent className={`w-4 h-4 ${activeCategory === cat.id ? 'text-white' : cat.iconColor}`} />
+                  {IconComponent ? (
+                    <IconComponent className={`w-4 h-4 ${activeCategory === cat.id ? 'text-white' : cat.iconColor || 'text-bloom-dark'}`} />
+                  ) : (
+                    <BookOpen className="w-4 h-4 text-bloom-dark" />
+                  )}
                   {cat.label}
                   {activeCategory === cat.id && (
                     <CheckCircle className="w-4 h-4 text-white ml-1" />
@@ -265,8 +288,12 @@ export default function ResourcesPage() {
                     <Link href={resource.link} className="block h-full">
                       <div className="bg-gradient-to-br from-white to-bloom-sage-50/20 border border-bloom-sage/10 rounded-2xl shadow-soft p-6 hover:shadow-lg transition-all duration-300 h-full flex flex-col">
                         <div className="flex items-start justify-between mb-4">
-                          <div className={`w-12 h-12 ${resource.bgColor} rounded-xl flex items-center justify-center`}>
-                            <IconComponent className={`w-6 h-6 ${resource.iconColor}`} />
+                          <div className={`w-12 h-12 ${resource.bgColor || 'bg-bloom-sage-50'} rounded-xl flex items-center justify-center`}>
+                            {IconComponent ? (
+                              <IconComponent className={`w-6 h-6 ${resource.iconColor || 'text-bloom-sage'}`} />
+                            ) : (
+                              <FileText className="w-6 h-6 text-bloom-sage" />
+                            )}
                           </div>
                           <span className="text-sm text-bloom-sage font-medium px-3 py-1 bg-bloom-sage-50 rounded-full">
                             {resource.type}
