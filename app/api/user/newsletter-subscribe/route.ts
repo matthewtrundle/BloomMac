@@ -36,8 +36,24 @@ export async function POST(request: NextRequest) {
 
   } catch (error) {
     console.error('Newsletter subscribe error:', error);
+    
+    // Log more details about the error
+    if (error instanceof Error) {
+      console.error('Error details:', {
+        message: error.message,
+        stack: error.stack,
+        body: body,
+        baseUrl: baseUrl
+      });
+    }
+    
+    // Return more informative error message
     return NextResponse.json(
-      { error: 'Failed to subscribe to newsletter' },
+      { 
+        error: 'Failed to subscribe to newsletter',
+        details: error instanceof Error ? error.message : 'Unknown error',
+        timestamp: new Date().toISOString()
+      },
       { status: 500 }
     );
   }

@@ -44,7 +44,17 @@ const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || 'Signup failed');
+        // Provide more specific error messages based on status code
+        if (response.status === 409) {
+          throw new Error(data.error || 'This email is already subscribed to our newsletter.');
+        } else if (response.status === 429) {
+          throw new Error(data.error || 'Too many signup attempts. Please try again later.');
+        } else if (response.status === 500) {
+          console.error('Server error details:', data);
+          throw new Error('Our newsletter service is temporarily unavailable. Please try again in a few minutes.');
+        } else {
+          throw new Error(data.error || `Signup failed (Error ${response.status})`);
+        }
       }
 
       setIsSuccess(true);
