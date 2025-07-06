@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
+import { sendEmail } from '@/lib/email-automation';
 
 export async function POST(request: NextRequest) {
   try {
@@ -54,8 +55,43 @@ export async function POST(request: NextRequest) {
       throw error;
     }
     
-    // TODO: Send confirmation email
-    // await sendAppointmentConfirmation(session.user.email, appointment);
+    // Send confirmation email
+    try {
+      // Get user profile for name
+      const { data: profile } = await supabase
+        .from('user_profiles')
+        .select('first_name, last_name')
+        .eq('id', session.user.id)
+        .single();
+      
+      await sendEmail({
+        to: session.user.email,
+        firstName: profile?.first_name || 'Friend',
+        sequenceType: 'booking_confirmation',
+        step: 0,
+        metadata: {
+          appointmentId: appointment.id,
+          appointmentDate: appointmentDate,
+          appointmentType: appointmentType,
+          appointmentDetails: {
+            date: new Date(appointmentDate).toLocaleDateString(),
+            time: new Date(appointmentDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+            format: appointmentType === 'virtual' ? 'Video Call' : 'In-Person'
+          }
+        }
+      });
+      
+      // Update appointment to mark confirmation as sent
+      await supabase
+        .from('appointments')
+        .update({ confirmation_sent: true })
+        .eq('id', appointment.id);
+        
+      console.log('Booking confirmation email sent');
+    } catch (emailError) {
+      console.error('Failed to send confirmation email:', emailError);
+      // Don't fail the booking if email fails
+    }
     
     return NextResponse.json({
       success: true,

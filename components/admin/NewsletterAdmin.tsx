@@ -577,7 +577,7 @@ const NewsletterAdmin: React.FC = () => {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {data.subscribers.map((subscriber) => (
+              {data.subscribers.filter(sub => sub.status === 'active').map((subscriber) => (
                 <tr key={subscriber.id} className={selectedSubscribers.includes(subscriber.id) ? 'bg-blue-50' : ''}>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <input
@@ -600,8 +600,12 @@ const NewsletterAdmin: React.FC = () => {
                     {new Date(subscriber.timestamp).toLocaleDateString()}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                      Active
+                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                      subscriber.status === 'active' 
+                        ? 'bg-green-100 text-green-800' 
+                        : 'bg-gray-100 text-gray-800'
+                    }`}>
+                      {subscriber.status || 'Active'}
                     </span>
                   </td>
                 </tr>

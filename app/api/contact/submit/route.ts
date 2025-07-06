@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createPublicClient } from '@/lib/supabase-server';
 import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
 import { z } from 'zod';
+import { sendEmail } from '@/lib/email-automation';
 
 // Input validation schema
 const contactSchema = z.object({
@@ -108,8 +109,26 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Email functionality removed for now - can be added back later
+    // Trigger contact form follow-up email sequence
     console.log('Contact form submission successful:', submission?.id);
+    
+    try {
+      await sendEmail({
+        to: email,
+        firstName: firstName || name?.split(' ')[0] || 'Friend',
+        sequenceType: 'contact_followup',
+        step: 0,
+        metadata: {
+          submissionId: submission?.id,
+          service: service || concerns || 'General Inquiry',
+          message: message || concerns
+        }
+      });
+      console.log('Contact follow-up email sequence initiated');
+    } catch (emailError) {
+      console.error('Failed to send follow-up email:', emailError);
+      // Don't fail the submission if email fails
+    }
 
     return NextResponse.json({
       success: true,
