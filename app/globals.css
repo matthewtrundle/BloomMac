@@ -46,16 +46,20 @@
     overflow-wrap: break-word;
     hyphens: none;
     text-wrap: balance;
-    white-space: nowrap;
+    white-space: normal; /* Allow normal wrapping by default */
   }
   
-  /* Responsive title wrapping */
-  @media (max-width: 640px) {
+  /* Only apply nowrap on larger screens where we have more space */
+  @media (min-width: 768px) {
     .title-no-orphans {
-      white-space: normal;
-      word-break: keep-all;
-      overflow-wrap: break-word;
+      white-space: nowrap;
     }
+  }
+  
+  /* For very long titles, always allow wrapping */
+  .title-no-orphans {
+    max-width: 100%;
+    min-width: 0;
   }
 
   body {
@@ -870,11 +874,13 @@ section:not(.hero-section) {
   .service-title, 
   h1.service-title {
     word-break: normal !important;
-    overflow-wrap: normal !important;
+    overflow-wrap: break-word !important;
     hyphens: none !important;
     white-space: normal !important;
-    text-wrap: pretty !important;
+    text-wrap: balance !important;
     word-spacing: normal !important;
+    max-width: 100% !important;
+    width: 100% !important;
   }
   
   /* Mobile-specific font sizing */
@@ -903,8 +909,19 @@ section:not(.hero-section) {
     white-space: normal !important;
   }
   
+  /* Medium screen adjustments - tablet/laptop range */
+  @media (min-width: 769px) and (max-width: 1200px) {
+    .service-title, 
+    h1.service-title {
+      font-size: clamp(1.75rem, 3.5vw, 2.5rem) !important; /* Smaller on medium screens */
+      line-height: 1.3 !important;
+      overflow-wrap: break-word !important; /* Allow breaking if needed */
+      word-break: normal !important;
+    }
+  }
+
   /* Desktop adjustments for better text flow */
-  @media (min-width: 769px) {
+  @media (min-width: 1201px) {
     .service-title, 
     h1.service-title {
       max-width: 100% !important; /* Full width for proper text flow */

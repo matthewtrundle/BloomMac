@@ -101,12 +101,12 @@ export default function ServicePage({
       >
         
         <div className="container mx-auto px-6 py-24 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="order-2 lg:order-1">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+            <div className="order-2 lg:order-1 w-full">
               <SmartTitle 
                 title={service?.title}
                 as="h1" 
-                className="service-title font-playfair text-bloom text-3xl lg:text-4xl xl:text-5xl mb-6 leading-tight"
+                className="service-title font-playfair text-bloom text-2xl md:text-3xl lg:text-4xl xl:text-5xl mb-6 leading-tight w-full pr-4 lg:pr-0"
               />
               
               {/* Professional divider */}
