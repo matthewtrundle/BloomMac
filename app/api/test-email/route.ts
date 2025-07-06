@@ -20,6 +20,22 @@ export async function GET(request: NextRequest) {
   }
 }
 
+// Function to replace template variables with test data
+function personalizeTestEmail(content: string): string {
+  const testData = {
+    firstName: 'Matthew',
+    lastName: 'Trundle', 
+    email: 'matthewtrundle@gmail.com',
+    unsubscribeLink: 'https://bloompsychologynorthaustin.com/unsubscribe?test=true'
+  };
+
+  return content
+    .replace(/\{\{firstName\}\}/g, testData.firstName)
+    .replace(/\{\{lastName\}\}/g, testData.lastName)
+    .replace(/\{\{email\}\}/g, testData.email)
+    .replace(/\{\{unsubscribeLink\}\}/g, testData.unsubscribeLink);
+}
+
 export async function POST(request: NextRequest) {
   try {
     const { to, subject, html, text } = await request.json();
@@ -34,18 +50,24 @@ export async function POST(request: NextRequest) {
     // Use the admin email as the test recipient
     const testEmail = 'matthewtrundle@gmail.com';
     
+    // Personalize the email content with test data
+    const personalizedHtml = html ? personalizeTestEmail(html) : personalizeTestEmail(`<p>${text}</p>`);
+    const personalizedText = text ? personalizeTestEmail(text) : personalizeTestEmail(html.replace(/<[^>]*>/g, ''));
+    const personalizedSubject = personalizeTestEmail(subject);
+    
     const result = await sendEmail({
       from: 'Bloom Psychology <noreply@bloompsychologynorthaustin.com>',
       to: testEmail,
-      subject: `[TEST] ${subject}`,
-      html: html || `<p>${text}</p>`,
-      text: text || html.replace(/<[^>]*>/g, '')
+      subject: `[TEST] ${personalizedSubject}`,
+      html: personalizedHtml,
+      text: personalizedText
     });
 
     return NextResponse.json({
       success: true,
-      message: `Test email sent to ${testEmail}`,
+      message: `Test email sent to ${testEmail} with personalized content`,
       recipient: testEmail,
+      personalized: true,
       data: result
     });
 

@@ -88,6 +88,14 @@ const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
               className="flex flex-col sm:flex-row gap-3"
             >
               <input
+                type="text"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                placeholder="First name"
+                disabled={isLoading}
+                className="flex-none w-full sm:w-32 px-4 py-2.5 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-bloom-accent focus:border-transparent disabled:opacity-50 backdrop-blur-sm"
+              />
+              <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -158,13 +166,21 @@ const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
                 className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto"
               >
                 <input
+                  type="text"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  placeholder="First name"
+                  disabled={isLoading}
+                  className="px-3 py-2 border border-gray-300 rounded-md text-sm focus:ring-2 focus:ring-bloompink focus:border-transparent disabled:opacity-50 min-w-[120px]"
+                />
+                <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="your@email.com"
                   required
                   disabled={isLoading}
-                  className="px-3 py-2 border border-gray-300 rounded-md text-sm focus:ring-2 focus:ring-bloompink focus:border-transparent disabled:opacity-50 min-w-[200px]"
+                  className="px-3 py-2 border border-gray-300 rounded-md text-sm focus:ring-2 focus:ring-bloompink focus:border-transparent disabled:opacity-50 min-w-[180px]"
                 />
                 <Button
                   type="submit"
