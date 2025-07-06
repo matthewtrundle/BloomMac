@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { sendEmail } from '@/lib/email';
+import { sendEmail } from '@/lib/resend-client';
 
 export async function GET(request: NextRequest) {
   try {
@@ -35,21 +35,18 @@ export async function POST(request: NextRequest) {
     const testEmail = 'jana@bloompsychologynorthaustin.com';
     
     const result = await sendEmail({
+      from: 'Bloom Psychology <noreply@bloompsychologynorthaustin.com>',
       to: testEmail,
       subject: `[TEST] ${subject}`,
       html: html || `<p>${text}</p>`,
       text: text || html.replace(/<[^>]*>/g, '')
     });
 
-    if (result.success) {
-      return NextResponse.json({
-        success: true,
-        message: `Test email sent to ${testEmail}`,
-        data: result.data
-      });
-    } else {
-      throw new Error(result.error || 'Failed to send email');
-    }
+    return NextResponse.json({
+      success: true,
+      message: `Test email sent to ${testEmail}`,
+      data: result
+    });
 
   } catch (error) {
     console.error('Error sending test email:', error);
