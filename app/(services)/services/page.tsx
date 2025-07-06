@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { services } from '@/lib/data/services';
+import SmartTitle, { getCleanTitle } from '@/components/ui/SmartTitle';
 
 // SEO will be handled by layout or separate metadata file for client components
 
@@ -64,11 +65,11 @@ export default function ServicesPage() {
                   <Link href={`/services/${service.slug}`} className="block group">
                     <div className="bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden h-full">
                       {/* Service Image */}
-                      {service.image && (
+                      {service.heroImage && (
                         <div className="aspect-video relative overflow-hidden">
                           <Image
-                            src={service.image}
-                            alt={service.title}
+                            src={service.heroImage}
+                            alt={getCleanTitle(service.title)}
                             fill
                             className="object-cover group-hover:scale-105 transition-transform duration-300"
                           />
@@ -77,23 +78,25 @@ export default function ServicesPage() {
                       )}
                       
                       <div className="p-6">
-                        <h3 className="text-xl font-semibold text-bloom mb-3 group-hover:text-bloompink transition-colors">
-                          {service.title}
-                        </h3>
+                        <SmartTitle 
+                          title={service.title}
+                          as="h3" 
+                          className="text-xl font-semibold text-bloom mb-3 group-hover:text-bloompink transition-colors"
+                        />
                         <p className="text-gray-600 mb-4">
                           {service.description}
                         </p>
                         
-                        {/* Key features */}
-                        {service.keyFeatures && service.keyFeatures.length > 0 && (
+                        {/* Key benefits */}
+                        {service.keyBenefits && service.keyBenefits.length > 0 && (
                           <div className="mb-4">
                             <ul className="text-sm text-gray-600 space-y-1">
-                              {service.keyFeatures.slice(0, 3).map((feature, idx) => (
+                              {service.keyBenefits.slice(0, 3).map((benefit, idx) => (
                                 <li key={idx} className="flex items-center">
                                   <svg className="w-4 h-4 mr-2 text-bloompink flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                                   </svg>
-                                  {feature}
+                                  {benefit}
                                 </li>
                               ))}
                             </ul>

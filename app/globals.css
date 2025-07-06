@@ -26,6 +26,38 @@
     box-sizing: border-box;
   }
 
+  /* Typography utilities for preventing awkward word breaks */
+  .text-no-break {
+    word-break: keep-all;
+    overflow-wrap: break-word;
+    hyphens: none;
+  }
+  
+  .text-smart-break {
+    word-break: keep-all;
+    overflow-wrap: break-word;
+    hyphens: none;
+    text-wrap: balance;
+  }
+  
+  /* Prevent awkward line breaks in titles */
+  .title-no-orphans {
+    word-break: keep-all;
+    overflow-wrap: break-word;
+    hyphens: none;
+    text-wrap: balance;
+    white-space: nowrap;
+  }
+  
+  /* Responsive title wrapping */
+  @media (max-width: 640px) {
+    .title-no-orphans {
+      white-space: normal;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+    }
+  }
+
   body {
     color: #1e3a5f;
     -webkit-font-smoothing: antialiased;

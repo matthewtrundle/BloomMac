@@ -14,6 +14,7 @@ import GlassmorphismPanel from '@/components/ui/GlassmorphismPanel';
 import OrganicShape from '@/components/ui/OrganicShape';
 import ParallaxContainer from '@/components/ui/ParallaxContainer';
 import KineticTypography from '@/components/ui/KineticTypography';
+import SmartTitle, { getCleanTitle } from '@/components/ui/SmartTitle';
 
 // SEO Components
 import { ServiceSchema, FAQSchema } from '@/components/seo/JsonLd';
@@ -39,8 +40,8 @@ export async function generateMetadata({
     };
   }
   
-  // Remove any line breaks for metadata
-  const cleanTitle = service.title.replace('\n', ' ');
+  // Remove any line breaks for metadata  
+  const cleanTitle = getCleanTitle(service.title);
 
   return {
     title: cleanTitle,
@@ -70,7 +71,7 @@ export default function ServicePage({
     <>
       {/* SEO Schema */}
       <ServiceSchema
-        name={service.title.replace('\n', ' ')}
+        name={getCleanTitle(service.title)}
         url={`https://bloompsychologynorthaustin.com/services/${service.slug}`}
         description={service.description}
         provider={{
@@ -102,11 +103,25 @@ export default function ServicePage({
         <div className="container mx-auto px-6 py-24 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="order-2 lg:order-1">
-              <h1 className="service-title font-playfair text-bloom text-3xl lg:text-4xl xl:text-5xl mb-6 max-w-[90%] lg:max-w-[95%]" style={{wordBreak: 'normal', overflowWrap: 'break-word', whiteSpace: 'normal'}}>
+              <SmartTitle 
+                title={service.title}
+                as="h1" 
+                className="service-title font-playfair text-bloom text-3xl lg:text-4xl xl:text-5xl mb-6 leading-tight"
+              >
                 <KineticTypography animation="letter-by-letter">
-                  {service.title.replace('\n', ' ')}
+                  {service.title.includes('\n') ? (
+                    service.title.split('\n').map((line, index) => (
+                      <span key={index} className="block title-no-orphans">
+                        {line}
+                      </span>
+                    ))
+                  ) : (
+                    <span className="title-no-orphans">
+                      {service.title}
+                    </span>
+                  )}
                 </KineticTypography>
-              </h1>
+              </SmartTitle>
               
               {/* Professional divider */}
               <div className="w-24 h-0.5 bg-bloom-sage/20 rounded-full mb-6"></div>
