@@ -22,11 +22,10 @@ export async function GET(request: NextRequest) {
 
     if (error) throw error;
 
-
-    // Calculate stats - use the actual 'status' column
+    // Calculate stats
     const totalSubscribers = subscribers.length;
-    const activeSubscribers = subscribers.filter(s => s.status === 'active').length;
-    const unsubscribed = subscribers.filter(s => s.status === 'unsubscribed').length;
+    const activeSubscribers = subscribers.filter(s => s.subscribed === true).length;
+    const unsubscribed = subscribers.filter(s => s.subscribed === false).length;
     
     // Recent signups (last 30 days)
     const thirtyDaysAgo = new Date();
@@ -74,22 +73,19 @@ export async function GET(request: NextRequest) {
       growth_trend: growthTrend
     };
 
-    // Filter active subscribers - use the actual 'status' column
-    const activeSubscribersList = subscribers.filter(s => s.status === 'active');
-    
     // Return the expected structure
     return NextResponse.json({
       stats,
-      subscribers: activeSubscribersList
-        .map(s => ({
-          id: s.id,
-          email: s.email,
-          firstName: s.first_name || '',
-          lastName: s.last_name || '',
-          signupSource: s.source || 'unknown',
-          timestamp: s.created_at,
-          interests: []
-        }))
+      subscribers: subscribers.map(s => ({
+        id: s.id,
+        email: s.email,
+        first_name: s.first_name || '',
+        last_name: s.last_name || '',
+        status: s.subscribed ? 'active' : 'unsubscribed',
+        source: s.source || 'unknown',
+        created_at: s.created_at,
+        unsubscribed_at: s.unsubscribed_at
+      }))
     });
 
   } catch (error) {
@@ -103,29 +99,54 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
+    const { action, ...data } = await request.json();
     const supabase = getServiceSupabase();
 
-    // Check if this is a newsletter send request (has subject and content)
-    if (body.subject && body.content) {
-      const { subject, content, preview } = body;
+    if (action === 'add_subscriber') {
+      const { email, source = 'admin' } = data;
       
-      // Get active subscribers - use a simple select and filter in code
-      const { data: allSubscribers, error: subError } = await supabase
+      if (!email) {
+        return NextResponse.json({ error: 'Email is required' }, { status: 400 });
+      }
+
+      const { data: newSubscriber, error } = await supabase
         .from('subscribers')
-        .select('*');
-        
-      if (subError) throw subError;
+        .insert({
+          email: email.toLowerCase().trim(),
+          source,
+          subscribed: true,
+          created_at: new Date().toISOString()
+        })
+        .select()
+        .single();
+
+      if (error) {
+        if (error.code === '23505') {
+          return NextResponse.json({ error: 'Email already subscribed' }, { status: 409 });
+        }
+        throw error;
+      }
+
+      return NextResponse.json(newSubscriber, { status: 201 });
+    }
+
+    if (action === 'send_newsletter') {
+      const { subject, content, template_id } = data;
       
-      // Filter active subscribers using the 'status' column
-      const activeSubscribers = allSubscribers.filter(s => s.status === 'active');
+      // Get active subscribers
+      const { data: activeSubscribers, error: subError } = await supabase
+        .from('subscribers')
+        .select('email')
+        .eq('subscribed', true);
+
+      if (subError) throw subError;
 
       // Add to email queue for each subscriber
       const emailJobs = activeSubscribers.map(subscriber => ({
         to_email: subscriber.email,
         subject,
-        template_id: 'newsletter',
-        template_data: { content, preview },
+        template_id: template_id || 'newsletter',
+        template_data: { content },
         status: 'pending',
         scheduled_at: new Date().toISOString()
       }));
@@ -143,36 +164,7 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    // Check if this is an add subscriber request (has action)
-    if (body.action === 'add_subscriber') {
-      const { email, source = 'admin' } = body;
-      
-      if (!email) {
-        return NextResponse.json({ error: 'Email is required' }, { status: 400 });
-      }
-
-      const { data: newSubscriber, error } = await supabase
-        .from('subscribers')
-        .insert({
-          email: email.toLowerCase().trim(),
-          source,
-          status: 'active',
-          created_at: new Date().toISOString()
-        })
-        .select()
-        .single();
-
-      if (error) {
-        if (error.code === '23505') {
-          return NextResponse.json({ error: 'Email already subscribed' }, { status: 409 });
-        }
-        throw error;
-      }
-
-      return NextResponse.json(newSubscriber, { status: 201 });
-    }
-
-    return NextResponse.json({ error: 'Invalid request format' }, { status: 400 });
+    return NextResponse.json({ error: 'Unknown action' }, { status: 400 });
 
   } catch (error) {
     console.error('Error processing newsletter action:', error);
@@ -183,41 +175,29 @@ export async function POST(request: NextRequest) {
   }
 }
 
-export async function OPTIONS(request: NextRequest) {
-  return new NextResponse(null, { status: 200 });
-}
-
 export async function DELETE(request: NextRequest) {
   try {
-    const { subscriberIds } = await request.json();
+    const { searchParams } = new URL(request.url);
+    const email = searchParams.get('email');
 
-    if (!subscriberIds || !Array.isArray(subscriberIds) || subscriberIds.length === 0) {
-      return NextResponse.json({ 
-        error: 'Subscriber IDs are required', 
-        details: `Received: ${JSON.stringify(body)}` 
-      }, { status: 400 });
+    if (!email) {
+      return NextResponse.json({ error: 'Email is required' }, { status: 400 });
     }
 
     const supabase = getServiceSupabase();
     
-    // Update status to 'unsubscribed' for the selected subscribers
-    const updateData = {
-      status: 'unsubscribed',
-      updated_at: new Date().toISOString()
-    };
-    
     const { error } = await supabase
       .from('subscribers')
-      .update(updateData)
-      .in('id', subscriberIds);
+      .update({ 
+        subscribed: false,
+        unsubscribed_at: new Date().toISOString()
+      })
+      .eq('email', email);
 
     if (error) throw error;
 
-    return NextResponse.json({ 
-      success: true, 
-      message: `Successfully unsubscribed ${subscriberIds.length} subscriber(s)` 
-    });
-  } catch (error: any) {
+    return NextResponse.json({ success: true });
+  } catch (error) {
     console.error('Error unsubscribing:', error);
     return NextResponse.json(
       { error: 'Failed to unsubscribe', details: error.message },
