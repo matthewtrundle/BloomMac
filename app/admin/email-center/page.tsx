@@ -80,6 +80,8 @@ export default function EmailCenterPage() {
   const [saving, setSaving] = useState(false);
   const [resendConfigured, setResendConfigured] = useState(false);
   const [testResults, setTestResults] = useState<any[]>([]);
+  const [templateFilter, setTemplateFilter] = useState('all');
+  const [showPreview, setShowPreview] = useState(false);
 
   useEffect(() => {
     loadData();
@@ -225,6 +227,13 @@ export default function EmailCenterPage() {
     sub?.firstName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
     sub?.lastName?.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const filteredTemplates = templates.filter(template => {
+    if (templateFilter === 'all') return true;
+    if (templateFilter === 'database') return template.source === 'database';
+    if (templateFilter === 'enhanced') return template.source === 'enhanced';
+    return true;
+  });
 
   if (loading) {
     return (
@@ -600,6 +609,61 @@ export default function EmailCenterPage() {
                     All sequences are configured and ready to send automatically when triggered
                   </p>
                 </div>
+
+                {/* Automation Management Info */}
+                <div className="mt-6">
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="text-lg">How to Manage Automations</CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="border-l-4 border-blue-500 pl-4">
+                        <h4 className="font-medium mb-1">Current Setup</h4>
+                        <p className="text-sm text-gray-600">
+                          These email sequences are triggered automatically by user actions:
+                        </p>
+                        <ul className="text-sm text-gray-600 mt-2 space-y-1">
+                          <li>• Newsletter signup → Welcome Series (5 emails)</li>
+                          <li>• Contact form submission → Follow-up Series (3 emails)</li>
+                          <li>• Appointment booking → Confirmation Series (3 emails)</li>
+                          <li>• Lead form submission → Nurture Series (4 emails)</li>
+                        </ul>
+                      </div>
+                      
+                      <div className="border-l-4 border-green-500 pl-4">
+                        <h4 className="font-medium mb-1">To Edit Templates</h4>
+                        <p className="text-sm text-gray-600">
+                          Go to the <button 
+                            onClick={() => setActiveTab('templates')}
+                            className="text-bloom-primary hover:underline"
+                          >Templates tab</button> and look for templates marked with "Auto" badge.
+                          These are the automated email templates.
+                        </p>
+                      </div>
+                      
+                      <div className="border-l-4 border-purple-500 pl-4">
+                        <h4 className="font-medium mb-1">To Test Sequences</h4>
+                        <p className="text-sm text-gray-600">
+                          Use the <button 
+                            onClick={() => setActiveTab('testing')}
+                            className="text-bloom-primary hover:underline"
+                          >Testing tab</button> to send test emails from any template in the sequences.
+                        </p>
+                      </div>
+                      
+                      <div className="border-l-4 border-orange-500 pl-4">
+                        <h4 className="font-medium mb-1">Advanced Management</h4>
+                        <p className="text-sm text-gray-600">
+                          To modify timing, add/remove emails, or create new sequences, 
+                          these changes need to be made in the codebase at:
+                        </p>
+                        <code className="text-xs bg-gray-100 px-2 py-1 rounded block mt-1">
+                          /lib/email-templates/enhanced-emails.ts
+                        </code>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
               </CardContent>
             </Card>
           </div>
@@ -613,104 +677,202 @@ export default function EmailCenterPage() {
 
         {activeTab === 'templates' && (
           <div className="space-y-6">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {/* Template List */}
-            <Card className="lg:col-span-1">
-              <CardHeader>
-                <CardTitle>Email Templates</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-2">
-                  {templates.map((template) => (
-                    <button
-                      key={template.id}
-                      onClick={() => setSelectedTemplate(template)}
-                      className={`w-full text-left p-3 rounded-lg transition-colors ${
-                        selectedTemplate?.id === template.id 
-                          ? 'bg-bloom-primary/10 border-bloom-primary' 
-                          : 'hover:bg-gray-50'
-                      } border`}
-                    >
-                      <h4 className="font-medium">{template.name}</h4>
-                      <p className="text-sm text-gray-600">{template.category}</p>
-                    </button>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+            {/* Template Categories */}
+            <div className="flex gap-4 mb-4">
+              <button
+                onClick={() => setTemplateFilter('all')}
+                className={`px-4 py-2 rounded-md text-sm font-medium transition ${
+                  templateFilter === 'all' 
+                    ? 'bg-bloom-primary text-white' 
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                }`}
+              >
+                All Templates ({templates.length})
+              </button>
+              <button
+                onClick={() => setTemplateFilter('database')}
+                className={`px-4 py-2 rounded-md text-sm font-medium transition ${
+                  templateFilter === 'database' 
+                    ? 'bg-bloom-primary text-white' 
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                }`}
+              >
+                Custom (3)
+              </button>
+              <button
+                onClick={() => setTemplateFilter('enhanced')}
+                className={`px-4 py-2 rounded-md text-sm font-medium transition ${
+                  templateFilter === 'enhanced' 
+                    ? 'bg-bloom-primary text-white' 
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                }`}
+              >
+                Automated (15)
+              </button>
+            </div>
 
-            {/* Template Editor */}
-            <Card className="lg:col-span-2">
-              <CardHeader>
-                <div className="flex items-center justify-between">
-                  <CardTitle>
-                    {selectedTemplate ? `Edit: ${selectedTemplate.name}` : 'Select a template'}
-                  </CardTitle>
-                  {selectedTemplate && (
-                    <div className="flex gap-2">
-                      <button 
-                        onClick={() => handleSendTestEmail(selectedTemplate.id)}
-                        className="px-3 py-1.5 text-sm border border-gray-300 rounded-md hover:bg-gray-50 flex items-center gap-2"
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              {/* Template List */}
+              <Card className="lg:col-span-1">
+                <CardHeader>
+                  <CardTitle>Email Templates</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-2 max-h-[600px] overflow-y-auto">
+                    {filteredTemplates.map((template) => (
+                      <button
+                        key={template.id}
+                        onClick={() => setSelectedTemplate(template)}
+                        className={`w-full text-left p-3 rounded-lg transition-colors ${
+                          selectedTemplate?.id === template.id 
+                            ? 'bg-bloom-primary/10 border-bloom-primary' 
+                            : 'hover:bg-gray-50'
+                        } border`}
                       >
-                        <Send className="w-4 h-4" />
-                        Send Test
+                        <div className="flex items-start justify-between">
+                          <div className="flex-1">
+                            <h4 className="font-medium text-sm">{template.name}</h4>
+                            <p className="text-xs text-gray-600 capitalize">{template.category}</p>
+                          </div>
+                          {template.source === 'enhanced' && (
+                            <span className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded">Auto</span>
+                          )}
+                        </div>
                       </button>
-                      <button 
-                        onClick={handleSaveTemplate} 
-                        disabled={saving}
-                        className="px-3 py-1.5 text-sm bg-bloom-primary text-white rounded-md hover:bg-bloom-primary/90 disabled:opacity-50 flex items-center gap-2"
-                      >
-                        {saving ? (
-                          <Loader2 className="w-4 h-4 animate-spin" />
-                        ) : (
-                          <Save className="w-4 h-4" />
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Template Editor & Preview */}
+              <Card className="lg:col-span-2">
+                <CardHeader>
+                  <div className="flex items-center justify-between">
+                    <CardTitle>
+                      {selectedTemplate ? selectedTemplate.name : 'Select a template'}
+                    </CardTitle>
+                    {selectedTemplate && (
+                      <div className="flex gap-2">
+                        <button
+                          onClick={() => setShowPreview(!showPreview)}
+                          className={`px-3 py-1.5 text-sm border rounded-md flex items-center gap-2 transition ${
+                            showPreview 
+                              ? 'border-bloom-primary bg-bloom-primary/10 text-bloom-primary' 
+                              : 'border-gray-300 hover:bg-gray-50'
+                          }`}
+                        >
+                          <Eye className="w-4 h-4" />
+                          {showPreview ? 'Edit' : 'Preview'}
+                        </button>
+                        <button 
+                          onClick={() => handleSendTestEmail(selectedTemplate.id)}
+                          className="px-3 py-1.5 text-sm border border-gray-300 rounded-md hover:bg-gray-50 flex items-center gap-2"
+                        >
+                          <Send className="w-4 h-4" />
+                          Send Test
+                        </button>
+                        {selectedTemplate.source === 'database' && (
+                          <button 
+                            onClick={handleSaveTemplate} 
+                            disabled={saving}
+                            className="px-3 py-1.5 text-sm bg-bloom-primary text-white rounded-md hover:bg-bloom-primary/90 disabled:opacity-50 flex items-center gap-2"
+                          >
+                            {saving ? (
+                              <Loader2 className="w-4 h-4 animate-spin" />
+                            ) : (
+                              <Save className="w-4 h-4" />
+                            )}
+                            Save
+                          </button>
                         )}
-                        Save
-                      </button>
+                      </div>
+                    )}
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  {selectedTemplate ? (
+                    showPreview ? (
+                      <div className="space-y-4">
+                        <div className="bg-gray-50 p-4 rounded-lg">
+                          <p className="text-sm font-medium text-gray-700 mb-1">Subject:</p>
+                          <p className="text-gray-900">{selectedTemplate.subject}</p>
+                        </div>
+                        <div className="border rounded-lg p-6 bg-white">
+                          <div 
+                            className="prose prose-sm max-w-none"
+                            dangerouslySetInnerHTML={{ 
+                              __html: selectedTemplate.content.replace(
+                                /\{\{firstName\}\}/g, 'Jane'
+                              ).replace(
+                                /\{\{lastName\}\}/g, 'Doe'
+                              ).replace(
+                                /\{\{email\}\}/g, 'jane@example.com'
+                              ).replace(
+                                /\{\{unsubscribeLink\}\}/g, '#'
+                              )
+                            }}
+                          />
+                        </div>
+                        {selectedTemplate.sequence && (
+                          <div className="bg-blue-50 p-4 rounded-lg">
+                            <p className="text-sm font-medium text-blue-900 mb-1">Part of:</p>
+                            <p className="text-sm text-blue-700">{selectedTemplate.sequence} sequence</p>
+                            {selectedTemplate.delay && (
+                              <p className="text-xs text-blue-600 mt-1">Sent after: {selectedTemplate.delay}</p>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    ) : (
+                      <div className="space-y-4">
+                        <div>
+                          <label className="block text-sm font-medium mb-2">Subject Line</label>
+                          <input
+                            type="text"
+                            value={selectedTemplate.subject}
+                            onChange={(e) => setSelectedTemplate({...selectedTemplate, subject: e.target.value})}
+                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-bloom-primary focus:border-transparent"
+                            disabled={selectedTemplate.source !== 'database'}
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium mb-2">Content</label>
+                          <textarea
+                            value={selectedTemplate.content}
+                            onChange={(e) => setSelectedTemplate({...selectedTemplate, content: e.target.value})}
+                            rows={10}
+                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-bloom-primary focus:border-transparent font-mono text-sm"
+                            disabled={selectedTemplate.source !== 'database'}
+                          />
+                        </div>
+                        {selectedTemplate.source === 'enhanced' && (
+                          <div className="bg-yellow-50 p-4 rounded-lg">
+                            <p className="text-sm text-yellow-800">
+                              <AlertCircle className="w-4 h-4 inline mr-1" />
+                              This is an automated template and cannot be edited directly.
+                            </p>
+                          </div>
+                        )}
+                        <div className="bg-gray-50 p-4 rounded-lg">
+                          <h4 className="font-medium mb-2">Available Variables</h4>
+                          <div className="flex flex-wrap gap-2">
+                            {['{{firstName}}', '{{lastName}}', '{{email}}', '{{unsubscribeLink}}'].map((variable) => (
+                              <code key={variable} className="bg-white px-2 py-1 rounded text-sm">
+                                {variable}
+                              </code>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    )
+                  ) : (
+                    <div className="text-center py-12 text-gray-500">
+                      Select a template to view or edit
                     </div>
                   )}
-                </div>
-              </CardHeader>
-              <CardContent>
-                {selectedTemplate ? (
-                  <div className="space-y-4">
-                    <div>
-                      <label className="block text-sm font-medium mb-2">Subject Line</label>
-                      <input
-                        type="text"
-                        value={selectedTemplate.subject}
-                        onChange={(e) => setSelectedTemplate({...selectedTemplate, subject: e.target.value})}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-bloom-primary focus:border-transparent"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium mb-2">Content</label>
-                      <textarea
-                        value={selectedTemplate.content}
-                        onChange={(e) => setSelectedTemplate({...selectedTemplate, content: e.target.value})}
-                        rows={10}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-bloom-primary focus:border-transparent"
-                      />
-                    </div>
-                    <div className="bg-gray-50 p-4 rounded-lg">
-                      <h4 className="font-medium mb-2">Available Variables</h4>
-                      <div className="flex flex-wrap gap-2">
-                        {['{firstName}', '{lastName}', '{email}', '{unsubscribeLink}'].map((variable) => (
-                          <code key={variable} className="bg-white px-2 py-1 rounded text-sm">
-                            {variable}
-                          </code>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="text-center py-12 text-gray-500">
-                    Select a template to edit
-                  </div>
-                )}
-              </CardContent>
-            </Card>
-          </div>
+                </CardContent>
+              </Card>
+            </div>
           </div>
         )}
 

@@ -83,6 +83,7 @@ export async function GET(request: NextRequest) {
         lastName: s.last_name || '',
         status: s.status || 'active',
         signupSource: s.signup_source || s.source || 'unknown',
+        timestamp: s.created_at,
         created_at: s.created_at,
         unsubscribed_at: s.unsubscribe_reason
       }))
@@ -177,11 +178,11 @@ export async function POST(request: NextRequest) {
 
 export async function DELETE(request: NextRequest) {
   try {
-    const { searchParams } = new URL(request.url);
-    const email = searchParams.get('email');
+    const body = await request.json();
+    const { subscriberIds } = body;
 
-    if (!email) {
-      return NextResponse.json({ error: 'Email is required' }, { status: 400 });
+    if (!subscriberIds || subscriberIds.length === 0) {
+      return NextResponse.json({ error: 'Subscriber IDs are required' }, { status: 400 });
     }
 
     const supabase = getServiceSupabase();
@@ -192,11 +193,11 @@ export async function DELETE(request: NextRequest) {
         status: 'unsubscribed',
         updated_at: new Date().toISOString()
       })
-      .eq('email', email);
+      .in('id', subscriberIds);
 
     if (error) throw error;
 
-    return NextResponse.json({ success: true });
+    return NextResponse.json({ success: true, unsubscribed: subscriberIds.length });
   } catch (error) {
     console.error('Error unsubscribing:', error);
     return NextResponse.json(
