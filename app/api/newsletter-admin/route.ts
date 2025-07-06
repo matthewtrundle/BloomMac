@@ -202,20 +202,36 @@ export async function POST(request: NextRequest) {
   }
 }
 
+export async function OPTIONS(request: NextRequest) {
+  return new NextResponse(null, { status: 200 });
+}
+
 export async function DELETE(request: NextRequest) {
+  console.log('[Newsletter Admin DELETE] Starting request processing');
+  
   try {
     let body;
     try {
-      body = await request.json();
+      const text = await request.text();
+      console.log('[Newsletter Admin DELETE] Raw request body:', text);
+      
+      if (!text) {
+        return NextResponse.json({ 
+          error: 'Empty request body', 
+          details: 'Request body cannot be empty' 
+        }, { status: 400 });
+      }
+      
+      body = JSON.parse(text);
     } catch (parseError) {
-      console.error('Failed to parse request body:', parseError);
+      console.error('[Newsletter Admin DELETE] Failed to parse request body:', parseError);
       return NextResponse.json({ 
         error: 'Invalid request body', 
         details: 'Request body must be valid JSON' 
       }, { status: 400 });
     }
     
-    console.log('DELETE request body:', body);
+    console.log('[Newsletter Admin DELETE] Parsed body:', body);
     
     const { subscriberIds } = body;
 
@@ -226,19 +242,25 @@ export async function DELETE(request: NextRequest) {
       }, { status: 400 });
     }
 
-    console.log('Unsubscribing subscriber IDs:', subscriberIds);
-    console.log('ID types:', subscriberIds.map(id => typeof id));
+    console.log('[Newsletter Admin DELETE] Unsubscribing subscriber IDs:', subscriberIds);
+    console.log('[Newsletter Admin DELETE] ID types:', subscriberIds.map(id => typeof id));
 
     const supabase = getServiceSupabase();
     
     // First check if the field exists
-    const { data: sampleSubscriber } = await supabase
+    console.log('[Newsletter Admin DELETE] Checking subscriber fields...');
+    const { data: sampleSubscriber, error: sampleError } = await supabase
       .from('subscribers')
       .select('*')
       .limit(1)
       .single();
       
-    console.log('Sample subscriber fields:', sampleSubscriber ? Object.keys(sampleSubscriber) : 'No subscribers found');
+    if (sampleError) {
+      console.error('[Newsletter Admin DELETE] Error getting sample subscriber:', sampleError);
+      // Continue anyway, we'll try to update with basic fields
+    }
+    
+    console.log('[Newsletter Admin DELETE] Sample subscriber fields:', sampleSubscriber ? Object.keys(sampleSubscriber) : 'No subscribers found');
     
     // Try to update with just subscribed field first
     const updateData: any = { subscribed: false };
@@ -253,7 +275,7 @@ export async function DELETE(request: NextRequest) {
       updateData.status = 'unsubscribed';
     }
     
-    console.log('Updating with data:', updateData);
+    console.log('[Newsletter Admin DELETE] Updating with data:', updateData);
     
     const { error } = await supabase
       .from('subscribers')
@@ -261,17 +283,22 @@ export async function DELETE(request: NextRequest) {
       .in('id', subscriberIds);
 
     if (error) {
-      console.error('Supabase update error:', error);
+      console.error('[Newsletter Admin DELETE] Supabase update error:', error);
       throw error;
     }
 
-    return NextResponse.json({ 
+    console.log('[Newsletter Admin DELETE] Update successful');
+    
+    const response = NextResponse.json({ 
       success: true, 
       message: `Successfully unsubscribed ${subscriberIds.length} subscriber(s)` 
     });
+    
+    console.log('[Newsletter Admin DELETE] Sending response');
+    return response;
   } catch (error: any) {
-    console.error('Error unsubscribing:', error);
-    console.error('Error stack:', error.stack);
+    console.error('[Newsletter Admin DELETE] Error unsubscribing:', error);
+    console.error('[Newsletter Admin DELETE] Error stack:', error.stack);
     
     // Provide more specific error messages
     let errorMessage = 'Failed to unsubscribe';
@@ -288,8 +315,9 @@ export async function DELETE(request: NextRequest) {
       errorDetails = 'The subscribers table does not exist';
     }
     
+    console.log('[Newsletter Admin DELETE] Sending error response');
     return NextResponse.json(
-      { error: errorMessage, details: errorDetails, subscriberIds },
+      { error: errorMessage, details: errorDetails },
       { status: 500 }
     );
   }
