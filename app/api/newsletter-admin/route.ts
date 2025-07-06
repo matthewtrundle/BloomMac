@@ -204,13 +204,20 @@ export async function POST(request: NextRequest) {
 
 export async function DELETE(request: NextRequest) {
   try {
-    const { subscriberIds } = await request.json();
+    const body = await request.json();
+    console.log('DELETE request body:', body);
+    
+    const { subscriberIds } = body;
 
     if (!subscriberIds || !Array.isArray(subscriberIds) || subscriberIds.length === 0) {
-      return NextResponse.json({ error: 'Subscriber IDs are required' }, { status: 400 });
+      return NextResponse.json({ 
+        error: 'Subscriber IDs are required', 
+        details: `Received: ${JSON.stringify(body)}` 
+      }, { status: 400 });
     }
 
     console.log('Unsubscribing subscriber IDs:', subscriberIds);
+    console.log('ID types:', subscriberIds.map(id => typeof id));
 
     const supabase = getServiceSupabase();
     
@@ -254,8 +261,25 @@ export async function DELETE(request: NextRequest) {
     });
   } catch (error: any) {
     console.error('Error unsubscribing:', error);
+    console.error('Error stack:', error.stack);
+    
+    // Provide more specific error messages
+    let errorMessage = 'Failed to unsubscribe';
+    let errorDetails = error.message || 'Unknown error';
+    
+    if (error.message?.includes('Invalid input syntax for type uuid')) {
+      errorMessage = 'Invalid subscriber ID format';
+      errorDetails = 'The subscriber IDs must be valid UUIDs';
+    } else if (error.message?.includes('permission denied')) {
+      errorMessage = 'Permission denied';
+      errorDetails = 'The API key does not have permission to update subscribers';
+    } else if (error.message?.includes('relation "subscribers" does not exist')) {
+      errorMessage = 'Database error';
+      errorDetails = 'The subscribers table does not exist';
+    }
+    
     return NextResponse.json(
-      { error: 'Failed to unsubscribe', details: error.message || 'Unknown error' },
+      { error: errorMessage, details: errorDetails, subscriberIds },
       { status: 500 }
     );
   }

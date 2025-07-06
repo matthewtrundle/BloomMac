@@ -275,10 +275,13 @@ const NewsletterAdmin: React.FC = () => {
         // Refresh data
         await fetchNewsletterData();
       } else {
-        setManagementResult(`❌ ${result.error}`);
+        const errorDetails = result.details ? ` (${result.details})` : '';
+        setManagementResult(`❌ ${result.error}${errorDetails}`);
+        console.error('Unsubscribe error:', result);
       }
     } catch (error) {
-      setManagementResult('❌ Failed to unsubscribe subscribers');
+      console.error('Unsubscribe request failed:', error);
+      setManagementResult(`❌ Failed to unsubscribe subscribers: ${error.message || 'Network error'}`);
     } finally {
       setManagingSubscribers(false);
     }
