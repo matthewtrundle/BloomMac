@@ -3,7 +3,7 @@ import { createClient } from '@supabase/supabase-js';
 // Lazy initialization to handle client-side hydration properly
 let _supabase: any = null;
 
-function getSupabaseClient() {
+function createSupabaseClient() {
   if (_supabase) return _supabase;
   
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -32,7 +32,7 @@ function getSupabaseClient() {
 // Export a getter that creates the client lazily
 export const supabase = new Proxy({} as any, {
   get(target, prop) {
-    const client = getSupabaseClient();
+    const client = createSupabaseClient();
     if (!client) {
       throw new Error('Supabase client not available - check environment variables');
     }
