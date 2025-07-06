@@ -5,21 +5,16 @@ import { usePathname } from 'next/navigation';
 import { 
   BarChart, 
   Mail, 
-  Users, 
   FileText, 
-  Image, 
-  TestTube,
   LogOut,
   Home,
   Shield,
-  Sparkles,
   Archive,
   Activity,
   Settings,
   MessageSquare,
   MousePointerClick,
-  BookOpen,
-  Palette
+  BookOpen
 } from 'lucide-react';
 
 export default function AdminLayout({
@@ -33,13 +28,9 @@ export default function AdminLayout({
     { name: 'Dashboard', href: '/admin', icon: Home },
     { name: 'Analytics', href: '/admin/analytics', icon: BarChart },
     { name: 'Click Heatmap', href: '/admin/heatmap', icon: MousePointerClick },
-    { name: 'Theme Concepts', href: '/admin/theme-concepts', icon: Palette, badge: 'NEW' },
     { name: 'Course Management', href: '/admin/courses', icon: BookOpen },
     { name: 'Contact Submissions', href: '/admin/contacts', icon: MessageSquare },
-    { name: 'Email Management', href: '/admin/email', icon: Mail },
-    { name: 'Email Editor', href: '/admin/email-editor', icon: Sparkles },
-    { name: 'Email Testing', href: '/admin/email-test', icon: TestTube },
-    { name: 'Newsletter', href: '/admin/newsletter', icon: Users },
+    { name: 'Email Center', href: '/admin/email-center', icon: Mail },
     { name: 'Blog Posts', href: '/admin/blog', icon: FileText },
     { name: 'Career Applications', href: '/admin/careers', icon: FileText },
     { name: 'Activity Log', href: '/admin/activity', icon: Activity },

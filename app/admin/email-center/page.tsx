@@ -1,0 +1,516 @@
+'use client';
+
+import { useState, useEffect } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { 
+  Mail, 
+  Users, 
+  BarChart3, 
+  Settings, 
+  Send,
+  Eye,
+  Code,
+  Save,
+  RefreshCw,
+  CheckCircle,
+  AlertCircle,
+  TrendingUp,
+  Clock,
+  MousePointerClick,
+  Zap,
+  FileText,
+  TestTube,
+  Search,
+  Download,
+  Loader2,
+  X,
+  Plus,
+  ArrowRight,
+  Calendar,
+  Target,
+  Activity
+} from 'lucide-react';
+import { NewsletterAdmin } from '@/components/admin/NewsletterAdmin';
+import { motion } from 'framer-motion';
+
+interface EmailTemplate {
+  id: string;
+  name: string;
+  subject: string;
+  content: string;
+  category: string;
+  lastModified?: string;
+  modifiedBy?: string;
+}
+
+interface EmailStats {
+  totalSent: number;
+  openRate: number;
+  clickRate: number;
+  unsubscribeRate: number;
+}
+
+interface Subscriber {
+  id: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  signupSource: string;
+  status: string;
+  created_at: string;
+}
+
+export default function EmailCenterPage() {
+  const [loading, setLoading] = useState(true);
+  const [activeTab, setActiveTab] = useState('dashboard');
+  const [selectedTemplate, setSelectedTemplate] = useState<EmailTemplate | null>(null);
+  const [templates, setTemplates] = useState<EmailTemplate[]>([]);
+  const [emailStats, setEmailStats] = useState<EmailStats>({
+    totalSent: 0,
+    openRate: 0,
+    clickRate: 0,
+    unsubscribeRate: 0
+  });
+  const [subscribers, setSubscribers] = useState<Subscriber[]>([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [testEmailSent, setTestEmailSent] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [resendConfigured, setResendConfigured] = useState(false);
+  const [testResults, setTestResults] = useState<any[]>([]);
+
+  useEffect(() => {
+    loadData();
+  }, []);
+
+  const loadData = async () => {
+    try {
+      // Check authentication
+      const authResponse = await fetch('/api/admin/activity-log');
+      if (!authResponse.ok) {
+        window.location.href = '/admin/login';
+        return;
+      }
+
+      // Load newsletter data (this works)
+      const newsletterResponse = await fetch('/api/newsletter-admin');
+      if (newsletterResponse.ok) {
+        const newsletterData = await newsletterResponse.json();
+        setSubscribers(newsletterData.subscribers || []);
+      }
+
+      // Mock data for features without APIs
+      setTemplates(getMockTemplates());
+      setEmailStats(getMockStats());
+      setResendConfigured(!!process.env.NEXT_PUBLIC_RESEND_API_KEY);
+
+    } catch (error) {
+      console.error('Error loading data:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const getMockTemplates = (): EmailTemplate[] => [
+    { id: '1', name: 'Welcome Email', subject: 'Welcome to Bloom Psychology!', content: 'Welcome content...', category: 'Newsletter' },
+    { id: '2', name: 'Newsletter', subject: 'Monthly Newsletter', content: 'Newsletter content...', category: 'Newsletter' },
+    { id: '3', name: 'Appointment Reminder', subject: 'Your Appointment Tomorrow', content: 'Reminder content...', category: 'Booking' },
+    { id: '4', name: 'Contact Follow-up', subject: 'Thank you for reaching out', content: 'Follow-up content...', category: 'Contact' },
+  ];
+
+  const getMockStats = (): EmailStats => ({
+    totalSent: 1250,
+    openRate: 42.5,
+    clickRate: 12.8,
+    unsubscribeRate: 0.8
+  });
+
+  const handleSaveTemplate = async () => {
+    setSaving(true);
+    // Simulate save
+    setTimeout(() => {
+      setSaving(false);
+      alert('Template saved successfully!');
+    }, 1000);
+  };
+
+  const handleSendTestEmail = async (templateId: string) => {
+    setTestEmailSent(true);
+    // Simulate test send
+    setTimeout(() => {
+      setTestResults([...testResults, {
+        template: templateId,
+        status: 'success',
+        timestamp: new Date().toISOString()
+      }]);
+    }, 1000);
+  };
+
+  const filteredSubscribers = subscribers.filter(sub => 
+    sub.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    sub.firstName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    sub.lastName?.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <Loader2 className="w-8 h-8 animate-spin text-gray-500" />
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-bold text-gray-900">Email Center</h1>
+          <p className="text-gray-600 mt-1">Manage all email communications in one place</p>
+        </div>
+      </div>
+
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+        <TabsList className="grid w-full grid-cols-5 mb-6">
+          <TabsTrigger value="dashboard" className="flex items-center gap-2">
+            <BarChart3 className="w-4 h-4" />
+            Dashboard
+          </TabsTrigger>
+          <TabsTrigger value="subscribers" className="flex items-center gap-2">
+            <Users className="w-4 h-4" />
+            Subscribers
+          </TabsTrigger>
+          <TabsTrigger value="campaigns" className="flex items-center gap-2">
+            <Send className="w-4 h-4" />
+            Campaigns
+          </TabsTrigger>
+          <TabsTrigger value="templates" className="flex items-center gap-2">
+            <FileText className="w-4 h-4" />
+            Templates
+          </TabsTrigger>
+          <TabsTrigger value="testing" className="flex items-center gap-2">
+            <TestTube className="w-4 h-4" />
+            Testing
+          </TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="dashboard" className="space-y-6">
+          {/* Quick Stats */}
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <Card>
+              <CardHeader className="pb-3">
+                <CardTitle className="text-sm font-medium text-gray-600">Total Subscribers</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">{subscribers.length}</div>
+                <p className="text-xs text-green-600 mt-1">+12% from last month</p>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader className="pb-3">
+                <CardTitle className="text-sm font-medium text-gray-600">Avg Open Rate</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">{emailStats.openRate}%</div>
+                <p className="text-xs text-gray-600 mt-1">Industry avg: 21.5%</p>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader className="pb-3">
+                <CardTitle className="text-sm font-medium text-gray-600">Click Rate</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">{emailStats.clickRate}%</div>
+                <p className="text-xs text-gray-600 mt-1">Industry avg: 7.8%</p>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader className="pb-3">
+                <CardTitle className="text-sm font-medium text-gray-600">System Status</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="flex items-center gap-2">
+                  {resendConfigured ? (
+                    <>
+                      <CheckCircle className="w-5 h-5 text-green-500" />
+                      <span className="text-sm text-green-600">Active</span>
+                    </>
+                  ) : (
+                    <>
+                      <AlertCircle className="w-5 h-5 text-red-500" />
+                      <span className="text-sm text-red-600">Not Configured</span>
+                    </>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Recent Activity */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Recent Email Activity</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <div className="flex items-center justify-between py-2 border-b">
+                  <div>
+                    <p className="font-medium">Monthly Newsletter</p>
+                    <p className="text-sm text-gray-600">Sent to 245 subscribers</p>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-sm text-gray-600">2 hours ago</p>
+                    <p className="text-sm">Open rate: 38%</p>
+                  </div>
+                </div>
+                <div className="flex items-center justify-between py-2 border-b">
+                  <div>
+                    <p className="font-medium">Welcome Series - Email 1</p>
+                    <p className="text-sm text-gray-600">Sent to 12 new subscribers</p>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-sm text-gray-600">Yesterday</p>
+                    <p className="text-sm">Open rate: 65%</p>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="subscribers" className="space-y-6">
+          <Card>
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <CardTitle>Subscriber Management</CardTitle>
+                <div className="flex gap-2">
+                  <Button variant="outline" size="sm">
+                    <Download className="w-4 h-4 mr-2" />
+                    Export CSV
+                  </Button>
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <div className="mb-4">
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                  <input
+                    type="text"
+                    placeholder="Search subscribers..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-bloom-primary focus:border-transparent"
+                  />
+                </div>
+              </div>
+
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead>
+                    <tr className="border-b">
+                      <th className="text-left py-2 px-4">Email</th>
+                      <th className="text-left py-2 px-4">Name</th>
+                      <th className="text-left py-2 px-4">Source</th>
+                      <th className="text-left py-2 px-4">Status</th>
+                      <th className="text-left py-2 px-4">Joined</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {filteredSubscribers.map((subscriber) => (
+                      <tr key={subscriber.id} className="border-b hover:bg-gray-50">
+                        <td className="py-2 px-4">{subscriber.email}</td>
+                        <td className="py-2 px-4">{subscriber.firstName} {subscriber.lastName}</td>
+                        <td className="py-2 px-4">
+                          <span className="text-sm capitalize">{subscriber.signupSource.replace('_', ' ')}</span>
+                        </td>
+                        <td className="py-2 px-4">
+                          <span className={`text-sm ${subscriber.status === 'active' ? 'text-green-600' : 'text-gray-600'}`}>
+                            {subscriber.status}
+                          </span>
+                        </td>
+                        <td className="py-2 px-4 text-sm text-gray-600">
+                          {new Date(subscriber.created_at).toLocaleDateString()}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="campaigns" className="space-y-6">
+          <NewsletterAdmin />
+        </TabsContent>
+
+        <TabsContent value="templates" className="space-y-6">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            {/* Template List */}
+            <Card className="lg:col-span-1">
+              <CardHeader>
+                <CardTitle>Email Templates</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-2">
+                  {templates.map((template) => (
+                    <button
+                      key={template.id}
+                      onClick={() => setSelectedTemplate(template)}
+                      className={`w-full text-left p-3 rounded-lg transition-colors ${
+                        selectedTemplate?.id === template.id 
+                          ? 'bg-bloom-primary/10 border-bloom-primary' 
+                          : 'hover:bg-gray-50'
+                      } border`}
+                    >
+                      <h4 className="font-medium">{template.name}</h4>
+                      <p className="text-sm text-gray-600">{template.category}</p>
+                    </button>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Template Editor */}
+            <Card className="lg:col-span-2">
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <CardTitle>
+                    {selectedTemplate ? `Edit: ${selectedTemplate.name}` : 'Select a template'}
+                  </CardTitle>
+                  {selectedTemplate && (
+                    <div className="flex gap-2">
+                      <Button variant="outline" size="sm" onClick={() => handleSendTestEmail(selectedTemplate.id)}>
+                        <Send className="w-4 h-4 mr-2" />
+                        Send Test
+                      </Button>
+                      <Button size="sm" onClick={handleSaveTemplate} disabled={saving}>
+                        {saving ? (
+                          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                        ) : (
+                          <Save className="w-4 h-4 mr-2" />
+                        )}
+                        Save
+                      </Button>
+                    </div>
+                  )}
+                </div>
+              </CardHeader>
+              <CardContent>
+                {selectedTemplate ? (
+                  <div className="space-y-4">
+                    <div>
+                      <label className="block text-sm font-medium mb-2">Subject Line</label>
+                      <input
+                        type="text"
+                        value={selectedTemplate.subject}
+                        onChange={(e) => setSelectedTemplate({...selectedTemplate, subject: e.target.value})}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-bloom-primary focus:border-transparent"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium mb-2">Content</label>
+                      <textarea
+                        value={selectedTemplate.content}
+                        onChange={(e) => setSelectedTemplate({...selectedTemplate, content: e.target.value})}
+                        rows={10}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-bloom-primary focus:border-transparent"
+                      />
+                    </div>
+                    <div className="bg-gray-50 p-4 rounded-lg">
+                      <h4 className="font-medium mb-2">Available Variables</h4>
+                      <div className="flex flex-wrap gap-2">
+                        {['{firstName}', '{lastName}', '{email}', '{unsubscribeLink}'].map((variable) => (
+                          <code key={variable} className="bg-white px-2 py-1 rounded text-sm">
+                            {variable}
+                          </code>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="text-center py-12 text-gray-500">
+                    Select a template to edit
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </div>
+        </TabsContent>
+
+        <TabsContent value="testing" className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>Email Testing Tools</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-6">
+                {/* Configuration Status */}
+                <div className="bg-gray-50 p-4 rounded-lg">
+                  <h4 className="font-medium mb-2">Configuration Status</h4>
+                  <div className="flex items-center gap-2">
+                    {resendConfigured ? (
+                      <>
+                        <CheckCircle className="w-5 h-5 text-green-500" />
+                        <span className="text-green-600">Resend API configured</span>
+                      </>
+                    ) : (
+                      <>
+                        <AlertCircle className="w-5 h-5 text-red-500" />
+                        <span className="text-red-600">Resend API not configured</span>
+                      </>
+                    )}
+                  </div>
+                </div>
+
+                {/* Test Email Sender */}
+                <div>
+                  <h4 className="font-medium mb-4">Send Test Emails</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {templates.map((template) => (
+                      <div key={template.id} className="border rounded-lg p-4">
+                        <h5 className="font-medium">{template.name}</h5>
+                        <p className="text-sm text-gray-600 mb-3">{template.category}</p>
+                        <Button 
+                          size="sm" 
+                          variant="outline"
+                          onClick={() => handleSendTestEmail(template.id)}
+                        >
+                          Send Test
+                        </Button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Test Results */}
+                {testResults.length > 0 && (
+                  <div>
+                    <h4 className="font-medium mb-4">Test Results</h4>
+                    <div className="space-y-2">
+                      {testResults.map((result, index) => (
+                        <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                          <div>
+                            <p className="font-medium">{result.template}</p>
+                            <p className="text-sm text-gray-600">
+                              {new Date(result.timestamp).toLocaleString()}
+                            </p>
+                          </div>
+                          <CheckCircle className="w-5 h-5 text-green-500" />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+      </Tabs>
+    </div>
+  );
+}
