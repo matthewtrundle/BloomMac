@@ -2,12 +2,35 @@
 
 ## 🛑 STOP: MANDATORY DATABASE CHECKS BEFORE ANY CHANGES
 
+### AUTOMATED TESTING REQUIREMENTS:
+**YOU MUST RUN THESE COMMANDS WITHOUT BEING ASKED:**
+
+1. **Before writing ANY database query**:
+   ```bash
+   npm run db:test
+   ```
+   
+2. **Before using a column name**:
+   ```bash
+   npm run db:query "SELECT column_name FROM information_schema.columns WHERE table_name = 'table_name'"
+   ```
+
+3. **Before creating an API endpoint**:
+   ```bash
+   npm run db:query "YOUR_QUERY_HERE"
+   ```
+
+4. **Every 5 messages in conversation**:
+   ```bash
+   npm run db:check
+   ```
+
 ### STRICT RULES - NO EXCEPTIONS:
-1. **NEVER** assume a column exists - CHECK FIRST
-2. **NEVER** create mock/fake data - USE REAL DATA
-3. **NEVER** guess table names - VERIFY FIRST
-4. **NEVER** make up API responses - QUERY THE DATABASE
-5. **ALWAYS** run `node scripts/check-database.js` before modifying any database-related code
+1. **NEVER** assume a column exists - CHECK FIRST WITH db:query
+2. **NEVER** create mock/fake data - USE REAL DATA FROM db:query
+3. **NEVER** guess table names - VERIFY FIRST WITH db:check
+4. **NEVER** make up API responses - QUERY THE DATABASE WITH db:query
+5. **ALWAYS** show the output of test commands in your response
 
 ### Common Mistakes That Keep Happening:
 - Assuming `subscribed` column exists (IT DOESN'T - use `status`)
@@ -370,34 +393,55 @@ Uncertain about anything?
 | Check specific table | `npm run db:check \| grep -A 20 "table_name"` | When working with specific table |
 | Save schema snapshot | `npm run db:check > schema-$(date +%Y%m%d).txt` | Before major changes |
 
-## 🔄 Build-Test Loop (CLOSE THE GAP!)
+## 🔄 MANDATORY WORKFLOW - DO THIS AUTOMATICALLY!
 
-### Before Writing ANY Database Code:
-1. **Test the query first**:
-   ```bash
-   npm run db:query "SELECT * FROM subscribers WHERE status = 'active'"
-   ```
-
-2. **Verify columns exist**:
-   ```bash
-   npm run db:test
-   # This will check common problem areas
-   ```
-
-3. **Generate types from real data**:
-   ```bash
-   npm run db:build-test
-   # This generates TypeScript interfaces from actual data
-   ```
-
-### Testing API Endpoints:
+### Example 1: User asks "Add a feature to show active subscribers"
+**YOU MUST DO THIS SEQUENCE:**
 ```bash
-# Test if your queries work before building
-node scripts/test-queries.js
+# 1. First, check what columns exist
+npm run db:query "SELECT column_name FROM information_schema.columns WHERE table_name = 'subscribers'"
 
-# Validate a specific file's queries
-node scripts/build-test-loop.js app/api/newsletter-admin/route.ts
+# 2. Test the actual query
+npm run db:query "SELECT * FROM subscribers WHERE status = 'active' LIMIT 5"
+
+# 3. Only THEN write the code
 ```
+
+### Example 2: User asks "Why is the email template not loading?"
+**YOU MUST DO THIS SEQUENCE:**
+```bash
+# 1. Check if table exists
+npm run db:check | grep email_templates
+
+# 2. See actual data structure
+npm run db:query "SELECT * FROM email_templates LIMIT 1"
+
+# 3. Test the failing query
+npm run db:query "THE_QUERY_FROM_THE_CODE"
+
+# 4. Fix based on REAL data, not assumptions
+```
+
+### Example 3: Creating new API endpoint
+**YOU MUST DO THIS SEQUENCE:**
+```bash
+# 1. Test ALL queries first
+npm run db:build-test
+
+# 2. Generate types from real data
+# (The command above does this)
+
+# 3. Write code using verified queries only
+```
+
+## ⚠️ ENFORCEMENT RULES
+
+If you write database code without showing test results first:
+1. The code WILL have bugs
+2. The user WILL be frustrated
+3. You MUST go back and test first
+
+**SHOW YOUR WORK** - Always include command outputs in responses!
 
 ## 🏗️ PRODUCTION SAFETY RULES
 
@@ -421,8 +465,26 @@ try {
 }
 ```
 
+## 🤖 AUTOMATIC TRIGGERS FOR TESTING
+
+These keywords/phrases in user messages MUST trigger immediate testing:
+
+| User Says | You MUST Run |
+|-----------|--------------|
+| "add [feature]" | `npm run db:check` then test queries |
+| "why is [X] not working" | `npm run db:query` on the failing query |
+| "show all [X]" | `npm run db:query "SELECT * FROM [table] LIMIT 5"` |
+| "fix the [X] error" | Test the actual query causing error |
+| "subscribers" | `npm run db:query "SELECT column_name FROM information_schema.columns WHERE table_name = 'subscribers'"` |
+| "email" | `npm run db:check \| grep email` |
+| "template" | `npm run db:query "SELECT * FROM email_templates LIMIT 1"` |
+
 ## 💡 Why This File Exists
 
 This file is automatically provided to Claude at the start of every conversation. It contains critical context that prevents repeated mistakes and ensures consistency across sessions. 
 
 **If you see Claude making assumptions about the database, remind them to check CLAUDE.md and run the database scripts!**
+
+## 🚨 FINAL REMINDER
+
+**YOU ARE AN AI THAT MAKES MISTAKES.** The only way to prevent these mistakes is to TEST EVERYTHING FIRST. The tools exist. USE THEM AUTOMATICALLY. Don't wait to be asked.
