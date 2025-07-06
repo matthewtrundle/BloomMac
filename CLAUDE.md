@@ -1,5 +1,20 @@
 # CLAUDE.md - Critical Project Context for AI Assistants
 
+## 🛑 STOP: MANDATORY DATABASE CHECKS BEFORE ANY CHANGES
+
+### STRICT RULES - NO EXCEPTIONS:
+1. **NEVER** assume a column exists - CHECK FIRST
+2. **NEVER** create mock/fake data - USE REAL DATA
+3. **NEVER** guess table names - VERIFY FIRST
+4. **NEVER** make up API responses - QUERY THE DATABASE
+5. **ALWAYS** run `node scripts/check-database.js` before modifying any database-related code
+
+### Common Mistakes That Keep Happening:
+- Assuming `subscribed` column exists (IT DOESN'T - use `status`)
+- Creating fake email analytics data
+- Making up template structures
+- Assuming table relationships without checking
+
 ## 🚨 CRITICAL: Direct Database Access
 
 ### How to Query the Supabase Database Directly
@@ -197,10 +212,33 @@ ADMIN_PASSWORD=  # Removed
 ADMIN_API_KEY=   # Removed
 ```
 
-## 📋 Pre-Flight Checklist
+## 📋 MANDATORY Pre-Flight Checklist
 
-Before modifying ANYTHING:
+### Before ANY Database Work:
+```bash
+node scripts/check-database.js
+```
+This shows actual tables, columns, and sample data. NO EXCEPTIONS.
 
+### Before Deploying Changes:
+```bash
+node scripts/validate-schema.js
+```
+This validates schema matches expectations and catches common errors.
+
+### When Creating New Features:
+1. **Query the actual database first** - No assumptions
+2. **Never use mock data** - Always use real data from database
+3. **Always check column names** - Don't guess, verify
+4. **Verify relationships** - Check foreign keys and joins
+
+### For Context Preservation:
+1. **Keep CLAUDE.md updated** with any schema changes
+2. **Document new tables/columns immediately** in the schema section below
+3. **Add validation rules** to validate-schema.js for new tables
+4. **Never trust memory** - Always verify with database
+
+### Original Checklist:
 - [ ] Query actual database schema
 - [ ] Check which tables have data
 - [ ] Verify which auth system is used
@@ -208,6 +246,59 @@ Before modifying ANYTHING:
 - [ ] Check for table dependencies
 - [ ] Review frontend code for API calls
 - [ ] Create rollback plan
+
+## 📊 VERIFIED DATABASE SCHEMA (Last checked: Jan 2025)
+
+### Key Tables and Their ACTUAL Columns:
+
+#### `subscribers` table:
+- `id` (uuid)
+- `email` (varchar)
+- `status` (varchar) - VALUES: 'active', 'unsubscribed', 'pending'
+- `source` (varchar) - signup source
+- `created_at` (timestamp)
+- `updated_at` (timestamp)
+- **NO `subscribed` COLUMN - USE `status`**
+
+#### `email_templates` table:
+- `id` (uuid)
+- `name` (varchar)
+- `subject` (varchar)
+- `content` (text)
+- `category` (varchar)
+- `variables` (jsonb)
+
+#### `admin_users` table:
+- `id` (uuid) 
+- `email` (varchar)
+- `role` (varchar)
+- `is_active` (boolean)
+- **HAS EMAIL COLUMN**
+
+#### `user_profiles` table:
+- `id` (uuid)
+- `first_name` (text)
+- `last_name` (text)
+- **NO EMAIL COLUMN - email is in auth.users**
+
+## 🔧 How to Update Schema Documentation
+
+When you discover schema changes:
+
+1. **Run the check script first**:
+   ```bash
+   node scripts/check-database.js > schema-update.txt
+   ```
+
+2. **Update this file** with the new schema in the section above
+
+3. **Update validate-schema.js** to include new validation rules
+
+4. **Commit immediately** with message like:
+   ```bash
+   git add CLAUDE.md scripts/validate-schema.js
+   git commit -m "docs: Update schema documentation with [table_name] changes"
+   ```
 
 ## 🔄 Current Migration Status (Jan 2025)
 
@@ -219,3 +310,9 @@ Before modifying ANYTHING:
 ---
 
 **Remember**: This is a production app with real users. Always verify before making changes!
+
+## 💡 Why This File Exists
+
+This file is automatically provided to Claude at the start of every conversation. It contains critical context that prevents repeated mistakes and ensures consistency across sessions. 
+
+**If you see Claude making assumptions about the database, remind them to check CLAUDE.md and run the database scripts!**
