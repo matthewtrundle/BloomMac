@@ -30,6 +30,7 @@ const protectedApiRoutes = [
   '/api/admin/contacts',
   '/api/admin/careers',
   '/api/admin/analytics',
+  '/api/admin/settings',
   '/api/blog-admin',
   '/api/blog-admin-supabase',
   '/api/upload-blog-image',

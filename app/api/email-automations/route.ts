@@ -3,11 +3,13 @@ import { getServiceSupabase } from '@/lib/supabase-unified';
 
 export async function GET(request: NextRequest) {
   try {
-    // Return empty automations for now - can be expanded later
+    // Return placeholder data indicating feature is not yet implemented
     return NextResponse.json({
       automations: [],
       sequences: [],
-      triggers: []
+      triggers: [],
+      status: 'not_implemented',
+      message: 'Email automation feature is coming soon'
     });
 
   } catch (error) {

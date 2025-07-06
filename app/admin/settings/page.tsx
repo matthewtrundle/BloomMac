@@ -1,8 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Settings, Save, AlertCircle, CheckCircle, Mail, Phone, MapPin, Globe, Clock } from 'lucide-react';
+import { Settings, Save, AlertCircle, CheckCircle, Mail, Phone, MapPin, Globe, Clock, Loader2 } from 'lucide-react';
 
 interface SiteSettings {
   businessName: string;
@@ -33,73 +33,118 @@ interface SiteSettings {
 }
 
 export default function SettingsPage() {
-  const [settings, setSettings] = useState<SiteSettings>({
-    businessName: 'Bloom Psychology',
-    email: 'jana@bloompsychologynorthaustin.com',
-    phone: '(512) 898-9510',
-    address: '13706 N Highway 183, Suite 114, Austin, TX 78750',
-    website: 'https://bloompsychologynorthaustin.com',
-    businessHours: {
-      monday: '9:00 AM - 6:00 PM',
-      tuesday: '9:00 AM - 6:00 PM',
-      wednesday: '9:00 AM - 6:00 PM',
-      thursday: '9:00 AM - 6:00 PM',
-      friday: '9:00 AM - 6:00 PM',
-      saturday: 'By appointment',
-      sunday: 'Closed'
-    },
-    socialMedia: {
-      facebook: '',
-      instagram: '',
-      linkedin: '',
-      twitter: ''
-    },
-    seo: {
-      metaTitle: 'Bloom Psychology - Therapy for Women & Moms in Texas',
-      metaDescription: 'Specialized therapy for women, moms, and parents in Texas. Expert support for postpartum depression, anxiety, and life transitions.',
-      keywords: ['therapy', 'counseling', 'postpartum', 'anxiety', 'women', 'mothers', 'Austin']
-    }
-  });
-
+  const [settings, setSettings] = useState<SiteSettings | null>(null);
+  const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [saveMessage, setSaveMessage] = useState('');
 
+  useEffect(() => {
+    loadSettings();
+  }, []);
+
+  const loadSettings = async () => {
+    try {
+      const response = await fetch('/api/admin/settings');
+      if (response.ok) {
+        const data = await response.json();
+        setSettings(data.settings);
+      } else {
+        throw new Error('Failed to load settings');
+      }
+    } catch (error) {
+      console.error('Error loading settings:', error);
+      setSaveMessage('Error loading settings. Using defaults.');
+      // Use default settings if load fails
+      setSettings({
+        businessName: 'Bloom Psychology',
+        email: 'jana@bloompsychologynorthaustin.com',
+        phone: '(512) 898-9510',
+        address: '13706 N Highway 183, Suite 114, Austin, TX 78750',
+        website: 'https://bloompsychologynorthaustin.com',
+        businessHours: {
+          monday: '9:00 AM - 6:00 PM',
+          tuesday: '9:00 AM - 6:00 PM',
+          wednesday: '9:00 AM - 6:00 PM',
+          thursday: '9:00 AM - 6:00 PM',
+          friday: '9:00 AM - 6:00 PM',
+          saturday: 'By appointment',
+          sunday: 'Closed'
+        },
+        socialMedia: {
+          facebook: '',
+          instagram: '',
+          linkedin: '',
+          twitter: ''
+        },
+        seo: {
+          metaTitle: 'Bloom Psychology - Therapy for Women & Moms in Texas',
+          metaDescription: 'Specialized therapy for women, moms, and parents in Texas. Expert support for postpartum depression, anxiety, and life transitions.',
+          keywords: ['therapy', 'counseling', 'postpartum', 'anxiety', 'women', 'mothers', 'Austin']
+        }
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleSave = async () => {
+    if (!settings) return;
+    
     setSaving(true);
     setSaveMessage('');
 
     try {
-      // In a real implementation, save to database
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      setSaveMessage('Settings saved successfully!');
-      setTimeout(() => setSaveMessage(''), 3000);
-    } catch (error) {
-      setSaveMessage('Error saving settings. Please try again.');
-    }
+      const response = await fetch('/api/admin/settings', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ settings })
+      });
 
-    setSaving(false);
+      const data = await response.json();
+
+      if (response.ok) {
+        setSaveMessage('Settings saved successfully!');
+        setTimeout(() => setSaveMessage(''), 3000);
+      } else {
+        throw new Error(data.error || 'Failed to save settings');
+      }
+    } catch (error) {
+      console.error('Error saving settings:', error);
+      setSaveMessage(error instanceof Error ? error.message : 'Error saving settings. Please try again.');
+    } finally {
+      setSaving(false);
+    }
   };
 
   const updateBusinessHours = (day: keyof typeof settings.businessHours, value: string) => {
-    setSettings(prev => ({
+    if (!settings) return;
+    setSettings(prev => prev ? ({
       ...prev,
       businessHours: {
         ...prev.businessHours,
         [day]: value
       }
-    }));
+    }) : null);
   };
 
   const updateSocialMedia = (platform: keyof typeof settings.socialMedia, value: string) => {
-    setSettings(prev => ({
+    if (!settings) return;
+    setSettings(prev => prev ? ({
       ...prev,
       socialMedia: {
         ...prev.socialMedia,
         [platform]: value
       }
-    }));
+    }) : null);
   };
+
+  if (loading || !settings) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <Loader2 className="w-8 h-8 animate-spin text-gray-500" />
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6 max-w-4xl">

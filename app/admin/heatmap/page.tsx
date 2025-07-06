@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Activity, Eye, MousePointer, TrendingUp, Filter, Calendar } from 'lucide-react';
+import FeatureNotAvailable from '@/components/admin/FeatureNotAvailable';
 
 interface HeatmapPoint {
   x_percent: number;
@@ -85,6 +86,78 @@ export default function HeatmapPage() {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-bloom-primary"></div>
+      </div>
+    );
+  }
+
+  // Check if feature is available
+  if (!data?.heatmapData || data.heatmapData.length === 0) {
+    return (
+      <div className="container mx-auto px-4 py-8">
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Click Heatmap Analysis</h1>
+          <p className="text-gray-600">Visualize where users are clicking on your site</p>
+        </div>
+        
+        <FeatureNotAvailable
+          featureName="Click Heatmap Analytics"
+          description="Advanced click tracking and heatmap visualization will help you understand user behavior patterns. This feature will show you exactly where users click on your pages, helping optimize your site layout."
+          plannedDate="Q2 2025"
+        />
+        
+        <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
+          <Card>
+            <CardContent className="pt-6">
+              <div className="text-center">
+                <MousePointer className="w-8 h-8 mx-auto mb-2 text-gray-400" />
+                <p className="text-sm text-gray-600">Click Tracking</p>
+                <p className="text-xs text-gray-500 mt-1">Coming Soon</p>
+              </div>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent className="pt-6">
+              <div className="text-center">
+                <Activity className="w-8 h-8 mx-auto mb-2 text-gray-400" />
+                <p className="text-sm text-gray-600">Scroll Maps</p>
+                <p className="text-xs text-gray-500 mt-1">Coming Soon</p>
+              </div>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent className="pt-6">
+              <div className="text-center">
+                <Eye className="w-8 h-8 mx-auto mb-2 text-gray-400" />
+                <p className="text-sm text-gray-600">Session Replay</p>
+                <p className="text-xs text-gray-500 mt-1">Coming Soon</p>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+        
+        <div className="mt-8">
+          <Card>
+            <CardHeader>
+              <CardTitle>Alternative Solutions</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-gray-600 mb-4">
+                While we build our native heatmap solution, consider these excellent third-party tools:
+              </p>
+              <ul className="space-y-2">
+                <li className="flex items-center space-x-2">
+                  <span className="text-sm">• <strong>Hotjar</strong> - Comprehensive heatmaps and session recordings</span>
+                </li>
+                <li className="flex items-center space-x-2">
+                  <span className="text-sm">• <strong>Microsoft Clarity</strong> - Free heatmaps and analytics</span>
+                </li>
+                <li className="flex items-center space-x-2">
+                  <span className="text-sm">• <strong>FullStory</strong> - Advanced user experience analytics</span>
+                </li>
+              </ul>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     );
   }

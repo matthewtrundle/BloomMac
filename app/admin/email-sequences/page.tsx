@@ -109,27 +109,37 @@ export default function EmailSequencesAdmin() {
     }
 
     try {
-      const response = await fetch('/api/email-automation', {
+      // Find the sequence and step
+      const sequence = sequences.find(s => s.id === sequenceId);
+      const email = sequence?.emails[stepNumber];
+      
+      if (!email) {
+        throw new Error('Email template not found');
+      }
+
+      // Use the test-email endpoint
+      const response = await fetch('/api/test-email', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          email: testEmail,
-          name: 'Test User',
-          sequenceType: sequenceId,
-          step: stepNumber,
-          leadSource: 'admin_test'
+          to: testEmail,
+          subject: email.subject,
+          html: email.content,
+          text: email.content.replace(/<[^>]*>/g, '')
         }),
       });
 
+      const data = await response.json();
+
       if (!response.ok) {
-        throw new Error('Failed to send test email');
+        throw new Error(data.error || 'Failed to send test email');
       }
 
       setSuccessMessage(`Test email sent to ${testEmail}`);
       setTimeout(() => setSuccessMessage(''), 3000);
     } catch (error) {
-      setError('Failed to send test email');
-      setTimeout(() => setError(''), 3000);
+      setError(error instanceof Error ? error.message : 'Failed to send test email');
+      setTimeout(() => setError(''), 5000);
     }
   };
 
