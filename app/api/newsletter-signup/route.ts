@@ -3,6 +3,7 @@ import { enhancedEmailTemplates, personalizeEmail } from '@/lib/email-templates/
 import { supabaseAdmin } from '@/lib/supabase';
 import { getResendClient } from '@/lib/resend-client';
 import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
+import { enrollmentManager } from '@/lib/email-automation/enrollment-manager';
 
 interface SignupRequest {
   email: string;
@@ -130,6 +131,23 @@ export async function POST(request: NextRequest) {
           // Continue - subscriber is still reactivated
         }
         
+        // Enroll in email sequences
+        try {
+          await enrollmentManager.enrollSubscriber({
+            subscriberId: reactivated.id,
+            trigger: 'newsletter_signup',
+            source: source || 'website_reactivation',
+            metadata: {
+              reactivated: true,
+              previous_status: existingSubscriber.status,
+              ip_address: request.headers.get('x-forwarded-for') || ''
+            }
+          });
+        } catch (enrollError) {
+          console.error('Failed to enroll reactivated subscriber:', enrollError);
+          // Continue - subscriber is still reactivated
+        }
+        
         return NextResponse.json({
           success: true,
           message: 'Welcome back! You\'ve been resubscribed to our newsletter.',
@@ -168,6 +186,24 @@ export async function POST(request: NextRequest) {
       await sendWelcomeEmail(subscriber);
     } catch (emailError) {
       console.error('Failed to send welcome email:', emailError);
+      // Continue - subscriber is still saved
+    }
+
+    // Enroll in email sequences
+    try {
+      await enrollmentManager.enrollSubscriber({
+        subscriberId: subscriber.id,
+        trigger: 'newsletter_signup',
+        source: source || 'website',
+        metadata: {
+          new_subscriber: true,
+          interests: interests,
+          referrer: request.headers.get('referer') || '',
+          ip_address: request.headers.get('x-forwarded-for') || ''
+        }
+      });
+    } catch (enrollError) {
+      console.error('Failed to enroll new subscriber:', enrollError);
       // Continue - subscriber is still saved
     }
 

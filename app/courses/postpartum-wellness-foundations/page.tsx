@@ -285,28 +285,9 @@ const course = {
 
 export default function PostpartumWellnessFoundationsPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-bloom-sage-50 via-white to-bloom-pink-50 relative overflow-hidden">
-      {/* Garden lattice pattern background */}
-      <div className="absolute inset-0 opacity-5">
-        <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-          <defs>
-            <pattern id="wellness-lattice" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
-              <path d="M0,5 L10,5 M5,0 L5,10" stroke="currentColor" strokeWidth="0.5" className="text-bloom-sage"/>
-            </pattern>
-          </defs>
-          <rect width="100" height="100" fill="url(#wellness-lattice)" />
-        </svg>
-      </div>
-      
-      {/* Floating garden elements */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-20 right-20 w-3 h-3 bg-pink-300 rounded-full opacity-20 animate-pulse"></div>
-        <div className="absolute bottom-32 left-20 w-2 h-2 bg-bloom-sage/30 rounded-full animate-bounce"></div>
-        <div className="absolute top-1/2 right-1/4 w-4 h-4 bg-yellow-300 rounded-full opacity-15 animate-pulse"></div>
-      </div>
-      {/* Hero Section with Garden Theme */}
-      <section className="pt-32 pb-20 px-4 relative overflow-hidden z-10">
-        <div className="absolute inset-0 bg-gradient-to-br from-bloom-pink-50/30 via-transparent to-bloom-sage-50/20"></div>
+    <div className="min-h-screen bg-gradient-to-br from-bloom-sage-50 via-white to-bloom-pink-50">
+      {/* Hero Section */}
+      <section className="pt-32 pb-20 px-4 relative z-10">
         
         <div className="container mx-auto relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
@@ -325,18 +306,8 @@ export default function PostpartumWellnessFoundationsPage() {
                 {course.title}
               </h1>
               
-              {/* Decorative flower divider */}
-              <div className="flex items-center justify-center gap-4 mb-6">
-                <div className="w-16 h-0.5 bg-gradient-to-r from-transparent to-bloom-sage/30 rounded-full"></div>
-                <Image 
-                  src="/images/flower no stem.svg" 
-                  alt="" 
-                  width={24} 
-                  height={24} 
-                  className="opacity-50"
-                />
-                <div className="w-16 h-0.5 bg-gradient-to-l from-transparent to-bloom-sage/30 rounded-full"></div>
-              </div>
+              {/* Professional divider */}
+              <div className="w-32 h-0.5 bg-bloom-sage/20 rounded-full mb-6"></div>
               
               <p className="text-xl text-bloom-dark/80 mb-6">
                 {course.subtitle}

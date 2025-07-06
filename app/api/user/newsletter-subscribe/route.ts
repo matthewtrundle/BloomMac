@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabaseAdmin } from '@/lib/supabase';
 import { getResendClient } from '@/lib/resend-client';
+import { enrollmentManager } from '@/lib/email-automation/enrollment-manager';
 
 // Send welcome email to new subscriber
 async function sendWelcomeEmail(subscriber: any, isReactivated: boolean = false) {
@@ -103,6 +104,17 @@ export async function POST(request: NextRequest) {
         // Send welcome back email for reactivated subscribers
         await sendWelcomeEmail(reactivated, true);
         
+        // Enroll in email sequences
+        await enrollmentManager.enrollSubscriber({
+          subscriberId: reactivated.id,
+          trigger: 'newsletter_signup',
+          source: 'profile_settings_reactivation',
+          metadata: {
+            reactivated: true,
+            previous_status: existingSubscriber.status
+          }
+        });
+        
         return NextResponse.json({
           success: true,
           message: 'Welcome back! You\'ve been resubscribed to our newsletter.',
@@ -131,6 +143,16 @@ export async function POST(request: NextRequest) {
 
     // Send welcome email for new subscribers
     await sendWelcomeEmail(subscriber, false);
+
+    // Enroll in email sequences
+    await enrollmentManager.enrollSubscriber({
+      subscriberId: subscriber.id,
+      trigger: 'newsletter_signup',
+      source: 'profile_settings',
+      metadata: {
+        new_subscriber: true
+      }
+    });
 
     return NextResponse.json({
       success: true,
