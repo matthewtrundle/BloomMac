@@ -39,6 +39,8 @@ interface EmailTemplate {
   subject: string;
   content: string;
   category: string;
+  sequence?: string;
+  step?: number;
   lastModified?: string;
   modifiedBy?: string;
 }
@@ -86,21 +88,45 @@ export default function EmailCenterPage() {
   const loadData = async () => {
     try {
       // Load newsletter data
-      const newsletterResponse = await fetch('/api/newsletter-admin');
+      const newsletterResponse = await fetch('/api/newsletter-admin', {
+        credentials: 'include'
+      });
       if (newsletterResponse.ok) {
         const newsletterData = await newsletterResponse.json();
         setSubscribers(newsletterData.subscribers || []);
       }
 
       // Load email templates
-      const templatesResponse = await fetch('/api/email-templates');
+      const templatesResponse = await fetch('/api/email-templates', {
+        credentials: 'include'
+      });
       if (templatesResponse.ok) {
         const templatesData = await templatesResponse.json();
-        setTemplates(templatesData.templates || []);
+        console.log('Templates loaded:', templatesData);
+        // Extract templates from the enhanced structure
+        const allTemplates = [];
+        if (templatesData.sequences) {
+          templatesData.sequences.forEach(sequence => {
+            sequence.emails.forEach((email, index) => {
+              allTemplates.push({
+                id: `${sequence.id}-${index}`,
+                name: email.name,
+                subject: email.subject,
+                content: email.content,
+                category: sequence.name,
+                sequence: sequence.id,
+                step: index
+              });
+            });
+          });
+        }
+        setTemplates(allTemplates);
       }
 
       // Load email analytics
-      const analyticsResponse = await fetch('/api/email-analytics');
+      const analyticsResponse = await fetch('/api/email-analytics', {
+        credentials: 'include'
+      });
       if (analyticsResponse.ok) {
         const analyticsData = await analyticsResponse.json();
         setEmailStats({
@@ -112,16 +138,21 @@ export default function EmailCenterPage() {
       }
 
       // Load automation data
-      const automationResponse = await fetch('/api/email-automations');
+      const automationResponse = await fetch('/api/email-automations', {
+        credentials: 'include'
+      });
       if (automationResponse.ok) {
         const autoData = await automationResponse.json();
         setAutomationData(autoData);
       }
 
       // Check Resend configuration
-      const configResponse = await fetch('/api/test-email');
+      const configResponse = await fetch('/api/test-email', {
+        credentials: 'include'
+      });
       if (configResponse.ok) {
         const configData = await configResponse.json();
+        console.log('Resend config:', configData);
         setResendConfigured(configData.configured);
       }
 
@@ -140,8 +171,11 @@ export default function EmailCenterPage() {
       const response = await fetch('/api/email-templates', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({
-          templateId: selectedTemplate.id,
+          id: selectedTemplate.id,
+          sequence: selectedTemplate.sequence,
+          step: selectedTemplate.step,
           subject: selectedTemplate.subject,
           content: selectedTemplate.content
         })
@@ -168,6 +202,7 @@ export default function EmailCenterPage() {
       const response = await fetch('/api/test-email', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({
           to: 'test@bloompsychologynorthaustin.com',
           subject: template.subject,
