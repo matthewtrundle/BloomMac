@@ -353,7 +353,15 @@ When you discover schema changes:
 - Phase 1 Security: COMPLETE but needs auth fix
 - Auth System: Hybrid (admin_users + user_profiles)
 - Service Role: Removed from app code
-- Next Phase: Database consolidation (careful!)
+- Profiles Table: Fixed signup error (removed email field insertion)
+- Profile Edit: Switched to /api/profile/save endpoint (better validation)
+- Next Phase: Database consolidation - remove duplicate profiles table
+
+### Recent Profile System Fixes (Jan 6, 2025)
+- **Fixed**: Signup API no longer tries to insert email into user_profiles
+- **Updated**: Edit profile page now uses /api/profile/save endpoint
+- **Created**: Migration scripts in scripts/migrate-profiles-cleanup.js and scripts/sql/cleanup-profiles-table.sql
+- **Decision**: Use only user_profiles table, remove profiles table after migration
 
 ---
 

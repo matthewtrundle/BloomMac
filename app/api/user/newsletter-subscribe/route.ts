@@ -1,43 +1,72 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { supabaseAdmin } from '@/lib/supabase';
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    
-    // Get the base URL for API calls (localhost in dev, production URL in prod)
-    const baseUrl = process.env.NODE_ENV === 'development' 
-      ? `http://localhost:3000`
-      : process.env.NEXT_PUBLIC_SITE_URL || 'https://bloompsychologynorthaustin.com';
-    
-    // Forward to the main newsletter signup endpoint
-    const response = await fetch(`${baseUrl}/api/newsletter-signup`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        ...body,
-        source: 'profile_settings'
-      })
-    });
+    const { email, firstName, lastName } = body;
 
-    // Check if we got a valid response
-    const contentType = response.headers.get('content-type');
-    if (!contentType || !contentType.includes('application/json')) {
-      const text = await response.text();
-      console.error('Non-JSON response from newsletter-signup:', {
-        status: response.status,
-        contentType,
-        text: text.substring(0, 500)
-      });
-      throw new Error('Invalid response from newsletter service');
+    // Validate email
+    if (!email || !email.includes('@')) {
+      return NextResponse.json(
+        { error: 'Valid email address is required' },
+        { status: 400 }
+      );
     }
 
-    const result = await response.json();
+    // Check if email already exists
+    const { data: existingSubscriber } = await supabaseAdmin
+      .from('subscribers')
+      .select('*')
+      .eq('email', email.toLowerCase())
+      .single();
     
-    if (!response.ok) {
-      console.error('Newsletter signup forwarding failed:', result);
-      return NextResponse.json(result, { status: response.status });
+    if (existingSubscriber) {
+      if (existingSubscriber.status === 'active') {
+        return NextResponse.json(
+          { error: 'This email address is already subscribed to our newsletter.' },
+          { status: 409 }
+        );
+      } else {
+        // Reactivate unsubscribed user
+        const { data: reactivated, error: reactivateError } = await supabaseAdmin
+          .from('subscribers')
+          .update({ 
+            status: 'active',
+            updated_at: new Date().toISOString()
+          })
+          .eq('id', existingSubscriber.id)
+          .select()
+          .single();
+        
+        if (reactivateError) {
+          throw reactivateError;
+        }
+        
+        return NextResponse.json({
+          success: true,
+          message: 'Welcome back! You\'ve been resubscribed to our newsletter.',
+          isSubscribed: true
+        });
+      }
+    }
+
+    // Create new subscriber
+    const { data: subscriber, error: insertError } = await supabaseAdmin
+      .from('subscribers')
+      .insert({
+        email: email.toLowerCase(),
+        first_name: firstName,
+        last_name: lastName,
+        status: 'active',
+        signup_source: 'profile_settings',
+        confirmed: true
+      })
+      .select()
+      .single();
+    
+    if (insertError) {
+      throw insertError;
     }
 
     return NextResponse.json({
@@ -49,22 +78,11 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error('Newsletter subscribe error:', error);
     
-    // Log more details about the error
-    if (error instanceof Error) {
-      console.error('Error details:', {
-        message: error.message,
-        stack: error.stack,
-        body: body,
-        baseUrl: baseUrl
-      });
-    }
-    
-    // Return more informative error message
+    // Always return valid JSON
     return NextResponse.json(
       { 
         error: 'Failed to subscribe to newsletter',
-        details: error instanceof Error ? error.message : 'Unknown error',
-        timestamp: new Date().toISOString()
+        details: error instanceof Error ? error.message : 'Unknown error'
       },
       { status: 500 }
     );

@@ -103,7 +103,6 @@ export async function POST(request: NextRequest) {
         .from('user_profiles')
         .insert({
           id: authData.user.id,
-          email: email.toLowerCase().trim(),
           first_name: firstName.trim(),
           last_name: lastName?.trim() || '',
           phone: phone?.trim() || '',

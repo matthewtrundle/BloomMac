@@ -31,6 +31,7 @@ const protectedApiRoutes = [
   '/api/admin/careers',
   '/api/admin/analytics',
   '/api/admin/settings',
+  '/api/admin/courses',
   '/api/blog-admin',
   '/api/blog-admin-supabase',
   '/api/upload-blog-image',

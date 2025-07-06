@@ -97,7 +97,7 @@ export default function SimpleEditProfilePage() {
     setMessage(null);
 
     try {
-      const response = await fetch('/api/profile/update', {
+      const response = await fetch('/api/profile/save', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -129,9 +129,16 @@ export default function SimpleEditProfilePage() {
       } else {
         const errorData = await response.json();
         console.error('Profile update failed:', errorData);
+        
+        // Handle validation errors from the /save endpoint
+        let errorMessage = errorData.error || 'Failed to update profile. Please try again.';
+        if (errorData.validationErrors && errorData.validationErrors.length > 0) {
+          errorMessage = errorData.error; // This already contains formatted validation errors
+        }
+        
         setMessage({ 
           type: 'error', 
-          text: errorData.details || errorData.error || 'Failed to update profile. Please try again.' 
+          text: errorMessage
         });
       }
     } catch (error) {
