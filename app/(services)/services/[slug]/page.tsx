@@ -341,31 +341,6 @@ export default function ServicePage({
           </Button>
         </div>
       </section>
-      
-      {/* Secondary Image (if available) */}
-      {service.secondaryImage && (
-        <section className="py-20 bg-white/80 backdrop-blur-sm relative overflow-hidden">
-          <div className="container mx-auto px-6">
-            <div className="max-w-5xl mx-auto relative">
-              <div className="aspect-video w-full overflow-hidden rounded-lg shadow-xl">
-                <Image
-                  src={service.secondaryImage}
-                  alt={`Additional information about ${service.title}`}
-                  fill
-                  className="object-cover"
-                  loading="lazy"
-                  placeholder="blur"
-                  blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAn/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
-                />
-              </div>
-              
-              {/* Decorative elements */}
-              <div className="absolute -bottom-5 -right-5 w-32 h-32 bg-bloom-accent/10 rounded-full -z-10"></div>
-              <div className="absolute -top-5 -left-5 w-24 h-24 bg-bloom-blush/20 rounded-full -z-10"></div>
-            </div>
-          </div>
-        </section>
-      )}
     </>
   );
 }
