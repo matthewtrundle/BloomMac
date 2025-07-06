@@ -22,10 +22,23 @@ export async function GET(request: NextRequest) {
 
     if (error) throw error;
 
-    // Calculate stats
+    // Debug logging
+    console.log('Total subscribers fetched:', subscribers.length);
+    if (subscribers.length > 0) {
+      console.log('First subscriber sample:', JSON.stringify(subscribers[0], null, 2));
+      console.log('Subscriber keys:', Object.keys(subscribers[0]));
+    }
+    console.log('Unique subscribed values:', [...new Set(subscribers.map(s => s.subscribed))]);
+    console.log('Unique status values:', [...new Set(subscribers.map(s => s.status))]);
+
+    // Calculate stats - check both 'subscribed' and 'status' fields
     const totalSubscribers = subscribers.length;
-    const activeSubscribers = subscribers.filter(s => s.subscribed === true).length;
-    const unsubscribed = subscribers.filter(s => s.subscribed === false).length;
+    const activeSubscribers = subscribers.filter(s => 
+      s.subscribed === true || s.status === 'active' || s.status === 'subscribed'
+    ).length;
+    const unsubscribed = subscribers.filter(s => 
+      s.subscribed === false || s.status === 'unsubscribed' || s.status === 'inactive'
+    ).length;
     
     // Recent signups (last 30 days)
     const thirtyDaysAgo = new Date();
@@ -73,11 +86,22 @@ export async function GET(request: NextRequest) {
       growth_trend: growthTrend
     };
 
+    // Filter active subscribers - check both 'subscribed' and 'status' fields
+    const activeSubscribersList = subscribers.filter(s => 
+      s.subscribed === true || s.status === 'active' || s.status === 'subscribed'
+    );
+    console.log('Active subscribers after filter:', activeSubscribersList.length);
+    
+    // If no active subscribers found with filter, show all (for debugging)
+    const subscribersToShow = activeSubscribersList.length > 0 ? activeSubscribersList : subscribers;
+    if (activeSubscribersList.length === 0 && subscribers.length > 0) {
+      console.log('WARNING: No active subscribers found, showing all subscribers');
+    }
+    
     // Return the expected structure
     return NextResponse.json({
       stats,
-      subscribers: subscribers
-        .filter(s => s.subscribed === true) // Only show active subscribers
+      subscribers: subscribersToShow
         .map(s => ({
           id: s.id,
           email: s.email,
