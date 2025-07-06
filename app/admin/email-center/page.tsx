@@ -82,6 +82,7 @@ export default function EmailCenterPage() {
   const [testResults, setTestResults] = useState<any[]>([]);
   const [templateFilter, setTemplateFilter] = useState('all');
   const [showPreview, setShowPreview] = useState(false);
+  const [templateSearchTerm, setTemplateSearchTerm] = useState('');
 
   useEffect(() => {
     loadData();
@@ -205,11 +206,15 @@ export default function EmailCenterPage() {
         template: template.name,
         status: result.success ? 'success' : 'error',
         timestamp: new Date().toISOString(),
-        message: result.message
+        message: result.message || 'Test email sent to matthewtrundle@gmail.com'
       }]);
       
       if (result.success) {
         setTestEmailSent(true);
+        // Show success notification
+        setTimeout(() => {
+          alert(`Test email sent successfully to ${result.recipient || 'matthewtrundle@gmail.com'}`);
+        }, 100);
       }
     } catch (error) {
       console.error('Error sending test email:', error);
@@ -905,17 +910,62 @@ export default function EmailCenterPage() {
                 {/* Test Email Sender */}
                 <div>
                   <h4 className="font-medium mb-4">Send Test Emails</h4>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {templates.map((template) => (
-                      <div key={template.id} className="border rounded-lg p-4">
+                  <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-4">
+                    <p className="text-sm text-yellow-800">
+                      <AlertCircle className="w-4 h-4 inline mr-1" />
+                      Test recipient: <strong>matthewtrundle@gmail.com</strong>
+                      <br />
+                      <span className="text-xs">To change the test recipient, update the API configuration.</span>
+                    </p>
+                  </div>
+                  
+                  <div className="mb-4">
+                    <input
+                      type="text"
+                      placeholder="Search templates..."
+                      onChange={(e) => setTemplateSearchTerm(e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-bloom-primary focus:border-transparent"
+                    />
+                  </div>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-96 overflow-y-auto">
+                    {templates
+                      .filter(t => 
+                        !templateSearchTerm || 
+                        t.name.toLowerCase().includes(templateSearchTerm.toLowerCase()) ||
+                        t.category.toLowerCase().includes(templateSearchTerm.toLowerCase())
+                      )
+                      .map((template) => (
+                      <div key={template.id} className="border rounded-lg p-4 hover:border-bloom-primary transition">
                         <h5 className="font-medium">{template.name}</h5>
-                        <p className="text-sm text-gray-600 mb-3">{template.category}</p>
-                        <button 
-                          onClick={() => handleSendTestEmail(template.id)}
-                          className="px-3 py-1.5 text-sm border border-gray-300 rounded-md hover:bg-gray-50"
-                        >
-                          Send Test
-                        </button>
+                        <p className="text-sm text-gray-600 mb-3">
+                          Category: <span className="capitalize">{template.category}</span>
+                          {template.sequence && (
+                            <span className="text-xs ml-2 text-blue-600">
+                              ({template.sequence} sequence)
+                            </span>
+                          )}
+                        </p>
+                        <div className="flex gap-2">
+                          <button 
+                            onClick={() => handleSendTestEmail(template.id)}
+                            className="px-3 py-1.5 text-sm bg-bloom-primary text-white rounded-md hover:bg-bloom-primary/90 flex items-center gap-2"
+                          >
+                            <Send className="w-3 h-3" />
+                            Send Test
+                          </button>
+                          <button 
+                            onClick={() => {
+                              setSelectedTemplate(template);
+                              setActiveTab('templates');
+                              setShowPreview(true);
+                            }}
+                            className="px-3 py-1.5 text-sm border border-gray-300 rounded-md hover:bg-gray-50 flex items-center gap-2"
+                          >
+                            <Eye className="w-3 h-3" />
+                            Preview
+                          </button>
+                        </div>
                       </div>
                     ))}
                   </div>
@@ -925,16 +975,29 @@ export default function EmailCenterPage() {
                 {testResults.length > 0 && (
                   <div>
                     <h4 className="font-medium mb-4">Test Results</h4>
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <p className="text-sm text-blue-800">
+                        <Mail className="w-4 h-4 inline mr-1" />
+                        All test emails are sent to: <strong>matthewtrundle@gmail.com</strong>
+                      </p>
+                    </div>
                     <div className="space-y-2">
-                      {testResults.map((result, index) => (
+                      {testResults.slice(-10).reverse().map((result, index) => (
                         <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                          <div>
+                          <div className="flex-1">
                             <p className="font-medium">{result.template}</p>
                             <p className="text-sm text-gray-600">
                               {new Date(result.timestamp).toLocaleString()}
                             </p>
+                            {result.message && (
+                              <p className="text-xs text-gray-500 mt-1">{result.message}</p>
+                            )}
                           </div>
-                          <CheckCircle className="w-5 h-5 text-green-500" />
+                          {result.status === 'success' ? (
+                            <CheckCircle className="w-5 h-5 text-green-500" />
+                          ) : (
+                            <AlertCircle className="w-5 h-5 text-red-500" />
+                          )}
                         </div>
                       ))}
                     </div>

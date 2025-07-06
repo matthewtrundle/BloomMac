@@ -32,7 +32,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Use the admin email as the test recipient
-    const testEmail = 'jana@bloompsychologynorthaustin.com';
+    const testEmail = 'matthewtrundle@gmail.com';
     
     const result = await sendEmail({
       from: 'Bloom Psychology <noreply@bloompsychologynorthaustin.com>',
@@ -45,6 +45,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       success: true,
       message: `Test email sent to ${testEmail}`,
+      recipient: testEmail,
       data: result
     });
 
