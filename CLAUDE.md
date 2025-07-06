@@ -15,6 +15,31 @@
 - Making up template structures
 - Assuming table relationships without checking
 
+## 🚫 HALLUCINATION PREVENTION
+
+### Red Flags That Should Trigger Re-verification:
+- "I'll create some example..." → NO! Query real data
+- "Typically, this would..." → NO! Check actual implementation
+- "It should have..." → NO! Verify what it actually has
+- "Let me generate..." → NO! Use real data from database
+
+### Common AI Hallucination Patterns:
+1. **Inventing Columns** - ALWAYS verify exact column names
+2. **Creating Fake Data** - ALWAYS use real data from database
+3. **Assuming Standard Patterns** - ALWAYS check actual structure
+
+## 🧠 CONTEXT PRESERVATION RULES
+
+### Memory Limitations:
+- **AI WILL FORGET** - After ~10 messages, earlier context may be lost
+- **SOLUTION**: Always re-verify assumptions with database checks
+- **NEVER** rely on information from earlier in conversation without re-checking
+
+### Every 5 Operations:
+1. Re-run `node scripts/check-database.js`
+2. Re-validate assumptions
+3. Update this file with any discoveries
+
 ## 🚨 CRITICAL: Direct Database Access
 
 ### How to Query the Supabase Database Directly
@@ -310,6 +335,59 @@ When you discover schema changes:
 ---
 
 **Remember**: This is a production app with real users. Always verify before making changes!
+
+## 💡 Quick Decision Tree
+
+```
+Need to know if column exists?
+  → Run: node scripts/check-database.js
+  
+Creating new feature?
+  → Check "Verified Schema" section first
+  → Run: node scripts/validate-schema.js
+  
+Modifying authentication?
+  → Read "Critical Authentication Context"
+  → Test with provided curl commands
+  
+About to use mock data?
+  → STOP! Query real data instead
+  
+Uncertain about anything?
+  → Re-run database checks
+  → Ask user to confirm before proceeding
+```
+
+## 📋 Command Cheat Sheet
+
+| Task | Command | When to Use |
+|------|---------|-------------|
+| Check all tables | `node scripts/check-database.js` | Before ANY database work |
+| Validate schema | `node scripts/validate-schema.js` | Before deploying |
+| Check specific table | `node scripts/check-database.js \| grep -A 20 "table_name"` | When working with specific table |
+| Save schema snapshot | `node scripts/check-database.js > schema-backup-$(date +%Y%m%d).txt` | Before major changes |
+
+## 🏗️ PRODUCTION SAFETY RULES
+
+### Before ANY Destructive Operation:
+1. **Create backup** of affected tables
+2. **Test on local** database first
+3. **Have rollback** script ready
+4. **Notify team** of changes
+
+### Error Handling Pattern:
+```javascript
+// NEVER swallow errors silently
+try {
+  const result = await operation();
+} catch (error) {
+  console.error('Operation failed:', {
+    error: error.message,
+    context: { /* relevant data */ }
+  });
+  throw error; // Re-throw after logging
+}
+```
 
 ## 💡 Why This File Exists
 
