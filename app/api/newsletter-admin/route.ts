@@ -204,7 +204,17 @@ export async function POST(request: NextRequest) {
 
 export async function DELETE(request: NextRequest) {
   try {
-    const body = await request.json();
+    let body;
+    try {
+      body = await request.json();
+    } catch (parseError) {
+      console.error('Failed to parse request body:', parseError);
+      return NextResponse.json({ 
+        error: 'Invalid request body', 
+        details: 'Request body must be valid JSON' 
+      }, { status: 400 });
+    }
+    
     console.log('DELETE request body:', body);
     
     const { subscriberIds } = body;

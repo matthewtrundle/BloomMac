@@ -267,7 +267,43 @@ const NewsletterAdmin: React.FC = () => {
         body: JSON.stringify({ subscriberIds: selectedSubscribers })
       });
 
-      const result = await response.json();
+      console.log('Response status:', response.status);
+      console.log('Response headers:', {
+        'content-type': response.headers.get('content-type'),
+        'content-length': response.headers.get('content-length')
+      });
+      
+      // Check for authentication issues
+      if (response.status === 401) {
+        console.error('Authentication failed - redirecting to login');
+        window.location.href = '/admin/login';
+        return;
+      }
+      
+      // Check if response has content
+      const contentType = response.headers.get('content-type');
+      const contentLength = response.headers.get('content-length');
+      
+      if (!contentType || !contentType.includes('application/json')) {
+        const text = await response.text();
+        console.error('Non-JSON response:', text);
+        throw new Error(`Server returned non-JSON response: ${text.substring(0, 100)}...`);
+      }
+      
+      const responseText = await response.text();
+      console.log('Response text:', responseText);
+      
+      if (!responseText) {
+        throw new Error('Server returned empty response');
+      }
+      
+      let result;
+      try {
+        result = JSON.parse(responseText);
+      } catch (parseError) {
+        console.error('Failed to parse JSON:', parseError);
+        throw new Error(`Invalid JSON response: ${responseText.substring(0, 100)}...`);
+      }
 
       if (response.ok) {
         setManagementResult(`✅ Successfully unsubscribed ${selectedSubscribers.length} subscriber(s)`);
