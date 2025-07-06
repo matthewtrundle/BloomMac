@@ -71,6 +71,7 @@ export default function EmailCenterPage() {
     clickRate: 0,
     unsubscribeRate: 0
   });
+  const [automationData, setAutomationData] = useState<any>(null);
   const [subscribers, setSubscribers] = useState<Subscriber[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [testEmailSent, setTestEmailSent] = useState(false);
@@ -84,17 +85,45 @@ export default function EmailCenterPage() {
 
   const loadData = async () => {
     try {
-      // Load newsletter data (this works)
+      // Load newsletter data
       const newsletterResponse = await fetch('/api/newsletter-admin');
       if (newsletterResponse.ok) {
         const newsletterData = await newsletterResponse.json();
         setSubscribers(newsletterData.subscribers || []);
       }
 
-      // Mock data for features without APIs
-      setTemplates(getMockTemplates());
-      setEmailStats(getMockStats());
-      setResendConfigured(!!process.env.NEXT_PUBLIC_RESEND_API_KEY);
+      // Load email templates
+      const templatesResponse = await fetch('/api/email-templates');
+      if (templatesResponse.ok) {
+        const templatesData = await templatesResponse.json();
+        setTemplates(templatesData.templates || []);
+      }
+
+      // Load email analytics
+      const analyticsResponse = await fetch('/api/email-analytics');
+      if (analyticsResponse.ok) {
+        const analyticsData = await analyticsResponse.json();
+        setEmailStats({
+          totalSent: analyticsData.overview?.totalSent || 0,
+          openRate: analyticsData.overview?.openRate || 0,
+          clickRate: analyticsData.overview?.clickRate || 0,
+          unsubscribeRate: analyticsData.overview?.unsubscribeRate || 0
+        });
+      }
+
+      // Load automation data
+      const automationResponse = await fetch('/api/email-automations');
+      if (automationResponse.ok) {
+        const autoData = await automationResponse.json();
+        setAutomationData(autoData);
+      }
+
+      // Check Resend configuration
+      const configResponse = await fetch('/api/test-email');
+      if (configResponse.ok) {
+        const configData = await configResponse.json();
+        setResendConfigured(configData.configured);
+      }
 
     } catch (error) {
       console.error('Error loading data:', error);
@@ -103,39 +132,70 @@ export default function EmailCenterPage() {
     }
   };
 
-  const getMockTemplates = (): EmailTemplate[] => [
-    { id: '1', name: 'Welcome Email', subject: 'Welcome to Bloom Psychology!', content: 'Welcome content...', category: 'Newsletter' },
-    { id: '2', name: 'Newsletter', subject: 'Monthly Newsletter', content: 'Newsletter content...', category: 'Newsletter' },
-    { id: '3', name: 'Appointment Reminder', subject: 'Your Appointment Tomorrow', content: 'Reminder content...', category: 'Booking' },
-    { id: '4', name: 'Contact Follow-up', subject: 'Thank you for reaching out', content: 'Follow-up content...', category: 'Contact' },
-  ];
-
-  const getMockStats = (): EmailStats => ({
-    totalSent: 1250,
-    openRate: 42.5,
-    clickRate: 12.8,
-    unsubscribeRate: 0.8
-  });
 
   const handleSaveTemplate = async () => {
+    if (!selectedTemplate) return;
     setSaving(true);
-    // Simulate save
-    setTimeout(() => {
+    try {
+      const response = await fetch('/api/email-templates', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          templateId: selectedTemplate.id,
+          subject: selectedTemplate.subject,
+          content: selectedTemplate.content
+        })
+      });
+      if (response.ok) {
+        alert('Template saved successfully!');
+        await loadData(); // Reload templates
+      } else {
+        alert('Failed to save template');
+      }
+    } catch (error) {
+      console.error('Error saving template:', error);
+      alert('Error saving template');
+    } finally {
       setSaving(false);
-      alert('Template saved successfully!');
-    }, 1000);
+    }
   };
 
   const handleSendTestEmail = async (templateId: string) => {
-    setTestEmailSent(true);
-    // Simulate test send
-    setTimeout(() => {
+    try {
+      const template = templates.find(t => t.id === templateId);
+      if (!template) return;
+      
+      const response = await fetch('/api/test-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          to: 'test@bloompsychologynorthaustin.com',
+          subject: template.subject,
+          html: template.content,
+          text: template.content.replace(/<[^>]*>/g, '')
+        })
+      });
+      
+      const result = await response.json();
+      setTestResults([...testResults, {
+        template: template.name,
+        status: result.success ? 'success' : 'error',
+        timestamp: new Date().toISOString(),
+        message: result.message
+      }]);
+      
+      if (result.success) {
+        setTestEmailSent(true);
+      }
+    } catch (error) {
+      console.error('Error sending test email:', error);
       setTestResults([...testResults, {
         template: templateId,
-        status: 'success',
-        timestamp: new Date().toISOString()
+        status: 'error',
+        timestamp: new Date().toISOString(),
+        message: 'Failed to send test email'
       }]);
-    }, 1000);
+    }
   };
 
   const filteredSubscribers = subscribers.filter(sub => 
