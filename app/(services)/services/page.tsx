@@ -69,7 +69,7 @@ export default function ServicesPage() {
                         <div className="aspect-video relative overflow-hidden">
                           <Image
                             src={service.heroImage}
-                            alt={getCleanTitle(service.title)}
+                            alt={getCleanTitle(service?.title)}
                             fill
                             className="object-cover group-hover:scale-105 transition-transform duration-300"
                           />
@@ -79,12 +79,12 @@ export default function ServicesPage() {
                       
                       <div className="p-6">
                         <SmartTitle 
-                          title={service.title}
+                          title={service?.title}
                           as="h3" 
                           className="text-xl font-semibold text-bloom mb-3 group-hover:text-bloompink transition-colors"
                         />
                         <p className="text-gray-600 mb-4">
-                          {service.description}
+                          {service?.description || 'Service description not available.'}
                         </p>
                         
                         {/* Key benefits */}

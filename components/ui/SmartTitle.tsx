@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface SmartTitleProps {
-  title: string;
+  title?: string;
   className?: string;
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'span' | 'div';
   style?: React.CSSProperties;
@@ -32,6 +32,15 @@ export default function SmartTitle({
   const combinedClasses = `${baseClasses} ${className}`.trim();
 
   const renderTitle = () => {
+    // Handle null, undefined, or non-string titles
+    if (!title || typeof title !== 'string') {
+      return (
+        <span className="title-no-orphans">
+          {title || ''}
+        </span>
+      );
+    }
+
     if (title.includes('\n')) {
       // Handle intentional line breaks
       return title.split('\n').map((line, index) => (
@@ -59,6 +68,9 @@ export default function SmartTitle({
 /**
  * Utility function for getting clean title text (useful for metadata, alt text, etc.)
  */
-export function getCleanTitle(title: string): string {
+export function getCleanTitle(title?: string): string {
+  if (!title || typeof title !== 'string') {
+    return '';
+  }
   return title.replace(/\n/g, ' ');
 }

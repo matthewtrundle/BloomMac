@@ -149,6 +149,92 @@ supabase.from('user_profiles').select('count', { count: 'exact', head: true })
 "
 ```
 
+## 📧 EMAIL AUTOMATION SYSTEM ARCHITECTURE
+
+### CURRENT WORKING STATUS (Jan 2025)
+
+**PRODUCTION EMAIL SEQUENCES:**
+
+| Trigger | Status | Emails | Entry Point | Implementation |
+|---------|--------|--------|-------------|----------------|
+| `newsletter_signup` | ✅ WORKING | 5 emails (30 days) | Profile settings, newsletter page | enrollmentManager ✅ |
+| `contact_form` | ✅ WORKING | 0 emails configured | Contact form submissions | enrollmentManager ✅ |
+| `resource_download` | 🗃️ ARCHIVED | N/A | Resource pages are free content | DECISION: No gated downloads |
+| `new_mom_program` | 🚫 DISABLED BY DESIGN | N/A | Calendly bookings | DECISION: No email sequence |
+
+### 🏗️ ARCHITECTURE DECISIONS (DO NOT CHANGE)
+
+#### Resource Pages Decision (Jan 2025):
+- **DECISION**: All resource pages (grounding-techniques, new-mom-guide, etc.) are FREE, clickable web content
+- **REASON**: No gated downloads, no email signup required - content is openly accessible
+- **ACTION**: Archived resource_download trigger - not needed
+- **FILES**: `/app/resources/*/page.tsx` - all display content directly on page
+
+#### New Mom Program Decision (Jan 2025):
+- **DECISION**: No email automation for new mom program bookings
+- **REASON**: Bookings handled via Calendly (external), clients receive personalized 1:1 support
+- **ACTION**: Keep `new_mom_program` sequence disabled/empty
+- **FILES**: `/new-mom-program/`, `/book-new-mom-program/` - lead to Calendly booking
+
+### 🔧 EMAIL ENROLLMENT MANAGER SYSTEM
+
+#### How It Works:
+1. **Trigger Event**: User action (newsletter signup, contact form, etc.)
+2. **enrollmentManager.enrollSubscriber()**: Creates enrollment record
+3. **Cron Job**: `/api/cron/process-email-sequences/route.ts` runs every hour
+4. **Email Processor**: Checks for ready emails and sends via Resend
+5. **Progress Tracking**: Updates enrollment status and position
+
+#### Key Files:
+```
+/lib/email-automation/enrollment-manager.ts  - Core enrollment logic
+/app/api/cron/process-email-sequences/route.ts  - Email processor
+/app/api/user/newsletter-subscribe/route.ts  - Working example
+/app/api/contact/submit/route.ts  - Working example
+```
+
+#### Database Tables:
+```sql
+email_sequences        - Sequence definitions (trigger, status, name)
+sequence_emails       - Individual emails (position, subject, content, delays)
+sequence_enrollments  - User enrollments (subscriber_id, current_position, status)
+subscribers          - User data (email, status, source, metadata)
+email_automation_logs - Sent email tracking
+```
+
+#### Adding New Automation:
+1. Create sequence in `email_sequences` table
+2. Add emails to `sequence_emails` table
+3. Update trigger code to call `enrollmentManager.enrollSubscriber()`
+4. Test with processor: `npm run db:test`
+
+### 🧪 TESTING EMAIL SEQUENCES
+
+```bash
+# Check sequence status
+node scripts/check-pending-emails.js
+
+# Test processor manually
+node scripts/test-sequence-processor.js
+
+# Verify enrollment
+npm run db:query "SELECT * FROM sequence_enrollments WHERE subscriber_id = 'USER_ID'"
+```
+
+### 💡 ENROLLMENT MANAGER API
+
+```javascript
+await enrollmentManager.enrollSubscriber({
+  subscriberId: 'uuid',
+  trigger: 'newsletter_signup', // Must match email_sequences.trigger
+  source: 'profile_settings',   // For tracking/analytics
+  metadata: {                   // Optional extra data
+    reactivated: true,
+    service: 'anxiety_support'
+  }
+});
+```
+
 ## 🔴 CRITICAL AUTHENTICATION CONTEXT
 
 ### Current Authentication System (AS OF Jan 2025)
@@ -476,6 +562,31 @@ If you write database code without showing test results first:
 3. You MUST go back and test first
 
 **SHOW YOUR WORK** - Always include command outputs in responses!
+
+## 📊 EMAIL AUTOMATION TROUBLESHOOTING
+
+### Common Issues:
+1. **"No emails being sent"** → Check sequence status is 'active', verify cron job running
+2. **"Enrollment not created"** → Verify subscriber exists, check trigger spelling
+3. **"Wrong sequence triggered"** → Check trigger field matches email_sequences.trigger exactly
+4. **"Emails marked as sent but not received"** → Check Resend dashboard, verify email_automation_logs
+
+### Quick Diagnostics:
+```bash
+# Check if enrollments are being created
+npm run db:query "SELECT COUNT(*) FROM sequence_enrollments WHERE created_at > NOW() - INTERVAL '1 day'"
+
+# Check if emails are being processed
+npm run db:query "SELECT COUNT(*) FROM email_automation_logs WHERE created_at > NOW() - INTERVAL '1 day'"
+
+# See active sequences
+npm run db:query "SELECT name, trigger, status FROM email_sequences WHERE status = 'active'"
+```
+
+### Email Sequence Status Reference:
+- **Active Sequences**: `newsletter_signup` (5 emails), `contact_form` (0 emails but working)
+- **Archived**: `resource_download` (resource pages are free content)
+- **Disabled**: `new_mom_program` (Calendly handles bookings, no automation needed)
 
 ## 🏗️ PRODUCTION SAFETY RULES
 

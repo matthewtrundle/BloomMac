@@ -41,7 +41,7 @@ export async function generateMetadata({
   }
   
   // Remove any line breaks for metadata  
-  const cleanTitle = getCleanTitle(service.title);
+  const cleanTitle = getCleanTitle(service?.title);
 
   return {
     title: cleanTitle,
@@ -71,7 +71,7 @@ export default function ServicePage({
     <>
       {/* SEO Schema */}
       <ServiceSchema
-        name={getCleanTitle(service.title)}
+        name={getCleanTitle(service?.title)}
         url={`https://bloompsychologynorthaustin.com/services/${service.slug}`}
         description={service.description}
         provider={{
@@ -104,34 +104,24 @@ export default function ServicePage({
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="order-2 lg:order-1">
               <SmartTitle 
-                title={service.title}
+                title={service?.title}
                 as="h1" 
                 className="service-title font-playfair text-bloom text-3xl lg:text-4xl xl:text-5xl mb-6 leading-tight"
-              >
-                <KineticTypography animation="letter-by-letter">
-                  {service.title.includes('\n') ? (
-                    service.title.split('\n').map((line, index) => (
-                      <span key={index} className="block title-no-orphans">
-                        {line}
-                      </span>
-                    ))
-                  ) : (
-                    <span className="title-no-orphans">
-                      {service.title}
-                    </span>
-                  )}
-                </KineticTypography>
-              </SmartTitle>
+              />
               
               {/* Professional divider */}
               <div className="w-24 h-0.5 bg-bloom-sage/20 rounded-full mb-6"></div>
               
               <div className="text-lg text-bloom/80 mb-8 space-y-4">
-                {service.description.split('\n\n').map((paragraph, index) => (
+                {service?.description ? service.description.split('\n\n').map((paragraph, index) => (
                   <KineticTypography key={index} as="p" animation="fade-in">
                     {paragraph}
                   </KineticTypography>
-                ))}
+                )) : (
+                  <KineticTypography as="p" animation="fade-in">
+                    Service description not available.
+                  </KineticTypography>
+                )}
               </div>
               
               <div className="flex flex-col sm:flex-row gap-4 mt-8">
