@@ -1,0 +1,870 @@
+
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+
+CREATE EXTENSION IF NOT EXISTS "pg_net" WITH SCHEMA "extensions";
+
+
+
+
+
+
+COMMENT ON SCHEMA "public" IS 'standard public schema';
+
+
+
+CREATE EXTENSION IF NOT EXISTS "pg_graphql" WITH SCHEMA "graphql";
+
+
+
+
+
+
+CREATE EXTENSION IF NOT EXISTS "pg_stat_statements" WITH SCHEMA "extensions";
+
+
+
+
+
+
+CREATE EXTENSION IF NOT EXISTS "pgcrypto" WITH SCHEMA "extensions";
+
+
+
+
+
+
+CREATE EXTENSION IF NOT EXISTS "supabase_vault" WITH SCHEMA "vault";
+
+
+
+
+
+
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp" WITH SCHEMA "extensions";
+
+
+
+
+
+
+CREATE OR REPLACE FUNCTION "public"."submit_contact_form"("contact_data" "jsonb") RETURNS "jsonb"
+    LANGUAGE "plpgsql" SECURITY DEFINER
+    SET "search_path" TO 'public'
+    AS $$
+DECLARE
+  v_submission_id UUID;
+  v_name TEXT;
+  v_email TEXT;
+  v_phone TEXT;
+  v_service TEXT;
+  v_message TEXT;
+  v_page TEXT;
+  v_user_agent TEXT;
+  v_ip_address TEXT;
+BEGIN
+  -- Extract values from JSON
+  v_name := contact_data->>'p_name';
+  v_email := contact_data->>'p_email';
+  v_phone := contact_data->>'p_phone';
+  v_service := COALESCE(contact_data->>'p_service', 'general');
+  v_message := contact_data->>'p_message';
+  v_page := COALESCE(contact_data->>'p_page', '/contact');
+  v_user_agent := COALESCE(contact_data->>'p_user_agent', '');
+  v_ip_address := COALESCE(contact_data->>'p_ip_address', '');
+  
+  -- Validate required fields
+  IF v_name IS NULL OR v_email IS NULL OR v_message IS NULL THEN
+    RAISE EXCEPTION 'Name, email, and message are required';
+  END IF;
+  
+  -- Insert contact submission
+  INSERT INTO contact_submissions (
+    name,
+    email,
+    phone,
+    service,
+    message,
+    status,
+    source,
+    metadata
+  ) VALUES (
+    v_name,
+    v_email,
+    v_phone,
+    v_service,
+    v_message,
+    'new',
+    'website',
+    jsonb_build_object(
+      'page', v_page,
+      'user_agent', v_user_agent,
+      'ip_address', v_ip_address,
+      'submitted_at', NOW()
+    )
+  )
+  RETURNING id INTO v_submission_id;
+  
+  -- Track analytics event using 'contact_form' instead of 'contact_form_submission'
+  INSERT INTO analytics_events (
+    type,
+    page,
+    session_id,
+    data
+  ) VALUES (
+    'contact_form',  -- Changed to match allowed types
+    v_page,
+    gen_random_uuid(),
+    jsonb_build_object(
+      'service', v_service,
+      'has_phone', v_phone IS NOT NULL,
+      'submission_id', v_submission_id
+    )
+  );
+  
+  -- Return submission details
+  RETURN jsonb_build_object(
+    'id', v_submission_id,
+    'success', true
+  );
+  
+EXCEPTION
+  WHEN OTHERS THEN
+    -- Log error and re-raise
+    RAISE EXCEPTION 'Contact form submission failed: %', SQLERRM;
+END;
+$$;
+
+
+ALTER FUNCTION "public"."submit_contact_form"("contact_data" "jsonb") OWNER TO "postgres";
+
+SET default_tablespace = '';
+
+SET default_table_access_method = "heap";
+
+
+CREATE TABLE IF NOT EXISTS "public"."admin_activity_log" (
+    "id" "uuid" DEFAULT "gen_random_uuid"() NOT NULL,
+    "user_id" "uuid",
+    "action" "text" NOT NULL,
+    "entity_type" "text",
+    "entity_id" "text",
+    "details" "jsonb" DEFAULT '{}'::"jsonb",
+    "created_at" timestamp with time zone DEFAULT "now"()
+);
+
+
+ALTER TABLE "public"."admin_activity_log" OWNER TO "postgres";
+
+
+CREATE TABLE IF NOT EXISTS "public"."admin_users" (
+    "id" "uuid" NOT NULL,
+    "email" "text" NOT NULL,
+    "name" "text",
+    "role" "text" DEFAULT 'admin'::"text",
+    "is_active" boolean DEFAULT true,
+    "last_login" timestamp with time zone,
+    "created_at" timestamp with time zone DEFAULT "now"(),
+    "updated_at" timestamp with time zone DEFAULT "now"(),
+    CONSTRAINT "admin_users_role_check" CHECK (("role" = ANY (ARRAY['admin'::"text", 'super_admin'::"text"])))
+);
+
+
+ALTER TABLE "public"."admin_users" OWNER TO "postgres";
+
+
+CREATE TABLE IF NOT EXISTS "public"."analytics_events" (
+    "id" "uuid" DEFAULT "gen_random_uuid"() NOT NULL,
+    "type" "text" NOT NULL,
+    "page" "text",
+    "session_id" "text",
+    "user_id" "uuid",
+    "data" "jsonb" DEFAULT '{}'::"jsonb",
+    "created_at" timestamp with time zone DEFAULT "now"(),
+    CONSTRAINT "analytics_events_type_check" CHECK (("type" = ANY (ARRAY['page_view'::"text", 'contact_form'::"text", 'booking_click'::"text", 'exit_intent'::"text", 'scroll_banner'::"text", 'resource_download'::"text", 'chatbot_interaction'::"text", 'newsletter_signup'::"text", 'new_mom_signup'::"text", 'email_opened'::"text", 'email_clicked'::"text"])))
+);
+
+
+ALTER TABLE "public"."analytics_events" OWNER TO "postgres";
+
+
+CREATE TABLE IF NOT EXISTS "public"."appointment_data" (
+    "id" "uuid" DEFAULT "gen_random_uuid"() NOT NULL,
+    "user_id" "uuid",
+    "therapist_id" "uuid",
+    "appointment_type" "text",
+    "appointment_date" timestamp with time zone,
+    "appointment_end" timestamp with time zone,
+    "status" "text" DEFAULT 'scheduled'::"text",
+    "calendly_event_uri" "text",
+    "calendly_invitee_uri" "text",
+    "payment_status" "text" DEFAULT 'pending'::"text",
+    "no_show_fee_charged" boolean DEFAULT false,
+    "stripe_payment_intent_id" "text",
+    "metadata" "jsonb" DEFAULT '{}'::"jsonb",
+    "created_at" timestamp with time zone DEFAULT "now"(),
+    "updated_at" timestamp with time zone DEFAULT "now"()
+);
+
+
+ALTER TABLE "public"."appointment_data" OWNER TO "postgres";
+
+
+CREATE TABLE IF NOT EXISTS "public"."contact_submissions" (
+    "id" "uuid" DEFAULT "gen_random_uuid"() NOT NULL,
+    "name" "text" NOT NULL,
+    "email" "text" NOT NULL,
+    "phone" "text",
+    "service" "text",
+    "message" "text" NOT NULL,
+    "status" "text" DEFAULT 'new'::"text",
+    "source" "text" DEFAULT 'website'::"text",
+    "metadata" "jsonb" DEFAULT '{}'::"jsonb",
+    "created_at" timestamp with time zone DEFAULT "now"(),
+    "updated_at" timestamp with time zone DEFAULT "now"(),
+    CONSTRAINT "contact_submissions_status_check" CHECK (("status" = ANY (ARRAY['new'::"text", 'contacted'::"text", 'resolved'::"text", 'spam'::"text"])))
+);
+
+
+ALTER TABLE "public"."contact_submissions" OWNER TO "postgres";
+
+
+CREATE TABLE IF NOT EXISTS "public"."course_enrollments" (
+    "id" "uuid" DEFAULT "gen_random_uuid"() NOT NULL,
+    "user_id" "uuid",
+    "course_id" "uuid",
+    "enrolled_at" timestamp with time zone DEFAULT "now"(),
+    "status" "text" DEFAULT 'active'::"text",
+    "progress_percentage" integer DEFAULT 0,
+    "last_accessed_at" timestamp with time zone,
+    "completed_at" timestamp with time zone,
+    "created_at" timestamp with time zone DEFAULT "now"(),
+    "updated_at" timestamp with time zone DEFAULT "now"(),
+    CONSTRAINT "course_enrollments_status_check" CHECK (("status" = ANY (ARRAY['active'::"text", 'completed'::"text", 'cancelled'::"text"])))
+);
+
+
+ALTER TABLE "public"."course_enrollments" OWNER TO "postgres";
+
+
+CREATE TABLE IF NOT EXISTS "public"."courses" (
+    "id" "uuid" DEFAULT "gen_random_uuid"() NOT NULL,
+    "title" "text" NOT NULL,
+    "slug" "text" NOT NULL,
+    "description" "text",
+    "short_description" "text",
+    "image_url" "text",
+    "price" numeric(10,2) DEFAULT 0,
+    "currency" "text" DEFAULT 'USD'::"text",
+    "duration_hours" integer,
+    "level" "text" DEFAULT 'beginner'::"text",
+    "category" "text",
+    "tags" "text"[],
+    "is_active" boolean DEFAULT true,
+    "is_featured" boolean DEFAULT false,
+    "instructor_id" "uuid",
+    "metadata" "jsonb" DEFAULT '{}'::"jsonb",
+    "created_at" timestamp with time zone DEFAULT "now"(),
+    "updated_at" timestamp with time zone DEFAULT "now"()
+);
+
+
+ALTER TABLE "public"."courses" OWNER TO "postgres";
+
+
+CREATE TABLE IF NOT EXISTS "public"."email_automation_triggers" (
+    "id" "uuid" DEFAULT "gen_random_uuid"() NOT NULL,
+    "subscriber_id" "uuid",
+    "trigger_type" "text" NOT NULL,
+    "trigger_data" "jsonb" DEFAULT '{}'::"jsonb",
+    "triggered_at" timestamp with time zone DEFAULT "now"(),
+    "processed" boolean DEFAULT false,
+    "processed_at" timestamp with time zone,
+    "created_at" timestamp with time zone DEFAULT "now"()
+);
+
+
+ALTER TABLE "public"."email_automation_triggers" OWNER TO "postgres";
+
+
+CREATE TABLE IF NOT EXISTS "public"."posts" (
+    "id" "uuid" DEFAULT "gen_random_uuid"() NOT NULL,
+    "title" "text" NOT NULL,
+    "slug" "text" NOT NULL,
+    "excerpt" "text",
+    "content" "text",
+    "featured_image" "text",
+    "author_id" "uuid",
+    "status" "text" DEFAULT 'draft'::"text",
+    "published_at" timestamp with time zone,
+    "tags" "text"[],
+    "category" "text",
+    "metadata" "jsonb" DEFAULT '{}'::"jsonb",
+    "created_at" timestamp with time zone DEFAULT "now"(),
+    "updated_at" timestamp with time zone DEFAULT "now"(),
+    CONSTRAINT "posts_status_check" CHECK (("status" = ANY (ARRAY['draft'::"text", 'published'::"text", 'archived'::"text"])))
+);
+
+
+ALTER TABLE "public"."posts" OWNER TO "postgres";
+
+
+CREATE TABLE IF NOT EXISTS "public"."subscribers" (
+    "id" "uuid" DEFAULT "gen_random_uuid"() NOT NULL,
+    "email" "text" NOT NULL,
+    "first_name" "text",
+    "last_name" "text",
+    "status" "text" DEFAULT 'active'::"text",
+    "source" "text",
+    "metadata" "jsonb" DEFAULT '{}'::"jsonb",
+    "created_at" timestamp with time zone DEFAULT "now"(),
+    "updated_at" timestamp with time zone DEFAULT "now"(),
+    CONSTRAINT "subscribers_status_check" CHECK (("status" = ANY (ARRAY['active'::"text", 'unsubscribed'::"text", 'bounced'::"text"])))
+);
+
+
+ALTER TABLE "public"."subscribers" OWNER TO "postgres";
+
+
+CREATE TABLE IF NOT EXISTS "public"."user_profiles" (
+    "id" "uuid" NOT NULL,
+    "first_name" "text",
+    "last_name" "text",
+    "full_name" "text" GENERATED ALWAYS AS (TRIM(BOTH FROM ((COALESCE("first_name", ''::"text") || ' '::"text") || COALESCE("last_name", ''::"text")))) STORED,
+    "phone" "text",
+    "date_of_birth" "date",
+    "avatar_url" "text",
+    "role" "text" DEFAULT 'user'::"text",
+    "created_at" timestamp with time zone DEFAULT "now"(),
+    "updated_at" timestamp with time zone DEFAULT "now"()
+);
+
+
+ALTER TABLE "public"."user_profiles" OWNER TO "postgres";
+
+
+ALTER TABLE ONLY "public"."admin_activity_log"
+    ADD CONSTRAINT "admin_activity_log_pkey" PRIMARY KEY ("id");
+
+
+
+ALTER TABLE ONLY "public"."admin_users"
+    ADD CONSTRAINT "admin_users_email_key" UNIQUE ("email");
+
+
+
+ALTER TABLE ONLY "public"."admin_users"
+    ADD CONSTRAINT "admin_users_pkey" PRIMARY KEY ("id");
+
+
+
+ALTER TABLE ONLY "public"."analytics_events"
+    ADD CONSTRAINT "analytics_events_pkey" PRIMARY KEY ("id");
+
+
+
+ALTER TABLE ONLY "public"."appointment_data"
+    ADD CONSTRAINT "appointment_data_pkey" PRIMARY KEY ("id");
+
+
+
+ALTER TABLE ONLY "public"."contact_submissions"
+    ADD CONSTRAINT "contact_submissions_pkey" PRIMARY KEY ("id");
+
+
+
+ALTER TABLE ONLY "public"."course_enrollments"
+    ADD CONSTRAINT "course_enrollments_pkey" PRIMARY KEY ("id");
+
+
+
+ALTER TABLE ONLY "public"."course_enrollments"
+    ADD CONSTRAINT "course_enrollments_user_id_course_id_key" UNIQUE ("user_id", "course_id");
+
+
+
+ALTER TABLE ONLY "public"."courses"
+    ADD CONSTRAINT "courses_pkey" PRIMARY KEY ("id");
+
+
+
+ALTER TABLE ONLY "public"."courses"
+    ADD CONSTRAINT "courses_slug_key" UNIQUE ("slug");
+
+
+
+ALTER TABLE ONLY "public"."email_automation_triggers"
+    ADD CONSTRAINT "email_automation_triggers_pkey" PRIMARY KEY ("id");
+
+
+
+ALTER TABLE ONLY "public"."posts"
+    ADD CONSTRAINT "posts_pkey" PRIMARY KEY ("id");
+
+
+
+ALTER TABLE ONLY "public"."posts"
+    ADD CONSTRAINT "posts_slug_key" UNIQUE ("slug");
+
+
+
+ALTER TABLE ONLY "public"."subscribers"
+    ADD CONSTRAINT "subscribers_email_key" UNIQUE ("email");
+
+
+
+ALTER TABLE ONLY "public"."subscribers"
+    ADD CONSTRAINT "subscribers_pkey" PRIMARY KEY ("id");
+
+
+
+ALTER TABLE ONLY "public"."user_profiles"
+    ADD CONSTRAINT "user_profiles_pkey" PRIMARY KEY ("id");
+
+
+
+CREATE INDEX "idx_analytics_type_created" ON "public"."analytics_events" USING "btree" ("type", "created_at");
+
+
+
+CREATE INDEX "idx_appointments_user_date" ON "public"."appointment_data" USING "btree" ("user_id", "appointment_date");
+
+
+
+CREATE INDEX "idx_courses_active" ON "public"."courses" USING "btree" ("is_active");
+
+
+
+CREATE INDEX "idx_posts_status_published" ON "public"."posts" USING "btree" ("status", "published_at");
+
+
+
+ALTER TABLE ONLY "public"."admin_activity_log"
+    ADD CONSTRAINT "admin_activity_log_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "auth"."users"("id") ON DELETE SET NULL;
+
+
+
+ALTER TABLE ONLY "public"."admin_users"
+    ADD CONSTRAINT "admin_users_id_fkey" FOREIGN KEY ("id") REFERENCES "auth"."users"("id") ON DELETE CASCADE;
+
+
+
+ALTER TABLE ONLY "public"."analytics_events"
+    ADD CONSTRAINT "analytics_events_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "auth"."users"("id") ON DELETE SET NULL;
+
+
+
+ALTER TABLE ONLY "public"."appointment_data"
+    ADD CONSTRAINT "appointment_data_therapist_id_fkey" FOREIGN KEY ("therapist_id") REFERENCES "auth"."users"("id") ON DELETE SET NULL;
+
+
+
+ALTER TABLE ONLY "public"."appointment_data"
+    ADD CONSTRAINT "appointment_data_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "auth"."users"("id") ON DELETE CASCADE;
+
+
+
+ALTER TABLE ONLY "public"."course_enrollments"
+    ADD CONSTRAINT "course_enrollments_course_id_fkey" FOREIGN KEY ("course_id") REFERENCES "public"."courses"("id") ON DELETE CASCADE;
+
+
+
+ALTER TABLE ONLY "public"."course_enrollments"
+    ADD CONSTRAINT "course_enrollments_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "auth"."users"("id") ON DELETE CASCADE;
+
+
+
+ALTER TABLE ONLY "public"."courses"
+    ADD CONSTRAINT "courses_instructor_id_fkey" FOREIGN KEY ("instructor_id") REFERENCES "auth"."users"("id") ON DELETE SET NULL;
+
+
+
+ALTER TABLE ONLY "public"."email_automation_triggers"
+    ADD CONSTRAINT "email_automation_triggers_subscriber_id_fkey" FOREIGN KEY ("subscriber_id") REFERENCES "public"."subscribers"("id") ON DELETE CASCADE;
+
+
+
+ALTER TABLE ONLY "public"."posts"
+    ADD CONSTRAINT "posts_author_id_fkey" FOREIGN KEY ("author_id") REFERENCES "auth"."users"("id") ON DELETE SET NULL;
+
+
+
+ALTER TABLE ONLY "public"."user_profiles"
+    ADD CONSTRAINT "user_profiles_id_fkey" FOREIGN KEY ("id") REFERENCES "auth"."users"("id") ON DELETE CASCADE;
+
+
+
+CREATE POLICY "Allow contact form submissions via RPC" ON "public"."contact_submissions" FOR INSERT TO "anon" WITH CHECK (false);
+
+
+
+CREATE POLICY "Anyone can insert analytics" ON "public"."analytics_events" FOR INSERT TO "anon" WITH CHECK (true);
+
+
+
+CREATE POLICY "Public can read active courses" ON "public"."courses" FOR SELECT TO "anon" USING (("is_active" = true));
+
+
+
+CREATE POLICY "Public can read published posts" ON "public"."posts" FOR SELECT TO "anon" USING (("status" = 'published'::"text"));
+
+
+
+CREATE POLICY "Users can read own profile" ON "public"."user_profiles" FOR SELECT USING (("auth"."uid"() = "id"));
+
+
+
+CREATE POLICY "Users can update own profile" ON "public"."user_profiles" FOR UPDATE USING (("auth"."uid"() = "id"));
+
+
+
+ALTER TABLE "public"."admin_activity_log" ENABLE ROW LEVEL SECURITY;
+
+
+ALTER TABLE "public"."analytics_events" ENABLE ROW LEVEL SECURITY;
+
+
+ALTER TABLE "public"."appointment_data" ENABLE ROW LEVEL SECURITY;
+
+
+ALTER TABLE "public"."contact_submissions" ENABLE ROW LEVEL SECURITY;
+
+
+ALTER TABLE "public"."courses" ENABLE ROW LEVEL SECURITY;
+
+
+ALTER TABLE "public"."posts" ENABLE ROW LEVEL SECURITY;
+
+
+ALTER TABLE "public"."user_profiles" ENABLE ROW LEVEL SECURITY;
+
+
+
+
+ALTER PUBLICATION "supabase_realtime" OWNER TO "postgres";
+
+
+
+
+
+GRANT USAGE ON SCHEMA "public" TO "postgres";
+GRANT USAGE ON SCHEMA "public" TO "anon";
+GRANT USAGE ON SCHEMA "public" TO "authenticated";
+GRANT USAGE ON SCHEMA "public" TO "service_role";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+GRANT ALL ON FUNCTION "public"."submit_contact_form"("contact_data" "jsonb") TO "anon";
+GRANT ALL ON FUNCTION "public"."submit_contact_form"("contact_data" "jsonb") TO "authenticated";
+GRANT ALL ON FUNCTION "public"."submit_contact_form"("contact_data" "jsonb") TO "service_role";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+GRANT ALL ON TABLE "public"."admin_activity_log" TO "anon";
+GRANT ALL ON TABLE "public"."admin_activity_log" TO "authenticated";
+GRANT ALL ON TABLE "public"."admin_activity_log" TO "service_role";
+
+
+
+GRANT ALL ON TABLE "public"."admin_users" TO "anon";
+GRANT ALL ON TABLE "public"."admin_users" TO "authenticated";
+GRANT ALL ON TABLE "public"."admin_users" TO "service_role";
+
+
+
+GRANT ALL ON TABLE "public"."analytics_events" TO "anon";
+GRANT ALL ON TABLE "public"."analytics_events" TO "authenticated";
+GRANT ALL ON TABLE "public"."analytics_events" TO "service_role";
+
+
+
+GRANT ALL ON TABLE "public"."appointment_data" TO "anon";
+GRANT ALL ON TABLE "public"."appointment_data" TO "authenticated";
+GRANT ALL ON TABLE "public"."appointment_data" TO "service_role";
+
+
+
+GRANT ALL ON TABLE "public"."contact_submissions" TO "anon";
+GRANT ALL ON TABLE "public"."contact_submissions" TO "authenticated";
+GRANT ALL ON TABLE "public"."contact_submissions" TO "service_role";
+
+
+
+GRANT ALL ON TABLE "public"."course_enrollments" TO "anon";
+GRANT ALL ON TABLE "public"."course_enrollments" TO "authenticated";
+GRANT ALL ON TABLE "public"."course_enrollments" TO "service_role";
+
+
+
+GRANT ALL ON TABLE "public"."courses" TO "anon";
+GRANT ALL ON TABLE "public"."courses" TO "authenticated";
+GRANT ALL ON TABLE "public"."courses" TO "service_role";
+
+
+
+GRANT ALL ON TABLE "public"."email_automation_triggers" TO "anon";
+GRANT ALL ON TABLE "public"."email_automation_triggers" TO "authenticated";
+GRANT ALL ON TABLE "public"."email_automation_triggers" TO "service_role";
+
+
+
+GRANT ALL ON TABLE "public"."posts" TO "anon";
+GRANT ALL ON TABLE "public"."posts" TO "authenticated";
+GRANT ALL ON TABLE "public"."posts" TO "service_role";
+
+
+
+GRANT ALL ON TABLE "public"."subscribers" TO "anon";
+GRANT ALL ON TABLE "public"."subscribers" TO "authenticated";
+GRANT ALL ON TABLE "public"."subscribers" TO "service_role";
+
+
+
+GRANT ALL ON TABLE "public"."user_profiles" TO "anon";
+GRANT ALL ON TABLE "public"."user_profiles" TO "authenticated";
+GRANT ALL ON TABLE "public"."user_profiles" TO "service_role";
+
+
+
+
+
+
+
+
+
+ALTER DEFAULT PRIVILEGES FOR ROLE "postgres" IN SCHEMA "public" GRANT ALL ON SEQUENCES  TO "postgres";
+ALTER DEFAULT PRIVILEGES FOR ROLE "postgres" IN SCHEMA "public" GRANT ALL ON SEQUENCES  TO "anon";
+ALTER DEFAULT PRIVILEGES FOR ROLE "postgres" IN SCHEMA "public" GRANT ALL ON SEQUENCES  TO "authenticated";
+ALTER DEFAULT PRIVILEGES FOR ROLE "postgres" IN SCHEMA "public" GRANT ALL ON SEQUENCES  TO "service_role";
+
+
+
+
+
+
+ALTER DEFAULT PRIVILEGES FOR ROLE "postgres" IN SCHEMA "public" GRANT ALL ON FUNCTIONS  TO "postgres";
+ALTER DEFAULT PRIVILEGES FOR ROLE "postgres" IN SCHEMA "public" GRANT ALL ON FUNCTIONS  TO "anon";
+ALTER DEFAULT PRIVILEGES FOR ROLE "postgres" IN SCHEMA "public" GRANT ALL ON FUNCTIONS  TO "authenticated";
+ALTER DEFAULT PRIVILEGES FOR ROLE "postgres" IN SCHEMA "public" GRANT ALL ON FUNCTIONS  TO "service_role";
+
+
+
+
+
+
+ALTER DEFAULT PRIVILEGES FOR ROLE "postgres" IN SCHEMA "public" GRANT ALL ON TABLES  TO "postgres";
+ALTER DEFAULT PRIVILEGES FOR ROLE "postgres" IN SCHEMA "public" GRANT ALL ON TABLES  TO "anon";
+ALTER DEFAULT PRIVILEGES FOR ROLE "postgres" IN SCHEMA "public" GRANT ALL ON TABLES  TO "authenticated";
+ALTER DEFAULT PRIVILEGES FOR ROLE "postgres" IN SCHEMA "public" GRANT ALL ON TABLES  TO "service_role";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+RESET ALL;

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Endpoint Tester</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .test { margin: 10px 0; padding: 10px; border: 1px solid #ddd; }
+        .success { background: #d4f5d4; }
+        .error { background: #f5d4d4; }
+        .pending { background: #f5f5d4; }
+        button { padding: 10px 20px; margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <h1>Admin Endpoint Tester</h1>
+    <p>Open this file in your browser while logged into admin panel</p>
+    <button onclick="runAllTests()">Run All Tests</button>
+    <button onclick="clearResults()">Clear Results</button>
+    
+    <div id="results"></div>
+
+    <script>
+        const baseUrl = 'https://bloompsychologynorthaustin.com';
+        
+        const endpoints = [
+            { name: 'Blog Posts', url: '/api/blog-admin-supabase', method: 'GET' },
+            { name: 'Contacts', url: '/api/admin/contacts', method: 'GET' },
+            { name: 'Newsletter Subscribers', url: '/api/admin/newsletter/subscribers', method: 'GET' },
+            { name: 'Email Templates', url: '/api/admin/emails/templates', method: 'GET' },
+            { name: 'Courses', url: '/api/admin/courses', method: 'GET' },
+            { name: 'Career Applications', url: '/api/admin/careers', method: 'GET' },
+            { name: 'Analytics', url: '/api/admin/analytics', method: 'GET' },
+            { name: 'Activity Logs', url: '/api/admin/activity', method: 'GET' },
+            { name: 'User Profiles', url: '/api/admin/users', method: 'GET' }
+        ];
+        
+        async function testEndpoint(endpoint) {
+            const div = document.createElement('div');
+            div.className = 'test pending';
+            div.innerHTML = `<strong>${endpoint.name}</strong>: Testing ${endpoint.url}...`;
+            document.getElementById('results').appendChild(div);
+            
+            try {
+                const response = await fetch(baseUrl + endpoint.url, {
+                    method: endpoint.method,
+                    credentials: 'include',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                const data = await response.text();
+                
+                if (response.ok) {
+                    div.className = 'test success';
+                    div.innerHTML = `<strong>${endpoint.name}</strong>: ✅ Success (${response.status})<br>
+                                   <small>Response: ${data.substring(0, 100)}...</small>`;
+                } else {
+                    div.className = 'test error';
+                    div.innerHTML = `<strong>${endpoint.name}</strong>: ❌ Failed (${response.status})<br>
+                                   <small>Error: ${data}</small>`;
+                }
+            } catch (error) {
+                div.className = 'test error';
+                div.innerHTML = `<strong>${endpoint.name}</strong>: ❌ Network Error<br>
+                               <small>${error.message}</small>`;
+            }
+        }
+        
+        async function runAllTests() {
+            clearResults();
+            document.getElementById('results').innerHTML = '<h2>Test Results:</h2>';
+            
+            for (const endpoint of endpoints) {
+                await testEndpoint(endpoint);
+                await new Promise(resolve => setTimeout(resolve, 500)); // Small delay between tests
+            }
+            
+            const summary = document.createElement('div');
+            summary.innerHTML = '<h3>Test Complete!</h3><p>Green = Working, Red = Needs Fix</p>';
+            document.getElementById('results').appendChild(summary);
+        }
+        
+        function clearResults() {
+            document.getElementById('results').innerHTML = '';
+        }
+    </script>
+</body>
+</html>

@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { jwtVerify } from 'jose';
+import { applySecurityHeaders, applyCorsHeaders } from '@/lib/middleware/security-headers';
 
 const JWT_SECRET = new TextEncoder().encode(
   process.env.JWT_SECRET || 'bloom-admin-secret-key-change-in-production'
@@ -26,6 +27,9 @@ const protectedApiRoutes = [
   '/api/chat-analytics',
   '/api/backup',
   '/api/admin/activity-log',
+  '/api/admin/contacts',
+  '/api/admin/careers',
+  '/api/admin/analytics',
   '/api/blog-admin',
   '/api/blog-admin-supabase',
   '/api/upload-blog-image',
@@ -33,7 +37,6 @@ const protectedApiRoutes = [
   '/api/generate-blog-image',
   '/api/upload-image',
   '/api/careers-application',
-  '/api/admin/careers',
   '/api/analytics'
   // Note: /api/test-analytics is intentionally not protected for testing
 ];
@@ -81,9 +84,14 @@ export async function middleware(request: NextRequest) {
       console.log(`[Middleware] No token for protected route: ${path}`);
       // Redirect to login if no token
       if (isProtectedApiRoute) {
-        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+        let response = NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+        response = applySecurityHeaders(response, request);
+        response = applyCorsHeaders(response, request);
+        return response;
       }
-      return NextResponse.redirect(new URL('/admin/login', request.url));
+      let response = NextResponse.redirect(new URL('/admin/login', request.url));
+      response = applySecurityHeaders(response, request);
+      return response;
     }
     
     // Verify token
@@ -91,11 +99,15 @@ export async function middleware(request: NextRequest) {
     if (!decoded) {
       console.log(`[Middleware] Invalid token for protected route: ${path}`);
       // Clear invalid token and redirect to login
-      const response = isProtectedApiRoute
+      let response = isProtectedApiRoute
         ? NextResponse.json({ error: 'Invalid token' }, { status: 401 })
         : NextResponse.redirect(new URL('/admin/login', request.url));
       
       response.cookies.delete('adminToken');
+      response = applySecurityHeaders(response, request);
+      if (isProtectedApiRoute) {
+        response = applyCorsHeaders(response, request);
+      }
       return response;
     }
     
@@ -108,11 +120,14 @@ export async function middleware(request: NextRequest) {
       requestHeaders.set('x-user-email', decoded.email);
       requestHeaders.set('x-user-role', decoded.role);
       
-      return NextResponse.next({
+      let response = NextResponse.next({
         request: {
           headers: requestHeaders,
         },
       });
+      response = applySecurityHeaders(response, request);
+      response = applyCorsHeaders(response, request);
+      return response;
     }
   }
   
@@ -122,32 +137,36 @@ export async function middleware(request: NextRequest) {
     if (token) {
       const decoded = await verifyToken(token);
       if (decoded) {
-        return NextResponse.redirect(new URL('/admin/analytics', request.url));
+        let response = NextResponse.redirect(new URL('/admin/analytics', request.url));
+        response = applySecurityHeaders(response, request);
+        return response;
       }
     }
   }
   
-  return NextResponse.next();
+  // Default response
+  let response = NextResponse.next();
+  
+  // Apply security headers to all responses
+  response = applySecurityHeaders(response, request);
+  
+  // Apply CORS headers to API routes
+  if (path.startsWith('/api/')) {
+    response = applyCorsHeaders(response, request);
+  }
+  
+  return response;
 }
 
 export const config = {
   matcher: [
-    '/admin/:path*',
-    '/api/newsletter-admin',
-    '/api/email-analytics',
-    '/api/email-automations',
-    '/api/email-templates',
-    '/api/chat-analytics',
-    '/api/backup',
-    '/api/admin/:path*',
-    '/api/blog-admin',
-    '/api/blog-admin-supabase',
-    '/api/upload-blog-image',
-    '/api/recent-activity',
-    '/api/generate-blog-image',
-    '/api/upload-image',
-    '/api/careers-application',
-    '/api/admin/careers',
-    '/api/analytics'
+    /*
+     * Match all request paths except for the ones starting with:
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
+     * - public folder
+     */
+    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico)$).*)',
   ]
 };

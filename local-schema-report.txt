@@ -1,0 +1,240 @@
+=== ALL TABLES ===
+         tablename         | rls_status  
+---------------------------+-------------
+ admin_activity_log        | RLS Enabled
+ admin_users               | No RLS
+ analytics_events          | RLS Enabled
+ appointment_data          | RLS Enabled
+ career_applications       | RLS Enabled
+ contact_submissions       | RLS Enabled
+ course_announcements      | RLS Enabled
+ course_discount_codes     | RLS Enabled
+ course_discussions        | RLS Enabled
+ course_enrollments        | RLS Enabled
+ course_resources          | RLS Enabled
+ courses                   | RLS Enabled
+ email_automation_triggers | RLS Enabled
+ email_campaign_metrics    | RLS Enabled
+ email_templates           | RLS Enabled
+ email_unsubscribes        | RLS Enabled
+ notification_preferences  | RLS Enabled
+ payment_intents           | RLS Enabled
+ payment_methods_audit     | RLS Enabled
+ posts                     | RLS Enabled
+ push_notifications        | RLS Enabled
+ refund_requests           | RLS Enabled
+ sms_messages              | RLS Enabled
+ stripe_webhook_events     | RLS Enabled
+ subscribers               | RLS Enabled
+ user_achievements         | RLS Enabled
+ user_notifications        | RLS Enabled
+ user_payment_methods      | RLS Enabled
+ user_preferences          | RLS Enabled
+ user_profiles             | RLS Enabled
+ wellness_entries          | RLS Enabled
+(31 rows)
+
+
+=== ALL FUNCTIONS ===
+               routine_name                | routine_type 
+-------------------------------------------+--------------
+ create_user_preferences                   | FUNCTION
+ is_admin                                  | FUNCTION
+ is_email_unsubscribed                     | FUNCTION
+ log_payment_method_change                 | FUNCTION
+ submit_contact_form                       | FUNCTION
+ update_notification_preferences_timestamp | FUNCTION
+ update_payment_intent_timestamp           | FUNCTION
+ update_updated_at_column                  | FUNCTION
+(8 rows)
+
+
+=== ALL TRIGGERS ===
+                trigger_name                |        table_name        | action_timing | event  |                       action_statement                       
+--------------------------------------------+--------------------------+---------------+--------+--------------------------------------------------------------
+ update_notification_preferences_updated_at | notification_preferences | BEFORE        | UPDATE | EXECUTE FUNCTION update_notification_preferences_timestamp()
+ update_payment_intents_updated_at          | payment_intents          | BEFORE        | UPDATE | EXECUTE FUNCTION update_payment_intent_timestamp()
+ update_refund_requests_updated_at          | refund_requests          | BEFORE        | UPDATE | EXECUTE FUNCTION update_payment_intent_timestamp()
+ payment_method_audit_trigger               | user_payment_methods     | AFTER         | UPDATE | EXECUTE FUNCTION log_payment_method_change()
+ payment_method_audit_trigger               | user_payment_methods     | AFTER         | INSERT | EXECUTE FUNCTION log_payment_method_change()
+ payment_method_audit_trigger               | user_payment_methods     | AFTER         | DELETE | EXECUTE FUNCTION log_payment_method_change()
+ update_user_payment_methods_updated_at     | user_payment_methods     | BEFORE        | UPDATE | EXECUTE FUNCTION update_updated_at_column()
+ update_user_preferences_updated_at         | user_preferences         | BEFORE        | UPDATE | EXECUTE FUNCTION update_updated_at_column()
+ update_wellness_entries_updated_at         | wellness_entries         | BEFORE        | UPDATE | EXECUTE FUNCTION update_updated_at_column()
+(9 rows)
+
+
+=== AUTH SCHEMA TABLES ===
+     tablename     
+-------------------
+ audit_log_entries
+ flow_state
+ identities
+ instances
+ mfa_amr_claims
+ mfa_challenges
+ mfa_factors
+ one_time_tokens
+ refresh_tokens
+ saml_providers
+ saml_relay_states
+ schema_migrations
+ sessions
+ sso_domains
+ sso_providers
+ users
+(16 rows)
+
+
+=== AUTH TRIGGERS ===
+          trigger_name           | table_name |              action_statement              
+---------------------------------+------------+--------------------------------------------
+ create_user_preferences_trigger | users      | EXECUTE FUNCTION create_user_preferences()
+(1 row)
+
+
+=== RLS POLICIES COUNT ===
+ schemaname |         tablename         | policy_count 
+------------+---------------------------+--------------
+ public     | admin_activity_log        |            1
+ public     | analytics_events          |            3
+ public     | career_applications       |            2
+ public     | contact_submissions       |            2
+ public     | course_announcements      |            1
+ public     | course_discount_codes     |            2
+ public     | course_discussions        |            2
+ public     | course_enrollments        |            3
+ public     | course_resources          |            2
+ public     | courses                   |            3
+ public     | email_automation_triggers |            2
+ public     | email_campaign_metrics    |            2
+ public     | email_templates           |            2
+ public     | email_unsubscribes        |            4
+ public     | notification_preferences  |            2
+ public     | payment_intents           |            3
+ public     | payment_methods_audit     |            3
+ public     | posts                     |            3
+ public     | push_notifications        |            3
+ public     | refund_requests           |            3
+ public     | sms_messages              |            3
+ public     | stripe_webhook_events     |            2
+ public     | subscribers               |            4
+ public     | user_achievements         |            3
+ public     | user_notifications        |            4
+ public     | user_payment_methods      |            2
+ public     | user_preferences          |            4
+ public     | user_profiles             |            5
+ public     | wellness_entries          |            5
+(29 rows)
+
+
+=== CUSTOM TYPES ===
+ schema |         type_name         | type_type 
+--------+---------------------------+-----------
+ public | admin_activity_log        | c
+ public | admin_users               | c
+ public | analytics_events          | c
+ public | appointment_data          | c
+ public | career_applications       | c
+ public | contact_submissions       | c
+ public | course_announcements      | c
+ public | course_discount_codes     | c
+ public | course_discussions        | c
+ public | course_enrollments        | c
+ public | course_resources          | c
+ public | courses                   | c
+ public | email_automation_triggers | c
+ public | email_campaign_metrics    | c
+ public | email_templates           | c
+ public | email_unsubscribes        | c
+ public | notification_preferences  | c
+ public | payment_intents           | c
+ public | payment_methods_audit     | c
+ public | posts                     | c
+ public | push_notifications        | c
+ public | refund_requests           | c
+ public | sms_messages              | c
+ public | stripe_webhook_events     | c
+ public | subscribers               | c
+ public | user_achievements         | c
+ public | user_notifications        | c
+ public | user_payment_methods      | c
+ public | user_preferences          | c
+ public | user_profiles             | c
+ public | wellness_entries          | c
+(31 rows)
+
+
+=== INDEXES COUNT PER TABLE ===
+         tablename         | index_count 
+---------------------------+-------------
+ admin_activity_log        |           1
+ admin_users               |           2
+ analytics_events          |           2
+ appointment_data          |           2
+ career_applications       |           1
+ contact_submissions       |           1
+ course_announcements      |           3
+ course_discount_codes     |           5
+ course_discussions        |           4
+ course_enrollments        |           2
+ course_resources          |           4
+ courses                   |           3
+ email_automation_triggers |           1
+ email_campaign_metrics    |           5
+ email_templates           |           4
+ email_unsubscribes        |           4
+ notification_preferences  |           3
+ payment_intents           |           6
+ payment_methods_audit     |           3
+ posts                     |           3
+ push_notifications        |           3
+ refund_requests           |           4
+ sms_messages              |           4
+ stripe_webhook_events     |           5
+ subscribers               |           2
+ user_achievements         |           4
+ user_notifications        |           5
+ user_payment_methods      |           4
+ user_preferences          |           3
+ user_profiles             |           1
+ wellness_entries          |           4
+(31 rows)
+
+
+=== CONSTRAINTS COUNT PER TABLE ===
+        table_name         | constraint_count |                                 constraint_types                                  
+---------------------------+------------------+-----------------------------------------------------------------------------------
+ admin_activity_log        |                4 | CHECK, FOREIGN KEY, PRIMARY KEY, CHECK
+ admin_users               |                6 | FOREIGN KEY, CHECK, PRIMARY KEY, UNIQUE, CHECK, CHECK
+ analytics_events          |                5 | PRIMARY KEY, CHECK, CHECK, FOREIGN KEY, CHECK
+ appointment_data          |                4 | CHECK, FOREIGN KEY, PRIMARY KEY, FOREIGN KEY
+ career_applications       |                5 | CHECK, CHECK, PRIMARY KEY, CHECK, CHECK
+ contact_submissions       |                6 | CHECK, CHECK, CHECK, CHECK, CHECK, PRIMARY KEY
+ course_announcements      |                7 | FOREIGN KEY, PRIMARY KEY, CHECK, CHECK, CHECK, CHECK, FOREIGN KEY
+ course_discount_codes     |                8 | PRIMARY KEY, CHECK, CHECK, CHECK, UNIQUE, FOREIGN KEY, FOREIGN KEY, CHECK
+ course_discussions        |                6 | PRIMARY KEY, CHECK, CHECK, FOREIGN KEY, FOREIGN KEY, FOREIGN KEY
+ course_enrollments        |                6 | PRIMARY KEY, UNIQUE, FOREIGN KEY, CHECK, CHECK, FOREIGN KEY
+ course_resources          |                5 | CHECK, CHECK, FOREIGN KEY, PRIMARY KEY, CHECK
+ courses                   |                6 | PRIMARY KEY, CHECK, CHECK, CHECK, UNIQUE, FOREIGN KEY
+ email_automation_triggers |                4 | FOREIGN KEY, PRIMARY KEY, CHECK, CHECK
+ email_campaign_metrics    |                3 | CHECK, CHECK, PRIMARY KEY
+ email_templates           |                6 | CHECK, PRIMARY KEY, UNIQUE, FOREIGN KEY, CHECK, CHECK
+ email_unsubscribes        |                6 | CHECK, PRIMARY KEY, FOREIGN KEY, UNIQUE, CHECK, CHECK
+ notification_preferences  |                5 | PRIMARY KEY, UNIQUE, CHECK, CHECK, FOREIGN KEY
+ payment_intents           |                7 | CHECK, FOREIGN KEY, UNIQUE, PRIMARY KEY, CHECK, CHECK, CHECK
+ payment_methods_audit     |                5 | CHECK, CHECK, PRIMARY KEY, FOREIGN KEY, CHECK
+ posts                     |                7 | CHECK, PRIMARY KEY, UNIQUE, CHECK, FOREIGN KEY, CHECK, CHECK
+ push_notifications        |                7 | CHECK, CHECK, CHECK, FOREIGN KEY, CHECK, CHECK, PRIMARY KEY
+ refund_requests           |                8 | CHECK, CHECK, FOREIGN KEY, FOREIGN KEY, CHECK, FOREIGN KEY, PRIMARY KEY, CHECK
+ sms_messages              |                6 | CHECK, CHECK, PRIMARY KEY, CHECK, CHECK, FOREIGN KEY
+ stripe_webhook_events     |                6 | PRIMARY KEY, CHECK, CHECK, CHECK, CHECK, UNIQUE
+ subscribers               |                5 | UNIQUE, CHECK, CHECK, CHECK, PRIMARY KEY
+ user_achievements         |                5 | CHECK, FOREIGN KEY, CHECK, CHECK, PRIMARY KEY
+ user_notifications        |                7 | CHECK, CHECK, CHECK, CHECK, FOREIGN KEY, CHECK, PRIMARY KEY
+ user_payment_methods      |                6 | PRIMARY KEY, CHECK, CHECK, CHECK, FOREIGN KEY, UNIQUE
+ user_preferences          |                6 | CHECK, UNIQUE, FOREIGN KEY, CHECK, PRIMARY KEY, CHECK
+ user_profiles             |                3 | FOREIGN KEY, PRIMARY KEY, CHECK
+ wellness_entries          |               10 | CHECK, UNIQUE, FOREIGN KEY, CHECK, CHECK, CHECK, CHECK, PRIMARY KEY, CHECK, CHECK
+(31 rows)
+

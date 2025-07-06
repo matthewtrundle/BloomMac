@@ -1,0 +1,1378 @@
+=== ALL TABLES IN PUBLIC SCHEMA ===
+                   List of relations
+ Schema |           Name            | Type  |  Owner   
+--------+---------------------------+-------+----------
+ public | admin_activity_log        | table | postgres
+ public | admin_sessions            | table | postgres
+ public | admin_users               | table | postgres
+ public | analytics_events          | table | postgres
+ public | appointment_data          | table | postgres
+ public | appointment_payments      | table | postgres
+ public | appointment_types         | table | postgres
+ public | appointments              | table | postgres
+ public | blog_images_metadata      | table | postgres
+ public | blog_post_images          | table | postgres
+ public | blog_posts                | table | postgres
+ public | bookings                  | table | postgres
+ public | calendly_webhook_events   | table | postgres
+ public | career_applications       | table | postgres
+ public | chat_conversations        | table | postgres
+ public | chatbot_interactions      | table | postgres
+ public | click_heatmap             | table | postgres
+ public | contact_submissions       | table | postgres
+ public | conversion_events         | table | postgres
+ public | course_activity_logs      | table | postgres
+ public | course_certificates       | table | postgres
+ public | course_discount_codes     | table | postgres
+ public | course_enrollments        | table | postgres
+ public | course_lessons            | table | postgres
+ public | course_modules            | table | postgres
+ public | course_progress           | table | postgres
+ public | course_purchases          | table | postgres
+ public | course_resources          | table | postgres
+ public | courses                   | table | postgres
+ public | email_analytics           | table | postgres
+ public | email_automation_errors   | table | postgres
+ public | email_automation_logs     | table | postgres
+ public | email_automation_rules    | table | postgres
+ public | email_automation_triggers | table | postgres
+ public | email_campaign_metrics    | table | postgres
+ public | email_logs                | table | postgres
+ public | email_queue               | table | postgres
+ public | email_sends               | table | postgres
+ public | email_sequences           | table | postgres
+ public | email_templates           | table | postgres
+ public | email_templates_custom    | table | postgres
+ public | email_templates_history   | table | postgres
+ public | lesson_completion_details | table | postgres
+ public | newsletter_sends          | table | postgres
+ public | newsletter_subscribers    | table | postgres
+ public | payment_methods           | table | postgres
+ public | profiles                  | table | postgres
+ public | provider_settings         | table | postgres
+ public | sequence_emails           | table | postgres
+ public | stripe_webhook_events     | table | postgres
+ public | subscribers               | table | postgres
+ public | therapist_profiles        | table | postgres
+ public | user_achievements         | table | postgres
+ public | user_activity_log         | table | postgres
+ public | user_consents             | table | postgres
+ public | user_course_access        | table | postgres
+ public | user_lesson_progress      | table | postgres
+ public | user_notifications        | table | postgres
+ public | user_payment_methods      | table | postgres
+ public | user_preferences          | table | postgres
+ public | user_profiles             | table | postgres
+ public | user_progress             | table | postgres
+ public | user_week_submissions     | table | postgres
+ public | user_workbook_responses   | table | postgres
+ public | wellness_entries          | table | postgres
+ public | workbook_questions        | table | postgres
+ public | workbook_responses        | table | postgres
+ public | workshop_attendance       | table | postgres
+ public | workshop_feedback         | table | postgres
+ public | workshop_registrations    | table | postgres
+(70 rows)
+
+
+=== DETAILED TABLE STRUCTURES ===
+--- USER TABLES ---
+                        Table "public.user_notifications"
+   Column   |           Type           | Collation | Nullable |      Default      
+------------+--------------------------+-----------+----------+-------------------
+ id         | uuid                     |           | not null | gen_random_uuid()
+ user_id    | uuid                     |           |          | 
+ type       | text                     |           | not null | 
+ title      | text                     |           | not null | 
+ message    | text                     |           |          | 
+ data       | jsonb                    |           |          | '{}'::jsonb
+ read       | boolean                  |           |          | false
+ read_at    | timestamp with time zone |           |          | 
+ action_url | text                     |           |          | 
+ created_at | timestamp with time zone |           |          | now()
+Indexes:
+    "user_notifications_pkey" PRIMARY KEY, btree (id)
+    "idx_user_notifications_created" btree (created_at DESC)
+    "idx_user_notifications_created_at" btree (created_at DESC)
+    "idx_user_notifications_read" btree (user_id, read)
+    "idx_user_notifications_type" btree (type)
+    "idx_user_notifications_user_id" btree (user_id, read, created_at DESC)
+Check constraints:
+    "user_notifications_type_check" CHECK (type = ANY (ARRAY['achievement'::text, 'appointment'::text, 'course'::text, 'workshop'::text, 'payment'::text, 'system'::text]))
+Foreign-key constraints:
+    "user_notifications_user_id_fkey" FOREIGN KEY (user_id) REFERENCES auth.users(id) ON DELETE CASCADE
+Policies:
+    POLICY "System deletes old notifications" FOR DELETE
+      USING ((((auth.jwt() ->> 'role'::text) = 'service_role'::text) OR ((auth.uid() = user_id) AND (read = true))))
+    POLICY "Users can update their own notifications" FOR UPDATE
+      USING ((auth.uid() = user_id))
+    POLICY "Users can view their own notifications" FOR SELECT
+      USING ((auth.uid() = user_id))
+
+                                                          Table "public.user_preferences"
+      Column       |           Type           | Collation | Nullable |                                   Default                                    
+-------------------+--------------------------+-----------+----------+------------------------------------------------------------------------------
+ id                | uuid                     |           | not null | gen_random_uuid()
+ user_id           | uuid                     |           | not null | 
+ privacy_settings  | jsonb                    |           |          | '{"contact_visibility": "friends", "profile_visibility": "private"}'::jsonb
+ reminder_settings | jsonb                    |           |          | '{"sms_enabled": false, "push_enabled": true, "email_enabled": true}'::jsonb
+ theme_preference  | text                     |           |          | 'light'::text
+ language          | text                     |           |          | 'en'::text
+ timezone          | text                     |           |          | 'America/New_York'::text
+ created_at        | timestamp with time zone |           |          | now()
+ updated_at        | timestamp with time zone |           |          | now()
+Indexes:
+    "user_preferences_pkey" PRIMARY KEY, btree (id)
+    "idx_user_preferences_user_id" btree (user_id)
+    "user_preferences_user_id_key" UNIQUE CONSTRAINT, btree (user_id)
+Check constraints:
+    "user_preferences_theme_preference_check" CHECK (theme_preference = ANY (ARRAY['light'::text, 'dark'::text, 'auto'::text]))
+Foreign-key constraints:
+    "user_preferences_user_id_fkey" FOREIGN KEY (user_id) REFERENCES auth.users(id) ON DELETE CASCADE
+Policies:
+    POLICY "Users can modify their own preferences" FOR UPDATE
+      USING ((auth.uid() = user_id))
+    POLICY "Users can update their own preferences" FOR INSERT
+      WITH CHECK ((auth.uid() = user_id))
+    POLICY "Users can view their own preferences" FOR SELECT
+      USING ((auth.uid() = user_id))
+
+                           Table "public.user_achievements"
+     Column     |           Type           | Collation | Nullable |      Default      
+----------------+--------------------------+-----------+----------+-------------------
+ id             | uuid                     |           | not null | gen_random_uuid()
+ user_id        | uuid                     |           | not null | 
+ achievement_id | text                     |           | not null | 
+ earned_at      | timestamp with time zone |           |          | now()
+ created_at     | timestamp with time zone |           |          | now()
+ type           | text                     |           |          | 
+ name           | text                     |           |          | 
+ description    | text                     |           |          | 
+ icon           | text                     |           |          | 
+ points         | integer                  |           |          | 0
+Indexes:
+    "user_achievements_pkey" PRIMARY KEY, btree (id)
+    "idx_user_achievements_user_id" btree (user_id)
+    "user_achievements_user_id_achievement_id_key" UNIQUE CONSTRAINT, btree (user_id, achievement_id)
+Foreign-key constraints:
+    "user_achievements_user_id_fkey" FOREIGN KEY (user_id) REFERENCES auth.users(id) ON DELETE CASCADE
+Policies:
+    POLICY "System can award achievements" FOR INSERT
+      WITH CHECK (true)
+    POLICY "Users can view own achievements" FOR SELECT
+      USING ((auth.uid() = user_id))
+    POLICY "Users can view their own achievements" FOR SELECT
+      USING ((auth.uid() = user_id))
+
+                                          Table "public.user_profiles"
+             Column             |           Type           | Collation | Nullable |           Default            
+--------------------------------+--------------------------+-----------+----------+------------------------------
+ id                             | uuid                     |           | not null | 
+ first_name                     | text                     |           |          | 
+ last_name                      | text                     |           |          | 
+ phone                          | text                     |           |          | 
+ bio                            | text                     |           |          | 
+ status                         | text                     |           |          | 'active'::text
+ preferences                    | jsonb                    |           |          | '{}'::jsonb
+ metadata                       | jsonb                    |           |          | '{}'::jsonb
+ created_at                     | timestamp with time zone |           |          | now()
+ updated_at                     | timestamp with time zone |           |          | now()
+ avatar_url                     | character varying(500)   |           |          | 
+ baby_due_date                  | date                     |           |          | 
+ postpartum_date                | date                     |           |          | 
+ number_of_children             | integer                  |           |          | 0
+ emergency_contact_name         | text                     |           |          | 
+ emergency_contact_phone        | text                     |           |          | 
+ emergency_contact_relationship | text                     |           |          | 
+ timezone                       | text                     |           |          | 'America/Chicago'::text
+ marketing_consent              | boolean                  |           |          | false
+ role                           | character varying(20)    |           |          | 'student'::character varying
+ stripe_customer_id             | text                     |           |          | 
+ last_login_at                  | timestamp with time zone |           |          | 
+Indexes:
+    "user_profiles_pkey" PRIMARY KEY, btree (id)
+    "idx_user_profiles_phone" btree (phone) WHERE phone IS NOT NULL
+    "idx_user_profiles_postpartum_date" btree (postpartum_date) WHERE postpartum_date IS NOT NULL
+    "idx_user_profiles_role" btree (role)
+    "idx_user_profiles_status" btree (status)
+    "idx_user_profiles_stripe_customer_id" btree (stripe_customer_id) WHERE stripe_customer_id IS NOT NULL
+Check constraints:
+    "user_profiles_role_check" CHECK (role::text = ANY (ARRAY['student'::character varying, 'mom'::character varying, 'admin'::character varying, 'provider'::character varying]::text[]))
+    "user_profiles_status_check" CHECK (status = ANY (ARRAY['active'::text, 'inactive'::text, 'suspended'::text]))
+Foreign-key constraints:
+    "user_profiles_id_fkey" FOREIGN KEY (id) REFERENCES auth.users(id) ON DELETE CASCADE
+Referenced by:
+    TABLE "conversion_events" CONSTRAINT "conversion_events_user_id_fkey" FOREIGN KEY (user_id) REFERENCES user_profiles(id)
+Policies:
+    POLICY "Admins can view all profiles" FOR SELECT
+      USING ((auth.uid() IN ( SELECT user_profiles_1.id
+   FROM user_profiles user_profiles_1
+  WHERE ((user_profiles_1.role)::text = ANY ((ARRAY['admin'::character varying, 'super_admin'::character varying])::text[])))))
+    POLICY "Enable access to own profile only"
+      USING ((auth.uid() = id))
+      WITH CHECK ((auth.uid() = id))
+    POLICY "Service role can manage profiles"
+      TO service_role
+      USING (true)
+      WITH CHECK (true)
+    POLICY "Users can insert own profile" FOR INSERT
+      WITH CHECK ((auth.uid() = id))
+    POLICY "Users can update own profile" FOR UPDATE
+      USING ((auth.uid() = id))
+      WITH CHECK ((auth.uid() = id))
+    POLICY "Users can update their own profile" FOR UPDATE
+      TO authenticated
+      USING ((auth.uid() = id))
+      WITH CHECK ((auth.uid() = id))
+    POLICY "Users can view own profile" FOR SELECT
+      USING ((auth.uid() = id))
+    POLICY "Users can view their own profile" FOR SELECT
+      TO authenticated
+      USING ((auth.uid() = id))
+
+                              Table "public.user_payment_methods"
+          Column          |           Type           | Collation | Nullable |      Default      
+--------------------------+--------------------------+-----------+----------+-------------------
+ id                       | uuid                     |           | not null | gen_random_uuid()
+ user_id                  | uuid                     |           | not null | 
+ stripe_payment_method_id | text                     |           | not null | 
+ payment_method_type      | text                     |           | not null | 'card'::text
+ card_details             | jsonb                    |           |          | 
+ is_default               | boolean                  |           |          | false
+ is_active                | boolean                  |           |          | true
+ created_at               | timestamp with time zone |           |          | now()
+ updated_at               | timestamp with time zone |           |          | now()
+Indexes:
+    "user_payment_methods_pkey" PRIMARY KEY, btree (id)
+    "idx_user_payment_methods_user_id" btree (user_id)
+    "user_payment_methods_user_id_stripe_payment_method_id_key" UNIQUE CONSTRAINT, btree (user_id, stripe_payment_method_id)
+Foreign-key constraints:
+    "user_payment_methods_user_id_fkey" FOREIGN KEY (user_id) REFERENCES auth.users(id) ON DELETE CASCADE
+Policies:
+    POLICY "Users can manage their own payment methods"
+      USING ((auth.uid() = user_id))
+    POLICY "Users can view their own payment methods" FOR SELECT
+      USING ((auth.uid() = user_id))
+Triggers:
+    enforce_single_default_payment_trigger BEFORE INSERT OR UPDATE ON user_payment_methods FOR EACH ROW EXECUTE FUNCTION ensure_single_default_payment_method()
+
+                           Table "public.user_activity_log"
+    Column     |           Type           | Collation | Nullable |      Default       
+---------------+--------------------------+-----------+----------+--------------------
+ id            | uuid                     |           | not null | uuid_generate_v4()
+ user_id       | uuid                     |           |          | 
+ action        | character varying(100)   |           | not null | 
+ resource_type | character varying(50)    |           |          | 
+ resource_id   | character varying(100)   |           |          | 
+ course_id     | uuid                     |           |          | 
+ metadata      | jsonb                    |           |          | '{}'::jsonb
+ timestamp     | timestamp with time zone |           |          | now()
+ created_at    | timestamp with time zone |           |          | now()
+Indexes:
+    "user_activity_log_pkey" PRIMARY KEY, btree (id)
+    "idx_user_activity_log_user_date" btree (user_id, "timestamp")
+Foreign-key constraints:
+    "user_activity_log_course_id_fkey" FOREIGN KEY (course_id) REFERENCES courses(id)
+Policies:
+    POLICY "Service role full access activity"
+      USING ((auth.role() = 'service_role'::text))
+
+                                 Table "public.user_consents"
+     Column      |           Type           | Collation | Nullable |         Default          
+-----------------+--------------------------+-----------+----------+--------------------------
+ id              | uuid                     |           | not null | uuid_generate_v4()
+ user_id         | uuid                     |           |          | 
+ consent_type    | character varying(50)    |           | not null | 
+ agreed          | boolean                  |           | not null | 
+ consent_date    | timestamp with time zone |           |          | now()
+ withdrawal_date | timestamp with time zone |           |          | 
+ ip_address      | character varying(45)    |           |          | 
+ user_agent      | text                     |           |          | 
+ consent_version | character varying(10)    |           |          | '1.0'::character varying
+ created_at      | timestamp with time zone |           |          | now()
+Indexes:
+    "user_consents_pkey" PRIMARY KEY, btree (id)
+Policies:
+    POLICY "Service role full access consents"
+      USING ((auth.role() = 'service_role'::text))
+
+                            Table "public.user_course_access"
+       Column       |           Type           | Collation | Nullable |      Default      
+--------------------+--------------------------+-----------+----------+-------------------
+ id                 | uuid                     |           | not null | gen_random_uuid()
+ customer_email     | text                     |           | not null | 
+ course_id          | text                     |           | not null | 
+ stripe_customer_id | text                     |           |          | 
+ stripe_session_id  | text                     |           |          | 
+ payment_status     | text                     |           |          | 'pending'::text
+ access_granted_at  | timestamp with time zone |           |          | 
+ last_accessed_at   | timestamp with time zone |           |          | 
+ progress_data      | jsonb                    |           |          | '{}'::jsonb
+ created_at         | timestamp with time zone |           |          | now()
+ updated_at         | timestamp with time zone |           |          | now()
+Indexes:
+    "user_course_access_pkey" PRIMARY KEY, btree (id)
+    "user_course_access_customer_email_course_id_key" UNIQUE CONSTRAINT, btree (customer_email, course_id)
+
+                                      Table "public.user_lesson_progress"
+          Column          |           Type           | Collation | Nullable |             Default              
+--------------------------+--------------------------+-----------+----------+----------------------------------
+ id                       | uuid                     |           | not null | uuid_generate_v4()
+ user_id                  | uuid                     |           |          | 
+ course_id                | uuid                     |           |          | 
+ lesson_id                | character varying(100)   |           | not null | 
+ week_number              | integer                  |           |          | 
+ status                   | character varying(20)    |           |          | 'not_started'::character varying
+ progress_percentage      | integer                  |           |          | 0
+ time_spent_minutes       | integer                  |           |          | 0
+ started_at               | timestamp with time zone |           |          | 
+ completed_at             | timestamp with time zone |           |          | 
+ last_accessed            | timestamp with time zone |           |          | now()
+ last_position_seconds    | integer                  |           |          | 0
+ completion_threshold_met | boolean                  |           |          | false
+ created_at               | timestamp with time zone |           |          | now()
+ updated_at               | timestamp with time zone |           |          | now()
+Indexes:
+    "user_lesson_progress_pkey" PRIMARY KEY, btree (id)
+    "idx_user_lesson_progress_lesson" btree (lesson_id)
+    "idx_user_lesson_progress_user_course" btree (user_id, course_id)
+    "user_lesson_progress_user_id_course_id_lesson_id_key" UNIQUE CONSTRAINT, btree (user_id, course_id, lesson_id)
+Check constraints:
+    "user_lesson_progress_progress_percentage_check" CHECK (progress_percentage >= 0 AND progress_percentage <= 100)
+    "user_lesson_progress_status_check" CHECK (status::text = ANY (ARRAY['not_started'::character varying, 'in_progress'::character varying, 'completed'::character varying]::text[]))
+Foreign-key constraints:
+    "user_lesson_progress_course_id_fkey" FOREIGN KEY (course_id) REFERENCES courses(id) ON DELETE CASCADE
+Policies:
+    POLICY "Service role full access progress"
+      USING ((auth.role() = 'service_role'::text))
+    POLICY "Users can manage own progress"
+      USING ((auth.uid() = user_id))
+
+                               Table "public.user_progress"
+       Column       |           Type           | Collation | Nullable |      Default      
+--------------------+--------------------------+-----------+----------+-------------------
+ id                 | uuid                     |           | not null | gen_random_uuid()
+ user_id            | uuid                     |           | not null | 
+ course_id          | text                     |           | not null | 
+ lesson_number      | integer                  |           | not null | 
+ completed          | boolean                  |           |          | false
+ completed_at       | timestamp with time zone |           |          | 
+ time_spent_minutes | integer                  |           |          | 0
+ created_at         | timestamp with time zone |           |          | now()
+ updated_at         | timestamp with time zone |           |          | now()
+Indexes:
+    "user_progress_pkey" PRIMARY KEY, btree (id)
+    "idx_progress_completed" btree (completed)
+    "idx_progress_user_course" btree (user_id, course_id)
+    "user_progress_user_id_course_id_lesson_number_key" UNIQUE CONSTRAINT, btree (user_id, course_id, lesson_number)
+Foreign-key constraints:
+    "user_progress_user_id_fkey" FOREIGN KEY (user_id) REFERENCES auth.users(id) ON DELETE CASCADE
+Policies:
+    POLICY "Users can manage own progress"
+      USING ((auth.uid() = user_id))
+    POLICY "Users can view own progress" FOR SELECT
+      USING ((auth.uid() = user_id))
+Triggers:
+    update_user_progress_updated_at BEFORE UPDATE ON user_progress FOR EACH ROW EXECUTE FUNCTION update_updated_at_column()
+
+                             Table "public.user_week_submissions"
+         Column         |           Type           | Collation | Nullable |      Default       
+------------------------+--------------------------+-----------+----------+--------------------
+ id                     | uuid                     |           | not null | uuid_generate_v4()
+ user_id                | uuid                     |           |          | 
+ course_id              | uuid                     |           |          | 
+ week_number            | integer                  |           | not null | 
+ submitted_at           | timestamp with time zone |           |          | now()
+ all_lessons_completed  | boolean                  |           |          | false
+ all_workbook_completed | boolean                  |           |          | false
+ completion_percentage  | integer                  |           |          | 0
+ instructor_feedback    | text                     |           |          | 
+ instructor_rating      | integer                  |           |          | 
+ feedback_date          | timestamp with time zone |           |          | 
+ created_at             | timestamp with time zone |           |          | now()
+Indexes:
+    "user_week_submissions_pkey" PRIMARY KEY, btree (id)
+    "user_week_submissions_user_id_course_id_week_number_key" UNIQUE CONSTRAINT, btree (user_id, course_id, week_number)
+Check constraints:
+    "user_week_submissions_instructor_rating_check" CHECK (instructor_rating >= 1 AND instructor_rating <= 5)
+Foreign-key constraints:
+    "user_week_submissions_course_id_fkey" FOREIGN KEY (course_id) REFERENCES courses(id) ON DELETE CASCADE
+Policies:
+    POLICY "Users can manage own week submissions"
+      USING ((auth.uid() = user_id))
+
+                             Table "public.user_workbook_responses"
+         Column          |           Type           | Collation | Nullable |      Default       
+-------------------------+--------------------------+-----------+----------+--------------------
+ id                      | uuid                     |           | not null | uuid_generate_v4()
+ user_id                 | uuid                     |           |          | 
+ course_id               | uuid                     |           |          | 
+ week_number             | integer                  |           | not null | 
+ question_id             | character varying(100)   |           | not null | 
+ response_data           | jsonb                    |           | not null | 
+ response_type           | character varying(50)    |           |          | 
+ sentiment_score         | numeric(3,2)             |           |          | 
+ word_count              | integer                  |           |          | 
+ completion_time_seconds | integer                  |           |          | 
+ is_draft                | boolean                  |           |          | true
+ submitted_at            | timestamp with time zone |           |          | 
+ last_modified           | timestamp with time zone |           |          | now()
+ created_at              | timestamp with time zone |           |          | now()
+Indexes:
+    "user_workbook_responses_pkey" PRIMARY KEY, btree (id)
+    "user_workbook_responses_user_id_course_id_week_number_quest_key" UNIQUE CONSTRAINT, btree (user_id, course_id, week_number, question_id)
+Foreign-key constraints:
+    "user_workbook_responses_course_id_fkey" FOREIGN KEY (course_id) REFERENCES courses(id) ON DELETE CASCADE
+Policies:
+    POLICY "Service role full access workbooks"
+      USING ((auth.role() = 'service_role'::text))
+    POLICY "Users can manage own workbook responses"
+      USING ((auth.uid() = user_id))
+
+--- WELLNESS TABLES ---
+                          Table "public.wellness_entries"
+    Column    |           Type           | Collation | Nullable |      Default      
+--------------+--------------------------+-----------+----------+-------------------
+ id           | uuid                     |           | not null | gen_random_uuid()
+ user_id      | uuid                     |           | not null | 
+ entry_date   | date                     |           |          | CURRENT_DATE
+ mood_rating  | integer                  |           |          | 
+ energy_level | integer                  |           |          | 
+ sleep_hours  | numeric(3,1)             |           |          | 
+ notes        | text                     |           |          | 
+ created_at   | timestamp with time zone |           |          | now()
+Indexes:
+    "wellness_entries_pkey" PRIMARY KEY, btree (id)
+    "idx_wellness_entries_user_id" btree (user_id)
+    "wellness_entries_user_id_entry_date_key" UNIQUE CONSTRAINT, btree (user_id, entry_date)
+Check constraints:
+    "wellness_entries_energy_level_check" CHECK (energy_level >= 1 AND energy_level <= 5)
+    "wellness_entries_mood_rating_check" CHECK (mood_rating >= 1 AND mood_rating <= 5)
+    "wellness_entries_sleep_hours_check" CHECK (sleep_hours >= 0::numeric AND sleep_hours <= 24::numeric)
+Foreign-key constraints:
+    "wellness_entries_user_id_fkey" FOREIGN KEY (user_id) REFERENCES auth.users(id) ON DELETE CASCADE
+Policies:
+    POLICY "Users can manage their own wellness entries"
+      USING ((auth.uid() = user_id))
+
+--- APPOINTMENT TABLES ---
+                                Table "public.appointment_data"
+        Column         |           Type           | Collation | Nullable |       Default        
+-----------------------+--------------------------+-----------+----------+----------------------
+ id                    | uuid                     |           | not null | gen_random_uuid()
+ user_id               | uuid                     |           | not null | 
+ appointment_type      | text                     |           |          | 'consultation'::text
+ calendly_event_uri    | text                     |           |          | 
+ calendly_invitee_uri  | text                     |           |          | 
+ appointment_date      | timestamp with time zone |           | not null | 
+ appointment_end       | timestamp with time zone |           |          | 
+ status                | text                     |           |          | 'scheduled'::text
+ payment_status        | text                     |           |          | 'pending'::text
+ no_show_fee_charged   | boolean                  |           |          | false
+ reminder_sent         | boolean                  |           |          | false
+ confirmation_received | boolean                  |           |          | false
+ cancellation_policy   | text                     |           |          | '24_hours'::text
+ session_fee_dollars   | numeric(10,2)            |           |          | 150.00
+ metadata              | jsonb                    |           |          | '{}'::jsonb
+ created_at            | timestamp with time zone |           |          | now()
+ updated_at            | timestamp with time zone |           |          | now()
+Indexes:
+    "appointment_data_pkey" PRIMARY KEY, btree (id)
+    "idx_appointment_data_user_id" btree (user_id)
+Check constraints:
+    "appointment_data_appointment_type_check" CHECK (appointment_type = ANY (ARRAY['consultation'::text, 'therapy'::text, 'workshop-followup'::text]))
+    "appointment_data_payment_status_check" CHECK (payment_status = ANY (ARRAY['pending'::text, 'authorized'::text, 'paid'::text, 'failed'::text, 'refunded'::text]))
+    "appointment_data_status_check" CHECK (status = ANY (ARRAY['scheduled'::text, 'completed'::text, 'cancelled'::text, 'no_show'::text]))
+Foreign-key constraints:
+    "appointment_data_user_id_fkey" FOREIGN KEY (user_id) REFERENCES auth.users(id) ON DELETE CASCADE
+Referenced by:
+    TABLE "appointment_payments" CONSTRAINT "appointment_payments_appointment_id_fkey" FOREIGN KEY (appointment_id) REFERENCES appointment_data(id) ON DELETE CASCADE
+Policies:
+    POLICY "Users can create their own appointments" FOR INSERT
+      WITH CHECK ((auth.uid() = user_id))
+    POLICY "Users can update their own appointments" FOR UPDATE
+      USING ((auth.uid() = user_id))
+    POLICY "Users can view their own appointments" FOR SELECT
+      USING ((auth.uid() = user_id))
+
+                               Table "public.appointment_payments"
+          Column          |           Type           | Collation | Nullable |       Default       
+--------------------------+--------------------------+-----------+----------+---------------------
+ id                       | uuid                     |           | not null | gen_random_uuid()
+ appointment_id           | uuid                     |           | not null | 
+ user_id                  | uuid                     |           | not null | 
+ amount_cents             | integer                  |           | not null | 
+ stripe_payment_intent_id | text                     |           |          | 
+ status                   | text                     |           |          | 'pending'::text
+ payment_type             | text                     |           |          | 'appointment'::text
+ authorized_at            | timestamp with time zone |           |          | 
+ charged_at               | timestamp with time zone |           |          | 
+ refunded_at              | timestamp with time zone |           |          | 
+ refund_amount_cents      | integer                  |           |          | 
+ failure_reason           | text                     |           |          | 
+ created_at               | timestamp with time zone |           |          | now()
+ updated_at               | timestamp with time zone |           |          | now()
+Indexes:
+    "appointment_payments_pkey" PRIMARY KEY, btree (id)
+    "appointment_payments_stripe_payment_intent_id_key" UNIQUE CONSTRAINT, btree (stripe_payment_intent_id)
+    "idx_appointment_payments_user_id" btree (user_id)
+Check constraints:
+    "appointment_payments_amount_cents_check" CHECK (amount_cents > 0)
+    "appointment_payments_payment_type_check" CHECK (payment_type = ANY (ARRAY['appointment'::text, 'no_show_fee'::text, 'cancellation_fee'::text]))
+    "appointment_payments_status_check" CHECK (status = ANY (ARRAY['pending'::text, 'authorized'::text, 'charged'::text, 'failed'::text, 'refunded'::text, 'cancelled'::text]))
+Foreign-key constraints:
+    "appointment_payments_appointment_id_fkey" FOREIGN KEY (appointment_id) REFERENCES appointment_data(id) ON DELETE CASCADE
+    "appointment_payments_user_id_fkey" FOREIGN KEY (user_id) REFERENCES auth.users(id) ON DELETE CASCADE
+Policies:
+    POLICY "System can update payment status" FOR UPDATE
+      USING (true)
+    POLICY "Users can create payment records for their appointments" FOR INSERT
+      WITH CHECK ((auth.uid() = user_id))
+    POLICY "Users can view their own payment records" FOR SELECT
+      USING ((auth.uid() = user_id))
+
+                            Table "public.appointment_types"
+      Column      |           Type           | Collation | Nullable |      Default      
+------------------+--------------------------+-----------+----------+-------------------
+ id               | uuid                     |           | not null | gen_random_uuid()
+ name             | text                     |           | not null | 
+ duration_minutes | integer                  |           |          | 60
+ price_cents      | integer                  |           |          | 
+ description      | text                     |           |          | 
+ is_active        | boolean                  |           |          | true
+ metadata         | jsonb                    |           |          | '{}'::jsonb
+ created_at       | timestamp with time zone |           |          | now()
+Indexes:
+    "appointment_types_pkey" PRIMARY KEY, btree (id)
+Referenced by:
+    TABLE "appointments" CONSTRAINT "fk_appointments_type" FOREIGN KEY (appointment_type_id) REFERENCES appointment_types(id)
+Policies:
+    POLICY "Anyone can view appointment types" FOR SELECT
+      TO anon,authenticated
+      USING ((is_active = true))
+
+                                  Table "public.appointments"
+        Column         |           Type           | Collation | Nullable |       Default        
+-----------------------+--------------------------+-----------+----------+----------------------
+ id                    | uuid                     |           | not null | gen_random_uuid()
+ user_id               | uuid                     |           |          | 
+ appointment_type_id   | uuid                     |           |          | 
+ provider_id           | uuid                     |           |          | 
+ scheduled_at          | timestamp with time zone |           | not null | 
+ duration_minutes      | integer                  |           |          | 60
+ status                | text                     |           |          | 'scheduled'::text
+ notes                 | text                     |           |          | 
+ metadata              | jsonb                    |           |          | '{}'::jsonb
+ created_at            | timestamp with time zone |           |          | now()
+ updated_at            | timestamp with time zone |           |          | now()
+ payment_status        | text                     |           |          | 'pending'::text
+ confirmation_sent     | boolean                  |           |          | false
+ confirmation_received | boolean                  |           |          | false
+ cancelled_at          | timestamp with time zone |           |          | 
+ appointment_date      | timestamp with time zone |           | not null | now()
+ appointment_type      | text                     |           | not null | 'consultation'::text
+Indexes:
+    "appointments_pkey" PRIMARY KEY, btree (id)
+    "idx_appointments_date" btree (appointment_date)
+    "idx_appointments_scheduled_at" btree (scheduled_at)
+    "idx_appointments_status" btree (status)
+    "idx_appointments_user" btree (user_id)
+    "idx_appointments_user_id" btree (user_id)
+Check constraints:
+    "appointments_appointment_type_check" CHECK (appointment_type = ANY (ARRAY['consultation'::text, 'therapy'::text, 'follow-up'::text]))
+    "appointments_payment_status_check" CHECK (payment_status = ANY (ARRAY['pending'::text, 'paid'::text, 'refunded'::text]))
+    "appointments_status_check" CHECK (status = ANY (ARRAY['scheduled'::text, 'confirmed'::text, 'cancelled'::text, 'completed'::text, 'no_show'::text]))
+Foreign-key constraints:
+    "appointments_user_id_fkey" FOREIGN KEY (user_id) REFERENCES auth.users(id) ON DELETE CASCADE
+    "fk_appointments_type" FOREIGN KEY (appointment_type_id) REFERENCES appointment_types(id)
+Policies:
+    POLICY "Service role can manage appointments"
+      TO service_role
+      USING (true)
+      WITH CHECK (true)
+    POLICY "Users can create their own appointments" FOR INSERT
+      TO authenticated
+      WITH CHECK ((auth.uid() = user_id))
+    POLICY "Users can manage own appointments"
+      USING ((auth.uid() = user_id))
+    POLICY "Users can view their own appointments" FOR SELECT
+      TO authenticated
+      USING ((auth.uid() = user_id))
+Triggers:
+    update_appointments_updated_at BEFORE UPDATE ON appointments FOR EACH ROW EXECUTE FUNCTION update_updated_at_column()
+
+--- COURSE TABLES ---
+                                                                 Table "public.courses"
+         Column         |           Type           | Collation | Nullable |                                   Default                                   
+------------------------+--------------------------+-----------+----------+-----------------------------------------------------------------------------
+ id                     | uuid                     |           | not null | uuid_generate_v4()
+ slug                   | character varying(255)   |           | not null | 
+ title                  | character varying(255)   |           | not null | 
+ subtitle               | character varying(255)   |           |          | 
+ description            | text                     |           |          | 
+ long_description       | text                     |           |          | 
+ price                  | numeric(10,2)            |           | not null | 0
+ original_price         | numeric(10,2)            |           |          | 
+ duration               | character varying(50)    |           |          | 
+ total_modules          | integer                  |           |          | 0
+ total_lessons          | integer                  |           |          | 0
+ total_duration_minutes | integer                  |           |          | 0
+ image_url              | character varying(500)   |           |          | 
+ instructor_name        | character varying(255)   |           |          | 'Dr. Jana Rundle'::character varying
+ instructor_credentials | character varying(255)   |           |          | 'Licensed Therapist, Perinatal Mental Health Specialist'::character varying
+ features               | jsonb                    |           |          | '[]'::jsonb
+ learning_outcomes      | jsonb                    |           |          | '[]'::jsonb
+ bonus_materials        | jsonb                    |           |          | '[]'::jsonb
+ is_active              | boolean                  |           |          | true
+ is_featured            | boolean                  |           |          | false
+ sort_order             | integer                  |           |          | 0
+ created_at             | timestamp with time zone |           |          | now()
+ updated_at             | timestamp with time zone |           |          | now()
+Indexes:
+    "courses_pkey" PRIMARY KEY, btree (id)
+    "courses_slug_key" UNIQUE CONSTRAINT, btree (slug)
+Referenced by:
+    TABLE "course_modules" CONSTRAINT "course_modules_course_id_fkey" FOREIGN KEY (course_id) REFERENCES courses(id) ON DELETE CASCADE
+    TABLE "course_resources" CONSTRAINT "course_resources_course_id_fkey" FOREIGN KEY (course_id) REFERENCES courses(id) ON DELETE CASCADE
+    TABLE "user_activity_log" CONSTRAINT "user_activity_log_course_id_fkey" FOREIGN KEY (course_id) REFERENCES courses(id)
+    TABLE "user_lesson_progress" CONSTRAINT "user_lesson_progress_course_id_fkey" FOREIGN KEY (course_id) REFERENCES courses(id) ON DELETE CASCADE
+    TABLE "user_week_submissions" CONSTRAINT "user_week_submissions_course_id_fkey" FOREIGN KEY (course_id) REFERENCES courses(id) ON DELETE CASCADE
+    TABLE "user_workbook_responses" CONSTRAINT "user_workbook_responses_course_id_fkey" FOREIGN KEY (course_id) REFERENCES courses(id) ON DELETE CASCADE
+Policies:
+    POLICY "Public can view active courses" FOR SELECT
+      USING ((is_active = true))
+
+                             Table "public.course_enrollments"
+       Column        |           Type           | Collation | Nullable |      Default      
+---------------------+--------------------------+-----------+----------+-------------------
+ id                  | uuid                     |           | not null | gen_random_uuid()
+ user_id             | uuid                     |           | not null | 
+ course_id           | text                     |           | not null | 
+ enrollment_date     | timestamp with time zone |           |          | now()
+ progress_percentage | integer                  |           |          | 0
+ last_accessed       | timestamp with time zone |           |          | 
+ payment_status      | text                     |           |          | 'pending'::text
+ stripe_session_id   | text                     |           |          | 
+ amount_paid         | numeric(10,2)            |           |          | 
+ created_at          | timestamp with time zone |           |          | now()
+ enrollment_method   | text                     |           |          | 'paid'::text
+ stripe_payment_id   | text                     |           |          | 
+ completed_at        | timestamp with time zone |           |          | 
+ status              | text                     |           |          | 'active'::text
+Indexes:
+    "course_enrollments_pkey" PRIMARY KEY, btree (id)
+    "course_enrollments_user_id_course_id_key" UNIQUE CONSTRAINT, btree (user_id, course_id)
+    "idx_course_enrollments_user_id" btree (user_id)
+    "idx_enrollments_status" btree (status)
+Check constraints:
+    "course_enrollments_enrollment_method_check" CHECK (enrollment_method = ANY (ARRAY['free'::text, 'paid'::text, 'gifted'::text]))
+    "course_enrollments_payment_status_check" CHECK (payment_status = ANY (ARRAY['pending'::text, 'paid'::text, 'failed'::text, 'refunded'::text]))
+    "course_enrollments_progress_percentage_check" CHECK (progress_percentage >= 0 AND progress_percentage <= 100)
+    "course_enrollments_status_check" CHECK (status = ANY (ARRAY['active'::text, 'completed'::text, 'cancelled'::text]))
+Foreign-key constraints:
+    "course_enrollments_user_id_fkey" FOREIGN KEY (user_id) REFERENCES auth.users(id) ON DELETE CASCADE
+Policies:
+    POLICY "Users can create their own enrollments" FOR INSERT
+      WITH CHECK ((auth.uid() = user_id))
+    POLICY "Users can insert own enrollments" FOR INSERT
+      WITH CHECK ((auth.uid() = user_id))
+    POLICY "Users can view own enrollments" FOR SELECT
+      USING ((auth.uid() = user_id))
+    POLICY "Users can view their own enrollments" FOR SELECT
+      USING ((auth.uid() = user_id))
+
+                           Table "public.course_modules"
+    Column    |           Type           | Collation | Nullable |      Default      
+--------------+--------------------------+-----------+----------+-------------------
+ id           | uuid                     |           | not null | gen_random_uuid()
+ course_id    | uuid                     |           |          | 
+ week_number  | integer                  |           | not null | 
+ title        | text                     |           | not null | 
+ description  | text                     |           |          | 
+ objectives   | jsonb                    |           |          | '[]'::jsonb
+ order_index  | integer                  |           |          | 0
+ is_published | boolean                  |           |          | false
+ created_at   | timestamp with time zone |           |          | now()
+ updated_at   | timestamp with time zone |           |          | now()
+Indexes:
+    "course_modules_pkey" PRIMARY KEY, btree (id)
+    "course_modules_course_id_week_number_key" UNIQUE CONSTRAINT, btree (course_id, week_number)
+    "idx_course_modules_course_id" btree (course_id)
+Foreign-key constraints:
+    "course_modules_course_id_fkey" FOREIGN KEY (course_id) REFERENCES courses(id) ON DELETE CASCADE
+Referenced by:
+    TABLE "course_lessons" CONSTRAINT "course_lessons_module_id_fkey" FOREIGN KEY (module_id) REFERENCES course_modules(id) ON DELETE CASCADE
+    TABLE "course_resources" CONSTRAINT "course_resources_module_id_fkey" FOREIGN KEY (module_id) REFERENCES course_modules(id) ON DELETE CASCADE
+Policies:
+    POLICY "Admins can manage course modules"
+      USING ((EXISTS ( SELECT 1
+   FROM admin_users
+  WHERE ((admin_users.email)::text = (auth.jwt() ->> 'email'::text)))))
+    POLICY "Public can view published modules" FOR SELECT
+      USING (((is_published = true) AND (EXISTS ( SELECT 1
+   FROM courses
+  WHERE ((courses.id = course_modules.course_id) AND (courses.is_active = true))))))
+Triggers:
+    update_course_modules_updated_at BEFORE UPDATE ON course_modules FOR EACH ROW EXECUTE FUNCTION update_updated_at_column()
+
+                                 Table "public.course_lessons"
+          Column          |           Type           | Collation | Nullable |      Default      
+--------------------------+--------------------------+-----------+----------+-------------------
+ id                       | uuid                     |           | not null | gen_random_uuid()
+ module_id                | uuid                     |           |          | 
+ lesson_number            | integer                  |           | not null | 
+ title                    | text                     |           | not null | 
+ description              | text                     |           |          | 
+ video_url                | text                     |           |          | 
+ video_duration_minutes   | integer                  |           |          | 
+ video_thumbnail_url      | text                     |           |          | 
+ slides_html              | text                     |           |          | 
+ transcript               | text                     |           |          | 
+ script_notes             | text                     |           |          | 
+ resources                | jsonb                    |           |          | '[]'::jsonb
+ order_index              | integer                  |           |          | 0
+ is_preview               | boolean                  |           |          | false
+ is_published             | boolean                  |           |          | false
+ created_at               | timestamp with time zone |           |          | now()
+ updated_at               | timestamp with time zone |           |          | now()
+ video_script_formatted   | text                     |           |          | 
+ script_version           | integer                  |           |          | 1
+ script_duration_estimate | integer                  |           |          | 
+ script_last_edited_by    | text                     |           |          | 
+ script_last_edited_at    | timestamp with time zone |           |          | 
+ script_status            | text                     |           |          | 'draft'::text
+ talking_points           | jsonb                    |           |          | '[]'::jsonb
+ script_notes_backup      | text                     |           |          | 
+Indexes:
+    "course_lessons_pkey" PRIMARY KEY, btree (id)
+    "course_lessons_module_id_lesson_number_key" UNIQUE CONSTRAINT, btree (module_id, lesson_number)
+    "idx_course_lessons_module_id" btree (module_id)
+    "idx_course_lessons_script_status" btree (script_status)
+Check constraints:
+    "course_lessons_script_status_check" CHECK (script_status = ANY (ARRAY['draft'::text, 'reviewed'::text, 'final'::text, 'archived'::text]))
+Foreign-key constraints:
+    "course_lessons_module_id_fkey" FOREIGN KEY (module_id) REFERENCES course_modules(id) ON DELETE CASCADE
+Referenced by:
+    TABLE "course_resources" CONSTRAINT "course_resources_lesson_id_fkey" FOREIGN KEY (lesson_id) REFERENCES course_lessons(id) ON DELETE CASCADE
+Policies:
+    POLICY "Admins can manage course lessons"
+      USING ((EXISTS ( SELECT 1
+   FROM admin_users
+  WHERE ((admin_users.email)::text = (auth.jwt() ->> 'email'::text)))))
+    POLICY "Public can view published lessons" FOR SELECT
+      USING (((is_published = true) AND (EXISTS ( SELECT 1
+   FROM (course_modules cm
+     JOIN courses c ON ((c.id = cm.course_id)))
+  WHERE ((cm.id = course_lessons.module_id) AND (cm.is_published = true) AND (c.is_active = true))))))
+Triggers:
+    update_course_lessons_updated_at BEFORE UPDATE ON course_lessons FOR EACH ROW EXECUTE FUNCTION update_updated_at_column()
+
+                                  Table "public.course_progress"
+          Column           |           Type           | Collation | Nullable |       Default       
+---------------------------+--------------------------+-----------+----------+---------------------
+ id                        | uuid                     |           | not null | gen_random_uuid()
+ user_id                   | uuid                     |           | not null | 
+ course_id                 | text                     |           | not null | 
+ week_number               | integer                  |           | not null | 
+ lesson_number             | integer                  |           | not null | 
+ status                    | text                     |           |          | 'not_started'::text
+ started_at                | timestamp with time zone |           |          | 
+ completed_at              | timestamp with time zone |           |          | 
+ time_spent_minutes        | integer                  |           |          | 0
+ video_progress_percentage | integer                  |           |          | 0
+ last_accessed_at          | timestamp with time zone |           |          | now()
+ created_at                | timestamp with time zone |           |          | now()
+ updated_at                | timestamp with time zone |           |          | now()
+Indexes:
+    "course_progress_pkey" PRIMARY KEY, btree (id)
+    "course_progress_user_id_course_id_week_number_lesson_number_key" UNIQUE CONSTRAINT, btree (user_id, course_id, week_number, lesson_number)
+    "idx_course_progress_user_id" btree (user_id)
+Check constraints:
+    "course_progress_lesson_number_check" CHECK (lesson_number >= 1 AND lesson_number <= 5)
+    "course_progress_status_check" CHECK (status = ANY (ARRAY['not_started'::text, 'in_progress'::text, 'completed'::text]))
+    "course_progress_video_progress_percentage_check" CHECK (video_progress_percentage >= 0 AND video_progress_percentage <= 100)
+    "course_progress_week_number_check" CHECK (week_number >= 1 AND week_number <= 6)
+Foreign-key constraints:
+    "course_progress_user_id_fkey" FOREIGN KEY (user_id) REFERENCES auth.users(id) ON DELETE CASCADE
+Referenced by:
+    TABLE "lesson_completion_details" CONSTRAINT "lesson_completion_details_progress_id_fkey" FOREIGN KEY (progress_id) REFERENCES course_progress(id) ON DELETE CASCADE
+Policies:
+    POLICY "Users can modify their own course progress" FOR UPDATE
+      USING ((auth.uid() = user_id))
+    POLICY "Users can update their own course progress" FOR INSERT
+      WITH CHECK ((auth.uid() = user_id))
+    POLICY "Users can view their own course progress" FOR SELECT
+      USING ((auth.uid() = user_id))
+
+                         Table "public.course_activity_logs"
+    Column     |           Type           | Collation | Nullable |      Default      
+---------------+--------------------------+-----------+----------+-------------------
+ id            | uuid                     |           | not null | gen_random_uuid()
+ user_id       | uuid                     |           | not null | 
+ course_id     | text                     |           | not null | 
+ activity_type | text                     |           | not null | 
+ lesson_number | integer                  |           |          | 
+ metadata      | jsonb                    |           |          | 
+ created_at    | timestamp with time zone |           |          | now()
+Indexes:
+    "course_activity_logs_pkey" PRIMARY KEY, btree (id)
+    "idx_activity_logs_course" btree (course_id)
+    "idx_activity_logs_created" btree (created_at)
+    "idx_activity_logs_user" btree (user_id)
+Check constraints:
+    "course_activity_logs_activity_type_check" CHECK (activity_type = ANY (ARRAY['lesson_view'::text, 'lesson_complete'::text, 'workbook_start'::text, 'workbook_submit'::text]))
+Foreign-key constraints:
+    "course_activity_logs_user_id_fkey" FOREIGN KEY (user_id) REFERENCES auth.users(id) ON DELETE CASCADE
+Policies:
+    POLICY "Users can insert own activity" FOR INSERT
+      WITH CHECK ((auth.uid() = user_id))
+    POLICY "Users can view own activity" FOR SELECT
+      USING ((auth.uid() = user_id))
+
+                                                                                           Table "public.course_certificates"
+         Column         |           Type           | Collation | Nullable |                                                                   Default                                                                   
+------------------------+--------------------------+-----------+----------+---------------------------------------------------------------------------------------------------------------------------------------------
+ id                     | uuid                     |           | not null | gen_random_uuid()
+ user_id                | uuid                     |           | not null | 
+ course_id              | text                     |           | not null | 
+ certificate_number     | text                     |           | not null | (('BLOOM-'::text || to_char(now(), 'YYYY'::text)) || '-'::text) || lpad((random() * 999999::double precision)::integer::text, 6, '0'::text)
+ completion_date        | timestamp with time zone |           | not null | 
+ total_time_spent_hours | numeric(10,2)            |           |          | 
+ lessons_completed      | integer                  |           | not null | 
+ final_score            | integer                  |           |          | 
+ certificate_url        | text                     |           |          | 
+ issued_at              | timestamp with time zone |           |          | now()
+Indexes:
+    "course_certificates_pkey" PRIMARY KEY, btree (id)
+    "course_certificates_certificate_number_key" UNIQUE CONSTRAINT, btree (certificate_number)
+    "course_certificates_user_id_course_id_key" UNIQUE CONSTRAINT, btree (user_id, course_id)
+Foreign-key constraints:
+    "course_certificates_user_id_fkey" FOREIGN KEY (user_id) REFERENCES auth.users(id) ON DELETE CASCADE
+Policies:
+    POLICY "Users can view their own certificates" FOR SELECT
+      USING ((auth.uid() = user_id))
+
+                          Table "public.course_discount_codes"
+      Column      |           Type           | Collation | Nullable |      Default      
+------------------+--------------------------+-----------+----------+-------------------
+ id               | uuid                     |           | not null | gen_random_uuid()
+ code             | text                     |           | not null | 
+ description      | text                     |           |          | 
+ discount_type    | text                     |           | not null | 
+ discount_value   | numeric(10,2)            |           | not null | 
+ course_id        | text                     |           |          | 
+ max_uses         | integer                  |           |          | 
+ uses_count       | integer                  |           |          | 0
+ valid_from       | timestamp with time zone |           |          | now()
+ valid_until      | timestamp with time zone |           |          | 
+ minimum_purchase | numeric(10,2)            |           |          | 
+ is_active        | boolean                  |           |          | true
+ created_by       | uuid                     |           |          | 
+ created_at       | timestamp with time zone |           |          | now()
+Indexes:
+    "course_discount_codes_pkey" PRIMARY KEY, btree (id)
+    "course_discount_codes_code_key" UNIQUE CONSTRAINT, btree (code)
+    "idx_discount_codes_code" btree (code, is_active)
+    "idx_discount_codes_dates" btree (valid_from, valid_until)
+Check constraints:
+    "course_discount_codes_discount_type_check" CHECK (discount_type = ANY (ARRAY['percentage'::text, 'fixed'::text]))
+    "course_discount_codes_discount_value_check" CHECK (discount_value > 0::numeric)
+Foreign-key constraints:
+    "course_discount_codes_created_by_fkey" FOREIGN KEY (created_by) REFERENCES admin_users(id)
+Policies:
+    POLICY "Anyone can view active discount codes" FOR SELECT
+      USING (((is_active = true) AND ((valid_from IS NULL) OR (valid_from <= now())) AND ((valid_until IS NULL) OR (valid_until >= now()))))
+    POLICY "Only admins can manage discount codes"
+      USING ((EXISTS ( SELECT 1
+   FROM admin_users
+  WHERE (admin_users.id = auth.uid()))))
+
+                               Table "public.course_purchases"
+        Column         |           Type           | Collation | Nullable |      Default      
+-----------------------+--------------------------+-----------+----------+-------------------
+ id                    | uuid                     |           | not null | gen_random_uuid()
+ stripe_session_id     | text                     |           | not null | 
+ customer_email        | text                     |           | not null | 
+ course_id             | text                     |           | not null | 
+ amount_paid           | integer                  |           | not null | 
+ currency              | text                     |           |          | 'usd'::text
+ payment_status        | text                     |           |          | 'pending'::text
+ stripe_payment_intent | text                     |           |          | 
+ metadata              | jsonb                    |           |          | '{}'::jsonb
+ created_at            | timestamp with time zone |           |          | now()
+ updated_at            | timestamp with time zone |           |          | now()
+Indexes:
+    "course_purchases_pkey" PRIMARY KEY, btree (id)
+    "course_purchases_stripe_session_id_key" UNIQUE CONSTRAINT, btree (stripe_session_id)
+
+                            Table "public.course_resources"
+     Column      |           Type           | Collation | Nullable |      Default      
+-----------------+--------------------------+-----------+----------+-------------------
+ id              | uuid                     |           | not null | gen_random_uuid()
+ course_id       | uuid                     |           |          | 
+ module_id       | uuid                     |           |          | 
+ lesson_id       | uuid                     |           |          | 
+ title           | text                     |           | not null | 
+ description     | text                     |           |          | 
+ file_url        | text                     |           |          | 
+ file_type       | character varying(50)    |           |          | 
+ file_size_bytes | integer                  |           |          | 
+ download_count  | integer                  |           |          | 0
+ order_index     | integer                  |           |          | 0
+ is_active       | boolean                  |           |          | true
+ created_at      | timestamp with time zone |           |          | now()
+Indexes:
+    "course_resources_pkey" PRIMARY KEY, btree (id)
+    "idx_course_resources_course_id" btree (course_id)
+Foreign-key constraints:
+    "course_resources_course_id_fkey" FOREIGN KEY (course_id) REFERENCES courses(id) ON DELETE CASCADE
+    "course_resources_lesson_id_fkey" FOREIGN KEY (lesson_id) REFERENCES course_lessons(id) ON DELETE CASCADE
+    "course_resources_module_id_fkey" FOREIGN KEY (module_id) REFERENCES course_modules(id) ON DELETE CASCADE
+Policies:
+    POLICY "Admins can manage course resources"
+      USING ((EXISTS ( SELECT 1
+   FROM admin_users
+  WHERE ((admin_users.email)::text = (auth.jwt() ->> 'email'::text)))))
+
+--- EMAIL TABLES ---
+                      Table "public.email_automation_triggers"
+    Column     |           Type           | Collation | Nullable |      Default      
+---------------+--------------------------+-----------+----------+-------------------
+ id            | uuid                     |           | not null | gen_random_uuid()
+ subscriber_id | uuid                     |           | not null | 
+ trigger_type  | text                     |           | not null | 
+ trigger_data  | jsonb                    |           |          | '{}'::jsonb
+ triggered_at  | timestamp with time zone |           | not null | now()
+ processed_at  | timestamp with time zone |           |          | 
+ created_at    | timestamp with time zone |           |          | now()
+Indexes:
+    "email_automation_triggers_pkey" PRIMARY KEY, btree (id)
+Foreign-key constraints:
+    "email_automation_triggers_subscriber_id_fkey" FOREIGN KEY (subscriber_id) REFERENCES subscribers(id) ON DELETE CASCADE
+Policies (row security enabled): (none)
+
+                                  Table "public.email_sequences"
+       Column       |           Type           | Collation | Nullable |          Default           
+--------------------+--------------------------+-----------+----------+----------------------------
+ id                 | uuid                     |           | not null | gen_random_uuid()
+ name               | character varying(255)   |           | not null | 
+ description        | text                     |           |          | 
+ trigger            | character varying(100)   |           | not null | 
+ trigger_conditions | jsonb                    |           |          | '{}'::jsonb
+ status             | character varying(20)    |           |          | 'draft'::character varying
+ created_by         | uuid                     |           |          | 
+ created_at         | timestamp with time zone |           |          | now()
+ updated_at         | timestamp with time zone |           |          | now()
+Indexes:
+    "email_sequences_pkey" PRIMARY KEY, btree (id)
+    "idx_email_sequences_status" btree (status)
+    "idx_email_sequences_trigger" btree (trigger)
+Referenced by:
+    TABLE "email_automation_errors" CONSTRAINT "email_automation_errors_sequence_id_fkey" FOREIGN KEY (sequence_id) REFERENCES email_sequences(id) ON DELETE CASCADE
+    TABLE "email_automation_logs" CONSTRAINT "email_automation_logs_sequence_id_fkey" FOREIGN KEY (sequence_id) REFERENCES email_sequences(id) ON DELETE CASCADE
+    TABLE "sequence_emails" CONSTRAINT "sequence_emails_sequence_id_fkey" FOREIGN KEY (sequence_id) REFERENCES email_sequences(id) ON DELETE CASCADE
+
+                          Table "public.sequence_emails"
+   Column    |           Type           | Collation | Nullable |      Default      
+-------------+--------------------------+-----------+----------+-------------------
+ id          | uuid                     |           | not null | gen_random_uuid()
+ sequence_id | uuid                     |           |          | 
+ position    | integer                  |           | not null | 
+ subject     | character varying(255)   |           | not null | 
+ content     | text                     |           | not null | 
+ delay_hours | integer                  |           |          | 0
+ delay_days  | integer                  |           |          | 0
+ created_at  | timestamp with time zone |           |          | now()
+ updated_at  | timestamp with time zone |           |          | now()
+Indexes:
+    "sequence_emails_pkey" PRIMARY KEY, btree (id)
+    "idx_sequence_emails_position" btree ("position")
+    "idx_sequence_emails_sequence" btree (sequence_id)
+Foreign-key constraints:
+    "sequence_emails_sequence_id_fkey" FOREIGN KEY (sequence_id) REFERENCES email_sequences(id) ON DELETE CASCADE
+Referenced by:
+    TABLE "email_automation_logs" CONSTRAINT "email_automation_logs_email_id_fkey" FOREIGN KEY (email_id) REFERENCES sequence_emails(id) ON DELETE CASCADE
+
+                        Table "public.email_automation_logs"
+    Column     |           Type           | Collation | Nullable |      Default      
+---------------+--------------------------+-----------+----------+-------------------
+ id            | uuid                     |           | not null | gen_random_uuid()
+ sequence_id   | uuid                     |           |          | 
+ email_id      | uuid                     |           |          | 
+ subscriber_id | uuid                     |           |          | 
+ status        | character varying(20)    |           | not null | 
+ sent_at       | timestamp with time zone |           |          | now()
+ opened_at     | timestamp with time zone |           |          | 
+ clicked_at    | timestamp with time zone |           |          | 
+ metadata      | jsonb                    |           |          | '{}'::jsonb
+ created_at    | timestamp with time zone |           |          | now()
+Indexes:
+    "email_automation_logs_pkey" PRIMARY KEY, btree (id)
+    "idx_automation_logs_sequence" btree (sequence_id)
+    "idx_automation_logs_status" btree (status)
+    "idx_automation_logs_subscriber" btree (subscriber_id)
+Foreign-key constraints:
+    "email_automation_logs_email_id_fkey" FOREIGN KEY (email_id) REFERENCES sequence_emails(id) ON DELETE CASCADE
+    "email_automation_logs_sequence_id_fkey" FOREIGN KEY (sequence_id) REFERENCES email_sequences(id) ON DELETE CASCADE
+    "email_automation_logs_subscriber_id_fkey" FOREIGN KEY (subscriber_id) REFERENCES subscribers(id) ON DELETE CASCADE
+
+                          Table "public.email_templates"
+   Column   |           Type           | Collation | Nullable |      Default      
+------------+--------------------------+-----------+----------+-------------------
+ id         | uuid                     |           | not null | gen_random_uuid()
+ name       | character varying(255)   |           | not null | 
+ category   | character varying(100)   |           |          | 
+ subject    | character varying(255)   |           | not null | 
+ content    | text                     |           | not null | 
+ variables  | jsonb                    |           |          | '[]'::jsonb
+ is_public  | boolean                  |           |          | false
+ created_by | uuid                     |           |          | 
+ created_at | timestamp with time zone |           |          | now()
+ updated_at | timestamp with time zone |           |          | now()
+Indexes:
+    "email_templates_pkey" PRIMARY KEY, btree (id)
+    "idx_email_templates_category" btree (category)
+    "idx_email_templates_public" btree (is_public)
+Referenced by:
+    TABLE "email_automation_errors" CONSTRAINT "email_automation_errors_email_id_fkey" FOREIGN KEY (email_id) REFERENCES email_templates(id) ON DELETE CASCADE
+    TABLE "newsletter_sends" CONSTRAINT "newsletter_sends_template_id_fkey" FOREIGN KEY (template_id) REFERENCES email_templates(id)
+
+                                    Table "public.email_queue"
+     Column      |           Type           | Collation | Nullable |           Default            
+-----------------+--------------------------+-----------+----------+------------------------------
+ id              | uuid                     |           | not null | uuid_generate_v4()
+ recipient_email | character varying(255)   |           | not null | 
+ recipient_name  | character varying(255)   |           |          | 
+ subject         | character varying(500)   |           | not null | 
+ html_content    | text                     |           | not null | 
+ text_content    | text                     |           |          | 
+ status          | character varying(20)    |           |          | 'pending'::character varying
+ scheduled_for   | timestamp with time zone |           |          | now()
+ sent_at         | timestamp with time zone |           |          | 
+ error_message   | text                     |           |          | 
+ metadata        | jsonb                    |           |          | '{}'::jsonb
+ created_at      | timestamp with time zone |           |          | now()
+ updated_at      | timestamp with time zone |           |          | now()
+Indexes:
+    "email_queue_pkey" PRIMARY KEY, btree (id)
+    "idx_email_queue_recipient_email" btree (recipient_email)
+    "idx_email_queue_scheduled_for" btree (scheduled_for)
+    "idx_email_queue_status" btree (status)
+Check constraints:
+    "email_queue_status_check" CHECK (status::text = ANY (ARRAY['pending'::character varying, 'sent'::character varying, 'failed'::character varying, 'cancelled'::character varying]::text[]))
+Referenced by:
+    TABLE "email_campaign_metrics" CONSTRAINT "email_campaign_metrics_email_id_fkey" FOREIGN KEY (email_id) REFERENCES email_queue(id)
+Policies:
+    POLICY "Service role has full access to email queue"
+      USING ((auth.role() = 'service_role'::text))
+Triggers:
+    update_email_queue_updated_at BEFORE UPDATE ON email_queue FOR EACH ROW EXECUTE FUNCTION update_updated_at_column()
+
+                                     Table "public.subscribers"
+       Column       |           Type           | Collation | Nullable |           Default            
+--------------------+--------------------------+-----------+----------+------------------------------
+ id                 | uuid                     |           | not null | uuid_generate_v4()
+ email              | character varying(255)   |           | not null | 
+ first_name         | character varying(100)   |           |          | 
+ last_name          | character varying(100)   |           |          | 
+ status             | character varying(20)    |           |          | 'active'::character varying
+ tags               | text[]                   |           |          | 
+ signup_source      | character varying(50)    |           |          | 'website'::character varying
+ interests          | text[]                   |           |          | 
+ metadata           | jsonb                    |           |          | '{}'::jsonb
+ ip_address         | character varying(45)    |           |          | 
+ user_agent         | text                     |           |          | 
+ referrer           | text                     |           |          | 
+ confirmed          | boolean                  |           |          | true
+ created_at         | timestamp with time zone |           |          | now()
+ updated_at         | timestamp with time zone |           |          | now()
+ source             | character varying(100)   |           |          | 'website'::character varying
+ unsubscribe_reason | text                     |           |          | 
+Indexes:
+    "subscribers_pkey" PRIMARY KEY, btree (id)
+    "idx_subscribers_created_at" btree (created_at DESC)
+    "idx_subscribers_email" btree (email)
+    "idx_subscribers_status" btree (status)
+    "subscribers_email_key" UNIQUE CONSTRAINT, btree (email)
+Check constraints:
+    "subscribers_status_check" CHECK (status::text = ANY (ARRAY['active'::character varying, 'inactive'::character varying, 'unsubscribed'::character varying, 'invalid_email'::character varying, 'pending'::character varying]::text[]))
+Referenced by:
+    TABLE "email_automation_errors" CONSTRAINT "email_automation_errors_subscriber_id_fkey" FOREIGN KEY (subscriber_id) REFERENCES subscribers(id) ON DELETE CASCADE
+    TABLE "email_automation_logs" CONSTRAINT "email_automation_logs_subscriber_id_fkey" FOREIGN KEY (subscriber_id) REFERENCES subscribers(id) ON DELETE CASCADE
+    TABLE "email_automation_triggers" CONSTRAINT "email_automation_triggers_subscriber_id_fkey" FOREIGN KEY (subscriber_id) REFERENCES subscribers(id) ON DELETE CASCADE
+Policies:
+    POLICY "Service role has full access to subscribers"
+      USING ((auth.role() = 'service_role'::text))
+Triggers:
+    update_subscribers_updated_at BEFORE UPDATE ON subscribers FOR EACH ROW EXECUTE FUNCTION update_updated_at_column()
+
+--- FINANCIAL TABLES ---
+                         Table "public.stripe_webhook_events"
+     Column      |           Type           | Collation | Nullable |      Default      
+-----------------+--------------------------+-----------+----------+-------------------
+ id              | uuid                     |           | not null | gen_random_uuid()
+ stripe_event_id | text                     |           | not null | 
+ event_type      | text                     |           | not null | 
+ event_data      | jsonb                    |           | not null | 
+ processed       | boolean                  |           |          | false
+ processed_at    | timestamp with time zone |           |          | 
+ error_message   | text                     |           |          | 
+ retry_count     | integer                  |           |          | 0
+ created_at      | timestamp with time zone |           |          | now()
+Indexes:
+    "stripe_webhook_events_pkey" PRIMARY KEY, btree (id)
+    "idx_stripe_webhooks_event_id" btree (stripe_event_id)
+    "idx_stripe_webhooks_processed" btree (processed, created_at)
+    "stripe_webhook_events_stripe_event_id_key" UNIQUE CONSTRAINT, btree (stripe_event_id)
+Policies:
+    POLICY "Only admins can view stripe webhooks"
+      USING ((EXISTS ( SELECT 1
+   FROM admin_users
+  WHERE (admin_users.id = auth.uid()))))
+
+                                 Table "public.payment_methods"
+          Column          |           Type           | Collation | Nullable |      Default      
+--------------------------+--------------------------+-----------+----------+-------------------
+ id                       | uuid                     |           | not null | gen_random_uuid()
+ user_id                  | uuid                     |           |          | 
+ stripe_payment_method_id | text                     |           |          | 
+ payment_method_type      | text                     |           | not null | 
+ card_details             | jsonb                    |           |          | 
+ is_default               | boolean                  |           |          | false
+ is_active                | boolean                  |           |          | true
+ created_at               | timestamp with time zone |           |          | now()
+ updated_at               | timestamp with time zone |           |          | now()
+Indexes:
+    "payment_methods_pkey" PRIMARY KEY, btree (id)
+    "idx_payment_methods_stripe_id" btree (stripe_payment_method_id)
+    "idx_payment_methods_user_id" btree (user_id)
+    "payment_methods_stripe_payment_method_id_key" UNIQUE CONSTRAINT, btree (stripe_payment_method_id)
+Foreign-key constraints:
+    "payment_methods_user_id_fkey" FOREIGN KEY (user_id) REFERENCES auth.users(id) ON DELETE CASCADE
+Policies:
+    POLICY "Service role can manage payment methods"
+      TO service_role
+      USING (true)
+      WITH CHECK (true)
+    POLICY "Users can manage their own payment methods"
+      TO authenticated
+      USING ((auth.uid() = user_id))
+      WITH CHECK ((auth.uid() = user_id))
+    POLICY "Users can view their own payment methods" FOR SELECT
+      TO authenticated
+      USING ((auth.uid() = user_id))
+Triggers:
+    update_payment_methods_updated_at BEFORE UPDATE ON payment_methods FOR EACH ROW EXECUTE FUNCTION update_updated_at_column()
+
+--- ADMIN TABLES ---
+                                Table "public.admin_users"
+   Column   |           Type           | Collation | Nullable |          Default           
+------------+--------------------------+-----------+----------+----------------------------
+ id         | uuid                     |           | not null | uuid_generate_v4()
+ email      | character varying(255)   |           | not null | 
+ name       | character varying(255)   |           |          | 
+ role       | character varying(20)    |           |          | 'admin'::character varying
+ is_active  | boolean                  |           |          | true
+ last_login | timestamp with time zone |           |          | 
+ created_at | timestamp with time zone |           |          | now()
+ updated_at | timestamp with time zone |           |          | now()
+Indexes:
+    "admin_users_pkey" PRIMARY KEY, btree (id)
+    "admin_users_email_key" UNIQUE CONSTRAINT, btree (email)
+    "idx_admin_users_email" btree (email)
+Check constraints:
+    "admin_users_role_check" CHECK (role::text = ANY (ARRAY['admin'::character varying, 'super_admin'::character varying]::text[]))
+Referenced by:
+    TABLE "admin_sessions" CONSTRAINT "admin_sessions_admin_user_id_fkey" FOREIGN KEY (admin_user_id) REFERENCES admin_users(id) ON DELETE CASCADE
+    TABLE "course_discount_codes" CONSTRAINT "course_discount_codes_created_by_fkey" FOREIGN KEY (created_by) REFERENCES admin_users(id)
+Triggers:
+    update_admin_users_updated_at BEFORE UPDATE ON admin_users FOR EACH ROW EXECUTE FUNCTION update_updated_at_column()
+
+                            Table "public.admin_sessions"
+    Column     |           Type           | Collation | Nullable |      Default       
+---------------+--------------------------+-----------+----------+--------------------
+ id            | uuid                     |           | not null | uuid_generate_v4()
+ admin_user_id | uuid                     |           | not null | 
+ token_hash    | character varying(255)   |           | not null | 
+ ip_address    | character varying(45)    |           |          | 
+ user_agent    | text                     |           |          | 
+ expires_at    | timestamp with time zone |           | not null | 
+ created_at    | timestamp with time zone |           |          | now()
+Indexes:
+    "admin_sessions_pkey" PRIMARY KEY, btree (id)
+    "idx_admin_sessions_admin_user_id" btree (admin_user_id)
+    "idx_admin_sessions_token_hash" btree (token_hash)
+Foreign-key constraints:
+    "admin_sessions_admin_user_id_fkey" FOREIGN KEY (admin_user_id) REFERENCES admin_users(id) ON DELETE CASCADE
+
+                         Table "public.admin_activity_log"
+   Column    |           Type           | Collation | Nullable |      Default       
+-------------+--------------------------+-----------+----------+--------------------
+ id          | uuid                     |           | not null | uuid_generate_v4()
+ action      | character varying(100)   |           | not null | 
+ entity_type | character varying(50)    |           |          | 
+ entity_id   | uuid                     |           |          | 
+ details     | jsonb                    |           |          | '{}'::jsonb
+ ip_address  | character varying(45)    |           |          | 
+ user_agent  | text                     |           |          | 
+ created_at  | timestamp with time zone |           |          | now()
+Indexes:
+    "admin_activity_log_pkey" PRIMARY KEY, btree (id)
+    "idx_admin_activity_log_action" btree (action)
+    "idx_admin_activity_log_created_at" btree (created_at DESC)
+Policies:
+    POLICY "Admins can view activity log" FOR SELECT
+      USING ((auth.uid() IN ( SELECT admin_users.id
+   FROM admin_users
+  WHERE (((admin_users.role)::text = ANY ((ARRAY['admin'::character varying, 'super_admin'::character varying])::text[])) AND (admin_users.is_active = true))
+UNION
+ SELECT user_profiles.id
+   FROM user_profiles
+  WHERE ((user_profiles.role)::text = ANY ((ARRAY['admin'::character varying, 'super_admin'::character varying])::text[])))))
+    POLICY "Allow anonymous to log failed logins" FOR INSERT
+      TO anon
+      WITH CHECK (((action)::text = ANY ((ARRAY['failed_admin_login'::character varying, 'unauthorized_admin_login_attempt'::character varying, 'newsletter_signup'::character varying, 'newsletter_unsubscribe'::character varying])::text[])))
+    POLICY "Service role has full access to admin activity log"
+      USING ((auth.role() = 'service_role'::text))
+
+--- OTHER TABLES ---
+                         Table "public.analytics_events"
+   Column   |           Type           | Collation | Nullable |      Default      
+------------+--------------------------+-----------+----------+-------------------
+ id         | uuid                     |           | not null | gen_random_uuid()
+ type       | text                     |           | not null | 
+ page       | text                     |           | not null | 
+ session_id | text                     |           |          | 
+ user_id    | text                     |           |          | 
+ data       | jsonb                    |           |          | '{}'::jsonb
+ timestamp  | timestamp with time zone |           | not null | now()
+ created_at | timestamp with time zone |           | not null | now()
+Indexes:
+    "analytics_events_pkey" PRIMARY KEY, btree (id)
+    "idx_analytics_events_created_at" btree (created_at)
+    "idx_analytics_events_page" btree (page)
+    "idx_analytics_events_session_id" btree (session_id)
+    "idx_analytics_events_timestamp" btree ("timestamp")
+    "idx_analytics_events_type" btree (type)
+    "idx_analytics_events_user_id" btree (user_id)
+Check constraints:
+    "analytics_events_type_check" CHECK (type = ANY (ARRAY['page_view'::text, 'contact_form'::text, 'booking_click'::text, 'exit_intent'::text, 'scroll_banner'::text, 'resource_download'::text, 'chatbot_interaction'::text, 'newsletter_signup'::text, 'new_mom_signup'::text]))
+Policies:
+    POLICY "Allow insert for all" FOR INSERT
+      WITH CHECK (true)
+    POLICY "Allow select for authenticated" FOR SELECT
+      USING ((auth.role() = 'authenticated'::text))
+    POLICY "Public can insert analytics events" FOR INSERT
+      TO anon
+      WITH CHECK (true)
+
+                                Table "public.blog_posts"
+      Column      |           Type           | Collation | Nullable |      Default       
+------------------+--------------------------+-----------+----------+--------------------
+ id               | uuid                     |           | not null | uuid_generate_v4()
+ slug             | character varying(255)   |           | not null | 
+ title            | character varying(255)   |           | not null | 
+ excerpt          | text                     |           |          | 
+ content          | text                     |           | not null | 
+ image_url        | character varying(500)   |           |          | 
+ image_alt        | character varying(255)   |           |          | 
+ category         | character varying(100)   |           |          | 
+ read_time        | integer                  |           |          | 
+ featured         | boolean                  |           |          | false
+ author_name      | character varying(255)   |           |          | 
+ author_title     | character varying(255)   |           |          | 
+ author_image     | character varying(500)   |           |          | 
+ meta_description | text                     |           |          | 
+ keywords         | text[]                   |           |          | 
+ published_at     | timestamp with time zone |           |          | now()
+ created_at       | timestamp with time zone |           |          | now()
+ updated_at       | timestamp with time zone |           |          | now()
+Indexes:
+    "blog_posts_pkey" PRIMARY KEY, btree (id)
+    "blog_posts_slug_key" UNIQUE CONSTRAINT, btree (slug)
+    "idx_blog_posts_category" btree (category)
+    "idx_blog_posts_featured" btree (featured)
+    "idx_blog_posts_published_at" btree (published_at DESC)
+    "idx_blog_posts_slug" btree (slug)
+Referenced by:
+    TABLE "blog_images_metadata" CONSTRAINT "blog_images_metadata_blog_post_id_fkey" FOREIGN KEY (blog_post_id) REFERENCES blog_posts(id) ON DELETE CASCADE
+    TABLE "blog_post_images" CONSTRAINT "blog_post_images_blog_post_id_fkey" FOREIGN KEY (blog_post_id) REFERENCES blog_posts(id) ON DELETE CASCADE
+Policies:
+    POLICY "Public can view published blog posts" FOR SELECT
+      USING ((published_at <= now()))
+    POLICY "Service role has full access to blog posts"
+      USING ((auth.role() = 'service_role'::text))
+Triggers:
+    update_blog_posts_updated_at BEFORE UPDATE ON blog_posts FOR EACH ROW EXECUTE FUNCTION update_updated_at_column()
+
+                           Table "public.contact_submissions"
+   Column   |           Type           | Collation | Nullable |         Default          
+------------+--------------------------+-----------+----------+--------------------------
+ id         | uuid                     |           | not null | uuid_generate_v4()
+ name       | character varying(255)   |           | not null | 
+ email      | character varying(255)   |           | not null | 
+ phone      | character varying(50)    |           |          | 
+ service    | character varying(100)   |           |          | 
+ message    | text                     |           |          | 
+ status     | character varying(20)    |           |          | 'new'::character varying
+ source     | character varying(50)    |           |          | 
+ ip_address | character varying(45)    |           |          | 
+ user_agent | text                     |           |          | 
+ created_at | timestamp with time zone |           |          | now()
+ updated_at | timestamp with time zone |           |          | now()
+ metadata   | jsonb                    |           |          | '{}'::jsonb
+Indexes:
+    "contact_submissions_pkey" PRIMARY KEY, btree (id)
+    "idx_contact_submissions_created_at" btree (created_at DESC)
+    "idx_contact_submissions_email" btree (email)
+    "idx_contact_submissions_status" btree (status)
+Check constraints:
+    "contact_submissions_status_check" CHECK (status::text = ANY (ARRAY['new'::character varying, 'contacted'::character varying, 'converted'::character varying, 'archived'::character varying]::text[]))
+Policies:
+    POLICY "Allow contact form submissions via RPC" FOR INSERT
+      TO anon
+      WITH CHECK (false)
+    POLICY "Public can submit contacts" FOR INSERT
+      TO anon
+      WITH CHECK (true)
+    POLICY "Service role has full access to contact submissions"
+      USING ((auth.role() = 'service_role'::text))
+Triggers:
+    update_contact_submissions_updated_at BEFORE UPDATE ON contact_submissions FOR EACH ROW EXECUTE FUNCTION update_updated_at_column()
+
+                              Table "public.career_applications"
+     Column      |           Type           | Collation | Nullable |         Default          
+-----------------+--------------------------+-----------+----------+--------------------------
+ id              | uuid                     |           | not null | uuid_generate_v4()
+ first_name      | character varying(100)   |           | not null | 
+ last_name       | character varying(100)   |           | not null | 
+ email           | character varying(255)   |           | not null | 
+ phone           | character varying(50)    |           |          | 
+ position        | character varying(200)   |           |          | 
+ experience      | text                     |           |          | 
+ motivation      | text                     |           |          | 
+ availability    | character varying(50)    |           |          | 
+ additional_info | text                     |           |          | 
+ resume_url      | character varying(500)   |           |          | 
+ resume_filename | character varying(255)   |           |          | 
+ status          | character varying(20)    |           |          | 'new'::character varying
+ ip_address      | character varying(45)    |           |          | 
+ user_agent      | text                     |           |          | 
+ created_at      | timestamp with time zone |           |          | now()
+ updated_at      | timestamp with time zone |           |          | now()
+Indexes:
+    "career_applications_pkey" PRIMARY KEY, btree (id)
+    "idx_career_applications_created_at" btree (created_at DESC)
+    "idx_career_applications_email" btree (email)
+    "idx_career_applications_status" btree (status)
+Check constraints:
+    "career_applications_status_check" CHECK (status::text = ANY (ARRAY['new'::character varying, 'reviewing'::character varying, 'interviewed'::character varying, 'hired'::character varying, 'rejected'::character varying, 'archived'::character varying]::text[]))
+Policies:
+    POLICY "Public can submit career applications" FOR INSERT
+      TO anon
+      WITH CHECK (true)
+    POLICY "Service role has full access to career applications"
+      USING ((auth.role() = 'service_role'::text))
+Triggers:
+    update_career_applications_updated_at BEFORE UPDATE ON career_applications FOR EACH ROW EXECUTE FUNCTION update_updated_at_column()
+

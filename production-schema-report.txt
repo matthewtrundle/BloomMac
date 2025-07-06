@@ -1,0 +1,499 @@
+=== ALL TABLES ===
+         tablename         | rls_status  
+---------------------------+-------------
+ admin_activity_log        | RLS Enabled
+ admin_sessions            | No RLS
+ admin_users               | No RLS
+ analytics_events          | RLS Enabled
+ appointment_data          | RLS Enabled
+ appointment_payments      | RLS Enabled
+ appointment_types         | RLS Enabled
+ appointments              | RLS Enabled
+ blog_images_metadata      | RLS Enabled
+ blog_post_images          | RLS Enabled
+ blog_posts                | RLS Enabled
+ bookings                  | RLS Enabled
+ calendly_webhook_events   | RLS Enabled
+ career_applications       | RLS Enabled
+ chat_conversations        | RLS Enabled
+ chatbot_interactions      | RLS Enabled
+ click_heatmap             | No RLS
+ contact_submissions       | RLS Enabled
+ conversion_events         | RLS Enabled
+ course_activity_logs      | RLS Enabled
+ course_announcements      | RLS Enabled
+ course_certificates       | RLS Enabled
+ course_discount_codes     | RLS Enabled
+ course_discussions        | RLS Enabled
+ course_enrollments        | RLS Enabled
+ course_lessons            | RLS Enabled
+ course_modules            | RLS Enabled
+ course_progress           | RLS Enabled
+ course_purchases          | No RLS
+ course_resources          | RLS Enabled
+ courses                   | RLS Enabled
+ email_analytics           | RLS Enabled
+ email_automation_errors   | No RLS
+ email_automation_logs     | RLS Enabled
+ email_automation_rules    | RLS Enabled
+ email_automation_triggers | RLS Enabled
+ email_campaign_metrics    | RLS Enabled
+ email_logs                | RLS Enabled
+ email_queue               | RLS Enabled
+ email_sends               | RLS Enabled
+ email_sequences           | RLS Enabled
+ email_templates           | RLS Enabled
+ email_templates_custom    | RLS Enabled
+ email_templates_history   | No RLS
+ email_unsubscribes        | RLS Enabled
+ lesson_completion_details | RLS Enabled
+ newsletter_sends          | RLS Enabled
+ newsletter_subscribers    | RLS Enabled
+ notification_preferences  | RLS Enabled
+ payment_intents           | RLS Enabled
+ payment_methods           | RLS Enabled
+ payment_methods_audit     | RLS Enabled
+ profiles                  | RLS Enabled
+ provider_settings         | No RLS
+ push_notifications        | RLS Enabled
+ refund_requests           | RLS Enabled
+ sequence_emails           | RLS Enabled
+ sms_messages              | RLS Enabled
+ stripe_webhook_events     | RLS Enabled
+ subscribers               | RLS Enabled
+ therapist_profiles        | RLS Enabled
+ user_achievements         | RLS Enabled
+ user_activity_log         | RLS Enabled
+ user_consents             | RLS Enabled
+ user_course_access        | No RLS
+ user_lesson_progress      | RLS Enabled
+ user_notifications        | RLS Enabled
+ user_payment_methods      | RLS Enabled
+ user_preferences          | RLS Enabled
+ user_profiles             | RLS Enabled
+ user_progress             | RLS Enabled
+ user_week_submissions     | RLS Enabled
+ user_workbook_responses   | RLS Enabled
+ wellness_entries          | RLS Enabled
+ workbook_questions        | RLS Enabled
+ workbook_responses        | RLS Enabled
+ workshop_attendance       | RLS Enabled
+ workshop_feedback         | RLS Enabled
+ workshop_registrations    | RLS Enabled
+(79 rows)
+
+
+=== ALL FUNCTIONS ===
+             routine_name             | routine_type 
+--------------------------------------+--------------
+ check_user_role_unified              | FUNCTION
+ create_user_notification             | FUNCTION
+ create_user_profile                  | FUNCTION
+ ensure_single_default_payment_method | FUNCTION
+ ensure_user_profile                  | FUNCTION
+ get_analytics_dashboard              | FUNCTION
+ get_analytics_summary                | FUNCTION
+ get_email_analytics                  | FUNCTION
+ get_email_engagement_patterns        | FUNCTION
+ get_heatmap_data                     | FUNCTION
+ get_subscriber_growth_trend          | FUNCTION
+ get_subscriber_stats                 | FUNCTION
+ get_user_info                        | FUNCTION
+ handle_email_unsubscribe             | FUNCTION
+ handle_new_user                      | FUNCTION
+ handle_newsletter_signup             | FUNCTION
+ mark_webhook_processed               | FUNCTION
+ submit_contact_form                  | FUNCTION
+ subscribe_to_newsletter              | FUNCTION
+ update_last_message_at               | FUNCTION
+ update_updated_at_column             | FUNCTION
+ validate_unsubscribe_token           | FUNCTION
+(22 rows)
+
+
+=== ALL TRIGGERS ===
+               trigger_name               |       table_name       | action_timing | event  |                    action_statement                     
+------------------------------------------+------------------------+---------------+--------+---------------------------------------------------------
+ update_admin_users_updated_at            | admin_users            | BEFORE        | UPDATE | EXECUTE FUNCTION update_updated_at_column()
+ update_appointments_updated_at           | appointments           | BEFORE        | UPDATE | EXECUTE FUNCTION update_updated_at_column()
+ update_blog_posts_updated_at             | blog_posts             | BEFORE        | UPDATE | EXECUTE FUNCTION update_updated_at_column()
+ update_career_applications_updated_at    | career_applications    | BEFORE        | UPDATE | EXECUTE FUNCTION update_updated_at_column()
+ update_chat_conversations_updated_at     | chat_conversations     | BEFORE        | UPDATE | EXECUTE FUNCTION update_updated_at_column()
+ update_chat_last_message                 | chat_conversations     | BEFORE        | UPDATE | EXECUTE FUNCTION update_last_message_at()
+ update_contact_submissions_updated_at    | contact_submissions    | BEFORE        | UPDATE | EXECUTE FUNCTION update_updated_at_column()
+ update_course_lessons_updated_at         | course_lessons         | BEFORE        | UPDATE | EXECUTE FUNCTION update_updated_at_column()
+ update_course_modules_updated_at         | course_modules         | BEFORE        | UPDATE | EXECUTE FUNCTION update_updated_at_column()
+ update_email_logs_updated_at             | email_logs             | BEFORE        | UPDATE | EXECUTE FUNCTION update_updated_at_column()
+ update_email_queue_updated_at            | email_queue            | BEFORE        | UPDATE | EXECUTE FUNCTION update_updated_at_column()
+ update_email_templates_custom_updated_at | email_templates_custom | BEFORE        | UPDATE | EXECUTE FUNCTION update_updated_at_column()
+ update_payment_methods_updated_at        | payment_methods        | BEFORE        | UPDATE | EXECUTE FUNCTION update_updated_at_column()
+ update_profiles_updated_at               | profiles               | BEFORE        | UPDATE | EXECUTE FUNCTION update_updated_at_column()
+ update_subscribers_updated_at            | subscribers            | BEFORE        | UPDATE | EXECUTE FUNCTION update_updated_at_column()
+ enforce_single_default_payment_trigger   | user_payment_methods   | BEFORE        | UPDATE | EXECUTE FUNCTION ensure_single_default_payment_method()
+ enforce_single_default_payment_trigger   | user_payment_methods   | BEFORE        | INSERT | EXECUTE FUNCTION ensure_single_default_payment_method()
+ update_user_progress_updated_at          | user_progress          | BEFORE        | UPDATE | EXECUTE FUNCTION update_updated_at_column()
+ update_workbook_responses_updated_at     | workbook_responses     | BEFORE        | UPDATE | EXECUTE FUNCTION update_updated_at_column()
+(19 rows)
+
+
+=== AUTH SCHEMA TABLES ===
+     tablename     
+-------------------
+ audit_log_entries
+ flow_state
+ identities
+ instances
+ mfa_amr_claims
+ mfa_challenges
+ mfa_factors
+ one_time_tokens
+ refresh_tokens
+ saml_providers
+ saml_relay_states
+ schema_migrations
+ sessions
+ sso_domains
+ sso_providers
+ users
+(16 rows)
+
+
+=== AUTH TRIGGERS ===
+     trigger_name     | table_name |          action_statement          
+----------------------+------------+------------------------------------
+ on_auth_user_created | users      | EXECUTE FUNCTION handle_new_user()
+(1 row)
+
+
+=== RLS POLICIES COUNT ===
+ schemaname |         tablename         | policy_count 
+------------+---------------------------+--------------
+ public     | admin_activity_log        |            3
+ public     | analytics_events          |            3
+ public     | appointment_data          |            3
+ public     | appointment_payments      |            5
+ public     | appointment_types         |            1
+ public     | appointments              |            4
+ public     | blog_images_metadata      |            1
+ public     | blog_post_images          |            2
+ public     | blog_posts                |            2
+ public     | bookings                  |            1
+ public     | calendly_webhook_events   |            1
+ public     | career_applications       |            2
+ public     | chat_conversations        |            1
+ public     | chatbot_interactions      |            2
+ public     | contact_submissions       |            3
+ public     | conversion_events         |            2
+ public     | course_activity_logs      |            5
+ public     | course_announcements      |            2
+ public     | course_certificates       |            5
+ public     | course_discount_codes     |            4
+ public     | course_discussions        |            3
+ public     | course_enrollments        |            4
+ public     | course_lessons            |            5
+ public     | course_modules            |            5
+ public     | course_progress           |            7
+ public     | course_resources          |            3
+ public     | courses                   |            4
+ public     | email_analytics           |            1
+ public     | email_automation_logs     |            2
+ public     | email_automation_rules    |            1
+ public     | email_automation_triggers |            2
+ public     | email_campaign_metrics    |            3
+ public     | email_logs                |            1
+ public     | email_queue               |            4
+ public     | email_sends               |            1
+ public     | email_sequences           |            2
+ public     | email_templates           |            3
+ public     | email_unsubscribes        |            4
+ public     | lesson_completion_details |            1
+ public     | newsletter_sends          |            2
+ public     | newsletter_subscribers    |            1
+ public     | notification_preferences  |            2
+ public     | payment_intents           |            3
+ public     | payment_methods           |            5
+ public     | payment_methods_audit     |            3
+ public     | profiles                  |            3
+ public     | push_notifications        |            3
+ public     | refund_requests           |            3
+ public     | sequence_emails           |            2
+ public     | sms_messages              |            3
+ public     | stripe_webhook_events     |            2
+ public     | subscribers               |            5
+ public     | therapist_profiles        |            2
+ public     | user_achievements         |            4
+ public     | user_activity_log         |            1
+ public     | user_consents             |            1
+ public     | user_lesson_progress      |            2
+ public     | user_notifications        |            4
+ public     | user_payment_methods      |            4
+ public     | user_preferences          |            4
+ public     | user_profiles             |            9
+ public     | user_progress             |            2
+ public     | user_week_submissions     |            1
+ public     | user_workbook_responses   |            2
+ public     | wellness_entries          |            4
+ public     | workbook_questions        |            1
+ public     | workbook_responses        |            1
+ public     | workshop_attendance       |            1
+ public     | workshop_feedback         |            2
+ public     | workshop_registrations    |            3
+(70 rows)
+
+
+=== CUSTOM TYPES ===
+ schema |         type_name         | type_type 
+--------+---------------------------+-----------
+ public | admin_activity_log        | c
+ public | admin_sessions            | c
+ public | admin_users               | c
+ public | analytics_events          | c
+ public | appointment_data          | c
+ public | appointment_payments      | c
+ public | appointment_types         | c
+ public | appointments              | c
+ public | blog_images_metadata      | c
+ public | blog_post_images          | c
+ public | blog_posts                | c
+ public | bookings                  | c
+ public | calendly_webhook_events   | c
+ public | career_applications       | c
+ public | chat_conversations        | c
+ public | chatbot_interactions      | c
+ public | click_heatmap             | c
+ public | contact_submissions       | c
+ public | conversion_events         | c
+ public | course_activity_logs      | c
+ public | course_announcements      | c
+ public | course_certificates       | c
+ public | course_discount_codes     | c
+ public | course_discussions        | c
+ public | course_enrollments        | c
+ public | course_lessons            | c
+ public | course_modules            | c
+ public | course_progress           | c
+ public | course_purchases          | c
+ public | course_resources          | c
+ public | courses                   | c
+ public | email_analytics           | c
+ public | email_automation_errors   | c
+ public | email_automation_logs     | c
+ public | email_automation_rules    | c
+ public | email_automation_triggers | c
+ public | email_campaign_metrics    | c
+ public | email_logs                | c
+ public | email_queue               | c
+ public | email_sends               | c
+ public | email_sequences           | c
+ public | email_templates           | c
+ public | email_templates_custom    | c
+ public | email_templates_history   | c
+ public | email_unsubscribes        | c
+ public | heatmap_aggregated        | c
+ public | lesson_completion_details | c
+ public | newsletter_sends          | c
+ public | newsletter_subscribers    | c
+ public | notification_preferences  | c
+ public | payment_intents           | c
+ public | payment_methods           | c
+ public | payment_methods_audit     | c
+ public | profiles                  | c
+ public | provider_settings         | c
+ public | push_notifications        | c
+ public | refund_requests           | c
+ public | sequence_emails           | c
+ public | sms_messages              | c
+ public | stripe_webhook_events     | c
+ public | subscribers               | c
+ public | therapist_profiles        | c
+ public | unified_users             | c
+ public | user_achievements         | c
+ public | user_activity_log         | c
+ public | user_consents             | c
+ public | user_course_access        | c
+ public | user_lesson_progress      | c
+ public | user_notifications        | c
+ public | user_payment_methods      | c
+ public | user_preferences          | c
+ public | user_profiles             | c
+ public | user_progress             | c
+ public | user_week_submissions     | c
+ public | user_workbook_responses   | c
+ public | wellness_entries          | c
+ public | workbook_questions        | c
+ public | workbook_responses        | c
+ public | workshop_attendance       | c
+ public | workshop_feedback         | c
+ public | workshop_registrations    | c
+(81 rows)
+
+
+=== INDEXES COUNT PER TABLE ===
+         tablename         | index_count 
+---------------------------+-------------
+ admin_activity_log        |           3
+ admin_sessions            |           3
+ admin_users               |           3
+ analytics_events          |           7
+ appointment_data          |           2
+ appointment_payments      |           3
+ appointment_types         |           1
+ appointments              |           6
+ blog_images_metadata      |           1
+ blog_post_images          |           5
+ blog_posts                |           6
+ bookings                  |           4
+ calendly_webhook_events   |           4
+ career_applications       |           4
+ chat_conversations        |           9
+ chatbot_interactions      |           3
+ click_heatmap             |           5
+ contact_submissions       |           4
+ conversion_events         |           4
+ course_activity_logs      |           4
+ course_announcements      |           3
+ course_certificates       |           3
+ course_discount_codes     |           4
+ course_discussions        |           4
+ course_enrollments        |           4
+ course_lessons            |           4
+ course_modules            |           3
+ course_progress           |           3
+ course_purchases          |           2
+ course_resources          |           2
+ courses                   |           2
+ email_analytics           |           4
+ email_automation_errors   |           4
+ email_automation_logs     |           4
+ email_automation_rules    |           1
+ email_automation_triggers |           1
+ email_campaign_metrics    |           4
+ email_logs                |           5
+ email_queue               |           4
+ email_sends               |           3
+ email_sequences           |           3
+ email_templates           |           3
+ email_templates_custom    |           3
+ email_templates_history   |           3
+ email_unsubscribes        |           4
+ lesson_completion_details |           2
+ newsletter_sends          |           1
+ newsletter_subscribers    |           4
+ notification_preferences  |           3
+ payment_intents           |           6
+ payment_methods           |           4
+ payment_methods_audit     |           3
+ profiles                  |           1
+ provider_settings         |           1
+ push_notifications        |           3
+ refund_requests           |           4
+ sequence_emails           |           3
+ sms_messages              |           4
+ stripe_webhook_events     |           4
+ subscribers               |           5
+ therapist_profiles        |           4
+ user_achievements         |           3
+ user_activity_log         |           2
+ user_consents             |           1
+ user_course_access        |           2
+ user_lesson_progress      |           4
+ user_notifications        |           6
+ user_payment_methods      |           3
+ user_preferences          |           3
+ user_profiles             |           6
+ user_progress             |           4
+ user_week_submissions     |           2
+ user_workbook_responses   |           2
+ wellness_entries          |           3
+ workbook_questions        |           2
+ workbook_responses        |           4
+ workshop_attendance       |           2
+ workshop_feedback         |           2
+ workshop_registrations    |           2
+(79 rows)
+
+
+=== CONSTRAINTS COUNT PER TABLE ===
+        table_name         | constraint_count |                                        constraint_types                                         
+---------------------------+------------------+-------------------------------------------------------------------------------------------------
+ admin_activity_log        |                3 | CHECK, CHECK, PRIMARY KEY
+ admin_sessions            |                6 | CHECK, PRIMARY KEY, FOREIGN KEY, CHECK, CHECK, CHECK
+ admin_users               |                5 | CHECK, PRIMARY KEY, CHECK, UNIQUE, CHECK
+ analytics_events          |                7 | CHECK, CHECK, PRIMARY KEY, CHECK, CHECK, CHECK, CHECK
+ appointment_data          |                8 | FOREIGN KEY, CHECK, CHECK, CHECK, CHECK, PRIMARY KEY, CHECK, CHECK
+ appointment_payments      |               11 | CHECK, UNIQUE, FOREIGN KEY, CHECK, CHECK, CHECK, CHECK, CHECK, FOREIGN KEY, CHECK, PRIMARY KEY
+ appointment_types         |                3 | CHECK, PRIMARY KEY, CHECK
+ appointments              |               10 | PRIMARY KEY, CHECK, CHECK, FOREIGN KEY, FOREIGN KEY, CHECK, CHECK, CHECK, CHECK, CHECK
+ blog_images_metadata      |                5 | PRIMARY KEY, CHECK, CHECK, CHECK, FOREIGN KEY
+ blog_post_images          |                6 | PRIMARY KEY, FOREIGN KEY, UNIQUE, CHECK, CHECK, CHECK
+ blog_posts                |                6 | CHECK, PRIMARY KEY, UNIQUE, CHECK, CHECK, CHECK
+ bookings                  |                4 | PRIMARY KEY, UNIQUE, CHECK, CHECK
+ calendly_webhook_events   |                6 | CHECK, CHECK, CHECK, PRIMARY KEY, UNIQUE, CHECK
+ career_applications       |                6 | PRIMARY KEY, CHECK, CHECK, CHECK, CHECK, CHECK
+ chat_conversations        |                5 | CHECK, CHECK, UNIQUE, PRIMARY KEY, CHECK
+ chatbot_interactions      |                5 | CHECK, CHECK, CHECK, CHECK, PRIMARY KEY
+ click_heatmap             |                5 | CHECK, PRIMARY KEY, CHECK, CHECK, CHECK
+ contact_submissions       |                5 | CHECK, CHECK, CHECK, PRIMARY KEY, CHECK
+ conversion_events         |                4 | FOREIGN KEY, CHECK, CHECK, PRIMARY KEY
+ course_activity_logs      |                7 | PRIMARY KEY, FOREIGN KEY, CHECK, CHECK, CHECK, CHECK, CHECK
+ course_announcements      |                7 | CHECK, FOREIGN KEY, FOREIGN KEY, CHECK, CHECK, PRIMARY KEY, CHECK
+ course_certificates       |               10 | CHECK, CHECK, CHECK, CHECK, CHECK, CHECK, UNIQUE, PRIMARY KEY, UNIQUE, FOREIGN KEY
+ course_discount_codes     |                9 | CHECK, UNIQUE, PRIMARY KEY, CHECK, CHECK, CHECK, FOREIGN KEY, CHECK, CHECK
+ course_discussions        |                6 | FOREIGN KEY, FOREIGN KEY, PRIMARY KEY, CHECK, FOREIGN KEY, CHECK
+ course_enrollments        |               10 | UNIQUE, FOREIGN KEY, CHECK, CHECK, PRIMARY KEY, CHECK, CHECK, CHECK, CHECK, CHECK
+ course_lessons            |                7 | FOREIGN KEY, PRIMARY KEY, CHECK, CHECK, CHECK, CHECK, UNIQUE
+ course_modules            |                6 | CHECK, CHECK, FOREIGN KEY, UNIQUE, PRIMARY KEY, CHECK
+ course_progress           |               12 | CHECK, CHECK, CHECK, CHECK, CHECK, CHECK, PRIMARY KEY, CHECK, UNIQUE, FOREIGN KEY, CHECK, CHECK
+ course_purchases          |                7 | CHECK, PRIMARY KEY, UNIQUE, CHECK, CHECK, CHECK, CHECK
+ course_resources          |                6 | FOREIGN KEY, FOREIGN KEY, FOREIGN KEY, PRIMARY KEY, CHECK, CHECK
+ courses                   |                6 | CHECK, UNIQUE, CHECK, CHECK, PRIMARY KEY, CHECK
+ email_analytics           |                6 | CHECK, CHECK, CHECK, CHECK, PRIMARY KEY, CHECK
+ email_automation_errors   |                6 | PRIMARY KEY, FOREIGN KEY, FOREIGN KEY, FOREIGN KEY, CHECK, CHECK
+ email_automation_logs     |                6 | PRIMARY KEY, FOREIGN KEY, FOREIGN KEY, CHECK, CHECK, FOREIGN KEY
+ email_automation_rules    |                6 | CHECK, CHECK, PRIMARY KEY, CHECK, CHECK, CHECK
+ email_automation_triggers |                6 | CHECK, CHECK, CHECK, CHECK, FOREIGN KEY, PRIMARY KEY
+ email_campaign_metrics    |                6 | CHECK, PRIMARY KEY, FOREIGN KEY, CHECK, CHECK, CHECK
+ email_logs                |                5 | CHECK, CHECK, CHECK, CHECK, PRIMARY KEY
+ email_queue               |                6 | CHECK, PRIMARY KEY, CHECK, CHECK, CHECK, CHECK
+ email_sends               |                3 | PRIMARY KEY, CHECK, CHECK
+ email_sequences           |                4 | CHECK, PRIMARY KEY, CHECK, CHECK
+ email_templates           |                5 | CHECK, CHECK, PRIMARY KEY, CHECK, CHECK
+ email_templates_custom    |                7 | UNIQUE, PRIMARY KEY, CHECK, CHECK, CHECK, CHECK, CHECK
+ email_templates_history   |                8 | PRIMARY KEY, CHECK, CHECK, CHECK, CHECK, CHECK, CHECK, FOREIGN KEY
+ email_unsubscribes        |                6 | CHECK, CHECK, CHECK, FOREIGN KEY, PRIMARY KEY, UNIQUE
+ lesson_completion_details |                6 | FOREIGN KEY, FOREIGN KEY, CHECK, CHECK, PRIMARY KEY, CHECK
+ newsletter_sends          |                6 | CHECK, CHECK, FOREIGN KEY, PRIMARY KEY, CHECK, CHECK
+ newsletter_subscribers    |                5 | CHECK, CHECK, UNIQUE, CHECK, PRIMARY KEY
+ notification_preferences  |                5 | CHECK, UNIQUE, FOREIGN KEY, PRIMARY KEY, CHECK
+ payment_intents           |                7 | FOREIGN KEY, CHECK, CHECK, CHECK, CHECK, UNIQUE, PRIMARY KEY
+ payment_methods           |                5 | CHECK, FOREIGN KEY, PRIMARY KEY, UNIQUE, CHECK
+ payment_methods_audit     |                5 | PRIMARY KEY, FOREIGN KEY, CHECK, CHECK, CHECK
+ profiles                  |                4 | CHECK, PRIMARY KEY, CHECK, FOREIGN KEY
+ provider_settings         |                3 | CHECK, FOREIGN KEY, PRIMARY KEY
+ push_notifications        |                7 | CHECK, CHECK, CHECK, CHECK, PRIMARY KEY, CHECK, FOREIGN KEY
+ refund_requests           |                8 | PRIMARY KEY, CHECK, CHECK, CHECK, FOREIGN KEY, CHECK, FOREIGN KEY, FOREIGN KEY
+ sequence_emails           |                6 | CHECK, CHECK, CHECK, CHECK, FOREIGN KEY, PRIMARY KEY
+ sms_messages              |                6 | CHECK, CHECK, CHECK, PRIMARY KEY, CHECK, FOREIGN KEY
+ stripe_webhook_events     |                6 | PRIMARY KEY, CHECK, CHECK, CHECK, CHECK, UNIQUE
+ subscribers               |                5 | CHECK, CHECK, UNIQUE, PRIMARY KEY, CHECK
+ therapist_profiles        |                6 | CHECK, UNIQUE, FOREIGN KEY, PRIMARY KEY, CHECK, CHECK
+ user_achievements         |                6 | CHECK, PRIMARY KEY, UNIQUE, CHECK, FOREIGN KEY, CHECK
+ user_activity_log         |                4 | PRIMARY KEY, CHECK, FOREIGN KEY, CHECK
+ user_consents             |                4 | CHECK, CHECK, CHECK, PRIMARY KEY
+ user_course_access        |                5 | CHECK, PRIMARY KEY, UNIQUE, CHECK, CHECK
+ user_lesson_progress      |                7 | CHECK, CHECK, UNIQUE, FOREIGN KEY, PRIMARY KEY, CHECK, CHECK
+ user_notifications        |                6 | CHECK, CHECK, PRIMARY KEY, CHECK, FOREIGN KEY, CHECK
+ user_payment_methods      |                7 | FOREIGN KEY, PRIMARY KEY, CHECK, CHECK, CHECK, CHECK, UNIQUE
+ user_preferences          |                6 | CHECK, FOREIGN KEY, CHECK, PRIMARY KEY, CHECK, UNIQUE
+ user_profiles             |                5 | PRIMARY KEY, CHECK, CHECK, CHECK, FOREIGN KEY
+ user_progress             |                7 | UNIQUE, CHECK, CHECK, CHECK, CHECK, FOREIGN KEY, PRIMARY KEY
+ user_week_submissions     |                6 | CHECK, CHECK, UNIQUE, PRIMARY KEY, CHECK, FOREIGN KEY
+ user_workbook_responses   |                7 | PRIMARY KEY, UNIQUE, CHECK, CHECK, CHECK, CHECK, FOREIGN KEY
+ wellness_entries          |                8 | FOREIGN KEY, CHECK, CHECK, PRIMARY KEY, CHECK, CHECK, CHECK, UNIQUE
+ workbook_questions        |                8 | CHECK, CHECK, CHECK, CHECK, PRIMARY KEY, UNIQUE, CHECK, CHECK
+ workbook_responses        |                8 | FOREIGN KEY, CHECK, CHECK, CHECK, CHECK, UNIQUE, PRIMARY KEY, FOREIGN KEY
+ workshop_attendance       |                8 | CHECK, FOREIGN KEY, CHECK, CHECK, CHECK, CHECK, FOREIGN KEY, PRIMARY KEY
+ workshop_feedback         |               11 | CHECK, PRIMARY KEY, CHECK, FOREIGN KEY, CHECK, CHECK, FOREIGN KEY, CHECK, CHECK, CHECK, CHECK
+ workshop_registrations    |                8 | CHECK, PRIMARY KEY, CHECK, CHECK, CHECK, CHECK, CHECK, FOREIGN KEY
+(79 rows)
+

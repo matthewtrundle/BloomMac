@@ -1,0 +1,634 @@
+          section           
+----------------------------
+ === RLS STATUS SUMMARY ===
+(1 row)
+
+ Tables with RLS | Tables without RLS | Total Tables | RLS Coverage % 
+-----------------+--------------------+--------------+----------------
+              70 |                  6 |           76 |          92.11
+(1 row)
+
+          section           
+----------------------------
+ === TABLES MISSING RLS ===
+(1 row)
+
+       Table Name        |             Status             
+-------------------------+--------------------------------
+ click_heatmap           | Needs RLS implementation
+ course_purchases        | Needs RLS implementation
+ email_automation_errors | Needs RLS implementation
+ email_templates_history | Needs RLS implementation
+ provider_settings       | Needs RLS implementation
+ user_course_access      | Needs RLS implementation
+ admin_sessions          | Admin table - RLS not required
+ admin_users             | Admin table - RLS not required
+(8 rows)
+
+              section              
+-----------------------------------
+ === RLS POLICY COUNT BY TABLE ===
+(1 row)
+
+           Table           | RLS Enabled | Policy Count |             Status             
+---------------------------+-------------+--------------+--------------------------------
+ admin_sessions            | f           |            0 | RLS not enabled
+ admin_users               | f           |            0 | RLS not enabled
+ click_heatmap             | f           |            0 | RLS not enabled
+ course_purchases          | f           |            0 | RLS not enabled
+ email_automation_errors   | f           |            0 | RLS not enabled
+ email_templates_history   | f           |            0 | RLS not enabled
+ provider_settings         | f           |            0 | RLS not enabled
+ user_course_access        | f           |            0 | RLS not enabled
+ email_templates_custom    | t           |            0 | ⚠️  RLS enabled but NO POLICIES
+ appointment_types         | t           |            1 | ⚠️  May need more policies
+ blog_images_metadata      | t           |            1 | ⚠️  May need more policies
+ bookings                  | t           |            1 | ⚠️  May need more policies
+ calendly_webhook_events   | t           |            1 | ⚠️  May need more policies
+ chat_conversations        | t           |            1 | ⚠️  May need more policies
+ email_analytics           | t           |            1 | ⚠️  May need more policies
+ email_automation_rules    | t           |            1 | ⚠️  May need more policies
+ email_logs                | t           |            1 | ⚠️  May need more policies
+ email_sends               | t           |            1 | ⚠️  May need more policies
+ lesson_completion_details | t           |            1 | ⚠️  May need more policies
+ newsletter_subscribers    | t           |            1 | ⚠️  May need more policies
+ user_activity_log         | t           |            1 | ⚠️  May need more policies
+ user_consents             | t           |            1 | ⚠️  May need more policies
+ user_week_submissions     | t           |            1 | ⚠️  May need more policies
+ workbook_questions        | t           |            1 | ⚠️  May need more policies
+ workbook_responses        | t           |            1 | ⚠️  May need more policies
+ workshop_attendance       | t           |            1 | ⚠️  May need more policies
+ blog_post_images          | t           |            2 | ✅ OK
+ blog_posts                | t           |            2 | ✅ OK
+ career_applications       | t           |            2 | ✅ OK
+ chatbot_interactions      | t           |            2 | ✅ OK
+ conversion_events         | t           |            2 | ✅ OK
+ course_announcements      | t           |            2 | ✅ OK
+ email_automation_logs     | t           |            2 | ✅ OK
+ email_automation_triggers | t           |            2 | ✅ OK
+ email_sequences           | t           |            2 | ✅ OK
+ newsletter_sends          | t           |            2 | ✅ OK
+ notification_preferences  | t           |            2 | ✅ OK
+ sequence_emails           | t           |            2 | ✅ OK
+ stripe_webhook_events     | t           |            2 | ✅ OK
+ therapist_profiles        | t           |            2 | ✅ OK
+ user_lesson_progress      | t           |            2 | ✅ OK
+ user_progress             | t           |            2 | ✅ OK
+ user_workbook_responses   | t           |            2 | ✅ OK
+ workshop_feedback         | t           |            2 | ✅ OK
+ admin_activity_log        | t           |            3 | ✅ OK
+ analytics_events          | t           |            3 | ✅ OK
+ appointment_data          | t           |            3 | ✅ OK
+ contact_submissions       | t           |            3 | ✅ OK
+ course_discussions        | t           |            3 | ✅ OK
+ course_resources          | t           |            3 | ✅ OK
+ email_campaign_metrics    | t           |            3 | ✅ OK
+ email_templates           | t           |            3 | ✅ OK
+ payment_intents           | t           |            3 | ✅ OK
+ payment_methods_audit     | t           |            3 | ✅ OK
+ profiles                  | t           |            3 | ✅ OK
+ push_notifications        | t           |            3 | ✅ OK
+ refund_requests           | t           |            3 | ✅ OK
+ sms_messages              | t           |            3 | ✅ OK
+ workshop_registrations    | t           |            3 | ✅ OK
+ appointments              | t           |            4 | ✅ OK
+ course_discount_codes     | t           |            4 | ✅ OK
+ course_enrollments        | t           |            4 | ✅ OK
+ courses                   | t           |            4 | ✅ OK
+ email_queue               | t           |            4 | ✅ OK
+ email_unsubscribes        | t           |            4 | ✅ OK
+ user_achievements         | t           |            4 | ✅ OK
+ user_notifications        | t           |            4 | ✅ OK
+ user_payment_methods      | t           |            4 | ✅ OK
+ user_preferences          | t           |            4 | ✅ OK
+ wellness_entries          | t           |            4 | ✅ OK
+ appointment_payments      | t           |            5 | ✅ OK
+ course_activity_logs      | t           |            5 | ✅ OK
+ course_certificates       | t           |            5 | ✅ OK
+ course_lessons            | t           |            5 | ✅ OK
+ course_modules            | t           |            5 | ✅ OK
+ payment_methods           | t           |            5 | ✅ OK
+ subscribers               | t           |            5 | ✅ OK
+ course_progress           | t           |            7 | ✅ OK
+ user_profiles             | t           |            8 | ✅ OK
+(79 rows)
+
+             section              
+----------------------------------
+ === DETAILED POLICY ANALYSIS ===
+(1 row)
+
+           Table           |                       Policy Name                       | Permissive |        Roles        | Command |               Qualification (truncated)               
+---------------------------+---------------------------------------------------------+------------+---------------------+---------+-------------------------------------------------------
+ admin_activity_log        | Admins can view activity log                            | PERMISSIVE | public              | SELECT  | (auth.uid() IN ( SELECT admin_users.id               +
+                           |                                                         |            |                     |         |    FROM adm...
+ admin_activity_log        | Allow anonymous to log failed logins                    | PERMISSIVE | anon                | INSERT  | No qualification
+ admin_activity_log        | Service role has full access to admin activity log      | PERMISSIVE | public              | ALL     | (auth.role() = 'service_role'::text)...
+ analytics_events          | Allow insert for all                                    | PERMISSIVE | public              | INSERT  | No qualification
+ analytics_events          | Allow select for authenticated                          | PERMISSIVE | public              | SELECT  | (auth.role() = 'authenticated'::text)...
+ analytics_events          | Public can insert analytics events                      | PERMISSIVE | anon                | INSERT  | No qualification
+ appointment_data          | Users can create their own appointments                 | PERMISSIVE | public              | INSERT  | No qualification
+ appointment_data          | Users can update their own appointments                 | PERMISSIVE | public              | UPDATE  | (auth.uid() = user_id)...
+ appointment_data          | Users can view their own appointments                   | PERMISSIVE | public              | SELECT  | (auth.uid() = user_id)...
+ appointment_payments      | Admins view all appointment payments                    | PERMISSIVE | public              | SELECT  | (EXISTS ( SELECT 1                                   +
+                           |                                                         |            |                     |         |    FROM admin_users                                  +
+                           |                                                         |            |                     |         |   WHERE ((a...
+ appointment_payments      | Service role manages appointment payments               | PERMISSIVE | public              | ALL     | ((auth.jwt() ->> 'role'::text) = 'service_role'::t...
+ appointment_payments      | Users can create payment records for their appointments | PERMISSIVE | public              | INSERT  | No qualification
+ appointment_payments      | Users can view their own payment records                | PERMISSIVE | public              | SELECT  | (auth.uid() = user_id)...
+ appointment_payments      | Users view own appointment payments                     | PERMISSIVE | public              | SELECT  | (auth.uid() = user_id)...
+ appointment_types         | Anyone can view appointment types                       | PERMISSIVE | anon, authenticated | SELECT  | (is_active = true)...
+ appointments              | Service role can manage appointments                    | PERMISSIVE | service_role        | ALL     | true...
+ appointments              | Users can create their own appointments                 | PERMISSIVE | authenticated       | INSERT  | No qualification
+ appointments              | Users can manage own appointments                       | PERMISSIVE | public              | ALL     | (auth.uid() = user_id)...
+ appointments              | Users can view their own appointments                   | PERMISSIVE | authenticated       | SELECT  | (auth.uid() = user_id)...
+ blog_images_metadata      | Admins can manage blog_images_metadata                  | PERMISSIVE | public              | ALL     | true...
+ blog_post_images          | Public can view blog images                             | PERMISSIVE | public              | SELECT  | true...
+ blog_post_images          | Service role manages blog images                        | PERMISSIVE | public              | ALL     | (auth.role() = 'service_role'::text)...
+ blog_posts                | Public can view published blog posts                    | PERMISSIVE | public              | SELECT  | (published_at <= now())...
+ blog_posts                | Service role has full access to blog posts              | PERMISSIVE | public              | ALL     | (auth.role() = 'service_role'::text)...
+ bookings                  | Admins can manage bookings                              | PERMISSIVE | public              | ALL     | true...
+ calendly_webhook_events   | Only admins can view calendly webhooks                  | PERMISSIVE | public              | ALL     | (EXISTS ( SELECT 1                                   +
+                           |                                                         |            |                     |         |    FROM admin_users                                  +
+                           |                                                         |            |                     |         |   WHERE (ad...
+ career_applications       | Public can submit career applications                   | PERMISSIVE | anon                | INSERT  | No qualification
+ career_applications       | Service role has full access to career applications     | PERMISSIVE | public              | ALL     | (auth.role() = 'service_role'::text)...
+ chat_conversations        | Service role has full access to chat conversations      | PERMISSIVE | public              | ALL     | (auth.role() = 'service_role'::text)...
+ chatbot_interactions      | Admins can view chatbot interactions                    | PERMISSIVE | public              | SELECT  | (auth.uid() IN ( SELECT admin_users.id               +
+                           |                                                         |            |                     |         |    FROM adm...
+ chatbot_interactions      | Public can insert chatbot interactions                  | PERMISSIVE | anon                | INSERT  | No qualification
+ contact_submissions       | Allow contact form submissions via RPC                  | PERMISSIVE | anon                | INSERT  | No qualification
+ contact_submissions       | Public can submit contacts                              | PERMISSIVE | anon                | INSERT  | No qualification
+ contact_submissions       | Service role has full access to contact submissions     | PERMISSIVE | public              | ALL     | (auth.role() = 'service_role'::text)...
+ conversion_events         | Admins can view conversion events                       | PERMISSIVE | public              | SELECT  | (auth.uid() IN ( SELECT admin_users.id               +
+                           |                                                         |            |                     |         |    FROM adm...
+ conversion_events         | Public can insert conversion events                     | PERMISSIVE | anon                | INSERT  | No qualification
+ course_activity_logs      | Admins view all activity                                | PERMISSIVE | public              | SELECT  | (EXISTS ( SELECT 1                                   +
+                           |                                                         |            |                     |         |    FROM admin_users                                  +
+                           |                                                         |            |                     |         |   WHERE ((a...
+ course_activity_logs      | System logs activity                                    | PERMISSIVE | public              | INSERT  | No qualification
+ course_activity_logs      | Users can insert own activity                           | PERMISSIVE | public              | INSERT  | No qualification
+ course_activity_logs      | Users can view own activity                             | PERMISSIVE | public              | SELECT  | (auth.uid() = user_id)...
+ course_activity_logs      | Users view own activity                                 | PERMISSIVE | public              | SELECT  | (user_id = auth.uid())...
+ course_announcements      | Admins manage announcements                             | PERMISSIVE | public              | ALL     | (EXISTS ( SELECT 1                                   +
+                           |                                                         |            |                     |         |    FROM admin_users                                  +
+                           |                                                         |            |                     |         |   WHERE ((a...
+ course_announcements      | Enrolled users view announcements                       | PERMISSIVE | public              | SELECT  | (EXISTS ( SELECT 1                                   +
+                           |                                                         |            |                     |         |    FROM (course_enrollments ce                       +
+                           |                                                         |            |                     |         | ...
+ course_certificates       | Admins manage certificates                              | PERMISSIVE | public              | ALL     | (EXISTS ( SELECT 1                                   +
+                           |                                                         |            |                     |         |    FROM admin_users                                  +
+                           |                                                         |            |                     |         |   WHERE ((a...
+ course_certificates       | Public can verify certificates                          | PERMISSIVE | public              | SELECT  | true...
+ course_certificates       | System creates certificates                             | PERMISSIVE | public              | INSERT  | No qualification
+ course_certificates       | Users can view their own certificates                   | PERMISSIVE | public              | SELECT  | (auth.uid() = user_id)...
+ course_certificates       | Users view own certificates                             | PERMISSIVE | public              | SELECT  | (user_id = auth.uid())...
+ course_discount_codes     | Admins manage discount codes                            | PERMISSIVE | public              | ALL     | (EXISTS ( SELECT 1                                   +
+                           |                                                         |            |                     |         |    FROM admin_users                                  +
+                           |                                                         |            |                     |         |   WHERE ((a...
+ course_discount_codes     | Anyone can view active discount codes                   | PERMISSIVE | public              | SELECT  | ((is_active = true) AND ((valid_from IS NULL) OR (...
+ course_discount_codes     | Only admins can manage discount codes                   | PERMISSIVE | public              | ALL     | (EXISTS ( SELECT 1                                   +
+                           |                                                         |            |                     |         |    FROM admin_users                                  +
+                           |                                                         |            |                     |         |   WHERE (ad...
+ course_discount_codes     | Public can validate discount codes                      | PERMISSIVE | public              | SELECT  | ((uses_count < COALESCE(max_uses, (uses_count + 1)...
+ course_discussions        | Enrolled users participate in discussions               | PERMISSIVE | public              | ALL     | (EXISTS ( SELECT 1                                   +
+                           |                                                         |            |                     |         |    FROM (course_enrollments ce                       +
+                           |                                                         |            |                     |         | ...
+ course_discussions        | Users delete own posts                                  | PERMISSIVE | public              | DELETE  | (user_id = auth.uid())...
+ course_discussions        | Users manage own posts                                  | PERMISSIVE | public              | UPDATE  | (user_id = auth.uid())...
+ course_enrollments        | Users can create their own enrollments                  | PERMISSIVE | public              | INSERT  | No qualification
+ course_enrollments        | Users can insert own enrollments                        | PERMISSIVE | public              | INSERT  | No qualification
+ course_enrollments        | Users can view own enrollments                          | PERMISSIVE | public              | SELECT  | (auth.uid() = user_id)...
+ course_enrollments        | Users can view their own enrollments                    | PERMISSIVE | public              | SELECT  | (auth.uid() = user_id)...
+ course_lessons            | Admins can manage course lessons                        | PERMISSIVE | public              | ALL     | (EXISTS ( SELECT 1                                   +
+                           |                                                         |            |                     |         |    FROM admin_users                                  +
+                           |                                                         |            |                     |         |   WHERE ((a...
+ course_lessons            | Admins manage lessons                                   | PERMISSIVE | public              | ALL     | (EXISTS ( SELECT 1                                   +
+                           |                                                         |            |                     |         |    FROM admin_users                                  +
+                           |                                                         |            |                     |         |   WHERE ((a...
+ course_lessons            | Enrolled users view lessons                             | PERMISSIVE | public              | SELECT  | (EXISTS ( SELECT 1                                   +
+                           |                                                         |            |                     |         |    FROM ((course_enrollments ce...
+ course_lessons            | Preview lessons are public                              | PERMISSIVE | public              | SELECT  | ((is_preview = true) AND (is_published = true) AND...
+ course_lessons            | Public can view published lessons                       | PERMISSIVE | public              | SELECT  | ((is_published = true) AND (EXISTS ( SELECT 1        +
+                           |                                                         |            |                     |         |    F...
+ course_modules            | Admins can manage course modules                        | PERMISSIVE | public              | ALL     | (EXISTS ( SELECT 1                                   +
+                           |                                                         |            |                     |         |    FROM admin_users                                  +
+                           |                                                         |            |                     |         |   WHERE ((a...
+ course_modules            | Admins manage modules                                   | PERMISSIVE | public              | ALL     | (EXISTS ( SELECT 1                                   +
+                           |                                                         |            |                     |         |    FROM admin_users                                  +
+                           |                                                         |            |                     |         |   WHERE ((a...
+ course_modules            | Enrolled users view all modules                         | PERMISSIVE | public              | SELECT  | (EXISTS ( SELECT 1                                   +
+                           |                                                         |            |                     |         |    FROM (course_enrollments ce                       +
+                           |                                                         |            |                     |         | ...
+ course_modules            | Public can view published modules                       | PERMISSIVE | public              | SELECT  | ((is_published = true) AND (EXISTS ( SELECT 1        +
+                           |                                                         |            |                     |         |    F...
+ course_modules            | Public view published modules                           | PERMISSIVE | public              | SELECT  | ((is_published = true) AND (EXISTS ( SELECT 1        +
+                           |                                                         |            |                     |         |    F...
+ course_progress           | Admins view all progress                                | PERMISSIVE | public              | SELECT  | (EXISTS ( SELECT 1                                   +
+                           |                                                         |            |                     |         |    FROM admin_users                                  +
+                           |                                                         |            |                     |         |   WHERE ((a...
+ course_progress           | System manages progress                                 | PERMISSIVE | public              | ALL     | ((auth.jwt() ->> 'role'::text) = 'service_role'::t...
+ course_progress           | Users can modify their own course progress              | PERMISSIVE | public              | UPDATE  | (auth.uid() = user_id)...
+ course_progress           | Users can update their own course progress              | PERMISSIVE | public              | INSERT  | No qualification
+ course_progress           | Users can view their own course progress                | PERMISSIVE | public              | SELECT  | (auth.uid() = user_id)...
+ course_progress           | Users update own progress                               | PERMISSIVE | public              | UPDATE  | (user_id = auth.uid())...
+ course_progress           | Users view own progress                                 | PERMISSIVE | public              | SELECT  | (user_id = auth.uid())...
+ course_resources          | Admins can manage course resources                      | PERMISSIVE | public              | ALL     | (EXISTS ( SELECT 1                                   +
+                           |                                                         |            |                     |         |    FROM admin_users                                  +
+                           |                                                         |            |                     |         |   WHERE ((a...
+ course_resources          | Admins manage resources                                 | PERMISSIVE | public              | ALL     | (EXISTS ( SELECT 1                                   +
+                           |                                                         |            |                     |         |    FROM admin_users                                  +
+                           |                                                         |            |                     |         |   WHERE ((a...
+ course_resources          | Enrolled users access active resources                  | PERMISSIVE | public              | SELECT  | ((is_active = true) AND (EXISTS ( SELECT 1           +
+                           |                                                         |            |                     |         |    FROM...
+ courses                   | Admins can manage courses                               | PERMISSIVE | public              | ALL     | (EXISTS ( SELECT 1                                   +
+                           |                                                         |            |                     |         |    FROM admin_users                                  +
+                           |                                                         |            |                     |         |   WHERE ((a...
+ courses                   | Enrolled users view their courses                       | PERMISSIVE | public              | SELECT  | ((is_active = true) OR (EXISTS ( SELECT 1            +
+                           |                                                         |            |                     |         |    FROM ...
+ courses                   | Everyone can view active courses                        | PERMISSIVE | public              | SELECT  | (is_active = true)...
+ courses                   | Public can view active courses                          | PERMISSIVE | public              | SELECT  | (is_active = true)...
+ email_analytics           | Admins can view email_analytics                         | PERMISSIVE | public              | ALL     | true...
+ email_automation_logs     | Admins view logs                                        | PERMISSIVE | public              | SELECT  | (EXISTS ( SELECT 1                                   +
+                           |                                                         |            |                     |         |    FROM admin_users                                  +
+                           |                                                         |            |                     |         |   WHERE ((a...
+ email_automation_logs     | Service role logs automation                            | PERMISSIVE | public              | ALL     | ((auth.jwt() ->> 'role'::text) = 'service_role'::t...
+ email_automation_rules    | Admins can manage email_automation_rules                | PERMISSIVE | public              | ALL     | true...
+ email_automation_triggers | Admins view triggers                                    | PERMISSIVE | public              | SELECT  | (EXISTS ( SELECT 1                                   +
+                           |                                                         |            |                     |         |    FROM admin_users                                  +
+                           |                                                         |            |                     |         |   WHERE ((a...
+ email_automation_triggers | Service role manages triggers                           | PERMISSIVE | public              | ALL     | ((auth.jwt() ->> 'role'::text) = 'service_role'::t...
+ email_campaign_metrics    | Admins view all metrics                                 | PERMISSIVE | public              | SELECT  | (EXISTS ( SELECT 1                                   +
+                           |                                                         |            |                     |         |    FROM admin_users                                  +
+                           |                                                         |            |                     |         |   WHERE ((a...
+ email_campaign_metrics    | Only admins can view email metrics                      | PERMISSIVE | public              | ALL     | (EXISTS ( SELECT 1                                   +
+                           |                                                         |            |                     |         |    FROM admin_users                                  +
+                           |                                                         |            |                     |         |   WHERE (ad...
+ email_campaign_metrics    | Service role manages metrics                            | PERMISSIVE | public              | ALL     | ((auth.jwt() ->> 'role'::text) = 'service_role'::t...
+ email_logs                | Service role can manage email logs                      | PERMISSIVE | service_role        | ALL     | true...
+ email_queue               | Admins view queue                                       | PERMISSIVE | public              | SELECT  | (EXISTS ( SELECT 1                                   +
+                           |                                                         |            |                     |         |    FROM admin_users                                  +
+                           |                                                         |            |                     |         |   WHERE ((a...
+ email_queue               | Service role has full access to email queue             | PERMISSIVE | public              | ALL     | (auth.role() = 'service_role'::text)...
+ email_queue               | Service role manages queue                              | PERMISSIVE | public              | ALL     | ((auth.jwt() ->> 'role'::text) = 'service_role'::t...
+ email_queue               | Users view own queued emails                            | PERMISSIVE | public              | SELECT  | ((recipient_email)::text = (auth.jwt() ->> 'email'...
+ email_sends               | Admins can manage email sends                           | PERMISSIVE | public              | ALL     | (auth.uid() IN ( SELECT admin_users.id               +
+                           |                                                         |            |                     |         |    FROM adm...
+ email_sequences           | Admins manage sequences                                 | PERMISSIVE | public              | ALL     | (EXISTS ( SELECT 1                                   +
+                           |                                                         |            |                     |         |    FROM admin_users                                  +
+                           |                                                         |            |                     |         |   WHERE ((a...
+ email_sequences           | Service role uses sequences                             | PERMISSIVE | public              | SELECT  | ((auth.jwt() ->> 'role'::text) = 'service_role'::t...
+ email_templates           | Admins manage all templates                             | PERMISSIVE | public              | ALL     | (EXISTS ( SELECT 1                                   +
+                           |                                                         |            |                     |         |    FROM admin_users                                  +
+                           |                                                         |            |                     |         |   WHERE ((a...
+ email_templates           | Public templates are visible                            | PERMISSIVE | public              | SELECT  | (is_public = true)...
+ email_templates           | Service role uses templates                             | PERMISSIVE | public              | SELECT  | ((auth.jwt() ->> 'role'::text) = 'service_role'::t...
+ email_unsubscribes        | Admins view all unsubscribes                            | PERMISSIVE | public              | SELECT  | (EXISTS ( SELECT 1                                   +
+                           |                                                         |            |                     |         |    FROM admin_users                                  +
+                           |                                                         |            |                     |         |   WHERE ((a...
+ email_unsubscribes        | Anyone can unsubscribe                                  | PERMISSIVE | public              | INSERT  | No qualification
+ email_unsubscribes        | Service role manages all                                | PERMISSIVE | public              | ALL     | ((auth.jwt() ->> 'role'::text) = 'service_role'::t...
+ email_unsubscribes        | Users manage own unsubscribes                           | PERMISSIVE | public              | ALL     | ((email = (auth.jwt() ->> 'email'::text)) OR (user...
+ lesson_completion_details | Users can view their own lesson details                 | PERMISSIVE | public              | ALL     | (auth.uid() = user_id)...
+ newsletter_sends          | Admins can manage newsletter sends                      | PERMISSIVE | public              | ALL     | (auth.uid() IN ( SELECT admin_users.id               +
+                           |                                                         |            |                     |         |    FROM adm...
+ newsletter_sends          | Admins can manage newsletter_sends                      | PERMISSIVE | public              | ALL     | true...
+ newsletter_subscribers    | Admins can manage newsletter_subscribers                | PERMISSIVE | public              | ALL     | true...
+ notification_preferences  | Service role manages preferences                        | PERMISSIVE | public              | ALL     | ((auth.jwt() ->> 'role'::text) = 'service_role'::t...
+ notification_preferences  | Users manage own preferences                            | PERMISSIVE | public              | ALL     | (user_id = auth.uid())...
+ payment_intents           | Admins view all payment intents                         | PERMISSIVE | public              | SELECT  | (EXISTS ( SELECT 1                                   +
+                           |                                                         |            |                     |         |    FROM admin_users                                  +
+                           |                                                         |            |                     |         |   WHERE ((a...
+ payment_intents           | Service role manages payment intents                    | PERMISSIVE | public              | ALL     | ((auth.jwt() ->> 'role'::text) = 'service_role'::t...
+ payment_intents           | Users view own payment intents                          | PERMISSIVE | public              | SELECT  | (auth.uid() = user_id)...
+ payment_methods           | Service role can manage payment methods                 | PERMISSIVE | service_role        | ALL     | true...
+ payment_methods           | Service role manages payment methods                    | PERMISSIVE | public              | ALL     | ((auth.jwt() ->> 'role'::text) = 'service_role'::t...
+ payment_methods           | Users can manage their own payment methods              | PERMISSIVE | authenticated       | ALL     | (auth.uid() = user_id)...
+ payment_methods           | Users can view their own payment methods                | PERMISSIVE | authenticated       | SELECT  | (auth.uid() = user_id)...
+ payment_methods           | Users view own payment methods                          | PERMISSIVE | public              | SELECT  | (auth.uid() = user_id)...
+ payment_methods_audit     | Admins view all audit trails                            | PERMISSIVE | public              | SELECT  | (EXISTS ( SELECT 1                                   +
+                           |                                                         |            |                     |         |    FROM admin_users                                  +
+                           |                                                         |            |                     |         |   WHERE ((a...
+ payment_methods_audit     | Service role creates audit entries                      | PERMISSIVE | public              | INSERT  | No qualification
+ payment_methods_audit     | Users view own audit trail                              | PERMISSIVE | public              | SELECT  | (auth.uid() = user_id)...
+ profiles                  | Users can insert own profile                            | PERMISSIVE | public              | INSERT  | No qualification
+ profiles                  | Users can update own profile                            | PERMISSIVE | public              | UPDATE  | (auth.uid() = id)...
+ profiles                  | Users can view own profile                              | PERMISSIVE | public              | SELECT  | (auth.uid() = id)...
+ push_notifications        | Service role manages push                               | PERMISSIVE | public              | ALL     | ((auth.jwt() ->> 'role'::text) = 'service_role'::t...
+ push_notifications        | Users mark as read                                      | PERMISSIVE | public              | UPDATE  | (user_id = auth.uid())...
+ push_notifications        | Users view own push notifications                       | PERMISSIVE | public              | SELECT  | (user_id = auth.uid())...
+ refund_requests           | Admins manage all refund requests                       | PERMISSIVE | public              | ALL     | (EXISTS ( SELECT 1                                   +
+                           |                                                         |            |                     |         |    FROM admin_users                                  +
+                           |                                                         |            |                     |         |   WHERE ((a...
+ refund_requests           | Users create refund requests                            | PERMISSIVE | public              | INSERT  | No qualification
+ refund_requests           | Users view own refund requests                          | PERMISSIVE | public              | SELECT  | (auth.uid() = user_id)...
+ sequence_emails           | Admins manage sequence emails                           | PERMISSIVE | public              | ALL     | (EXISTS ( SELECT 1                                   +
+                           |                                                         |            |                     |         |    FROM admin_users                                  +
+                           |                                                         |            |                     |         |   WHERE ((a...
+ sequence_emails           | Service role uses sequence emails                       | PERMISSIVE | public              | SELECT  | ((auth.jwt() ->> 'role'::text) = 'service_role'::t...
+ sms_messages              | Admins view all SMS                                     | PERMISSIVE | public              | SELECT  | (EXISTS ( SELECT 1                                   +
+                           |                                                         |            |                     |         |    FROM admin_users                                  +
+                           |                                                         |            |                     |         |   WHERE ((a...
+ sms_messages              | Service role manages SMS                                | PERMISSIVE | public              | ALL     | ((auth.jwt() ->> 'role'::text) = 'service_role'::t...
+ sms_messages              | Users view own SMS                                      | PERMISSIVE | public              | SELECT  | (user_id = auth.uid())...
+ stripe_webhook_events     | Only admins can view stripe webhooks                    | PERMISSIVE | public              | ALL     | (EXISTS ( SELECT 1                                   +
+                           |                                                         |            |                     |         |    FROM admin_users                                  +
+                           |                                                         |            |                     |         |   WHERE (ad...
+ stripe_webhook_events     | Service role manages webhooks                           | PERMISSIVE | public              | ALL     | ((auth.jwt() ->> 'role'::text) = 'service_role'::t...
+ subscribers               | Admins manage all subscribers                           | PERMISSIVE | public              | ALL     | (EXISTS ( SELECT 1                                   +
+                           |                                                         |            |                     |         |    FROM admin_users                                  +
+                           |                                                         |            |                     |         |   WHERE ((a...
+ subscribers               | Admins view all subscribers                             | PERMISSIVE | public              | SELECT  | (EXISTS ( SELECT 1                                   +
+                           |                                                         |            |                     |         |    FROM admin_users                                  +
+                           |                                                         |            |                     |         |   WHERE ((a...
+ subscribers               | Anyone can subscribe                                    | PERMISSIVE | public              | INSERT  | No qualification
+ subscribers               | Service role has full access to subscribers             | PERMISSIVE | public              | ALL     | (auth.role() = 'service_role'::text)...
+ subscribers               | Users manage own subscription                           | PERMISSIVE | public              | UPDATE  | (((auth.uid())::text = (metadata ->> 'user_id'::te...
+ therapist_profiles        | Anyone can view active therapist profiles               | PERMISSIVE | public              | SELECT  | (is_active = true)...
+ therapist_profiles        | Therapists can update their own profile                 | PERMISSIVE | public              | UPDATE  | (auth.uid() = user_id)...
+ user_achievements         | Admins view all achievements                            | PERMISSIVE | public              | SELECT  | (EXISTS ( SELECT 1                                   +
+                           |                                                         |            |                     |         |    FROM admin_users                                  +
+                           |                                                         |            |                     |         |   WHERE ((a...
+ user_achievements         | System can award achievements                           | PERMISSIVE | public              | INSERT  | No qualification
+ user_achievements         | Users can view own achievements                         | PERMISSIVE | public              | SELECT  | (auth.uid() = user_id)...
+ user_achievements         | Users can view their own achievements                   | PERMISSIVE | public              | SELECT  | (auth.uid() = user_id)...
+ user_activity_log         | Service role full access activity                       | PERMISSIVE | public              | ALL     | (auth.role() = 'service_role'::text)...
+ user_consents             | Service role full access consents                       | PERMISSIVE | public              | ALL     | (auth.role() = 'service_role'::text)...
+ user_lesson_progress      | Service role full access progress                       | PERMISSIVE | public              | ALL     | (auth.role() = 'service_role'::text)...
+ user_lesson_progress      | Users can manage own progress                           | PERMISSIVE | public              | ALL     | (auth.uid() = user_id)...
+ user_notifications        | System creates notifications                            | PERMISSIVE | public              | INSERT  | No qualification
+ user_notifications        | System deletes old notifications                        | PERMISSIVE | public              | DELETE  | (((auth.jwt() ->> 'role'::text) = 'service_role'::...
+ user_notifications        | Users can update their own notifications                | PERMISSIVE | public              | UPDATE  | (auth.uid() = user_id)...
+ user_notifications        | Users can view their own notifications                  | PERMISSIVE | public              | SELECT  | (auth.uid() = user_id)...
+ user_payment_methods      | Service role manages payment methods                    | PERMISSIVE | public              | ALL     | ((auth.jwt() ->> 'role'::text) = 'service_role'::t...
+ user_payment_methods      | Users can manage their own payment methods              | PERMISSIVE | public              | ALL     | (auth.uid() = user_id)...
+ user_payment_methods      | Users can view their own payment methods                | PERMISSIVE | public              | SELECT  | (auth.uid() = user_id)...
+ user_payment_methods      | Users view own payment methods                          | PERMISSIVE | public              | SELECT  | (auth.uid() = user_id)...
+ user_preferences          | Admins view all preferences                             | PERMISSIVE | public              | SELECT  | (EXISTS ( SELECT 1                                   +
+                           |                                                         |            |                     |         |    FROM admin_users                                  +
+                           |                                                         |            |                     |         |   WHERE ((a...
+ user_preferences          | Users can modify their own preferences                  | PERMISSIVE | public              | UPDATE  | (auth.uid() = user_id)...
+ user_preferences          | Users can update their own preferences                  | PERMISSIVE | public              | INSERT  | No qualification
+ user_preferences          | Users can view their own preferences                    | PERMISSIVE | public              | SELECT  | (auth.uid() = user_id)...
+ user_profiles             | Admins can view all profiles                            | PERMISSIVE | public              | SELECT  | (auth.uid() IN ( SELECT user_profiles_1.id           +
+                           |                                                         |            |                     |         |    FROM...
+ user_profiles             | Enable access to own profile only                       | PERMISSIVE | public              | ALL     | (auth.uid() = id)...
+ user_profiles             | Service role can manage profiles                        | PERMISSIVE | service_role        | ALL     | true...
+ user_profiles             | Users can insert own profile                            | PERMISSIVE | public              | INSERT  | No qualification
+ user_profiles             | Users can update own profile                            | PERMISSIVE | public              | UPDATE  | (auth.uid() = id)...
+ user_profiles             | Users can update their own profile                      | PERMISSIVE | authenticated       | UPDATE  | (auth.uid() = id)...
+ user_profiles             | Users can view own profile                              | PERMISSIVE | public              | SELECT  | (auth.uid() = id)...
+ user_profiles             | Users can view their own profile                        | PERMISSIVE | authenticated       | SELECT  | (auth.uid() = id)...
+ user_progress             | Users can manage own progress                           | PERMISSIVE | public              | ALL     | (auth.uid() = user_id)...
+ user_progress             | Users can view own progress                             | PERMISSIVE | public              | SELECT  | (auth.uid() = user_id)...
+ user_week_submissions     | Users can manage own week submissions                   | PERMISSIVE | public              | ALL     | (auth.uid() = user_id)...
+ user_workbook_responses   | Service role full access workbooks                      | PERMISSIVE | public              | ALL     | (auth.role() = 'service_role'::text)...
+ user_workbook_responses   | Users can manage own workbook responses                 | PERMISSIVE | public              | ALL     | (auth.uid() = user_id)...
+ wellness_entries          | Users create own entries                                | PERMISSIVE | public              | INSERT  | No qualification
+ wellness_entries          | Users delete own entries                                | PERMISSIVE | public              | DELETE  | (auth.uid() = user_id)...
+ wellness_entries          | Users update own entries                                | PERMISSIVE | public              | UPDATE  | (auth.uid() = user_id)...
+ wellness_entries          | Users view own entries                                  | PERMISSIVE | public              | SELECT  | (auth.uid() = user_id)...
+ workbook_questions        | Anyone can read questions                               | PERMISSIVE | public              | SELECT  | true...
+ workbook_responses        | Users can manage own responses                          | PERMISSIVE | public              | ALL     | (auth.uid() = user_id)...
+ workshop_attendance       | Users can view their own attendance                     | PERMISSIVE | public              | SELECT  | (auth.uid() = user_id)...
+ workshop_feedback         | Users can submit their own feedback                     | PERMISSIVE | public              | INSERT  | No qualification
+ workshop_feedback         | Users can view their own feedback                       | PERMISSIVE | public              | SELECT  | (auth.uid() = user_id)...
+ workshop_registrations    | Users can create their own registrations                | PERMISSIVE | public              | INSERT  | No qualification
+ workshop_registrations    | Users can update their own registrations                | PERMISSIVE | public              | UPDATE  | (auth.uid() = user_id)...
+ workshop_registrations    | Users can view their own registrations                  | PERMISSIVE | public              | SELECT  | (auth.uid() = user_id)...
+(192 rows)
+
+              section               
+------------------------------------
+ === TABLES BY FUNCTIONAL GROUP ===
+(1 row)
+
+          Group           | Total Tables | With RLS | Without RLS | Coverage % |                Tables Missing RLS                
+--------------------------+--------------+----------+-------------+------------+--------------------------------------------------
+ 1. User Data             |           12 |       11 |           1 |      91.67 | user_course_access
+ 2. Course Management     |           12 |       11 |           1 |      91.67 | course_purchases
+ 3. Payments              |            5 |        5 |           0 |     100.00 | 
+ 4. Appointments          |            5 |        5 |           0 |     100.00 | 
+ 5. Communications        |           15 |       13 |           2 |      86.67 | email_automation_errors, email_templates_history
+ 6. Content               |            1 |        1 |           0 |     100.00 | 
+ 7. Analytics             |            2 |        2 |           0 |     100.00 | 
+ 8. Admin (No RLS needed) |            2 |        0 |           2 |       0.00 | admin_sessions, admin_users
+ 9. Other                 |           25 |       23 |           2 |      92.00 | click_heatmap, provider_settings
+(9 rows)
+
+             section              
+----------------------------------
+ === RECENTLY MODIFIED TABLES ===
+(1 row)
+
+ schemaname |         tablename         | tableowner | RLS Status 
+------------+---------------------------+------------+------------
+ public     | admin_activity_log        | postgres   | Enabled
+ public     | admin_sessions            | postgres   | Disabled
+ public     | admin_users               | postgres   | Disabled
+ public     | analytics_events          | postgres   | Enabled
+ public     | appointment_data          | postgres   | Enabled
+ public     | appointment_payments      | postgres   | Enabled
+ public     | appointment_types         | postgres   | Enabled
+ public     | appointments              | postgres   | Enabled
+ public     | blog_images_metadata      | postgres   | Enabled
+ public     | blog_post_images          | postgres   | Enabled
+ public     | blog_posts                | postgres   | Enabled
+ public     | bookings                  | postgres   | Enabled
+ public     | calendly_webhook_events   | postgres   | Enabled
+ public     | career_applications       | postgres   | Enabled
+ public     | chat_conversations        | postgres   | Enabled
+ public     | chatbot_interactions      | postgres   | Enabled
+ public     | click_heatmap             | postgres   | Disabled
+ public     | contact_submissions       | postgres   | Enabled
+ public     | conversion_events         | postgres   | Enabled
+ public     | course_activity_logs      | postgres   | Enabled
+ public     | course_announcements      | postgres   | Enabled
+ public     | course_certificates       | postgres   | Enabled
+ public     | course_discount_codes     | postgres   | Enabled
+ public     | course_discussions        | postgres   | Enabled
+ public     | course_enrollments        | postgres   | Enabled
+ public     | course_lessons            | postgres   | Enabled
+ public     | course_modules            | postgres   | Enabled
+ public     | course_progress           | postgres   | Enabled
+ public     | course_purchases          | postgres   | Disabled
+ public     | course_resources          | postgres   | Enabled
+ public     | courses                   | postgres   | Enabled
+ public     | email_analytics           | postgres   | Enabled
+ public     | email_automation_errors   | postgres   | Disabled
+ public     | email_automation_logs     | postgres   | Enabled
+ public     | email_automation_rules    | postgres   | Enabled
+ public     | email_automation_triggers | postgres   | Enabled
+ public     | email_campaign_metrics    | postgres   | Enabled
+ public     | email_logs                | postgres   | Enabled
+ public     | email_queue               | postgres   | Enabled
+ public     | email_sends               | postgres   | Enabled
+ public     | email_sequences           | postgres   | Enabled
+ public     | email_templates           | postgres   | Enabled
+ public     | email_templates_custom    | postgres   | Enabled
+ public     | email_templates_history   | postgres   | Disabled
+ public     | email_unsubscribes        | postgres   | Enabled
+ public     | lesson_completion_details | postgres   | Enabled
+ public     | newsletter_sends          | postgres   | Enabled
+ public     | newsletter_subscribers    | postgres   | Enabled
+ public     | notification_preferences  | postgres   | Enabled
+ public     | payment_intents           | postgres   | Enabled
+ public     | payment_methods           | postgres   | Enabled
+ public     | payment_methods_audit     | postgres   | Enabled
+ public     | profiles                  | postgres   | Enabled
+ public     | provider_settings         | postgres   | Disabled
+ public     | push_notifications        | postgres   | Enabled
+ public     | refund_requests           | postgres   | Enabled
+ public     | sequence_emails           | postgres   | Enabled
+ public     | sms_messages              | postgres   | Enabled
+ public     | stripe_webhook_events     | postgres   | Enabled
+ public     | subscribers               | postgres   | Enabled
+ public     | therapist_profiles        | postgres   | Enabled
+ public     | user_achievements         | postgres   | Enabled
+ public     | user_activity_log         | postgres   | Enabled
+ public     | user_consents             | postgres   | Enabled
+ public     | user_course_access        | postgres   | Disabled
+ public     | user_lesson_progress      | postgres   | Enabled
+ public     | user_notifications        | postgres   | Enabled
+ public     | user_payment_methods      | postgres   | Enabled
+ public     | user_preferences          | postgres   | Enabled
+ public     | user_profiles             | postgres   | Enabled
+ public     | user_progress             | postgres   | Enabled
+ public     | user_week_submissions     | postgres   | Enabled
+ public     | user_workbook_responses   | postgres   | Enabled
+ public     | wellness_entries          | postgres   | Enabled
+ public     | workbook_questions        | postgres   | Enabled
+ public     | workbook_responses        | postgres   | Enabled
+ public     | workshop_attendance       | postgres   | Enabled
+ public     | workshop_feedback         | postgres   | Enabled
+ public     | workshop_registrations    | postgres   | Enabled
+(79 rows)
+
+             section             
+---------------------------------
+ === MISSING CRITICAL TABLES ===
+(1 row)
+
+     Expected Table      |  Status  | RLS Status  
+-------------------------+----------+-------------
+ calendly_webhook_events | ✅ Exists | RLS Enabled
+ course_discount_codes   | ✅ Exists | RLS Enabled
+ email_campaign_metrics  | ✅ Exists | RLS Enabled
+ payment_intents         | ✅ Exists | RLS Enabled
+ refund_requests         | ✅ Exists | RLS Enabled
+ stripe_webhook_events   | ✅ Exists | RLS Enabled
+ therapist_profiles      | ✅ Exists | RLS Enabled
+ user_achievements       | ✅ Exists | RLS Enabled
+ user_notifications      | ✅ Exists | RLS Enabled
+ user_payment_methods    | ✅ Exists | RLS Enabled
+ user_preferences        | ✅ Exists | RLS Enabled
+ wellness_entries        | ✅ Exists | RLS Enabled
+(12 rows)
+
+              section               
+------------------------------------
+ === POLICY EFFECTIVENESS CHECK ===
+(1 row)
+
+           Table           | Total Policies |        Assessment         |       Commands Covered       
+---------------------------+----------------+---------------------------+------------------------------
+ blog_images_metadata      |              1 | ⚠️  Missing SELECT policy  | 
+ bookings                  |              1 | ⚠️  Missing SELECT policy  | 
+ calendly_webhook_events   |              1 | ⚠️  Missing SELECT policy  | 
+ career_applications       |              2 | ⚠️  Missing SELECT policy  | INSERT 
+ chat_conversations        |              1 | ⚠️  Missing SELECT policy  | 
+ contact_submissions       |              3 | ⚠️  Missing SELECT policy  | INSERT 
+ course_discussions        |              3 | ⚠️  Missing SELECT policy  | UPDATE DELETE 
+ email_analytics           |              1 | ⚠️  Missing SELECT policy  | 
+ email_automation_rules    |              1 | ⚠️  Missing SELECT policy  | 
+ email_logs                |              1 | ⚠️  Missing SELECT policy  | 
+ email_sends               |              1 | ⚠️  Missing SELECT policy  | 
+ lesson_completion_details |              1 | ⚠️  Missing SELECT policy  | 
+ newsletter_sends          |              2 | ⚠️  Missing SELECT policy  | 
+ newsletter_subscribers    |              1 | ⚠️  Missing SELECT policy  | 
+ notification_preferences  |              2 | ⚠️  Missing SELECT policy  | 
+ stripe_webhook_events     |              2 | ⚠️  Missing SELECT policy  | 
+ user_activity_log         |              1 | ⚠️  Missing SELECT policy  | 
+ user_consents             |              1 | ⚠️  Missing SELECT policy  | 
+ user_lesson_progress      |              2 | ⚠️  Missing SELECT policy  | 
+ user_week_submissions     |              1 | ⚠️  Missing SELECT policy  | 
+ user_workbook_responses   |              2 | ⚠️  Missing SELECT policy  | 
+ workbook_responses        |              1 | ⚠️  Missing SELECT policy  | 
+ appointment_types         |              1 | ⚠️  May need more policies | SELECT 
+ email_templates_custom    |              0 | ⚠️  May need more policies | 
+ workbook_questions        |              1 | ⚠️  May need more policies | SELECT 
+ workshop_attendance       |              1 | ⚠️  May need more policies | SELECT 
+ admin_activity_log        |              3 | ✅ Appears complete        | SELECT INSERT 
+ analytics_events          |              3 | ✅ Appears complete        | SELECT INSERT 
+ appointment_data          |              3 | ✅ Appears complete        | SELECT INSERT UPDATE 
+ appointment_payments      |              5 | ✅ Appears complete        | SELECT INSERT 
+ appointments              |              4 | ✅ Appears complete        | SELECT INSERT 
+ blog_post_images          |              2 | ✅ Appears complete        | SELECT 
+ blog_posts                |              2 | ✅ Appears complete        | SELECT 
+ chatbot_interactions      |              2 | ✅ Appears complete        | SELECT INSERT 
+ conversion_events         |              2 | ✅ Appears complete        | SELECT INSERT 
+ course_activity_logs      |              5 | ✅ Appears complete        | SELECT INSERT 
+ course_announcements      |              2 | ✅ Appears complete        | SELECT 
+ course_certificates       |              5 | ✅ Appears complete        | SELECT INSERT 
+ course_discount_codes     |              4 | ✅ Appears complete        | SELECT 
+ course_enrollments        |              4 | ✅ Appears complete        | SELECT INSERT 
+ course_lessons            |              5 | ✅ Appears complete        | SELECT 
+ course_modules            |              5 | ✅ Appears complete        | SELECT 
+ course_progress           |              7 | ✅ Appears complete        | SELECT INSERT UPDATE 
+ course_resources          |              3 | ✅ Appears complete        | SELECT 
+ courses                   |              4 | ✅ Appears complete        | SELECT 
+ email_automation_logs     |              2 | ✅ Appears complete        | SELECT 
+ email_automation_triggers |              2 | ✅ Appears complete        | SELECT 
+ email_campaign_metrics    |              3 | ✅ Appears complete        | SELECT 
+ email_queue               |              4 | ✅ Appears complete        | SELECT 
+ email_sequences           |              2 | ✅ Appears complete        | SELECT 
+ email_templates           |              3 | ✅ Appears complete        | SELECT 
+ email_unsubscribes        |              4 | ✅ Appears complete        | SELECT INSERT 
+ payment_intents           |              3 | ✅ Appears complete        | SELECT 
+ payment_methods           |              5 | ✅ Appears complete        | SELECT 
+ payment_methods_audit     |              3 | ✅ Appears complete        | SELECT INSERT 
+ profiles                  |              3 | ✅ Appears complete        | SELECT INSERT UPDATE 
+ push_notifications        |              3 | ✅ Appears complete        | SELECT UPDATE 
+ refund_requests           |              3 | ✅ Appears complete        | SELECT INSERT 
+ sequence_emails           |              2 | ✅ Appears complete        | SELECT 
+ sms_messages              |              3 | ✅ Appears complete        | SELECT 
+ subscribers               |              5 | ✅ Appears complete        | SELECT INSERT UPDATE 
+ therapist_profiles        |              2 | ✅ Appears complete        | SELECT UPDATE 
+ user_achievements         |              4 | ✅ Appears complete        | SELECT INSERT 
+ user_notifications        |              4 | ✅ Appears complete        | SELECT INSERT UPDATE DELETE 
+ user_payment_methods      |              4 | ✅ Appears complete        | SELECT 
+ user_preferences          |              4 | ✅ Appears complete        | SELECT INSERT UPDATE 
+ user_profiles             |              8 | ✅ Appears complete        | SELECT INSERT UPDATE 
+ user_progress             |              2 | ✅ Appears complete        | SELECT 
+ wellness_entries          |              4 | ✅ Appears complete        | SELECT INSERT UPDATE DELETE 
+ workshop_feedback         |              2 | ✅ Appears complete        | SELECT INSERT 
+ workshop_registrations    |              3 | ✅ Appears complete        | SELECT INSERT UPDATE 
+(71 rows)
+
+             section              
+----------------------------------
+ === SECURITY RISK ASSESSMENT ===
+(1 row)
+
+         Risk Level          | Total Tables | Without RLS |                 Unprotected Tables                 
+-----------------------------+--------------+-------------+----------------------------------------------------
+ HIGH - Financial data       |            5 |           0 | 
+ HIGH - User data            |           12 |           1 | user_course_access
+ MEDIUM - Communication data |           14 |           2 | email_automation_errors, email_templates_history
+ MEDIUM - PII data           |            1 |           0 | 
+ LOW - General data          |           44 |           3 | click_heatmap, course_purchases, provider_settings
+(5 rows)
+
+                 section                 
+-----------------------------------------
+ === IMPLEMENTATION PROGRESS SUMMARY ===
+(1 row)
+
+          Phase          | Progress | Completion 
+-------------------------+----------+------------
+ Phase 1: User Data      | 6/6      | 100.00%
+ Phase 2: Financial      | 6/6      | 100.00%
+ Phase 3: Courses        | 11/12    | 91.67%
+ Phase 4: Communications | 13/15    | 86.67%
+(4 rows)
+
