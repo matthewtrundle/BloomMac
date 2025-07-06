@@ -2,8 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { 
   Mail, 
   Users, 
@@ -170,31 +168,67 @@ export default function EmailCenterPage() {
         </div>
       </div>
 
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="grid w-full grid-cols-5 mb-6">
-          <TabsTrigger value="dashboard" className="flex items-center gap-2">
+      <div className="w-full">
+        <div className="grid w-full grid-cols-5 mb-6 bg-gray-100 p-1 rounded-lg">
+          <button
+            onClick={() => setActiveTab('dashboard')}
+            className={`flex items-center justify-center gap-2 px-3 py-2 rounded-md transition-colors ${
+              activeTab === 'dashboard' 
+                ? 'bg-white text-bloom-primary shadow-sm' 
+                : 'text-gray-600 hover:text-gray-900'
+            }`}
+          >
             <BarChart3 className="w-4 h-4" />
             Dashboard
-          </TabsTrigger>
-          <TabsTrigger value="subscribers" className="flex items-center gap-2">
+          </button>
+          <button
+            onClick={() => setActiveTab('subscribers')}
+            className={`flex items-center justify-center gap-2 px-3 py-2 rounded-md transition-colors ${
+              activeTab === 'subscribers' 
+                ? 'bg-white text-bloom-primary shadow-sm' 
+                : 'text-gray-600 hover:text-gray-900'
+            }`}
+          >
             <Users className="w-4 h-4" />
             Subscribers
-          </TabsTrigger>
-          <TabsTrigger value="campaigns" className="flex items-center gap-2">
+          </button>
+          <button
+            onClick={() => setActiveTab('campaigns')}
+            className={`flex items-center justify-center gap-2 px-3 py-2 rounded-md transition-colors ${
+              activeTab === 'campaigns' 
+                ? 'bg-white text-bloom-primary shadow-sm' 
+                : 'text-gray-600 hover:text-gray-900'
+            }`}
+          >
             <Send className="w-4 h-4" />
             Campaigns
-          </TabsTrigger>
-          <TabsTrigger value="templates" className="flex items-center gap-2">
+          </button>
+          <button
+            onClick={() => setActiveTab('templates')}
+            className={`flex items-center justify-center gap-2 px-3 py-2 rounded-md transition-colors ${
+              activeTab === 'templates' 
+                ? 'bg-white text-bloom-primary shadow-sm' 
+                : 'text-gray-600 hover:text-gray-900'
+            }`}
+          >
             <FileText className="w-4 h-4" />
             Templates
-          </TabsTrigger>
-          <TabsTrigger value="testing" className="flex items-center gap-2">
+          </button>
+          <button
+            onClick={() => setActiveTab('testing')}
+            className={`flex items-center justify-center gap-2 px-3 py-2 rounded-md transition-colors ${
+              activeTab === 'testing' 
+                ? 'bg-white text-bloom-primary shadow-sm' 
+                : 'text-gray-600 hover:text-gray-900'
+            }`}
+          >
             <TestTube className="w-4 h-4" />
             Testing
-          </TabsTrigger>
-        </TabsList>
+          </button>
+        </div>
 
-        <TabsContent value="dashboard" className="space-y-6">
+        {activeTab === 'dashboard' && (
+          <div className="space-y-6">
           {/* Quick Stats */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <Card>
@@ -279,18 +313,20 @@ export default function EmailCenterPage() {
               </div>
             </CardContent>
           </Card>
-        </TabsContent>
+          </div>
+        )}
 
-        <TabsContent value="subscribers" className="space-y-6">
+        {activeTab === 'subscribers' && (
+          <div className="space-y-6">
           <Card>
             <CardHeader>
               <div className="flex items-center justify-between">
                 <CardTitle>Subscriber Management</CardTitle>
                 <div className="flex gap-2">
-                  <Button variant="outline" size="sm">
-                    <Download className="w-4 h-4 mr-2" />
+                  <button className="px-3 py-1.5 text-sm border border-gray-300 rounded-md hover:bg-gray-50 flex items-center gap-2">
+                    <Download className="w-4 h-4" />
                     Export CSV
-                  </Button>
+                  </button>
                 </div>
               </div>
             </CardHeader>
@@ -342,13 +378,17 @@ export default function EmailCenterPage() {
               </div>
             </CardContent>
           </Card>
-        </TabsContent>
+          </div>
+        )}
 
-        <TabsContent value="campaigns" className="space-y-6">
+        {activeTab === 'campaigns' && (
+          <div className="space-y-6">
           <NewsletterAdmin />
-        </TabsContent>
+          </div>
+        )}
 
-        <TabsContent value="templates" className="space-y-6">
+        {activeTab === 'templates' && (
+          <div className="space-y-6">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {/* Template List */}
             <Card className="lg:col-span-1">
@@ -384,18 +424,25 @@ export default function EmailCenterPage() {
                   </CardTitle>
                   {selectedTemplate && (
                     <div className="flex gap-2">
-                      <Button variant="outline" size="sm" onClick={() => handleSendTestEmail(selectedTemplate.id)}>
-                        <Send className="w-4 h-4 mr-2" />
+                      <button 
+                        onClick={() => handleSendTestEmail(selectedTemplate.id)}
+                        className="px-3 py-1.5 text-sm border border-gray-300 rounded-md hover:bg-gray-50 flex items-center gap-2"
+                      >
+                        <Send className="w-4 h-4" />
                         Send Test
-                      </Button>
-                      <Button size="sm" onClick={handleSaveTemplate} disabled={saving}>
+                      </button>
+                      <button 
+                        onClick={handleSaveTemplate} 
+                        disabled={saving}
+                        className="px-3 py-1.5 text-sm bg-bloom-primary text-white rounded-md hover:bg-bloom-primary/90 disabled:opacity-50 flex items-center gap-2"
+                      >
                         {saving ? (
-                          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                          <Loader2 className="w-4 h-4 animate-spin" />
                         ) : (
-                          <Save className="w-4 h-4 mr-2" />
+                          <Save className="w-4 h-4" />
                         )}
                         Save
-                      </Button>
+                      </button>
                     </div>
                   )}
                 </div>
@@ -440,9 +487,11 @@ export default function EmailCenterPage() {
               </CardContent>
             </Card>
           </div>
-        </TabsContent>
+          </div>
+        )}
 
-        <TabsContent value="testing" className="space-y-6">
+        {activeTab === 'testing' && (
+          <div className="space-y-6">
           <Card>
             <CardHeader>
               <CardTitle>Email Testing Tools</CardTitle>
@@ -475,13 +524,12 @@ export default function EmailCenterPage() {
                       <div key={template.id} className="border rounded-lg p-4">
                         <h5 className="font-medium">{template.name}</h5>
                         <p className="text-sm text-gray-600 mb-3">{template.category}</p>
-                        <Button 
-                          size="sm" 
-                          variant="outline"
+                        <button 
                           onClick={() => handleSendTestEmail(template.id)}
+                          className="px-3 py-1.5 text-sm border border-gray-300 rounded-md hover:bg-gray-50"
                         >
                           Send Test
-                        </Button>
+                        </button>
                       </div>
                     ))}
                   </div>
@@ -509,8 +557,9 @@ export default function EmailCenterPage() {
               </div>
             </CardContent>
           </Card>
-        </TabsContent>
-      </Tabs>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
