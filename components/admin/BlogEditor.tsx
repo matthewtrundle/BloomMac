@@ -92,7 +92,7 @@ export default function BlogEditor({ post, isEditing = false }: BlogEditorProps)
   const loadImages = async () => {
     setLoadingImages(true);
     try {
-      const response = await fetch(`/api/images-v2?t=${Date.now()}`);
+      const response = await fetch(`/api/admin/blog/images?t=${Date.now()}`);
       if (response.ok) {
         const data = await response.json();
         setAvailableImages(data.images);
@@ -150,9 +150,8 @@ export default function BlogEditor({ post, isEditing = false }: BlogEditorProps)
     formData.append('image', file);
 
     try {
-      const response = await fetch('/api/upload-blog-image', {
+      const response = await fetch('/api/admin/blog/images', {
         method: 'POST',
-        credentials: 'include',
         body: formData
       });
 

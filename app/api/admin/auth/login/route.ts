@@ -34,14 +34,15 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Check if user is an admin
-    const { data: adminUser, error: adminError } = await supabase
-      .from('admin_users')
-      .select('id, email, name, role, is_active')
+    // Check if user is an admin in the user_profiles table
+    const { data: adminProfile, error: adminError } = await supabase
+      .from('user_profiles')
+      .select('id, first_name, last_name, role')
       .eq('id', authData.user.id)
+      .eq('role', 'admin')
       .single();
 
-    if (adminError || !adminUser || !adminUser.is_active) {
+    if (adminError || !adminProfile) {
       console.error('[Admin Login] Not an admin or inactive:', adminError);
       
       // Sign out the user since they're not an admin
@@ -55,9 +56,9 @@ export async function POST(request: NextRequest) {
 
     // Update last login
     await supabase
-      .from('admin_users')
+      .from('user_profiles')
       .update({
-        last_login: new Date().toISOString(),
+        last_login_at: new Date().toISOString(),
         updated_at: new Date().toISOString()
       })
       .eq('id', authData.user.id);
@@ -80,8 +81,8 @@ export async function POST(request: NextRequest) {
     const token = await new SignJWT({
       userId: authData.user.id,
       email: authData.user.email,
-      role: adminUser.role,
-      name: adminUser.name
+      role: adminProfile.role,
+      name: `${adminProfile.first_name} ${adminProfile.last_name}`.trim()
     })
       .setProtectedHeader({ alg: 'HS256' })
       .setIssuedAt()
@@ -94,7 +95,7 @@ export async function POST(request: NextRequest) {
       user: {
         id: authData.user.id,
         email: authData.user.email,
-        role: adminUser.role
+        role: adminProfile.role
       }
     });
 

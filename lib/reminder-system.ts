@@ -1,4 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
+import { enrollmentManager } from './email-automation/enrollment-manager';
 // import { Twilio } from 'twilio'; // Optional - uncomment when Twilio is configured
 
 const supabase = createClient(
@@ -21,26 +22,22 @@ export interface ReminderSettings {
   requireConfirmation: boolean;
 }
 
-const DEFAULT_REMINDER_SETTINGS: ReminderSettings = {
-  email24Hours: true,
-  sms24Hours: true,
-  email2Hours: false,
-  sms2Hours: true,
-  requireConfirmation: true
-};
-
 // Send appointment reminders
 export async function sendAppointmentReminders() {
   try {
-    const now = new Date();
-    
-    // 24-hour reminders
-    const twentyFourHoursFromNow = new Date(now.getTime() + (24 * 60 * 60 * 1000));
-    await processReminders(twentyFourHoursFromNow, '24_hour');
-    
-    // 2-hour reminders
-    const twoHoursFromNow = new Date(now.getTime() + (2 * 60 * 60 * 1000));
-    await processReminders(twoHoursFromNow, '2_hour');
+    const { data: rules, error: rulesError } = await supabase
+      .from('reminder_rules')
+      .select('*')
+      .eq('is_active', true);
+
+    if (rulesError) {
+      console.error('Error fetching reminder rules:', rulesError);
+      return { success: false, error: rulesError.message };
+    }
+
+    for (const rule of rules) {
+      await processReminderRule(rule);
+    }
     
     return { success: true };
   } catch (error) {
@@ -49,8 +46,13 @@ export async function sendAppointmentReminders() {
   }
 }
 
-async function processReminders(targetTime: Date, reminderType: '24_hour' | '2_hour') {
+async function processReminderRule(rule: any) {
   try {
+    const hoursBefore = rule.trigger_config?.hours_before;
+    if (!hoursBefore) return;
+
+    const targetTime = new Date(new Date().getTime() + hoursBefore * 60 * 60 * 1000);
+
     // Get appointments that need reminders
     const { data: appointments, error } = await supabase
       .from('appointment_data')
@@ -62,7 +64,12 @@ async function processReminders(targetTime: Date, reminderType: '24_hour' | '2_h
         status,
         reminder_sent,
         confirmation_received,
-        metadata
+        metadata,
+        user_profiles (
+          first_name,
+          last_name,
+          phone
+        )
       `)
       .eq('status', 'scheduled')
       .gte('appointment_date', new Date(targetTime.getTime() - 30 * 60 * 1000).toISOString()) // 30 min window
@@ -70,53 +77,24 @@ async function processReminders(targetTime: Date, reminderType: '24_hour' | '2_h
       .neq('reminder_sent', true);
 
     if (error) {
-      console.error('Error fetching appointments for reminders:', error);
+      console.error(`Error fetching appointments for ${rule.name}:`, error);
       return;
     }
 
     if (!appointments || appointments.length === 0) {
-      console.log(`No ${reminderType} reminders to send`);
+      console.log(`No reminders to send for ${rule.name}`);
       return;
     }
 
-    console.log(`Processing ${appointments.length} ${reminderType} reminders`);
+    console.log(`Processing ${appointments.length} reminders for ${rule.name}`);
 
     for (const appointment of appointments) {
       try {
-        // Get user details
-        const { data: profile } = await supabase
-          .from('user_profiles')
-          .select('first_name, last_name, phone')
-          .eq('id', appointment.user_id)
-          .single();
-
-        const { data: user } = await supabase.auth.admin.getUserById(appointment.user_id);
-
-        if (!user.user?.email) {
-          console.error('No email found for user:', appointment.user_id);
-          continue;
-        }
-
-        // Get user's reminder preferences
-        const { data: preferences } = await supabase
-          .from('user_preferences')
-          .select('reminder_settings')
-          .eq('user_id', appointment.user_id)
-          .single();
-
-        const settings = preferences?.reminder_settings || DEFAULT_REMINDER_SETTINGS;
-
-        // Send email reminder
-        if ((reminderType === '24_hour' && settings.email24Hours) || 
-            (reminderType === '2_hour' && settings.email2Hours)) {
-          await sendEmailReminder(appointment, user.user.email, profile);
-        }
-
-        // Send SMS reminder
-        if ((reminderType === '24_hour' && settings.sms24Hours) || 
-            (reminderType === '2_hour' && settings.sms2Hours)) {
-          if (profile?.phone) {
-            await sendSMSReminder(appointment, profile.phone, profile);
+        for (const action of rule.actions) {
+          if (action.action === 'send_email') {
+            await sendEmailReminder(appointment, action.template);
+          } else if (action.action === 'send_sms') {
+            await sendSMSReminder(appointment, action.template);
           }
         }
 
@@ -135,50 +113,40 @@ async function processReminders(targetTime: Date, reminderType: '24_hour' | '2_h
     }
 
   } catch (error) {
-    console.error('Error in processReminders:', error);
+    console.error(`Error in processReminderRule for ${rule.name}:`, error);
   }
 }
 
 // Send email reminder
-async function sendEmailReminder(appointment: any, email: string, profile: any) {
+async function sendEmailReminder(appointment: any, template: string) {
   try {
-    const appointmentDate = new Date(appointment.appointment_date);
-    const confirmationUrl = `${process.env.NEXT_PUBLIC_URL}/appointments/confirm/${appointment.id}`;
-    
-    await fetch('/api/emails/send', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        to: email,
-        template: 'appointment_reminder',
-        data: {
-          firstName: profile?.first_name || 'there',
-          appointmentType: appointment.appointment_type,
-          appointmentDate: appointmentDate.toLocaleDateString('en-US', {
-            weekday: 'long',
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-          }),
-          appointmentTime: appointmentDate.toLocaleTimeString('en-US', {
-            hour: 'numeric',
-            minute: '2-digit'
-          }),
-          confirmationUrl,
-          rescheduleUrl: `${process.env.NEXT_PUBLIC_URL}/appointments/reschedule/${appointment.id}`,
-          cancelUrl: `${process.env.NEXT_PUBLIC_URL}/appointments/cancel/${appointment.id}`
-        }
-      })
-    });
+    const { data: subscriber } = await supabase
+      .from('subscribers')
+      .select('id')
+      .eq('email', appointment.user_profiles.email.toLowerCase())
+      .single();
 
-    console.log(`Email reminder sent for appointment ${appointment.id}`);
+    if (subscriber) {
+      await enrollmentManager.enrollSubscriber({
+        subscriberId: subscriber.id,
+        trigger: 'appointment_reminder',
+        source: 'reminder_system',
+        metadata: {
+          appointment_id: appointment.id,
+          appointment_type: appointment.appointment_type,
+          appointment_date: appointment.appointment_date,
+          template: template
+        }
+      });
+      console.log(`Email reminder sent for appointment ${appointment.id}`);
+    }
   } catch (error) {
     console.error('Error sending email reminder:', error);
   }
 }
 
 // Send SMS reminder
-async function sendSMSReminder(appointment: any, phone: string, profile: any) {
+async function sendSMSReminder(appointment: any, template: string) {
   if (!twilioClient) {
     console.warn('Twilio not configured, skipping SMS reminder');
     return;
@@ -188,12 +156,12 @@ async function sendSMSReminder(appointment: any, phone: string, profile: any) {
     const appointmentDate = new Date(appointment.appointment_date);
     const confirmationUrl = `${process.env.NEXT_PUBLIC_URL}/appointments/confirm/${appointment.id}`;
     
-    const message = `Hi ${profile?.first_name || 'there'}! Reminder: You have a ${appointment.appointment_type} appointment on ${appointmentDate.toLocaleDateString()} at ${appointmentDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}. Please confirm: ${confirmationUrl}`;
+    const message = `Hi ${appointment.user_profiles?.first_name || 'there'}! Reminder: You have a ${appointment.appointment_type} appointment on ${appointmentDate.toLocaleDateString()} at ${appointmentDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}. Please confirm: ${confirmationUrl}`;
 
     await twilioClient.messages.create({
       body: message,
       from: process.env.TWILIO_PHONE_NUMBER,
-      to: phone
+      to: appointment.user_profiles.phone
     });
 
     console.log(`SMS reminder sent for appointment ${appointment.id}`);

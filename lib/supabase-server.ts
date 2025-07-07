@@ -94,26 +94,6 @@ export async function getAuthenticatedUser(supabase: any) {
 }
 
 /**
- * Check if user has specific role
- * Now checks both admin_users and user_profiles tables
- */
-export async function checkUserRole(supabase: any, userId: string, requiredRole: string) {
-  // Use the unified function that checks both tables
-  const { data, error } = await supabase
-    .rpc('check_user_role_unified', {
-      user_id: userId,
-      required_role: requiredRole
-    });
-  
-  if (error) {
-    console.error('Error checking user role:', error);
-    return false;
-  }
-  
-  return data === true;
-}
-
-/**
  * Create a service client ONLY for specific server-side operations
  * that truly need elevated permissions (webhooks, cron jobs, etc)
  * 

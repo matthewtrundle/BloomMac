@@ -64,39 +64,6 @@ export type Database = {
         }
         Relationships: []
       }
-      admin_users: {
-        Row: {
-          created_at: string | null
-          email: string
-          id: string
-          is_active: boolean | null
-          last_login: string | null
-          name: string | null
-          role: string | null
-          updated_at: string | null
-        }
-        Insert: {
-          created_at?: string | null
-          email: string
-          id: string
-          is_active?: boolean | null
-          last_login?: string | null
-          name?: string | null
-          role?: string | null
-          updated_at?: string | null
-        }
-        Update: {
-          created_at?: string | null
-          email?: string
-          id?: string
-          is_active?: boolean | null
-          last_login?: string | null
-          name?: string | null
-          role?: string | null
-          updated_at?: string | null
-        }
-        Relationships: []
-      }
       analytics_events: {
         Row: {
           created_at: string | null

@@ -18,14 +18,15 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // Verify the user is still active
-    const { data: adminUser, error } = await supabase
-      .from('admin_users')
-      .select('id, email, name, role, is_active')
+    // Verify the user is still an active admin
+    const { data: adminProfile, error } = await supabase
+      .from('user_profiles')
+      .select('id, first_name, last_name, role')
       .eq('id', userId)
+      .eq('role', 'admin')
       .single();
 
-    if (error || !adminUser || !adminUser.is_active) {
+    if (error || !adminProfile) {
       return NextResponse.json(
         { error: 'Admin access revoked' },
         { status: 403 }
@@ -36,9 +37,9 @@ export async function GET(request: NextRequest) {
       authenticated: true,
       user: {
         id: userId,
-        email: adminUser.email || userEmail,
-        name: adminUser.name,
-        role: adminUser.role
+        email: userEmail,
+        name: `${adminProfile.first_name} ${adminProfile.last_name}`.trim(),
+        role: adminProfile.role
       }
     });
   } catch (error) {
