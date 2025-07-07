@@ -7,7 +7,14 @@ export async function GET(request: NextRequest) {
     
     const { data: { session } } = await supabase.auth.getSession();
     
-    const { data, error } = await supabase.rpc('get_all_courses_with_user_progress', { p_user_id: session?.user?.id });
+    if (!session) {
+      return NextResponse.json(
+        { success: false, error: 'Unauthorized' },
+        { status: 401 }
+      );
+    }
+    
+    const { data, error } = await supabase.rpc('get_all_courses_with_user_progress', { p_user_id: session.user.id });
 
     if (error) {
       console.error('Error fetching all courses progress:', error);
