@@ -1,0 +1,15 @@
+feat(wellness-hub): Refactor pages to use modern Supabase client
+
+This commit resolves critical authentication and component initialization errors across the Wellness Hub by refactoring key pages to use the modern, client-side Supabase library (`createClientComponentClient`).
+
+The primary issue stemmed from legacy data-fetching patterns (`useAuth` context, direct `fetch` calls to internal APIs) that were incompatible with the recently unified authentication system. This resulted in 401 Unauthorized errors and prevented components like Calendly from initializing correctly.
+
+Key changes:
+- Replaced `useAuth` and `useSupabaseClient` with `createClientComponentClient` in the following pages:
+  - `app/profile/edit/page.tsx`
+  - `app/settings/page.tsx`
+  - `app/appointments/page.tsx`
+- Removed intermediate API calls by interacting with the Supabase backend directly from the client-side components.
+- This resolves authentication failures and ensures all components receive the necessary data and context to function correctly.
+- Added a comprehensive `TESTING_GUIDE.md` to standardize the E2E testing process.
+- Cleaned up the repository by removing numerous obsolete `.backup` files and legacy authentication modules.

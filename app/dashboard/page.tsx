@@ -117,24 +117,12 @@ export default function SimpleDashboardPage() {
       
       // Fetch all dashboard data in parallel
       const [profileResponse, achievementsResponse, workbookResponse, courseResponse, allCoursesResponse, appointmentsResponse] = await Promise.allSettled([
-        fetch('/api/profile/get', {
-          headers: { 'Authorization': `Bearer ${user.access_token || ''}` },
-        }),
-        fetch('/api/achievements/get', {
-          headers: { 'Authorization': `Bearer ${user.access_token || ''}` },
-        }),
-        fetch('/api/workbook/enrolled', {
-          headers: { 'Authorization': `Bearer ${user.access_token || ''}` },
-        }),
-        fetch('/api/course/stats', {
-          headers: { 'Authorization': `Bearer ${user.access_token || ''}` },
-        }),
-        fetch('/api/courses/all-progress', {
-          headers: { 'Authorization': `Bearer ${user.access_token || ''}` },
-        }),
-        fetch('/api/appointments/upcoming', {
-          headers: { 'Authorization': `Bearer ${user.access_token || ''}` },
-        })
+        fetch('/api/profile/get'),
+        fetch('/api/achievements/get'),
+        fetch('/api/workbook/enrolled'),
+        fetch('/api/course/stats'),
+        fetch('/api/courses/all-progress'),
+        fetch('/api/appointments/upcoming')
       ]);
 
       // Handle profile response

@@ -207,10 +207,14 @@ export default function AppointmentsPage() {
               </div>
 
               {/* Appointment Scheduler */}
-              <AppointmentScheduler
-                appointmentType="consultation"
-                onScheduled={handleAppointmentScheduled}
-              />
+              {user && supabase && (
+                <AppointmentScheduler
+                  user={user}
+                  supabase={supabase}
+                  appointmentType="consultation"
+                  onScheduled={handleAppointmentScheduled}
+                />
+              )}
             </motion.div>
           )}
 
@@ -231,7 +235,8 @@ export default function AppointmentsPage() {
                         key={appointment.id} 
                         appointment={appointment} 
                         isUpcoming={true} 
-                        onUpdate={handleCancelAppointment}
+                        onUpdate={handleAppointmentScheduled}
+                        supabase={supabase}
                       />
                     ))}
                   </div>
@@ -248,7 +253,8 @@ export default function AppointmentsPage() {
                         key={appointment.id} 
                         appointment={appointment} 
                         isUpcoming={false} 
-                        onUpdate={handleCancelAppointment}
+                        onUpdate={handleAppointmentScheduled}
+                        supabase={supabase}
                       />
                     ))}
                   </div>
@@ -301,11 +307,13 @@ export default function AppointmentsPage() {
 function AppointmentCard({ 
   appointment, 
   isUpcoming,
-  onUpdate
+  onUpdate,
+  supabase
 }: { 
   appointment: Appointment; 
   isUpcoming: boolean;
   onUpdate: (appointmentId: string) => void;
+  supabase: SupabaseClient;
 }) {
   const appointmentDate = new Date(appointment.appointment_date);
   const [showCancelWarning, setShowCancelWarning] = useState(false);
@@ -331,12 +339,11 @@ function AppointmentCard({
         })
         .eq('id', appointment.id);
 
-      if (!error) {
-        alert('Appointment cancelled successfully');
-        onUpdate(appointment.id);
-      } else {
-        throw error;
-      }
+      if (error) throw error;
+      
+      alert('Appointment cancelled successfully');
+      onUpdate(appointment.id);
+
     } catch (error) {
       console.error('Error cancelling appointment:', error);
       alert('Failed to cancel appointment. Please try again.');
