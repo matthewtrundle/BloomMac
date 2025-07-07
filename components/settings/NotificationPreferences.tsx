@@ -11,7 +11,6 @@ import {
   Calendar, 
   DollarSign, 
   GraduationCap,
-  Users,
   Moon,
   Check,
   Loader2
@@ -48,24 +47,6 @@ export default function NotificationPreferences() {
       label: 'Course Updates',
       description: 'New lessons, content updates, and announcements',
       icon: <GraduationCap className="h-5 w-5" />,
-      email: true,
-      sms: false,
-      push: true
-    },
-    {
-      key: 'community_activity',
-      label: 'Community Activity',
-      description: 'Replies to your posts and community mentions',
-      icon: <Users className="h-5 w-5" />,
-      email: false,
-      sms: false,
-      push: true
-    },
-    {
-      key: 'wellness_reminders',
-      label: 'Wellness Check-ins',
-      description: 'Gentle reminders for self-care and progress tracking',
-      icon: <Bell className="h-5 w-5" />,
       email: true,
       sms: false,
       push: true

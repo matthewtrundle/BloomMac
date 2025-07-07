@@ -11,14 +11,11 @@ import {
   CreditCard, 
   User, 
   Download, 
-  Link2, 
   Settings,
   ChevronRight,
   Lock,
   Mail,
   Smartphone,
-  Activity,
-  Globe,
   Database,
   Trash2,
   AlertCircle
@@ -34,9 +31,7 @@ export default function SettingsPage() {
   // Privacy settings state
   const [privacySettings, setPrivacySettings] = useState({
     share_data_research: false,
-    profile_visibility: 'private',
-    analytics_enabled: true,
-    contact_visibility: 'friends'
+    analytics_enabled: true
   });
   const [savingPrivacy, setSavingPrivacy] = useState(false);
   const [privacyMessage, setPrivacyMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
@@ -257,18 +252,6 @@ export default function SettingsPage() {
             >
               <CreditCard className="h-5 w-5 mr-3" />
               Payment
-            </button>
-            
-            <button
-              onClick={() => setActiveTab('connected')}
-              className={`w-full flex items-center px-4 py-3 rounded-lg text-left transition-colors ${
-                activeTab === 'connected'
-                  ? 'bg-bloompink text-white'
-                  : 'hover:bg-bloom-gray-100 text-bloom-gray-700'
-              }`}
-            >
-              <Link2 className="h-5 w-5 mr-3" />
-              Connected Apps
             </button>
             
             <button
@@ -497,41 +480,6 @@ export default function SettingsPage() {
                       </div>
                     </label>
                     
-                    <div className="border rounded-lg p-4">
-                      <label className="block">
-                        <p className="font-medium mb-2">Profile Visibility</p>
-                        <select 
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-bloompink focus:border-transparent"
-                          value={privacySettings.profile_visibility}
-                          onChange={(e) => setPrivacySettings({
-                            ...privacySettings,
-                            profile_visibility: e.target.value
-                          })}
-                        >
-                          <option value="private">Private - Only you can see</option>
-                          <option value="friends">Friends - Visible to connections</option>
-                          <option value="public">Public - Visible to all members</option>
-                        </select>
-                      </label>
-                    </div>
-                    
-                    <div className="border rounded-lg p-4">
-                      <label className="block">
-                        <p className="font-medium mb-2">Contact Visibility</p>
-                        <select 
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-bloompink focus:border-transparent"
-                          value={privacySettings.contact_visibility}
-                          onChange={(e) => setPrivacySettings({
-                            ...privacySettings,
-                            contact_visibility: e.target.value
-                          })}
-                        >
-                          <option value="private">Private - Hidden from all</option>
-                          <option value="friends">Friends - Visible to connections</option>
-                          <option value="public">Public - Visible to all members</option>
-                        </select>
-                      </label>
-                    </div>
                   </div>
                   
                   <div className="pt-4">
@@ -569,48 +517,6 @@ export default function SettingsPage() {
               </div>
             )}
 
-            {/* Connected Apps Tab */}
-            {activeTab === 'connected' && (
-              <div>
-                <div className="p-6 border-b">
-                  <h2 className="text-xl font-semibold">Connected Apps</h2>
-                  <p className="text-bloom-gray-600 mt-1">
-                    Manage third-party app connections
-                  </p>
-                </div>
-                <div className="p-6 space-y-4">
-                  <div className="p-4 border rounded-lg">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center">
-                        <Activity className="h-8 w-8 text-red-500 mr-3" />
-                        <div>
-                          <p className="font-medium">Apple Health</p>
-                          <p className="text-sm text-bloom-gray-600">Not connected</p>
-                        </div>
-                      </div>
-                      <Button variant="outline" size="sm" disabled>
-                        Connect (Coming Soon)
-                      </Button>
-                    </div>
-                  </div>
-                  
-                  <div className="p-4 border rounded-lg">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center">
-                        <Activity className="h-8 w-8 text-blue-500 mr-3" />
-                        <div>
-                          <p className="font-medium">Google Fit</p>
-                          <p className="text-sm text-bloom-gray-600">Not connected</p>
-                        </div>
-                      </div>
-                      <Button variant="outline" size="sm" disabled>
-                        Connect (Coming Soon)
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
 
             {/* Data Management Tab */}
             {activeTab === 'data' && (
