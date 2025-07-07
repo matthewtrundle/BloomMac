@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { enhancedEmailTemplates, personalizeEmail } from '@/lib/email-templates/enhanced-emails';
 import { supabaseAdmin } from '@/lib/supabase';
 import { getResendClient } from '@/lib/resend-client';
 import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
@@ -11,48 +10,6 @@ interface SignupRequest {
   lastName?: string;
   source?: string;
   interests?: string[];
-}
-
-// Send welcome email to new subscriber
-async function sendWelcomeEmail(subscriber: any) {
-  const firstName = subscriber.first_name || 'Friend';
-  
-  try {
-    // Validate email before attempting to send
-    if (!subscriber.email || typeof subscriber.email !== 'string' || !subscriber.email.includes('@')) {
-      console.error('Invalid subscriber email:', subscriber.email);
-      return;
-    }
-    
-    // Get the enhanced welcome email template
-    const welcomeTemplate = enhancedEmailTemplates.newsletter.welcome;
-    const personalizedEmail = personalizeEmail(welcomeTemplate, {
-      firstName,
-      name: firstName
-    });
-    
-    const resend = getResendClient();
-    if (!resend) {
-      console.error('Resend client not initialized - skipping welcome email');
-      return;
-    }
-    
-    await resend.emails.send({
-      from: 'Dr. Jana Rundle <jana@bloompsychologynorthaustin.com>',
-      to: subscriber.email,
-      subject: personalizedEmail.subject,
-      html: personalizedEmail.content,
-      tags: [
-        { name: 'sequence', value: 'newsletter' },
-        { name: 'step', value: 'welcome' },
-        { name: 'enhanced', value: 'true' }
-      ]
-    });
-    console.log('Enhanced welcome email sent to:', subscriber.email);
-  } catch (error) {
-    console.error('Failed to send welcome email:', error);
-    // Don't throw - we still want to save the subscriber even if email fails
-  }
 }
 
 export async function POST(request: NextRequest) {
@@ -123,14 +80,6 @@ export async function POST(request: NextRequest) {
           throw reactivateError;
         }
         
-        // Send welcome email for reactivated subscribers too
-        try {
-          await sendWelcomeEmail(reactivated);
-        } catch (emailError) {
-          console.error('Failed to send welcome email to reactivated subscriber:', emailError);
-          // Continue - subscriber is still reactivated
-        }
-        
         // Enroll in email sequences
         try {
           await enrollmentManager.enrollSubscriber({
@@ -179,14 +128,6 @@ export async function POST(request: NextRequest) {
     
     if (insertError) {
       throw insertError;
-    }
-
-    // Send welcome email
-    try {
-      await sendWelcomeEmail(subscriber);
-    } catch (emailError) {
-      console.error('Failed to send welcome email:', emailError);
-      // Continue - subscriber is still saved
     }
 
     // Enroll in email sequences
