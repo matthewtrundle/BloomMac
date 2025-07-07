@@ -1,10 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
-import { cookies } from 'next/headers';
+import { createSupabaseRouteHandlerClient } from '@/lib/supabase-server';
 
 export async function GET(request: NextRequest) {
   try {
-    const supabase = createRouteHandlerClient({ cookies });
+    const { supabase } = createSupabaseRouteHandlerClient(request);
     
     const { data: { session } } = await supabase.auth.getSession();
     if (!session) {
@@ -14,33 +13,30 @@ export async function GET(request: NextRequest) {
       );
     }
     
-    // Get user achievements from database, joining with the achievements table
+    // Get user achievements - the table already has all the data we need!
     const { data: userAchievements, error } = await supabase
       .from('user_achievements')
-      .select(`
-        id,
-        earned_at,
-        achievements (
-          id,
-          name,
-          description,
-          icon,
-          points
-        )
-      `)
+      .select('*')
       .eq('user_id', session.user.id)
       .order('earned_at', { ascending: false });
     
     if (error) {
-      console.error('Error fetching achievements:', error);
-      throw error;
+      console.error('Error fetching user achievements:', error);
+      // Return empty array instead of throwing
+      return NextResponse.json({
+        success: true,
+        achievements: []
+      });
     }
     
-    // Format achievements with proper structure
+    // The user_achievements table already has name, description, icon, points!
     const formattedAchievements = userAchievements?.map(ua => ({
       id: ua.id,
       earnedAt: ua.earned_at,
-      ...ua.achievements
+      points: ua.points || 0,
+      name: ua.name || 'Achievement',
+      description: ua.description || '',
+      icon: ua.icon || '🏆'
     })) || [];
     
     return NextResponse.json({

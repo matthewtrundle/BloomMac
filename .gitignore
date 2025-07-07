@@ -2,3 +2,16 @@
 /.next/
 
 **/.claude/settings.local.json
+# Dashboard fix temporary files
+*DASHBOARD*.sql
+*DASHBOARD*.md
+CLIPBOARD_*.sql
+COMPREHENSIVE_DASHBOARD_PLAN.md
+EXECUTE_DASHBOARD_FIX.md
+RUN_DASHBOARD_FIX.md
+SAFE_SQL_EXECUTION_GUIDE.md
+V3_FINAL_RLS_MIGRATION.sql
+V4_FINAL_MIGRATION.sql
+V5_FINAL_MIGRATION.sql
+.env.supabase
+.env.test
