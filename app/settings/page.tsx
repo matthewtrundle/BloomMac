@@ -10,7 +10,6 @@ import {
   Shield, 
   CreditCard, 
   User, 
-  Download, 
   Settings,
   ChevronRight,
   Lock,
@@ -167,12 +166,6 @@ export default function SettingsPage() {
     }
   };
 
-  const handleDataExport = async () => {
-    setLoading(true);
-    // Data export logic would go here
-    alert("Data export functionality is not yet implemented.");
-    setLoading(false);
-  };
 
   const handleAccountDelete = async () => {
     const confirmed = window.confirm(
@@ -524,26 +517,11 @@ export default function SettingsPage() {
                 <div className="p-6 border-b">
                   <h2 className="text-xl font-semibold">Data Management</h2>
                   <p className="text-bloom-gray-600 mt-1">
-                    Export or delete your account data
+                    Manage your account settings
                   </p>
                 </div>
-                <div className="p-6 space-y-6">
+                <div className="p-6">
                   <div>
-                    <h3 className="text-lg font-medium mb-4">Export Your Data</h3>
-                    <p className="text-bloom-gray-600 mb-4">
-                      Download all your data including profile information, course progress, and activity history.
-                    </p>
-                    <Button 
-                      onClick={handleDataExport}
-                      variant="outline"
-                      disabled={loading}
-                    >
-                      <Download className="h-4 w-4 mr-2" />
-                      Request Data Export
-                    </Button>
-                  </div>
-                  
-                  <div className="border-t pt-6">
                     <h3 className="text-lg font-medium mb-4 text-red-600">Danger Zone</h3>
                     <div className="p-4 border border-red-200 rounded-lg bg-red-50">
                       <div className="flex items-start">
