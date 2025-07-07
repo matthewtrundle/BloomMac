@@ -190,8 +190,11 @@ export async function updateBlogPost(slug: string, updates: Partial<BlogPost>): 
       updates.slug = finalSlug;
     }
     
-    // Remove fields that shouldn't be updated
-    const { id, created_at, updated_at, ...updateData } = updates;
+    // Create a new object for the update data, excluding fields that shouldn't be updated
+    const updateData: Partial<BlogPost> = { ...updates };
+    delete updateData.id;
+    delete updateData.created_at;
+    delete updateData.updated_at;
     
     const { data, error } = await supabaseAdmin
       .from('blog_posts')

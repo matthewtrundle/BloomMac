@@ -94,23 +94,7 @@ export async function PUT(request: NextRequest) {
     const userEmail = request.headers.get('x-user-email');
     const userId = request.headers.get('x-user-id');
     
-    // First, try to create the table if it doesn't exist
-    // This is a one-time operation that will fail silently if table exists
-    await supabase.rpc('exec_sql', {
-      sql: `
-        CREATE TABLE IF NOT EXISTS system_settings (
-          id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-          key VARCHAR(255) UNIQUE NOT NULL,
-          value JSONB NOT NULL,
-          updated_by VARCHAR(255),
-          updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
-        );
-      `
-    }).catch(() => {
-      // Ignore error if table already exists or RPC doesn't exist
-    });
-
-    // Try to upsert the settings
+    // Upsert the settings
     const { data, error } = await supabase
       .from('system_settings')
       .upsert({
@@ -125,15 +109,12 @@ export async function PUT(request: NextRequest) {
       .single();
 
     if (error) {
-      // If upsert fails, try insert
-      if (error.code === '42P01') {
-        // Table doesn't exist, we can't create it via API
-        return NextResponse.json({
-          error: 'Settings table not initialized. Please contact support.',
-          requiresSetup: true
-        }, { status: 503 });
-      }
-      throw error;
+      console.error('Error saving settings:', error);
+      // If upsert fails, it's a genuine error now
+      return NextResponse.json({
+        error: 'Failed to save settings to the database.',
+        details: error.message
+      }, { status: 500 });
     }
 
     // Log the settings update

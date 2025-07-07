@@ -1,0 +1,7 @@
+CREATE TABLE IF NOT EXISTS system_settings (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  key VARCHAR(255) UNIQUE NOT NULL,
+  value JSONB NOT NULL,
+  updated_by VARCHAR(255),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
