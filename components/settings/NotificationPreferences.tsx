@@ -23,7 +23,6 @@ interface NotificationSetting {
   icon: React.ReactNode;
   email: boolean;
   sms: boolean;
-  push: boolean;
 }
 
 export default function NotificationPreferences() {
@@ -39,8 +38,7 @@ export default function NotificationPreferences() {
       description: 'Get reminders before your scheduled appointments',
       icon: <Calendar className="h-5 w-5" />,
       email: true,
-      sms: true,
-      push: true
+      sms: true
     },
     {
       key: 'course_updates',
@@ -48,8 +46,7 @@ export default function NotificationPreferences() {
       description: 'New lessons, content updates, and announcements',
       icon: <GraduationCap className="h-5 w-5" />,
       email: true,
-      sms: false,
-      push: true
+      sms: false
     },
     {
       key: 'billing_updates',
@@ -57,8 +54,7 @@ export default function NotificationPreferences() {
       description: 'Payment confirmations and billing notifications',
       icon: <DollarSign className="h-5 w-5" />,
       email: true,
-      sms: false,
-      push: false
+      sms: false
     }
   ]);
 
@@ -112,8 +108,7 @@ export default function NotificationPreferences() {
         ...acc,
         [notif.key]: {
           email: notif.email,
-          sms: notif.sms,
-          push: notif.push
+          sms: notif.sms
         }
       }), {});
 
@@ -139,7 +134,7 @@ export default function NotificationPreferences() {
     }
   }
 
-  const toggleNotification = (key: string, type: 'email' | 'sms' | 'push') => {
+  const toggleNotification = (key: string, type: 'email' | 'sms') => {
     setNotifications(prev => prev.map(notif => 
       notif.key === key ? { ...notif, [type]: !notif[type] } : notif
     ));
@@ -205,18 +200,6 @@ export default function NotificationPreferences() {
                       </span>
                     </label>
                     
-                    <label className="flex items-center space-x-2 cursor-pointer">
-                      <input
-                        type="checkbox"
-                        checked={notif.push}
-                        onChange={() => toggleNotification(notif.key, 'push')}
-                        className="rounded text-bloompink focus:ring-bloompink"
-                      />
-                      <span className="text-sm flex items-center">
-                        <Bell className="h-4 w-4 mr-1" />
-                        Push
-                      </span>
-                    </label>
                   </div>
                 </div>
               </div>
