@@ -77,7 +77,7 @@ export default function NotificationPreferences() {
         .from('user_preferences')
         .select('*')
         .eq('user_id', user!.id)
-        .single();
+        .maybeSingle();
 
       if (error && error.code !== 'PGRST116') throw error;
 
