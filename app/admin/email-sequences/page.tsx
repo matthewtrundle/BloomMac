@@ -1,131 +1,128 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
+
+// Define a more accurate interface based on what the API will likely return
+interface SequenceEmail {
+  id: string;
+  position: number;
+  subject: string;
+  delay_hours: number;
+  delay_days: number;
+  status: 'active' | 'inactive';
+  template_name: string;
+}
 
 interface EmailSequence {
   id: string;
   name: string;
   description: string;
-  steps: {
-    step: number;
-    subject: string;
-    delay_hours: number;
-    active: boolean;
-  }[];
+  trigger: string;
+  status: 'active' | 'paused' | 'inactive';
+  emails: SequenceEmail[];
 }
 
-const defaultSequences: EmailSequence[] = [
-  {
-    id: 'contact_followup',
-    name: 'Contact Form Follow-up',
-    description: 'Automated sequence for contact form submissions',
-    steps: [
-      { step: 1, subject: 'Thank you for reaching out', delay_hours: 0, active: true },
-      { step: 2, subject: 'Following up on your consultation request', delay_hours: 72, active: true },
-      { step: 3, subject: 'Resources while you decide', delay_hours: 168, active: false }
-    ]
-  },
-  {
-    id: 'booking_confirmation',
-    name: 'Booking Confirmation',
-    description: 'Sequence for confirmed consultations',
-    steps: [
-      { step: 1, subject: 'Your consultation is confirmed', delay_hours: 0, active: true },
-      { step: 2, subject: 'Reminder: Your consultation is tomorrow', delay_hours: 24, active: true },
-      { step: 3, subject: 'How was your consultation?', delay_hours: 48, active: true }
-    ]
-  },
-  {
-    id: 'lead_nurture',
-    name: 'Lead Nurture',
-    description: 'Long-term nurture sequence for resource downloads',
-    steps: [
-      { step: 1, subject: 'Thanks for downloading our resource', delay_hours: 0, active: true },
-      { step: 2, subject: 'More helpful resources for you', delay_hours: 72, active: true },
-      { step: 3, subject: 'Success story: How therapy helped Sarah', delay_hours: 168, active: true },
-      { step: 4, subject: 'Ready to take the next step?', delay_hours: 336, active: true }
-    ]
-  }
-];
-
 export default function EmailSequencesAdmin() {
-  const [sequences, setSequences] = useState<EmailSequence[]>(defaultSequences);
-  const [authenticated, setAuthenticated] = useState(false);
-  const [password, setPassword] = useState('');
+  const router = useRouter();
+  const [sequences, setSequences] = useState<EmailSequence[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [testEmail, setTestEmail] = useState('');
 
-  const handleAuth = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (password === 'bloom2024admin') {
-      setAuthenticated(true);
-    } else {
-      setError('Invalid password');
+  useEffect(() => {
+    checkAuthAndLoadData();
+  }, []);
+
+  const checkAuthAndLoadData = async () => {
+    setIsLoading(true);
+    try {
+      // Check auth by hitting a protected endpoint
+      const authRes = await fetch('/api/admin/activity-log?limit=1');
+      if (!authRes.ok) {
+        router.push('/admin/login');
+        return;
+      }
+      
+      // Fetch sequence data
+      const sequencesRes = await fetch('/api/email-automations');
+      if (!sequencesRes.ok) {
+        throw new Error('Failed to fetch email sequences');
+      }
+      const data = await sequencesRes.json();
+      setSequences(data.sequences || []);
+
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An unknown error occurred');
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  const toggleStep = (sequenceId: string, stepNumber: number) => {
-    setSequences(prev => 
-      prev.map(seq => 
-        seq.id === sequenceId 
-          ? {
-              ...seq,
-              steps: seq.steps.map(step => 
-                step.step === stepNumber 
-                  ? { ...step, active: !step.active }
-                  : step
-              )
-            }
-          : seq
-      )
-    );
-    setSuccessMessage('Sequence updated successfully');
+  const toggleStep = async (sequenceId: string, emailId: string, currentStatus: 'active' | 'inactive') => {
+    const newStatus = currentStatus === 'active' ? 'inactive' : 'active';
+    try {
+        const res = await fetch('/api/email-automations/emails', {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ emailId, status: newStatus }),
+        });
+        if (!res.ok) throw new Error('Failed to update email status');
+        
+        setSuccessMessage('Email status updated successfully');
+        checkAuthAndLoadData(); // Refresh data
+    } catch (err) {
+        setError(err instanceof Error ? err.message : 'Failed to update status');
+    }
     setTimeout(() => setSuccessMessage(''), 3000);
   };
 
-  const updateDelay = (sequenceId: string, stepNumber: number, newDelay: number) => {
-    setSequences(prev => 
-      prev.map(seq => 
-        seq.id === sequenceId 
-          ? {
-              ...seq,
-              steps: seq.steps.map(step => 
-                step.step === stepNumber 
-                  ? { ...step, delay_hours: newDelay }
-                  : step
-              )
-            }
-          : seq
-      )
-    );
+  const updateDelay = async (sequenceId: string, emailId: string, delay_days: number, delay_hours: number) => {
+    try {
+        const res = await fetch('/api/email-automations/emails', {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ emailId, delay_days, delay_hours }),
+        });
+        if (!res.ok) throw new Error('Failed to update delay');
+        
+        setSuccessMessage('Delay updated successfully');
+        // No need to full-reload for this, can update state locally for better UX
+        setSequences(prev => 
+          prev.map(seq => 
+            seq.id === sequenceId 
+              ? {
+                  ...seq,
+                  emails: seq.emails.map(email => 
+                    email.id === emailId
+                      ? { ...email, delay_days, delay_hours }
+                      : email
+                  )
+                }
+              : seq
+          )
+        );
+    } catch (err) {
+        setError(err instanceof Error ? err.message : 'Failed to update delay');
+    }
+    setTimeout(() => setSuccessMessage(''), 3000);
   };
 
-  const sendTestEmail = async (sequenceId: string, stepNumber: number) => {
+  const sendTestEmail = async (sequenceId: string, emailId: string) => {
     if (!testEmail) {
       setError('Please enter a test email address');
       return;
     }
 
     try {
-      // Find the sequence and step
-      const sequence = sequences.find(s => s.id === sequenceId);
-      const email = sequence?.emails[stepNumber];
-      
-      if (!email) {
-        throw new Error('Email template not found');
-      }
-
-      // Use the test-email endpoint
       const response = await fetch('/api/test-email', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           to: testEmail,
-          subject: email.subject,
-          html: email.content,
-          text: email.content.replace(/<[^>]*>/g, '')
+          emailId: emailId, // Send emailId to let backend find the template
         }),
       });
 
@@ -136,41 +133,19 @@ export default function EmailSequencesAdmin() {
       }
 
       setSuccessMessage(`Test email sent to ${testEmail}`);
-      setTimeout(() => setSuccessMessage(''), 3000);
-    } catch (error) {
-      setError(error instanceof Error ? error.message : 'Failed to send test email');
-      setTimeout(() => setError(''), 5000);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to send test email');
     }
+    setTimeout(() => {
+        setSuccessMessage('');
+        setError('');
+    }, 5000);
   };
 
-  if (!authenticated) {
+  if (isLoading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-        <div className="bg-white rounded-lg shadow-md p-8 max-w-md w-full">
-          <h1 className="text-2xl font-bold text-gray-900 mb-6 text-center">Email Sequences Admin</h1>
-          <form onSubmit={handleAuth} className="space-y-4">
-            <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
-                Admin Password
-              </label>
-              <input
-                type="password"
-                id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-bloompink focus:border-transparent"
-                required
-              />
-            </div>
-            {error && <p className="text-red-600 text-sm">{error}</p>}
-            <button
-              type="submit"
-              className="w-full bg-bloompink hover:bg-[#B03979] text-white font-bold py-2 px-4 rounded transition-colors"
-            >
-              Access Dashboard
-            </button>
-          </form>
-        </div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-bloom-primary"></div>
       </div>
     );
   }
@@ -246,40 +221,49 @@ export default function EmailSequencesAdmin() {
                       <tr className="border-b border-gray-200">
                         <th className="text-left py-3 px-4 font-medium text-gray-900">Step</th>
                         <th className="text-left py-3 px-4 font-medium text-gray-900">Subject</th>
-                        <th className="text-left py-3 px-4 font-medium text-gray-900">Delay (hours)</th>
+                        <th className="text-left py-3 px-4 font-medium text-gray-900">Delay</th>
                         <th className="text-left py-3 px-4 font-medium text-gray-900">Status</th>
                         <th className="text-left py-3 px-4 font-medium text-gray-900">Actions</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {sequence.steps.map((step) => (
-                        <tr key={step.step} className="border-b border-gray-100">
-                          <td className="py-3 px-4 text-gray-900">{step.step}</td>
-                          <td className="py-3 px-4 text-gray-900">{step.subject}</td>
+                      {sequence.emails.map((email) => (
+                        <tr key={email.id} className="border-b border-gray-100">
+                          <td className="py-3 px-4 text-gray-900">{email.position}</td>
+                          <td className="py-3 px-4 text-gray-900">{email.subject}</td>
                           <td className="py-3 px-4">
-                            <input
-                              type="number"
-                              value={step.delay_hours}
-                              onChange={(e) => updateDelay(sequence.id, step.step, parseInt(e.target.value))}
-                              className="w-20 px-2 py-1 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-bloompink focus:border-transparent"
-                              min="0"
-                            />
+                            <div className="flex gap-2">
+                                <input
+                                type="number"
+                                value={email.delay_days}
+                                onChange={(e) => updateDelay(sequence.id, email.id, parseInt(e.target.value), email.delay_hours)}
+                                className="w-20 px-2 py-1 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-bloompink focus:border-transparent"
+                                min="0"
+                                /> days
+                                <input
+                                type="number"
+                                value={email.delay_hours}
+                                onChange={(e) => updateDelay(sequence.id, email.id, email.delay_days, parseInt(e.target.value))}
+                                className="w-20 px-2 py-1 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-bloompink focus:border-transparent"
+                                min="0"
+                                /> hours
+                            </div>
                           </td>
                           <td className="py-3 px-4">
                             <button
-                              onClick={() => toggleStep(sequence.id, step.step)}
+                              onClick={() => toggleStep(sequence.id, email.id, email.status)}
                               className={`px-3 py-1 rounded-full text-xs font-medium ${
-                                step.active
+                                email.status === 'active'
                                   ? 'bg-green-100 text-green-800'
                                   : 'bg-red-100 text-red-800'
                               }`}
                             >
-                              {step.active ? 'Active' : 'Inactive'}
+                              {email.status}
                             </button>
                           </td>
                           <td className="py-3 px-4">
                             <button
-                              onClick={() => sendTestEmail(sequence.id, step.step)}
+                              onClick={() => sendTestEmail(sequence.id, email.id)}
                               disabled={!testEmail}
                               className="bg-bloompink hover:bg-[#B03979] disabled:opacity-50 disabled:cursor-not-allowed text-white px-3 py-1 rounded text-xs font-medium transition-colors"
                             >
@@ -301,11 +285,11 @@ export default function EmailSequencesAdmin() {
           <h2 className="text-xl font-semibold text-gray-900 mb-4">Email Sequence Statistics</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="text-center">
-              <p className="text-3xl font-bold text-bloompink">3</p>
+              <p className="text-3xl font-bold text-bloompink">{sequences.length}</p>
               <p className="text-gray-600">Active Sequences</p>
             </div>
             <div className="text-center">
-              <p className="text-3xl font-bold text-green-600">8</p>
+              <p className="text-3xl font-bold text-green-600">{sequences.reduce((acc, seq) => acc + seq.emails.length, 0)}</p>
               <p className="text-gray-600">Active Steps</p>
             </div>
             <div className="text-center">

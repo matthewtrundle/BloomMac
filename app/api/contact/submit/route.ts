@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createPublicClient } from '@/lib/supabase-server';
-import { supabaseAdmin } from '@/lib/supabase';
+import { createPublicClient, supabaseAdmin } from '@/lib/supabase-server';
 import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
 import { z } from 'zod';
 import { enrollmentManager } from '@/lib/email-automation/enrollment-manager';
@@ -16,6 +15,41 @@ const contactSchema = z.object({
   concerns: z.string().optional(),
   message: z.string().min(1, 'Message is required').optional()
 });
+
+async function findOrCreateSubscriber(email: string, firstName?: string, lastName?: string) {
+    const emailLower = email.toLowerCase();
+    
+    // Check if subscriber exists
+    let { data: subscriber, error } = await supabaseAdmin
+        .from('subscribers')
+        .select('id')
+        .eq('email', emailLower)
+        .single();
+
+    if (error && error.code !== 'PGRST116') { // Ignore 'not found' error
+        throw error;
+    }
+
+    // Create if not found
+    if (!subscriber) {
+        const { data: newSubscriber, error: insertError } = await supabaseAdmin
+            .from('subscribers')
+            .insert({
+                email: emailLower,
+                first_name: firstName,
+                last_name: lastName,
+                status: 'active', // Or 'transactional' if you want to differentiate
+                source: 'contact_form'
+            })
+            .select('id')
+            .single();
+        
+        if (insertError) throw insertError;
+        subscriber = newSubscriber;
+    }
+
+    return subscriber;
+}
 
 export async function POST(request: NextRequest) {
   // Apply rate limiting
@@ -110,132 +144,216 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Trigger contact form follow-up email sequence
-    console.log('Contact form submission successful:', submission?.id);
-    
+    // Send immediate notification email to Jana
     try {
-      // First, check if subscriber exists or create one
-      const { data: existingSubscriber } = await supabaseAdmin
-        .from('subscribers')
-        .select('id')
-        .eq('email', email.toLowerCase())
-        .single();
+      const { sendEmail } = await import('@/lib/resend-client');
       
-      let subscriberId;
-      if (existingSubscriber) {
-        subscriberId = existingSubscriber.id;
+      if (!sendEmail) {
+        console.log('Email service not configured, skipping email notification');
       } else {
-        // Create subscriber record for contact form submission
-        const { data: newSubscriber, error: subscriberError } = await supabaseAdmin
-          .from('subscribers')
-          .insert({
-            email: email.toLowerCase(),
-            first_name: name.split(' ')[0] || 'Friend',
-            last_name: name.split(' ').slice(1).join(' ') || '',
-            status: 'pending', // Not subscribed to newsletter yet
-            source: 'contact_form',
-            metadata: {
-              contact_submission_id: submission?.id,
-              service: service || 'general',
-              initial_message: message
-            }
-          })
-          .select()
-          .single();
-        
-        if (subscriberError || !newSubscriber) {
-          console.error('Failed to create subscriber:', subscriberError);
-          throw subscriberError;
-        }
-        subscriberId = newSubscriber.id;
-      }
       
-      // Enroll in contact form sequence
-      await enrollmentManager.enrollSubscriber({
-        subscriberId: subscriberId,
-        trigger: 'contact_form',
-        source: 'contact_form_submission',
-        metadata: {
-          submission_id: submission?.id,
-          service: service || 'general',
-          message: message
-        }
+      const displayName = name || 'Anonymous';
+      const serviceDisplay = service || 'General Inquiry';
+      
+      const notificationHtml = `
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; color: #333; line-height: 1.6; margin: 0; padding: 0; }
+    .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+    .header { background: linear-gradient(135deg, #1e3a5f 0%, #f8b5c4 100%); padding: 20px; border-radius: 8px 8px 0 0; text-align: center; }
+    .header h1 { color: white; margin: 0; font-size: 24px; }
+    .content { background: white; padding: 30px; border: 1px solid #e5e5e5; border-top: none; border-radius: 0 0 8px 8px; }
+    .field { margin-bottom: 15px; display: flex; }
+    .field-name { font-weight: 600; color: #1e3a5f; width: 120px; flex-shrink: 0; }
+    .field-value { flex: 1; }
+    .message-box { background: #f8f9fa; border-left: 4px solid #f8b5c4; padding: 15px; margin: 15px 0; border-radius: 4px; }
+    .footer { text-align: center; margin-top: 20px; font-size: 14px; color: #666; }
+    .cta-button { display: inline-block; background: #1e3a5f; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; margin: 10px 0; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>📧 New Contact Form Submission</h1>
+      <p style="color: white; margin: 5px 0 0 0;">Bloom Psychology Website</p>
+    </div>
+    
+    <div class="content">
+      <div class="field">
+        <div class="field-name">Name:</div>
+        <div class="field-value">${displayName}</div>
+      </div>
+      
+      <div class="field">
+        <div class="field-name">Email:</div>
+        <div class="field-value"><a href="mailto:${email}" style="color: #1e3a5f;">${email}</a></div>
+      </div>
+      
+      ${phone ? `<div class="field">
+        <div class="field-name">Phone:</div>
+        <div class="field-value"><a href="tel:${phone}" style="color: #1e3a5f;">${phone}</a></div>
+      </div>` : ''}
+      
+      <div class="field">
+        <div class="field-name">Service:</div>
+        <div class="field-value">${serviceDisplay}</div>
+      </div>
+      
+      <div class="field">
+        <div class="field-name">Page:</div>
+        <div class="field-value">${page}</div>
+      </div>
+      
+      <div class="message-box">
+        <strong>Message:</strong><br>
+        ${message.replace(/\n/g, '<br>')}
+      </div>
+      
+      <div style="text-align: center; margin-top: 30px;">
+        <a href="mailto:${email}" class="cta-button">Reply to ${displayName}</a>
+      </div>
+    </div>
+    
+    <div class="footer">
+      <p>Submitted on ${new Date().toLocaleString('en-US', {
+        timeZone: 'America/Chicago',
+        dateStyle: 'full',
+        timeStyle: 'short'
+      })} (Austin Time)</p>
+      <p>You can view all submissions in your <a href="https://bloompsychologynorthaustin.com/admin/contacts" style="color: #1e3a5f;">admin dashboard</a></p>
+    </div>
+  </div>
+</body>
+</html>`;
+
+      await sendEmail({
+        from: 'Bloom Psychology Website <noreply@bloompsychologynorthaustin.com>',
+        to: ['jana@bloompsychologynorthaustin.com', 'matt@bloompsychologynorthaustin.com'],
+        subject: `🌸 New Contact: ${displayName} - ${serviceDisplay}`,
+        html: notificationHtml,
+        tags: [
+          { name: 'type', value: 'contact_notification' },
+          { name: 'service', value: service || 'general' }
+        ]
       });
+
+      console.log('Contact notification email sent to Jana');
+
+      // Also send a confirmation email to the customer
+      const confirmationHtml = `
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; color: #333; line-height: 1.6; margin: 0; padding: 0; background: #f8f9fa; }
+    .container { max-width: 600px; margin: 20px auto; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+    .header { background: linear-gradient(135deg, #1e3a5f 0%, #f8b5c4 100%); padding: 30px; text-align: center; }
+    .header h1 { color: white; margin: 0; font-size: 24px; }
+    .header p { color: white; margin: 10px 0 0 0; opacity: 0.9; }
+    .content { padding: 30px; }
+    .message-box { background: #f8f9fa; border-left: 4px solid #f8b5c4; padding: 20px; margin: 20px 0; border-radius: 4px; }
+    .next-steps { background: #e8f5e9; border: 1px solid #c8e6c9; padding: 20px; border-radius: 6px; margin: 20px 0; }
+    .footer { background: #f8f9fa; padding: 20px; text-align: center; font-size: 14px; color: #666; }
+    .cta-button { display: inline-block; background: #1e3a5f; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; margin: 10px 0; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Thank You for Reaching Out! 🌸</h1>
+      <p>We've received your message and will respond soon</p>
+    </div>
+    
+    <div class="content">
+      <p>Dear ${displayName},</p>
       
-      console.log('Contact follow-up email sequence initiated');
-    } catch (emailError) {
-      console.error('Failed to initiate follow-up sequence:', emailError);
-      // Don't fail the submission if email fails
-    }
-
-    // Send admin notification email
-    try {
-      const adminEmails = ['drjana@bloompsychologynorthaustin.com', 'matt@bloompsychologynorthaustin.com'];
+      <p>Thank you for contacting Bloom Psychology. We truly appreciate you taking the time to reach out to us.</p>
       
-      for (const adminEmail of adminEmails) {
-        const emailHtml = `
-          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-            <div style="background-color: #8B9B7A; padding: 20px; text-align: center;">
-              <h1 style="color: white; margin: 0;">New Contact Form Submission</h1>
-            </div>
-            <div style="padding: 30px; background-color: #f9f9f9;">
-              <h2 style="color: #333; margin-bottom: 20px;">Contact Details</h2>
-              <div style="background-color: white; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
-                <p style="margin: 5px 0;"><strong>Name:</strong> ${name}</p>
-                <p style="margin: 5px 0;"><strong>Email:</strong> ${email}</p>
-                ${phone ? `<p style="margin: 5px 0;"><strong>Phone:</strong> ${phone}</p>` : ''}
-                <p style="margin: 5px 0;"><strong>Service Interest:</strong> ${service || 'General'}</p>
-                <p style="margin: 5px 0;"><strong>Submission ID:</strong> ${submission?.id}</p>
-                <p style="margin: 5px 0;"><strong>Page:</strong> ${page}</p>
-                <p style="margin: 5px 0;"><strong>Date:</strong> ${new Date().toLocaleString()}</p>
-              </div>
-              <h3 style="color: #333;">Message:</h3>
-              <div style="background-color: white; padding: 20px; border-radius: 8px; white-space: pre-wrap; font-family: Georgia, serif; line-height: 1.6;">
-                ${message}
-              </div>
-              <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee;">
-                <p style="color: #666; font-size: 14px; margin: 0;">
-                  <strong>Action Required:</strong> Please respond to this inquiry within 24-48 hours.
-                </p>
-              </div>
-            </div>
-          </div>
-        `;
+      <div class="message-box">
+        <strong>Your message:</strong><br>
+        "${message}"
+      </div>
+      
+      <div class="next-steps">
+        <h3 style="margin-top: 0; color: #2e7d32;">📅 What happens next?</h3>
+        <ul style="margin: 0; padding-left: 20px;">
+          <li><strong>Within 24-48 hours:</strong> Dr. Jana Rundle will personally review your message</li>
+          <li><strong>Response:</strong> We'll email you back to schedule a free 15-minute consultation</li>
+          <li><strong>Questions:</strong> Feel free to call or text us at <a href="tel:+15128989510" style="color: #1e3a5f;">(512) 898-9510</a></li>
+        </ul>
+      </div>
+      
+      <p>In the meantime, feel free to explore our resources:</p>
+      <ul>
+        <li><a href="https://bloompsychologynorthaustin.com/resources" style="color: #1e3a5f;">Free Mental Health Resources</a></li>
+        <li><a href="https://bloompsychologynorthaustin.com/new-mom-program" style="color: #1e3a5f;">New Mom Program</a></li>
+        <li><a href="https://bloompsychologynorthaustin.com/courses" style="color: #1e3a5f;">Online Courses</a></li>
+      </ul>
+      
+      <p>Thank you for choosing Bloom Psychology. We look forward to supporting you on your journey.</p>
+      
+      <p>Warmly,<br>
+      <strong>Dr. Jana Rundle</strong><br>
+      Licensed Clinical Psychologist<br>
+      Bloom Psychology</p>
+    </div>
+    
+    <div class="footer">
+      <p><strong>Bloom Psychology</strong><br>
+      📧 jana@bloompsychologynorthaustin.com<br>
+      📞 (512) 898-9510<br>
+      🌐 bloompsychologynorthaustin.com</p>
+      
+      <p style="font-size: 12px; margin-top: 15px;">
+        <strong>Crisis Support:</strong> If you're experiencing a mental health emergency, 
+        please call 911 or text/call 988 for the Suicide & Crisis Lifeline.
+      </p>
+    </div>
+  </div>
+</body>
+</html>`;
 
-        // Send using the internal email API
-        const response = await fetch(new URL('/api/emails/send', request.url), {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'x-api-key': process.env.INTERNAL_API_KEY || 'fallback-key'
-          },
-          body: JSON.stringify({
-            to: adminEmail,
-            subject: `New Contact Form Submission from ${name}`,
-            template: 'contact-admin-notification',
-            data: {
-              name,
-              email,
-              phone,
-              service: service || 'General',
-              message,
-              submissionId: submission?.id,
-              page,
-              timestamp: new Date().toLocaleString()
-            }
-          })
-        });
+      await sendEmail({
+        from: 'Dr. Jana Rundle <jana@bloompsychologynorthaustin.com>',
+        to: email,
+        subject: `Thank you for contacting Bloom Psychology, ${displayName}`,
+        html: confirmationHtml,
+        tags: [
+          { name: 'type', value: 'contact_confirmation' },
+          { name: 'service', value: service || 'general' }
+        ]
+      });
 
-        if (response.ok) {
-          console.log(`Admin notification sent to ${adminEmail}`);
-        } else {
-          console.error(`Failed to send admin notification to ${adminEmail}:`, await response.text());
-        }
+      console.log('Confirmation email sent to customer:', email);
       }
-    } catch (adminEmailError) {
-      console.error('Failed to send admin notification emails:', adminEmailError);
-      // Don't fail the submission if admin email fails
+    } catch (emailError) {
+      console.error('Failed to send notification email:', emailError);
+      // Don't fail the form submission if notification email fails
     }
+
+    // Trigger contact form email automation sequence for customer
+    try {
+        const subscriber = await findOrCreateSubscriber(email, data.firstName, data.lastName);
+        if (subscriber) {
+            await enrollmentManager.enrollSubscriber({
+                subscriberId: subscriber.id,
+                trigger: 'contact_form',
+                source: 'contact_form_submission',
+                metadata: {
+                    service: service || 'general',
+                    page,
+                }
+            });
+            console.log('Successfully enrolled contact form submitter in sequence:', email);
+        }
+    } catch (emailError) {
+      console.error('Email automation trigger failed:', emailError);
+      // Don't fail the main submission if email automation fails
+    }
+
+    // Analytics tracking is handled by the RPC function
 
     return NextResponse.json({
       success: true,
