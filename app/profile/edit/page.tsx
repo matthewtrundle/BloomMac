@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { useAuth } from '@/contexts/AuthContext';
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import Button from '@/components/ui/Button';
 
 interface UserProfile {
@@ -21,11 +21,12 @@ interface UserProfile {
 
 export default function SimpleEditProfilePage() {
   const router = useRouter();
-  const { user, loading: authLoading } = useAuth();
+  const supabase = createClientComponentClient();
   
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
+  const [user, setUser] = useState<any>(null);
   const [profile, setProfile] = useState<UserProfile>({
     id: '',
     first_name: '',
@@ -41,10 +42,16 @@ export default function SimpleEditProfilePage() {
   });
 
   useEffect(() => {
-    if (!authLoading && !user) {
-      router.push('/auth/login');
-    }
-  }, [user, authLoading, router]);
+    const getUser = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        router.push('/auth/login');
+      } else {
+        setUser(session.user);
+      }
+    };
+    getUser();
+  }, [router, supabase.auth]);
 
   useEffect(() => {
     if (user) {
@@ -58,28 +65,29 @@ export default function SimpleEditProfilePage() {
     try {
       setLoading(true);
       
-      const response = await fetch('/api/profile/get');
+      const { data, error } = await supabase
+        .from('user_profiles')
+        .select('*')
+        .eq('id', user.id)
+        .single();
 
-      if (response.ok) {
-        const data = await response.json();
-        if (data.profile) {
-          setProfile({
-            id: data.profile.id || user.id,
-            first_name: data.profile.first_name || user.user_metadata?.first_name || '',
-            last_name: data.profile.last_name || user.user_metadata?.last_name || '',
-            phone: data.profile.phone || '',
-            postpartum_date: data.profile.postpartum_date || '',
-            baby_due_date: data.profile.baby_due_date || '',
-            number_of_children: data.profile.number_of_children || 1,
-            emergency_contact_name: data.profile.emergency_contact_name || '',
-            emergency_contact_phone: data.profile.emergency_contact_phone || '',
-            emergency_contact_relationship: data.profile.emergency_contact_relationship || '',
-            timezone: data.profile.timezone || Intl.DateTimeFormat().resolvedOptions().timeZone
-          });
-        }
-      } else {
-        console.error('Failed to fetch profile:', response.status);
+      if (error) {
+        console.error('Failed to fetch profile:', error);
         setMessage({ type: 'error', text: 'Failed to load profile data' });
+      } else if (data) {
+        setProfile({
+          id: data.id || user.id,
+          first_name: data.first_name || user.user_metadata?.first_name || '',
+          last_name: data.last_name || user.user_metadata?.last_name || '',
+          phone: data.phone || '',
+          postpartum_date: data.postpartum_date || '',
+          baby_due_date: data.baby_due_date || '',
+          number_of_children: data.number_of_children || 1,
+          emergency_contact_name: data.emergency_contact_name || '',
+          emergency_contact_phone: data.emergency_contact_phone || '',
+          emergency_contact_relationship: data.emergency_contact_relationship || '',
+          timezone: data.timezone || Intl.DateTimeFormat().resolvedOptions().timeZone
+        });
       }
     } catch (error) {
       console.error('Error fetching profile:', error);
@@ -97,12 +105,9 @@ export default function SimpleEditProfilePage() {
     setMessage(null);
 
     try {
-      const response = await fetch('/api/profile/save', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
+      const { data, error } = await supabase
+        .from('user_profiles')
+        .update({
           first_name: profile.first_name.trim(),
           last_name: profile.last_name.trim(),
           phone: profile.phone?.trim() || null,
@@ -113,43 +118,33 @@ export default function SimpleEditProfilePage() {
           emergency_contact_phone: profile.emergency_contact_phone?.trim() || null,
           emergency_contact_relationship: profile.emergency_contact_relationship?.trim() || null,
           timezone: profile.timezone || null,
-        }),
-      });
+          updated_at: new Date().toISOString(),
+        })
+        .eq('id', user.id)
+        .select()
+        .single();
 
-      if (response.ok) {
-        const data = await response.json();
+      if (error) {
+        console.error('Profile update failed:', error);
+        setMessage({ type: 'error', text: error.message || 'Failed to update profile.' });
+      } else {
         setMessage({ type: 'success', text: 'Profile updated successfully!' });
-        // Update local state with the saved data
-        if (data.profile) {
-          setProfile(prev => ({ ...prev, ...data.profile }));
+        if (data) {
+          setProfile(prev => ({ ...prev, ...data }));
         }
         setTimeout(() => {
           router.push('/dashboard');
         }, 2000);
-      } else {
-        const errorData = await response.json();
-        console.error('Profile update failed:', errorData);
-        
-        // Handle validation errors from the /save endpoint
-        let errorMessage = errorData.error || 'Failed to update profile. Please try again.';
-        if (errorData.validationErrors && errorData.validationErrors.length > 0) {
-          errorMessage = errorData.error; // This already contains formatted validation errors
-        }
-        
-        setMessage({ 
-          type: 'error', 
-          text: errorMessage
-        });
       }
     } catch (error) {
       console.error('Error updating profile:', error);
-      setMessage({ type: 'error', text: 'Failed to update profile' });
+      setMessage({ type: 'error', text: 'An unexpected error occurred.' });
     } finally {
       setSaving(false);
     }
   };
 
-  if (authLoading || loading) {
+  if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-bloom-sage-50 via-white to-bloom-pink-50 flex items-center justify-center">
         <div className="text-center">

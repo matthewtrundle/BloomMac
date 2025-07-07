@@ -2,13 +2,11 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { useAuth } from '@/contexts/AuthContext';
-import { useSupabaseClient } from '@supabase/auth-helpers-react';
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import AppointmentScheduler from '@/components/appointments/AppointmentScheduler';
 import PaymentMethodManager from '@/components/payments/PaymentMethodManager';
-import { getUserPaymentHistory, getUserPaymentMethods } from '@/lib/payment-management-client';
 import { Calendar, Clock, AlertCircle, ExternalLink } from 'lucide-react';
 import Button from '@/components/ui/Button';
 
@@ -38,15 +36,27 @@ interface PaymentRecord {
 }
 
 export default function AppointmentsPage() {
-  const { user, loading: authLoading } = useAuth();
   const router = useRouter();
-  const supabase = useSupabaseClient();
+  const supabase = createClientComponentClient();
+  const [user, setUser] = useState<any>(null);
   
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [paymentHistory, setPaymentHistory] = useState<PaymentRecord[]>([]);
   const [paymentMethods, setPaymentMethods] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<'schedule' | 'history' | 'payments'>('schedule');
+
+  useEffect(() => {
+    const getUser = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        router.push('/auth/login');
+      } else {
+        setUser(session.user);
+      }
+    };
+    getUser();
+  }, [router, supabase.auth]);
 
   // Handle hash navigation to specific tabs
   useEffect(() => {
@@ -57,17 +67,6 @@ export default function AppointmentsPage() {
       setActiveTab('history');
     }
   }, []);
-
-  const handleCancelAppointment = async (appointmentId: string) => {
-    // Refresh appointments after cancellation
-    fetchUserData();
-  };
-
-  useEffect(() => {
-    if (!authLoading && !user) {
-      router.push('/auth/login');
-    }
-  }, [user, authLoading, router]);
 
   useEffect(() => {
     if (user) {
@@ -87,17 +86,24 @@ export default function AppointmentsPage() {
         .eq('user_id', user.id)
         .order('appointment_date', { ascending: false });
 
-      if (!aptError && appointmentData) {
-        setAppointments(appointmentData);
-      }
+      if (aptError) throw aptError;
+      setAppointments(appointmentData || []);
 
       // Fetch payment history
-      const paymentData = await getUserPaymentHistory(user.id);
-      setPaymentHistory(paymentData);
+      const { data: paymentData, error: paymentError } = await supabase
+        .rpc('get_user_payment_history', { p_user_id: user.id });
+
+      if (paymentError) throw paymentError;
+      setPaymentHistory(paymentData || []);
 
       // Fetch payment methods
-      const methodData = await getUserPaymentMethods(user.id);
-      setPaymentMethods(methodData);
+      const { data: methodData, error: methodError } = await supabase
+        .from('stripe_payment_methods')
+        .select('id, card_brand, card_last4, is_default')
+        .eq('user_id', user.id);
+      
+      if (methodError) throw methodError;
+      setPaymentMethods(methodData || []);
 
     } catch (error) {
       console.error('Error fetching user data:', error);
@@ -118,7 +124,7 @@ export default function AppointmentsPage() {
     apt => new Date(apt.appointment_date) <= new Date() || apt.status !== 'scheduled'
   );
 
-  if (authLoading || loading) {
+  if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-bloom-sage-50 via-white to-bloom-pink-50 flex items-center justify-center">
         <div className="text-center">

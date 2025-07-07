@@ -1,8 +1,8 @@
 import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
-  testDir: './e2e',
-  testMatch: '**/simple-onboarding.spec.ts', // Only run the simple test for now
+  testDir: './tests',
+  testMatch: '**/*.spec.ts',
   fullyParallel: false,
   forbidOnly: !!process.env.CI,
   retries: 0,
@@ -13,7 +13,7 @@ export default defineConfig({
     ['list'],
   ],
   use: {
-    baseURL: 'http://localhost:3027',
+    baseURL: 'http://localhost:3003',
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
@@ -42,5 +42,11 @@ export default defineConfig({
     },
   ],
 
-  // webServer config removed - assuming dev server is already running
+  // webServer config to automatically start dev server
+  webServer: {
+    command: 'npm run test:dev',
+    url: 'http://localhost:3003',
+    reuseExistingServer: !process.env.CI,
+    timeout: 120 * 1000,
+  },
 });

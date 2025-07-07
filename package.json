@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "test:dev": "PORT=3003 next dev",
     "build": "next build",
     "start": "next start -p ${PORT:-3000}",
     "lint": "next lint",
@@ -12,6 +13,7 @@
     "test:onboarding:full": "node scripts/test-onboarding-comprehensive.js",
     "test:onboarding:direct": "node scripts/test-onboarding-direct.js",
     "test:all": "node scripts/test-onboarding-all.js",
+    "test:setup": "node scripts/setup-test-users.js",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
     "test:unit": "jest",

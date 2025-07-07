@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { useAuth } from '@/contexts/AuthContext';
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import Button from '@/components/ui/Button';
 import NotificationPreferences from '@/components/settings/NotificationPreferences';
 import { 
@@ -26,7 +26,8 @@ import {
 
 export default function SettingsPage() {
   const router = useRouter();
-  const { user, loading: authLoading } = useAuth();
+  const supabase = createClientComponentClient();
+  const [user, setUser] = useState<any>(null);
   const [activeTab, setActiveTab] = useState('notifications');
   const [loading, setLoading] = useState(false);
   
@@ -50,10 +51,16 @@ export default function SettingsPage() {
   const [passwordSuccess, setPasswordSuccess] = useState('');
 
   useEffect(() => {
-    if (!authLoading && !user) {
-      router.push('/auth/login');
-    }
-  }, [user, authLoading, router]);
+    const getUser = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        router.push('/auth/login');
+      } else {
+        setUser(session.user);
+      }
+    };
+    getUser();
+  }, [router, supabase.auth]);
 
   // Fetch privacy settings when tab becomes active
   useEffect(() => {
@@ -63,12 +70,20 @@ export default function SettingsPage() {
   }, [user, activeTab]);
 
   async function fetchPrivacySettings() {
+    if (!user) return;
     try {
-      const response = await fetch('/api/user/settings/privacy');
-      const data = await response.json();
+      const { data, error } = await supabase
+        .from('user_preferences')
+        .select('*')
+        .eq('user_id', user.id)
+        .single();
       
-      if (data.success && data.privacy_settings) {
-        setPrivacySettings(data.privacy_settings);
+      if (error && error.code !== 'PGRST116') { // Ignore error if no row found
+        throw error;
+      }
+
+      if (data) {
+        setPrivacySettings(data);
       }
     } catch (error) {
       console.error('Failed to fetch privacy settings:', error);
@@ -77,32 +92,29 @@ export default function SettingsPage() {
   }
 
   async function savePrivacySettings() {
+    if (!user) return;
     try {
       setSavingPrivacy(true);
       setPrivacyMessage(null);
       
-      const response = await fetch('/api/user/settings/privacy', {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ privacy_settings: privacySettings })
-      });
+      const { error } = await supabase
+        .from('user_preferences')
+        .upsert({ user_id: user.id, ...privacySettings }, { onConflict: 'user_id' });
       
-      const data = await response.json();
-      
-      if (data.success) {
-        setPrivacyMessage({ type: 'success', text: 'Privacy settings saved successfully!' });
+      if (error) {
+        throw error;
       } else {
-        throw new Error(data.error || 'Failed to save settings');
+        setPrivacyMessage({ type: 'success', text: 'Privacy settings saved successfully!' });
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to save privacy settings:', error);
-      setPrivacyMessage({ type: 'error', text: 'Failed to save privacy settings' });
+      setPrivacyMessage({ type: 'error', text: error.message || 'Failed to save settings' });
     } finally {
       setSavingPrivacy(false);
     }
   }
 
-  if (authLoading) {
+  if (!user) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-bloom-sage-50 via-white to-bloom-pink-50 flex items-center justify-center">
         <div className="text-center">
@@ -112,29 +124,22 @@ export default function SettingsPage() {
       </div>
     );
   }
-
-  if (!user) {
-    return null;
-  }
   
   const handlePasswordChange = async () => {
     setLoading(true);
     setPasswordError('');
     setPasswordSuccess('');
     
-    // Validate passwords
-    if (!passwordData.currentPassword || !passwordData.newPassword) {
-      setPasswordError('Please fill in all password fields');
+    if (!passwordData.newPassword || !passwordData.confirmPassword) {
+      setPasswordError('Please fill out the new password fields.');
       setLoading(false);
       return;
     }
-    
     if (passwordData.newPassword.length < 8) {
       setPasswordError('New password must be at least 8 characters');
       setLoading(false);
       return;
     }
-    
     if (passwordData.newPassword !== passwordData.confirmPassword) {
       setPasswordError('New passwords do not match');
       setLoading(false);
@@ -142,29 +147,20 @@ export default function SettingsPage() {
     }
     
     try {
-      const response = await fetch('/api/user/settings/security/change-password', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          currentPassword: passwordData.currentPassword,
-          newPassword: passwordData.newPassword
-        })
-      });
+      const { error } = await supabase.auth.updateUser({ password: passwordData.newPassword });
       
-      const data = await response.json();
-      
-      if (response.ok && data.success) {
-        setPasswordSuccess('Password changed successfully!');
+      if (error) {
+        setPasswordError(error.message);
+      } else {
+        setPasswordSuccess('Password changed successfully! Please sign in again.');
         setPasswordData({ currentPassword: '', newPassword: '', confirmPassword: '' });
-        // Sign out after password change
-        setTimeout(() => {
+        setTimeout(async () => {
+          await supabase.auth.signOut();
           router.push('/auth/login');
         }, 2000);
-      } else {
-        setPasswordError(data.error || 'Failed to change password');
       }
-    } catch (error) {
-      setPasswordError('An error occurred. Please try again.');
+    } catch (error: any) {
+      setPasswordError(error.message || 'An error occurred. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -173,16 +169,25 @@ export default function SettingsPage() {
   const handleDataExport = async () => {
     setLoading(true);
     // Data export logic would go here
+    alert("Data export functionality is not yet implemented.");
     setLoading(false);
   };
 
   const handleAccountDelete = async () => {
     const confirmed = window.confirm(
-      'Are you sure you want to delete your account? This action cannot be undone.'
+      'Are you sure you want to delete your account? This action is permanent and cannot be undone.'
     );
     if (confirmed) {
       setLoading(true);
-      // Account deletion logic would go here
+      alert("Account deletion functionality is not yet implemented.");
+      // Example of what it might look like:
+      // const { error } = await supabase.rpc('delete_user_account');
+      // if (error) {
+      //   alert(`Failed to delete account: ${error.message}`);
+      // } else {
+      //   await supabase.auth.signOut();
+      //   router.push('/');
+      // }
       setLoading(false);
     }
   };

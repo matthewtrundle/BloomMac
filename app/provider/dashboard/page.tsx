@@ -5,8 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import { useSupabaseClient } from '@supabase/auth-helpers-react';
 import { motion } from 'framer-motion';
-import { getNoShowStats, markAppointmentNoShow } from '@/lib/no-show-management-client';
-import { getReminderStats } from '@/lib/reminder-system';
+import { markAppointmentNoShow } from '@/lib/no-show-management-client';
 
 interface ProviderAppointment {
   id: string;
@@ -18,11 +17,9 @@ interface ProviderAppointment {
   no_show_fee_charged: boolean;
   reminder_sent: boolean;
   confirmation_received: boolean;
-  user_profiles: {
-    first_name: string;
-    last_name: string;
-    phone: string;
-  };
+  first_name: string;
+  last_name: string;
+  phone: string;
 }
 
 interface Stats {
@@ -53,12 +50,11 @@ export default function ProviderDashboard() {
 
   useEffect(() => {
     if (user) {
-      fetchAppointments();
-      fetchStats();
+      fetchDashboardData();
     }
   }, [user, selectedDate, viewMode]);
 
-  const fetchAppointments = async () => {
+  const fetchDashboardData = async () => {
     if (!user) return;
 
     setLoading(true);
@@ -82,53 +78,17 @@ export default function ProviderDashboard() {
         endDate = endOfMonth.toISOString().split('T')[0];
       }
 
-      const { data: appointmentData, error } = await supabase
-        .from('appointment_data')
-        .select(`
-          *,
-          user_profiles (
-            first_name,
-            last_name,
-            phone
-          )
-        `)
-        .gte('appointment_date', `${startDate}T00:00:00.000Z`)
-        .lte('appointment_date', `${endDate}T23:59:59.999Z`)
-        .order('appointment_date', { ascending: true });
-
-      if (!error && appointmentData) {
-        setAppointments(appointmentData);
+      const response = await fetch(`/api/provider/dashboard?startDate=${startDate}&endDate=${endDate}`);
+      
+      if (response.ok) {
+        const data = await response.json();
+        setAppointments(data.appointments);
+        setStats(data.stats);
       }
     } catch (error) {
-      console.error('Error fetching appointments:', error);
+      console.error('Error fetching dashboard data:', error);
     } finally {
       setLoading(false);
-    }
-  };
-
-  const fetchStats = async () => {
-    try {
-      // Get date range for stats (last 30 days)
-      const endDate = new Date();
-      const startDate = new Date(endDate.getTime() - 30 * 24 * 60 * 60 * 1000);
-
-      const [noShowResult, reminderResult] = await Promise.all([
-        getNoShowStats(undefined, startDate.toISOString(), endDate.toISOString()),
-        getReminderStats(startDate.toISOString(), endDate.toISOString())
-      ]);
-
-      if (noShowResult.success && reminderResult.success) {
-        setStats({
-          totalAppointments: noShowResult.stats.totalAppointments,
-          noShows: noShowResult.stats.noShows,
-          noShowRate: noShowResult.stats.noShowRate,
-          feesCharged: noShowResult.stats.feesCharged,
-          remindersSent: reminderResult.stats.remindersSent,
-          confirmationRate: reminderResult.stats.confirmationRate
-        });
-      }
-    } catch (error) {
-      console.error('Error fetching stats:', error);
     }
   };
 
@@ -141,8 +101,7 @@ export default function ProviderDashboard() {
       
       if (result.success) {
         // Refresh appointments
-        fetchAppointments();
-        fetchStats();
+        fetchDashboardData();
         alert('Appointment marked as no-show and fee charged successfully');
       } else {
         alert(`Failed to process no-show: ${result.error}`);
@@ -164,7 +123,7 @@ export default function ProviderDashboard() {
         .eq('id', appointmentId);
 
       if (!error) {
-        fetchAppointments();
+        fetchDashboardData();
         alert('Appointment marked as completed');
       }
     } catch (error) {
@@ -313,16 +272,10 @@ export default function ProviderDashboard() {
               <h3 className="text-lg font-semibold text-bloom-dark mb-4">Quick Actions</h3>
               <div className="space-y-3">
                 <button
-                  onClick={fetchAppointments}
+                  onClick={fetchDashboardData}
                   className="w-full p-3 text-left hover:bg-bloom-sage-50 rounded-lg transition-colors"
                 >
                   🔄 Refresh Appointments
-                </button>
-                <button
-                  onClick={fetchStats}
-                  className="w-full p-3 text-left hover:bg-bloom-sage-50 rounded-lg transition-colors"
-                >
-                  📊 Update Statistics
                 </button>
                 <a
                   href="/provider/settings"
@@ -418,7 +371,7 @@ function AppointmentRow({
         <div className="flex-1">
           <div className="flex items-center gap-3 mb-2">
             <h3 className="font-medium text-bloom-dark">
-              {appointment.user_profiles?.first_name} {appointment.user_profiles?.last_name}
+              {appointment.first_name} {appointment.last_name}
             </h3>
             <span className={`px-2 py-1 rounded-full text-xs font-medium ${
               appointment.status === 'scheduled' 
