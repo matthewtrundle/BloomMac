@@ -76,14 +76,14 @@ export default function SettingsPage() {
         .from('user_preferences')
         .select('*')
         .eq('user_id', user.id)
-        .single();
+        .maybeSingle();
       
       if (error && error.code !== 'PGRST116') { // Ignore error if no row found
         throw error;
       }
 
-      if (data) {
-        setPrivacySettings(data);
+      if (data && data.privacy_settings) {
+        setPrivacySettings(data.privacy_settings);
       }
     } catch (error) {
       console.error('Failed to fetch privacy settings:', error);
@@ -99,7 +99,13 @@ export default function SettingsPage() {
       
       const { error } = await supabase
         .from('user_preferences')
-        .upsert({ user_id: user.id, ...privacySettings }, { onConflict: 'user_id' });
+        .upsert({ 
+          user_id: user.id, 
+          privacy_settings: privacySettings,
+          updated_at: new Date().toISOString()
+        }, { 
+          onConflict: 'user_id' 
+        });
       
       if (error) {
         throw error;
