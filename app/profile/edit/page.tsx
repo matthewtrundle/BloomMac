@@ -69,7 +69,7 @@ export default function SimpleEditProfilePage() {
         .from('user_profiles')
         .select('*')
         .eq('id', user.id)
-        .single();
+        .maybeSingle();
 
       if (error) {
         console.error('Failed to fetch profile:', error);
@@ -105,24 +105,53 @@ export default function SimpleEditProfilePage() {
     setMessage(null);
 
     try {
-      const { data, error } = await supabase
+      // First check if profile exists
+      const { data: existingProfile } = await supabase
         .from('user_profiles')
-        .update({
-          first_name: profile.first_name.trim(),
-          last_name: profile.last_name.trim(),
-          phone: profile.phone?.trim() || null,
-          postpartum_date: profile.postpartum_date || null,
-          baby_due_date: profile.baby_due_date || null,
-          number_of_children: profile.number_of_children || null,
-          emergency_contact_name: profile.emergency_contact_name?.trim() || null,
-          emergency_contact_phone: profile.emergency_contact_phone?.trim() || null,
-          emergency_contact_relationship: profile.emergency_contact_relationship?.trim() || null,
-          timezone: profile.timezone || null,
-          updated_at: new Date().toISOString(),
-        })
+        .select('id')
         .eq('id', user.id)
-        .select()
-        .single();
+        .maybeSingle();
+
+      const profileData = {
+        first_name: profile.first_name.trim(),
+        last_name: profile.last_name.trim(),
+        phone: profile.phone?.trim() || null,
+        postpartum_date: profile.postpartum_date || null,
+        baby_due_date: profile.baby_due_date || null,
+        number_of_children: profile.number_of_children || null,
+        emergency_contact_name: profile.emergency_contact_name?.trim() || null,
+        emergency_contact_phone: profile.emergency_contact_phone?.trim() || null,
+        emergency_contact_relationship: profile.emergency_contact_relationship?.trim() || null,
+        timezone: profile.timezone || null,
+        updated_at: new Date().toISOString(),
+      };
+
+      let data, error;
+      
+      if (existingProfile) {
+        // Update existing profile
+        const result = await supabase
+          .from('user_profiles')
+          .update(profileData)
+          .eq('id', user.id)
+          .select()
+          .single();
+        data = result.data;
+        error = result.error;
+      } else {
+        // Insert new profile
+        const result = await supabase
+          .from('user_profiles')
+          .insert({
+            id: user.id,
+            ...profileData,
+            created_at: new Date().toISOString(),
+          })
+          .select()
+          .single();
+        data = result.data;
+        error = result.error;
+      }
 
       if (error) {
         console.error('Profile update failed:', error);
