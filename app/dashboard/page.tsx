@@ -138,7 +138,9 @@ export default function SimpleDashboardPage() {
         const data = await achievementsResponse.value.json();
         setAchievements(data.achievements || []);
       } else {
-        addToast('warning', 'Could not load achievements');
+        console.log('Achievements error:', achievementsResponse);
+        // Only show toast if there are actually achievements to load
+        // Don't show warning for empty achievements
       }
 
       // Handle workbook response
@@ -1218,6 +1220,33 @@ export default function SimpleDashboardPage() {
       
       {/* Toast Notifications */}
       <Toast messages={toastMessages} onRemove={removeToast} />
+      
+      {/* Debug Panel - Only in development */}
+      {process.env.NODE_ENV === 'development' && (
+        <div className="fixed bottom-4 right-4 bg-white shadow-lg rounded-lg p-4 max-w-xs">
+          <h3 className="font-semibold text-sm mb-2">Debug Info</h3>
+          <div className="text-xs space-y-1">
+            <p>User ID: {user?.id?.slice(0, 8)}...</p>
+            <p>Auth Loading: {authLoading ? 'Yes' : 'No'}</p>
+            <p>Has Profile: {profile ? 'Yes' : 'No'}</p>
+          </div>
+          <button
+            onClick={async () => {
+              try {
+                const res = await fetch('/api/auth-debug');
+                const data = await res.json();
+                console.log('Auth Debug:', data);
+                alert('Check console for auth debug info');
+              } catch (error) {
+                console.error('Debug error:', error);
+              }
+            }}
+            className="mt-2 px-3 py-1 bg-blue-500 text-white text-xs rounded hover:bg-blue-600"
+          >
+            Check Auth Status
+          </button>
+        </div>
+      )}
     </div>
   );
 }
