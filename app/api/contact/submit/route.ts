@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createPublicClient, supabaseAdmin } from '@/lib/supabase-server';
+import { createPublicClient, createSupabaseServiceClient } from '@/lib/supabase-server';
 import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
 import { z } from 'zod';
 import { enrollmentManager } from '@/lib/email-automation/enrollment-manager';
@@ -18,6 +18,7 @@ const contactSchema = z.object({
 
 async function findOrCreateSubscriber(email: string, firstName?: string, lastName?: string) {
     const emailLower = email.toLowerCase();
+    const supabaseAdmin = createSupabaseServiceClient();
     
     // Check if subscriber exists
     let { data: subscriber, error } = await supabaseAdmin

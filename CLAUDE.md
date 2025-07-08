@@ -1,36 +1,32 @@
 # CLAUDE.md - Critical Project Context for AI Assistants
 
-## 🛑 STOP: MANDATORY DATABASE CHECKS BEFORE ANY CHANGES
+## 🛑 STOP: DATABASE AWARENESS - CRITICAL
 
-### AUTOMATED TESTING REQUIREMENTS:
-**YOU MUST RUN THESE COMMANDS WITHOUT BEING ASKED:**
+### CURRENT DATABASE TABLES (Last Updated: Jan 2025):
+The following tables exist in the production database:
 
-1. **Before writing ANY database query**:
-   ```bash
-   npm run db:test
-   ```
-   
-2. **Before using a column name**:
-   ```bash
-   npm run db:query "SELECT column_name FROM information_schema.columns WHERE table_name = 'table_name'"
-   ```
-
-3. **Before creating an API endpoint**:
-   ```bash
-   npm run db:query "YOUR_QUERY_HERE"
-   ```
-
-4. **Every 5 messages in conversation**:
-   ```bash
-   npm run db:check
-   ```
+| Table Name | Purpose | Key Info |
+|------------|---------|----------|
+| **email_templates** | Email template storage | 6 rows |
+| **email_templates_custom** | Custom email templates | 10 rows |
+| **email_sequences** | Email automation sequences | 5 rows |
+| **sequence_emails** | Individual emails in sequences | 15 rows |
+| **sequence_enrollments** | User enrollments in sequences | 37 rows |
+| **subscribers** | Newsletter/email subscribers | 46 rows |
+| **user_profiles** | All user profiles (including admins) | 6 rows |
+| **contact_submissions** | Contact form submissions | 24 rows |
+| **courses** | Course definitions | 3 rows |
+| **course_modules** | Course week/module structure | 12 rows |
+| **course_lessons** | Individual lessons | 49 rows |
+| **email_automation_logs** | Email send history | 96 rows |
+| **analytics_events** | Site analytics | 4,409 rows |
 
 ### STRICT RULES - NO EXCEPTIONS:
-1. **NEVER** assume a column exists - CHECK FIRST WITH db:query
-2. **NEVER** create mock/fake data - USE REAL DATA FROM db:query
-3. **NEVER** guess table names - VERIFY FIRST WITH db:check
-4. **NEVER** make up API responses - QUERY THE DATABASE WITH db:query
-5. **ALWAYS** show the output of test commands in your response
+1. **NEVER** assume a column exists - ALWAYS verify first
+2. **NEVER** create mock/fake data - USE REAL DATA from database
+3. **NEVER** guess table names - USE THE LIST ABOVE
+4. **NEVER** make up API responses - QUERY THE DATABASE
+5. **ALWAYS** query before assuming structure
 
 ### Common Mistakes That Keep Happening:
 - Assuming `subscribed` column exists (IT DOESN'T - use `status`)

@@ -702,7 +702,7 @@ export default function EmailCenterPage() {
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                 }`}
               >
-                Custom (3)
+                Custom ({templates.filter(t => t.source === 'database').length})
               </button>
               <button
                 onClick={() => setTemplateFilter('enhanced')}
@@ -712,7 +712,7 @@ export default function EmailCenterPage() {
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                 }`}
               >
-                Automated (15)
+                Automated ({templates.filter(t => t.source === 'enhanced').length})
               </button>
             </div>
 

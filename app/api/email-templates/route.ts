@@ -5,31 +5,107 @@ export async function GET(request: NextRequest) {
   try {
     const supabase = getServiceSupabase();
     
-    // Get all email templates from database
-    const { data: templates, error } = await supabase
-      .from('email_templates')
-      .select('*')
-      .order('name', { ascending: true });
+    // Get all email templates from both tables
+    const [templatesResult, customTemplatesResult, sequenceEmailsResult] = await Promise.all([
+      // Standard templates
+      supabase
+        .from('email_templates')
+        .select('*')
+        .order('name', { ascending: true }),
+      
+      // Custom templates
+      supabase
+        .from('email_templates_custom')
+        .select('*')
+        .order('sequence', { ascending: true })
+        .order('step', { ascending: true }),
+      
+      // Sequence emails (automated)
+      supabase
+        .from('sequence_emails')
+        .select(`
+          *,
+          email_sequences (
+            name,
+            trigger,
+            status
+          )
+        `)
+        .order('position', { ascending: true })
+    ]);
 
-    if (error) throw error;
+    if (templatesResult.error) throw templatesResult.error;
+    if (customTemplatesResult.error) throw customTemplatesResult.error;
+    if (sequenceEmailsResult.error) throw sequenceEmailsResult.error;
 
-    // Format templates for consistency
-    const formattedTemplates = templates.map(template => ({
-      id: template.id,
-      name: template.name,
-      subject: template.subject,
-      content: template.content,
-      category: template.category,
-      variables: template.variables || ['firstName', 'lastName', 'email', 'unsubscribeLink'],
-      lastModified: template.updated_at,
-      modifiedBy: template.created_by || 'System',
-      source: 'database'
-    }));
+    const allTemplates = [];
+
+    // Format standard templates
+    if (templatesResult.data) {
+      templatesResult.data.forEach(template => {
+        allTemplates.push({
+          id: template.id,
+          name: template.name,
+          subject: template.subject,
+          content: template.content,
+          category: template.category,
+          variables: template.variables || ['firstName', 'lastName', 'email', 'unsubscribeLink'],
+          lastModified: template.updated_at,
+          modifiedBy: template.created_by || 'System',
+          source: 'database'
+        });
+      });
+    }
+
+    // Format custom templates
+    if (customTemplatesResult.data) {
+      customTemplatesResult.data.forEach(template => {
+        allTemplates.push({
+          id: template.id,
+          name: `${template.sequence} - ${template.step}`,
+          subject: template.subject,
+          content: template.content,
+          category: template.sequence || 'custom',
+          sequence: template.sequence,
+          step: template.step,
+          lastModified: template.updated_at,
+          modifiedBy: template.modified_by || 'System',
+          source: 'database'
+        });
+      });
+    }
+
+    // Format sequence emails (automated)
+    if (sequenceEmailsResult.data) {
+      sequenceEmailsResult.data.forEach(email => {
+        const sequenceName = email.email_sequences?.name || 'Unknown Sequence';
+        const trigger = email.email_sequences?.trigger || 'unknown';
+        
+        allTemplates.push({
+          id: email.id,
+          name: `${sequenceName} - Email ${email.position}`,
+          subject: email.subject,
+          content: email.content,
+          category: 'automated',
+          sequence: sequenceName,
+          trigger: trigger,
+          position: email.position,
+          delay: `${email.delay_days || 0} days, ${email.delay_hours || 0} hours`,
+          lastModified: email.updated_at,
+          modifiedBy: 'System',
+          source: 'enhanced',
+          sequenceActive: email.email_sequences?.status === 'active'
+        });
+      });
+    }
 
     return NextResponse.json({ 
-      templates: formattedTemplates,
+      templates: allTemplates,
       stats: {
-        totalTemplates: formattedTemplates.length
+        totalTemplates: allTemplates.length,
+        standardTemplates: templatesResult.data?.length || 0,
+        customTemplates: customTemplatesResult.data?.length || 0,
+        automatedTemplates: sequenceEmailsResult.data?.length || 0
       }
     });
 
@@ -44,7 +120,7 @@ export async function GET(request: NextRequest) {
 
 export async function PUT(request: NextRequest) {
   try {
-    const { id, subject, content } = await request.json();
+    const { id, subject, content, source } = await request.json();
     
     if (!id || !subject || !content) {
       return NextResponse.json(
@@ -54,17 +130,67 @@ export async function PUT(request: NextRequest) {
     }
 
     const supabase = getServiceSupabase();
-    
-    const { data, error } = await supabase
-      .from('email_templates')
-      .update({
-        subject,
-        content,
-        updated_at: new Date().toISOString()
-      })
-      .eq('id', id)
-      .select()
-      .single();
+    let data, error;
+
+    // Check which table to update based on the template source
+    // First, try to find the template in each table
+    const [templateCheck, customCheck, sequenceCheck] = await Promise.all([
+      supabase.from('email_templates').select('id').eq('id', id).single(),
+      supabase.from('email_templates_custom').select('id').eq('id', id).single(),
+      supabase.from('sequence_emails').select('id').eq('id', id).single()
+    ]);
+
+    if (!templateCheck.error) {
+      // Update in email_templates table
+      const result = await supabase
+        .from('email_templates')
+        .update({
+          subject,
+          content,
+          updated_at: new Date().toISOString()
+        })
+        .eq('id', id)
+        .select()
+        .single();
+      
+      data = result.data;
+      error = result.error;
+    } else if (!customCheck.error) {
+      // Update in email_templates_custom table
+      const result = await supabase
+        .from('email_templates_custom')
+        .update({
+          subject,
+          content,
+          updated_at: new Date().toISOString()
+        })
+        .eq('id', id)
+        .select()
+        .single();
+      
+      data = result.data;
+      error = result.error;
+    } else if (!sequenceCheck.error) {
+      // Update in sequence_emails table
+      const result = await supabase
+        .from('sequence_emails')
+        .update({
+          subject,
+          content,
+          updated_at: new Date().toISOString()
+        })
+        .eq('id', id)
+        .select()
+        .single();
+      
+      data = result.data;
+      error = result.error;
+    } else {
+      return NextResponse.json(
+        { error: 'Template not found in any table' },
+        { status: 404 }
+      );
+    }
 
     if (error) {
         console.error('Supabase error updating template:', error);
