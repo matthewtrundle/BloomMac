@@ -13,13 +13,16 @@ export async function GET(request: NextRequest) {
       );
     }
     
-    // TODO: Implement get_user_workbook_status function in database
-    // For now, return empty data to prevent 500 errors
-    console.log('get_user_workbook_status function not yet implemented');
+    const { data, error } = await supabase.rpc('get_user_workbook_status', { p_user_id: session.user.id });
+
+    if (error) {
+      console.error('Error fetching workbook status:', error);
+      throw error;
+    }
     
     return NextResponse.json({
       success: true,
-      courses: []
+      ...data
     });
     
   } catch (error) {
