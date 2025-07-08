@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { createServerClient } from '@supabase/ssr';
 import { jwtVerify } from 'jose';
 import { applySecurityHeaders, applyCorsHeaders } from '@/lib/middleware/security-headers';
 
@@ -57,6 +58,39 @@ async function verifyToken(token: string): Promise<any> {
 export async function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;
   
+  // Create response first
+  let response = NextResponse.next();
+  
+  // Handle Supabase auth session refresh for all routes
+  const supabase = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        get(name: string) {
+          return request.cookies.get(name)?.value;
+        },
+        set(name: string, value: string, options: any) {
+          response.cookies.set({
+            name,
+            value,
+            ...options,
+          });
+        },
+        remove(name: string, options: any) {
+          response.cookies.set({
+            name,
+            value: '',
+            ...options,
+          });
+        },
+      },
+    }
+  );
+
+  // This refreshes the session if it's expired
+  await supabase.auth.getUser();
+  
   // Debug logging
   if (path.startsWith('/api/') || path.startsWith('/admin/')) {
     console.log(`[Middleware] Path: ${path}`);
@@ -81,18 +115,18 @@ export async function middleware(request: NextRequest) {
     if (!token) {
       // For admin auth routes, allow access without token (they handle their own auth)
       if (isAdminAuthRoute && !isProtectedApiRoute) {
-        return NextResponse.next();
+        return response;
       }
       
       console.log(`[Middleware] No token for protected route: ${path}`);
       // Redirect to login if no token
       if (isProtectedApiRoute) {
-        let response = NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+        response = NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         response = applySecurityHeaders(response, request);
         response = applyCorsHeaders(response, request);
         return response;
       }
-      let response = NextResponse.redirect(new URL('/admin/login', request.url));
+      response = NextResponse.redirect(new URL('/admin/login', request.url));
       response = applySecurityHeaders(response, request);
       return response;
     }
@@ -102,7 +136,7 @@ export async function middleware(request: NextRequest) {
     if (!decoded) {
       console.log(`[Middleware] Invalid token for protected route: ${path}`);
       // Clear invalid token and redirect to login
-      let response = isProtectedApiRoute
+      response = isProtectedApiRoute
         ? NextResponse.json({ error: 'Invalid token' }, { status: 401 })
         : NextResponse.redirect(new URL('/admin/login', request.url));
       
@@ -123,7 +157,7 @@ export async function middleware(request: NextRequest) {
       requestHeaders.set('x-user-email', decoded.email);
       requestHeaders.set('x-user-role', decoded.role);
       
-      let response = NextResponse.next({
+      response = NextResponse.next({
         request: {
           headers: requestHeaders,
         },
@@ -140,15 +174,12 @@ export async function middleware(request: NextRequest) {
     if (token) {
       const decoded = await verifyToken(token);
       if (decoded) {
-        let response = NextResponse.redirect(new URL('/admin/analytics', request.url));
+        response = NextResponse.redirect(new URL('/admin/analytics', request.url));
         response = applySecurityHeaders(response, request);
         return response;
       }
     }
   }
-  
-  // Default response
-  let response = NextResponse.next();
   
   // Apply security headers to all responses
   response = applySecurityHeaders(response, request);
