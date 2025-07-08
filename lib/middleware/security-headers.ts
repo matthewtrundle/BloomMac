@@ -39,7 +39,9 @@ export function getCSPHeader(nonce?: string): string {
       'https://calendly.com',
       'https://assets.calendly.com',
       'https://www.googletagmanager.com',
-      'https://www.google-analytics.com'
+      'https://www.google-analytics.com',
+      'https://googleads.g.doubleclick.net',
+      'https://www.googleadservices.com'
     ],
     'style-src': [
       "'self'",
@@ -53,7 +55,9 @@ export function getCSPHeader(nonce?: string): string {
       'blob:',
       'https:',
       'https://www.google-analytics.com',
-      'https://www.googletagmanager.com'
+      'https://www.googletagmanager.com',
+      'https://googleads.g.doubleclick.net',
+      'https://www.google.com'
     ],
     'font-src': [
       "'self'",
@@ -67,6 +71,10 @@ export function getCSPHeader(nonce?: string): string {
       'https://calendly.com',
       'https://www.google-analytics.com',
       'https://www.googletagmanager.com',
+      'https://googleads.g.doubleclick.net',
+      'https://www.googleadservices.com',
+      'https://www.google.com',
+      'https://stats.g.doubleclick.net',
       process.env.NODE_ENV === 'development' ? 'ws://localhost:*' : ''
     ].filter(Boolean),
     'media-src': ["'self'"],
