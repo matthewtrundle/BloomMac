@@ -141,11 +141,11 @@ const supabase = createClient(
 );
 
 // Check if a table exists
-supabase.from('admin_users').select('count', { count: 'exact', head: true })
-  .then(({count, error}) => console.log('admin_users:', error ? 'Does not exist' : count + ' rows'));
-
 supabase.from('user_profiles').select('count', { count: 'exact', head: true })
   .then(({count, error}) => console.log('user_profiles:', error ? 'Does not exist' : count + ' rows'));
+
+supabase.from('admin_activity_log').select('count', { count: 'exact', head: true })
+  .then(({count, error}) => console.log('admin_activity_log:', error ? 'Does not exist' : count + ' rows'));
 "
 ```
 
@@ -239,35 +239,30 @@ await enrollmentManager.enrollSubscriber({
 
 ### Current Authentication System (AS OF Jan 2025)
 
-**THE APP USES TWO DIFFERENT USER TABLES:**
+**THE APP USES ONE USER TABLE WITH ROLE-BASED ACCESS:**
 
-1. **`admin_users`** - For admin panel authentication
-   - Used by: `/admin/*` routes, admin API endpoints
-   - Auth method: Supabase Auth + JWT tokens in cookies
-   - Key fields: id (references auth.users), email, role, is_active
-   - **HAS EMAIL COLUMN**
-
-2. **`user_profiles`** - For regular users (patients/clients)
-   - Used by: User dashboard, profile pages
-   - Auth method: Supabase Auth only
+1. **`user_profiles`** - For ALL users (admin and regular)
+   - Used by: All routes - both `/admin/*` and user dashboards
+   - Auth method: Supabase Auth + JWT tokens for admin routes
    - Key fields: id, first_name, last_name, role
    - **NO EMAIL COLUMN! Email is in auth.users table**
    - Must JOIN with auth.users to get email
+   - Role values: 'admin', 'student', 'provider'
 
-**DO NOT ASSUME THESE ARE UNIFIED!** Check which table each route actually uses.
+**THERE IS NO `admin_users` TABLE!** Admin access is controlled by `role = 'admin'` in user_profiles.
 
 ### How Admin Login Works
 
 1. User submits email/password to `/api/admin/auth/login`
 2. Authenticates with Supabase Auth (auth.users table)
-3. Checks if user exists in `admin_users` table
+3. Checks if user has `role = 'admin'` in `user_profiles` table
 4. Creates JWT token AND Supabase session
 5. Sets 3 cookies: adminToken, sb-access-token, sb-refresh-token
 
 ### Common Pitfalls to Avoid
 
 1. **DON'T** assume all users are in `user_profiles`
-2. **DON'T** delete `admin_users` table without migration
+2. **DON'T** assume `admin_users` table exists (it doesn't!)
 3. **DON'T** change auth flow without testing admin login
 4. **DON'T** assume frontend uses only Supabase Auth (it uses JWT too)
 
@@ -289,18 +284,19 @@ ORDER BY t.tablename;
 
 | Table | Purpose | Key Facts |
 |-------|---------|-----------|
-| `admin_users` | Admin authentication | Links to auth.users, has role field |
-| `user_profiles` | User profiles | Regular users, patients |
+| `user_profiles` | ALL user profiles | Has role field: 'admin', 'student', 'provider' |
 | `subscribers` | Newsletter signups | Active newsletter list |
 | `analytics_events` | Site analytics | Page views, conversions |
 | `email_queue` | Email sending | Original email system |
 | `contact_submissions` | Contact form data | User inquiries |
+| `admin_activity_log` | Admin action tracking | Audit trail for admin panel |
+| `admin_sessions` | Admin session tracking | Currently unused (0 rows) |
 
 ### Duplicate/Confusing Tables
 
 - `email_queue` vs `email_sends` vs `email_logs` - Multiple email systems!
 - `subscribers` vs `newsletter_subscribers` - Use `subscribers`
-- `admin_users` vs `user_profiles` with role - NOT unified yet!
+- NO `admin_users` table - admins are in `user_profiles` with `role = 'admin'`
 
 ## 🛠️ Development Commands
 
@@ -311,7 +307,7 @@ ORDER BY t.tablename;
 node scripts/check_database_state.js
 
 # 2. Check which auth system a route uses
-grep -r "admin_users\|user_profiles" app/api/
+grep -r "user_profiles.*role" app/api/
 
 # 3. Test admin login before deploying
 curl -X POST http://localhost:3000/api/admin/auth/login \
@@ -402,12 +398,6 @@ This validates schema matches expectations and catches common errors.
 - `category` (varchar)
 - `variables` (jsonb)
 
-#### `admin_users` table:
-- `id` (uuid) 
-- `email` (varchar)
-- `role` (varchar)
-- `is_active` (boolean)
-- **HAS EMAIL COLUMN**
 
 #### `user_profiles` table:
 - `id` (uuid)
