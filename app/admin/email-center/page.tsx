@@ -73,7 +73,7 @@ export default function EmailCenterPage() {
     clickRate: 0,
     unsubscribeRate: 0
   });
-  const [automationData, setAutomationData] = useState<any>(null);
+  const [automationData, setAutomationData] = useState<any>({ sequences: [] });
   const [subscribers, setSubscribers] = useState<Subscriber[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [testEmailSent, setTestEmailSent] = useState(false);
@@ -234,9 +234,9 @@ export default function EmailCenterPage() {
   );
 
   const filteredTemplates = templates.filter(template => {
-    if (templateFilter === 'all') return true;
+    if (templateFilter === 'all') return template.sequenceActive !== false;
     if (templateFilter === 'database') return template.source === 'database';
-    if (templateFilter === 'enhanced') return template.source === 'enhanced';
+    if (templateFilter === 'enhanced') return template.source === 'enhanced' && template.sequenceActive !== false;
     return true;
   });
 
@@ -397,215 +397,64 @@ export default function EmailCenterPage() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-6">
-                  {/* Newsletter Welcome Series */}
-                  <div className="border rounded-lg p-4">
-                    <div className="flex items-center justify-between mb-4">
-                      <div>
-                        <h3 className="font-semibold text-lg flex items-center gap-2">
-                          <Mail className="w-5 h-5 text-blue-600" />
-                          Newsletter Welcome Series
-                        </h3>
-                        <p className="text-sm text-gray-600">5 emails over 30 days</p>
-                      </div>
-                      <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm">Active</span>
+                  {automationData?.sequences?.length > 0 ? (
+                    automationData.sequences.map((sequence: any) => {
+                      const getIconAndColor = (trigger: string) => {
+                        switch (trigger) {
+                          case 'newsletter_signup':
+                            return { icon: Mail, color: 'blue' };
+                          case 'contact_form':
+                            return { icon: Users, color: 'green' };
+                          case 'booking_confirmation':
+                            return { icon: Calendar, color: 'purple' };
+                          case 'lead_nurture':
+                            return { icon: Target, color: 'orange' };
+                          default:
+                            return { icon: Mail, color: 'gray' };
+                        }
+                      };
+                      
+                      const { icon: Icon, color } = getIconAndColor(sequence.trigger);
+                      
+                      return (
+                        <div key={sequence.id} className="border rounded-lg p-4">
+                          <div className="flex items-center justify-between mb-4">
+                            <div>
+                              <h3 className="font-semibold text-lg flex items-center gap-2">
+                                <Icon className={`w-5 h-5 text-${color}-600`} />
+                                {sequence.name}
+                              </h3>
+                              <p className="text-sm text-gray-600">
+                                {sequence.emailCount} emails • {sequence.activeEnrollments} active enrollments
+                              </p>
+                            </div>
+                            <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm">Active</span>
+                          </div>
+                          <div className="space-y-3">
+                            {sequence.emails?.map((email: any, index: number) => (
+                              <div key={index} className="flex items-center">
+                                <div className={`w-8 h-8 bg-${color}-100 rounded-full flex items-center justify-center`}>
+                                  <span className="text-xs font-semibold">{email.position}</span>
+                                </div>
+                                <div className="flex-1 ml-3">
+                                  <p className="text-sm font-medium">{email.subject}</p>
+                                  <p className="text-xs text-gray-500">{email.delay}</p>
+                                </div>
+                                {index < sequence.emails.length - 1 && (
+                                  <ArrowRight className="w-4 h-4 text-gray-400" />
+                                )}
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      );
+                    })
+                  ) : (
+                    <div className="text-center py-12 text-gray-500">
+                      <Mail className="w-12 h-12 mx-auto mb-4 text-gray-300" />
+                      <p>No active email sequences found</p>
                     </div>
-                    <div className="space-y-3">
-                      <div className="flex items-center">
-                        <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-                          <span className="text-xs font-semibold">1</span>
-                        </div>
-                        <div className="flex-1 ml-3">
-                          <p className="text-sm font-medium">Welcome Email</p>
-                          <p className="text-xs text-gray-500">Sent immediately</p>
-                        </div>
-                        <ArrowRight className="w-4 h-4 text-gray-400" />
-                      </div>
-                      <div className="flex items-center">
-                        <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-                          <span className="text-xs font-semibold">2</span>
-                        </div>
-                        <div className="flex-1 ml-3">
-                          <p className="text-sm font-medium">Day 3 Follow-up</p>
-                          <p className="text-xs text-gray-500">3 days after signup</p>
-                        </div>
-                        <ArrowRight className="w-4 h-4 text-gray-400" />
-                      </div>
-                      <div className="flex items-center">
-                        <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-                          <span className="text-xs font-semibold">3</span>
-                        </div>
-                        <div className="flex-1 ml-3">
-                          <p className="text-sm font-medium">Week 1 Check-in</p>
-                          <p className="text-xs text-gray-500">7 days after signup</p>
-                        </div>
-                        <ArrowRight className="w-4 h-4 text-gray-400" />
-                      </div>
-                      <div className="flex items-center">
-                        <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-                          <span className="text-xs font-semibold">4</span>
-                        </div>
-                        <div className="flex-1 ml-3">
-                          <p className="text-sm font-medium">2 Week Follow-up</p>
-                          <p className="text-xs text-gray-500">14 days after signup</p>
-                        </div>
-                        <ArrowRight className="w-4 h-4 text-gray-400" />
-                      </div>
-                      <div className="flex items-center">
-                        <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-                          <span className="text-xs font-semibold">5</span>
-                        </div>
-                        <div className="flex-1 ml-3">
-                          <p className="text-sm font-medium">Month 1 Check-in</p>
-                          <p className="text-xs text-gray-500">30 days after signup</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Contact Form Follow-up */}
-                  <div className="border rounded-lg p-4">
-                    <div className="flex items-center justify-between mb-4">
-                      <div>
-                        <h3 className="font-semibold text-lg flex items-center gap-2">
-                          <Users className="w-5 h-5 text-green-600" />
-                          Contact Form Follow-up
-                        </h3>
-                        <p className="text-sm text-gray-600">3 emails over 7 days</p>
-                      </div>
-                      <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm">Active</span>
-                    </div>
-                    <div className="space-y-3">
-                      <div className="flex items-center">
-                        <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
-                          <span className="text-xs font-semibold">1</span>
-                        </div>
-                        <div className="flex-1 ml-3">
-                          <p className="text-sm font-medium">Immediate Response</p>
-                          <p className="text-xs text-gray-500">Sent immediately</p>
-                        </div>
-                        <ArrowRight className="w-4 h-4 text-gray-400" />
-                      </div>
-                      <div className="flex items-center">
-                        <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
-                          <span className="text-xs font-semibold">2</span>
-                        </div>
-                        <div className="flex-1 ml-3">
-                          <p className="text-sm font-medium">72 Hour Follow-up</p>
-                          <p className="text-xs text-gray-500">3 days after contact</p>
-                        </div>
-                        <ArrowRight className="w-4 h-4 text-gray-400" />
-                      </div>
-                      <div className="flex items-center">
-                        <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
-                          <span className="text-xs font-semibold">3</span>
-                        </div>
-                        <div className="flex-1 ml-3">
-                          <p className="text-sm font-medium">Week 1 Resources</p>
-                          <p className="text-xs text-gray-500">7 days after contact</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Booking Confirmation */}
-                  <div className="border rounded-lg p-4">
-                    <div className="flex items-center justify-between mb-4">
-                      <div>
-                        <h3 className="font-semibold text-lg flex items-center gap-2">
-                          <Calendar className="w-5 h-5 text-purple-600" />
-                          Booking Confirmations
-                        </h3>
-                        <p className="text-sm text-gray-600">3 emails</p>
-                      </div>
-                      <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm">Active</span>
-                    </div>
-                    <div className="space-y-3">
-                      <div className="flex items-center">
-                        <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
-                          <span className="text-xs font-semibold">1</span>
-                        </div>
-                        <div className="flex-1 ml-3">
-                          <p className="text-sm font-medium">Booking Confirmation</p>
-                          <p className="text-xs text-gray-500">Sent immediately</p>
-                        </div>
-                        <ArrowRight className="w-4 h-4 text-gray-400" />
-                      </div>
-                      <div className="flex items-center">
-                        <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
-                          <span className="text-xs font-semibold">2</span>
-                        </div>
-                        <div className="flex-1 ml-3">
-                          <p className="text-sm font-medium">24 Hour Reminder</p>
-                          <p className="text-xs text-gray-500">1 day before appointment</p>
-                        </div>
-                        <ArrowRight className="w-4 h-4 text-gray-400" />
-                      </div>
-                      <div className="flex items-center">
-                        <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
-                          <span className="text-xs font-semibold">3</span>
-                        </div>
-                        <div className="flex-1 ml-3">
-                          <p className="text-sm font-medium">48 Hour Follow-up</p>
-                          <p className="text-xs text-gray-500">2 days after appointment</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Lead Nurture Campaign */}
-                  <div className="border rounded-lg p-4">
-                    <div className="flex items-center justify-between mb-4">
-                      <div>
-                        <h3 className="font-semibold text-lg flex items-center gap-2">
-                          <Target className="w-5 h-5 text-orange-600" />
-                          Lead Nurture Campaign
-                        </h3>
-                        <p className="text-sm text-gray-600">4 emails over 14 days</p>
-                      </div>
-                      <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm">Active</span>
-                    </div>
-                    <div className="space-y-3">
-                      <div className="flex items-center">
-                        <div className="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center">
-                          <span className="text-xs font-semibold">1</span>
-                        </div>
-                        <div className="flex-1 ml-3">
-                          <p className="text-sm font-medium">Thank You Email</p>
-                          <p className="text-xs text-gray-500">Sent immediately</p>
-                        </div>
-                        <ArrowRight className="w-4 h-4 text-gray-400" />
-                      </div>
-                      <div className="flex items-center">
-                        <div className="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center">
-                          <span className="text-xs font-semibold">2</span>
-                        </div>
-                        <div className="flex-1 ml-3">
-                          <p className="text-sm font-medium">72 Hour Check-in</p>
-                          <p className="text-xs text-gray-500">3 days after</p>
-                        </div>
-                        <ArrowRight className="w-4 h-4 text-gray-400" />
-                      </div>
-                      <div className="flex items-center">
-                        <div className="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center">
-                          <span className="text-xs font-semibold">3</span>
-                        </div>
-                        <div className="flex-1 ml-3">
-                          <p className="text-sm font-medium">Success Story</p>
-                          <p className="text-xs text-gray-500">7 days after</p>
-                        </div>
-                        <ArrowRight className="w-4 h-4 text-gray-400" />
-                      </div>
-                      <div className="flex items-center">
-                        <div className="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center">
-                          <span className="text-xs font-semibold">4</span>
-                        </div>
-                        <div className="flex-1 ml-3">
-                          <p className="text-sm font-medium">2 Week Follow-up</p>
-                          <p className="text-xs text-gray-500">14 days after</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  )}
                 </div>
 
                 <div className="mt-6 p-4 bg-gray-50 rounded-lg">
@@ -628,10 +477,9 @@ export default function EmailCenterPage() {
                           These email sequences are triggered automatically by user actions:
                         </p>
                         <ul className="text-sm text-gray-600 mt-2 space-y-1">
-                          <li>• Newsletter signup → Welcome Series (5 emails)</li>
-                          <li>• Contact form submission → Follow-up Series (3 emails)</li>
-                          <li>• Appointment booking → Confirmation Series (3 emails)</li>
-                          <li>• Lead form submission → Nurture Series (4 emails)</li>
+                          {automationData?.sequences?.map((seq: any) => (
+                            <li key={seq.id}>• {seq.trigger.replace(/_/g, ' ')} → {seq.name} ({seq.emailCount} emails)</li>
+                          ))}
                         </ul>
                       </div>
                       
@@ -663,7 +511,7 @@ export default function EmailCenterPage() {
                           these changes need to be made in the codebase at:
                         </p>
                         <code className="text-xs bg-gray-100 px-2 py-1 rounded block mt-1">
-                          /lib/email-templates/enhanced-emails.ts
+                          Database: email_sequences and sequence_emails tables
                         </code>
                       </div>
                     </CardContent>

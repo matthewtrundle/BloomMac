@@ -20,17 +20,19 @@ export async function GET(request: NextRequest) {
         .order('sequence', { ascending: true })
         .order('step', { ascending: true }),
       
-      // Sequence emails (automated)
+      // Sequence emails (automated) - only from active sequences
       supabase
         .from('sequence_emails')
         .select(`
           *,
-          email_sequences (
+          email_sequences!inner (
             name,
             trigger,
             status
           )
         `)
+        .eq('email_sequences.status', 'active')
+        .order('sequence_id', { ascending: true })
         .order('position', { ascending: true })
     ]);
 

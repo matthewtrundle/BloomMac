@@ -25,21 +25,6 @@ interface Achievement {
   points: number;
 }
 
-interface WorkbookStatus {
-  weekNumber: number;
-  totalQuestions: number;
-  answeredQuestions: number;
-  isDraft: boolean;
-  isSubmitted: boolean;
-  lastUpdated?: string;
-  completionPercentage: number;
-}
-
-interface CourseWorkbook {
-  courseId: string;
-  courseName: string;
-  workbooks: WorkbookStatus[];
-}
 
 interface CourseStats {
   weeksStarted: number;
@@ -66,24 +51,14 @@ interface CourseProgress {
   lastActivity: string | null;
 }
 
-interface UpcomingAppointment {
-  id: string;
-  appointment_date: string;
-  appointment_type: string;
-  status: string;
-  payment_status: string;
-  confirmation_received: boolean;
-}
 
 export default function SimpleDashboardPage() {
   const { user, loading: authLoading } = useAuth();
   const router = useRouter();
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [achievements, setAchievements] = useState<Achievement[]>([]);
-  const [courseWorkbooks, setCourseWorkbooks] = useState<CourseWorkbook[]>([]);
   const [courseStats, setCourseStats] = useState<CourseStats | null>(null);
   const [allCourses, setAllCourses] = useState<CourseProgress[]>([]);
-  const [upcomingAppointments, setUpcomingAppointments] = useState<UpcomingAppointment[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [toastMessages, setToastMessages] = useState<ToastMessage[]>([]);
@@ -116,13 +91,11 @@ export default function SimpleDashboardPage() {
       setError(null);
       
       // Fetch all dashboard data in parallel
-      const [profileResponse, achievementsResponse, workbookResponse, courseResponse, allCoursesResponse, appointmentsResponse] = await Promise.allSettled([
+      const [profileResponse, achievementsResponse, courseResponse, allCoursesResponse] = await Promise.allSettled([
         fetch('/api/profile/get'),
         fetch('/api/achievements/get'),
-        fetch('/api/workbook/enrolled'),
         fetch('/api/course/stats'),
-        fetch('/api/courses/all-progress'),
-        fetch('/api/appointments/upcoming')
+        fetch('/api/courses/all-progress')
       ]);
 
       // Handle profile response
@@ -143,13 +116,6 @@ export default function SimpleDashboardPage() {
         // Don't show warning for empty achievements
       }
 
-      // Handle workbook response
-      if (workbookResponse.status === 'fulfilled' && workbookResponse.value.ok) {
-        const data = await workbookResponse.value.json();
-        setCourseWorkbooks(data.courses || []);
-      } else {
-        addToast('warning', 'Could not load workbook data');
-      }
 
       // Handle course response (may not exist yet)
       if (courseResponse.status === 'fulfilled' && courseResponse.value.ok) {
@@ -175,14 +141,6 @@ export default function SimpleDashboardPage() {
         setAllCourses(data.courses || []);
       }
 
-      // Handle appointments response (may not exist yet)
-      if (appointmentsResponse.status === 'fulfilled' && appointmentsResponse.value.ok) {
-        const data = await appointmentsResponse.value.json();
-        setUpcomingAppointments(data.appointments || []);
-      } else {
-        // Create mock upcoming appointment for demonstration
-        setUpcomingAppointments([]);
-      }
 
     } catch (error) {
       console.error('Error fetching dashboard data:', error);
@@ -368,13 +326,13 @@ export default function SimpleDashboardPage() {
               <span>Settings</span>
             </a>
             <a 
-              href="/appointments#payments"
+              href="/newsletter"
               className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-bloom-sage-50 transition-colors text-sm"
             >
               <svg className="w-4 h-4 text-bloom-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
               </svg>
-              <span>Payment Methods</span>
+              <span>Newsletter</span>
             </a>
           </div>
         </div>
@@ -399,27 +357,27 @@ export default function SimpleDashboardPage() {
               </a>
               
               <a 
-                href="/simple-workbooks"
+                href="/resources"
                 className="flex flex-col items-center gap-1 px-3 py-2 rounded-lg hover:bg-bloompink/10 transition-colors group min-w-20"
               >
                 <div className="w-8 h-8 bg-bloompink/10 rounded-lg flex items-center justify-center group-hover:bg-bloompink/20 transition-colors">
                   <svg className="w-4 h-4 text-bloompink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                   </svg>
                 </div>
-                <span className="text-xs font-medium text-bloom-dark text-center">Workbooks</span>
+                <span className="text-xs font-medium text-bloom-dark text-center">Resources</span>
               </a>
               
               <a 
-                href="/appointments"
+                href="/community"
                 className="flex flex-col items-center gap-1 px-3 py-2 rounded-lg hover:bg-bloom-accent/10 transition-colors group min-w-20"
               >
                 <div className="w-8 h-8 bg-bloom-accent/10 rounded-lg flex items-center justify-center group-hover:bg-bloom-accent/20 transition-colors">
                   <svg className="w-4 h-4 text-bloom-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                   </svg>
                 </div>
-                <span className="text-xs font-medium text-bloom-dark text-center">Appointments</span>
+                <span className="text-xs font-medium text-bloom-dark text-center">Community</span>
               </a>
               
               <a 
@@ -454,32 +412,32 @@ export default function SimpleDashboardPage() {
             </a>
             
             <a 
-              href="/simple-workbooks"
+              href="/resources"
               className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-bloompink/10 transition-colors group"
             >
               <div className="w-8 h-8 bg-bloompink/10 rounded-lg flex items-center justify-center group-hover:bg-bloompink/20 transition-colors">
                 <svg className="w-4 h-4 text-bloompink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                 </svg>
               </div>
               <div className="flex-1">
-                <span className="text-sm font-medium text-bloom-dark">Workbooks</span>
-                <p className="text-xs text-bloom-dark/60">Track reflections</p>
+                <span className="text-sm font-medium text-bloom-dark">Resources</span>
+                <p className="text-xs text-bloom-dark/60">Free guides & tools</p>
               </div>
             </a>
             
             <a 
-              href="/appointments"
+              href="/community"
               className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-bloom-accent/10 transition-colors group"
             >
               <div className="w-8 h-8 bg-bloom-accent/10 rounded-lg flex items-center justify-center group-hover:bg-bloom-accent/20 transition-colors">
                 <svg className="w-4 h-4 text-bloom-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                 </svg>
               </div>
               <div className="flex-1">
-                <span className="text-sm font-medium text-bloom-dark">Appointments</span>
-                <p className="text-xs text-bloom-dark/60">Schedule sessions</p>
+                <span className="text-sm font-medium text-bloom-dark">Community</span>
+                <p className="text-xs text-bloom-dark/60">Connect & share</p>
               </div>
             </a>
             
@@ -514,11 +472,9 @@ export default function SimpleDashboardPage() {
                 <span className="text-sm font-semibold text-bloom-dark">{allCourses.filter(c => c.isEnrolled).length}</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-xs text-bloom-dark/60">Workbooks Done</span>
+                <span className="text-xs text-bloom-dark/60">Lessons Done</span>
                 <span className="text-sm font-semibold text-bloom-dark">
-                  {courseWorkbooks.reduce((total, course) => 
-                    total + course.workbooks.filter(w => w.isSubmitted).length, 0
-                  )}
+                  {allCourses.reduce((sum, c) => sum + (c.isEnrolled ? c.lessonsCompleted : 0), 0)}
                 </span>
               </div>
             </div>
@@ -590,10 +546,8 @@ export default function SimpleDashboardPage() {
               
               {(() => {
                 const enrolledCourses = allCourses.filter(c => c.isEnrolled).length;
-                const completedWorkbooks = courseWorkbooks.reduce((total, course) => 
-                  total + course.workbooks.filter(w => w.isSubmitted).length, 0
-                );
-                const hasActivity = enrolledCourses > 0 || completedWorkbooks > 0 || achievements.length > 0;
+                const completedLessons = allCourses.reduce((sum, c) => sum + (c.isEnrolled ? c.lessonsCompleted : 0), 0);
+                const hasActivity = enrolledCourses > 0 || completedLessons > 0 || achievements.length > 0;
                 
                 if (!hasActivity) {
                   return (
@@ -623,17 +577,17 @@ export default function SimpleDashboardPage() {
                         </a>
                         
                         <a 
-                          href="/appointments" 
+                          href="/resources" 
                           className="flex items-center gap-3 p-3 bg-gradient-to-r from-bloompink-50 to-bloompink-100 border border-bloompink-200 rounded-lg hover:border-bloompink-300 transition-all group"
                         >
                           <div className="w-10 h-10 bg-bloompink rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
                             <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                             </svg>
                           </div>
                           <div className="flex-1 text-left">
-                            <div className="font-semibold text-bloompink">Book a Session</div>
-                            <div className="text-xs text-bloom-dark/60">1:1 support</div>
+                            <div className="font-semibold text-bloompink">Free Resources</div>
+                            <div className="text-xs text-bloom-dark/60">Guides & tools</div>
                           </div>
                         </a>
                       </div>
@@ -651,12 +605,12 @@ export default function SimpleDashboardPage() {
                           <div className="text-xs text-bloom-dark/60">Active Courses</div>
                         </div>
                         <div>
-                          <div className="text-2xl font-bold text-bloompink">{completedWorkbooks}</div>
-                          <div className="text-xs text-bloom-dark/60">Workbooks Done</div>
+                          <div className="text-2xl font-bold text-bloompink">{completedLessons}</div>
+                          <div className="text-xs text-bloom-dark/60">Lessons Completed</div>
                         </div>
                         <div>
-                          <div className="text-2xl font-bold text-bloom-accent">{upcomingAppointments.length}</div>
-                          <div className="text-xs text-bloom-dark/60">Upcoming Sessions</div>
+                          <div className="text-2xl font-bold text-bloom-accent">{achievements.length}</div>
+                          <div className="text-xs text-bloom-dark/60">Achievements</div>
                         </div>
                         <div>
                           <div className="text-2xl font-bold text-purple-600">{profile?.total_stars || 0}</div>
@@ -700,24 +654,10 @@ export default function SimpleDashboardPage() {
                           const avgCourseProgress = enrolledCourses.length > 0 
                             ? enrolledCourses.reduce((sum, c) => sum + c.progress, 0) / enrolledCourses.length
                             : 0;
-                          const totalWorkbooks = courseWorkbooks.reduce((total, course) => total + course.workbooks.length, 0);
-                          const completedWorkbooks = courseWorkbooks.reduce((total, course) => 
-                            total + course.workbooks.filter(w => w.isSubmitted).length, 0
-                          );
-                          const workbookProgress = totalWorkbooks > 0 ? (completedWorkbooks / totalWorkbooks) * 100 : 0;
                           
-                          if (avgCourseProgress > 25 && workbookProgress < 25) {
+                          if (avgCourseProgress < 50) {
                             return (
                               <>
-                                <a 
-                                  href="/simple-workbooks" 
-                                  className="flex items-center gap-2 p-3 bg-bloompink/10 rounded-lg hover:bg-bloompink/20 transition-colors"
-                                >
-                                  <svg className="w-4 h-4 text-bloompink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5" />
-                                  </svg>
-                                  <span className="text-sm font-medium text-bloompink">Complete Reflections</span>
-                                </a>
                                 <a 
                                   href="/my-courses" 
                                   className="flex items-center gap-2 p-3 bg-bloom-sage/10 rounded-lg hover:bg-bloom-sage/20 transition-colors"
@@ -727,28 +667,14 @@ export default function SimpleDashboardPage() {
                                   </svg>
                                   <span className="text-sm font-medium text-bloom-sage">Continue Learning</span>
                                 </a>
-                              </>
-                            );
-                          } else if (workbookProgress > 25 && avgCourseProgress < 25) {
-                            return (
-                              <>
                                 <a 
-                                  href="/my-courses" 
-                                  className="flex items-center gap-2 p-3 bg-bloom-sage/10 rounded-lg hover:bg-bloom-sage/20 transition-colors"
+                                  href="/resources" 
+                                  className="flex items-center gap-2 p-3 bg-bloompink/10 rounded-lg hover:bg-bloompink/20 transition-colors"
                                 >
-                                  <svg className="w-4 h-4 text-bloom-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                  <svg className="w-4 h-4 text-bloompink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                   </svg>
-                                  <span className="text-sm font-medium text-bloom-sage">Continue Courses</span>
-                                </a>
-                                <a 
-                                  href="/appointments" 
-                                  className="flex items-center gap-2 p-3 bg-bloom-accent/10 rounded-lg hover:bg-bloom-accent/20 transition-colors"
-                                >
-                                  <svg className="w-4 h-4 text-bloom-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                  </svg>
-                                  <span className="text-sm font-medium text-bloom-accent">Book Session</span>
+                                  <span className="text-sm font-medium text-bloompink">Explore Resources</span>
                                 </a>
                               </>
                             );
@@ -756,22 +682,22 @@ export default function SimpleDashboardPage() {
                             return (
                               <>
                                 <a 
-                                  href="/my-courses" 
-                                  className="flex items-center gap-2 p-3 bg-bloom-sage/10 rounded-lg hover:bg-bloom-sage/20 transition-colors"
+                                  href="/courses" 
+                                  className="flex items-center gap-2 p-3 bg-purple-100 rounded-lg hover:bg-purple-200 transition-colors"
                                 >
-                                  <svg className="w-4 h-4 text-bloom-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                  <svg className="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                                   </svg>
-                                  <span className="text-sm font-medium text-bloom-sage">Continue Learning</span>
+                                  <span className="text-sm font-medium text-purple-600">Enroll in New Course</span>
                                 </a>
                                 <a 
-                                  href="/simple-workbooks" 
-                                  className="flex items-center gap-2 p-3 bg-bloompink/10 rounded-lg hover:bg-bloompink/20 transition-colors"
+                                  href="/community" 
+                                  className="flex items-center gap-2 p-3 bg-bloom-accent/10 rounded-lg hover:bg-bloom-accent/20 transition-colors"
                                 >
-                                  <svg className="w-4 h-4 text-bloompink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5" />
+                                  <svg className="w-4 h-4 text-bloom-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                                   </svg>
-                                  <span className="text-sm font-medium text-bloompink">Work on Reflection</span>
+                                  <span className="text-sm font-medium text-bloom-accent">Join Community</span>
                                 </a>
                               </>
                             );
@@ -810,16 +736,16 @@ export default function SimpleDashboardPage() {
                   <div className="text-xs text-bloom-dark/50 mt-1">Healing focus</div>
                 </a>
                 <a 
-                  href="/appointments"
+                  href="/resources"
                   className="text-center p-3 bg-gradient-to-br from-bloom-accent-50 to-bloom-accent-100 rounded-lg border border-bloom-accent-200 hover:border-bloom-accent-300 transition-all group cursor-pointer"
                 >
                   <div className="w-8 h-8 bg-bloom-accent rounded-full flex items-center justify-center mx-auto mb-2 group-hover:scale-110 transition-transform">
                     <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                     </svg>
                   </div>
-                  <span className="text-xs font-medium text-bloom-accent">Community</span>
-                  <div className="text-xs text-bloom-dark/50 mt-1">Book session</div>
+                  <span className="text-xs font-medium text-bloom-accent">Resources</span>
+                  <div className="text-xs text-bloom-dark/50 mt-1">Free guides</div>
                 </a>
                 <a 
                   href="/courses?category=growth"
@@ -980,236 +906,85 @@ export default function SimpleDashboardPage() {
             )}
           </div>
 
-          {/* Appointments Section */}
+          {/* Community & Resources Section */}
           <div className="bg-white rounded-xl shadow-sm border border-bloom-sage/10 p-6">
-            <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-bloom-accent/10 rounded-lg flex items-center justify-center">
                   <svg className="w-5 h-5 text-bloom-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                   </svg>
                 </div>
-                <h3 className="text-lg font-semibold text-bloom-dark">Appointments</h3>
+                <h3 className="text-lg font-semibold text-bloom-dark">Learn & Connect</h3>
               </div>
-              <a 
-                href="/appointments"
-                className="text-sm font-medium text-bloom-accent hover:text-bloom-accent/80 transition-colors"
-              >
-                View all →
-              </a>
             </div>
             
-            {upcomingAppointments.length > 0 ? (
-              <div className="space-y-4">
-                <h4 className="text-lg font-medium text-bloom-dark">Upcoming Appointments</h4>
-                {upcomingAppointments.slice(0, 3).map((appointment) => {
-                  const appointmentDate = new Date(appointment.appointment_date);
-                  const isToday = appointmentDate.toDateString() === new Date().toDateString();
-                  const isTomorrow = appointmentDate.toDateString() === new Date(Date.now() + 24 * 60 * 60 * 1000).toDateString();
-                  
-                  return (
-                    <div 
-                      key={appointment.id}
-                      className={`border rounded-lg p-4 transition-all hover:shadow-md ${
-                        isToday 
-                          ? 'bg-blue-50 border-blue-200' 
-                          : 'bg-bloom-sage-50 border-bloom-sage-200'
-                      }`}
-                    >
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-3">
-                          <div className={`w-12 h-12 rounded-full flex items-center justify-center ${
-                            isToday ? 'bg-blue-500' : 'bg-bloom-sage'
-                          }`}>
-                            <span className="text-white text-lg">
-                              {isToday ? '🕐' : '📅'}
-                            </span>
-                          </div>
-                          <div>
-                            <h4 className="font-medium text-bloom-dark">
-                              {appointment.appointment_type.replace(/-/g, ' ').replace(/\b\w/g, (l: string) => l.toUpperCase())}
-                            </h4>
-                            <p className="text-sm text-bloom-dark/60">
-                              {isToday ? 'Today' : isTomorrow ? 'Tomorrow' : appointmentDate.toLocaleDateString('en-US', {
-                                weekday: 'long',
-                                month: 'short',
-                                day: 'numeric'
-                              })} at {appointmentDate.toLocaleTimeString('en-US', {
-                                hour: 'numeric',
-                                minute: '2-digit'
-                              })}
-                            </p>
-                            {!appointment.confirmation_received && (
-                              <p className="text-xs text-orange-600 mt-1">⚠️ Confirmation needed</p>
-                            )}
-                          </div>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                            appointment.status === 'scheduled' 
-                              ? 'bg-green-100 text-green-800'
-                              : 'bg-gray-100 text-gray-800'
-                          }`}>
-                            {appointment.status}
-                          </span>
-                          <a
-                            href="/appointments"
-                            className="px-3 py-1 bg-bloom-sage text-white rounded text-sm hover:bg-bloom-sage/90 transition-colors"
-                          >
-                            Manage
-                          </a>
-                        </div>
-                      </div>
+            <div className="grid md:grid-cols-2 gap-4">
+              <a href="/resources" className="group">
+                <div className="p-4 border border-bloom-sage/20 rounded-lg hover:border-bloom-sage/40 transition-all hover:shadow-md">
+                  <div className="flex items-start gap-3">
+                    <div className="w-12 h-12 bg-gradient-to-br from-bloom-sage/20 to-bloom-sage/10 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                      <svg className="w-6 h-6 text-bloom-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                      </svg>
                     </div>
-                  );
-                })}
-                {upcomingAppointments.length > 3 && (
-                  <div className="text-center pt-2">
-                    <a href="/appointments" className="text-bloom-sage hover:text-bloom-sage/80 text-sm underline">
-                      View {upcomingAppointments.length - 3} more appointments →
-                    </a>
-                  </div>
-                )}
-              </div>
-            ) : (
-              <div className="text-center py-8">
-                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-2xl text-gray-400">📅</span>
-                </div>
-                <h4 className="font-medium text-bloom-dark mb-2">No upcoming appointments</h4>
-                <p className="text-bloom-dark/60 text-sm mb-6">
-                  Ready to connect with Dr. Jana? Book your session today.
-                </p>
-                <div className="grid md:grid-cols-3 gap-3 mb-6">
-                  <div className="bg-bloom-sage-50 rounded-lg p-3 text-center">
-                    <div className="text-lg mb-1">💬</div>
-                    <div className="text-xs text-bloom-dark/70">Consultation</div>
-                  </div>
-                  <div className="bg-bloompink/10 rounded-lg p-3 text-center">
-                    <div className="text-lg mb-1">🌱</div>
-                    <div className="text-xs text-bloom-dark/70">Follow-up</div>
-                  </div>
-                  <div className="bg-bloom-accent/10 rounded-lg p-3 text-center">
-                    <div className="text-lg mb-1">🎯</div>
-                    <div className="text-xs text-bloom-dark/70">Focused Session</div>
-                  </div>
-                </div>
-                <a 
-                  href="/appointments"
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-bloom-sage text-white rounded-lg hover:bg-bloom-sage/90 transition-colors"
-                >
-                  <span>📅</span>
-                  Book Your First Appointment
-                </a>
-              </div>
-            )}
-          </div>
-
-          {/* Workbook Progress Section */}
-          {courseWorkbooks.length > 0 && courseWorkbooks.map((course) => (
-            <div key={course.courseId} className="bg-white rounded-xl shadow-sm border border-bloom-sage/10 p-6">
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-bloompink/10 rounded-lg flex items-center justify-center">
-                    <svg className="w-5 h-5 text-bloompink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-bloom-dark">{course.courseName} Workbooks</h3>
-                    <p className="text-xs text-bloom-dark/60">
-                      {course.workbooks.length} weekly workbooks
-                    </p>
-                  </div>
-                </div>
-                <span className="text-sm font-medium text-bloompink bg-bloompink/10 px-3 py-1 rounded-full">
-                  {course.workbooks.filter(w => w.isSubmitted).length} of {course.workbooks.length} done
-                </span>
-              </div>
-              
-              <div className="grid md:grid-cols-2 gap-3">
-                {course.workbooks.map((workbook) => (
-                  <div 
-                    key={workbook.weekNumber}
-                    className={`border rounded-lg p-4 transition-all hover:shadow-md ${
-                      workbook.isSubmitted 
-                        ? 'bg-green-50 border-green-200' 
-                        : workbook.isDraft 
-                        ? 'bg-yellow-50 border-yellow-200'
-                        : workbook.answeredQuestions > 0
-                        ? 'bg-blue-50 border-blue-200'
-                        : 'bg-gray-50 border-gray-200'
-                    }`}
-                  >
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-lg bg-white flex items-center justify-center shadow-sm border border-bloom-sage/10">
-                          {workbook.isSubmitted ? (
-                            <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                            </svg>
-                          ) : workbook.isDraft ? (
-                            <svg className="w-5 h-5 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                          ) : workbook.answeredQuestions > 0 ? (
-                            <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                            </svg>
-                          ) : (
-                            <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                          )}
-                        </div>
-                        <div>
-                          <h4 className="font-medium text-bloom-dark">
-                            Week ${workbook.weekNumber}
-                          </h4>
-                          <p className="text-sm text-bloom-dark/60">
-                            {workbook.isSubmitted ? 'Submitted' : 
-                             workbook.isDraft ? 'In Progress' : 
-                             workbook.answeredQuestions > 0 ? 'Started' : 'Not Started'}
-                          </p>
-                        </div>
-                      </div>
-                      <a
-                        href="/simple-workbooks"
-                        className={`px-3 py-1 rounded text-sm font-medium transition-colors ${
-                          workbook.isSubmitted
-                            ? 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                            : 'bg-bloom-sage text-white hover:bg-bloom-sage/90'
-                        }`}
-                      >
-                        {workbook.isSubmitted ? 'Review' : 'Open'}
-                      </a>
+                    <div className="flex-1">
+                      <h4 className="font-semibold text-bloom-dark mb-1">Free Resources</h4>
+                      <p className="text-sm text-bloom-dark/60">Grounding techniques, new mom guides, and wellness tools</p>
                     </div>
-                    
-                    {!workbook.isSubmitted && workbook.answeredQuestions > 0 && (
-                      <div className="mt-3">
-                        <div className="w-full h-1.5 bg-gray-200 rounded-full overflow-hidden">
-                          <div
-                            className="h-full bg-gradient-to-r from-bloom-sage to-bloompink transition-all duration-300"
-                            style={{ width: `${workbook.completionPercentage}%` }}
-                          />
-                        </div>
-                        <div className="text-xs text-bloom-dark/60 mt-1">
-                          {workbook.completionPercentage}% complete
-                        </div>
-                      </div>
-                    )}
                   </div>
-                ))}
-              </div>
+                </div>
+              </a>
               
-              {/* Course-Workbook Connection Explanation */}
-              <div className="mt-4 p-3 bg-gradient-to-r from-bloom-sage-50/20 to-bloompink-50/20 rounded-lg border border-bloom-sage/10">
-                <p className="text-xs text-bloom-dark/70">
-                  <span className="font-medium">💡 How it works:</span> Each lesson has reflection prompts • Complete them at your own pace • Your responses help Dr. Jana understand your journey
-                </p>
-              </div>
+              <a href="/community" className="group">
+                <div className="p-4 border border-bloompink/20 rounded-lg hover:border-bloompink/40 transition-all hover:shadow-md">
+                  <div className="flex items-start gap-3">
+                    <div className="w-12 h-12 bg-gradient-to-br from-bloompink/20 to-bloompink/10 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                      <svg className="w-6 h-6 text-bloompink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                      </svg>
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="font-semibold text-bloom-dark mb-1">Community</h4>
+                      <p className="text-sm text-bloom-dark/60">Connect with other moms on their wellness journey</p>
+                    </div>
+                  </div>
+                </div>
+              </a>
+              
+              <a href="/newsletter" className="group">
+                <div className="p-4 border border-purple-200 rounded-lg hover:border-purple-400 transition-all hover:shadow-md">
+                  <div className="flex items-start gap-3">
+                    <div className="w-12 h-12 bg-gradient-to-br from-purple-200 to-purple-100 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                      <svg className="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                      </svg>
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="font-semibold text-bloom-dark mb-1">Newsletter</h4>
+                      <p className="text-sm text-bloom-dark/60">Weekly tips and insights for your wellness journey</p>
+                    </div>
+                  </div>
+                </div>
+              </a>
+              
+              <a href="/contact" className="group">
+                <div className="p-4 border border-bloom-accent/20 rounded-lg hover:border-bloom-accent/40 transition-all hover:shadow-md">
+                  <div className="flex items-start gap-3">
+                    <div className="w-12 h-12 bg-gradient-to-br from-bloom-accent/20 to-bloom-accent/10 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                      <svg className="w-6 h-6 text-bloom-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                      </svg>
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="font-semibold text-bloom-dark mb-1">Get Support</h4>
+                      <p className="text-sm text-bloom-dark/60">Questions? We're here to help</p>
+                    </div>
+                  </div>
+                </div>
+              </a>
             </div>
-          ))}
+          </div>
 
 
 

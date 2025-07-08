@@ -6,6 +6,7 @@ import Link from 'next/link';
 // UI Components
 import OrganicShape from '@/components/ui/OrganicShape';
 import GlassmorphismPanel from '@/components/ui/GlassmorphismPanel';
+import LocationMap from '@/components/LocationMap';
 
 // Analytics
 import { analytics } from '@/lib/analytics';
@@ -196,18 +197,7 @@ export default function ContactPage() {
             {/* Location Map (smaller on mobile, hidden by default on mobile to prioritize scheduling) */}
             <div className="hidden md:block mt-6">
               <h3 className="font-playfair text-lg text-bloom mb-4">Our Location</h3>
-              <div className="rounded-lg overflow-hidden shadow-md h-[200px]">
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3442.1076133481174!2d-97.8045424!3d30.452954299999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8644cc6c16a6abf7%3A0xb7770fa5438d1f6a!2s13706%20N%20Hwy%20183%2C%20Austin%2C%20TX%2078750!5e0!3m2!1sen!2sus!4v1654345789012!5m2!1sen!2sus"
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }}
-                  allowFullScreen={false}
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  title="Bloom Psychology office location"
-                ></iframe>
-              </div>
+              <LocationMap height="200px" />
             </div>
           </div>
           
@@ -360,17 +350,8 @@ export default function ContactPage() {
       <div className="md:hidden bg-white py-12">
         <div className="container mx-auto px-4">
           <h3 className="font-playfair text-2xl text-center text-bloom mb-6">Our Location</h3>
-          <div className="rounded-lg overflow-hidden shadow-md h-[300px] max-w-lg mx-auto">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3442.1076133481174!2d-97.8045424!3d30.452954299999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8644cc6c16a6abf7%3A0xb7770fa5438d1f6a!2s13706%20N%20Hwy%20183%2C%20Austin%2C%20TX%2078750!5e0!3m2!1sen!2sus!4v1654345789012!5m2!1sen!2sus"
-              width="100%"
-              height="100%"
-              style={{ border: 0 }}
-              allowFullScreen={false}
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title="Bloom Psychology office location"
-            ></iframe>
+          <div className="max-w-lg mx-auto">
+            <LocationMap height="300px" />
           </div>
         </div>
       </div>

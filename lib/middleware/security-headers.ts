@@ -72,7 +72,7 @@ export function getCSPHeader(nonce?: string): string {
     'media-src': ["'self'"],
     'object-src': ["'none'"],
     'child-src': ["'self'", 'https://calendly.com'],
-    'frame-src': ["'self'", 'https://calendly.com', 'https://player.vimeo.com'],
+    'frame-src': ["'self'", 'https://calendly.com', 'https://player.vimeo.com', 'https://www.google.com/maps/', 'https://maps.google.com/'],
     'worker-src': ["'self'", 'blob:'],
     'form-action': ["'self'"],
     'base-uri': ["'self'"],

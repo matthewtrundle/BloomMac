@@ -1,0 +1,57 @@
+[
+  {
+    "id": "5d762dc7-e73c-4389-87ee-a7d2202be412",
+    "name": "New Mom Nurture",
+    "description": "Support sequence for new mom program inquiries",
+    "trigger": "new_mom_program",
+    "trigger_conditions": {},
+    "status": "active",
+    "created_by": null,
+    "created_at": "2025-05-28T13:39:54.170805+00:00",
+    "updated_at": "2025-05-28T13:39:54.170805+00:00"
+  },
+  {
+    "id": "655f6a5e-483c-4a39-85a3-0674ca0d0758",
+    "name": "Welcome Series",
+    "description": "Automated welcome emails for new newsletter subscribers",
+    "trigger": "newsletter_signup",
+    "trigger_conditions": {},
+    "status": "inactive",
+    "created_by": null,
+    "created_at": "2025-05-28T13:39:54.170805+00:00",
+    "updated_at": "2025-05-28T13:39:54.170805+00:00"
+  },
+  {
+    "id": "c8f5fb8f-dad1-46c4-84e4-3464310354e6",
+    "name": "Newsletter Signup Sequence",
+    "description": "Modern email sequence for newsletter subscribers with valuable content and gentle CTAs",
+    "trigger": "newsletter_signup",
+    "trigger_conditions": {},
+    "status": "active",
+    "created_by": null,
+    "created_at": "2025-06-04T11:55:22.024439+00:00",
+    "updated_at": "2025-06-04T11:55:22.024439+00:00"
+  },
+  {
+    "id": "43473ec5-af92-49c2-932a-99ea9068290f",
+    "name": "Resource Download Follow-Up",
+    "description": "Nurture sequence for users who download free resources, providing value and gentle conversion opportunities",
+    "trigger": "resource_download",
+    "trigger_conditions": {},
+    "status": "active",
+    "created_by": null,
+    "created_at": "2025-06-04T12:05:20.584559+00:00",
+    "updated_at": "2025-06-04T12:05:20.584559+00:00"
+  },
+  {
+    "id": "9f454fab-a3e2-4af4-a680-f65bceadf3a9",
+    "name": "Contact Follow-up",
+    "description": "Follow up with contact form submissions",
+    "trigger": "contact_form",
+    "trigger_conditions": {},
+    "status": "active",
+    "created_by": null,
+    "created_at": "2025-05-28T13:39:54.170805+00:00",
+    "updated_at": "2025-05-28T13:39:54.170805+00:00"
+  }
+]

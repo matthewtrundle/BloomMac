@@ -1,5 +1,24 @@
 # CLAUDE.md - Critical Project Context for AI Assistants
 
+## 🚨 IMPORTANT: HIPAA FEATURES REMOVED (Jan 2025)
+
+### What Was Removed:
+- ❌ All appointment scheduling features
+- ❌ Provider dashboard and clinical notes
+- ❌ Patient-linked workbooks
+- ❌ Payment processing for appointments
+- ❌ Any features that store PHI
+
+### Platform Focus: Educational Wellness Platform
+- ✅ Online courses and lessons
+- ✅ Anonymous wellness resources
+- ✅ Newsletter and email automation
+- ✅ Community features (coming soon)
+- ✅ Free educational content
+
+### If User Asks About Appointments:
+Direct them to use SimplePractice or Calendly for appointment booking. This platform is now focused on educational content only.
+
 ## 🛑 STOP: DATABASE AWARENESS - CRITICAL
 
 ### CURRENT DATABASE TABLES (Last Updated: Jan 2025):
@@ -7,10 +26,10 @@ The following tables exist in the production database:
 
 | Table Name | Purpose | Key Info |
 |------------|---------|----------|
-| **email_templates** | Email template storage | 6 rows |
-| **email_templates_custom** | Custom email templates | 10 rows |
-| **email_sequences** | Email automation sequences | 5 rows |
-| **sequence_emails** | Individual emails in sequences | 15 rows |
+| **email_templates** | Email template storage | 1 row (after cleanup) |
+| **email_templates_custom** | Custom email templates | 0 rows (after cleanup) |
+| **email_sequences** | Email automation sequences | 2 rows (2 active: newsletter_signup, contact_form) |
+| **sequence_emails** | Individual emails in sequences | 8 rows (only active sequences) |
 | **sequence_enrollments** | User enrollments in sequences | 37 rows |
 | **subscribers** | Newsletter/email subscribers | 46 rows |
 | **user_profiles** | All user profiles (including admins) | 6 rows |
@@ -154,9 +173,9 @@ supabase.from('admin_activity_log').select('count', { count: 'exact', head: true
 | Trigger | Status | Emails | Entry Point | Implementation |
 |---------|--------|--------|-------------|----------------|
 | `newsletter_signup` | ✅ WORKING | 5 emails (30 days) | Profile settings, newsletter page | enrollmentManager ✅ |
-| `contact_form` | ✅ WORKING | 0 emails configured | Contact form submissions | enrollmentManager ✅ |
+| `contact_form` | ✅ WORKING | 3 emails (7 days) | Contact form submissions | enrollmentManager ✅ |
 | `resource_download` | 🗃️ ARCHIVED | N/A | Resource pages are free content | DECISION: No gated downloads |
-| `new_mom_program` | 🚫 DISABLED BY DESIGN | N/A | Calendly bookings | DECISION: No email sequence |
+| `new_mom_program` | 🗃️ ARCHIVED | N/A | Calendly bookings | DECISION: No email sequence |
 
 ### 🏗️ ARCHITECTURE DECISIONS (DO NOT CHANGE)
 
@@ -570,9 +589,31 @@ npm run db:query "SELECT name, trigger, status FROM email_sequences WHERE status
 ```
 
 ### Email Sequence Status Reference:
-- **Active Sequences**: `newsletter_signup` (5 emails), `contact_form` (0 emails but working)
-- **Archived**: `resource_download` (resource pages are free content)
-- **Disabled**: `new_mom_program` (Calendly handles bookings, no automation needed)
+- **Active Sequences**: `newsletter_signup` (5 emails over 30 days), `contact_form` (3 emails over 7 days)
+- **Archived**: `resource_download` (resource pages are free content), `new_mom_program` (Calendly handles bookings)
+
+### 📋 EMAIL AUTOMATION ROADMAP (Future Work)
+
+#### Priority Email Sequences to Implement:
+1. **Appointment Reminders & Follow-ups**
+   - Pre-appointment reminder (24 hours before)
+   - Day-of reminder (2 hours before)
+   - Post-appointment follow-up (24-48 hours after)
+   - No-show follow-up sequence
+   
+2. **Course Purchase & Progress**
+   - Purchase confirmation & welcome
+   - Course access instructions
+   - Weekly progress reminders
+   - Module completion celebrations
+   - Course completion certificate
+
+3. **Payment & Billing**
+   - Payment confirmation
+   - Failed payment notifications
+   - Subscription renewal reminders
+
+**Note**: These sequences were removed during cleanup as they weren't properly implemented. Need to design and build them properly with HIPAA compliance in mind.
 
 ## 🏗️ PRODUCTION SAFETY RULES
 
@@ -595,6 +636,107 @@ try {
   throw error; // Re-throw after logging
 }
 ```
+
+## 🔒 HIPAA COMPLIANCE STATUS & REQUIREMENTS
+
+### Current Status: ⚠️ NOT HIPAA COMPLIANT
+
+**Why this matters**: As a psychology practice handling patient information, HIPAA compliance is legally required for:
+- Patient appointment data
+- Clinical notes
+- Treatment information
+- Any personally identifiable health information (PHI)
+
+### 🚨 Critical HIPAA Gaps:
+
+1. **Data Encryption**
+   - ❌ No encryption at rest for database
+   - ❌ No field-level encryption for PHI
+   - ✅ HTTPS in use (encryption in transit)
+
+2. **Access Controls**
+   - ⚠️ Basic role-based access (admin/user)
+   - ❌ No audit logs for data access
+   - ❌ No automatic session timeouts
+   - ❌ No multi-factor authentication
+
+3. **Business Associate Agreements (BAAs)**
+   - ❌ Supabase (need Enterprise plan for BAA)
+   - ❌ Resend (email service - need BAA)
+   - ❌ Vercel (hosting - need BAA)
+
+4. **Data Storage & Retention**
+   - ❌ No data retention policies
+   - ❌ No secure deletion procedures
+   - ❌ No backup encryption
+
+### 📋 HIPAA Compliance Roadmap:
+
+#### Phase 1: Critical Infrastructure (Required before handling PHI)
+1. **Upgrade to HIPAA-compliant services**:
+   - Supabase Enterprise (provides BAA)
+   - OR migrate to HIPAA-compliant database (AWS RDS with encryption)
+   
+2. **Implement encryption**:
+   - Enable database encryption at rest
+   - Implement field-level encryption for sensitive data
+   - Use encrypted backups
+
+3. **Access controls**:
+   - Add multi-factor authentication
+   - Implement session timeouts (15-30 minutes)
+   - Create detailed audit logging
+
+#### Phase 2: Appointment System Design
+1. **Separate PHI from marketing data**:
+   - Appointments table with encrypted fields
+   - Separate database/schema for clinical data
+   - Minimal data in emails (use secure portal links)
+
+2. **Secure communication**:
+   - No PHI in email bodies
+   - Use secure messaging portal for sensitive info
+   - Appointment reminders with minimal info
+
+#### Phase 3: Policies & Procedures
+1. **Technical safeguards**:
+   - Regular security audits
+   - Vulnerability scanning
+   - Incident response plan
+
+2. **Administrative safeguards**:
+   - Staff training
+   - Access review procedures
+   - Data breach protocols
+
+### 🛡️ Recommended Architecture for HIPAA:
+
+```
+Current Architecture (NOT COMPLIANT):
+- Supabase (no BAA)
+- Unencrypted PHI storage
+- PHI mixed with marketing data
+
+Recommended Architecture:
+- HIPAA-compliant database (encrypted)
+- Separate schemas for PHI vs marketing
+- Secure patient portal for sensitive comms
+- Audit logging for all PHI access
+- Encrypted backups with retention policies
+```
+
+### ⚡ Quick Wins for Better Security (Do Now):
+1. **Never store PHI in current system**
+2. **Use Calendly for appointments** (they handle HIPAA)
+3. **Keep clinical notes offline** or in HIPAA-compliant EHR
+4. **Limit emails to general reminders** without health details
+
+### 📚 Resources:
+- [HHS HIPAA Security Rule](https://www.hhs.gov/hipaa/for-professionals/security/index.html)
+- [HIPAA Compliance Checklist](https://www.hhs.gov/hipaa/for-professionals/security/laws-regulations/index.html)
+- [Supabase Enterprise/HIPAA](https://supabase.com/docs/guides/platform/hipaa)
+
+**IMPORTANT**: Do not store any PHI in the current system until HIPAA compliance is achieved. This includes appointment details beyond basic scheduling, clinical notes, treatment information, or detailed health information.
 
 ## 🤖 AUTOMATIC TRIGGERS FOR TESTING
 
