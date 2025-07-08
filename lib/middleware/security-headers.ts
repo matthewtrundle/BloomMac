@@ -34,8 +34,8 @@ export function getCSPHeader(nonce?: string): string {
     'default-src': ["'self'"],
     'script-src': [
       "'self'",
-      nonce ? `'nonce-${nonce}'` : "'unsafe-inline'",
-      "'unsafe-eval'", // Required for Next.js in dev
+      process.env.NODE_ENV === 'development' ? "'unsafe-inline'" : (nonce ? `'nonce-${nonce}'` : "'unsafe-inline'"),
+      process.env.NODE_ENV === 'development' ? "'unsafe-eval'" : "'unsafe-eval'", // Required for Next.js
       'https://calendly.com',
       'https://assets.calendly.com',
       'https://www.googletagmanager.com',

@@ -3,14 +3,15 @@ import { createSupabaseRouteHandlerClient } from '@/lib/supabase-server';
 
 export async function GET(request: NextRequest) {
   try {
-    const { supabase } = createSupabaseRouteHandlerClient(request);
+    const { supabase, applySetCookies } = createSupabaseRouteHandlerClient(request);
     
     const { data: { session } } = await supabase.auth.getSession();
     if (!session) {
-      return NextResponse.json(
+      const response = NextResponse.json(
         { success: false, error: 'Authentication required' },
         { status: 401 }
       );
+      return applySetCookies(response);
     }
     
     // Get user profile from user_profiles table
@@ -38,16 +39,18 @@ export async function GET(request: NextRequest) {
         
         if (insertError) {
           console.error('Error creating profile:', insertError);
-          return NextResponse.json(
+          const response = NextResponse.json(
             { success: false, error: 'Failed to create profile' },
             { status: 500 }
           );
+          return applySetCookies(response);
         }
         
-        return NextResponse.json({
+        const response = NextResponse.json({
           success: true,
           profile: newProfile
         });
+        return applySetCookies(response);
       }
       
       throw error;
@@ -61,19 +64,21 @@ export async function GET(request: NextRequest) {
     
     const totalStars = achievements?.reduce((sum, a) => sum + (a.points || 0), 0) || 0;
     
-    return NextResponse.json({
+    const response = NextResponse.json({
       success: true,
       profile: {
         ...profile,
         total_stars: totalStars
       }
     });
+    return applySetCookies(response);
     
   } catch (error) {
     console.error('Error in profile API:', error);
-    return NextResponse.json(
+    const response = NextResponse.json(
       { success: false, error: 'Failed to fetch profile' },
       { status: 500 }
     );
+    return applySetCookies(response);
   }
 }

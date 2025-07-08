@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { useAuth } from '@/contexts/AuthContext';
 import Button from '@/components/ui/Button';
 
 interface UserProfile {
@@ -22,11 +23,11 @@ interface UserProfile {
 export default function SimpleEditProfilePage() {
   const router = useRouter();
   const supabase = createClientComponentClient();
+  const { user, loading: authLoading } = useAuth();
   
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
-  const [user, setUser] = useState<any>(null);
   const [profile, setProfile] = useState<UserProfile>({
     id: '',
     first_name: '',
@@ -42,16 +43,10 @@ export default function SimpleEditProfilePage() {
   });
 
   useEffect(() => {
-    const getUser = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session) {
-        router.push('/auth/login');
-      } else {
-        setUser(session.user);
-      }
-    };
-    getUser();
-  }, [router, supabase.auth]);
+    if (!authLoading && !user) {
+      router.push('/auth/login');
+    }
+  }, [user, authLoading, router]);
 
   useEffect(() => {
     if (user) {
@@ -179,6 +174,17 @@ export default function SimpleEditProfilePage() {
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-bloom-sage mx-auto"></div>
           <p className="mt-4 text-bloom-dark/60">Loading your profile...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (authLoading || loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-bloom-sage-50 via-white to-bloom-pink-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-bloom-sage mx-auto"></div>
+          <p className="mt-4 text-bloom-dark/60">Loading profile...</p>
         </div>
       </div>
     );

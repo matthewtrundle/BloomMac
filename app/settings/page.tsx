@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { useAuth } from '@/contexts/AuthContext';
 import Button from '@/components/ui/Button';
 import NotificationPreferences from '@/components/settings/NotificationPreferences';
 import { 
@@ -23,7 +24,7 @@ import {
 export default function SettingsPage() {
   const router = useRouter();
   const supabase = createClientComponentClient();
-  const [user, setUser] = useState<any>(null);
+  const { user, loading: authLoading } = useAuth();
   const [activeTab, setActiveTab] = useState('notifications');
   const [loading, setLoading] = useState(false);
   
@@ -45,16 +46,10 @@ export default function SettingsPage() {
   const [passwordSuccess, setPasswordSuccess] = useState('');
 
   useEffect(() => {
-    const getUser = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session) {
-        router.push('/auth/login');
-      } else {
-        setUser(session.user);
-      }
-    };
-    getUser();
-  }, [router, supabase.auth]);
+    if (!authLoading && !user) {
+      router.push('/auth/login');
+    }
+  }, [user, authLoading, router]);
 
   // Fetch privacy settings when tab becomes active
   useEffect(() => {
@@ -114,7 +109,7 @@ export default function SettingsPage() {
     }
   }
 
-  if (!user) {
+  if (authLoading || !user) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-bloom-sage-50 via-white to-bloom-pink-50 flex items-center justify-center">
         <div className="text-center">

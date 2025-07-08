@@ -3,14 +3,15 @@ import { createSupabaseRouteHandlerClient } from '@/lib/supabase-server';
 
 export async function GET(request: NextRequest) {
   try {
-    const { supabase } = createSupabaseRouteHandlerClient(request);
+    const { supabase, applySetCookies } = createSupabaseRouteHandlerClient(request);
     
     const { data: { session } } = await supabase.auth.getSession();
     if (!session) {
-      return NextResponse.json(
+      const response = NextResponse.json(
         { success: false, error: 'Authentication required' },
         { status: 401 }
       );
+      return applySetCookies(response);
     }
     
     // Get user achievements - the table already has all the data we need!
@@ -23,10 +24,11 @@ export async function GET(request: NextRequest) {
     if (error) {
       console.error('Error fetching user achievements:', error);
       // Return empty array instead of throwing
-      return NextResponse.json({
+      const response = NextResponse.json({
         success: true,
         achievements: []
       });
+      return applySetCookies(response);
     }
     
     // The user_achievements table already has name, description, icon, points!
@@ -39,16 +41,18 @@ export async function GET(request: NextRequest) {
       icon: ua.icon || '🏆'
     })) || [];
     
-    return NextResponse.json({
+    const response = NextResponse.json({
       success: true,
       achievements: formattedAchievements
     });
+    return applySetCookies(response);
     
   } catch (error) {
     console.error('Error in achievements API:', error);
-    return NextResponse.json(
+    const response = NextResponse.json(
       { success: false, error: 'Failed to fetch achievements' },
       { status: 500 }
     );
+    return applySetCookies(response);
   }
 }

@@ -7,7 +7,7 @@ import Image from 'next/image';
 import { courses, Course } from '@/lib/data/courses';
 import Button from '@/components/ui/Button';
 import AnimatedTagline from '@/components/ui/AnimatedTagline';
-import { Star, Clock, Users, BookOpen, ChevronRight, Heart, Brain, Sparkles } from 'lucide-react';
+import { Star, Clock, Users, UserGroup, BookOpen, ChevronRight, Heart, Brain, Sparkles } from 'lucide-react';
 
 // Course interface is imported from lib/data/courses
 
