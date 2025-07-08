@@ -4,9 +4,10 @@ import Script from 'next/script';
 
 interface GoogleAnalyticsProps {
   gaId: string;
+  googleAdsId?: string;
 }
 
-export default function GoogleAnalytics({ gaId }: GoogleAnalyticsProps) {
+export default function GoogleAnalytics({ gaId, googleAdsId }: GoogleAnalyticsProps) {
   if (!gaId) {
     console.warn('Google Analytics ID not provided');
     return null;
@@ -29,6 +30,8 @@ export default function GoogleAnalytics({ gaId }: GoogleAnalyticsProps) {
             page_path: window.location.pathname,
             send_page_view: true
           });
+          
+          ${googleAdsId ? `gtag('config', '${googleAdsId}');` : ''}
         `}
       </Script>
     </>

@@ -5,7 +5,7 @@ import type { Metadata } from 'next';
 // UI Components
 import OrganicShape from '@/components/ui/OrganicShape';
 import GlassmorphismPanel from '@/components/ui/GlassmorphismPanel';
-import CalendlyWidget from '@/components/CalendlyWidget';
+import CalendlyBookingWidget from '@/components/CalendlyBookingWidget';
 
 export const metadata: Metadata = {
   title: 'Book Your Free Consultation | Bloom Psychology',
@@ -206,7 +206,7 @@ export default function BookingPage() {
           
           {/* Right side - Calendly widget */}
           <div className="lg:w-2/3 w-full max-w-full overflow-hidden">
-            <CalendlyWidget />
+            <CalendlyBookingWidget />
           </div>
         </div>
       </div>

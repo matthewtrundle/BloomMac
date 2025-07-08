@@ -140,7 +140,10 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://cdn.calendly.com" />
         
         {/* Google Analytics */}
-        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID || ''} />
+        <GoogleAnalytics 
+          gaId={process.env.NEXT_PUBLIC_GA_ID || ''} 
+          googleAdsId={process.env.NEXT_PUBLIC_GOOGLE_ADS_ID}
+        />
       </head>
       <body 
         className="bg-white text-bloom min-h-screen"
