@@ -1,86 +1,64 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createSupabaseRouteHandlerClient } from '@/lib/supabase-server';
-import { cookies } from 'next/headers';
 
 export async function GET(request: NextRequest) {
   try {
-    console.log('=== AUTH DEBUG ENDPOINT ===');
+    const { supabase, applySetCookies } = createSupabaseRouteHandlerClient(request);
     
-    // 1. Check cookies
-    const cookieStore = cookies();
-    const allCookies = cookieStore.getAll();
-    
-    console.log('All cookies:', allCookies.map(c => ({ name: c.name, hasValue: !!c.value })));
-    
-    // Look for Supabase auth cookies
-    const authCookies = allCookies.filter(c => c.name.includes('sb-') && c.name.includes('auth'));
-    console.log('Auth cookies found:', authCookies.length);
-    
-    // 2. Try to get session
-    const { supabase } = createSupabaseRouteHandlerClient(request);
+    // Get session info
     const { data: { session }, error: sessionError } = await supabase.auth.getSession();
     
-    console.log('Session check:', {
-      hasSession: !!session,
-      sessionError: sessionError?.message,
-      userId: session?.user?.id,
-      email: session?.user?.email,
-      expiresAt: session?.expires_at
-    });
-    
-    // 3. Try to get user
+    // Get user info
     const { data: { user }, error: userError } = await supabase.auth.getUser();
     
-    console.log('User check:', {
-      hasUser: !!user,
-      userError: userError?.message,
-      userId: user?.id
-    });
+    // Check cookies
+    const cookies = request.cookies.getAll();
+    const authCookies = cookies.filter(c => 
+      c.name.includes('sb-') || 
+      c.name.includes('supabase') || 
+      c.name.includes('auth')
+    );
     
-    // 4. Check profile
-    let profile = null;
-    if (session?.user?.id) {
-      const { data, error } = await supabase
-        .from('user_profiles')
-        .select('*')
-        .eq('id', session.user.id)
-        .single();
-      
-      profile = { exists: !!data, error: error?.message };
-    }
-    
-    return NextResponse.json({
-      success: true,
-      debug: {
-        cookies: {
-          total: allCookies.length,
-          authCookies: authCookies.map(c => c.name),
-          hasSupabaseAuth: authCookies.length > 0
-        },
-        session: {
-          exists: !!session,
-          error: sessionError?.message,
-          userId: session?.user?.id,
-          email: session?.user?.email,
-          expiresAt: session?.expires_at,
-          expired: session ? new Date(session.expires_at * 1000) < new Date() : null
-        },
-        user: {
-          exists: !!user,
-          error: userError?.message,
-          id: user?.id
-        },
-        profile: profile,
-        timestamp: new Date().toISOString()
+    const debugInfo = {
+      timestamp: new Date().toISOString(),
+      session: {
+        exists: \!\!session,
+        expiresAt: session?.expires_at,
+        expiresIn: session?.expires_in,
+        accessToken: session?.access_token ? 'Present' : 'Missing',
+        refreshToken: session?.refresh_token ? 'Present' : 'Missing',
+        error: sessionError?.message
+      },
+      user: {
+        exists: \!\!user,
+        id: user?.id,
+        email: user?.email,
+        error: userError?.message
+      },
+      cookies: {
+        all: authCookies.map(c => ({
+          name: c.name,
+          value: c.value ? 'Present' : 'Missing',
+          size: c.value?.length
+        })),
+        sbAccessToken: request.cookies.get('sb-access-token')?.value ? 'Present' : 'Missing',
+        sbRefreshToken: request.cookies.get('sb-refresh-token')?.value ? 'Present' : 'Missing'
+      },
+      headers: {
+        referer: request.headers.get('referer'),
+        userAgent: request.headers.get('user-agent')
       }
-    });
+    };
+    
+    const response = NextResponse.json(debugInfo);
+    return applySetCookies(response);
     
   } catch (error) {
     console.error('Auth debug error:', error);
     return NextResponse.json({
-      success: false,
-      error: error instanceof Error ? error.message : 'Unknown error',
-      timestamp: new Date().toISOString()
-    });
+      error: 'Debug failed',
+      message: error instanceof Error ? error.message : 'Unknown error'
+    }, { status: 500 });
   }
 }
+EOF < /dev/null

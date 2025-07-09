@@ -1,41 +1,60 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
-import { Loader2 } from 'lucide-react';
+import { ensureValidSession } from '@/lib/session-refresh';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
   redirectTo?: string;
 }
 
-export default function ProtectedRoute({ children, redirectTo = '/auth/login' }: ProtectedRouteProps) {
-  const { user, loading } = useAuth();
+export default function ProtectedRoute({ 
+  children, 
+  redirectTo = '/auth/login' 
+}: ProtectedRouteProps) {
+  const { user, loading: authLoading } = useAuth();
   const router = useRouter();
+  const [isValidating, setIsValidating] = useState(true);
 
   useEffect(() => {
-    if (!loading && !user) {
-      // Store the current path to redirect back after login
-      const currentPath = window.location.pathname;
-      router.push(`${redirectTo}?next=${encodeURIComponent(currentPath)}`);
-    }
-  }, [user, loading, router, redirectTo]);
+    const validateSession = async () => {
+      // Wait for auth to load
+      if (authLoading) return;
 
-  if (loading) {
+      // No user, redirect to login
+      if (\!user) {
+        router.push(redirectTo);
+        return;
+      }
+
+      // Validate session on server
+      const isValid = await ensureValidSession();
+      if (\!isValid) {
+        router.push(redirectTo);
+        return;
+      }
+
+      setIsValidating(false);
+    };
+
+    validateSession();
+  }, [user, authLoading, router, redirectTo]);
+
+  // Show loading state while checking auth
+  if (authLoading || isValidating) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-bloom-sage-50 via-white to-bloom-pink-50 flex items-center justify-center">
         <div className="text-center">
-          <Loader2 className="w-8 h-8 animate-spin text-bloompink mx-auto mb-4" />
-          <p className="text-bloom-dark/60">Loading...</p>
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-bloom-sage mx-auto"></div>
+          <p className="mt-4 text-bloom-dark/60">Verifying access...</p>
         </div>
       </div>
     );
   }
 
-  if (!user) {
-    return null; // Will redirect in useEffect
-  }
-
+  // User is authenticated and session is valid
   return <>{children}</>;
 }
+EOF < /dev/null

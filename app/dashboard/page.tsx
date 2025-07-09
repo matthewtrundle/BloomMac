@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import Toast, { ToastMessage } from '@/components/ui/Toast';
+import { ensureValidSession } from '@/lib/session-refresh';
 
 interface UserProfile {
   id: string;
@@ -65,7 +66,11 @@ export default function SimpleDashboardPage() {
 
   useEffect(() => {
     if (!authLoading && !user) {
-      router.push('/auth/login');
+      // Add a small delay to ensure session is properly checked
+      const timer = setTimeout(() => {
+        router.push('/auth/login');
+      }, 100);
+      return () => clearTimeout(timer);
     }
   }, [user, authLoading, router]);
 
@@ -90,20 +95,34 @@ export default function SimpleDashboardPage() {
     try {
       setError(null);
       
-      // Fetch all dashboard data in parallel
+      // Ensure session is valid before making API calls
+      const sessionValid = await ensureValidSession();
+      if (!sessionValid) {
+        router.push('/auth/login');
+        return;
+      }
+      
+      // Fetch all dashboard data in parallel with credentials
       const [profileResponse, achievementsResponse, courseResponse, allCoursesResponse] = await Promise.allSettled([
-        fetch('/api/profile/get'),
-        fetch('/api/achievements/get'),
-        fetch('/api/course/stats'),
-        fetch('/api/courses/all-progress')
+        fetch('/api/profile/get', { credentials: 'same-origin' }),
+        fetch('/api/achievements/get', { credentials: 'same-origin' }),
+        fetch('/api/course/stats', { credentials: 'same-origin' }),
+        fetch('/api/courses/all-progress', { credentials: 'same-origin' })
       ]);
 
       // Handle profile response
-      if (profileResponse.status === 'fulfilled' && profileResponse.value.ok) {
-        const data = await profileResponse.value.json();
-        setProfile(data.profile);
-      } else {
-        addToast('error', 'Unable to load profile information');
+      if (profileResponse.status === 'fulfilled') {
+        if (profileResponse.value.status === 401) {
+          // Session expired, redirect to login
+          router.push('/auth/login');
+          return;
+        }
+        if (profileResponse.value.ok) {
+          const data = await profileResponse.value.json();
+          setProfile(data.profile);
+        } else {
+          addToast('error', 'Unable to load profile information');
+        }
       }
 
       // Handle achievements response
