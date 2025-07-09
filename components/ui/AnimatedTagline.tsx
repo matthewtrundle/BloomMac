@@ -52,14 +52,13 @@ export default function AnimatedTagline({
               transition={{ duration: 0.3, ease: "easeInOut" }}
               className="inline-block absolute"
               style={{ 
-                color: currentIndex % 2 === 0 ? '#f8b5c4' : '#fca5a5',
-                minWidth: '4em'
+                color: currentIndex % 2 === 0 ? '#f8b5c4' : '#fca5a5'
               }}
             >
-              {words[currentIndex]}
+              {words[currentIndex]}.
             </motion.span>
           </AnimatePresence>
-          <span className="invisible">journey</span>.
+          <span className="invisible">journey.</span>
         </span>
       </h1>
       
