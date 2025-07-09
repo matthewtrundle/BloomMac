@@ -24,14 +24,14 @@ export default function ProtectedRoute({
       if (authLoading) return;
 
       // No user, redirect to login
-      if (\!user) {
+      if (!user) {
         router.push(redirectTo);
         return;
       }
 
       // Validate session on server
       const isValid = await ensureValidSession();
-      if (\!isValid) {
+      if (!isValid) {
         router.push(redirectTo);
         return;
       }

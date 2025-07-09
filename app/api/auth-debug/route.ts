@@ -22,7 +22,7 @@ export async function GET(request: NextRequest) {
     const debugInfo = {
       timestamp: new Date().toISOString(),
       session: {
-        exists: \!\!session,
+        exists: !!session,
         expiresAt: session?.expires_at,
         expiresIn: session?.expires_in,
         accessToken: session?.access_token ? 'Present' : 'Missing',
@@ -30,7 +30,7 @@ export async function GET(request: NextRequest) {
         error: sessionError?.message
       },
       user: {
-        exists: \!\!user,
+        exists: !!user,
         id: user?.id,
         email: user?.email,
         error: userError?.message
