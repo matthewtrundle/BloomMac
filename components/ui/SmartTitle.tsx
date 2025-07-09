@@ -49,17 +49,7 @@ export default function SmartTitle({
         </span>
       ));
     } else {
-      // Handle specific problematic titles with forced line breaks
-      if (title === 'Postpartum Depression Support') {
-        return (
-          <>
-            <span className="block title-no-orphans">Postpartum Depression</span>
-            <span className="block title-no-orphans">Support</span>
-          </>
-        );
-      }
-      
-      // Single line title with smart breaking
+      // Single line title with smart breaking - no special handling
       return (
         <span className="title-no-orphans">
           {title}

@@ -351,7 +351,7 @@ const Header = () => {
           <div className="flex md:hidden items-center justify-between py-3">
             {/* Logo - Improved mobile version */}
             <Link href="/" className="flex items-center mobile-header-logo">
-              <div className="relative h-10 w-32 mr-2">
+              <div className="relative h-14 w-44 mr-2">
                 <Image 
                   src="/images/Logo/BLOOM-LOGO.png" 
                   alt="Bloom Psychology" 
@@ -456,19 +456,19 @@ const Header = () => {
               </Link>
               
               <Link 
-                href="/portfolio"
-                onClick={() => setIsMenuOpen(false)}
-                className="px-4 py-3 text-lg font-medium text-bloom hover:text-bloom-blush transition duration-300 hover:bg-gray-50 rounded-lg"
-              >
-                Course Catalog
-              </Link>
-              
-              <Link 
                 href="/resources"
                 onClick={() => setIsMenuOpen(false)}
                 className="px-4 py-3 text-lg font-medium text-bloom hover:text-bloom-blush transition duration-300 hover:bg-gray-50 rounded-lg"
               >
                 Free Resources
+              </Link>
+              
+              <Link 
+                href="/faq"
+                onClick={() => setIsMenuOpen(false)}
+                className="px-4 py-3 text-lg font-medium text-bloom hover:text-bloom-blush transition duration-300 hover:bg-gray-50 rounded-lg"
+              >
+                FAQs
               </Link>
             </nav>
             

@@ -40,25 +40,26 @@ export default function AnimatedTagline({
     <div className="space-y-4">
       {/* Main animated tagline */}
       <h1 className="font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl leading-[1.1] tracking-tight text-[#1e3a5f]">
-        <span className="block">
-          Bloom into your best{' '}
+        <span className="block">Bloom into your</span>
+        <span className="block relative h-[1.2em]">
+          best{' '}
           <AnimatePresence mode="wait">
             <motion.span
               key={words[currentIndex]}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.5, ease: "easeInOut" }}
-              className="inline-block"
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              className="inline-block absolute"
               style={{ 
                 color: currentIndex % 2 === 0 ? '#f8b5c4' : '#fca5a5',
-                transition: 'color 0.5s ease-in-out'
+                minWidth: '4em'
               }}
             >
               {words[currentIndex]}
             </motion.span>
           </AnimatePresence>
-          .
+          <span className="invisible">journey</span>.
         </span>
       </h1>
       

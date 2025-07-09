@@ -13,17 +13,18 @@ const contactSchema = z.object({
   phone: z.string().optional(),
   service: z.string().optional(),
   concerns: z.string().optional(),
-  message: z.string().min(1, 'Message is required').optional()
+  message: z.string().min(1, 'Message is required').optional(),
+  newsletter: z.boolean().optional()
 });
 
-async function findOrCreateSubscriber(email: string, firstName?: string, lastName?: string) {
+async function findOrCreateSubscriber(email: string, firstName?: string, lastName?: string, newsletter?: boolean) {
     const emailLower = email.toLowerCase();
     const supabaseAdmin = createSupabaseServiceClient();
     
     // Check if subscriber exists
     let { data: subscriber, error } = await supabaseAdmin
         .from('subscribers')
-        .select('id')
+        .select('id, status')
         .eq('email', emailLower)
         .single();
 
@@ -39,14 +40,25 @@ async function findOrCreateSubscriber(email: string, firstName?: string, lastNam
                 email: emailLower,
                 first_name: firstName,
                 last_name: lastName,
-                status: 'active', // Or 'transactional' if you want to differentiate
+                status: newsletter ? 'active' : 'transactional', // Active if they want newsletter, transactional if not
                 source: 'contact_form'
             })
-            .select('id')
+            .select('id, status')
             .single();
         
         if (insertError) throw insertError;
         subscriber = newSubscriber;
+    } else if (newsletter && subscriber.status !== 'active') {
+        // Update existing subscriber to active if they opted in
+        const { data: updatedSubscriber, error: updateError } = await supabaseAdmin
+            .from('subscribers')
+            .update({ status: 'active' })
+            .eq('id', subscriber.id)
+            .select('id, status')
+            .single();
+        
+        if (updateError) throw updateError;
+        subscriber = updatedSubscriber;
     }
 
     return subscriber;
@@ -96,7 +108,7 @@ export async function POST(request: NextRequest) {
     // Handle different field names from form
     const name = data.name || `${data.firstName || ''} ${data.lastName || ''}`.trim();
     const message = data.message || data.concerns || '';
-    const { email, phone, service } = data;
+    const { email, phone, service, newsletter } = data;
     
     if (!name || !email || !message) {
       return NextResponse.json(
@@ -336,8 +348,9 @@ export async function POST(request: NextRequest) {
 
     // Trigger contact form email automation sequence for customer
     try {
-        const subscriber = await findOrCreateSubscriber(email, data.firstName, data.lastName);
+        const subscriber = await findOrCreateSubscriber(email, data.firstName, data.lastName, newsletter);
         if (subscriber) {
+            // Always enroll in contact form sequence
             await enrollmentManager.enrollSubscriber({
                 subscriberId: subscriber.id,
                 trigger: 'contact_form',
@@ -345,9 +358,24 @@ export async function POST(request: NextRequest) {
                 metadata: {
                     service: service || 'general',
                     page,
+                    newsletter: newsletter || false
                 }
             });
             console.log('Successfully enrolled contact form submitter in sequence:', email);
+
+            // If they opted into newsletter and are active, also enroll in newsletter sequence
+            if (newsletter && subscriber.status === 'active') {
+                await enrollmentManager.enrollSubscriber({
+                    subscriberId: subscriber.id,
+                    trigger: 'newsletter_signup',
+                    source: 'contact_form_newsletter_optin',
+                    metadata: {
+                        service: service || 'general',
+                        page
+                    }
+                });
+                console.log('Also enrolled in newsletter sequence:', email);
+            }
         }
     } catch (emailError) {
       console.error('Email automation trigger failed:', emailError);

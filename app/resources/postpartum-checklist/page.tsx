@@ -119,26 +119,36 @@ export default function PostpartumChecklistPage() {
     setSubmitError('');
 
     try {
-      // Removed duplicate email - email automation handles the confirmation
-      // The email automation sequence below will send the proper download email
-
-      // Start email automation sequence
-      await fetch('/api/email-automation', {
+      // Subscribe to newsletter with metadata
+      const newsletterResponse = await fetch('/api/user/newsletter-subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           email: formData.email,
-          name: formData.name,
-          sequenceType: 'lead_nurture',
-          step: 1,
-          resourceName: 'Postpartum Recovery Checklist',
-          leadSource: 'postpartum_checklist_download',
-          serviceInterest: 'postpartum_support'
+          firstName: formData.name,
+          source: 'postpartum_checklist_download',
+          metadata: {
+            resourceDownloaded: 'Postpartum Recovery Checklist',
+            stage: formData.stage,
+            serviceInterest: 'postpartum_support'
+          }
         }),
       });
 
+      if (!newsletterResponse.ok) {
+        throw new Error('Failed to process request');
+      }
+
       setSubmitSuccess(true);
       setShowResource(true);
+      
+      // Scroll to resource content after a brief delay
+      setTimeout(() => {
+        const resourceElement = document.getElementById('resource-content');
+        if (resourceElement) {
+          resourceElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 500);
       
       // Fire GA4 event
       if (typeof window !== 'undefined' && window.gtag) {
@@ -271,9 +281,14 @@ export default function PostpartumChecklistPage() {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
                     </div>
-                    <h3 className="text-xl font-playfair text-bloom mb-2">Download Starting!</h3>
-                    <p className="text-bloom/70 mb-4">Your checklist should begin downloading shortly.</p>
-                    <p className="text-sm text-bloom/60">We've also sent you some helpful follow-up resources by email.</p>
+                    <h3 className="text-xl font-playfair text-bloom mb-2">Success! Your Checklist is Ready</h3>
+                    <p className="text-bloom/70 mb-4">Scroll down to view and interact with your checklist.</p>
+                    <p className="text-sm text-bloom/60">We've also added you to our newsletter for helpful parenting tips.</p>
+                    <div className="mt-4 animate-bounce">
+                      <svg className="w-6 h-6 mx-auto text-bloompink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                      </svg>
+                    </div>
                   </div>
                 ) : (
                   <>
@@ -362,7 +377,7 @@ export default function PostpartumChecklistPage() {
 
         {/* Mobile Resource Display */}
         {showResource && (
-          <div className="mt-16">
+          <div id="resource-content" className="mt-16">
             <div className="text-center mb-8">
               <h2 className="font-playfair text-3xl text-bloom mb-4">
                 Your <span className="text-bloompink">Postpartum Recovery Checklist</span>

@@ -19,15 +19,17 @@ export default function ContactPage() {
     email: '',
     phone: '',
     service: '',
-    message: ''
+    message: '',
+    newsletter: false
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState('');
   const [submitSuccess, setSubmitSuccess] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    const { name, value, type } = e.target;
+    const newValue = type === 'checkbox' ? (e.target as HTMLInputElement).checked : value;
+    setFormData(prev => ({ ...prev, [name]: newValue }));
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -49,7 +51,7 @@ export default function ContactPage() {
       }
 
       setSubmitSuccess(true);
-      setFormData({ name: '', email: '', phone: '', service: '', message: '' });
+      setFormData({ name: '', email: '', phone: '', service: '', message: '', newsletter: false });
       
       // Track successful form submission
       analytics.trackContactForm('/contact', formData.service);
@@ -313,6 +315,21 @@ export default function ContactPage() {
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-bloompink focus:border-transparent transition-colors resize-vertical"
                         placeholder="Tell us how we can help you..."
                       />
+                    </div>
+
+                    {/* Newsletter Opt-in */}
+                    <div className="flex items-start">
+                      <input
+                        type="checkbox"
+                        id="newsletter"
+                        name="newsletter"
+                        checked={formData.newsletter}
+                        onChange={handleInputChange}
+                        className="mt-1 h-4 w-4 text-bloompink border-gray-300 rounded focus:ring-bloompink focus:ring-2"
+                      />
+                      <label htmlFor="newsletter" className="ml-3 text-sm text-bloom">
+                        Yes, I'd like to receive helpful wellness tips and updates from Bloom Psychology via email
+                      </label>
                     </div>
 
                     {/* Error Message */}

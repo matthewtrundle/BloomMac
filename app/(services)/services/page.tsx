@@ -36,7 +36,7 @@ export default function ServicesPage() {
                   <div className="text-gray-600">Clients Helped</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-bloompink">8+</div>
+                  <div className="text-2xl font-bold text-bloompink">10+</div>
                   <div className="text-gray-600">Years Experience</div>
                 </div>
                 <div className="text-center">
@@ -159,16 +159,6 @@ export default function ServicesPage() {
                   <li>• Life transitions</li>
                   <li>• Relationship challenges</li>
                   <li>• Work-life balance</li>
-                </ul>
-              </div>
-              
-              <div className="bg-white rounded-lg p-6 shadow-sm">
-                <h3 className="text-lg font-semibold text-bloom mb-3">Trauma & PTSD</h3>
-                <ul className="text-gray-600 space-y-2">
-                  <li>• Birth trauma</li>
-                  <li>• Complex trauma</li>
-                  <li>• EMDR therapy</li>
-                  <li>• Trauma-informed care</li>
                 </ul>
               </div>
               

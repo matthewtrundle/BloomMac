@@ -1,21 +1,14 @@
-import React from 'react';
-import { Metadata } from 'next';
+'use client';
+
+import React, { useState } from 'react';
 import Button from '@/components/ui/Button';
 import Image from 'next/image';
 import { Heart, Coffee, Moon, Users, Clock, Sparkles } from 'lucide-react';
 
-export const metadata: Metadata = {
-  title: 'New Mom Survival Guide | Bloom Psychology',
-  description: 'Essential tips, resources, and support for navigating the postpartum period with self-compassion and practical strategies.',
-  keywords: ['new mom guide', 'postpartum support', 'new mother resources', 'baby blues', 'postpartum depression', 'mom self-care'],
-  openGraph: {
-    title: 'New Mom Survival Guide',
-    description: 'Your comprehensive guide to thriving (not just surviving) in the postpartum period.',
-    images: ['/images/Services/New Mothers.png'],
-  },
-};
-
 export default function NewMomGuidePage() {
+  const [showModal, setShowModal] = useState(false);
+  const [formData, setFormData] = useState({ name: '', email: '' });
+  const [isSubmitting, setIsSubmitting] = useState(false);
   return (
     <div className="min-h-screen bg-gradient-to-b from-pink-50 via-white to-bloom-background">
       {/* Hero Section */}
@@ -277,16 +270,15 @@ export default function NewMomGuidePage() {
             Perfect for those 3am moments when you need a reminder that you're doing great.
           </p>
           
-          <a 
-            href="/new-mom-guide.pdf" 
-            download="New-Mom-Survival-Guide-Bloom-Psychology.pdf"
-            className="inline-block bg-bloompink hover:bg-bloom-pink-dark text-white font-bold py-4 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg"
+          <button 
+            onClick={() => setShowModal(true)}
+            className="inline-block bg-bloompink hover:bg-bloom-pink-dark text-white font-bold py-4 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg cursor-pointer"
           >
-            Download PDF Guide
-          </a>
+            Get PDF Guide + Weekly Tips
+          </button>
           
           <p className="text-sm text-gray-500 mt-4 italic">
-            No email required • Instant download • Share with friends
+            Join our newsletter for the PDF guide plus weekly motherhood support
           </p>
         </div>
       </section>
@@ -312,6 +304,85 @@ export default function NewMomGuidePage() {
           </div>
         </div>
       </section>
+
+      {/* Download Modal */}
+      {showModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-lg max-w-md w-full p-8 relative">
+            <button
+              onClick={() => setShowModal(false)}
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+            
+            <h3 className="text-2xl font-bold text-gray-800 mb-4">
+              Get Your Free PDF Guide
+            </h3>
+            <p className="text-gray-600 mb-6">
+              Plus weekly tips and encouragement for your motherhood journey.
+            </p>
+            
+            <form onSubmit={async (e) => {
+              e.preventDefault();
+              setIsSubmitting(true);
+              
+              try {
+                await fetch('/api/user/newsletter-subscribe', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({
+                    email: formData.email,
+                    firstName: formData.name,
+                    source: 'new_mom_guide_download',
+                    metadata: {
+                      resourceRequested: 'New Mom Survival Guide PDF'
+                    }
+                  })
+                });
+                
+                alert('Success! Check your email for the guide and welcome to our community!');
+                setShowModal(false);
+                setFormData({ name: '', email: '' });
+              } catch (error) {
+                alert('Something went wrong. Please try again.');
+              } finally {
+                setIsSubmitting(false);
+              }
+            }} className="space-y-4">
+              <input
+                type="text"
+                placeholder="Your first name"
+                value={formData.name}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                required
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+              />
+              <input
+                type="email"
+                placeholder="Your email"
+                value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                required
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+              />
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full bg-bloompink hover:bg-bloom-pink-dark disabled:opacity-50 text-white font-bold py-3 px-6 rounded-lg transition-colors"
+              >
+                {isSubmitting ? 'Processing...' : 'Send Me the Guide'}
+              </button>
+            </form>
+            
+            <p className="text-xs text-gray-500 mt-4 text-center">
+              We respect your privacy. Unsubscribe anytime.
+            </p>
+          </div>
+        </div>
+      )}
 
     </div>
   );

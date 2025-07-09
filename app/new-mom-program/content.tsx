@@ -155,10 +155,7 @@ export default function NewMomProgramContent() {
               transition={{ duration: 0.6 }}
             >
               <h1 className="text-5xl md:text-6xl font-playfair text-bloom mb-4 flex items-center justify-center gap-4">
-                <svg className="w-12 h-12 text-bloompink" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="1.5">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 3c0 4.418-3.582 8-8 8s-8-3.582-8-8 3.582-8 8-8 8 3.582 8 8zm0 0v18m8-10c0 4.418-3.582 8-8 8s-8-3.582-8-8 3.582-8 8-8 8 3.582 8 8z"/>
-                  <circle cx="12" cy="12" r="2" fill="currentColor"/>
-                </svg>
+                <span className="text-bloompink">🌸</span>
                 Becoming Mom
               </h1>
               

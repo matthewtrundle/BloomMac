@@ -203,10 +203,10 @@ export default function Home() {
               {/* Clear value proposition */}
               <div className="text-center mb-6">
                 <h2 className="text-xl font-semibold text-[#1e3a5f] mb-2">
-                  Specialized Mental Health Support for Moms
+                  Specialized Mental Health Support for Women and Moms
                 </h2>
                 <p className="text-gray-600 text-sm px-4">
-                  Expert therapy for pregnancy, postpartum, and motherhood challenges
+                  Expert therapy for women at every life stage—from career shifts, relationships, pregnancy, postpartum and beyond
                 </p>
               </div>
               
@@ -231,10 +231,10 @@ export default function Home() {
                 <div className="bg-white border border-[#f8b5c4]/30 rounded-lg p-3 text-center">
                   <div className="text-[#f8b5c4] mb-1">
                     <svg className="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
                     </svg>
                   </div>
-                  <p className="text-xs text-gray-700 font-medium">Birth Trauma</p>
+                  <p className="text-xs text-gray-700 font-medium">Life Transitions</p>
                 </div>
               </div>
               
@@ -302,7 +302,7 @@ export default function Home() {
             {/* Service cards grid */}
             <div className="grid grid-cols-1 gap-4 mb-8">
               {/* Individual Therapy */}
-              <Link href="/services/therapy-for-women" className="block">
+              <Link href="/services" className="block">
                 <div className="bg-gray-50 rounded-lg p-4 border border-gray-200 hover:border-[#f8b5c4] transition-colors">
                   <div className="flex items-start gap-4">
                     <div className="text-[#f8b5c4] flex-shrink-0">
