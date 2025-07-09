@@ -57,4 +57,3 @@ export default function ProtectedRoute({
   // User is authenticated and session is valid
   return <>{children}</>;
 }
-EOF < /dev/null
