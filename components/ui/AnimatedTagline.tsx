@@ -55,7 +55,7 @@ export default function AnimatedTagline({
                 color: currentIndex % 2 === 0 ? '#f8b5c4' : '#fca5a5'
               }}
             >
-              {words[currentIndex]}.
+              {words[currentIndex]}<span style={{ color: '#1e3a5f' }}>.</span>
             </motion.span>
           </AnimatePresence>
           <span className="invisible">journey.</span>
