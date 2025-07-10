@@ -758,6 +758,256 @@ This file is automatically provided to Claude at the start of every conversation
 
 **If you see Claude making assumptions about the database, remind them to check CLAUDE.md and run the database scripts!**
 
+## 🔒 RLS SECURITY STATUS (Critical - Jan 2025)
+
+### 🚨 CRITICAL SECURITY VULNERABILITIES FOUND
+
+**Status**: 20 tables with RLS (Row Level Security) disabled, exposing data to unauthorized access
+
+#### Tables with Policies but RLS DISABLED (8 tables):
+These have security policies defined but they're NOT enforced!
+- `analytics_events` (4 policies)
+- `blog_posts` (2 policies)
+- `career_applications` (3 policies)
+- `contact_submissions` (4 policies)
+- `courses` (4 policies)
+- `email_queue` (4 policies)
+- `email_templates` (3 policies)
+- `subscribers` (5 policies)
+
+#### Tables with NO RLS and NO Policies (12 tables):
+Completely unprotected - anyone can read/write:
+- `admin_sessions` - ⚠️ Admin session data exposed!
+- `system_settings` - ⚠️ System configuration exposed!
+- `user_course_access` - User enrollments exposed
+- `course_purchases` - Purchase history exposed
+- `achievements` - User achievements exposed
+- `click_heatmap` - Analytics data
+- `email_automation_errors` - Error logs
+- `email_templates_history` - Email history
+- `sequence_enrollments` - Email sequences
+- `sequence_email_sends` - Email logs
+- `reminder_rules` - User reminders
+- `profiles_backup_2025_01_06` - Backup data
+
+### 🛠️ Migration Scripts Available:
+```bash
+# Check current RLS status
+node scripts/check-rls-policies.js
+
+# Apply RLS fixes (with safety checks)
+node scripts/apply-rls-migration.js
+
+# Rollback if needed
+psql $DATABASE_URL < scripts/migrations/rollback-rls-policies.sql
+```
+
+### ⚡ Quick Fix for Critical Tables:
+```sql
+-- Enable RLS on tables with existing policies (safe to run immediately)
+ALTER TABLE public.analytics_events ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.blog_posts ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.career_applications ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.contact_submissions ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.courses ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.email_queue ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.email_templates ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.subscribers ENABLE ROW LEVEL SECURITY;
+```
+
+**ACTION REQUIRED**: Fix these security issues immediately to prevent data breaches!
+
+## 🔍 SUPABASE DATABASE ACCESS METHODOLOGY (Updated Jan 2025)
+
+### Current Limitations & Workarounds
+
+**DNS Issue**: Cannot resolve `db.utetcmirepwdxbtrcczv.supabase.co` from this environment
+- ❌ `psql` direct connection fails
+- ❌ `pg` Node.js client fails  
+- ✅ Supabase JS client works (uses different networking)
+
+### How to Work with Database
+
+#### 1. **Checking Tables & Data** - Use Supabase JS Client:
+```javascript
+// Check if table exists and get row count
+const { count, error } = await supabase
+  .from('table_name')
+  .select('*', { count: 'exact', head: true });
+
+if (error) {
+  console.log('Table does not exist:', error.code === '42P01');
+} else {
+  console.log('Table exists with', count, 'rows');
+}
+
+// Check multiple tables at once
+const tables = ['email_logs', 'user_achievements', 'cron_logs'];
+for (const table of tables) {
+  const { count, error } = await supabase
+    .from(table)
+    .select('*', { count: 'exact', head: true });
+  console.log(`${table}: ${error ? 'MISSING' : `EXISTS (${count} rows)`}`);
+}
+```
+
+#### 2. **Generating SQL Scripts** - Validate then Generate:
+```javascript
+// scripts/validate-and-generate-sql.js
+// 1. Check what exists in database
+// 2. Generate SQL with proper syntax
+// 3. Always use DROP IF EXISTS before CREATE
+// 4. Output clean SQL file
+
+// Example: Check before generating
+const { error } = await supabase.from('cron_logs').select('*', { count: 'exact', head: true });
+if (error && error.code === '42P01') {
+  console.log('-- Table cron_logs does not exist, creating it');
+  console.log('CREATE TABLE public.cron_logs (...);');
+}
+```
+
+#### 3. **For Running SQL Migrations**:
+- **Cannot execute DDL via JS client** (CREATE, ALTER, DROP)
+- **Must use Supabase Dashboard SQL Editor**
+- Generate validated `.sql` files
+- Always verify current state first
+
+#### 4. **Testing Scripts Created**:
+```bash
+# Check what tables exist
+node scripts/check-missing-tables.js
+
+# Verify API database queries work
+node scripts/verify-api-queries.js
+
+# Generate validated SQL
+node scripts/validate-and-generate-sql.js > migration.sql
+
+# Check RLS status
+node scripts/check-rls-policies.js
+```
+
+### 🚨 Common Issues & Solutions
+
+1. **Table doesn't exist error (42P01)**:
+   ```javascript
+   // Always check first
+   const { error } = await supabase.from('table_name').select('*', { head: true });
+   if (error?.code === '42P01') {
+     console.log('Table does not exist - need to create it');
+   }
+   ```
+
+2. **Policy already exists**:
+   ```sql
+   -- Always drop first
+   DROP POLICY IF EXISTS "policy_name" ON table_name;
+   CREATE POLICY "policy_name" ON table_name ...
+   ```
+
+3. **DNS Resolution Failed**:
+   ```javascript
+   // Use Supabase client, not pg or psql
+   // ❌ Don't use: new Client({ connectionString: DATABASE_URL })
+   // ✅ Use: createClient(SUPABASE_URL, SUPABASE_KEY)
+   ```
+
+### 📋 Common Testing Scripts Created:
+
+| Script | Purpose | When to Use |
+|--------|---------|-------------|
+| `check-database.js` | Full database audit | Before any major changes |
+| `verify-api-queries.js` | Test all API database calls | After schema changes |
+| `check-rls-policies.js` | RLS security audit | Security reviews |
+| `check-rls-status.js` | Quick RLS status check | Before deployments |
+
+### ⚠️ Limitations:
+1. **No direct SQL execution** - Must use Supabase Dashboard
+2. **No psql access** - DNS resolution issues
+3. **Schema changes** - Manual only via Dashboard
+4. **RLS changes** - Manual only via Dashboard
+
+### 🚨 Critical Tables Status (Jan 2025):
+
+Based on verification, these tables exist but need RLS enabled:
+- ✅ `email_logs` - EXISTS (1 row) - Needs RLS
+- ✅ `email_analytics` - EXISTS (0 rows) - Needs RLS  
+- ✅ `career_applications` - EXISTS (0 rows) - Needs RLS
+- ✅ `system_settings` - EXISTS (0 rows) - Needs RLS
+- ✅ `user_achievements` - EXISTS (2 rows) - Needs RLS
+- ✅ `cron_logs` - EXISTS but may have access issues
+
+**Note**: If getting "relation does not exist" errors, it may be due to:
+1. RLS blocking access (even for table checks)
+2. Schema issues (not in public schema)
+3. Case sensitivity in SQL
+
+## 📚 COURSE STRUCTURE: Postpartum Wellness Foundations (6 Weeks)
+
+### Course Instructor
+**Dr. Jana Rundle** - Licensed Psychologist, Certified Perinatal Mental Health Specialist
+All course videos are presented by Dr. Jana Rundle. When referencing the instructor in any course materials, use "Dr. Jana Rundle" (not Dr. Jana Williams).
+
+### Course Philosophy
+This course integrates research from leading postpartum experts including Dr. Kristin Neff (self-compassion), Dr. Alexandra Sacks (matrescence), Dr. Daniel Stern (motherhood constellation), and Dr. Jessica Zucker (postpartum psychology). The curriculum follows a progressive healing journey from understanding to integration.
+
+### Week-by-Week Structure
+
+#### Week 1: Understanding Your Fourth Trimester
+**Focus**: Normalizing the postpartum experience through psychoeducation and validation
+- Lesson 1: Welcome to Your Postpartum Journey (12 min)
+- Lesson 2: What's Normal vs. What's Not (14 min)
+- Lesson 3: The Science of Postpartum Changes (11 min)
+- Lesson 4: Honoring Your Experience (13 min)
+
+#### Week 2: Cultivating Self-Compassion & Building Resilience
+**Focus**: Developing psychological tools for emotional regulation and stress management
+- Lesson 1: The Power of Self-Compassion (10 min)
+- Lesson 2: Releasing Perfectionism & Embracing "Good Enough" (12 min)
+- Lesson 3: Stress Management for the Postpartum Nervous System (15 min)
+- Lesson 4: Emotional Regulation Through the Window of Tolerance (12 min)
+- Lesson 5: Creating Your Personalized Coping Toolkit (11 min)
+
+#### Week 3: Building Your Support Ecosystem
+**Focus**: Creating sustainable support systems and improving key relationships
+- Lesson 1: Mapping Your Support Needs & Resources (12 min)
+- Lesson 2: Strengthening Partnership During Transition (10 min)
+- Lesson 3: Setting Boundaries with Extended Family (11 min)
+- Lesson 4: Creating Your Village in Modern Times (13 min)
+
+#### Week 4: Understanding & Managing Postpartum Anxiety
+**Focus**: Evidence-based strategies for anxiety and intrusive thoughts
+- Lesson 1: The Anxious Postpartum Brain (11 min)
+- Lesson 2: Calming Your Nervous System (9 min)
+- Lesson 3: Cognitive Strategies for Racing Thoughts (13 min)
+- Lesson 4: Creating Calm in Chaos (10 min)
+
+#### Week 5: Identity Integration & Matrescence
+**Focus**: Navigating identity transformation and finding yourself within motherhood
+- Lesson 1: Understanding Matrescence - Your Psychological Birth (12 min)
+- Lesson 2: Grieving Who You Were (11 min)
+- Lesson 3: Integration - Both Mother AND Self (10 min)
+- Lesson 4: Reconnecting with Your Core Values (13 min)
+
+#### Week 6: Sustainable Wellness & Moving Forward
+**Focus**: Creating lasting change and preparing for ongoing challenges
+- Lesson 1: Celebrating Your Growth & Resilience (10 min)
+- Lesson 2: Building Your Long-Term Wellness Plan (11 min)
+- Lesson 3: Preparing for Future Challenges (9 min)
+- Lesson 4: Your Continued Journey & Resources (12 min)
+
+### Course Implementation Status
+- **Week 1**: ✅ COMPLETE - All scripts and presentations done
+- **Week 2**: ✅ SCRIPTS COMPLETE - Presentations in progress
+- **Weeks 3-6**: 📋 PLANNED - Expert outline complete, ready for production
+
+### Important Notes
+1. **This is the authoritative course structure** - Use this for all references
+2. **Video production has started** - Week 1 Lesson 1 script correctly describes all 6 weeks
+3. **Database needs updating** - Admin section should match this structure
+4. **See also**: `/bloom-course-content/EXPERT-INFORMED-COURSE-OUTLINE.md` for full details
+
 ## 🚨 FINAL REMINDER
 
 **YOU ARE AN AI THAT MAKES MISTAKES.** The only way to prevent these mistakes is to TEST EVERYTHING FIRST. The tools exist. USE THEM AUTOMATICALLY. Don't wait to be asked.

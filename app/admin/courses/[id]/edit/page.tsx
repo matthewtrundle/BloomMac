@@ -554,7 +554,7 @@ export default function CourseEditPage() {
                       
                       {/* Full Preview Button */}
                       <Link
-                        href={`/course/postpartum-wellness-foundations/week/${weeks.find(w => w.course_lessons?.some(l => l.id === selectedLesson.id))?.week_number}/lesson/${selectedLesson.lesson_number}`}
+                        href={`/course/${course.slug}/week/${weeks.find(w => w.course_lessons?.some(l => l.id === selectedLesson.id))?.week_number}/lesson/${selectedLesson.lesson_number}`}
                         target="_blank"
                         className="flex items-center gap-2 px-4 py-2 bg-bloompink text-white rounded-lg hover:bg-bloom-pink-dark transition-colors"
                       >

@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 1: Understanding Your Fourth Trimester - Workbook</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 11pt;
+            line-height: 1.6;
+            color: #2d2d2d;
+            background: #fff;
+        }
+
+        @page {
+            margin: 0.75in;
+            size: letter;
+        }
+
+        @media print {
+            body {
+                margin: 0;
+                padding: 0;
+            }
+            
+            .page {
+                width: 8.5in;
+                height: 11in;
+                margin: 0;
+                padding: 0.75in;
+                page-break-after: always;
+                page-break-inside: avoid;
+                background: white !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                box-sizing: border-box;
+                overflow: hidden;
+            }
+            
+            .page-break {
+                page-break-after: always;
+            }
+            
+            .no-print {
+                display: none;
+            }
+            
+            input[type="text"],
+            textarea {
+                border: none !important;
+                border-bottom: 1px solid #A8C09A !important;
+                background: transparent !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            
+            /* Ensure backgrounds print */
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                color-adjust: exact !important;
+            }
+            
+            /* Fix for gradient backgrounds */
+            .cover-page,
+            .sage-box,
+            .highlight-box,
+            .reflection-box,
+            .daily-check-in {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            
+            /* Ensure page numbers are visible */
+            .page-number {
+                color: #666 !important;
+            }
+        }
+
+        .page {
+            width: 8.5in;
+            height: 11in;
+            margin: 0 auto;
+            padding: 0.75in;
+            background: white;
+            position: relative;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+
+        /* Typography */
+        h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 42pt;
+            font-weight: 300;
+            line-height: 1.2;
+            color: #2d2d2d;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 28pt;
+            font-weight: 400;
+            line-height: 1.3;
+            color: #2d2d2d;
+            margin-bottom: 1rem;
+            margin-top: 2rem;
+            letter-spacing: -0.02em;
+        }
+
+        h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 20pt;
+            font-weight: 500;
+            line-height: 1.4;
+            color: #2d2d2d;
+            margin-bottom: 0.75rem;
+            margin-top: 1.5rem;
+        }
+
+        h4 {
+            font-family: 'Inter', sans-serif;
+            font-size: 14pt;
+            font-weight: 600;
+            line-height: 1.4;
+            color: #2d2d2d;
+            margin-bottom: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: #5a5a5a;
+        }
+
+        .subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: 16pt;
+            font-weight: 300;
+            color: #5a5a5a;
+            margin-bottom: 2rem;
+            letter-spacing: 0.05em;
+        }
+
+        /* Cover Page */
+        .cover-page {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            text-align: center;
+            position: relative;
+            background: linear-gradient(135deg, #FFF5E6 0%, #faf8f5 100%);
+            margin: -0.75in;
+            padding: 0.75in;
+        }
+
+        .bloom-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 24pt;
+            font-weight: 300;
+            color: #A8C09A;
+            margin-bottom: 3rem;
+            letter-spacing: 0.2em;
+        }
+
+        .cover-title {
+            font-size: 48pt;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #A8C09A 0%, #95E1D3 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .week-badge {
+            display: inline-block;
+            background: #A8C09A;
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 500;
+            font-size: 10pt;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        /* Form Elements */
+        .input-line {
+            border: none;
+            border-bottom: 1px solid #A8C09A;
+            width: 100%;
+            padding: 0.5rem 0;
+            font-family: 'Inter', sans-serif;
+            font-size: 11pt;
+            color: #2d2d2d;
+            background: transparent;
+            margin-bottom: 1.5rem;
+        }
+
+        .input-line:focus {
+            outline: none;
+            border-bottom-color: #95E1D3;
+        }
+
+        textarea {
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            width: 100%;
+            padding: 1rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 11pt;
+            color: #2d2d2d;
+            background: #faf8f5;
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #A8C09A;
+            background: white;
+        }
+
+        /* Cards and Boxes */
+        .reflection-box {
+            background: #faf8f5;
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 1.5rem 0;
+            border: 1px solid #f0f0f0;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #FFF3CD 0%, #FFE4CC 100%);
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border: 1px solid #FFD89D;
+        }
+
+        .sage-box {
+            background: linear-gradient(135deg, #C7E9C0 0%, #E8F5E5 100%);
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border: 1px solid #A8C09A;
+        }
+
+        /* Lists */
+        .check-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .check-list li {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 0.75rem;
+            color: #5a5a5a;
+        }
+
+        .check-list li:before {
+            content: "□";
+            position: absolute;
+            left: 0;
+            color: #A8C09A;
+            font-size: 16pt;
+            line-height: 1;
+        }
+
+        /* Progress Tracker */
+        .progress-tracker {
+            display: flex;
+            justify-content: space-between;
+            margin: 2rem 0;
+        }
+
+        .progress-day {
+            flex: 1;
+            text-align: center;
+            padding: 1rem;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            margin: 0 0.25rem;
+            background: #faf8f5;
+        }
+
+        .progress-day.completed {
+            background: linear-gradient(135deg, #C7E9C0 0%, #E8F5E5 100%);
+            border-color: #A8C09A;
+        }
+
+        /* Quote Styling */
+        .quote {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 18pt;
+            font-style: italic;
+            color: #A8C09A;
+            text-align: center;
+            margin: 2rem 0;
+            position: relative;
+            padding: 0 2rem;
+        }
+
+        .quote:before,
+        .quote:after {
+            content: '"';
+            font-size: 36pt;
+            position: absolute;
+            color: #A8C09A;
+            opacity: 0.3;
+        }
+
+        .quote:before {
+            top: -10px;
+            left: 0;
+        }
+
+        .quote:after {
+            bottom: -30px;
+            right: 0;
+        }
+
+        /* Icon Circles */
+        .icon-circle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #A8C09A 0%, #95E1D3 100%);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24pt;
+            margin-right: 1rem;
+        }
+
+        /* Grid Layouts */
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 1.5rem 0;
+        }
+
+        .three-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        /* Special Elements */
+        .daily-check-in {
+            background: white;
+            border: 2px solid #A8C09A;
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .emotion-wheel {
+            width: 100%;
+            max-width: 400px;
+            margin: 2rem auto;
+        }
+
+        /* Footer */
+        .page-footer {
+            position: absolute;
+            bottom: 0.5in;
+            left: 0.75in;
+            right: 0.75in;
+            text-align: center;
+            font-size: 9pt;
+            color: #999;
+        }
+
+        .page-number {
+            position: absolute;
+            bottom: 0.5in;
+            right: 0.75in;
+            font-size: 10pt;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+    <!-- Cover Page -->
+    <div class="page page-break">
+        <div class="cover-page">
+            <div class="bloom-logo">BLOOM</div>
+            <div class="week-badge">Week One</div>
+            <h1 class="cover-title">Understanding Your<br>Fourth Trimester</h1>
+            <p class="subtitle">Your Guided Workbook for Postpartum Discovery</p>
+        
+        <div style="margin-top: auto; margin-bottom: 2rem;">
+            <p style="color: #5a5a5a; font-size: 10pt; margin-bottom: 0.5rem;">This workbook belongs to:</p>
+            <input type="text" class="input-line" style="max-width: 300px; margin: 0 auto;" placeholder="Your name">
+            
+            <p style="color: #5a5a5a; font-size: 10pt; margin-top: 2rem; margin-bottom: 0.5rem;">Journey begins:</p>
+            <input type="text" class="input-line" style="max-width: 200px; margin: 0 auto;" placeholder="Date">
+        </div>
+        
+            <p style="font-size: 9pt; color: #999; margin-top: auto;">
+                © Bloom Psychology · Dr. Jana Rundle<br>
+                bloompsy.co
+            </p>
+        </div>
+    </div>
+
+    <!-- Welcome Page -->
+    <div class="page page-break">
+        <h1>Welcome to Your Journey</h1>
+        
+        <p style="font-size: 12pt; line-height: 1.8; color: #5a5a5a;">
+            Dear Mama,<br><br>
+            This workbook is your companion through Week 1 of your postpartum wellness journey. It's designed to help you process, reflect, and track your experiences as you navigate this transformative time.
+        </p>
+
+        <div class="sage-box">
+            <h4 style="margin-top: 0;">How to Use This Workbook</h4>
+            <ul class="check-list">
+                <li>Complete exercises at your own pace - there's no rush</li>
+                <li>Be honest with yourself - this is your private space</li>
+                <li>Skip anything that doesn't resonate - take what serves you</li>
+                <li>Return to pages as often as needed</li>
+                <li>Use extra paper if you need more space</li>
+            </ul>
+        </div>
+
+        <div class="quote">
+            You are exactly where you need to be,<br>
+            learning exactly what you need to learn.
+        </div>
+
+        <h3>What You'll Find Inside</h3>
+        
+        <div class="two-column">
+            <div>
+                <h4>Daily Tools</h4>
+                <p style="font-size: 10pt;">
+                    • Check-in practices<br>
+                    • Symptom trackers<br>
+                    • Reflection prompts<br>
+                    • Self-care planning
+                </p>
+            </div>
+            <div>
+                <h4>Weekly Themes</h4>
+                <p style="font-size: 10pt;">
+                    • Understanding changes<br>
+                    • Normalizing experiences<br>
+                    • Building awareness<br>
+                    • Honoring your journey
+                </p>
+            </div>
+        </div>
+
+        <div class="highlight-box" style="margin-top: 2rem;">
+            <h4 style="margin-top: 0;">Remember:</h4>
+            <p style="margin-bottom: 0;">
+                There is no "right" way to do this. Your experience is uniquely yours, and that's exactly as it should be. This workbook is here to support you, not judge you.
+            </p>
+        </div>
+
+            <div class="page-number">1</div>
+        </div>
+    </div>
+
+    <!-- Your Postpartum Rights -->
+    <div class="page page-break">
+        <h1>Your Postpartum Rights</h1>
+        <p class="subtitle" style="margin-bottom: 2rem;">Cut out and place somewhere you'll see daily</p>
+
+        <div style="border: 3px solid #A8C09A; border-radius: 24px; padding: 2.5rem; background: linear-gradient(135deg, #FFF5E6 0%, #faf8f5 100%); position: relative;">
+            
+            <h2 style="text-align: center; margin-top: 0; margin-bottom: 1.5rem; color: #A8C09A; font-size: 24pt;">As a Postpartum Mother, I Have the Right To:</h2>
+            
+            <div style="font-size: 13pt; line-height: 2; margin-top: 1.5rem;">
+                <p style="margin-bottom: 0.5rem;"><span class="icon-circle" style="font-size: 14pt; width: 35px; height: 35px;">✓</span> <strong>Rest</strong> without guilt or explanation</p>
+                
+                <p style="margin-bottom: 0.5rem;"><span class="icon-circle" style="font-size: 14pt; width: 35px; height: 35px;">✓</span> <strong>Feel</strong> all my emotions without judgment</p>
+                
+                <p style="margin-bottom: 0.5rem;"><span class="icon-circle" style="font-size: 14pt; width: 35px; height: 35px;">✓</span> <strong>Ask</strong> for help when I need it</p>
+                
+                <p style="margin-bottom: 0.5rem;"><span class="icon-circle" style="font-size: 14pt; width: 35px; height: 35px;">✓</span> <strong>Make mistakes</strong> as I learn</p>
+                
+                <p style="margin-bottom: 0.5rem;"><span class="icon-circle" style="font-size: 14pt; width: 35px; height: 35px;">✓</span> <strong>Set boundaries</strong> with visitors and advice</p>
+                
+                <p style="margin-bottom: 0.5rem;"><span class="icon-circle" style="font-size: 14pt; width: 35px; height: 35px;">✓</span> <strong>Heal</strong> at my own pace</p>
+                
+                <p style="margin-bottom: 0.5rem;"><span class="icon-circle" style="font-size: 14pt; width: 35px; height: 35px;">✓</span> <strong>Prioritize</strong> my wellbeing</p>
+                
+                <p style="margin-bottom: 0.5rem;"><span class="icon-circle" style="font-size: 14pt; width: 35px; height: 35px;">✓</span> <strong>Trust</strong> my maternal instincts</p>
+            </div>
+            
+            <div style="text-align: center; margin-top: 3rem;">
+                <p style="font-style: italic; color: #A8C09A; margin-bottom: 0;">
+                    "Your recovery matters. Your feelings matter. You matter."
+                </p>
+            </div>
+        </div>
+
+        <div style="margin-top: 2rem;">
+            <p style="text-align: center; color: #999; font-size: 10pt;">
+                <em>Keep this page visible as a daily reminder of your inherent worth and rights.</em>
+            </p>
+        </div>
+
+        <div class="page-number">2</div>
+    </div>
+
+    <!-- Week 1 Overview -->
+    <div class="page page-break">
+        <h1>Week 1 Overview</h1>
+        <p class="subtitle">Understanding Your Fourth Trimester</p>
+
+        <div class="highlight-box">
+            <h4 style="margin-top: 0;">This Week's Focus</h4>
+            <p>
+                This week, we're laying the foundation for your healing journey. You'll learn about the profound changes happening in your body and mind, normalize your experiences, and begin building awareness of your needs.
+            </p>
+        </div>
+
+        <h3>Your Learning Journey</h3>
+        
+        <div style="margin-bottom: 2rem;">
+            <div class="daily-check-in">
+                <h4 style="margin-top: 0; color: #A8C09A;">Lesson 1: Welcome to Your Postpartum Journey</h4>
+                <p style="font-size: 10pt; margin-bottom: 0.5rem;">Understanding the fourth trimester and matrescence</p>
+                <p style="font-size: 9pt; color: #999; margin-bottom: 0;">Duration: 12 minutes</p>
+            </div>
+            
+            <div class="daily-check-in">
+                <h4 style="margin-top: 0; color: #A8C09A;">Lesson 2: What's Normal vs. What's Not</h4>
+                <p style="font-size: 10pt; margin-bottom: 0.5rem;">Learning to recognize your body's signals</p>
+                <p style="font-size: 9pt; color: #999; margin-bottom: 0;">Duration: 14 minutes</p>
+            </div>
+            
+            <div class="daily-check-in">
+                <h4 style="margin-top: 0; color: #A8C09A;">Lesson 3: The Science of Postpartum Changes</h4>
+                <p style="font-size: 10pt; margin-bottom: 0.5rem;">Understanding the biology behind your experience</p>
+                <p style="font-size: 9pt; color: #999; margin-bottom: 0;">Duration: 11 minutes</p>
+            </div>
+            
+            <div class="daily-check-in">
+                <h4 style="margin-top: 0; color: #A8C09A;">Lesson 4: Honoring Your Experience</h4>
+                <p style="font-size: 10pt; margin-bottom: 0.5rem;">Embracing your unique journey without judgment</p>
+                <p style="font-size: 9pt; color: #999; margin-bottom: 0;">Duration: 13 minutes</p>
+            </div>
+        </div>
+
+        <h3>Week 1 Progress Tracker</h3>
+        <p style="font-size: 10pt; color: #999;">Check off each day as you complete it:</p>
+        
+        <div class="progress-tracker">
+            <div class="progress-day">
+                <p style="font-weight: 600; margin-bottom: 0.5rem;">Day 1</p>
+                <p style="font-size: 9pt; color: #999; margin-bottom: 0;">Lesson 1</p>
+            </div>
+            <div class="progress-day">
+                <p style="font-weight: 600; margin-bottom: 0.5rem;">Day 2</p>
+                <p style="font-size: 9pt; color: #999; margin-bottom: 0;">Practice</p>
+            </div>
+            <div class="progress-day">
+                <p style="font-weight: 600; margin-bottom: 0.5rem;">Day 3</p>
+                <p style="font-size: 9pt; color: #999; margin-bottom: 0;">Lesson 2</p>
+            </div>
+            <div class="progress-day">
+                <p style="font-weight: 600; margin-bottom: 0.5rem;">Day 4</p>
+                <p style="font-size: 9pt; color: #999; margin-bottom: 0;">Practice</p>
+            </div>
+            <div class="progress-day">
+                <p style="font-weight: 600; margin-bottom: 0.5rem;">Day 5</p>
+                <p style="font-size: 9pt; color: #999; margin-bottom: 0;">Lesson 3</p>
+            </div>
+            <div class="progress-day">
+                <p style="font-weight: 600; margin-bottom: 0.5rem;">Day 6</p>
+                <p style="font-size: 9pt; color: #999; margin-bottom: 0;">Lesson 4</p>
+            </div>
+            <div class="progress-day">
+                <p style="font-weight: 600; margin-bottom: 0.5rem;">Day 7</p>
+                <p style="font-size: 9pt; color: #999; margin-bottom: 0;">Reflect</p>
+            </div>
+        </div>
+
+        <div class="page-number">3</div>
+    </div>
+
+    <!-- Lesson 1 Workbook Pages -->
+    <div class="page page-break">
+        <div class="week-badge" style="margin-bottom: 1rem;">Lesson 1</div>
+        <h1>Welcome to Your Fourth Trimester</h1>
+        
+        <div class="reflection-box">
+            <h4 style="margin-top: 0;">Before We Begin</h4>
+            <p style="font-size: 10pt;">Take a moment to check in with yourself. How are you feeling as you start this journey?</p>
+            <textarea rows="4" placeholder="Be honest - there's no right or wrong answer..."></textarea>
+        </div>
+
+        <h3>Understanding Matrescence</h3>
+        <p>
+            Just as adolescence marks the transition to adulthood, <strong>matrescence</strong> marks your psychological birth as a mother. This profound transformation affects every part of you.
+        </p>
+
+        <div class="sage-box">
+            <h4 style="margin-top: 0;">Key Changes in Your Fourth Trimester:</h4>
+            <div class="two-column" style="gap: 1rem;">
+                <div>
+                    <p style="font-size: 10pt;"><strong>Physical:</strong><br>
+                    • Hormone fluctuations<br>
+                    • Body recovery (12-18 months)<br>
+                    • Sleep architecture changes<br>
+                    • Brain reorganization</p>
+                </div>
+                <div>
+                    <p style="font-size: 10pt;"><strong>Emotional:</strong><br>
+                    • Identity shifts<br>
+                    • Increased sensitivity<br>
+                    • Protective instincts<br>
+                    • Contradictory feelings</p>
+                </div>
+            </div>
+        </div>
+
+        <h3>Your Daily Check-In Practice</h3>
+        <p>Starting today, we'll use these three questions to build self-awareness:</p>
+
+        <div class="daily-check-in">
+            <h4 style="color: #A8C09A; margin-top: 0;">Morning Check-In</h4>
+            
+            <p style="font-weight: 600; margin-top: 1rem;">How am I feeling right now?</p>
+            <input type="text" class="input-line" placeholder="Name the emotion without judgment">
+            
+            <p style="font-weight: 600; margin-top: 1rem;">What do I need in this moment?</p>
+            <input type="text" class="input-line" placeholder="It could be rest, food, connection, space...">
+            
+            <p style="font-weight: 600; margin-top: 1rem;">What's one kind thing I can do for myself today?</p>
+            <input type="text" class="input-line" placeholder="Something small and achievable">
+        </div>
+
+        <div class="page-number">4</div>
+    </div>
+
+    <!-- Statistics and Hope Page -->
+    <div class="page page-break">
+        <h2>You Are Not Alone</h2>
+        
+        <p>Sometimes it helps to know that what you're experiencing is shared by many mothers. Here are some important numbers to remember:</p>
+
+        <div style="margin-top: 2rem;">
+            <div class="two-column" style="gap: 1.5rem;">
+                <div class="highlight-box" style="text-align: center;">
+                    <h1 style="margin: 0; color: #F4A261;">1 in 5</h1>
+                    <p style="margin-bottom: 0; font-size: 10pt;">mothers experience<br>postpartum mood challenges</p>
+                </div>
+                <div class="sage-box" style="text-align: center;">
+                    <h1 style="margin: 0; color: #A8C09A;">95%</h1>
+                    <p style="margin-bottom: 0; font-size: 10pt;">recover fully with<br>the right support</p>
+                </div>
+            </div>
+            
+            <div class="two-column" style="gap: 1.5rem; margin-top: 1.5rem;">
+                <div class="sage-box" style="text-align: center;">
+                    <h1 style="margin: 0; color: #A8C09A;">70%</h1>
+                    <p style="margin-bottom: 0; font-size: 10pt;">of mothers hide<br>their struggles</p>
+                </div>
+                <div class="highlight-box" style="text-align: center;">
+                    <h1 style="margin: 0; color: #F4A261;">87%</h1>
+                    <p style="margin-bottom: 0; font-size: 10pt;">feel significantly better<br>by 6 months</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="quote" style="margin-top: 3rem;">
+            Your struggles don't make you weak.<br>
+            They make you human.
+        </div>
+
+        <h3>Reflection: Your Support System</h3>
+        <p>Having support is crucial for recovery. Take a moment to identify your resources:</p>
+
+        <div class="reflection-box">
+            <p style="font-weight: 600;">Who can I reach out to when I need help?</p>
+            <textarea rows="3" placeholder="Friends, family, professionals, online communities..."></textarea>
+            
+            <p style="font-weight: 600; margin-top: 1rem;">What barriers might prevent me from asking for help?</p>
+            <textarea rows="3" placeholder="Be honest about what holds you back..."></textarea>
+            
+            <p style="font-weight: 600; margin-top: 1rem;">How can I make it easier to accept support?</p>
+            <textarea rows="3" placeholder="Small steps to lower the barriers..."></textarea>
+        </div>
+
+        <div class="page-number">5</div>
+    </div>
+
+    <!-- Lesson 2: Normal vs Not Normal -->
+    <div class="page page-break">
+        <div class="week-badge" style="margin-bottom: 1rem;">Lesson 2</div>
+        <h1>What's Normal vs. What's Not</h1>
+        
+        <p>Understanding what's typical in postpartum recovery helps you know when to rest easy and when to reach out for help.</p>
+
+        <h3>Physical Symptoms Tracker</h3>
+        <p style="font-size: 10pt; color: #999;">Check any symptoms you're experiencing:</p>
+
+        <div class="two-column" style="gap: 2rem;">
+            <div>
+                <h4 style="color: #A8C09A;">Normal Experiences</h4>
+                <ul class="check-list">
+                    <li>Lochia (bleeding) for 4-6 weeks</li>
+                    <li>Night sweats</li>
+                    <li>Hair loss (3-6 months postpartum)</li>
+                    <li>Breast changes/engorgement</li>
+                    <li>Fatigue and exhaustion</li>
+                    <li>Mild cramping</li>
+                    <li>Constipation</li>
+                    <li>Hemorrhoids</li>
+                    <li>Perineal soreness</li>
+                    <li>C-section incision tenderness</li>
+                </ul>
+            </div>
+            <div>
+                <h4 style="color: #F4A261;">Call Your Provider If:</h4>
+                <ul class="check-list">
+                    <li>Soaking a pad every hour</li>
+                    <li>Fever over 100.4°F</li>
+                    <li>Foul-smelling discharge</li>
+                    <li>Severe headaches</li>
+                    <li>Vision changes</li>
+                    <li>Chest pain or trouble breathing</li>
+                    <li>Calf pain or swelling</li>
+                    <li>Thoughts of self-harm</li>
+                    <li>Unable to care for baby</li>
+                    <li>Severe abdominal pain</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="highlight-box" style="margin-top: 2rem;">
+            <h4 style="margin-top: 0;">Remember:</h4>
+            <p style="margin-bottom: 0;">When in doubt, reach out. It's always better to check with your healthcare provider than to worry alone.</p>
+        </div>
+
+        <h3>Today's Body Gratitude Practice</h3>
+        <div class="sage-box">
+            <p style="font-style: italic; margin-bottom: 1rem;">
+                "Your body has done something extraordinary. Even as you notice what feels hard or different, can you also hold gratitude for all it has accomplished?"
+            </p>
+            <p style="font-weight: 600;">Three things I'm grateful to my body for:</p>
+            <p>1. <input type="text" class="input-line" style="width: calc(100% - 20px); margin-left: 20px;" placeholder="Example: For growing a human being"></p>
+            <p>2. <input type="text" class="input-line" style="width: calc(100% - 20px); margin-left: 20px;" placeholder="Example: For its strength during birth"></p>
+            <p>3. <input type="text" class="input-line" style="width: calc(100% - 20px); margin-left: 20px;" placeholder="Example: For healing each day"></p>
+        </div>
+
+        <div class="page-number">6</div>
+    </div>
+
+    <!-- Emotional Wellness Check -->
+    <div class="page page-break">
+        <h2>Emotional Wellness Check</h2>
+        
+        <p>Your emotional health is just as important as your physical recovery. Use this page to track your feelings and patterns.</p>
+
+        <h3>Mood Tracker</h3>
+        <p style="font-size: 10pt; color: #999;">Circle the emotions you've felt this week:</p>
+
+        <div style="display: flex; flex-wrap: wrap; gap: 1rem; margin: 2rem 0;">
+            <span style="padding: 0.5rem 1rem; border: 2px solid #A8C09A; border-radius: 50px;">Joy</span>
+            <span style="padding: 0.5rem 1rem; border: 2px solid #A8C09A; border-radius: 50px;">Sadness</span>
+            <span style="padding: 0.5rem 1rem; border: 2px solid #A8C09A; border-radius: 50px;">Anxiety</span>
+            <span style="padding: 0.5rem 1rem; border: 2px solid #A8C09A; border-radius: 50px;">Overwhelm</span>
+            <span style="padding: 0.5rem 1rem; border: 2px solid #A8C09A; border-radius: 50px;">Love</span>
+            <span style="padding: 0.5rem 1rem; border: 2px solid #A8C09A; border-radius: 50px;">Frustration</span>
+            <span style="padding: 0.5rem 1rem; border: 2px solid #A8C09A; border-radius: 50px;">Peace</span>
+            <span style="padding: 0.5rem 1rem; border: 2px solid #A8C09A; border-radius: 50px;">Guilt</span>
+            <span style="padding: 0.5rem 1rem; border: 2px solid #A8C09A; border-radius: 50px;">Hope</span>
+            <span style="padding: 0.5rem 1rem; border: 2px solid #A8C09A; border-radius: 50px;">Anger</span>
+            <span style="padding: 0.5rem 1rem; border: 2px solid #A8C09A; border-radius: 50px;">Gratitude</span>
+            <span style="padding: 0.5rem 1rem; border: 2px solid #A8C09A; border-radius: 50px;">Fear</span>
+            <span style="padding: 0.5rem 1rem; border: 2px solid #A8C09A; border-radius: 50px;">Relief</span>
+            <span style="padding: 0.5rem 1rem; border: 2px solid #A8C09A; border-radius: 50px;">Confusion</span>
+            <span style="padding: 0.5rem 1rem; border: 2px solid #A8C09A; border-radius: 50px;">Pride</span>
+            <span style="padding: 0.5rem 1rem; border: 2px solid #A8C09A; border-radius: 50px;">Loneliness</span>
+        </div>
+
+        <div class="reflection-box">
+            <h4 style="margin-top: 0;">Contradictory Emotions</h4>
+            <p style="font-size: 10pt;">It's normal to feel opposing emotions at the same time. What contradictions are you experiencing?</p>
+            <div class="two-column" style="gap: 1rem; margin-top: 1rem;">
+                <div>
+                    <p style="font-weight: 600; font-size: 10pt;">I feel...</p>
+                    <input type="text" class="input-line" placeholder="Example: Deeply in love">
+                </div>
+                <div>
+                    <p style="font-weight: 600; font-size: 10pt;">And also...</p>
+                    <input type="text" class="input-line" placeholder="Example: Overwhelmed">
+                </div>
+            </div>
+            <div class="two-column" style="gap: 1rem; margin-top: 1rem;">
+                <div>
+                    <p style="font-weight: 600; font-size: 10pt;">I feel...</p>
+                    <input type="text" class="input-line" placeholder="">
+                </div>
+                <div>
+                    <p style="font-weight: 600; font-size: 10pt;">And also...</p>
+                    <input type="text" class="input-line" placeholder="">
+                </div>
+            </div>
+        </div>
+
+        <h3>Baby Blues vs. Something More</h3>
+        
+        <div class="two-column" style="gap: 1.5rem;">
+            <div class="sage-box">
+                <h4 style="margin-top: 0; color: #A8C09A;">Baby Blues (Normal)</h4>
+                <p style="font-size: 10pt;">
+                    • Starts day 3-5 postpartum<br>
+                    • Lasts up to 2 weeks<br>
+                    • Crying spells<br>
+                    • Mood swings<br>
+                    • Feeling overwhelmed<br>
+                    • Improves with rest
+                </p>
+            </div>
+            <div class="highlight-box">
+                <h4 style="margin-top: 0; color: #F4A261;">Seek Support If:</h4>
+                <p style="font-size: 10pt;">
+                    • Symptoms last > 2 weeks<br>
+                    • Can't sleep when baby sleeps<br>
+                    • No interest in anything<br>
+                    • Persistent anxiety/panic<br>
+                    • Intrusive scary thoughts<br>
+                    • Feeling disconnected
+                </p>
+            </div>
+        </div>
+
+        <div class="page-number">7</div>
+    </div>
+
+    <!-- Science of Change Page -->
+    <div class="page page-break">
+        <div class="week-badge" style="margin-bottom: 1rem;">Lesson 3</div>
+        <h1>The Science Behind Your Experience</h1>
+        
+        <p>Understanding the biology of postpartum changes can help you feel less "crazy" and more compassionate toward yourself.</p>
+
+        <div style="text-align: center; margin: 2rem 0;">
+            <div class="sage-box" style="display: inline-block; padding: 2rem 3rem;">
+                <h2 style="margin: 0; color: #A8C09A;">The Hormone Cliff</h2>
+                <p style="font-size: 14pt; margin: 0.5rem 0;">Estrogen drops <strong>1000x</strong> in 3 days</p>
+                <p style="font-size: 14pt; margin: 0;">Progesterone drops <strong>90%</strong> in 4 days</p>
+                <p style="font-size: 10pt; color: #5a5a5a; margin-top: 1rem;">This is the most dramatic hormone shift<br>in the shortest time that humans experience</p>
+            </div>
+        </div>
+
+        <h3>Your Brain on Motherhood</h3>
+        
+        <div class="reflection-box">
+            <div class="two-column" style="gap: 2rem;">
+                <div>
+                    <h4 style="margin-top: 0;">What's Happening:</h4>
+                    <p style="font-size: 10pt;">
+                        • 7% gray matter reduction<br>
+                        • Amygdala hyperactivity<br>
+                        • Enhanced baby attunement<br>
+                        • Sleep cycle changes<br>
+                        • Increased emotional sensitivity
+                    </p>
+                </div>
+                <div>
+                    <h4 style="margin-top: 0;">What This Means:</h4>
+                    <p style="font-size: 10pt;">
+                        • You're becoming specialized<br>
+                        • Protection mode is ON<br>
+                        • You notice everything<br>
+                        • Lighter, shorter sleep<br>
+                        • Feelings are intensified
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <h3>Recovery Timeline</h3>
+        <p style="font-size: 10pt; color: #999;">Check off milestones as you reach them:</p>
+
+        <div style="position: relative; margin: 2rem 0;">
+            <div style="border-left: 3px solid #A8C09A; padding-left: 2rem;">
+                <div style="margin-bottom: 2rem;">
+                    <div class="icon-circle" style="position: absolute; left: -31px; background: white; border: 3px solid #A8C09A;">1</div>
+                    <h4>Weeks 1-2: Immediate Recovery</h4>
+                    <p style="font-size: 10pt;">□ Uterus beginning to shrink<br>□ Hormone levels dropping rapidly<br>□ Establishing feeding patterns</p>
+                </div>
+                
+                <div style="margin-bottom: 2rem;">
+                    <div class="icon-circle" style="position: absolute; left: -31px; background: white; border: 3px solid #A8C09A;">2</div>
+                    <h4>Weeks 3-6: Finding Your Baseline</h4>
+                    <p style="font-size: 10pt;">□ Hormones stabilizing<br>□ Sleep debt accumulating<br>□ Body healing continues</p>
+                </div>
+                
+                <div style="margin-bottom: 2rem;">
+                    <div class="icon-circle" style="position: absolute; left: -31px; background: white; border: 3px solid #A8C09A;">3</div>
+                    <h4>Months 2-6: Rebuilding</h4>
+                    <p style="font-size: 10pt;">□ Core and pelvic floor strengthening<br>□ Energy slowly returning<br>□ Finding new rhythms</p>
+                </div>
+                
+                <div>
+                    <div class="icon-circle" style="position: absolute; left: -31px; background: white; border: 3px solid #A8C09A;">4</div>
+                    <h4>Months 6-12+: Deep Restoration</h4>
+                    <p style="font-size: 10pt;">□ Tissue repair continuing<br>□ Metabolic recovery<br>□ Identity integration</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-number">8</div>
+    </div>
+
+    <!-- Daily Practice Pages - Part 1 -->
+    <div class="page page-break">
+        <h1>Your Daily Practice Pages</h1>
+        <p class="subtitle">7 Days of Check-Ins</p>
+
+        <p>Use these pages throughout the week to track your daily check-ins. Remember, there's no "right" way to feel.</p>
+
+        <!-- Day 1 -->
+        <div class="daily-check-in" style="margin-bottom: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <h4 style="margin: 0; color: #A8C09A;">Day 1</h4>
+                <input type="text" style="border: none; border-bottom: 1px solid #e0e0e0; width: 150px;" placeholder="Date: ___/___/___">
+            </div>
+            
+            <div class="three-column" style="gap: 1rem;">
+                <div>
+                    <p style="font-size: 9pt; font-weight: 600; margin-bottom: 0.5rem;">Morning:</p>
+                    <p style="font-size: 9pt; margin: 0;">How I'm feeling:</p>
+                    <input type="text" style="width: 100%; border: none; border-bottom: 1px solid #e0e0e0; font-size: 9pt; margin-bottom: 0.5rem;">
+                    <p style="font-size: 9pt; margin: 0;">What I need:</p>
+                    <input type="text" style="width: 100%; border: none; border-bottom: 1px solid #e0e0e0; font-size: 9pt;">
+                </div>
+                <div>
+                    <p style="font-size: 9pt; font-weight: 600; margin-bottom: 0.5rem;">Afternoon:</p>
+                    <p style="font-size: 9pt; margin: 0;">How I'm feeling:</p>
+                    <input type="text" style="width: 100%; border: none; border-bottom: 1px solid #e0e0e0; font-size: 9pt; margin-bottom: 0.5rem;">
+                    <p style="font-size: 9pt; margin: 0;">What I need:</p>
+                    <input type="text" style="width: 100%; border: none; border-bottom: 1px solid #e0e0e0; font-size: 9pt;">
+                </div>
+                <div>
+                    <p style="font-size: 9pt; font-weight: 600; margin-bottom: 0.5rem;">Evening:</p>
+                    <p style="font-size: 9pt; margin: 0;">How I'm feeling:</p>
+                    <input type="text" style="width: 100%; border: none; border-bottom: 1px solid #e0e0e0; font-size: 9pt; margin-bottom: 0.5rem;">
+                    <p style="font-size: 9pt; margin: 0;">Kind act for myself:</p>
+                    <input type="text" style="width: 100%; border: none; border-bottom: 1px solid #e0e0e0; font-size: 9pt;">
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 2 -->
+        <div class="daily-check-in" style="margin-bottom: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <h4 style="margin: 0; color: #A8C09A;">Day 2</h4>
+                <input type="text" style="border: none; border-bottom: 1px solid #e0e0e0; width: 150px;" placeholder="Date: ___/___/___">
+            </div>
+            
+            <div class="three-column" style="gap: 1rem;">
+                <div>
+                    <p style="font-size: 9pt; font-weight: 600; margin-bottom: 0.5rem;">Morning:</p>
+                    <p style="font-size: 9pt; margin: 0;">How I'm feeling:</p>
+                    <input type="text" style="width: 100%; border: none; border-bottom: 1px solid #e0e0e0; font-size: 9pt; margin-bottom: 0.5rem;">
+                    <p style="font-size: 9pt; margin: 0;">What I need:</p>
+                    <input type="text" style="width: 100%; border: none; border-bottom: 1px solid #e0e0e0; font-size: 9pt;">
+                </div>
+                <div>
+                    <p style="font-size: 9pt; font-weight: 600; margin-bottom: 0.5rem;">Afternoon:</p>
+                    <p style="font-size: 9pt; margin: 0;">How I'm feeling:</p>
+                    <input type="text" style="width: 100%; border: none; border-bottom: 1px solid #e0e0e0; font-size: 9pt; margin-bottom: 0.5rem;">
+                    <p style="font-size: 9pt; margin: 0;">What I need:</p>
+                    <input type="text" style="width: 100%; border: none; border-bottom: 1px solid #e0e0e0; font-size: 9pt;">
+                </div>
+                <div>
+                    <p style="font-size: 9pt; font-weight: 600; margin-bottom: 0.5rem;">Evening:</p>
+                    <p style="font-size: 9pt; margin: 0;">How I'm feeling:</p>
+                    <input type="text" style="width: 100%; border: none; border-bottom: 1px solid #e0e0e0; font-size: 9pt; margin-bottom: 0.5rem;">
+                    <p style="font-size: 9pt; margin: 0;">Kind act for myself:</p>
+                    <input type="text" style="width: 100%; border: none; border-bottom: 1px solid #e0e0e0; font-size: 9pt;">
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 3 -->
+        <div class="daily-check-in">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <h4 style="margin: 0; color: #A8C09A;">Day 3</h4>
+                <input type="text" style="border: none; border-bottom: 1px solid #e0e0e0; width: 150px;" placeholder="Date: ___/___/___">
+            </div>
+            
+            <div class="three-column" style="gap: 1rem;">
+                <div>
+                    <p style="font-size: 9pt; font-weight: 600; margin-bottom: 0.5rem;">Morning:</p>
+                    <p style="font-size: 9pt; margin: 0;">How I'm feeling:</p>
+                    <input type="text" style="width: 100%; border: none; border-bottom: 1px solid #e0e0e0; font-size: 9pt; margin-bottom: 0.5rem;">
+                    <p style="font-size: 9pt; margin: 0;">What I need:</p>
+                    <input type="text" style="width: 100%; border: none; border-bottom: 1px solid #e0e0e0; font-size: 9pt;">
+                </div>
+                <div>
+                    <p style="font-size: 9pt; font-weight: 600; margin-bottom: 0.5rem;">Afternoon:</p>
+                    <p style="font-size: 9pt; margin: 0;">How I'm feeling:</p>
+                    <input type="text" style="width: 100%; border: none; border-bottom: 1px solid #e0e0e0; font-size: 9pt; margin-bottom: 0.5rem;">
+                    <p style="font-size: 9pt; margin: 0;">What I need:</p>
+                    <input type="text" style="width: 100%; border: none; border-bottom: 1px solid #e0e0e0; font-size: 9pt;">
+                </div>
+                <div>
+                    <p style="font-size: 9pt; font-weight: 600; margin-bottom: 0.5rem;">Evening:</p>
+                    <p style="font-size: 9pt; margin: 0;">How I'm feeling:</p>
+                    <input type="text" style="width: 100%; border: none; border-bottom: 1px solid #e0e0e0; font-size: 9pt; margin-bottom: 0.5rem;">
+                    <p style="font-size: 9pt; margin: 0;">Kind act for myself:</p>
+                    <input type="text" style="width: 100%; border: none; border-bottom: 1px solid #e0e0e0; font-size: 9pt;">
+                </div>
+            </div>
+        </div>
+
+        <div class="page-number">9</div>
+    </div>
+
+    <!-- Daily Practice Pages - Part 2 -->
+    <div class="page page-break">
+        <h2 style="margin-top: 0;">Daily Practice Pages (Continued)</h2>
+
+        <!-- Day 4 -->
+        <div class="daily-check-in" style="margin-bottom: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <h4 style="margin: 0; color: #A8C09A;">Day 4</h4>
+                <input type="text" style="border: none; border-bottom: 1px solid #e0e0e0; width: 150px;" placeholder="Date: ___/___/___">
+            </div>
+            
+            <div class="three-column" style="gap: 1rem;">
+                <div>
+                    <p style="font-size: 9pt; font-weight: 600; margin-bottom: 0.5rem;">Morning:</p>
+                    <p style="font-size: 9pt; margin: 0;">How I'm feeling:</p>
+                    <input type="text" style="width: 100%; border: none; border-bottom: 1px solid #e0e0e0; font-size: 9pt; margin-bottom: 0.5rem;">
+                    <p style="font-size: 9pt; margin: 0;">What I need:</p>
+                    <input type="text" style="width: 100%; border: none; border-bottom: 1px solid #e0e0e0; font-size: 9pt;">
+                </div>
+                <div>
+                    <p style="font-size: 9pt; font-weight: 600; margin-bottom: 0.5rem;">Afternoon:</p>
+                    <p style="font-size: 9pt; margin: 0;">How I'm feeling:</p>
+                    <input type="text" style="width: 100%; border: none; border-bottom: 1px solid #e0e0e0; font-size: 9pt; margin-bottom: 0.5rem;">
+                    <p style="font-size: 9pt; margin: 0;">What I need:</p>
+                    <input type="text" style="width: 100%; border: none; border-bottom: 1px solid #e0e0e0; font-size: 9pt;">
+                </div>
+                <div>
+                    <p style="font-size: 9pt; font-weight: 600; margin-bottom: 0.5rem;">Evening:</p>
+                    <p style="font-size: 9pt; margin: 0;">How I'm feeling:</p>
+                    <input type="text" style="width: 100%; border: none; border-bottom: 1px solid #e0e0e0; font-size: 9pt; margin-bottom: 0.5rem;">
+                    <p style="font-size: 9pt; margin: 0;">Kind act for myself:</p>
+                    <input type="text" style="width: 100%; border: none; border-bottom: 1px solid #e0e0e0; font-size: 9pt;">
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 5 -->
+        <div class="daily-check-in" style="margin-bottom: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <h4 style="margin: 0; color: #A8C09A;">Day 5</h4>
+                <input type="text" style="border: none; border-bottom: 1px solid #e0e0e0; width: 150px;" placeholder="Date: ___/___/___">
+            </div>
+            
+            <div class="three-column" style="gap: 1rem;">
+                <div>
+                    <p style="font-size: 9pt; font-weight: 600; margin-bottom: 0.5rem;">Morning:</p>
+                    <p style="font-size: 9pt; margin: 0;">How I'm feeling:</p>
+                    <input type="text" style="width: 100%; border: none; border-bottom: 1px solid #e0e0e0; font-size: 9pt; margin-bottom: 0.5rem;">
+                    <p style="font-size: 9pt; margin: 0;">What I need:</p>
+                    <input type="text" style="width: 100%; border: none; border-bottom: 1px solid #e0e0e0; font-size: 9pt;">
+                </div>
+                <div>
+                    <p style="font-size: 9pt; font-weight: 600; margin-bottom: 0.5rem;">Afternoon:</p>
+                    <p style="font-size: 9pt; margin: 0;">How I'm feeling:</p>
+                    <input type="text" style="width: 100%; border: none; border-bottom: 1px solid #e0e0e0; font-size: 9pt; margin-bottom: 0.5rem;">
+                    <p style="font-size: 9pt; margin: 0;">What I need:</p>
+                    <input type="text" style="width: 100%; border: none; border-bottom: 1px solid #e0e0e0; font-size: 9pt;">
+                </div>
+                <div>
+                    <p style="font-size: 9pt; font-weight: 600; margin-bottom: 0.5rem;">Evening:</p>
+                    <p style="font-size: 9pt; margin: 0;">How I'm feeling:</p>
+                    <input type="text" style="width: 100%; border: none; border-bottom: 1px solid #e0e0e0; font-size: 9pt; margin-bottom: 0.5rem;">
+                    <p style="font-size: 9pt; margin: 0;">Kind act for myself:</p>
+                    <input type="text" style="width: 100%; border: none; border-bottom: 1px solid #e0e0e0; font-size: 9pt;">
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 6 -->
+        <div class="daily-check-in" style="margin-bottom: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <h4 style="margin: 0; color: #A8C09A;">Day 6</h4>
+                <input type="text" style="border: none; border-bottom: 1px solid #e0e0e0; width: 150px;" placeholder="Date: ___/___/___">
+            </div>
+            
+            <div class="three-column" style="gap: 1rem;">
+                <div>
+                    <p style="font-size: 9pt; font-weight: 600; margin-bottom: 0.5rem;">Morning:</p>
+                    <p style="font-size: 9pt; margin: 0;">How I'm feeling:</p>
+                    <input type="text" style="width: 100%; border: none; border-bottom: 1px solid #e0e0e0; font-size: 9pt; margin-bottom: 0.5rem;">
+                    <p style="font-size: 9pt; margin: 0;">What I need:</p>
+                    <input type="text" style="width: 100%; border: none; border-bottom: 1px solid #e0e0e0; font-size: 9pt;">
+                </div>
+                <div>
+                    <p style="font-size: 9pt; font-weight: 600; margin-bottom: 0.5rem;">Afternoon:</p>
+                    <p style="font-size: 9pt; margin: 0;">How I'm feeling:</p>
+                    <input type="text" style="width: 100%; border: none; border-bottom: 1px solid #e0e0e0; font-size: 9pt; margin-bottom: 0.5rem;">
+                    <p style="font-size: 9pt; margin: 0;">What I need:</p>
+                    <input type="text" style="width: 100%; border: none; border-bottom: 1px solid #e0e0e0; font-size: 9pt;">
+                </div>
+                <div>
+                    <p style="font-size: 9pt; font-weight: 600; margin-bottom: 0.5rem;">Evening:</p>
+                    <p style="font-size: 9pt; margin: 0;">How I'm feeling:</p>
+                    <input type="text" style="width: 100%; border: none; border-bottom: 1px solid #e0e0e0; font-size: 9pt; margin-bottom: 0.5rem;">
+                    <p style="font-size: 9pt; margin: 0;">Kind act for myself:</p>
+                    <input type="text" style="width: 100%; border: none; border-bottom: 1px solid #e0e0e0; font-size: 9pt;">
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 7 -->
+        <div class="daily-check-in">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <h4 style="margin: 0; color: #A8C09A;">Day 7</h4>
+                <input type="text" style="border: none; border-bottom: 1px solid #e0e0e0; width: 150px;" placeholder="Date: ___/___/___">
+            </div>
+            
+            <div class="three-column" style="gap: 1rem;">
+                <div>
+                    <p style="font-size: 9pt; font-weight: 600; margin-bottom: 0.5rem;">Morning:</p>
+                    <p style="font-size: 9pt; margin: 0;">How I'm feeling:</p>
+                    <input type="text" style="width: 100%; border: none; border-bottom: 1px solid #e0e0e0; font-size: 9pt; margin-bottom: 0.5rem;">
+                    <p style="font-size: 9pt; margin: 0;">What I need:</p>
+                    <input type="text" style="width: 100%; border: none; border-bottom: 1px solid #e0e0e0; font-size: 9pt;">
+                </div>
+                <div>
+                    <p style="font-size: 9pt; font-weight: 600; margin-bottom: 0.5rem;">Afternoon:</p>
+                    <p style="font-size: 9pt; margin: 0;">How I'm feeling:</p>
+                    <input type="text" style="width: 100%; border: none; border-bottom: 1px solid #e0e0e0; font-size: 9pt; margin-bottom: 0.5rem;">
+                    <p style="font-size: 9pt; margin: 0;">What I need:</p>
+                    <input type="text" style="width: 100%; border: none; border-bottom: 1px solid #e0e0e0; font-size: 9pt;">
+                </div>
+                <div>
+                    <p style="font-size: 9pt; font-weight: 600; margin-bottom: 0.5rem;">Evening:</p>
+                    <p style="font-size: 9pt; margin: 0;">How I'm feeling:</p>
+                    <input type="text" style="width: 100%; border: none; border-bottom: 1px solid #e0e0e0; font-size: 9pt; margin-bottom: 0.5rem;">
+                    <p style="font-size: 9pt; margin: 0;">Kind act for myself:</p>
+                    <input type="text" style="width: 100%; border: none; border-bottom: 1px solid #e0e0e0; font-size: 9pt;">
+                </div>
+            </div>
+        </div>
+
+        <div class="page-number">10</div>
+    </div>
+
+    <!-- Week Reflection -->
+    <div class="page page-break">
+        <h1>Week 1 Reflection</h1>
+        <p class="subtitle">Celebrating Your Progress</p>
+
+        <div class="sage-box" style="margin: 1rem 0;">
+            <p style="text-align: center; font-style: italic; font-size: 12pt; margin: 0;">
+                "You've completed your first week. That alone is worth celebrating."
+            </p>
+        </div>
+
+        <h3 style="margin-top: 1.5rem;">Looking Back</h3>
+        
+        <div class="reflection-box" style="padding: 1.5rem;">
+            <p style="font-weight: 600; font-size: 10pt; margin-bottom: 0.5rem;">What surprised me most this week?</p>
+            <textarea rows="2" style="min-height: 60px; font-size: 10pt;" placeholder="About your body, emotions, or experience..."></textarea>
+            
+            <p style="font-weight: 600; font-size: 10pt; margin-bottom: 0.5rem; margin-top: 0.75rem;">What felt hardest?</p>
+            <textarea rows="2" style="min-height: 60px; font-size: 10pt;" placeholder="It's okay to acknowledge the challenges..."></textarea>
+            
+            <p style="font-weight: 600; font-size: 10pt; margin-bottom: 0.5rem; margin-top: 0.75rem;">What gave me hope or comfort?</p>
+            <textarea rows="2" style="min-height: 60px; font-size: 10pt;" placeholder="Small moments count..."></textarea>
+        </div>
+
+        <h3 style="margin-top: 1.5rem;">Key Learnings</h3>
+        <p style="font-size: 10pt;">Check the insights that resonated most with you:</p>
+        
+        <ul class="check-list" style="margin-bottom: 1.5rem; font-size: 10pt;">
+            <li style="margin-bottom: 0.5rem;">The fourth trimester is real and challenging for everyone</li>
+            <li style="margin-bottom: 0.5rem;">My body needs 12-18 months to fully recover</li>
+            <li style="margin-bottom: 0.5rem;">Contradictory emotions are normal and okay</li>
+            <li style="margin-bottom: 0.5rem;">Biology drives many of my experiences</li>
+            <li style="margin-bottom: 0.5rem;">Rest is medicine, not laziness</li>
+            <li style="margin-bottom: 0.5rem;">I have the right to prioritize my healing</li>
+            <li style="margin-bottom: 0.5rem;">There's no "right" way to do this</li>
+            <li style="margin-bottom: 0.5rem;">Support is available when I'm ready</li>
+        </ul>
+
+        <h3 style="margin-top: 1.5rem;">Moving Forward</h3>
+        
+        <div class="highlight-box" style="padding: 1.5rem;">
+            <p style="font-weight: 600; font-size: 10pt; margin-bottom: 0.5rem;">One thing I want to remember from this week:</p>
+            <textarea rows="2" style="min-height: 50px; font-size: 10pt;"></textarea>
+            
+            <p style="font-weight: 600; font-size: 10pt; margin-bottom: 0.5rem; margin-top: 0.75rem;">One way I'll be gentler with myself next week:</p>
+            <textarea rows="2" style="min-height: 50px; font-size: 10pt;"></textarea>
+        </div>
+
+        <div class="quote" style="margin-top: 1.5rem; margin-bottom: 0;">
+            Every day you're healing.<br>
+            Every day you're growing.<br>
+            Every day you're enough.
+        </div>
+
+        <div class="page-number">11</div>
+    </div>
+
+    <!-- Emergency Support Page -->
+    <div class="page">
+        <h1 style="margin-top: 0.5in;">When You Need Extra Support</h1>
+        
+        <div class="highlight-box" style="background: linear-gradient(135deg, #FFB4A2 0%, #FFE4CC 100%); border-color: #F4A261; padding: 1.25rem;">
+            <h3 style="margin-top: 0; margin-bottom: 0.75rem; color: #F4A261; font-size: 18pt;">Crisis Support (Available 24/7)</h3>
+            <p style="font-weight: 600; font-size: 12pt; margin-bottom: 0.25rem;">Postpartum Support International:</p>
+            <p style="font-size: 14pt; margin: 0;">1-800-4PPD (1-800-944-4773)</p>
+            <p style="font-size: 9pt; margin-top: 0.25rem;">Text "HELP" to 800-944-4773</p>
+            
+            <p style="font-weight: 600; font-size: 12pt; margin-bottom: 0.25rem; margin-top: 1rem;">Crisis Text Line:</p>
+            <p style="font-size: 14pt; margin: 0;">Text HOME to 741741</p>
+            
+            <p style="font-weight: 600; font-size: 12pt; margin-bottom: 0.25rem; margin-top: 1rem;">Emergency:</p>
+            <p style="font-size: 12pt; margin: 0;">Call 988 or go to nearest ER</p>
+        </div>
+
+        <h3 style="margin-top: 1.25rem; margin-bottom: 0.75rem;">Your Healthcare Team</h3>
+        <p style="font-size: 10pt; margin-bottom: 0.5rem;">Keep this information easily accessible:</p>
+        
+        <div class="reflection-box" style="padding: 1.25rem;">
+            <p style="margin-bottom: 0.75rem; font-size: 10pt;">OB/Midwife: <input type="text" class="input-line" style="margin-bottom: 0.75rem;" placeholder="Name & Phone"></p>
+            <p style="margin-bottom: 0.75rem; font-size: 10pt;">Primary Care: <input type="text" class="input-line" style="margin-bottom: 0.75rem;" placeholder="Name & Phone"></p>
+            <p style="margin-bottom: 0.75rem; font-size: 10pt;">Therapist: <input type="text" class="input-line" style="margin-bottom: 0.75rem;" placeholder="Name & Phone"></p>
+            <p style="margin-bottom: 0.75rem; font-size: 10pt;">Lactation: <input type="text" class="input-line" style="margin-bottom: 0.75rem;" placeholder="Name & Phone"></p>
+            <p style="margin-bottom: 0; font-size: 10pt;">Support Person: <input type="text" class="input-line" style="margin-bottom: 0;" placeholder="Name & Phone"></p>
+        </div>
+
+        <h3 style="margin-top: 1.25rem; margin-bottom: 0.5rem;">Online Resources</h3>
+        <ul style="list-style: none; padding: 0; font-size: 10pt;">
+            <li style="margin-bottom: 0.4rem;">📱 <strong>PSI:</strong> postpartum.net</li>
+            <li style="margin-bottom: 0.4rem;">📱 <strong>PSI Support Groups:</strong> postpartum.net/get-help/</li>
+            <li style="margin-bottom: 0.4rem;">📱 <strong>Bloom Resources:</strong> bloompsy.co/resources</li>
+            <li style="margin-bottom: 0.4rem;">📱 <strong>Find Provider:</strong> findahealthcenter.hrsa.gov</li>
+        </ul>
+
+        <div class="sage-box" style="margin-top: 1.25rem; padding: 1rem;">
+            <h4 style="margin-top: 0; margin-bottom: 0.5rem; font-size: 12pt;">Remember:</h4>
+            <p style="margin-bottom: 0; font-size: 10pt;">
+                Seeking help is strength, not weakness. You deserve support. Your wellness matters—for YOU.
+            </p>
+        </div>
+
+        <div style="text-align: center; margin-top: 1.5rem;">
+            <p style="font-size: 11pt; color: #A8C09A; font-weight: 600; line-height: 1.6;">
+                You are worthy of care.<br>
+                You are worthy of support.<br>
+                You are worthy of healing.
+            </p>
+        </div>
+
+        <div class="page-number">12</div>
+    </div>
+
+</body>
+</html>

@@ -30,7 +30,7 @@ const course = {
   price: 297,
   originalPrice: 397,
   duration: '6 weeks',
-  totalLessons: 24,
+  totalLessons: 25,
   totalHours: 4.5,
   instructor: {
     name: 'Dr. Jana Rundle',
@@ -60,225 +60,232 @@ const course = {
   curriculum: [
     {
       week: 1,
-      title: 'Understanding Postpartum Emotions',
-      description: 'Learn what\'s normal in the postpartum period and gain clarity about your emotional experience.',
+      title: 'Understanding Your Fourth Trimester',
+      description: 'Normalizing the postpartum experience through psychoeducation and validation.',
       lessons: [
         {
           number: 1,
           title: 'Welcome to Your Postpartum Journey',
           duration: '12 min',
           type: 'video',
-          description: 'Understanding this life transition and setting realistic expectations.'
+          description: 'Introduces the "fourth trimester" concept and validates the complexity of postpartum adjustment.'
         },
         {
           number: 2,
           title: 'What\'s Normal vs. What\'s Not',
           duration: '14 min',
           type: 'video',
-          description: 'Recognizing typical postpartum emotions and when to seek additional support.'
+          description: 'Differentiates common postpartum experiences from signs that indicate need for additional support.'
         },
         {
           number: 3,
           title: 'The Science of Postpartum Changes',
           duration: '11 min',
           type: 'video',
-          description: 'How your body and brain are adjusting to this new phase of life.'
+          description: 'Explains neurobiological changes, hormones, and physical recovery to reduce self-blame.'
         },
         {
           number: 4,
           title: 'Honoring Your Experience',
           duration: '13 min',
           type: 'video',
-          description: 'Validating your feelings and learning to trust your intuition.'
+          description: 'Validates the full range of emotions including ambivalence, grief, and joy using "both/and" thinking.'
         }
       ],
-      workbook: 'Week 1 Workbook: Emotional Awareness & Self-Assessment',
+      workbook: 'Week 1 Workbook: Emotional Awareness Journal & "Normal vs. Concerning" Checklist',
       meditation: 'Grounding Meditation for New Moms (8 min)'
     },
     {
       week: 2,
-      title: 'Building Coping Strategies',
-      description: 'Develop practical tools to manage stress, overwhelm, and difficult emotions.',
+      title: 'Cultivating Self-Compassion & Building Resilience',
+      description: 'Developing psychological tools for emotional regulation and stress management.',
       lessons: [
         {
           number: 5,
-          title: 'Stress Management Essentials',
-          duration: '15 min',
+          title: 'The Power of Self-Compassion',
+          duration: '10 min',
           type: 'video',
-          description: 'Simple techniques you can use anytime, anywhere to calm your nervous system.'
+          description: 'Based on Dr. Kristin Neff\'s research, learn to treat yourself with kindness.'
         },
         {
           number: 6,
-          title: 'Emotional Regulation Tools',
+          title: 'Releasing Perfectionism & Embracing "Good Enough"',
           duration: '12 min',
           type: 'video',
-          description: 'Practical strategies for managing big emotions when they arise.'
+          description: 'Explores Winnicott\'s "good enough mother" concept and strategies for realistic standards.'
         },
         {
           number: 7,
-          title: 'Mindfulness for Busy Moms',
-          duration: '13 min',
+          title: 'Stress Management for the Postpartum Nervous System',
+          duration: '15 min',
           type: 'video',
-          description: 'Quick mindfulness practices that fit into your daily routine.'
+          description: 'Evidence-based techniques for calming an overwhelmed nervous system in 30 seconds to 3 minutes.'
         },
         {
           number: 8,
-          title: 'Creating Your Coping Toolkit',
+          title: 'Emotional Regulation Through the Window of Tolerance',
+          duration: '12 min',
+          type: 'video',
+          description: 'Dr. Dan Siegel\'s concept for managing hyperarousal and hypoarousal with DBT techniques.'
+        },
+        {
+          number: 9,
+          title: 'Creating Your Personalized Coping Toolkit',
           duration: '11 min',
           type: 'video',
-          description: 'Building a personalized set of go-to strategies for difficult moments.'
+          description: 'Build practical strategies tailored to your specific triggers and lifestyle.'
         }
       ],
-      workbook: 'Week 2 Workbook: Your Personal Coping Strategy Guide',
-      meditation: 'Quick Calm Meditation for Overwhelming Moments (10 min)'
+      workbook: 'Week 2 Workbook: Self-Compassion Exercises & Personalized Coping Cards',
+      meditation: 'Self-Compassion Break Meditation (10 min)'
     },
     {
       week: 3,
-      title: 'Creating Self-Care Routines',
-      description: 'Design realistic self-care practices that actually fit into your life as a new mom.',
+      title: 'Building Your Support Ecosystem',
+      description: 'Creating sustainable support systems and improving key relationships.',
       lessons: [
         {
-          number: 9,
-          title: 'Redefining Self-Care',
-          duration: '14 min',
-          type: 'video',
-          description: 'What self-care really looks like when you have a baby.'
-        },
-        {
           number: 10,
-          title: 'Micro Self-Care Moments',
+          title: 'Mapping Your Support Needs & Resources',
           duration: '12 min',
           type: 'video',
-          description: 'Tiny acts of care you can do throughout your day.'
+          description: 'Identify specific support types needed and address barriers to asking for help.'
         },
         {
           number: 11,
-          title: 'Physical Wellness Basics',
-          duration: '13 min',
+          title: 'Strengthening Partnership During Transition',
+          duration: '10 min',
           type: 'video',
-          description: 'Simple ways to support your body while caring for your baby.'
+          description: 'Gottman-based communication strategies for navigating relationship changes after baby.'
         },
         {
           number: 12,
-          title: 'Building Sustainable Routines',
+          title: 'Setting Boundaries with Extended Family',
           duration: '11 min',
           type: 'video',
-          description: 'Creating flexible self-care practices that work with your schedule.'
+          description: 'Diplomatic scripts for common scenarios while honoring cultural considerations.'
+        },
+        {
+          number: 13,
+          title: 'Creating Your Village in Modern Times',
+          duration: '13 min',
+          type: 'video',
+          description: 'Building community support through mom groups, online communities, and reciprocal systems.'
         }
       ],
-      workbook: 'Week 3 Workbook: Your Personalized Self-Care Plan',
-      meditation: 'Self-Compassion Meditation (12 min)'
+      workbook: 'Week 3 Workbook: Support Network Mapping & Communication Scripts',
+      meditation: 'Loving-Kindness Meditation for Connection (12 min)'
     },
     {
       week: 4,
-      title: 'Strengthening the Mother-Baby Bond',
-      description: 'Build confidence in your relationship with your baby and trust your maternal instincts.',
+      title: 'Understanding & Managing Postpartum Anxiety',
+      description: 'Evidence-based strategies for anxiety and intrusive thoughts.',
       lessons: [
         {
-          number: 13,
-          title: 'Understanding Attachment',
-          duration: '15 min',
-          type: 'video',
-          description: 'How bonding really works and why it\'s okay if it takes time.'
-        },
-        {
           number: 14,
-          title: 'Reading Your Baby\'s Cues',
-          duration: '12 min',
+          title: 'The Anxious Postpartum Brain',
+          duration: '11 min',
           type: 'video',
-          description: 'Learning to understand and respond to your baby\'s needs.'
+          description: 'Normalizes anxiety as evolutionary adaptation while identifying when it becomes problematic.'
         },
         {
           number: 15,
-          title: 'Building Confidence as a Mother',
-          duration: '10 min',
+          title: 'Calming Your Nervous System',
+          duration: '9 min',
           type: 'video',
-          description: 'Trusting yourself and developing your unique parenting style.'
+          description: 'Polyvagal theory basics and vagus nerve stimulation techniques for rapid relief.'
         },
         {
           number: 16,
-          title: 'Creating Special Moments',
+          title: 'Cognitive Strategies for Racing Thoughts',
           duration: '13 min',
           type: 'video',
-          description: 'Simple ways to connect with your baby throughout the day.'
+          description: 'CBT techniques adapted for postpartum including thought challenging and worry time.'
+        },
+        {
+          number: 17,
+          title: 'Creating Calm in Chaos',
+          duration: '10 min',
+          type: 'video',
+          description: 'Environmental modifications and routine adjustments to reduce anxiety triggers.'
         }
       ],
-      workbook: 'Week 4 Workbook: Bonding Activities & Confidence Building',
-      meditation: 'Mother-Baby Connection Meditation (9 min)'
+      workbook: 'Week 4 Workbook: Anxiety Trigger Log & Calm-Down Strategy Cards',
+      meditation: 'Anxiety Relief Body Scan (10 min)'
     },
     {
       week: 5,
-      title: 'Support Systems & Communication',
-      description: 'Learn to ask for help and build the support network you need.',
+      title: 'Identity Integration & Matrescence',
+      description: 'Navigating identity transformation and finding yourself within motherhood.',
       lessons: [
         {
-          number: 17,
-          title: 'Communicating Your Needs',
-          duration: '14 min',
-          type: 'video',
-          description: 'How to express what you need from your partner, family, and friends.'
-        },
-        {
           number: 18,
-          title: 'Asking for Help',
-          duration: '11 min',
+          title: 'Understanding Matrescence - Your Psychological Birth',
+          duration: '12 min',
           type: 'video',
-          description: 'Overcoming barriers to seeking and accepting support.'
+          description: 'Dr. Alexandra Sacks\' concept of matrescence as a developmental stage like adolescence.'
         },
         {
           number: 19,
-          title: 'Building Your Village',
-          duration: '15 min',
+          title: 'Grieving Who You Were',
+          duration: '11 min',
           type: 'video',
-          description: 'Finding and connecting with other new moms and support resources.'
+          description: 'Processing losses of pre-baby self while birthing maternal identity without guilt.'
         },
         {
           number: 20,
-          title: 'Setting Healthy Boundaries',
-          duration: '12 min',
+          title: 'Integration - Both Mother AND Self',
+          duration: '10 min',
           type: 'video',
-          description: 'Protecting your energy and time while maintaining relationships.'
+          description: 'Strategies for maintaining individual identity within motherhood.'
+        },
+        {
+          number: 21,
+          title: 'Reconnecting with Your Core Values',
+          duration: '13 min',
+          type: 'video',
+          description: 'ACT principles to identify values and align daily choices with what matters most.'
         }
       ],
-      workbook: 'Week 5 Workbook: Support Network Mapping & Communication Scripts',
-      meditation: 'Boundary Setting Meditation (8 min)'
+      workbook: 'Week 5 Workbook: Identity Mapping & Values Clarification Worksheet',
+      meditation: 'Identity Integration Meditation (11 min)'
     },
     {
       week: 6,
-      title: 'Moving Forward with Confidence',
-      description: 'Create a sustainable plan for ongoing wellness and continued growth.',
+      title: 'Sustainable Wellness & Moving Forward',
+      description: 'Creating lasting change and preparing for ongoing challenges.',
       lessons: [
         {
-          number: 21,
-          title: 'Celebrating Your Progress',
-          duration: '13 min',
-          type: 'video',
-          description: 'Recognizing how far you\'ve come and building on your strengths.'
-        },
-        {
           number: 22,
-          title: 'Planning for Challenges',
-          duration: '14 min',
+          title: 'Celebrating Your Growth & Resilience',
+          duration: '10 min',
           type: 'video',
-          description: 'Preparing for difficult days and knowing when to seek additional help.'
+          description: 'Reflects on journey and identifies strengths developed through adversity.'
         },
         {
           number: 23,
-          title: 'Long-term Wellness Strategies',
-          duration: '12 min',
+          title: 'Building Your Long-Term Wellness Plan',
+          duration: '11 min',
           type: 'video',
-          description: 'Creating habits that will support you beyond the postpartum period.'
+          description: 'Creates sustainable self-care framework that evolves with baby\'s development.'
         },
         {
           number: 24,
-          title: 'Your Continued Journey',
-          duration: '15 min',
+          title: 'Preparing for Future Challenges',
+          duration: '9 min',
           type: 'video',
-          description: 'Planning for ongoing growth and maintaining your wellness practices.'
+          description: 'Anticipates common stressors and creates coping plans for long-term thriving.'
+        },
+        {
+          number: 25,
+          title: 'Your Continued Journey & Resources',
+          duration: '12 min',
+          type: 'video',
+          description: 'Comprehensive resources and emphasis that seeking help is strength, not weakness.'
         }
       ],
-      workbook: 'Week 6 Workbook: Your Personal Wellness Action Plan',
-      meditation: 'Confidence & Gratitude Meditation (10 min)'
+      workbook: 'Week 6 Workbook: Wellness Plan Template & Letter to Future Self',
+      meditation: 'Gratitude & Growth Meditation (10 min)'
     }
   ]
 };

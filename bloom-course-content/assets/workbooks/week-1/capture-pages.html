@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Capture Workbook Pages</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: #f0f0f0;
+        }
+        .controls {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            background: #A8C09A;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #95c885;
+        }
+        #preview {
+            margin-top: 20px;
+        }
+        .page-preview {
+            margin: 20px 0;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .page-preview img {
+            width: 100%;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="controls">
+        <h3>Page Capture Tool</h3>
+        <button onclick="captureAllPages()">Capture All Pages</button>
+        <button onclick="downloadText()">Download as Text</button>
+        <div id="status"></div>
+    </div>
+    
+    <iframe id="workbook" src="week-1-workbook.html" style="width: 8.5in; height: 11in; border: none;"></iframe>
+    
+    <div id="preview"></div>
+
+    <script>
+        async function captureAllPages() {
+            const status = document.getElementById('status');
+            const preview = document.getElementById('preview');
+            const iframe = document.getElementById('workbook');
+            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+            
+            // Get all pages
+            const pages = iframeDoc.querySelectorAll('.page');
+            status.textContent = `Found ${pages.length} pages...`;
+            preview.innerHTML = '';
+            
+            for (let i = 0; i < pages.length; i++) {
+                status.textContent = `Capturing page ${i + 1} of ${pages.length}...`;
+                
+                // Create a temporary container
+                const tempDiv = document.createElement('div');
+                tempDiv.style.width = '8.5in';
+                tempDiv.style.height = '11in';
+                tempDiv.style.position = 'relative';
+                tempDiv.style.background = 'white';
+                tempDiv.innerHTML = pages[i].outerHTML;
+                document.body.appendChild(tempDiv);
+                
+                // Capture the page
+                try {
+                    const canvas = await html2canvas(tempDiv, {
+                        width: 816, // 8.5 inches at 96 DPI
+                        height: 1056, // 11 inches at 96 DPI
+                        scale: 2,
+                        useCORS: true,
+                        logging: false
+                    });
+                    
+                    // Add to preview
+                    const pageDiv = document.createElement('div');
+                    pageDiv.className = 'page-preview';
+                    pageDiv.innerHTML = `<h4>Page ${i + 1}</h4>`;
+                    pageDiv.appendChild(canvas);
+                    preview.appendChild(pageDiv);
+                    
+                    // Create download link
+                    const link = document.createElement('a');
+                    link.download = `workbook-page-${i + 1}.png`;
+                    link.href = canvas.toDataURL();
+                    link.textContent = 'Download Page ' + (i + 1);
+                    link.style.display = 'block';
+                    link.style.margin = '10px';
+                    pageDiv.appendChild(link);
+                    
+                } catch (err) {
+                    console.error('Error capturing page', i + 1, err);
+                }
+                
+                // Clean up
+                document.body.removeChild(tempDiv);
+            }
+            
+            status.textContent = 'All pages captured!';
+        }
+        
+        function downloadText() {
+            const iframe = document.getElementById('workbook');
+            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+            const pages = iframeDoc.querySelectorAll('.page');
+            
+            let textContent = 'WEEK 1 WORKBOOK - TEXT VERSION\n\n';
+            
+            pages.forEach((page, index) => {
+                textContent += `\n========== PAGE ${index + 1} ==========\n\n`;
+                textContent += page.innerText + '\n';
+            });
+            
+            // Create download
+            const blob = new Blob([textContent], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'workbook-text.txt';
+            a.click();
+        }
+    </script>
+</body>
+</html>

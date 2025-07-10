@@ -3,7 +3,7 @@
 
 ## Introduction (30 seconds)
 
-Welcome back to Week 2. I'm Dr. Jana Williams, and I'm so glad you're continuing this journey with me.
+Welcome back to Week 2. I'm Dr. Jana Rundle, and I'm so glad you're continuing this journey with me.
 
 Last week, we talked about honoring your experience. This week, we're going deeper - into how you treat yourself during this profound transition. And it starts with something that might feel foreign right now: self-compassion.
 
