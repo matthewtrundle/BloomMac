@@ -233,6 +233,7 @@ const Header = () => {
                       Browse All Courses
                     </Link>
                     
+                    {/* Portfolio/Course Catalog - temporarily hidden
                     <Link 
                       href="/portfolio"
                       className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-bloom transition duration-200 flex items-center font-medium"
@@ -242,6 +243,7 @@ const Header = () => {
                       </svg>
                       Course Catalog
                     </Link>
+                    */}
                     
                     <div className="border-t border-gray-100 my-2"></div>
                     

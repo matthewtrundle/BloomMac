@@ -381,7 +381,7 @@ export default function Home() {
         </div>
       </section>
       
-      {/* Personal Message Video Section */}
+      {/* Personal Message Video Section - temporarily hidden for re-recording
       <section className="py-16 bg-white">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto">
@@ -400,7 +400,6 @@ export default function Home() {
                 designed with the same expertise and care as our individual therapy sessions.
               </p>
               
-              {/* Video Container */}
               <div className="relative max-w-3xl mx-auto">
                 <div className="aspect-video bg-gray-100 rounded-xl overflow-hidden shadow-xl">
                   <iframe 
@@ -430,6 +429,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      */}
       
       {/* Team Showcase Section - Professional Photography */}
       <section className="py-20 bg-gray-50">
