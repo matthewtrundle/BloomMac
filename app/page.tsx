@@ -6,6 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { services } from '@/lib/data/services';
+import { Flower2, Brain, Heart, Users } from 'lucide-react';
 
 // Scroll effect utilities
 import setupScrollGreyscale from '@/lib/hooks/useScrollGreyscale';
@@ -586,7 +587,10 @@ export default function Home() {
             >
               <div className="h-3 bg-gradient-to-r from-[#f8b5c4] to-[#f472b6]"></div>
               <div className="p-6 md:p-8">
-                <h3 className="text-2xl font-bold text-[#1e3a5f] mb-2">🌸 Postpartum Wellness</h3>
+                <div className="flex items-center gap-3 mb-2">
+                  <Flower2 className="w-7 h-7 text-[#f8b5c4]" />
+                  <h3 className="text-2xl font-bold text-[#1e3a5f]">Postpartum Wellness</h3>
+                </div>
                 <p className="text-sm text-gray-500 mb-4">6-week program</p>
                 <p className="text-gray-600 mb-6">Build emotional regulation skills and develop lasting confidence in your new role</p>
                 
@@ -643,7 +647,10 @@ export default function Home() {
             >
               <div className="h-3 bg-gradient-to-r from-[#1e3a5f] to-[#3b82f6]"></div>
               <div className="p-6 md:p-8">
-                <h3 className="text-2xl font-bold text-[#1e3a5f] mb-2">🧘‍♀️ Anxiety Management</h3>
+                <div className="flex items-center gap-3 mb-2">
+                  <Brain className="w-7 h-7 text-[#3b82f6]" />
+                  <h3 className="text-2xl font-bold text-[#1e3a5f]">Anxiety Management</h3>
+                </div>
                 <p className="text-sm text-gray-500 mb-4">4-week program</p>
                 <p className="text-gray-600 mb-6">Learn evidence-based techniques to manage anxiety and calm your mind</p>
                 <ul className="space-y-2 mb-6">
@@ -675,7 +682,10 @@ export default function Home() {
             >
               <div className="h-3 bg-gradient-to-r from-[#d4a574] to-[#f59e0b]"></div>
               <div className="p-6 md:p-8">
-                <h3 className="text-2xl font-bold text-[#1e3a5f] mb-2">💑 Partner Support</h3>
+                <div className="flex items-center gap-3 mb-2">
+                  <Users className="w-7 h-7 text-[#f59e0b]" />
+                  <h3 className="text-2xl font-bold text-[#1e3a5f]">Partner Support</h3>
+                </div>
                 <p className="text-sm text-gray-500 mb-4">3-week program</p>
                 <p className="text-gray-600 mb-6">Strengthen your relationship with communication tools and mutual support strategies</p>
                 <ul className="space-y-2 mb-6">

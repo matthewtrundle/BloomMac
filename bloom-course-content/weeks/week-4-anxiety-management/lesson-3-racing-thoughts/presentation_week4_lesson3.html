@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>Cognitive Strategies for Racing Thoughts | Bloom Psychology</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reset.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+    <link rel="stylesheet" href="../../../public/presentations/week1/assets/css/bloom-professional.css">
+    
+    <style>
+        /* Lesson-specific enhancements */
+        :root {
+            --bloom-thought-purple: #9370DB;
+            --bloom-racing-red: #FF4500;
+            --bloom-calm-blue: #87CEEB;
+            --bloom-mindful-green: #98FB98;
+        }
+        
+        /* Racing thoughts visualization */
+        .thought-race {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 3rem 0;
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .racing-thought {
+            position: absolute;
+            background: var(--bloom-racing-red);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            animation: race-across 3s linear infinite;
+        }
+        
+        .racing-thought:nth-child(1) { animation-delay: 0s; top: 20px; }
+        .racing-thought:nth-child(2) { animation-delay: 0.5s; top: 60px; }
+        .racing-thought:nth-child(3) { animation-delay: 1s; top: 100px; }
+        .racing-thought:nth-child(4) { animation-delay: 1.5s; top: 140px; }
+        
+        @keyframes race-across {
+            0% { left: -300px; }
+            100% { left: calc(100% + 50px); }
+        }
+        
+        /* CBT technique cards */
+        .cbt-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            margin: 1rem;
+            border-left: 5px solid var(--bloom-thought-purple);
+        }
+        
+        .cbt-card h3 {
+            color: var(--bloom-thought-purple);
+            margin-bottom: 1rem;
+        }
+        
+        /* Thought record template */
+        .thought-record {
+            background: var(--bloom-cream);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+        }
+        
+        .thought-step {
+            background: white;
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 0.5rem 0;
+            border-left: 4px solid var(--bloom-thought-purple);
+        }
+        
+        /* Worry window visualization */
+        .worry-window {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .window-stage {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            position: relative;
+        }
+        
+        .window-stage::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-bottom: 10px solid white;
+        }
+        
+        /* Mindfulness meditation cards */
+        .meditation-card {
+            background: linear-gradient(135deg, rgba(152, 251, 152, 0.1) 0%, rgba(152, 251, 152, 0.05) 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 2px solid var(--bloom-mindful-green);
+            margin: 1rem;
+        }
+        
+        .meditation-card h3 {
+            color: var(--bloom-mindful-green);
+            margin-bottom: 1rem;
+        }
+        
+        /* Emergency techniques grid */
+        .emergency-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .emergency-card {
+            background: linear-gradient(135deg, rgba(255, 69, 0, 0.1) 0%, rgba(255, 69, 0, 0.05) 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 2px solid var(--bloom-racing-red);
+            text-align: center;
+        }
+        
+        .emergency-card h3 {
+            color: var(--bloom-racing-red);
+            margin-bottom: 1rem;
+        }
+        
+        /* 3-question filter */
+        .filter-questions {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .filter-question {
+            background: var(--bloom-calm-blue);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .filter-question::before {
+            content: '?';
+            position: absolute;
+            top: -20px;
+            right: 20px;
+            font-size: 3rem;
+            color: white;
+            opacity: 0.3;
+        }
+        
+        /* Cloud meditation visualization */
+        .cloud-meditation {
+            position: relative;
+            height: 300px;
+            background: linear-gradient(135deg, #87CEEB 0%, #E0F6FF 100%);
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 2rem 0;
+        }
+        
+        .cloud {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50px;
+            opacity: 0.7;
+            animation: float-cloud 8s ease-in-out infinite;
+        }
+        
+        .cloud1 { 
+            width: 100px; 
+            height: 40px; 
+            top: 50px; 
+            left: -50px;
+            animation-delay: 0s; 
+        }
+        
+        .cloud2 { 
+            width: 120px; 
+            height: 50px; 
+            top: 120px; 
+            left: -60px;
+            animation-delay: 2s; 
+        }
+        
+        .cloud3 { 
+            width: 80px; 
+            height: 35px; 
+            top: 200px; 
+            left: -40px;
+            animation-delay: 4s; 
+        }
+        
+        @keyframes float-cloud {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(100vw + 150px)); }
+        }
+        
+        /* Container visualization */
+        .container-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 3rem 0;
+            gap: 3rem;
+        }
+        
+        .worry-container {
+            width: 200px;
+            height: 150px;
+            background: linear-gradient(135deg, #8B4513 0%, #CD853F 100%);
+            border-radius: 10px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+        
+        .worry-container::before {
+            content: '🔒';
+            position: absolute;
+            top: -20px;
+            right: -10px;
+            font-size: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- SLIDE 1: Hero Opening -->
+            <section data-background-color="#1a1a1a">
+                <div class="hero-image-slide">
+                    <img src="[MIDJOURNEY: Woman lying awake at 3am with thought bubbles swirling rapidly around her head, showing the chaos of racing thoughts. Style: Photorealistic, nighttime anxiety visible, mental overwhelm portrayed]" alt="Woman experiencing racing thoughts at night">
+                    <div class="hero-scrim"></div>
+                    <div class="text-protection">
+                        <h1 class="fragment fade-in-up">Cognitive Strategies for<br/><span class="gradient-text">Racing Thoughts</span></h1>
+                        <p class="fragment fade-in-up" style="font-size: 2rem; margin-top: 2rem; color: rgba(255,255,255,0.95);">
+                            Stepping Off the Mental Hamster Wheel
+                        </p>
+                        <p class="fragment fade-in-up" style="font-size: 1.3rem; margin-top: 3rem; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.1em;">
+                            Bloom Psychology • Week 4 • Lesson 3
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 2: The Mental Marathon -->
+            <section>
+                <div class="magazine-split">
+                    <div class="content-panel content-panel-gradient">
+                        <h1 class="fragment fade-in-up">The Midnight<br/><span class="gradient-text">Marathon</span></h1>
+                        <p class="fragment fade-in-up" style="margin-top: 2rem; font-size: 1.8rem;">
+                            When your mind runs at 3 AM
+                        </p>
+                        <p class="fragment fade-in-up" style="font-size: 1.6rem; margin-top: 2rem;">
+                            ✓ World is quiet, brain is shouting<br/>
+                            ✓ Trapped in "what-if" spirals<br/>
+                            ✓ Mental hamster wheel won't stop
+                        </p>
+                        <p class="fragment fade-in-up" style="font-size: 1.8rem; margin-top: 2rem; font-weight: 600; color: var(--bloom-sage);">
+                            You don't need to stop your thoughts.<br/>
+                            You need to change your relationship with them.
+                        </p>
+                    </div>
+                    <div class="image-panel">
+                        <img src="[MIDJOURNEY: Visual metaphor of hamster wheel made of thought bubbles, showing the repetitive nature of anxious thinking. Style: Artistic metaphor, circular motion, mental loops visible]" alt="Mental hamster wheel of racing thoughts">
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 3: Racing Thoughts Visualization -->
+            <section data-background-color="#ffffff">
+                <div class="container">
+                    <h2 style="text-align: center; margin-bottom: 3rem;">When Thoughts <span class="gradient-text">Race</span></h2>
+                    <div class="thought-race">
+                        <div class="racing-thought">"What if something happens to baby?"</div>
+                        <div class="racing-thought">"Am I doing everything wrong?"</div>
+                        <div class="racing-thought">"What if I'm not cut out for this?"</div>
+                        <div class="racing-thought">"Did I lock the door?"</div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 3rem;">
+                        <div class="fragment fade-in-up" style="text-align: center;">
+                            <div style="font-size: 3rem; margin-bottom: 1rem;">🧠</div>
+                            <h4 style="color: var(--bloom-thought-purple);">Default Mode Network</h4>
+                            <p>Brain scans for problems when not focused</p>
+                        </div>
+                        <div class="fragment fade-in-up" style="text-align: center;">
+                            <div style="font-size: 3rem; margin-bottom: 1rem;">🌙</div>
+                            <h4 style="color: var(--bloom-racing-red);">3 AM Phenomenon</h4>
+                            <p>Rational brain weakest 2-4 AM</p>
+                        </div>
+                        <div class="fragment fade-in-up" style="text-align: center;">
+                            <div style="font-size: 3rem; margin-bottom: 1rem;">🔄</div>
+                            <h4 style="color: var(--bloom-calm-blue);">Anxiety Loop</h4>
+                            <p>Thoughts create anxiety create more thoughts</p>
+                        </div>
+                    </div>
+                    <p class="fragment fade-in" style="text-align: center; font-size: 1.6rem; margin-top: 2rem; color: var(--bloom-warm-gray); font-style: italic;">
+                        60,000 thoughts per day • 80% negative • This is normal, not pathological
+                    </p>
+                </div>
+            </section>
+            
+            <!-- SLIDE 4: CBT Thought Record -->
+            <section>
+                <div class="magazine-split magazine-split-reverse">
+                    <div class="content-panel">
+                        <h2>The Thought <span class="gradient-text">Record</span></h2>
+                        <p style="font-size: 1.6rem; margin: 2rem 0;">CBT simplified for exhausted mothers:</p>
+                        <div class="thought-record">
+                            <div class="thought-step fragment fade-in-up">
+                                <strong>1. The thought:</strong> "I'm failing my baby"
+                            </div>
+                            <div class="thought-step fragment fade-in-up">
+                                <strong>2. The feeling:</strong> Panic, shame
+                            </div>
+                            <div class="thought-step fragment fade-in-up">
+                                <strong>3. Evidence for:</strong> Baby cried for an hour
+                            </div>
+                            <div class="thought-step fragment fade-in-up">
+                                <strong>4. Evidence against:</strong> Baby is healthy, gaining weight, mostly content
+                            </div>
+                            <div class="thought-step fragment fade-in-up">
+                                <strong>5. Balanced thought:</strong> I'm learning to understand my baby's needs
+                            </div>
+                        </div>
+                    </div>
+                    <div class="image-panel">
+                        <img src="[MIDJOURNEY: Woman writing in journal, looking thoughtful and calmer, transforming anxious thoughts into balanced perspectives. Style: Photorealistic, cognitive transformation visible]" alt="Woman doing thought record exercise">
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 5: CBT Techniques -->
+            <section data-background-color="#faf8f5">
+                <div class="container">
+                    <h2 style="text-align: center; margin-bottom: 3rem;">Powerful <span class="gradient-text">CBT Tools</span></h2>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem;">
+                        <div class="cbt-card fragment fade-in-up">
+                            <h3>Worst/Best/Most Likely</h3>
+                            <p><strong>Worst:</strong> "Baby will never sleep"<br/>
+                            <strong>Best:</strong> "Sleeps through tonight"<br/>
+                            <strong>Most likely:</strong> "Sleep gradually improves"</p>
+                            <p style="font-style: italic; color: var(--bloom-sage);">Focus on probability, not catastrophe</p>
+                        </div>
+                        <div class="cbt-card fragment fade-in-up">
+                            <h3>The "So What?" Technique</h3>
+                            <p>"Baby isn't napping" → So what?<br/>
+                            "They'll be cranky" → So what?<br/>
+                            "Bedtime will be harder" → So what?<br/>
+                            "I'll manage, like I did today"</p>
+                            <p style="font-style: italic; color: var(--bloom-sage);">Follow worry to manageable conclusion</p>
+                        </div>
+                        <div class="cbt-card fragment fade-in-up">
+                            <h3>The Friend Perspective</h3>
+                            <p>"What would I tell my best friend if she had this thought?"</p>
+                            <p style="font-style: italic; color: var(--bloom-sage);">We're kinder to others than ourselves</p>
+                        </div>
+                        <div class="cbt-card fragment fade-in-up">
+                            <h3>3-Question Filter</h3>
+                            <p>Before engaging with a thought:<br/>
+                            1. Is this true?<br/>
+                            2. Is this helpful?<br/>
+                            3. Is this urgent?</p>
+                            <p style="font-style: italic; color: var(--bloom-sage);">Not yes to all three? Let it pass.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 6: The Worry Window -->
+            <section>
+                <div class="hero-image-slide">
+                    <img src="[MIDJOURNEY: Clock showing worry time schedule, woman calmly writing worries in designated notebook during specific time. Style: Photorealistic, structured approach to worry, containment visible]" alt="Structured worry time approach">
+                    <div class="floating-card floating-card-bottom floating-card-dark">
+                        <h2 style="text-align: center; margin-bottom: 2rem; color: white;">The <span class="gradient-text">Worry Window</span></h2>
+                        <p style="text-align: center; font-size: 1.6rem; color: rgba(255,255,255,0.9); margin-bottom: 2rem;">
+                            Contain worry instead of suppressing it all day
+                        </p>
+                        <div class="worry-window">
+                            <div class="window-stage fragment fade-in-up">
+                                <div style="font-size: 3rem; margin-bottom: 1rem;">☀️</div>
+                                <h4>During the Day</h4>
+                                <p>Write worries on list: "I'll think about this during worry time"</p>
+                            </div>
+                            <div class="window-stage fragment fade-in-up" style="background: var(--bloom-thought-purple); color: white;">
+                                <div style="font-size: 3rem; margin-bottom: 1rem;">⏰</div>
+                                <h4>Worry Time</h4>
+                                <p>15-20 minutes daily. Review list, problem-solve what you can</p>
+                            </div>
+                            <div class="window-stage fragment fade-in-up">
+                                <div style="font-size: 3rem; margin-bottom: 1rem;">😌</div>
+                                <h4>Results</h4>
+                                <p>35% anxiety reduction in 2 weeks. Brain learns worries will be addressed</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 7: Cloud Meditation -->
+            <section data-background-color="#ffffff">
+                <div class="container">
+                    <h2 style="text-align: center; margin-bottom: 3rem;">Mindfulness: <span class="gradient-text">The Cloud Meditation</span></h2>
+                    <div class="cloud-meditation">
+                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; z-index: 10;">
+                            <h3 style="color: white; font-size: 2rem; margin-bottom: 1rem;">You are the sky</h3>
+                            <p style="color: white; font-size: 1.4rem;">Vast • Unchanging • Peaceful</p>
+                        </div>
+                        <div class="cloud cloud1"></div>
+                        <div class="cloud cloud2"></div>
+                        <div class="cloud cloud3"></div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; margin-top: 3rem;">
+                        <div class="meditation-card fragment fade-in-up">
+                            <h3>🍃 The River Meditation</h3>
+                            <p>Sit by river. Each thought is a leaf floating by. Notice it, name it ("worry leaf"), let it float downstream. Don't jump in to chase it.</p>
+                        </div>
+                        <div class="meditation-card fragment fade-in-up">
+                            <h3>📝 5-Minute Mind Dump</h3>
+                            <p>Write every thought for 5 minutes, no editing. Don't stop writing. When timer goes off, close notebook. Your thoughts have been heard.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 8: Thought Boundaries -->
+            <section>
+                <div class="magazine-split">
+                    <div class="content-panel content-panel-gradient">
+                        <h2>Creating Thought <span class="gradient-text">Boundaries</span></h2>
+                        <p style="font-size: 1.6rem; margin: 2rem 0;">Set boundaries with thoughts like you do with people:</p>
+                        <div class="filter-questions">
+                            <div class="filter-question fragment fade-in-up">
+                                <h4>Is this TRUE?</h4>
+                                <p>Based on facts, not fears</p>
+                            </div>
+                            <div class="filter-question fragment fade-in-up">
+                                <h4>Is this HELPFUL?</h4>
+                                <p>Does it serve you right now?</p>
+                            </div>
+                            <div class="filter-question fragment fade-in-up">
+                                <h4>Is this URGENT?</h4>
+                                <p>Needs attention today?</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="image-panel">
+                        <img src="[MIDJOURNEY: Visual metaphor of woman as bouncer at the door of her mind, deciding which thoughts to let in. Style: Creative metaphor, mental boundaries, selective admission]" alt="Woman setting mental boundaries">
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 9: Container Visualization -->
+            <section data-background-color="#faf8f5">
+                <div class="container">
+                    <h2 style="text-align: center; margin-bottom: 3rem;">The <span class="gradient-text">Container</span> Technique</h2>
+                    <div class="container-visual">
+                        <div>
+                            <h3 style="color: var(--bloom-thought-purple); margin-bottom: 2rem;">Before Sleep:</h3>
+                            <ul style="font-size: 1.4rem; line-height: 2;">
+                                <li class="fragment fade-in-up">Imagine a strong container</li>
+                                <li class="fragment fade-in-up">Place all worries inside</li>
+                                <li class="fragment fade-in-up">Lock it securely</li>
+                                <li class="fragment fade-in-up">Place outside your bedroom</li>
+                            </ul>
+                        </div>
+                        <div class="worry-container fragment fade-in-up">
+                            <span>Worries Safe Until Tomorrow</span>
+                        </div>
+                        <div>
+                            <h3 style="color: var(--bloom-sage); margin-bottom: 2rem;">Tell Yourself:</h3>
+                            <p style="font-size: 1.6rem; font-style: italic;">
+                                "These will be here tomorrow if I need them. Tonight, I rest."
+                            </p>
+                        </div>
+                    </div>
+                    <p class="fragment fade-in" style="text-align: center; font-size: 1.6rem; margin-top: 3rem; color: var(--bloom-warm-gray);">
+                        Your worries won't disappear, but they won't steal your sleep either
+                    </p>
+                </div>
+            </section>
+            
+            <!-- SLIDE 10: Emergency Techniques -->
+            <section>
+                <div class="hero-image-slide">
+                    <img src="[MIDJOURNEY: Woman using emergency grounding technique - touching objects around her, focused on present moment. Style: Photorealistic, immediate relief, sensory grounding visible]" alt="Woman using emergency grounding techniques">
+                    <div class="floating-card floating-card-bottom text-protection-light">
+                        <h2 style="text-align: center; margin-bottom: 2rem;">Emergency <span class="gradient-text">Thought Storms</span></h2>
+                        <div class="emergency-grid">
+                            <div class="emergency-card fragment fade-in-up">
+                                <h3>54321 Grounding</h3>
+                                <p>5 see • 4 touch • 3 hear • 2 smell • 1 taste<br/>
+                                Forces brain into present reality</p>
+                            </div>
+                            <div class="emergency-card fragment fade-in-up">
+                                <h3>Category Game</h3>
+                                <p>List fruits, cities, baby names starting with A<br/>
+                                Occupies verbal brain that generates worry</p>
+                            </div>
+                            <div class="emergency-card fragment fade-in-up">
+                                <h3>Physical Pattern Interrupt</h3>
+                                <p>Clap 3 times • 5 jumping jacks • Cold water<br/>
+                                Physical interruption breaks mental loops</p>
+                            </div>
+                            <div class="emergency-card fragment fade-in-up">
+                                <h3>Mantra Override</h3>
+                                <p>"Right now, we are safe" or "This too shall pass"<br/>
+                                Repeat like a song, drowning out other thoughts</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 11: Building Long-Term Resilience -->
+            <section data-background-color="#ffffff">
+                <div class="container">
+                    <h2 style="text-align: center; margin-bottom: 3rem;">Building <span class="gradient-text">Long-Term Resilience</span></h2>
+                    <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 2rem;">
+                        <div class="fragment fade-in-up" style="text-align: center;">
+                            <div style="font-size: 3rem; margin-bottom: 1rem;">😴</div>
+                            <h4 style="color: var(--bloom-thought-purple);">Sleep Protection</h4>
+                            <p>Even 20-minute naps help cognitive function</p>
+                        </div>
+                        <div class="fragment fade-in-up" style="text-align: center;">
+                            <div style="font-size: 3rem; margin-bottom: 1rem;">🍎</div>
+                            <h4 style="color: var(--bloom-mindful-green);">Blood Sugar</h4>
+                            <p>Eat protein every 3-4 hours</p>
+                        </div>
+                        <div class="fragment fade-in-up" style="text-align: center;">
+                            <div style="font-size: 3rem; margin-bottom: 1rem;">💧</div>
+                            <h4 style="color: var(--bloom-calm-blue);">Hydration</h4>
+                            <p>Dehydration worsens anxiety</p>
+                        </div>
+                        <div class="fragment fade-in-up" style="text-align: center;">
+                            <div style="font-size: 3rem; margin-bottom: 1rem;">🚶</div>
+                            <h4 style="color: var(--bloom-racing-red);">Movement</h4>
+                            <p>10 minutes daily changes brain chemistry</p>
+                        </div>
+                        <div class="fragment fade-in-up" style="text-align: center;">
+                            <div style="font-size: 3rem; margin-bottom: 1rem;">🤝</div>
+                            <h4 style="color: var(--bloom-sage);">Connection</h4>
+                            <p>Isolation amplifies negative thinking</p>
+                        </div>
+                    </div>
+                    <div style="background: var(--bloom-cream); padding: 3rem; border-radius: 15px; margin-top: 3rem;" class="fragment fade-in-up">
+                        <p style="text-align: center; font-size: 2rem; color: var(--bloom-thought-purple); font-weight: 600;">
+                            A regulated body supports a regulated mind
+                        </p>
+                        <p style="text-align: center; font-size: 1.5rem; margin-top: 1rem; font-style: italic;">
+                            These techniques are band-aids without addressing root causes
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 12: This Week's Practice -->
+            <section data-background-gradient="linear-gradient(135deg, #9370DB 0%, #87CEEB 50%, #98FB98 100%)">
+                <div class="container">
+                    <div style="text-align: center;">
+                        <h2 style="color: white; margin-bottom: 3rem;">This Week's <span style="color: var(--bloom-cream);">Assignment</span></h2>
+                        <div style="background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); padding: 3rem; border-radius: 20px; max-width: 800px; margin: 0 auto;">
+                            <p style="font-size: 2.5rem; color: white; margin-bottom: 3rem; font-weight: 600;">
+                                Choose ONE Technique
+                            </p>
+                            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; text-align: left;">
+                                <div class="fragment fade-in-up" style="background: rgba(255,255,255,0.9); padding: 1.5rem; border-radius: 10px;">
+                                    <p style="font-size: 1.3rem;">📝 Thought Record</p>
+                                </div>
+                                <div class="fragment fade-in-up" style="background: rgba(255,255,255,0.9); padding: 1.5rem; border-radius: 10px;">
+                                    <p style="font-size: 1.3rem;">⏰ Worry Window</p>
+                                </div>
+                                <div class="fragment fade-in-up" style="background: rgba(255,255,255,0.9); padding: 1.5rem; border-radius: 10px;">
+                                    <p style="font-size: 1.3rem;">☁️ Cloud Meditation</p>
+                                </div>
+                                <div class="fragment fade-in-up" style="background: rgba(255,255,255,0.9); padding: 1.5rem; border-radius: 10px;">
+                                    <p style="font-size: 1.3rem;">🚫 3-Question Filter</p>
+                                </div>
+                            </div>
+                            <p class="fragment fade-in" style="font-size: 1.6rem; color: white; margin-top: 2rem; font-style: italic;">
+                                Master one tool before adding others
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 13: Closing -->
+            <section>
+                <div class="hero-image-slide">
+                    <img src="[MIDJOURNEY: Woman sitting peacefully while thought clouds pass gently overhead, showing mastery over racing thoughts. Style: Photorealistic, mental calm achieved, thoughts as passing weather]" alt="Woman achieving mental calm and thought mastery">
+                    <div class="hero-scrim"></div>
+                    <div class="text-protection" style="text-align: center;">
+                        <h1 class="fragment fade-in-up" style="color: white;">You Are Not<br/>Your <span class="gradient-text">Thoughts</span></h1>
+                        <p class="fragment fade-in-up" style="font-size: 2rem; margin-top: 2rem; color: rgba(255,255,255,0.95);">
+                            You are the awareness observing them
+                        </p>
+                        <p class="fragment fade-in-up" style="font-size: 1.8rem; margin-top: 3rem; color: rgba(255,255,255,0.85);">
+                            Racing thoughts don't mean you're losing your mind—<br/>
+                            they mean you're a caring mother with an overactive protection system
+                        </p>
+                        <p class="fragment fade-in-up" style="font-size: 1.6rem; margin-top: 3rem; color: rgba(255,255,255,0.8); font-style: italic;">
+                            Learn to observe the mental traffic<br/>
+                            without being run over by it
+                        </p>
+                        <div style="margin-top: 4rem; font-size: 1.3rem; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.1em;">
+                            Bloom Psychology
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/notes/notes.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/markdown/markdown.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/highlight/highlight.js"></script>
+    
+    <script>
+        Reveal.initialize({
+            hash: true,
+            controls: true,
+            progress: true,
+            center: false,
+            transition: 'fade',
+            transitionSpeed: 'slow',
+            backgroundTransition: 'fade',
+            
+            // View options
+            width: 1920,
+            height: 1080,
+            margin: 0,
+            minScale: 0.2,
+            maxScale: 2.0,
+            
+            // UI options
+            controlsTutorial: false,
+            controlsLayout: 'bottom-right',
+            controlsBackArrows: 'faded',
+            slideNumber: 'c/t',
+            showSlideNumber: 'all',
+            
+            // Features
+            history: true,
+            keyboard: true,
+            overview: true,
+            loop: false,
+            touch: true,
+            
+            // PDF export
+            pdfMaxPagesPerSlide: 1,
+            pdfSeparateFragments: false,
+            
+            plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+        });
+    </script>
+</body>
+</html>

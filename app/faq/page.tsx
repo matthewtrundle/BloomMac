@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { Heart } from 'lucide-react';
 
 // UI Components
 import OrganicShape from '@/components/ui/OrganicShape';
@@ -81,7 +82,7 @@ export default function FAQPage() {
                 </ul>
               </div>
               <p>
-                While we are not in-network, we are happy to help guide you through the process so you can make the most of your benefits. 💛
+                While we are not in-network, we are happy to help guide you through the process so you can make the most of your benefits. <Heart className="inline-block w-4 h-4 text-yellow-500" />
               </p>
             </div>
           )

@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>Emotional Regulation Through the Window of Tolerance | Bloom Psychology</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reset.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+    
+    <style>
+        /* Import Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        /* Full Design System Variables */
+        :root {
+            /* Sophisticated color palette */
+            --bloom-charcoal: #1a1a1a;
+            --bloom-warm-gray: #4a4a4a;
+            --bloom-light-gray: #f7f7f7;
+            --bloom-sage: #8B9A82;
+            --bloom-sage-muted: #a3b199;
+            --bloom-coral: #FF6B6B;
+            --bloom-golden: #FFCB77;
+            --bloom-lavender: #C589E8;
+            --bloom-mint: #95E1D3;
+            --bloom-rose: #FFA8C5;
+            --bloom-blush: #e8d5d5;
+            --bloom-cream: #faf8f5;
+            --bloom-white: #ffffff;
+            
+            /* Window of Tolerance specific colors */
+            --bloom-hyperarousal: #FF6B6B;
+            --bloom-window: #95E1D3;
+            --bloom-hypoarousal: #74C0FC;
+            --bloom-balance: #8B9A82;
+            
+            /* Typography scale */
+            --font-display: 'Cormorant Garamond', serif;
+            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            
+            /* Responsive Typography */
+            --text-display: clamp(3.5rem, 7vw, 6rem);
+            --text-heading: clamp(2.5rem, 5vw, 4rem);
+            --text-subheading: clamp(1.8rem, 3vw, 2.5rem);
+            --text-body: clamp(1rem, 2vw, 1.3rem);
+            --text-small: clamp(0.9rem, 1.5vw, 1.1rem);
+            
+            /* Spacing */
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 2rem;
+            --space-lg: 4rem;
+            --space-xl: 6rem;
+            --space-2xl: 8rem;
+            
+            /* Shadows */
+            --shadow-subtle: 0 2px 8px rgba(0,0,0,0.08);
+            --shadow-medium: 0 8px 24px rgba(0,0,0,0.12);
+            --shadow-large: 0 20px 60px rgba(0,0,0,0.16);
+            --shadow-glass: 0 8px 32px rgba(0,0,0,0.12);
+        }
+        
+        /* Reset and base styles */
+        .reveal-viewport {
+            background: var(--bloom-white);
+        }
+        
+        .reveal {
+            font-family: var(--font-body);
+            font-size: 20px;
+            font-weight: 400;
+            color: var(--bloom-charcoal);
+            line-height: 1.6;
+            letter-spacing: -0.02em;
+        }
+        
+        .reveal .slides {
+            text-align: left;
+        }
+        
+        .reveal .slides section {
+            padding: 0;
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        /* Typography */
+        .reveal h1 {
+            font-family: var(--font-display);
+            font-size: var(--text-display);
+            font-weight: 300;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            color: var(--bloom-charcoal);
+            margin-bottom: var(--space-md);
+        }
+        
+        .reveal h2 {
+            font-family: var(--font-display);
+            font-size: var(--text-heading);
+            font-weight: 400;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            color: var(--bloom-charcoal);
+            margin-bottom: var(--space-md);
+        }
+        
+        .reveal h3 {
+            font-family: var(--font-body);
+            font-size: var(--text-subheading);
+            font-weight: 500;
+            line-height: 1.3;
+            color: var(--bloom-warm-gray);
+            margin-bottom: var(--space-sm);
+        }
+        
+        .reveal h4 {
+            font-family: var(--font-body);
+            font-size: var(--text-body);
+            font-weight: 600;
+            line-height: 1.4;
+            color: var(--bloom-charcoal);
+            margin-bottom: var(--space-sm);
+        }
+        
+        .reveal p {
+            font-size: var(--text-body);
+            line-height: 1.8;
+            color: var(--bloom-warm-gray);
+            margin-bottom: var(--space-md);
+            max-width: 36em;
+        }
+        
+        .reveal em {
+            font-style: italic;
+            color: var(--bloom-sage);
+        }
+        
+        .reveal strong {
+            font-weight: 600;
+            color: var(--bloom-charcoal);
+        }
+        
+        .reveal ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .reveal li {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: var(--space-sm);
+            font-size: var(--text-body);
+        }
+        
+        .reveal li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.8rem;
+            width: 8px;
+            height: 2px;
+            background: var(--bloom-sage);
+        }
+        
+        .reveal ol {
+            list-style-position: inside;
+            padding: 0;
+        }
+        
+        .reveal ol li {
+            padding-left: 0;
+            margin-bottom: var(--space-sm);
+        }
+        
+        /* Gradient Text Effects */
+        .gradient-text {
+            background: linear-gradient(135deg, var(--bloom-coral) 0%, var(--bloom-rose) 50%, var(--bloom-golden) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: inline-block;
+        }
+        
+        /* Layout Components */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: var(--space-xl) var(--space-lg);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        /* Hero Image Slides */
+        .hero-image-slide {
+            position: relative;
+            height: 100vh;
+            width: 100%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .hero-image-slide img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+        
+        .hero-scrim {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(26,26,26,0.7) 0%, rgba(26,26,26,0.4) 100%);
+            z-index: 2;
+        }
+        
+        .text-protection {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            color: white;
+            max-width: 800px;
+            padding: var(--space-lg);
+        }
+        
+        .text-protection h1 {
+            color: white;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+        
+        .text-protection p {
+            color: rgba(255,255,255,0.9);
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        .text-protection-light {
+            position: relative;
+            z-index: 3;
+            color: var(--bloom-charcoal);
+            padding: var(--space-lg);
+        }
+        
+        /* Magazine Split Layouts */
+        .magazine-split {
+            display: grid;
+            grid-template-columns: 3fr 2fr;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .magazine-split-reverse {
+            grid-template-columns: 2fr 3fr;
+        }
+        
+        .content-panel {
+            padding: var(--space-xl);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: var(--bloom-white);
+        }
+        
+        .content-panel-gradient {
+            background: linear-gradient(135deg, var(--bloom-cream) 0%, var(--bloom-white) 100%);
+        }
+        
+        .image-panel {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .image-panel img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Image with Floating Card */
+        .image-with-card {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .image-with-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Floating Cards with Glass Morphism */
+        .floating-card {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-glass);
+            max-width: 500px;
+            transition: all 0.3s ease;
+        }
+        
+        .floating-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 80px rgba(0,0,0,0.2);
+        }
+        
+        .floating-card-left {
+            top: 50%;
+            left: var(--space-xl);
+            transform: translateY(-50%);
+        }
+        
+        .floating-card-right {
+            top: 50%;
+            right: var(--space-xl);
+            transform: translateY(-50%);
+        }
+        
+        .floating-card-bottom {
+            bottom: var(--space-xl);
+            left: 50%;
+            transform: translateX(-50%);
+            max-width: 900px;
+        }
+        
+        .floating-card-dark {
+            background: rgba(26, 26, 26, 0.9);
+            color: white;
+        }
+        
+        /* Image Grid */
+        .image-grid {
+            display: grid;
+            gap: var(--space-md);
+            height: 80vh;
+            padding: var(--space-lg);
+        }
+        
+        .image-grid-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+        }
+        
+        .image-grid-item:hover {
+            transform: scale(1.02);
+        }
+        
+        .image-grid-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .image-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: white;
+            padding: var(--space-md);
+            text-align: center;
+        }
+        
+        .image-caption h3 {
+            color: white;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .image-caption p {
+            color: rgba(255,255,255,0.9);
+            font-size: var(--text-small);
+        }
+        
+        /* Visual Lists */
+        .visual-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .visual-list li {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: var(--space-md);
+            font-size: var(--text-body);
+            line-height: 1.6;
+            padding-left: 0;
+        }
+        
+        .visual-list li::before {
+            display: none;
+        }
+        
+        .visual-list-icon {
+            font-size: 2rem;
+            margin-right: var(--space-sm);
+            margin-top: 0.2rem;
+        }
+        
+        /* Gradient Mesh Backgrounds */
+        .gradient-mesh {
+            background: radial-gradient(circle at 20% 20%, rgba(255, 203, 119, 0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(197, 137, 232, 0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 40%, rgba(149, 225, 211, 0.2) 0%, transparent 50%);
+        }
+        
+        /* Window of Tolerance Specific */
+        .window-diagram {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            margin: var(--space-lg) 0;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: var(--shadow-large);
+        }
+        
+        .window-zone {
+            position: absolute;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            font-size: var(--text-body);
+            font-weight: 600;
+            transition: all 0.5s ease;
+            padding: var(--space-md);
+        }
+        
+        .window-zone h3 {
+            font-family: var(--font-display);
+            font-size: var(--text-subheading);
+            margin-bottom: var(--space-sm);
+            color: currentColor;
+        }
+        
+        .window-zone p {
+            color: currentColor;
+            margin: 0;
+        }
+        
+        .hyperarousal-zone {
+            top: 0;
+            height: 35%;
+            background: linear-gradient(180deg, var(--bloom-hyperarousal) 0%, rgba(255, 107, 107, 0.8) 100%);
+        }
+        
+        .optimal-zone {
+            top: 35%;
+            height: 30%;
+            background: linear-gradient(180deg, var(--bloom-window) 0%, rgba(149, 225, 211, 0.9) 100%);
+            color: var(--bloom-charcoal);
+            box-shadow: inset 0 0 60px rgba(149, 225, 211, 0.5);
+        }
+        
+        .hypoarousal-zone {
+            bottom: 0;
+            height: 35%;
+            background: linear-gradient(180deg, rgba(116, 192, 252, 0.8) 0%, var(--bloom-hypoarousal) 100%);
+        }
+        
+        /* Emotion Wave Animation */
+        @keyframes wave {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .emotion-wave {
+            display: inline-block;
+            animation: wave 3s ease-in-out infinite;
+        }
+        
+        /* Tool Cards */
+        .tool-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: var(--space-md);
+            border-radius: 20px;
+            border: 1px solid rgba(139, 154, 130, 0.2);
+            border-top: 4px solid var(--bloom-sage);
+            box-shadow: var(--shadow-glass);
+            margin: var(--space-sm) 0;
+            transition: all 0.3s ease;
+        }
+        
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-large);
+        }
+        
+        .tool-card h4 {
+            margin-bottom: var(--space-sm);
+            font-family: var(--font-display);
+        }
+        
+        .tool-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .tool-list li {
+            padding: var(--space-xs) 0;
+            padding-left: 2rem;
+            position: relative;
+            font-size: var(--text-body);
+        }
+        
+        .tool-list li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            top: var(--space-xs);
+            color: var(--bloom-sage);
+            font-weight: 600;
+            width: auto;
+            height: auto;
+            background: none;
+        }
+        
+        /* State Indicators */
+        .state-indicator {
+            display: inline-block;
+            padding: var(--space-sm) var(--space-lg);
+            border-radius: 50px;
+            font-weight: 600;
+            margin: var(--space-xs);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            font-size: var(--text-body);
+            text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+        
+        .hyperarousal-indicator {
+            background: linear-gradient(135deg, var(--bloom-hyperarousal) 0%, rgba(255, 107, 107, 0.8) 100%);
+            color: white;
+        }
+        
+        .hypoarousal-indicator {
+            background: linear-gradient(135deg, var(--bloom-hypoarousal) 0%, rgba(116, 192, 252, 0.8) 100%);
+            color: white;
+        }
+        
+        .optimal-indicator {
+            background: linear-gradient(135deg, var(--bloom-window) 0%, rgba(149, 225, 211, 0.8) 100%);
+            color: var(--bloom-charcoal);
+            text-shadow: none;
+        }
+        
+        /* First Aid Kit */
+        .first-aid-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-lg);
+            margin: var(--space-lg) 0;
+        }
+        
+        .first-aid-section {
+            padding: var(--space-lg);
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .first-aid-section:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-large);
+        }
+        
+        .first-aid-section h3 {
+            margin-bottom: var(--space-md);
+        }
+        
+        .first-aid-section ul {
+            text-align: left;
+        }
+        
+        .first-aid-section li {
+            padding-left: 0;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .first-aid-section li::before {
+            display: none;
+        }
+        
+        .first-aid-hyper {
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.1) 0%, rgba(255, 107, 107, 0.2) 100%);
+            border: 2px solid var(--bloom-hyperarousal);
+        }
+        
+        .first-aid-hypo {
+            background: linear-gradient(135deg, rgba(116, 192, 252, 0.1) 0%, rgba(116, 192, 252, 0.2) 100%);
+            border: 2px solid var(--bloom-hypoarousal);
+        }
+        
+        /* Fragment Animations */
+        .reveal .fragment.fade-in-up {
+            transform: translateY(20px);
+            opacity: 0;
+        }
+        
+        .reveal .fragment.fade-in-up.visible {
+            transform: translateY(0);
+            opacity: 1;
+            transition: all 0.6s ease-out;
+        }
+        
+        .reveal .fragment.scale-in {
+            transform: scale(0.8);
+            opacity: 0;
+        }
+        
+        .reveal .fragment.scale-in.visible {
+            transform: scale(1);
+            opacity: 1;
+            transition: all 0.6s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- SLIDE 1: Hero Opening -->
+            <section data-background-color="#1a1a1a">
+                <div class="hero-image-slide">
+                    <img src="../Week2images/biff01_Mother_experiencing_emotional_wave_with_grace_allowing_7b36f94d-f727-49bc-91b5-5234abf40f85_2.png" alt="The emotional extremes of postpartum">
+                    <div class="hero-scrim"></div>
+                    <div class="text-protection">
+                        <h1 class="fragment fade-in-up">Emotional Regulation Through<br/><span class="gradient-text">The Window of Tolerance</span></h1>
+                        <p class="fragment fade-in-up" style="font-size: 2rem; margin-top: 2rem; color: rgba(255,255,255,0.95);">
+                            Working With Your Emotions, Not Against Them
+                        </p>
+                        <p class="fragment fade-in-up" style="font-size: 1.3rem; margin-top: 3rem; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.1em;">
+                            Bloom Psychology • Week 2 • Lesson 4
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 2: The Reality of Postpartum Emotions -->
+            <section>
+                <div class="magazine-split">
+                    <div class="content-panel content-panel-gradient">
+                        <h1 class="fragment fade-in-up">The Emotional<br/><span class="gradient-text">Intensity</span></h1>
+                        <p class="fragment fade-in-up" style="margin-top: 2rem; font-size: 1.8rem;">
+                            The rage that comes from nowhere.<br/>
+                            The tears that won't stop.<br/>
+                            The numbness that settles in like fog.
+                        </p>
+                        <p class="fragment fade-in-up" style="font-size: 1.6rem; margin-top: 2rem; color: var(--bloom-sage); font-weight: 600;">
+                            These aren't character flaws.
+                        </p>
+                        <p class="fragment fade-in-up" style="font-size: 1.5rem; margin-top: 1rem;">
+                            They're your nervous system trying to process an enormous transition while running on fumes.
+                        </p>
+                    </div>
+                    <div class="image-panel">
+                        <img src="../Week2images/biff01_Mother_experiencing_emotional_wave_with_grace_allowing_7b36f94d-f727-49bc-91b5-5234abf40f85_2.png" alt="Mother experiencing intense postpartum emotions">
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 3: The Window of Tolerance -->
+            <section class="gradient-mesh">
+                <div class="container">
+                    <h2 style="text-align: center; margin-bottom: var(--space-md);">Understanding Your <span class="gradient-text">Window of Tolerance</span></h2>
+                    <p style="text-align: center; font-size: var(--text-body); color: var(--bloom-sage); margin-bottom: var(--space-lg); font-style: italic;">Concept by Dr. Dan Siegel - The zone where you can handle life's challenges</p>
+                    <div class="window-diagram">
+                        <div class="window-zone hyperarousal-zone fragment fade-in-up">
+                            <div>
+                                <h3>HYPERAROUSAL</h3>
+                                <p style="font-size: var(--text-body);">Anxiety • Panic • Rage • Racing Thoughts</p>
+                            </div>
+                        </div>
+                        <div class="window-zone optimal-zone fragment fade-in-up" data-fragment-index="2">
+                            <div>
+                                <h3>OPTIMAL ZONE</h3>
+                                <p style="font-size: var(--text-body);">Calm • Capable • Connected • Clear Thinking</p>
+                            </div>
+                        </div>
+                        <div class="window-zone hypoarousal-zone fragment fade-in-up">
+                            <div>
+                                <h3>HYPOAROUSAL</h3>
+                                <p style="font-size: var(--text-body);">Numb • Disconnected • Exhausted • Checked Out</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fragment fade-in" style="text-align: center; margin-top: var(--space-lg); background: rgba(255,107,107,0.1); padding: var(--space-md); border-radius: 15px; border: 1px solid var(--bloom-coral);">
+                        <p style="font-size: var(--text-body); color: var(--bloom-charcoal); margin: 0;">Postpartum shrinks your window <strong style="color: var(--bloom-coral); font-size: var(--text-subheading);">dramatically</strong></p>
+                        <p style="font-size: var(--text-small); color: var(--bloom-warm-gray); margin-top: var(--space-xs);">What used to be manageable now pushes you outside your zone</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 4: Why Your Window Shrinks -->
+            <section>
+                <div class="image-with-card">
+                    <img src="../Week2images/biff01_Artistic_visualization_mother_standing_strong_and_sere_0b824b66-4a5e-4ff2-88eb-d099f77f0bbe_0.png" alt="Multiple stressors shrinking the window of tolerance">
+                    <div class="floating-card floating-card-left text-protection-light">
+                        <h2 style="color: var(--bloom-coral); margin-bottom: 2rem;">Why Your Window Shrinks</h2>
+                        <ul class="visual-list">
+                            <li class="fragment fade-in-up">
+                                <div class="visual-list-icon">😴</div>
+                                Sleep deprivation narrows it
+                            </li>
+                            <li class="fragment fade-in-up">
+                                <div class="visual-list-icon">🌊</div>
+                                Hormonal changes narrow it
+                            </li>
+                            <li class="fragment fade-in-up">
+                                <div class="visual-list-icon">💔</div>
+                                Physical pain narrows it
+                            </li>
+                            <li class="fragment fade-in-up">
+                                <div class="visual-list-icon">🌪️</div>
+                                Overwhelm narrows it
+                            </li>
+                        </ul>
+                        <p class="fragment fade-in" style="font-size: 1.4rem; margin-top: 2rem; font-style: italic;">
+                            Suddenly, tiny things push you outside your window
+                        </p>
+                        <p class="fragment fade-in" style="font-size: 1.3rem; margin-top: 1rem; color: var(--bloom-sage); font-weight: 600;">
+                            Goal: Recognize when you've left it and know how to return
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 5: Recognizing Your State -->
+            <section data-background-color="#f7f7f7">
+                <div class="container">
+                    <h2 style="text-align: center; margin-bottom: var(--space-lg);">Recognizing <span class="gradient-text">Where You Are</span></h2>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-xl);">
+                        <div class="fragment fade-in-up">
+                            <div style="text-align: center; margin-bottom: var(--space-md);">
+                                <span class="state-indicator hyperarousal-indicator">HYPERAROUSAL</span>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); padding: var(--space-lg); border-radius: 20px; box-shadow: var(--shadow-glass); border: 2px solid rgba(255,107,107,0.2);">
+                                <ul style="list-style: none; padding: 0;">
+                                    <li style="padding-left: 0; margin-bottom: var(--space-sm); font-size: var(--text-body);">❤️‍🔥 Heart racing uncontrollably</li>
+                                    <li style="padding-left: 0; margin-bottom: var(--space-sm); font-size: var(--text-body);">🌀 Thoughts spiraling out of control</li>
+                                    <li style="padding-left: 0; margin-bottom: var(--space-sm); font-size: var(--text-body);">😤 Want to scream or run away</li>
+                                    <li style="padding-left: 0; margin-bottom: var(--space-sm); font-size: var(--text-body);">⚡ Can't sit still or relax</li>
+                                    <li style="padding-left: 0; margin-bottom: var(--space-sm); font-size: var(--text-body);">🚨 Everything feels urgent NOW</li>
+                                    <li style="padding-left: 0; margin-bottom: var(--space-sm); font-size: var(--text-body);">💢 Snapping at everyone</li>
+                                    <li style="padding-left: 0; margin-bottom: var(--space-sm); font-size: var(--text-body);">💪 Muscles tight like armor</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="fragment fade-in-up">
+                            <div style="text-align: center; margin-bottom: var(--space-md);">
+                                <span class="state-indicator hypoarousal-indicator">HYPOAROUSAL</span>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); padding: var(--space-lg); border-radius: 20px; box-shadow: var(--shadow-glass); border: 2px solid rgba(116,192,252,0.2);">
+                                <ul style="list-style: none; padding: 0;">
+                                    <li style="padding-left: 0; margin-bottom: var(--space-sm); font-size: var(--text-body);">🫥 Feel absolutely nothing</li>
+                                    <li style="padding-left: 0; margin-bottom: var(--space-sm); font-size: var(--text-body);">🌫️ Moving through thick fog</li>
+                                    <li style="padding-left: 0; margin-bottom: var(--space-sm); font-size: var(--text-body);">💭 Can't think or decide</li>
+                                    <li style="padding-left: 0; margin-bottom: var(--space-sm); font-size: var(--text-body);">👻 Want to disappear</li>
+                                    <li style="padding-left: 0; margin-bottom: var(--space-sm); font-size: var(--text-body);">🎭 Everything feels pointless</li>
+                                    <li style="padding-left: 0; margin-bottom: var(--space-sm); font-size: var(--text-body);">🤖 Going through motions</li>
+                                    <li style="padding-left: 0; margin-bottom: var(--space-sm); font-size: var(--text-body);">🔌 Disconnected from body</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fragment fade-in" style="text-align: center; margin-top: var(--space-lg); background: rgba(139,154,130,0.1); padding: var(--space-md); border-radius: 15px; border: 1px solid var(--bloom-sage);">
+                        <p style="font-size: var(--text-body); color: var(--bloom-charcoal); margin: 0;">Both states are your nervous system trying to <strong style="color: var(--bloom-sage);">protect you</strong></p>
+                        <p style="font-size: var(--text-small); color: var(--bloom-warm-gray); margin-top: var(--space-xs);">Neither is wrong - they're just not sustainable</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 6: Tools for Hyperarousal -->
+            <section>
+                <div class="hero-image-slide">
+                    <img src="../Week2images/biff01_Close-up_of_feet_firmly_planted_on_warm_wooden_floor_t_9b69be5c-ec9b-453c-b798-c0807e0f8674_2.png" alt="Using cold water for immediate calm">
+                    <div class="floating-card floating-card-bottom text-protection-light">
+                        <h2 style="text-align: center; margin-bottom: 2rem;">When You're <span class="state-indicator hyperarousal-indicator">Above Your Window</span></h2>
+                        <p style="text-align: center; font-size: 1.5rem; margin-bottom: 2rem;">You need to discharge energy and slow down</p>
+                        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem;">
+                            <div class="tool-card fragment fade-in-up">
+                                <h4>❄️ Cold Exposure</h4>
+                                <ul class="tool-list">
+                                    <li>Hold ice cubes</li>
+                                    <li>Cold shower 30 sec</li>
+                                    <li>Face in cold water</li>
+                                </ul>
+                            </div>
+                            <div class="tool-card fragment fade-in-up">
+                                <h4>🏃‍♀️ Intense Movement</h4>
+                                <ul class="tool-list">
+                                    <li>Jump 20 times</li>
+                                    <li>Push against wall</li>
+                                    <li>Shake whole body</li>
+                                </ul>
+                            </div>
+                            <div class="tool-card fragment fade-in-up">
+                                <h4>👋 Bilateral Stimulation</h4>
+                                <ul class="tool-list">
+                                    <li>Tap shoulders alternately</li>
+                                    <li>March in place</li>
+                                    <li>Look left and right</li>
+                                </ul>
+                            </div>
+                            <div class="tool-card fragment fade-in-up">
+                                <h4>🎵 Vocalization</h4>
+                                <ul class="tool-list">
+                                    <li>Hum loudly</li>
+                                    <li>Sing anything</li>
+                                    <li>Sigh: "Ahhhh"</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 7: TIPP Technique -->
+            <section class="gradient-mesh" data-background-color="#faf8f5">
+                <div class="container">
+                    <h2 style="text-align: center; margin-bottom: var(--space-md);">The <span class="gradient-text">TIPP Technique</span></h2>
+                    <p style="text-align: center; font-size: var(--text-body); margin-bottom: var(--space-lg); color: var(--bloom-sage); font-style: italic;">From Dialectical Behavior Therapy (DBT) - Your emergency reset button</p>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-lg); grid-template-rows: repeat(2, 1fr);">
+                        <div class="fragment fade-in-up" style="background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); padding: var(--space-lg); border-radius: 20px; box-shadow: var(--shadow-glass); text-align: center; transition: all 0.3s ease;">
+                            <div style="font-size: 4rem; color: var(--bloom-coral); margin-bottom: var(--space-sm); font-family: var(--font-display);">T</div>
+                            <h3 style="color: var(--bloom-coral);">Temperature</h3>
+                            <img src="../Week2images/biff01_Close-up_of_feet_firmly_planted_on_warm_wooden_floor_t_9b69be5c-ec9b-453c-b798-c0807e0f8674_2.png" alt="Temperature regulation technique" style="width: 100%; height: 150px; object-fit: cover; border-radius: 10px; margin: var(--space-sm) 0;">
+                            <p style="font-size: var(--text-body);">Cold water on face activates dive response</p>
+                        </div>
+                        <div class="fragment fade-in-up" style="background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); padding: var(--space-lg); border-radius: 20px; box-shadow: var(--shadow-glass); text-align: center; transition: all 0.3s ease;">
+                            <div style="font-size: 4rem; color: var(--bloom-sage); margin-bottom: var(--space-sm); font-family: var(--font-display);">I</div>
+                            <h3 style="color: var(--bloom-sage);">Intense Exercise</h3>
+                            <img src="../Week2images/biff01_Mother_in_bright_nursery_mindfully_noticing_surroundin_e1de77c6-135e-4d5d-aa1c-c03fda146e3f_3.png" alt="Intense movement for regulation" style="width: 100%; height: 150px; object-fit: cover; border-radius: 10px; margin: var(--space-sm) 0;">
+                            <p style="font-size: var(--text-body);">20 jumping jacks discharge adrenaline</p>
+                        </div>
+                        <div class="fragment fade-in-up" style="background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); padding: var(--space-lg); border-radius: 20px; box-shadow: var(--shadow-glass); text-align: center; transition: all 0.3s ease;">
+                            <div style="font-size: 4rem; color: var(--bloom-lavender); margin-bottom: var(--space-sm); font-family: var(--font-display);">P</div>
+                            <h3 style="color: var(--bloom-lavender);">Paced Breathing</h3>
+                            <img src="../Week2images/biff01_Close-up_profile_of_mother_taking_deep_breath_visible__6c9c71d6-53c7-4cc1-b725-e20973782ac8_1.png" alt="Paced breathing technique" style="width: 100%; height: 150px; object-fit: cover; border-radius: 10px; margin: var(--space-sm) 0;">
+                            <p style="font-size: var(--text-body);">Exhale 2x longer than inhale (4-8 count)</p>
+                        </div>
+                        <div class="fragment fade-in-up" style="background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); padding: var(--space-lg); border-radius: 20px; box-shadow: var(--shadow-glass); text-align: center; transition: all 0.3s ease;">
+                            <div style="font-size: 4rem; color: var(--bloom-golden); margin-bottom: var(--space-sm); font-family: var(--font-display);">P</div>
+                            <h3 style="color: var(--bloom-golden);">Paired Muscle Relaxation</h3>
+                            <img src="../Week2images/biff01_Mother_noticing_tension_in_shoulders_hand_gently_massa_7d866815-069d-43e1-847a-2b6aacda58d9_0.png" alt="Progressive muscle relaxation" style="width: 100%; height: 150px; object-fit: cover; border-radius: 10px; margin: var(--space-sm) 0;">
+                            <p style="font-size: var(--text-body);">Tense all muscles, then release completely</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 8: Tools for Hypoarousal -->
+            <section>
+                <div class="magazine-split magazine-split-reverse">
+                    <div class="content-panel">
+                        <h2>When You're <span class="state-indicator hypoarousal-indicator">Below Your Window</span></h2>
+                        <p style="font-size: 1.6rem; margin: 2rem 0;">You need gentle activation:</p>
+                        <div class="tool-card">
+                            <h4>👃 Sensory Awakening</h4>
+                            <ul class="tool-list">
+                                <li>Smell coffee or citrus</li>
+                                <li>Touch different textures</li>
+                                <li>Taste lemon or mint</li>
+                                <li>Listen to upbeat music</li>
+                            </ul>
+                        </div>
+                        <div class="tool-card">
+                            <h4>🌸 Gentle Movement</h4>
+                            <ul class="tool-list">
+                                <li>Stretch slowly</li>
+                                <li>Roll shoulders</li>
+                                <li>Wiggle toes</li>
+                                <li>Gentle neck rolls</li>
+                            </ul>
+                        </div>
+                        <p style="font-size: 1.4rem; margin-top: 2rem; color: var(--bloom-sage); font-style: italic;">
+                            Your system needs coaxing, not forcing
+                        </p>
+                    </div>
+                    <div class="image-panel">
+                        <img src="../Week2images/biff01_Cozy_corner_glowing_with_warmth_-_soft_pillows_in_chee_dbb28a5b-84c8-4095-aefc-640c42ce180d_0.png" alt="Sensory engagement for hypoarousal">
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 9: More Hypoarousal Tools -->
+            <section data-background-color="#f7f7f7">
+                <div class="container">
+                    <h2 style="text-align: center; margin-bottom: var(--space-lg);">Gentle <span class="gradient-text">Activation Tools</span></h2>
+                    <p style="text-align: center; font-size: var(--text-body); color: var(--bloom-sage); margin-bottom: var(--space-lg);">Coaxing your system back online with kindness</p>
+                    <div class="image-grid" style="grid-template-columns: repeat(3, 1fr); grid-template-rows: 400px;">
+                        <div class="image-grid-item fragment fade-in-up">
+                            <img src="../Week2images/biff01_Friend_arriving_with_healthy_meal_and_warm_hug_both_wo_62fbdc0d-7a39-47ca-9e83-e33934b07c87_3.png" alt="Connection for regulation">
+                            <div class="image-caption">
+                                <h3 style="color: var(--bloom-rose);">🤝 Connection</h3>
+                                <p>• Call someone who understands<br/>
+                                • Look at photos that spark joy<br/>
+                                • Hug someone (or yourself)<br/>
+                                • Place hand on heart</p>
+                            </div>
+                        </div>
+                        <div class="image-grid-item fragment fade-in-up">
+                            <img src="../Week2images/biff01_Mother_in_bright_nursery_mindfully_noticing_surroundin_e1de77c6-135e-4d5d-aa1c-c03fda146e3f_3.png" alt="Orienting to present moment">
+                            <div class="image-caption">
+                                <h3 style="color: var(--bloom-mint);">🧭 Orienting</h3>
+                                <p>• Name 5 objects you can see<br/>
+                                • Notice colors and shapes<br/>
+                                • Listen for different sounds<br/>
+                                • Feel your feet on floor</p>
+                            </div>
+                        </div>
+                        <div class="image-grid-item fragment fade-in-up">
+                            <img src="../Week2images/biff01_Close-up_profile_of_mother_taking_deep_breath_visible__6c9c71d6-53c7-4cc1-b725-e20973782ac8_1.png" alt="Energizing breath technique">
+                            <div class="image-caption">
+                                <h3 style="color: var(--bloom-golden);">🌬️ Breathing UP</h3>
+                                <p>• Inhale 6, exhale 3 counts<br/>
+                                • Breathe into chest area<br/>
+                                • Slightly faster pace<br/>
+                                • Add gentle arm raises</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 10: Riding the Waves -->
+            <section data-background-gradient="linear-gradient(135deg, #8B9A82 0%, #95E1D3 50%, #C589E8 100%)">
+                <div class="container">
+                    <div style="text-align: center;">
+                        <h2 style="color: white; margin-bottom: 3rem;">Emotions Are <span class="emotion-wave">Waves</span></h2>
+                        <div style="max-width: 800px; margin: 0 auto;">
+                            <p style="font-size: 2rem; color: white; margin-bottom: 2rem;">
+                                They rise, crest, and fall. Always.
+                            </p>
+                            <p class="fragment fade-in" style="font-size: 1.8rem; color: rgba(255,255,255,0.9); margin-bottom: 3rem;">
+                                Most emotions complete their cycle in<br/>
+                                <span style="font-size: 2.5rem; font-weight: 600;">90 seconds to 20 minutes</span><br/>
+                                if we don't feed them with stories
+                            </p>
+                            <div class="fragment fade-in" style="background: rgba(255,255,255,0.2); padding: 2rem; border-radius: 15px; backdrop-filter: blur(10px);">
+                                <h3 style="color: white; margin-bottom: 1.5rem;">When a Big Emotion Hits:</h3>
+                                <ol style="text-align: left; font-size: 1.5rem; color: white; list-style-position: inside;">
+                                    <li>Name it: "Rage is here"</li>
+                                    <li>Find it in your body</li>
+                                    <li>Breathe into that space</li>
+                                    <li>Let it move through you</li>
+                                    <li>Trust it will pass</li>
+                                </ol>
+                            </div>
+                            <p class="fragment fade-in" style="font-size: 1.8rem; color: rgba(255,255,255,0.95); margin-top: 3rem; font-style: italic;">
+                                "You're not your emotions. You're the awareness experiencing them."
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 11: Co-Regulation -->
+            <section>
+                <div class="magazine-split">
+                    <div class="content-panel content-panel-gradient">
+                        <h2>The Power of <span class="gradient-text">Co-Regulation</span></h2>
+                        <p style="font-size: 1.8rem; margin: 2rem 0;">
+                            We're not meant to regulate alone.
+                        </p>
+                        <p style="font-size: 1.6rem; margin: 2rem 0;">
+                            Our nervous systems are designed to co-regulate with others. When isolation makes everything harder, you can co-regulate with:
+                        </p>
+                        <ul class="feature-list" style="font-size: 1.5rem;">
+                            <li class="fragment fade-in-up">A pet (their steady breathing helps)</li>
+                            <li class="fragment fade-in-up">A guided meditation (borrowed calm)</li>
+                            <li class="fragment fade-in-up">A tree (lean against it)</li>
+                            <li class="fragment fade-in-up">A soothing voice recording</li>
+                        </ul>
+                        <p class="fragment fade-in" style="font-size: 1.4rem; margin-top: 2rem; color: var(--bloom-sage); font-style: italic;">
+                            You're not weak for needing others. You're human.
+                        </p>
+                    </div>
+                    <div class="image-panel">
+                        <img src="../Week2images/biff01_Mother_and_baby_finding_synchronized_peace_together_bo_15666422-101d-4f71-8e78-41241ac09752_0.png" alt="Co-regulation through human connection">
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 12: Your Emotional First Aid Kit -->
+            <section>
+                <div class="hero-image-slide">
+                    <img src="../Week2images/biff01_Overhead_flat_lay_of_personalized_coping_items_arrange_ef9c80f0-231c-4d23-8e3a-86001cdd05fc_1.png" alt="Emotional first aid kit items">
+                    <div class="floating-card floating-card-bottom text-protection-light">
+                        <h2 style="text-align: center; margin-bottom: 2rem;">Create Your <span class="gradient-text">Emotional First Aid Kit</span></h2>
+                        <div class="first-aid-grid">
+                            <div class="first-aid-section first-aid-hyper">
+                                <h3 style="color: var(--bloom-hyperarousal);">For Rage/Anxiety/Panic</h3>
+                                <p style="font-size: 1.3rem;">Pick 2-3:</p>
+                                <ul style="list-style: none; padding: 0; text-align: left;">
+                                    <li>❄️ Ice cubes in freezer</li>
+                                    <li>🎾 Stress ball in diaper bag</li>
+                                    <li>💧 Cold water access</li>
+                                    <li>🏃‍♀️ Jumping space identified</li>
+                                    <li>🎵 Calming playlist ready</li>
+                                </ul>
+                            </div>
+                            <div class="first-aid-section first-aid-hypo">
+                                <h3 style="color: var(--bloom-hypoarousal);">For Numbness/Disconnection</h3>
+                                <p style="font-size: 1.3rem;">Pick 2-3:</p>
+                                <ul style="list-style: none; padding: 0; text-align: left;">
+                                    <li>🌸 Essential oils in reach</li>
+                                    <li>🧸 Soft blanket available</li>
+                                    <li>📸 Photos that spark joy</li>
+                                    <li>🎶 Upbeat playlist ready</li>
+                                    <li>📱 Friend on speed dial</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <p style="text-align: center; font-size: 1.4rem; margin-top: 2rem; color: var(--bloom-sage); font-style: italic;">
+                            Small consistent practices build emotional resilience
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 13: Closing -->
+            <section>
+                <div class="hero-image-slide">
+                    <img src="../Week2images/biff01_Mother_and_baby_finding_synchronized_peace_together_bo_15666422-101d-4f71-8e78-41241ac09752_0.png" alt="Mother finding peace after emotional storm">
+                    <div class="hero-scrim"></div>
+                    <div class="text-protection" style="text-align: center;">
+                        <h1 class="fragment fade-in-up" style="color: white; font-size: var(--text-display);">Your Emotions Aren't the <span class="gradient-text">Enemy</span></h1>
+                        <p class="fragment fade-in-up" style="font-size: var(--text-subheading); margin-top: var(--space-lg); color: rgba(255,255,255,0.95); font-family: var(--font-display);">
+                            They're messengers, telling you what you need.
+                        </p>
+                        <div class="fragment fade-in-up" style="margin-top: var(--space-lg); background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); padding: var(--space-lg); border-radius: 20px; border: 1px solid rgba(255,255,255,0.2); max-width: 600px; margin-left: auto; margin-right: auto;">
+                            <p style="font-size: var(--text-body); color: rgba(255,255,255,0.9); margin-bottom: var(--space-sm);"><span style="color: var(--bloom-coral);">Rage</span> says "boundary crossed"</p>
+                            <p style="font-size: var(--text-body); color: rgba(255,255,255,0.9); margin-bottom: var(--space-sm);"><span style="color: var(--bloom-lavender);">Sadness</span> says "loss to grieve"</p>
+                            <p style="font-size: var(--text-body); color: rgba(255,255,255,0.9);"><span style="color: var(--bloom-mint);">Numbness</span> says "too much to process"</p>
+                        </div>
+                        <p class="fragment fade-in-up" style="font-size: var(--text-body); margin-top: var(--space-lg); color: rgba(255,255,255,0.8); font-style: italic; font-family: var(--font-display);">
+                            You're learning a new language—<br/>the language of your <span style="color: var(--bloom-golden);">postpartum heart</span>.
+                        </p>
+                        <div class="fragment fade-in" style="margin-top: var(--space-xl); padding: var(--space-lg); background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border-radius: 15px; border: 1px solid rgba(255,255,255,0.2); max-width: 400px; margin-left: auto; margin-right: auto;">
+                            <div style="font-size: var(--text-small); color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: var(--space-xs);">
+                                Dr. Jana Rundle
+                            </div>
+                            <div style="font-size: var(--text-body); color: rgba(255,255,255,0.9); font-family: var(--font-display);">
+                                Bloom Psychology
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/notes/notes.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/markdown/markdown.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/highlight/highlight.js"></script>
+    
+    <script>
+        Reveal.initialize({
+            hash: true,
+            controls: true,
+            progress: true,
+            center: false,
+            transition: 'fade',
+            transitionSpeed: 'slow',
+            backgroundTransition: 'fade',
+            
+            // View options
+            width: 1920,
+            height: 1080,
+            margin: 0,
+            minScale: 0.2,
+            maxScale: 2.0,
+            
+            // UI options
+            controlsTutorial: false,
+            controlsLayout: 'bottom-right',
+            controlsBackArrows: 'faded',
+            slideNumber: 'c/t',
+            showSlideNumber: 'all',
+            
+            // Features
+            history: true,
+            keyboard: true,
+            overview: true,
+            loop: false,
+            touch: true,
+            
+            // PDF export
+            pdfMaxPagesPerSlide: 1,
+            pdfSeparateFragments: false,
+            
+            plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+        });
+    </script>
+</body>
+</html>

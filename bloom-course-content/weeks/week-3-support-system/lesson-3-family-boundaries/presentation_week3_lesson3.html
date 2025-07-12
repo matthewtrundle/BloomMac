@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>Setting Boundaries with Extended Family | Bloom Psychology</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reset.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+    <link rel="stylesheet" href="../../../public/presentations/week1/assets/css/bloom-professional.css">
+    
+    <style>
+        /* Lesson-specific enhancements */
+        :root {
+            --bloom-boundary-red: #DC143C;
+            --bloom-family-purple: #9370DB;
+            --bloom-peace-blue: #4682B4;
+            --bloom-bridge-gold: #DAA520;
+        }
+        
+        /* Boundary visualization */
+        .boundary-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 3rem 0;
+            position: relative;
+        }
+        
+        .boundary-wall {
+            width: 4px;
+            height: 300px;
+            background: var(--bloom-boundary-red);
+            position: relative;
+            margin: 0 4rem;
+        }
+        
+        .boundary-bridge {
+            width: 200px;
+            height: 4px;
+            background: var(--bloom-bridge-gold);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        /* FOG visualization */
+        .fog-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .fog-element {
+            background: linear-gradient(135deg, rgba(147, 112, 219, 0.2) 0%, rgba(147, 112, 219, 0.1) 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            border: 2px solid var(--bloom-family-purple);
+        }
+        
+        .fog-element h3 {
+            color: var(--bloom-family-purple);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        /* Boundary violation cards */
+        .violation-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            margin: 1rem;
+            border-left: 5px solid var(--bloom-boundary-red);
+            transition: transform 0.3s ease;
+        }
+        
+        .violation-card:hover {
+            transform: translateX(-10px);
+        }
+        
+        .violation-card h4 {
+            color: var(--bloom-boundary-red);
+            margin-bottom: 1rem;
+        }
+        
+        /* Script formula */
+        .formula-step {
+            background: var(--bloom-cream);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            border-left: 4px solid var(--bloom-bridge-gold);
+            position: relative;
+            padding-left: 3rem;
+        }
+        
+        .formula-step::before {
+            content: attr(data-step);
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--bloom-bridge-gold);
+        }
+        
+        /* Response cards */
+        .response-pair {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 2rem;
+            align-items: center;
+            margin: 2rem 0;
+        }
+        
+        .their-response {
+            background: linear-gradient(135deg, rgba(220, 20, 60, 0.1) 0%, rgba(220, 20, 60, 0.05) 100%);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 1px solid var(--bloom-boundary-red);
+            text-align: center;
+            font-style: italic;
+        }
+        
+        .your-response {
+            background: linear-gradient(135deg, rgba(139, 154, 130, 0.1) 0%, rgba(139, 154, 130, 0.05) 100%);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 1px solid var(--bloom-sage);
+            text-align: center;
+            font-style: italic;
+        }
+        
+        .response-arrow {
+            font-size: 2rem;
+            color: var(--bloom-bridge-gold);
+        }
+        
+        /* Cultural cards */
+        .culture-card {
+            background: linear-gradient(135deg, var(--bloom-cream) 0%, white 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin: 1rem;
+            text-align: center;
+        }
+        
+        .culture-card h4 {
+            color: var(--bloom-family-purple);
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- SLIDE 1: Hero Opening -->
+            <section data-background-color="#1a1a1a">
+                <div class="hero-image-slide">
+                    <img src="[MIDJOURNEY: New mother caught between loving but overwhelming family members, feeling pulled in different directions. Style: Photorealistic, emotional complexity, multi-generational tension]" alt="Mother navigating family dynamics">
+                    <div class="hero-scrim"></div>
+                    <div class="text-protection">
+                        <h1 class="fragment fade-in-up">Setting Boundaries with<br/><span class="gradient-text">Extended Family</span></h1>
+                        <p class="fragment fade-in-up" style="font-size: 2rem; margin-top: 2rem; color: rgba(255,255,255,0.95);">
+                            Between Gratitude and Frustration
+                        </p>
+                        <p class="fragment fade-in-up" style="font-size: 1.3rem; margin-top: 3rem; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.1em;">
+                            Bloom Psychology • Week 3 • Lesson 3
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 2: The Complexity -->
+            <section>
+                <div class="magazine-split">
+                    <div class="content-panel content-panel-gradient">
+                        <h1 class="fragment fade-in-up">Caught Between<br/><span class="gradient-text">Two Truths</span></h1>
+                        <p class="fragment fade-in-up" style="margin-top: 2rem; font-size: 1.8rem;">
+                            You're grateful for their love and support.
+                        </p>
+                        <p class="fragment fade-in-up" style="font-size: 1.8rem; margin-top: 1rem; color: var(--bloom-coral);">
+                            AND
+                        </p>
+                        <p class="fragment fade-in-up" style="font-size: 1.8rem; margin-top: 1rem;">
+                            You need space to find your own way.
+                        </p>
+                        <p class="fragment fade-in-up" style="font-size: 1.5rem; margin-top: 2rem; font-style: italic; color: var(--bloom-sage);">
+                            Both can be true. Both are valid.
+                        </p>
+                    </div>
+                    <div class="image-panel">
+                        <img src="[MIDJOURNEY: Grandmother holding baby while mother looks on with mixed emotions - love and overwhelm. Style: Photorealistic, generational dynamics visible]" alt="Complex family emotions">
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 3: Why It's So Hard -->
+            <section data-background-color="#faf8f5">
+                <div class="container">
+                    <h2 style="text-align: center; margin-bottom: 3rem;">Why Family Boundaries Hit <span class="gradient-text">Different</span></h2>
+                    <div class="boundary-visual">
+                        <div style="text-align: center;">
+                            <h3>Boundaries</h3>
+                            <p style="color: var(--bloom-warm-gray);">What they feel like</p>
+                        </div>
+                        <div class="boundary-wall"></div>
+                        <div style="text-align: center;">
+                            <h3>Boundaries</h3>
+                            <p style="color: var(--bloom-warm-gray);">What they actually are</p>
+                            <div class="boundary-bridge"></div>
+                        </div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 3rem;">
+                        <div class="fragment fade-in-up" style="text-align: center;">
+                            <div style="font-size: 3rem; margin-bottom: 1rem;">😔</div>
+                            <h4>The Guilt Factor</h4>
+                            <p>"They're just trying to help"</p>
+                        </div>
+                        <div class="fragment fade-in-up" style="text-align: center;">
+                            <div style="font-size: 3rem; margin-bottom: 1rem;">🌍</div>
+                            <h4>Cultural Expectations</h4>
+                            <p>Family harmony vs. individual needs</p>
+                        </div>
+                        <div class="fragment fade-in-up" style="text-align: center;">
+                            <div style="font-size: 3rem; margin-bottom: 1rem;">🔄</div>
+                            <h4>Role Reversal</h4>
+                            <p>Still their child, now a parent</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 4: The FOG -->
+            <section>
+                <div class="hero-image-slide">
+                    <img src="[MIDJOURNEY: Woman in fog looking confused and overwhelmed, family figures in background. Style: Photorealistic, metaphorical fog, emotional confusion]" alt="Lost in the FOG of family dynamics">
+                    <div class="floating-card floating-card-bottom floating-card-dark">
+                        <h2 style="text-align: center; margin-bottom: 3rem; color: white;">The <span class="gradient-text">FOG</span> That Keeps You Stuck</h2>
+                        <div class="fog-container">
+                            <div class="fog-element fragment fade-in-up">
+                                <h3>F</h3>
+                                <p style="font-size: 1.8rem; color: white;">Fear</p>
+                                <p style="color: rgba(255,255,255,0.8);">"What if they reject me?"</p>
+                            </div>
+                            <div class="fog-element fragment fade-in-up">
+                                <h3>O</h3>
+                                <p style="font-size: 1.8rem; color: white;">Obligation</p>
+                                <p style="color: rgba(255,255,255,0.8);">"I owe them this"</p>
+                            </div>
+                            <div class="fog-element fragment fade-in-up">
+                                <h3>G</h3>
+                                <p style="font-size: 1.8rem; color: white;">Guilt</p>
+                                <p style="color: rgba(255,255,255,0.8);">"I'm being ungrateful"</p>
+                            </div>
+                        </div>
+                        <p class="fragment fade-in" style="text-align: center; font-size: 1.5rem; margin-top: 2rem; color: rgba(255,255,255,0.9); font-style: italic;">
+                            These emotions create a fog that obscures clear thinking
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 5: Common Violations -->
+            <section data-background-color="#ffffff">
+                <div class="container">
+                    <h2 style="text-align: center; margin-bottom: 3rem;">Common Boundary <span class="gradient-text">Violations</span></h2>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+                        <div class="violation-card fragment fade-in-up">
+                            <h4>The Overtaker</h4>
+                            <p>Takes baby without asking, reorganizes your home, makes decisions for you</p>
+                        </div>
+                        <div class="violation-card fragment fade-in-up">
+                            <h4>The Critic</h4>
+                            <p>"Baby seems cold" "Are you sure..." "In my day..."</p>
+                        </div>
+                        <div class="violation-card fragment fade-in-up">
+                            <h4>The Boundary Pusher</h4>
+                            <p>Shows up unannounced, ignores rules, posts photos without permission</p>
+                        </div>
+                        <div class="violation-card fragment fade-in-up">
+                            <h4>The Guilt Tripper</h4>
+                            <p>"I'll never see my grandchild" "Other grandparents get to..."</p>
+                        </div>
+                        <div class="violation-card fragment fade-in-up">
+                            <h4>The Know-It-All</h4>
+                            <p>Dismisses your choices, undermines decisions, treats you as incompetent</p>
+                        </div>
+                        <div class="violation-card fragment fade-in-up">
+                            <h4>The Helper Who Doesn't</h4>
+                            <p>Creates more work, needs entertaining, holds baby while you clean</p>
+                        </div>
+                    </div>
+                    <p class="fragment fade-in" style="text-align: center; font-size: 1.6rem; margin-top: 2rem; color: var(--bloom-sage); font-style: italic;">
+                        The anger you feel? It's information telling you where boundaries are needed.
+                    </p>
+                </div>
+            </section>
+            
+            <!-- SLIDE 6: Cultural Considerations -->
+            <section>
+                <div class="magazine-split magazine-split-reverse">
+                    <div class="content-panel">
+                        <h2>Honoring Culture<br/><span class="gradient-text">While Protecting Needs</span></h2>
+                        <p style="font-size: 1.6rem; margin: 2rem 0;">
+                            Boundaries look different across cultures, and that's okay.
+                        </p>
+                        <div class="culture-card fragment fade-in-up">
+                            <h4>Collectivist Cultures</h4>
+                            <p>"When I'm rested, I'm a better mother, which honors our family"</p>
+                        </div>
+                        <div class="culture-card fragment fade-in-up">
+                            <h4>Traditional Roles</h4>
+                            <p>"I'm grateful for your wisdom AND learning what works for our baby"</p>
+                        </div>
+                        <div class="culture-card fragment fade-in-up">
+                            <h4>"Respect Your Elders"</h4>
+                            <p>Respect doesn't mean obedience. Honor experience while trusting instincts.</p>
+                        </div>
+                    </div>
+                    <div class="image-panel">
+                        <img src="[MIDJOURNEY: Multi-generational, multicultural family finding balance together. Style: Photorealistic, harmony through boundaries, diverse representation]" alt="Cultural family dynamics">
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 7: The Boundary Formula -->
+            <section data-background-color="#faf8f5">
+                <div class="container">
+                    <h2 style="text-align: center; margin-bottom: 3rem;">The Boundary Setting <span class="gradient-text">Formula</span></h2>
+                    <div style="max-width: 800px; margin: 0 auto;">
+                        <div class="formula-step fragment fade-in-up" data-step="1">
+                            <h4>Appreciation</h4>
+                            <p>"I'm so grateful you want to be involved..."</p>
+                        </div>
+                        <div class="formula-step fragment fade-in-up" data-step="2">
+                            <h4>Specific Boundary</h4>
+                            <p>"I need everyone to text before visiting..."</p>
+                        </div>
+                        <div class="formula-step fragment fade-in-up" data-step="3">
+                            <h4>Reason (Optional)</h4>
+                            <p>"This helps me manage baby's schedule..."</p>
+                        </div>
+                        <div class="formula-step fragment fade-in-up" data-step="4">
+                            <h4>Alternative/Compromise</h4>
+                            <p>"How about we set up regular Sunday visits?"</p>
+                        </div>
+                    </div>
+                    <div style="background: white; padding: 2rem; border-radius: 15px; margin-top: 3rem; box-shadow: var(--shadow-large);" class="fragment fade-in-up">
+                        <p style="text-align: center; font-size: 1.8rem; color: var(--bloom-sage); font-weight: 600;">
+                            Boundaries presented with love are still boundaries
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 8: Example Scripts -->
+            <section>
+                <div class="hero-image-slide">
+                    <img src="[MIDJOURNEY: Mother calmly speaking to family member, confident body language. Style: Photorealistic, empowered communication, respectful firmness]" alt="Setting boundaries with confidence">
+                    <div class="floating-card floating-card-bottom text-protection-light">
+                        <h2 style="text-align: center; margin-bottom: 2rem;">Scripts That <span class="gradient-text">Actually Work</span></h2>
+                        <div style="display: grid; gap: 1.5rem; max-width: 900px; margin: 0 auto;">
+                            <div style="background: white; padding: 1.5rem; border-radius: 10px; border-left: 4px solid var(--bloom-bridge-gold);">
+                                <h4 style="color: var(--bloom-bridge-gold);">For Unexpected Visits:</h4>
+                                <p style="font-style: italic;">"Mom, I love that you want to see the baby. I need you to text before coming over so I can let you know if it's a good time. How about we plan your visits in advance?"</p>
+                            </div>
+                            <div style="background: white; padding: 1.5rem; border-radius: 10px; border-left: 4px solid var(--bloom-sage);">
+                                <h4 style="color: var(--bloom-sage);">For Unsolicited Advice:</h4>
+                                <p style="font-style: italic;">"I appreciate your experience. Right now, I'm following our pediatrician's guidance. I'll definitely ask if I need suggestions."</p>
+                            </div>
+                            <div style="background: white; padding: 1.5rem; border-radius: 10px; border-left: 4px solid var(--bloom-peace-blue);">
+                                <h4 style="color: var(--bloom-peace-blue);">For Social Media:</h4>
+                                <p style="font-style: italic;">"We're not sharing baby photos online yet. We'd love to text you photos directly that you can enjoy privately."</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 9: Handling Pushback -->
+            <section data-background-color="#ffffff">
+                <div class="container">
+                    <h2 style="text-align: center; margin-bottom: 3rem;">When They <span class="gradient-text">Push Back</span></h2>
+                    <p style="text-align: center; font-size: 1.6rem; margin-bottom: 3rem; color: var(--bloom-warm-gray);">
+                        Resistance isn't a sign you're wrong—it's a sign the boundary is needed
+                    </p>
+                    <div class="response-pair fragment fade-in-up">
+                        <div class="their-response">
+                            <p>"You're being too sensitive"</p>
+                        </div>
+                        <div class="response-arrow">→</div>
+                        <div class="your-response">
+                            <p>"I might be sensitive right now, and that's okay. I still need this boundary."</p>
+                        </div>
+                    </div>
+                    <div class="response-pair fragment fade-in-up">
+                        <div class="their-response">
+                            <p>"We're just trying to help"</p>
+                        </div>
+                        <div class="response-arrow">→</div>
+                        <div class="your-response">
+                            <p>"I know, and I'm grateful. This is how you can help most right now."</p>
+                        </div>
+                    </div>
+                    <div class="response-pair fragment fade-in-up">
+                        <div class="their-response">
+                            <p>"You're keeping us from our grandchild"</p>
+                        </div>
+                        <div class="response-arrow">→</div>
+                        <div class="your-response">
+                            <p>"I want you to have a wonderful relationship. These boundaries help make visits positive."</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 10: The Broken Record -->
+            <section data-background-gradient="linear-gradient(135deg, #8B9A82 0%, #95E1D3 50%, #C589E8 100%)">
+                <div class="container">
+                    <div style="text-align: center;">
+                        <h2 style="color: white; margin-bottom: 3rem;">The Broken Record <span style="color: var(--bloom-bridge-gold);">Technique</span></h2>
+                        <div style="background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); padding: 3rem; border-radius: 20px; max-width: 800px; margin: 0 auto;">
+                            <p style="font-size: 2rem; color: white; margin-bottom: 2rem;">
+                                Repeat your boundary calmly without:
+                            </p>
+                            <div style="font-size: 3rem; color: white; letter-spacing: 2rem; margin: 2rem 0;">
+                                J.A.D.E.
+                            </div>
+                            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 2rem;">
+                                <div class="fragment fade-in-up">
+                                    <p style="font-size: 1.8rem; color: var(--bloom-bridge-gold);">J</p>
+                                    <p style="color: white;">Justifying</p>
+                                </div>
+                                <div class="fragment fade-in-up">
+                                    <p style="font-size: 1.8rem; color: var(--bloom-bridge-gold);">A</p>
+                                    <p style="color: white;">Arguing</p>
+                                </div>
+                                <div class="fragment fade-in-up">
+                                    <p style="font-size: 1.8rem; color: var(--bloom-bridge-gold);">D</p>
+                                    <p style="color: white;">Defending</p>
+                                </div>
+                                <div class="fragment fade-in-up">
+                                    <p style="font-size: 1.8rem; color: var(--bloom-bridge-gold);">E</p>
+                                    <p style="color: white;">Explaining</p>
+                                </div>
+                            </div>
+                            <p class="fragment fade-in" style="font-size: 1.6rem; color: white; margin-top: 2rem; font-style: italic;">
+                                "I understand you disagree. I still need visitors to text first."
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 11: Creating Sustainable Relationships -->
+            <section>
+                <div class="magazine-split">
+                    <div class="content-panel content-panel-gradient">
+                        <h2>Building <span class="gradient-text">Sustainable</span> Relationships</h2>
+                        <p style="font-size: 1.6rem; margin: 2rem 0;">Boundaries aren't just about saying no:</p>
+                        <ul class="feature-list">
+                            <li class="fragment fade-in-up"><strong>Define Helpful Help:</strong> "Bring dinner and eat with us"</li>
+                            <li class="fragment fade-in-up"><strong>Create Roles:</strong> Grandpa = evening walks</li>
+                            <li class="fragment fade-in-up"><strong>Schedule Connection:</strong> "Wednesdays are Grandma days"</li>
+                            <li class="fragment fade-in-up"><strong>United Front:</strong> Partner sets boundaries with their family</li>
+                            <li class="fragment fade-in-up"><strong>Model Don't Lecture:</strong> Show how to soothe baby</li>
+                        </ul>
+                        <p class="fragment fade-in" style="font-size: 1.4rem; margin-top: 2rem; font-style: italic; color: var(--bloom-sage);">
+                            Structure creates freedom for everyone
+                        </p>
+                    </div>
+                    <div class="image-panel">
+                        <img src="[MIDJOURNEY: Happy multi-generational family with clear roles - grandparent reading to baby, parent relaxed. Style: Photorealistic, harmony through boundaries]" alt="Sustainable family relationships">
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 12: Remember This -->
+            <section>
+                <div class="hero-image-slide">
+                    <img src="[MIDJOURNEY: Mother standing confidently between baby and extended family, protective but loving. Style: Photorealistic, empowered stance, bridge not wall]" alt="Mother as protector and bridge">
+                    <div class="floating-card floating-card-bottom text-protection-light">
+                        <h2 style="text-align: center; margin-bottom: 2rem;">Protecting Your <span class="gradient-text">Peace</span></h2>
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 3rem; max-width: 900px; margin: 0 auto;">
+                            <div style="text-align: center;">
+                                <p style="font-size: 1.5rem;">You can be grateful<br/><strong>AND</strong> have boundaries</p>
+                            </div>
+                            <div style="text-align: center;">
+                                <p style="font-size: 1.5rem;">Their disappointment is<br/><strong>NOT</strong> your emergency</p>
+                            </div>
+                            <div style="text-align: center;">
+                                <p style="font-size: 1.5rem;">Baby needs calm parent<br/><strong>MORE THAN</strong> appeased grandparents</p>
+                            </div>
+                            <div style="text-align: center;">
+                                <p style="font-size: 1.5rem;">Setting boundaries now<br/><strong>PREVENTS</strong> bigger conflicts later</p>
+                            </div>
+                        </div>
+                        <p class="fragment fade-in" style="text-align: center; font-size: 1.8rem; margin-top: 3rem; color: var(--bloom-sage); font-weight: 600;">
+                            "What would I want my child to do in this situation?"<br/>Then do that.
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 13: Closing -->
+            <section>
+                <div class="hero-image-slide">
+                    <img src="[MIDJOURNEY: Three generations - grandmother, mother, baby - all looking peaceful and connected with healthy space between them. Style: Photorealistic, golden hour, love with boundaries]" alt="Healthy family boundaries across generations">
+                    <div class="hero-scrim"></div>
+                    <div class="text-protection" style="text-align: center;">
+                        <h1 class="fragment fade-in-up" style="color: white;">Good Boundaries Make<br/>Good Grandparents</h1>
+                        <p class="fragment fade-in-up" style="font-size: 2rem; margin-top: 2rem; color: rgba(255,255,255,0.95);">
+                            Your boundaries aren't permanent walls
+                        </p>
+                        <p class="fragment fade-in-up" style="font-size: 1.8rem; margin-top: 3rem; color: rgba(255,255,255,0.85);">
+                            They're temporary structures that protect your energy<br/>
+                            while relationships evolve and grow.
+                        </p>
+                        <p class="fragment fade-in-up" style="font-size: 1.6rem; margin-top: 3rem; color: rgba(255,255,255,0.8); font-style: italic;">
+                            This week: Identify ONE boundary. Use the formula. Stand firm with love.
+                        </p>
+                        <div style="margin-top: 4rem; font-size: 1.3rem; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.1em;">
+                            Bloom Psychology
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/notes/notes.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/markdown/markdown.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/highlight/highlight.js"></script>
+    
+    <script>
+        Reveal.initialize({
+            hash: true,
+            controls: true,
+            progress: true,
+            center: false,
+            transition: 'fade',
+            transitionSpeed: 'slow',
+            backgroundTransition: 'fade',
+            
+            // View options
+            width: 1920,
+            height: 1080,
+            margin: 0,
+            minScale: 0.2,
+            maxScale: 2.0,
+            
+            // UI options
+            controlsTutorial: false,
+            controlsLayout: 'bottom-right',
+            controlsBackArrows: 'faded',
+            slideNumber: 'c/t',
+            showSlideNumber: 'all',
+            
+            // Features
+            history: true,
+            keyboard: true,
+            overview: true,
+            loop: false,
+            touch: true,
+            
+            // PDF export
+            pdfMaxPagesPerSlide: 1,
+            pdfSeparateFragments: false,
+            
+            plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+        });
+    </script>
+</body>
+</html>

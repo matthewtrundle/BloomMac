@@ -6,127 +6,95 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY
 );
 
-console.log('🔍 Checking for Missing Tables and Relationships\n');
-
-async function checkAchievementsSetup() {
-  console.log('1. ACHIEVEMENTS SYSTEM CHECK');
-  console.log('----------------------------');
-  
-  // Try a simple query to check the relationship
-    const { data, error } = await supabase
-      .from('user_achievements')
-      .select('*, achievements!inner(*)')
-      .limit(1);
-    
-    if (error?.message?.includes('relationship')) {
-      console.log('❌ Missing foreign key relationship between user_achievements and achievements');
-      console.log('\nFIX: Run this SQL:');
-      console.log(`
-ALTER TABLE user_achievements
-ADD CONSTRAINT fk_achievement
-FOREIGN KEY (achievement_id) 
-REFERENCES achievements(id)
-ON DELETE CASCADE;
-      `);
-    } else {
-      console.log('✅ Achievements relationship exists');
-    }
-}
-
 async function checkMissingTables() {
-  console.log('\n2. MISSING TABLES');
-  console.log('-----------------');
+  console.log('🔍 Checking which "missing" tables actually exist...\n');
   
-  const missingTables = [
-    { name: 'user_workbooks', purpose: 'Track user workbook enrollments' },
-    { name: 'workbooks', purpose: 'Store workbook templates' },
-    { name: 'user_courses', purpose: 'Track user course enrollments' },
-    { name: 'course_stats', purpose: 'Store aggregated course statistics' }
+  const tablesToCheck = [
+    'email_logs',
+    'email_analytics',
+    'career_applications',
+    'system_settings',
+    'user_achievements',
+    'cron_logs'
   ];
   
-  for (const table of missingTables) {
-    const { error } = await supabase
-      .from(table.name)
-      .select('count')
-      .limit(1);
-    
-    if (error) {
-      console.log(`❌ Missing table: ${table.name} (${table.purpose})`);
+  const results = {
+    exists: [],
+    missing: [],
+    hasData: []
+  };
+  
+  for (const table of tablesToCheck) {
+    try {
+      const { count, error } = await supabase
+        .from(table)
+        .select('*', { count: 'exact', head: true });
+      
+      if (error) {
+        console.log(`❌ ${table}: Does not exist`);
+        results.missing.push(table);
+      } else {
+        console.log(`✅ ${table}: EXISTS (${count} rows)`);
+        results.exists.push(table);
+        if (count > 0) {
+          results.hasData.push({ table, count });
+        }
+      }
+    } catch (err) {
+      console.log(`❌ ${table}: Error checking - ${err.message}`);
+      results.missing.push(table);
     }
   }
   
-  console.log('\nThese tables might be created by database functions instead.');
-  console.log('Check if the dashboard functions return data properly.');
-}
-
-async function testDashboardFunction() {
-  console.log('\n3. TESTING DASHBOARD FUNCTION');
-  console.log('-----------------------------');
+  console.log('\n📊 Summary:');
+  console.log(`- Tables that exist: ${results.exists.length}`);
+  console.log(`- Tables missing: ${results.missing.length}`);
+  console.log(`- Tables with data: ${results.hasData.length}`);
   
-  // Get a real user ID
-  const { data: users } = await supabase.auth.admin.listUsers({ perPage: 1 });
-  const userId = users?.users?.[0]?.id;
-  
-  if (!userId) {
-    console.log('❌ No users found to test with');
-    return;
+  if (results.exists.length > 0) {
+    console.log('\n⚠️  WARNING: Some tables already exist!');
+    console.log('Existing tables:', results.exists.join(', '));
+    
+    if (results.hasData.length > 0) {
+      console.log('\n🚨 CRITICAL: Some tables have data!');
+      results.hasData.forEach(({ table, count }) => {
+        console.log(`  - ${table}: ${count} rows`);
+      });
+    }
   }
   
-  const { data, error } = await supabase.rpc('get_user_dashboard_data', {
-    p_user_id: userId
-  });
-  
-  if (error) {
-    console.log('❌ Dashboard function error:', error.message);
-  } else {
-    console.log('✅ Dashboard function works!');
-    console.log('   Returns:', Object.keys(data || {}));
+  if (results.missing.length > 0) {
+    console.log('\n📝 Tables that need to be created:');
+    console.log(results.missing.join(', '));
+    
+    console.log('\n-- SQL to create only missing tables:');
+    results.missing.forEach(table => {
+      console.log(`-- Check and create ${table}`);
+      console.log(`CREATE TABLE IF NOT EXISTS public.${table} ( ... );`);
+    });
   }
-}
-
-async function suggestQuickFix() {
-  console.log('\n4. QUICK FIX FOR 500 ERRORS');
-  console.log('---------------------------');
   
-  console.log(`
-The 500 errors are likely because:
-
-1. The achievements table needs a proper foreign key
-2. Some tables might be virtual (created by functions)
-3. The RPC parameters might be wrong
-
-IMMEDIATE FIX - Update the API routes to handle missing data gracefully:
-
-Example for achievements/get/route.ts:
-------------------------------------
-// Replace the join query with a simpler approach:
-const { data: userAchievements } = await supabase
-  .from('user_achievements')
-  .select('*')
-  .eq('user_id', session.user.id);
-
-const { data: achievements } = await supabase
-  .from('achievements')
-  .select('*');
-
-// Manually join the data
-const formattedAchievements = userAchievements?.map(ua => {
-  const achievement = achievements?.find(a => a.id === ua.achievement_id);
-  return {
-    id: ua.id,
-    earnedAt: ua.earned_at,
-    ...achievement
-  };
-}) || [];
-  `);
+  // Also check for existing policies on these tables
+  console.log('\n\n🔒 Checking for existing policies...');
+  for (const table of results.exists) {
+    try {
+      // Try a query that would fail if RLS is enabled without proper policies
+      const { error } = await supabase
+        .from(table)
+        .select('id')
+        .limit(1);
+      
+      if (error && error.message.includes('row-level security')) {
+        console.log(`🔒 ${table}: RLS is ENABLED`);
+      } else {
+        console.log(`⚠️  ${table}: RLS might be DISABLED`);
+      }
+    } catch (err) {
+      console.log(`❓ ${table}: Could not check RLS status`);
+    }
+  }
+  
+  return results;
 }
 
-// Run all checks
-async function runChecks() {
-  await checkAchievementsSetup();
-  await checkMissingTables();
-  await testDashboardFunction();
-  await suggestQuickFix();
-}
-
-runChecks().catch(console.error);
+checkMissingTables();

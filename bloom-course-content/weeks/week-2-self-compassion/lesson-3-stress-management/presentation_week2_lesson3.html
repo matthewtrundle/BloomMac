@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>Stress Management for the Postpartum Nervous System | Bloom Psychology</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reset.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+    
+    <style>
+        /* Import Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        /* Full Design System Variables */
+        :root {
+            /* Sophisticated color palette */
+            --bloom-charcoal: #1a1a1a;
+            --bloom-warm-gray: #4a4a4a;
+            --bloom-light-gray: #f7f7f7;
+            --bloom-sage: #8B9A82;
+            --bloom-sage-muted: #a3b199;
+            --bloom-coral: #FF6B6B;
+            --bloom-golden: #FFCB77;
+            --bloom-lavender: #C589E8;
+            --bloom-mint: #95E1D3;
+            --bloom-rose: #FFA8C5;
+            --bloom-blush: #e8d5d5;
+            --bloom-cream: #faf8f5;
+            --bloom-white: #ffffff;
+            
+            /* Stress-specific colors */
+            --bloom-calm-blue: #B8D4E3;
+            --bloom-stress-red: #FF4444;
+            --bloom-relief-green: #7DD87D;
+            
+            /* Typography scale */
+            --font-display: 'Cormorant Garamond', serif;
+            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            
+            /* Responsive Typography */
+            --text-display: clamp(3.5rem, 7vw, 6rem);
+            --text-heading: clamp(2.5rem, 5vw, 4rem);
+            --text-subheading: clamp(1.8rem, 3vw, 2.5rem);
+            --text-body: clamp(1rem, 2vw, 1.3rem);
+            --text-small: clamp(0.9rem, 1.5vw, 1.1rem);
+            
+            /* Spacing */
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 2rem;
+            --space-lg: 4rem;
+            --space-xl: 6rem;
+            --space-2xl: 8rem;
+            
+            /* Shadows */
+            --shadow-subtle: 0 2px 8px rgba(0,0,0,0.08);
+            --shadow-medium: 0 8px 24px rgba(0,0,0,0.12);
+            --shadow-large: 0 20px 60px rgba(0,0,0,0.16);
+            --shadow-glass: 0 8px 32px rgba(0,0,0,0.12);
+        }
+        
+        /* Reset and base styles */
+        .reveal-viewport {
+            background: var(--bloom-white);
+        }
+        
+        .reveal {
+            font-family: var(--font-body);
+            font-size: 20px;
+            font-weight: 400;
+            color: var(--bloom-charcoal);
+            line-height: 1.6;
+            letter-spacing: -0.02em;
+        }
+        
+        .reveal .slides {
+            text-align: left;
+        }
+        
+        .reveal .slides section {
+            padding: 0;
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        /* Typography */
+        .reveal h1 {
+            font-family: var(--font-display);
+            font-size: var(--text-display);
+            font-weight: 300;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            color: var(--bloom-charcoal);
+            margin-bottom: var(--space-md);
+        }
+        
+        .reveal h2 {
+            font-family: var(--font-display);
+            font-size: var(--text-heading);
+            font-weight: 400;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            color: var(--bloom-charcoal);
+            margin-bottom: var(--space-md);
+        }
+        
+        .reveal h3 {
+            font-family: var(--font-body);
+            font-size: var(--text-subheading);
+            font-weight: 500;
+            line-height: 1.3;
+            color: var(--bloom-warm-gray);
+            margin-bottom: var(--space-sm);
+        }
+        
+        .reveal p {
+            font-size: var(--text-body);
+            line-height: 1.8;
+            color: var(--bloom-warm-gray);
+            margin-bottom: var(--space-md);
+            max-width: 36em;
+        }
+        
+        .reveal em {
+            font-style: italic;
+            color: var(--bloom-sage);
+        }
+        
+        .reveal strong {
+            font-weight: 600;
+            color: var(--bloom-charcoal);
+        }
+        
+        .reveal ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .reveal li {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: var(--space-sm);
+            font-size: var(--text-body);
+        }
+        
+        .reveal li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.8rem;
+            width: 8px;
+            height: 2px;
+            background: var(--bloom-sage);
+        }
+        
+        .reveal ol {
+            list-style: none;
+            padding: 0;
+            counter-reset: step-counter;
+        }
+        
+        .reveal ol li {
+            counter-increment: step-counter;
+            padding-left: 3rem;
+            position: relative;
+        }
+        
+        .reveal ol li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2rem;
+            height: 2rem;
+            background: var(--bloom-sage);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        /* Gradient Text Effects */
+        .gradient-text {
+            background: linear-gradient(135deg, var(--bloom-coral) 0%, var(--bloom-rose) 50%, var(--bloom-golden) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: inline-block;
+        }
+        
+        /* Layout Components */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: var(--space-xl) var(--space-lg);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        /* Hero Image Slides */
+        .hero-image-slide {
+            position: relative;
+            height: 100vh;
+            width: 100%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .hero-image-slide img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+        
+        .hero-scrim {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(26,26,26,0.7) 0%, rgba(26,26,26,0.4) 100%);
+            z-index: 2;
+        }
+        
+        .text-protection {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            color: white;
+            max-width: 800px;
+            padding: var(--space-lg);
+        }
+        
+        .text-protection h1 {
+            color: white;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+        
+        .text-protection p {
+            color: rgba(255,255,255,0.9);
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        .text-protection-light {
+            position: relative;
+            z-index: 3;
+            color: var(--bloom-charcoal);
+            padding: var(--space-lg);
+        }
+        
+        /* Magazine Split Layouts */
+        .magazine-split {
+            display: grid;
+            grid-template-columns: 3fr 2fr;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .magazine-split-reverse {
+            grid-template-columns: 2fr 3fr;
+        }
+        
+        .magazine-split-weighted {
+            grid-template-columns: 2fr 1fr;
+        }
+        
+        .content-panel {
+            padding: var(--space-xl);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: var(--bloom-white);
+        }
+        
+        .content-panel-gradient {
+            background: linear-gradient(135deg, var(--bloom-cream) 0%, var(--bloom-white) 100%);
+        }
+        
+        .image-panel {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .image-panel img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Image with Floating Card */
+        .image-with-card {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .image-with-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Floating Cards with Glass Morphism */
+        .floating-card {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-glass);
+            max-width: 500px;
+            transition: all 0.3s ease;
+        }
+        
+        .floating-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 80px rgba(0,0,0,0.2);
+        }
+        
+        .floating-card-left {
+            top: 50%;
+            left: var(--space-xl);
+            transform: translateY(-50%);
+        }
+        
+        .floating-card-right {
+            top: 50%;
+            right: var(--space-xl);
+            transform: translateY(-50%);
+        }
+        
+        .floating-card-bottom {
+            bottom: var(--space-xl);
+            left: 50%;
+            transform: translateX(-50%);
+            max-width: 900px;
+        }
+        
+        .floating-card-dark {
+            background: rgba(26, 26, 26, 0.9);
+            color: white;
+        }
+        
+        /* Image Grid with Statistics */
+        .image-grid {
+            display: grid;
+            gap: var(--space-md);
+            height: 80vh;
+            padding: var(--space-lg);
+        }
+        
+        .image-grid-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+        }
+        
+        .image-grid-item:hover {
+            transform: scale(1.02);
+        }
+        
+        .image-grid-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .image-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: white;
+            padding: var(--space-md);
+            text-align: center;
+        }
+        
+        .image-caption h3 {
+            color: white;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .image-caption p {
+            color: rgba(255,255,255,0.9);
+            font-size: var(--text-small);
+        }
+        
+        .image-caption ul {
+            color: rgba(255,255,255,0.9);
+            font-size: var(--text-small);
+            margin: 0;
+        }
+        
+        .image-caption li {
+            padding-left: 0;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .image-caption li::before {
+            display: none;
+        }
+        
+        /* Visual Lists */
+        .visual-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .visual-list li {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: var(--space-md);
+            font-size: var(--text-body);
+            line-height: 1.6;
+            padding-left: 0;
+        }
+        
+        .visual-list li::before {
+            display: none;
+        }
+        
+        .visual-list-icon {
+            font-size: 2rem;
+            margin-right: var(--space-sm);
+            margin-top: 0.2rem;
+        }
+        
+        /* Quote with Image */
+        .quote-with-image {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: var(--space-xl);
+            align-items: center;
+            padding: var(--space-xl);
+        }
+        
+        .quote-portrait {
+            position: relative;
+        }
+        
+        .quote-portrait img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 15px;
+            box-shadow: var(--shadow-large);
+        }
+        
+        /* Gradient Mesh Backgrounds */
+        .gradient-mesh {
+            background: radial-gradient(circle at 20% 20%, rgba(255, 203, 119, 0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(197, 137, 232, 0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 40%, rgba(149, 225, 211, 0.2) 0%, transparent 50%);
+        }
+        
+        /* Stress Management Specific Components */
+        .time-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--bloom-coral) 0%, var(--bloom-rose) 100%);
+            color: white;
+            padding: var(--space-xs) var(--space-md);
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: var(--text-small);
+            margin: var(--space-xs);
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+            text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+        
+        /* Technique Cards */
+        .technique-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: var(--space-lg);
+            border-radius: 20px;
+            border: 1px solid rgba(139, 154, 130, 0.2);
+            border-left: 4px solid var(--bloom-sage);
+            box-shadow: var(--shadow-glass);
+            margin: var(--space-md) 0;
+            transition: all 0.3s ease;
+        }
+        
+        .technique-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-large);
+        }
+        
+        .technique-card h3 {
+            color: var(--bloom-sage);
+            margin-bottom: var(--space-sm);
+            font-family: var(--font-display);
+        }
+        
+        .technique-steps {
+            margin: var(--space-md) 0;
+        }
+        
+        .technique-steps li {
+            margin: var(--space-sm) 0;
+            font-size: var(--text-body);
+            line-height: 1.6;
+        }
+        
+        /* Nervous System Visualization */
+        .nervous-system-visual {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-xl);
+            align-items: center;
+            margin: var(--space-lg) 0;
+        }
+        
+        .system-state {
+            padding: var(--space-lg);
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .system-state:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-large);
+        }
+        
+        .stressed-state {
+            background: linear-gradient(135deg, var(--bloom-stress-red) 0%, rgba(255, 68, 68, 0.8) 100%);
+            color: white;
+            border-color: var(--bloom-stress-red);
+        }
+        
+        .calm-state {
+            background: linear-gradient(135deg, var(--bloom-relief-green) 0%, rgba(125, 216, 125, 0.8) 100%);
+            color: var(--bloom-charcoal);
+            border-color: var(--bloom-relief-green);
+        }
+        
+        .system-state h3 {
+            margin-bottom: var(--space-md);
+            font-family: var(--font-display);
+        }
+        
+        .system-state ul {
+            text-align: left;
+            margin: var(--space-md) 0;
+        }
+        
+        .system-state li {
+            margin-bottom: var(--space-xs);
+            padding-left: 0;
+            font-size: var(--text-body);
+        }
+        
+        .system-state li::before {
+            display: none;
+        }
+        
+        /* Breathing Box Visualization */
+        .breathing-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: var(--space-sm);
+            margin: var(--space-md) 0;
+        }
+        
+        .breathing-step {
+            text-align: center;
+            padding: var(--space-md);
+            background: rgba(139, 154, 130, 0.1);
+            border-radius: 15px;
+            border: 2px solid var(--bloom-sage);
+            transition: all 0.3s ease;
+        }
+        
+        .breathing-step:hover {
+            background: rgba(139, 154, 130, 0.2);
+            transform: scale(1.05);
+        }
+        
+        .breathing-step-icon {
+            font-size: 2rem;
+            margin-bottom: var(--space-xs);
+            color: var(--bloom-sage);
+        }
+        
+        /* Fragment Animations */
+        .reveal .fragment.fade-in-up {
+            transform: translateY(20px);
+            opacity: 0;
+        }
+        
+        .reveal .fragment.fade-in-up.visible {
+            transform: translateY(0);
+            opacity: 1;
+            transition: all 0.6s ease-out;
+        }
+        
+        .reveal .fragment.scale-in {
+            transform: scale(0.8);
+            opacity: 0;
+        }
+        
+        .reveal .fragment.scale-in.visible {
+            transform: scale(1);
+            opacity: 1;
+            transition: all 0.6s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- SLIDE 1: Hero Opening -->
+            <section data-background-color="#1a1a1a">
+                <div class="hero-image-slide">
+                    <img src="../Week2images/biff01_Mother_noticing_tension_in_shoulders_hand_gently_massa_7d866815-069d-43e1-847a-2b6aacda58d9_0.png" alt="Mother managing stress while caring for baby">
+                    <div class="hero-scrim"></div>
+                    <div class="text-protection">
+                        <h1 class="fragment fade-in-up">Stress Management for Your<br/><span class="gradient-text">Postpartum Nervous System</span></h1>
+                        <p class="fragment fade-in-up" style="font-size: 2rem; margin-top: 2rem; color: rgba(255,255,255,0.95);">
+                            Evidence-Based Relief in 30 Seconds, 3 Minutes, or 30 Minutes
+                        </p>
+                        <p class="fragment fade-in-up" style="font-size: 1.3rem; margin-top: 3rem; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.1em;">
+                            Bloom Psychology • Week 2 • Lesson 3
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 2: The Reality -->
+            <section>
+                <div class="magazine-split">
+                    <div class="content-panel content-panel-gradient">
+                        <h1 class="fragment fade-in-up">Let's Get<br/><span class="gradient-text">Practical</span></h1>
+                        <p class="fragment fade-in-up" style="margin-top: 2rem; font-size: 1.8rem;">
+                            We're not here to eliminate stress—that's impossible right now. We're here to work with it in ways that actually help.
+                        </p>
+                        <p class="fragment fade-in-up" style="font-size: 1.6rem; margin-top: 2rem;">
+                            Because your baby doesn't care if you're in the middle of meditation.
+                        </p>
+                        <div class="fragment fade-in-up" style="margin-top: 2rem;">
+                            <span class="time-badge">30 seconds</span>
+                            <span class="time-badge">3 minutes</span>
+                            <span class="time-badge">30 minutes</span>
+                        </div>
+                    </div>
+                    <div class="image-panel">
+                        <img src="../Week2images/biff01_Visual_diagram_with_real_mother_showing_transformation_e5583f7c-e948-4600-b3e7-3b9cbe00e4f7_0.png" alt="Mother managing time constraints">
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 3: Understanding Your Stress Response -->
+            <section class="gradient-mesh">
+                <div class="container">
+                    <h2 style="text-align: center; margin-bottom: var(--space-md);">Your Body Under <span class="gradient-text">Stress</span></h2>
+                    <p style="text-align: center; font-size: var(--text-body); color: var(--bloom-sage); margin-bottom: var(--space-xl);">Understanding what's happening helps you work with your nervous system, not against it</p>
+                    <div class="nervous-system-visual">
+                        <div class="system-state stressed-state fragment fade-in-up">
+                            <h3>Stressed State</h3>
+                            <div style="font-size: 4rem; margin: var(--space-sm) 0;">😰</div>
+                            <ul>
+                                <li>❤️ Heart racing (90+ bpm)</li>
+                                <li>💨 Breathing quickens (shallow)</li>
+                                <li>💪 Muscles tense (especially shoulders)</li>
+                                <li>🧠 Amygdala activated (survival mode)</li>
+                                <li>⚡ Cortisol floods system</li>
+                            </ul>
+                        </div>
+                        <div class="system-state calm-state fragment fade-in-up">
+                            <h3>Calm State</h3>
+                            <div style="font-size: 4rem; margin: var(--space-sm) 0;">😌</div>
+                            <ul>
+                                <li>💚 Heart rate slows (60-80 bpm)</li>
+                                <li>🌊 Breathing deepens (belly expands)</li>
+                                <li>🎯 Muscles relax (tension releases)</li>
+                                <li>🧘 Prefrontal cortex engaged</li>
+                                <li>🌿 Oxytocin & serotonin release</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="fragment fade-in" style="text-align: center; margin-top: var(--space-xl); background: rgba(255,107,107,0.1); padding: var(--space-md); border-radius: 15px; border: 1px solid var(--bloom-coral);">
+                        <p style="font-size: var(--text-body); color: var(--bloom-charcoal);">New mothers experience stress responses <strong style="color: var(--bloom-coral); font-size: var(--text-subheading);">40-50 times per day</strong></p>
+                        <p style="font-size: var(--text-small); color: var(--bloom-warm-gray);">(compared to 15-20 for average adults)</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 4: The Impact of Chronic Stress -->
+            <section>
+                <div class="image-with-card">
+                    <img src="../Week2images/biff01_Mother_noticing_tension_in_shoulders_hand_gently_massa_7d866815-069d-43e1-847a-2b6aacda58d9_0.png" alt="Physical impact of chronic stress on mothers">
+                    <div class="floating-card floating-card-left text-protection-light">
+                        <h2 style="color: var(--bloom-coral); margin-bottom: 2rem;">What Chronic Stress Does</h2>
+                        <ul class="visual-list">
+                            <li class="fragment fade-in-up">
+                                <div class="visual-list-icon">🍼</div>
+                                Interferes with milk production
+                            </li>
+                            <li class="fragment fade-in-up">
+                                <div class="visual-list-icon">🩹</div>
+                                Slows physical healing
+                            </li>
+                            <li class="fragment fade-in-up">
+                                <div class="visual-list-icon">😴</div>
+                                Disrupts already fragile sleep
+                            </li>
+                            <li class="fragment fade-in-up">
+                                <div class="visual-list-icon">🔥</div>
+                                Increases inflammation
+                            </li>
+                            <li class="fragment fade-in-up">
+                                <div class="visual-list-icon">💊</div>
+                                Depletes nutrients faster
+                            </li>
+                            <li class="fragment fade-in-up">
+                                <div class="visual-list-icon">🎭</div>
+                                Impacts mood regulation
+                            </li>
+                        </ul>
+                        <p class="fragment fade-in" style="font-size: 1.3rem; margin-top: 2rem; font-style: italic; color: var(--bloom-sage);">
+                            But we can work with your nervous system...
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 5: 30-Second Resets -->
+            <section data-background-color="#faf8f5">
+                <div class="container">
+                    <h2 style="text-align: center; margin-bottom: var(--space-md);"><span class="time-badge">30 Seconds</span> Emergency Resets</h2>
+                    <p style="text-align: center; font-size: var(--text-body); color: var(--bloom-sage); margin-bottom: var(--space-lg);">When baby is crying and you need calm NOW</p>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-md);">
+                        <div class="technique-card fragment fade-in-up">
+                            <h3>The Physiological Sigh</h3>
+                            <p style="font-size: var(--text-small); color: var(--bloom-warm-gray); margin-bottom: var(--space-sm); font-style: italic;">Dr. Andrew Huberman's discovery</p>
+                            <ol class="technique-steps">
+                                <li>Deep breath in through nose</li>
+                                <li>Sip in a little more air on top</li>
+                                <li>Long, slow exhale through mouth</li>
+                                <li>Repeat 2-3 times</li>
+                            </ol>
+                            <div style="background: rgba(139,154,130,0.1); padding: var(--space-sm); border-radius: 10px; margin-top: var(--space-sm);">
+                                <p style="font-size: var(--text-small); font-style: italic; margin: 0; color: var(--bloom-sage);">✨ Fastest way to calm your nervous system</p>
+                            </div>
+                        </div>
+                        <div class="technique-card fragment fade-in-up">
+                            <h3>Cold Water Reset</h3>
+                            <div style="font-size: 3rem; text-align: center; margin: var(--space-sm) 0;">❄️</div>
+                            <ul style="list-style: none; padding: 0;">
+                                <li style="padding-left: 0; margin-bottom: var(--space-xs);">💧 Splash cold water on face</li>
+                                <li style="padding-left: 0; margin-bottom: var(--space-xs);">🧊 Cold washcloth on wrists</li>
+                                <li style="padding-left: 0; margin-bottom: var(--space-xs);">🌬️ Step outside in cool air</li>
+                            </ul>
+                            <div style="background: rgba(184,212,227,0.2); padding: var(--space-sm); border-radius: 10px; margin-top: var(--space-sm);">
+                                <p style="font-size: var(--text-small); font-style: italic; margin: 0; color: var(--bloom-calm-blue);">✨ Activates dive response instantly</p>
+                            </div>
+                        </div>
+                        <div class="technique-card fragment fade-in-up">
+                            <h3>5-4-3-2-1 Grounding</h3>
+                            <p style="margin-bottom: var(--space-sm); font-size: var(--text-small); color: var(--bloom-warm-gray);">Name quietly:</p>
+                            <ul style="list-style: none; padding: 0;">
+                                <li style="padding-left: 0; margin-bottom: var(--space-xs);">👁️ 5 things you see</li>
+                                <li style="padding-left: 0; margin-bottom: var(--space-xs);">✋ 4 things you can touch</li>
+                                <li style="padding-left: 0; margin-bottom: var(--space-xs);">👂 3 things you hear</li>
+                                <li style="padding-left: 0; margin-bottom: var(--space-xs);">👃 2 things you smell</li>
+                                <li style="padding-left: 0; margin-bottom: var(--space-xs);">👅 1 thing you taste</li>
+                            </ul>
+                            <div style="background: rgba(197,137,232,0.1); padding: var(--space-sm); border-radius: 10px; margin-top: var(--space-sm);">
+                                <p style="font-size: var(--text-small); font-style: italic; margin: 0; color: var(--bloom-lavender);">✨ Anchors you to the present moment</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 6: 3-Minute Recharges -->
+            <section>
+                <div class="magazine-split magazine-split-weighted">
+                    <div class="content-panel content-panel-gradient">
+                        <h2><span class="time-badge">3 Minutes</span> Quick Recharges</h2>
+                        <p style="font-size: var(--text-body); margin-bottom: var(--space-lg); color: var(--bloom-sage);">When baby is settled but you're still wound up</p>
+                        <div class="technique-card">
+                            <h3>Box Breathing <span style="font-size: var(--text-small); color: var(--bloom-warm-gray); font-weight: normal;">(Navy SEAL Technique)</span></h3>
+                            <div class="breathing-box">
+                                <div class="breathing-step">
+                                    <div class="breathing-step-icon">↑</div>
+                                    <p style="font-weight: 600; margin: 0;">Breathe IN</p>
+                                    <p style="font-size: var(--text-small); color: var(--bloom-sage); margin: 0;">4 counts</p>
+                                </div>
+                                <div class="breathing-step">
+                                    <div class="breathing-step-icon">→</div>
+                                    <p style="font-weight: 600; margin: 0;">HOLD</p>
+                                    <p style="font-size: var(--text-small); color: var(--bloom-sage); margin: 0;">4 counts</p>
+                                </div>
+                                <div class="breathing-step">
+                                    <div class="breathing-step-icon">↓</div>
+                                    <p style="font-weight: 600; margin: 0;">Breathe OUT</p>
+                                    <p style="font-size: var(--text-small); color: var(--bloom-sage); margin: 0;">4 counts</p>
+                                </div>
+                                <div class="breathing-step">
+                                    <div class="breathing-step-icon">←</div>
+                                    <p style="font-weight: 600; margin: 0;">HOLD empty</p>
+                                    <p style="font-size: var(--text-small); color: var(--bloom-sage); margin: 0;">4 counts</p>
+                                </div>
+                            </div>
+                            <p style="text-align: center; font-style: italic; color: var(--bloom-sage); margin-top: var(--space-md);">Repeat 4-6 times for full nervous system reset</p>
+                        </div>
+                    </div>
+                    <div class="image-panel">
+                        <img src="../Week2images/biff01_Close-up_profile_of_mother_taking_deep_breath_visible__6c9c71d6-53c7-4cc1-b725-e20973782ac8_1.png" alt="Mother practicing breathing technique">
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 7: More 3-Minute Techniques -->
+            <section class="gradient-mesh">
+                <div class="container">
+                    <h2 style="text-align: center; margin-bottom: var(--space-lg);">More <span class="gradient-text">3-Minute Recharges</span></h2>
+                    <div class="image-grid" style="grid-template-columns: repeat(2, 1fr); grid-template-rows: 400px;">
+                        <div class="image-grid-item fragment fade-in-up">
+                            <img src="../Week2images/biff01_Mother_noticing_tension_in_shoulders_hand_gently_massa_7d866815-069d-43e1-847a-2b6aacda58d9_0.png" alt="Mother releasing muscle tension">
+                            <div class="image-caption">
+                                <h3 style="color: var(--bloom-mint);">Progressive Muscle Release</h3>
+                                <ul>
+                                    <li>Shoulders to ears → Release (3 seconds)</li>
+                                    <li>Clench fists → Release (3 seconds)</li>
+                                    <li>Tighten face → Release (3 seconds)</li>
+                                    <li>Notice the warm, heavy feeling</li>
+                                </ul>
+                                <p style="font-style: italic; margin-top: var(--space-sm);">Tension literally melts away</p>
+                            </div>
+                        </div>
+                        <div class="image-grid-item fragment fade-in-up">
+                            <img src="../Week2images/biff01_Mother_walking_with_baby_in_carrier_through_sunny_park_fcf33c0b-abfe-44ae-9f5d-540dbb9a9810_0.png" alt="Mother doing gentle movement">
+                            <div class="image-caption">
+                                <h3 style="color: var(--bloom-golden);">Movement Reset</h3>
+                                <ul>
+                                    <li>10 arm circles backwards</li>
+                                    <li>10 gentle neck rolls</li>
+                                    <li>10 shoulder shrugs</li>
+                                    <li>30 seconds gentle shake-out</li>
+                                </ul>
+                                <p style="font-style: italic; margin-top: var(--space-sm);">Literally discharges stress hormones</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 8: 30-Minute Recovery -->
+            <section>
+                <div class="hero-image-slide">
+                    <img src="../Week2images/biff01_Mother_walking_with_baby_in_carrier_through_sunny_park_fcf33c0b-abfe-44ae-9f5d-540dbb9a9810_0.png" alt="Restorative recovery time">
+                    <div class="floating-card floating-card-bottom text-protection-light">
+                        <h2 style="text-align: center; margin-bottom: 2rem;"><span class="time-badge">30 Minutes</span> Deep Recovery</h2>
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; text-align: center;">
+                            <div class="fragment fade-in-up">
+                                <h3 style="color: var(--bloom-sage);">Restorative Yoga</h3>
+                                <p>• Child's pose: 5 min<br/>
+                                • Legs up wall: 10 min<br/>
+                                • Savasana: 15 min</p>
+                                <p style="font-style: italic; font-size: 1.2rem;">Activates rest & digest</p>
+                            </div>
+                            <div class="fragment fade-in-up">
+                                <h3 style="color: var(--bloom-coral);">Walking Meditation</h3>
+                                <p>• Step outside<br/>
+                                • Count steps 1-2-3-4<br/>
+                                • Return to counting when mind wanders</p>
+                                <p style="font-style: italic; font-size: 1.2rem;">Reduces cortisol effectively</p>
+                            </div>
+                            <div class="fragment fade-in-up">
+                                <h3 style="color: var(--bloom-lavender);">Bath Therapy</h3>
+                                <p>• Warm water<br/>
+                                • Epsom salts<br/>
+                                • No phone<br/>
+                                • Just float & breathe</p>
+                                <p style="font-style: italic; font-size: 1.2rem;">Lowers stress hormones</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 9: Building Resilience -->
+            <section>
+                <div class="magazine-split">
+                    <div class="content-panel content-panel-gradient">
+                        <h2>Building <span class="gradient-text">Stress Resilience</span></h2>
+                        <p style="font-size: 1.6rem; margin: 2rem 0;">Quick techniques help in the moment, but building resilience helps long-term:</p>
+                        <ul class="feature-list">
+                            <li class="fragment fade-in-up"><strong>Sleep Protection:</strong> Actually sleep when baby sleeps</li>
+                            <li class="fragment fade-in-up"><strong>Nutritional Support:</strong> Omega-3s, B-vitamins, Magnesium</li>
+                            <li class="fragment fade-in-up"><strong>Micro-Practices:</strong> 3 breaths before feeding</li>
+                            <li class="fragment fade-in-up"><strong>Boundaries:</strong> "Thanks, I'll think about it"</li>
+                        </ul>
+                        <p class="fragment fade-in" style="font-size: 1.4rem; margin-top: 2rem; color: var(--bloom-sage); font-style: italic;">
+                            Every boundary you set reduces unnecessary stress
+                        </p>
+                    </div>
+                    <div class="image-panel">
+                        <img src="../Week2images/biff01_Friend_arriving_with_healthy_meal_and_warm_hug_both_wo_62fbdc0d-7a39-47ca-9e83-e33934b07c87_3.png" alt="Mother setting healthy boundaries">
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 10: The Stress Paradox -->
+            <section data-background-gradient="linear-gradient(135deg, #8B9A82 0%, #95E1D3 50%, #C589E8 100%)">
+                <div class="container">
+                    <div class="quote-with-image">
+                        <div class="quote-portrait">
+                            <img src="../Week2images/biff01_Partner_lovingly_taking_happy_baby_while_mother_heads__431f1b54-4c78-4dd3-a9d5-3851aac54c1e_3.png" alt="Mother embracing stress as strength">
+                        </div>
+                        <div>
+                            <h2 style="color: white; margin-bottom: 2rem;">The Stress Paradox</h2>
+                            <blockquote style="color: white; font-size: 2.5rem; margin: 0;">
+                                <span class="fragment fade-in-up">"Stress itself isn't the problem—</span><br/>
+                                <span class="fragment fade-in-up">it's our belief that stress is harmful</span><br/>
+                                <span class="fragment fade-in-up">that causes damage."</span>
+                            </blockquote>
+                            <p style="color: rgba(255,255,255,0.8); font-size: 1.5rem; margin-top: 2rem;">— Dr. Kelly McGonigal</p>
+                            <p class="fragment fade-in" style="color: rgba(255,255,255,0.9); font-size: 1.6rem; margin-top: 2.5rem;">
+                                "I'm stressed because I care deeply about doing well for my baby"<br/>
+                                <em>Stress becomes meaningful rather than threatening</em>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 11: Create Your Plan -->
+            <section data-background-gradient="linear-gradient(135deg, #95E1D3 0%, #B8D4E3 50%, #FFA8C5 100%)">
+                <div class="container">
+                    <div style="text-align: center; color: white;">
+                        <h2 style="color: white; margin-bottom: var(--space-lg);">Create Your <span style="color: var(--bloom-golden);">Personal Stress Plan</span></h2>
+                        <div style="background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); border-radius: 20px; padding: var(--space-xl); margin: var(--space-lg) auto; max-width: 800px; border: 1px solid rgba(255,255,255,0.2); box-shadow: var(--shadow-large); color: var(--bloom-charcoal);">
+                            <p style="font-size: var(--text-body); margin-bottom: var(--space-lg); font-weight: 600;">Fill in your personal emergency plan:</p>
+                            <div style="text-align: left;">
+                                <div style="margin-bottom: var(--space-md); padding: var(--space-md); background: rgba(255,107,107,0.05); border-radius: 10px; border: 1px solid rgba(255,107,107,0.2);">
+                                    <p style="font-size: var(--text-body); margin: 0;">When I have <span class="time-badge">30 seconds</span>, I will:</p>
+                                    <p style="font-size: var(--text-body); font-weight: 600; color: var(--bloom-coral); margin: var(--space-xs) 0;">_________________________________</p>
+                                    <p style="font-size: var(--text-small); color: var(--bloom-warm-gray); margin: 0;">(physiological sigh, cold water, or 5-4-3-2-1)</p>
+                                </div>
+                                <div style="margin-bottom: var(--space-md); padding: var(--space-md); background: rgba(139,154,130,0.05); border-radius: 10px; border: 1px solid rgba(139,154,130,0.2);">
+                                    <p style="font-size: var(--text-body); margin: 0;">When I have <span class="time-badge">3 minutes</span>, I will:</p>
+                                    <p style="font-size: var(--text-body); font-weight: 600; color: var(--bloom-sage); margin: var(--space-xs) 0;">_________________________________</p>
+                                    <p style="font-size: var(--text-small); color: var(--bloom-warm-gray); margin: 0;">(box breathing, movement, or muscle release)</p>
+                                </div>
+                                <div style="margin-bottom: var(--space-md); padding: var(--space-md); background: rgba(197,137,232,0.05); border-radius: 10px; border: 1px solid rgba(197,137,232,0.2);">
+                                    <p style="font-size: var(--text-body); margin: 0;">When I have <span class="time-badge">30 minutes</span>, I will:</p>
+                                    <p style="font-size: var(--text-body); font-weight: 600; color: var(--bloom-lavender); margin: var(--space-xs) 0;">_________________________________</p>
+                                    <p style="font-size: var(--text-small); color: var(--bloom-warm-gray); margin: 0;">(walk, bath, or restorative yoga)</p>
+                                </div>
+                                <div style="padding: var(--space-md); background: rgba(255,203,119,0.1); border-radius: 10px; border: 1px solid rgba(255,203,119,0.3);">
+                                    <p style="font-size: var(--text-body); margin: 0; font-weight: 600; color: var(--bloom-golden);">My daily micro-practice will be:</p>
+                                    <p style="font-size: var(--text-body); font-weight: 600; color: var(--bloom-golden); margin: var(--space-xs) 0;">_________________________________</p>
+                                    <p style="font-size: var(--text-small); color: var(--bloom-warm-gray); margin: 0;">(3 breaths before feeding, hand on heart, etc.)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 12: Reality Check -->
+            <section>
+                <div class="magazine-split">
+                    <div class="content-panel">
+                        <h2>The <span class="gradient-text">Reality Check</span></h2>
+                        <p style="font-size: 2rem; margin: 2rem 0; font-family: var(--font-display);">
+                            Some days, you won't have 30 seconds for a breathing technique.
+                        </p>
+                        <p style="font-size: 1.8rem; margin: 2rem 0;">
+                            Some days, survival is success.
+                        </p>
+                        <p style="font-size: 1.8rem; margin: 2rem 0; color: var(--bloom-sage);">
+                            That's okay.
+                        </p>
+                        <p class="fragment fade-in" style="font-size: 1.6rem; margin-top: 3rem; font-style: italic;">
+                            It's about having tools available when you can use them. Your body knows how to be calm. It just needs reminders sometimes.
+                        </p>
+                    </div>
+                    <div class="image-panel">
+                        <img src="../Week2images/biff01_Mother_peacefully_reading_on_couch_with_cup_of_tea_cle_4ad62c65-43ff-4645-a2bb-aa9595775997_1.png" alt="Mother getting through a difficult day">
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 13: Closing -->
+            <section>
+                <div class="hero-image-slide">
+                    <img src="../Week2images/biff01_Mother_and_baby_finding_synchronized_peace_together_bo_15666422-101d-4f71-8e78-41241ac09752_0.png" alt="Mother finding calm in the chaos">
+                    <div class="hero-scrim"></div>
+                    <div class="text-protection" style="text-align: center;">
+                        <h1 class="fragment fade-in-up" style="color: white; font-size: var(--text-display);">Stress Is Part of <span class="gradient-text">Motherhood</span></h1>
+                        <p class="fragment fade-in-up" style="font-size: var(--text-subheading); margin-top: var(--space-lg); color: rgba(255,255,255,0.95); font-family: var(--font-display);">
+                            But suffering doesn't have to be.
+                        </p>
+                        <p class="fragment fade-in-up" style="font-size: var(--text-body); margin-top: var(--space-lg); color: rgba(255,255,255,0.85);">
+                            Start small. Pick one technique. Try it today.<br/>
+                            <em style="color: var(--bloom-golden); font-family: var(--font-display);">You've got this, one breath at a time.</em>
+                        </p>
+                        <div class="fragment fade-in" style="margin-top: var(--space-xl); padding: var(--space-lg); background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border-radius: 15px; border: 1px solid rgba(255,255,255,0.2); max-width: 400px; margin-left: auto; margin-right: auto;">
+                            <div style="font-size: var(--text-small); color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: var(--space-xs);">
+                                Dr. Jana Rundle
+                            </div>
+                            <div style="font-size: var(--text-body); color: rgba(255,255,255,0.9); font-family: var(--font-display);">
+                                Bloom Psychology
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/notes/notes.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/markdown/markdown.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/highlight/highlight.js"></script>
+    
+    <script>
+        Reveal.initialize({
+            hash: true,
+            controls: true,
+            progress: true,
+            center: false,
+            transition: 'fade',
+            transitionSpeed: 'slow',
+            backgroundTransition: 'fade',
+            
+            // View options
+            width: 1920,
+            height: 1080,
+            margin: 0,
+            minScale: 0.2,
+            maxScale: 2.0,
+            
+            // UI options
+            controlsTutorial: false,
+            controlsLayout: 'bottom-right',
+            controlsBackArrows: 'faded',
+            slideNumber: 'c/t',
+            showSlideNumber: 'all',
+            
+            // Features
+            history: true,
+            keyboard: true,
+            overview: true,
+            loop: false,
+            touch: true,
+            
+            // PDF export
+            pdfMaxPagesPerSlide: 1,
+            pdfSeparateFragments: false,
+            
+            plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+        });
+    </script>
+</body>
+</html>

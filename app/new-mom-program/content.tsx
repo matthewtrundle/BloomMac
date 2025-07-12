@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { Flower2 } from 'lucide-react';
 
 // UI Components
 import Button from '@/components/ui/Button';
@@ -155,7 +156,7 @@ export default function NewMomProgramContent() {
               transition={{ duration: 0.6 }}
             >
               <h1 className="text-5xl md:text-6xl font-playfair text-bloom mb-4 flex items-center justify-center gap-4">
-                <span className="text-bloompink">🌸</span>
+                <Flower2 className="w-12 h-12 text-bloompink" />
                 Becoming Mom
               </h1>
               

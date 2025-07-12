@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>Mapping Your Support Needs & Resources | Bloom Psychology</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reset.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+    <link rel="stylesheet" href="../../../public/presentations/week1/assets/css/bloom-professional.css">
+    
+    <style>
+        /* Lesson-specific enhancements */
+        :root {
+            --bloom-village-green: #7FB069;
+            --bloom-connection-blue: #5B9BD5;
+            --bloom-support-coral: #F4A261;
+            --bloom-community-purple: #9A8C98;
+        }
+        
+        /* Support circles visualization */
+        .support-map {
+            position: relative;
+            width: 800px;
+            height: 800px;
+            margin: 0 auto;
+        }
+        
+        .support-circle {
+            position: absolute;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        
+        .inner-circle {
+            width: 200px;
+            height: 200px;
+            background: var(--bloom-coral);
+            color: white;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 3;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        
+        .middle-circle {
+            width: 400px;
+            height: 400px;
+            background: rgba(91, 155, 213, 0.3);
+            border: 3px solid var(--bloom-connection-blue);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+        }
+        
+        .outer-circle {
+            width: 600px;
+            height: 600px;
+            background: rgba(127, 176, 105, 0.2);
+            border: 3px solid var(--bloom-village-green);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+        }
+        
+        /* Support type cards */
+        .support-type-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .support-type-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            border-left: 5px solid var(--bloom-sage);
+            transition: transform 0.3s ease;
+        }
+        
+        .support-type-card:hover {
+            transform: translateX(10px);
+        }
+        
+        .support-type-card h3 {
+            color: var(--bloom-charcoal);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .support-icon {
+            font-size: 2rem;
+        }
+        
+        /* Barrier cards */
+        .barrier-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(250,248,245,0.9) 100%);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            border: 1px solid rgba(0,0,0,0.1);
+            font-size: 1.3rem;
+            position: relative;
+            padding-left: 3rem;
+        }
+        
+        .barrier-card::before {
+            content: "❌";
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+        }
+        
+        /* Script examples */
+        .script-card {
+            background: var(--bloom-cream);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 1.5rem 0;
+            border-left: 4px solid var(--bloom-support-coral);
+        }
+        
+        .script-card h4 {
+            color: var(--bloom-support-coral);
+            margin-bottom: 1rem;
+        }
+        
+        .script-example {
+            font-style: italic;
+            color: var(--bloom-warm-gray);
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+            margin: 0.5rem 0;
+        }
+        
+        /* Village visualization */
+        .village-visual {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .village-member {
+            text-align: center;
+            opacity: 0.7;
+            transition: all 0.3s ease;
+        }
+        
+        .village-member:hover {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+        
+        .village-member img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- SLIDE 1: Hero Opening -->
+            <section data-background-color="#1a1a1a">
+                <div class="hero-image-slide">
+                    <img src="[MIDJOURNEY: Mother at center of diverse support network - friends, family, professionals surrounding her with care. Style: Photorealistic, warm community feeling, diverse representation]" alt="Mother surrounded by supportive community">
+                    <div class="hero-scrim"></div>
+                    <div class="text-protection">
+                        <h1 class="fragment fade-in-up">Building Your<br/><span class="gradient-text">Support Ecosystem</span></h1>
+                        <p class="fragment fade-in-up" style="font-size: 2rem; margin-top: 2rem; color: rgba(255,255,255,0.95);">
+                            Mapping Your Needs & Resources
+                        </p>
+                        <p class="fragment fade-in-up" style="font-size: 1.3rem; margin-top: 3rem; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.1em;">
+                            Bloom Psychology • Week 3 • Lesson 1
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 2: The Truth About Support -->
+            <section>
+                <div class="magazine-split">
+                    <div class="content-panel content-panel-gradient">
+                        <h1 class="fragment fade-in-up">The Truth We<br/><span class="gradient-text">Don't Often Hear</span></h1>
+                        <p class="fragment fade-in-up" style="margin-top: 2rem; font-size: 1.8rem;">
+                            Humans were never meant to raise children alone.
+                        </p>
+                        <p class="fragment fade-in-up" style="font-size: 1.6rem; margin-top: 2rem;">
+                            Throughout history, across every culture, new mothers have been surrounded by support. Your nervous system is literally designed to co-regulate with others.
+                        </p>
+                        <p class="fragment fade-in-up" style="font-size: 1.4rem; color: var(--bloom-sage); margin-top: 2rem; font-style: italic;">
+                            "Your need for help isn't weakness—it's wisdom encoded in your DNA."
+                        </p>
+                    </div>
+                    <div class="image-panel">
+                        <img src="[MIDJOURNEY: Historical/cultural image of women supporting new mother - multi-generational, communal care. Style: Photorealistic, warm tones, timeless quality]" alt="Traditional village support for new mothers">
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 3: The Research -->
+            <section data-background-color="#ffffff">
+                <div class="container">
+                    <h2 style="text-align: center; margin-bottom: 3rem;">The Science of <span class="gradient-text">Support</span></h2>
+                    <div style="display: flex; align-items: center; gap: 4rem;">
+                        <div style="flex: 1;">
+                            <img src="[MIDJOURNEY: Mother with strong support network, multiple caring people around her and baby. Style: Photorealistic, diverse group, genuine connection]" alt="Mother with strong support network" style="width: 100%; border-radius: 15px; box-shadow: var(--shadow-large);">
+                        </div>
+                        <div style="flex: 1;">
+                            <blockquote style="font-size: 2rem; line-height: 1.4; color: var(--bloom-charcoal);">
+                                "Throughout human evolution, mothers who had strong support networks had babies who thrived."
+                            </blockquote>
+                            <p style="font-size: 1.4rem; color: var(--bloom-warm-gray); margin-top: 1rem;">— Dr. Sarah Blaffer Hrdy</p>
+                            <p class="fragment fade-in" style="font-size: 1.6rem; margin-top: 2rem; color: var(--bloom-sage); font-weight: 600;">
+                                When you resist asking for help, you're fighting against millions of years of evolution.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 4: Types of Support -->
+            <section data-background-color="#faf8f5">
+                <div class="container">
+                    <h2 style="text-align: center; margin-bottom: 3rem;">Understanding Your <span class="gradient-text">Support Needs</span></h2>
+                    <div class="support-type-grid">
+                        <div class="support-type-card fragment fade-in-up">
+                            <h3><span class="support-icon">🤲</span> Practical Support</h3>
+                            <ul style="list-style: none; padding: 0;">
+                                <li>• Someone to hold baby while you shower</li>
+                                <li>• Help with laundry, meals, groceries</li>
+                                <li>• Rides to appointments</li>
+                                <li>• Watching older children</li>
+                            </ul>
+                        </div>
+                        <div class="support-type-card fragment fade-in-up">
+                            <h3><span class="support-icon">💝</span> Emotional Support</h3>
+                            <ul style="list-style: none; padding: 0;">
+                                <li>• Listening ear without judgment</li>
+                                <li>• Validation of your experience</li>
+                                <li>• Someone who's been through it</li>
+                                <li>• Permission to feel all feelings</li>
+                            </ul>
+                        </div>
+                        <div class="support-type-card fragment fade-in-up">
+                            <h3><span class="support-icon">📚</span> Informational Support</h3>
+                            <ul style="list-style: none; padding: 0;">
+                                <li>• Answers to baby care questions</li>
+                                <li>• Resources for challenges</li>
+                                <li>• Service recommendations</li>
+                                <li>• Guidance through decisions</li>
+                            </ul>
+                        </div>
+                        <div class="support-type-card fragment fade-in-up">
+                            <h3><span class="support-icon">👥</span> Social Support</h3>
+                            <ul style="list-style: none; padding: 0;">
+                                <li>• Adult conversation</li>
+                                <li>• Connection to the world</li>
+                                <li>• Maintaining identity</li>
+                                <li>• Shared experiences</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <p class="fragment fade-in" style="text-align: center; font-size: 1.6rem; margin-top: 2rem; color: var(--bloom-warm-gray); font-style: italic;">
+                        Most mothers are drowning in advice but starving for practical and emotional support
+                    </p>
+                </div>
+            </section>
+            
+            <!-- SLIDE 5: Current Resources Assessment -->
+            <section>
+                <div class="image-with-card">
+                    <img src="[MIDJOURNEY: Mother thoughtfully creating a list or map, journaling about support. Style: Photorealistic, contemplative mood, warm lighting]" alt="Mother mapping her support resources">
+                    <div class="floating-card floating-card-left text-protection-light">
+                        <h2 style="color: var(--bloom-coral); margin-bottom: 2rem;">Identify What's Already There</h2>
+                        <p style="font-size: 1.5rem; margin-bottom: 2rem;">Sometimes support exists but we can't see it through exhaustion or shame.</p>
+                        <ul class="visual-list">
+                            <li class="fragment fade-in-up">
+                                <div class="visual-list-icon">👨‍👩‍👧</div>
+                                <strong>Family:</strong> Who's truly available? (Not who "should" help)
+                            </li>
+                            <li class="fragment fade-in-up">
+                                <div class="visual-list-icon">👭</div>
+                                <strong>Friends:</strong> Who checks in? Who would come if called?
+                            </li>
+                            <li class="fragment fade-in-up">
+                                <div class="visual-list-icon">🏘️</div>
+                                <strong>Community:</strong> Neighbors, faith groups, local resources
+                            </li>
+                            <li class="fragment fade-in-up">
+                                <div class="visual-list-icon">⚕️</div>
+                                <strong>Professional:</strong> Healthcare, therapists, doulas
+                            </li>
+                            <li class="fragment fade-in-up">
+                                <div class="visual-list-icon">💻</div>
+                                <strong>Online:</strong> Virtual communities, support groups
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 6: Barriers to Support -->
+            <section data-background-color="#f7f7f7">
+                <div class="container">
+                    <h2 style="text-align: center; margin-bottom: 3rem;">What <span class="gradient-text">Prevents</span> You?</h2>
+                    <p style="text-align: center; font-size: 1.6rem; margin-bottom: 3rem; color: var(--bloom-warm-gray);">
+                        These aren't truths—they're cultural programming keeping you isolated
+                    </p>
+                    <div style="max-width: 800px; margin: 0 auto;">
+                        <div class="barrier-card fragment fade-in-up">
+                            "I don't want to bother anyone"
+                        </div>
+                        <div class="barrier-card fragment fade-in-up">
+                            "They have their own problems"
+                        </div>
+                        <div class="barrier-card fragment fade-in-up">
+                            "I should be able to handle this"
+                        </div>
+                        <div class="barrier-card fragment fade-in-up">
+                            "What if they judge me?"
+                        </div>
+                        <div class="barrier-card fragment fade-in-up">
+                            "I've never needed help before"
+                        </div>
+                    </div>
+                    <p class="fragment fade-in" style="text-align: center; font-size: 1.8rem; margin-top: 3rem; color: var(--bloom-sage); font-weight: 600;">
+                        A study of 1,000 new mothers found 89% felt guilty asking for support, even when desperately needed
+                    </p>
+                </div>
+            </section>
+            
+            <!-- SLIDE 7: Cultural Messages -->
+            <section>
+                <div class="hero-image-slide">
+                    <img src="[MIDJOURNEY: Contrast image - stressed solo mother vs. supported mother with helpers. Style: Photorealistic, split composition showing isolation vs. community]" alt="The contrast between isolation and support">
+                    <div class="floating-card floating-card-bottom floating-card-dark">
+                        <h2 style="text-align: center; margin-bottom: 3rem; color: white;">Cultural <span class="gradient-text">Barriers</span> We Face</h2>
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 3rem;">
+                            <div class="fragment fade-in-up">
+                                <h3 style="color: var(--bloom-coral);">The Supermom Myth</h3>
+                                <p style="color: rgba(255,255,255,0.9);">Good mothers do it all, with a smile. This myth sells products but destroys mothers.</p>
+                            </div>
+                            <div class="fragment fade-in-up">
+                                <h3 style="color: var(--bloom-golden);">The Independence Trap</h3>
+                                <p style="color: rgba(255,255,255,0.9);">Needing others is weakness. But interdependence is emotional maturity.</p>
+                            </div>
+                            <div class="fragment fade-in-up">
+                                <h3 style="color: var(--bloom-mint);">The Burden Belief</h3>
+                                <p style="color: rgba(255,255,255,0.9);">"I don't want to be a burden." You're not. You're human.</p>
+                            </div>
+                            <div class="fragment fade-in-up">
+                                <h3 style="color: var(--bloom-lavender);">The Reciprocity Worry</h3>
+                                <p style="color: rgba(255,255,255,0.9);">"I can't pay back." Sometimes you receive now and give years later.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 8: Reframing Help -->
+            <section data-background-gradient="linear-gradient(135deg, #8B9A82 0%, #95E1D3 50%, #C589E8 100%)">
+                <div class="container">
+                    <div class="quote-with-image">
+                        <div class="quote-portrait">
+                            <img src="[MIDJOURNEY: Two women, one helping the other with baby, both looking fulfilled. Style: Photorealistic portrait, mutual joy visible]" alt="The joy of giving and receiving help">
+                        </div>
+                        <div>
+                            <h2 style="color: white; margin-bottom: 2rem;">Reframe the Ask</h2>
+                            <blockquote style="color: white; font-size: 2.5rem; margin: 0;">
+                                <span class="fragment fade-in-up">When a friend asks you for help,</span><br/>
+                                <span class="fragment fade-in-up">how do you feel?</span><br/>
+                                <span class="fragment fade-in-up" style="font-weight: 600; color: var(--bloom-golden);">Honored? Trusted? Useful?</span>
+                            </blockquote>
+                            <p class="fragment fade-in" style="color: rgba(255,255,255,0.9); font-size: 1.8rem; margin-top: 2.5rem;">
+                                That's how others feel when you ask them.
+                            </p>
+                            <p class="fragment fade-in" style="color: rgba(255,255,255,0.95); font-size: 1.6rem; margin-top: 2rem; font-style: italic;">
+                                Asking for help isn't taking.<br/>It's giving others the gift of being able to give.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 9: Creating Your Support Map -->
+            <section data-background-color="#faf8f5">
+                <div class="container">
+                    <h2 style="text-align: center; margin-bottom: 3rem;">Create Your <span class="gradient-text">Support Map</span></h2>
+                    <div class="support-map">
+                        <div class="support-circle outer-circle fragment fade-in-up">
+                            <p style="position: absolute; top: 20px; left: 50%; transform: translateX(-50%); font-size: 1.4rem; color: var(--bloom-village-green); font-weight: 600;">
+                                Occasional Support
+                            </p>
+                        </div>
+                        <div class="support-circle middle-circle fragment fade-in-up" data-fragment-index="2">
+                            <p style="position: absolute; top: 20px; left: 50%; transform: translateX(-50%); font-size: 1.4rem; color: var(--bloom-connection-blue); font-weight: 600;">
+                                Regular Help
+                            </p>
+                        </div>
+                        <div class="support-circle inner-circle fragment fade-in-up" data-fragment-index="3">
+                            <div>
+                                <p style="font-size: 1.8rem; font-weight: 600;">YOU</p>
+                                <p style="font-size: 1.2rem;">3 AM calls</p>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="fragment fade-in" style="text-align: center; font-size: 1.5rem; margin-top: 2rem; color: var(--bloom-warm-gray); font-style: italic;">
+                        Research shows just knowing support is available reduces stress hormones
+                    </p>
+                </div>
+            </section>
+            
+            <!-- SLIDE 10: Scripts for Asking -->
+            <section>
+                <div class="magazine-split magazine-split-reverse">
+                    <div class="content-panel">
+                        <h2>Scripts That <span class="gradient-text">Actually Work</span></h2>
+                        <div class="script-card fragment fade-in-up">
+                            <h4>For Practical Help:</h4>
+                            <p class="script-example">
+                                "I'm struggling with laundry. Would you be willing to come fold clothes with me Thursday afternoon while we chat?"
+                            </p>
+                        </div>
+                        <div class="script-card fragment fade-in-up">
+                            <h4>For Emotional Support:</h4>
+                            <p class="script-example">
+                                "I'm having a hard time and could use someone to listen. No advice needed, just a caring ear. Do you have 20 minutes?"
+                            </p>
+                        </div>
+                        <div class="script-card fragment fade-in-up">
+                            <h4>For Information:</h4>
+                            <p class="script-example">
+                                "You mentioned you dealt with sleep issues. Could I ask you a few questions about what worked?"
+                            </p>
+                        </div>
+                    </div>
+                    <div class="image-panel">
+                        <img src="[MIDJOURNEY: Mother on phone making a support call, looking relieved and hopeful. Style: Photorealistic, vulnerable but empowered]" alt="Mother reaching out for support">
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 11: Keys to Effective Asking -->
+            <section>
+                <div class="hero-image-slide">
+                    <img src="[MIDJOURNEY: Friend arriving to help mother, both smiling, genuine connection. Style: Photorealistic, warm welcome, mutual benefit visible]" alt="Friend arriving to provide support">
+                    <div class="floating-card floating-card-bottom text-protection-light">
+                        <h2 style="text-align: center; margin-bottom: 2rem;">Keys to <span class="gradient-text">Effective Asking</span></h2>
+                        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; max-width: 1000px; margin: 0 auto;">
+                            <div class="fragment fade-in-up" style="text-align: center;">
+                                <div style="font-size: 3rem; margin-bottom: 1rem;">🎯</div>
+                                <h3>Be Specific</h3>
+                                <p>Not "I need help" but "Hold baby for 30 minutes"</p>
+                            </div>
+                            <div class="fragment fade-in-up" style="text-align: center;">
+                                <div style="font-size: 3rem; margin-bottom: 1rem;">📅</div>
+                                <h3>Give Options</h3>
+                                <p>"Tuesday or Thursday?" makes it easier</p>
+                            </div>
+                            <div class="fragment fade-in-up" style="text-align: center;">
+                                <div style="font-size: 3rem; margin-bottom: 1rem;">✅</div>
+                                <h3>Make It Easy</h3>
+                                <p>Lower barriers to saying yes</p>
+                            </div>
+                            <div class="fragment fade-in-up" style="text-align: center;">
+                                <div style="font-size: 3rem; margin-bottom: 1rem;">🙏</div>
+                                <h3>Express Gratitude</h3>
+                                <p>Not apology—appreciation</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 12: This Week's Assignment -->
+            <section>
+                <div class="magazine-split">
+                    <div class="content-panel content-panel-gradient">
+                        <h2>Your Assignment<br/><span class="gradient-text">This Week</span></h2>
+                        <div style="margin: 2rem 0;">
+                            <div style="background: white; padding: 2rem; border-radius: 15px; box-shadow: var(--shadow-large); margin-bottom: 2rem;">
+                                <h3 style="color: var(--bloom-sage); margin-bottom: 1rem;">Step 1: Complete Your Support Map</h3>
+                                <p>Draw yourself in center, add circles of support around you</p>
+                            </div>
+                            <div style="background: white; padding: 2rem; border-radius: 15px; box-shadow: var(--shadow-large);">
+                                <h3 style="color: var(--bloom-coral); margin-bottom: 1rem;">Step 2: Make ONE Ask</h3>
+                                <p>Start small. Maybe ask someone to bring coffee. Maybe accept an offer you previously declined.</p>
+                            </div>
+                        </div>
+                        <p class="fragment fade-in" style="font-size: 1.5rem; margin-top: 2rem; font-style: italic;">
+                            Remember: Building your village is one of the most important things you can do for your family.
+                        </p>
+                    </div>
+                    <div class="image-panel">
+                        <img src="[MIDJOURNEY: Mother with completed support map/journal, looking empowered and ready. Style: Photorealistic, determined expression, hopeful energy]" alt="Mother ready to build her support system">
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 13: Closing -->
+            <section>
+                <div class="hero-image-slide">
+                    <img src="[MIDJOURNEY: Beautiful village scene - diverse group of women supporting mother and baby, warm community feeling. Style: Photorealistic, golden hour light, joy and connection visible]" alt="Mother embraced by her village">
+                    <div class="hero-scrim"></div>
+                    <div class="text-protection" style="text-align: center;">
+                        <h1 class="fragment fade-in-up" style="color: white;">You're Not Meant to<br/>Do This Alone</h1>
+                        <p class="fragment fade-in-up" style="font-size: 2rem; margin-top: 2rem; color: rgba(255,255,255,0.95);">
+                            Your baby needs a village, and so do you.
+                        </p>
+                        <p class="fragment fade-in-up" style="font-size: 1.8rem; margin-top: 3rem; color: rgba(255,255,255,0.85);">
+                            Be brave enough to need others.<br/>
+                            <em>Your vulnerability is your strength.</em>
+                        </p>
+                        <div style="margin-top: 4rem; font-size: 1.3rem; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.1em;">
+                            Bloom Psychology
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/notes/notes.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/markdown/markdown.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/highlight/highlight.js"></script>
+    
+    <script>
+        Reveal.initialize({
+            hash: true,
+            controls: true,
+            progress: true,
+            center: false,
+            transition: 'fade',
+            transitionSpeed: 'slow',
+            backgroundTransition: 'fade',
+            
+            // View options
+            width: 1920,
+            height: 1080,
+            margin: 0,
+            minScale: 0.2,
+            maxScale: 2.0,
+            
+            // UI options
+            controlsTutorial: false,
+            controlsLayout: 'bottom-right',
+            controlsBackArrows: 'faded',
+            slideNumber: 'c/t',
+            showSlideNumber: 'all',
+            
+            // Features
+            history: true,
+            keyboard: true,
+            overview: true,
+            loop: false,
+            touch: true,
+            
+            // PDF export
+            pdfMaxPagesPerSlide: 1,
+            pdfSeparateFragments: false,
+            
+            plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+        });
+    </script>
+</body>
+</html>

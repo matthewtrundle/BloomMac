@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Button from '@/components/ui/Button';
 import CourseWaitlist from '@/components/ui/CourseWaitlist';
 import CoursePurchaseButton from '@/components/ui/CoursePurchaseButton';
+import { PartyPopper } from 'lucide-react';
 
 // Course purchases are currently disabled - coming soon
 const COURSES_ENABLED = false;
@@ -119,8 +120,9 @@ export default function CoursesPage() {
       {/* Coming Soon Banner */}
       {!COURSES_ENABLED && (
         <div className="bg-bloompink text-white py-3 text-center">
-          <p className="text-sm font-medium">
-            🎉 Courses launching {LAUNCH_DATE}! Join the waitlist for early access and special pricing.
+          <p className="text-sm font-medium flex items-center justify-center gap-2">
+            <PartyPopper className="w-4 h-4" />
+            Courses launching {LAUNCH_DATE}! Join the waitlist for early access and special pricing.
           </p>
         </div>
       )}

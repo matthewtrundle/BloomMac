@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>Creating Your Village in Modern Times | Bloom Psychology</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reset.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+    <link rel="stylesheet" href="../../../public/presentations/week1/assets/css/bloom-professional.css">
+    
+    <style>
+        /* Lesson-specific enhancements */
+        :root {
+            --bloom-village-orange: #FFA500;
+            --bloom-connection-teal: #20B2AA;
+            --bloom-support-purple: #9370DB;
+            --bloom-modern-pink: #FFB6C1;
+        }
+        
+        /* Village visualization */
+        .village-map {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 3rem 0;
+            position: relative;
+        }
+        
+        .village-member {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            position: relative;
+        }
+        
+        .village-member::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: var(--bloom-village-orange);
+            opacity: 0.2;
+            z-index: -1;
+            animation: pulse 3s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.2; }
+            50% { transform: scale(1.1); opacity: 0.1; }
+            100% { transform: scale(1); opacity: 0.2; }
+        }
+        
+        /* Connection lines */
+        .connection-line {
+            position: absolute;
+            height: 2px;
+            background: var(--bloom-connection-teal);
+            opacity: 0.3;
+            transform-origin: left center;
+        }
+        
+        /* Crisis cards */
+        .crisis-card {
+            background: linear-gradient(135deg, rgba(255, 165, 0, 0.1) 0%, rgba(255, 165, 0, 0.05) 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 2px solid var(--bloom-village-orange);
+            margin: 1rem;
+            text-align: center;
+        }
+        
+        .crisis-card h3 {
+            color: var(--bloom-village-orange);
+            margin-bottom: 1rem;
+        }
+        
+        /* Friend-dating cards */
+        .friend-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            margin: 1rem 0;
+            border-left: 5px solid var(--bloom-connection-teal);
+        }
+        
+        .red-flag {
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.1) 0%, rgba(255, 107, 107, 0.05) 100%);
+            border-color: var(--bloom-coral);
+        }
+        
+        .green-flag {
+            background: linear-gradient(135deg, rgba(139, 154, 130, 0.1) 0%, rgba(139, 154, 130, 0.05) 100%);
+            border-color: var(--bloom-sage);
+        }
+        
+        /* Support type badges */
+        .support-badge {
+            display: inline-block;
+            background: var(--bloom-support-purple);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            margin: 0.5rem;
+            box-shadow: 0 5px 20px rgba(147, 112, 219, 0.3);
+        }
+        
+        /* Village builder checklist */
+        .builder-checklist {
+            background: var(--bloom-cream);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+        }
+        
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: white;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+        
+        .checklist-item:hover {
+            transform: translateX(10px);
+        }
+        
+        .checklist-icon {
+            font-size: 2rem;
+            margin-right: 1rem;
+        }
+        
+        /* Online community cards */
+        .community-card {
+            background: linear-gradient(135deg, var(--bloom-cream) 0%, white 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .community-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        /* Reciprocity wheel */
+        .reciprocity-wheel {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .reciprocity-item {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            border-top: 5px solid var(--bloom-modern-pink);
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- SLIDE 1: Hero Opening -->
+            <section data-background-color="#1a1a1a">
+                <div class="hero-image-slide">
+                    <img src="[MIDJOURNEY: Diverse group of mothers with babies in modern urban park, connecting and supporting each other. Style: Photorealistic, warm community feeling, modern diverse representation]" alt="Modern village of mothers supporting each other">
+                    <div class="hero-scrim"></div>
+                    <div class="text-protection">
+                        <h1 class="fragment fade-in-up">Creating Your Village<br/><span class="gradient-text">in Modern Times</span></h1>
+                        <p class="fragment fade-in-up" style="font-size: 2rem; margin-top: 2rem; color: rgba(255,255,255,0.95);">
+                            Building Connection in an Isolated World
+                        </p>
+                        <p class="fragment fade-in-up" style="font-size: 1.3rem; margin-top: 3rem; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.1em;">
+                            Bloom Psychology • Week 3 • Lesson 4
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 2: The Modern Village Crisis -->
+            <section>
+                <div class="magazine-split">
+                    <div class="content-panel content-panel-gradient">
+                        <h1 class="fragment fade-in-up">The Village<br/><span class="gradient-text">That Vanished</span></h1>
+                        <p class="fragment fade-in-up" style="margin-top: 2rem; font-size: 1.8rem;">
+                            Previous generations had built-in support systems.
+                        </p>
+                        <p class="fragment fade-in-up" style="font-size: 1.6rem; margin-top: 2rem; color: var(--bloom-coral);">
+                            Today's reality:
+                        </p>
+                        <ul class="feature-list">
+                            <li class="fragment fade-in-up">Family lives states away</li>
+                            <li class="fragment fade-in-up">Friends scattered across cities</li>
+                            <li class="fragment fade-in-up">Neighbors are strangers</li>
+                            <li class="fragment fade-in-up">3-5 friendships lost postpartum</li>
+                        </ul>
+                        <p class="fragment fade-in-up" style="font-size: 1.5rem; margin-top: 2rem; font-style: italic; color: var(--bloom-sage);">
+                            But you can build something new—and powerful.
+                        </p>
+                    </div>
+                    <div class="image-panel">
+                        <img src="[MIDJOURNEY: Split image - top shows vintage photo of multi-generational family together, bottom shows isolated modern mother with phone. Style: Contrast between past community and modern isolation]" alt="The evolution from village to isolation">
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 3: Why We Need Villages -->
+            <section data-background-color="#ffffff">
+                <div class="container">
+                    <h2 style="text-align: center; margin-bottom: 3rem;">The Science of <span class="gradient-text">Connection</span></h2>
+                    <div class="image-grid" style="grid-template-columns: repeat(3, 1fr);">
+                        <div class="stat-image-card fragment fade-in-up">
+                            <img src="[MIDJOURNEY: Mother looking exhausted and isolated at home alone. Style: Photorealistic, emotional isolation visible]" alt="Isolation impact">
+                            <div class="stat-overlay" style="background: linear-gradient(135deg, rgba(255, 165, 0, 0.85) 0%, rgba(255, 203, 117, 0.95) 100%);">
+                                <h3>Isolation = Health Risk</h3>
+                                <p>Loneliness impacts health like smoking 15 cigarettes daily</p>
+                            </div>
+                        </div>
+                        <div class="stat-image-card fragment fade-in-up">
+                            <img src="[MIDJOURNEY: Mother laughing with friends, visible stress relief. Style: Photorealistic, joy and connection visible]" alt="Connection benefits">
+                            <div class="stat-overlay" style="background: linear-gradient(135deg, rgba(32, 178, 170, 0.85) 0%, rgba(72, 209, 204, 0.95) 100%);">
+                                <h3>Connection = Medicine</h3>
+                                <p>Social support reduces postpartum depression by 50%</p>
+                            </div>
+                        </div>
+                        <div class="stat-image-card fragment fade-in-up">
+                            <img src="[MIDJOURNEY: Diverse group of moms supporting each other. Style: Photorealistic, mutual support visible]" alt="Village benefits">
+                            <div class="stat-overlay" style="background: linear-gradient(135deg, rgba(147, 112, 219, 0.85) 0%, rgba(179, 157, 219, 0.95) 100%);">
+                                <h3>Villages = Resilience</h3>
+                                <p>Supported mothers report 3x higher wellbeing</p>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="fragment fade-in" style="text-align: center; font-size: 1.8rem; margin-top: 3rem; color: var(--bloom-sage); font-weight: 600;">
+                        Face-to-face connection is as essential as nutrition or exercise
+                    </p>
+                </div>
+            </section>
+            
+            <!-- SLIDE 4: Where to Find Your People -->
+            <section>
+                <div class="hero-image-slide">
+                    <img src="[MIDJOURNEY: Map view/aerial of neighborhood with highlighted spots - library, park, coffee shop, community center. Style: Illustrated map aesthetic, warm and inviting]" alt="Map of where to find your village">
+                    <div class="floating-card floating-card-bottom floating-card-dark">
+                        <h2 style="text-align: center; margin-bottom: 3rem; color: white;">Your People Are <span class="gradient-text">Everywhere</span></h2>
+                        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem;">
+                            <div class="fragment fade-in-up" style="text-align: center;">
+                                <div style="font-size: 3rem; margin-bottom: 1rem;">📚</div>
+                                <h4 style="color: var(--bloom-village-orange);">Library Story Time</h4>
+                                <p style="color: rgba(255,255,255,0.9);">Go for babies, stay for moms</p>
+                            </div>
+                            <div class="fragment fade-in-up" style="text-align: center;">
+                                <div style="font-size: 3rem; margin-bottom: 1rem;">🌳</div>
+                                <h4 style="color: var(--bloom-connection-teal);">Parks at Same Time</h4>
+                                <p style="color: rgba(255,255,255,0.9);">Consistency builds connection</p>
+                            </div>
+                            <div class="fragment fade-in-up" style="text-align: center;">
+                                <div style="font-size: 3rem; margin-bottom: 1rem;">☕</div>
+                                <h4 style="color: var(--bloom-support-purple);">Coffee Shops</h4>
+                                <p style="color: rgba(255,255,255,0.9);">With play areas = gold</p>
+                            </div>
+                            <div class="fragment fade-in-up" style="text-align: center;">
+                                <div style="font-size: 3rem; margin-bottom: 1rem;">👶</div>
+                                <h4 style="color: var(--bloom-modern-pink);">Baby Classes</h4>
+                                <p style="color: rgba(255,255,255,0.9);">Yoga, music, swimming</p>
+                            </div>
+                        </div>
+                        <p class="fragment fade-in" style="text-align: center; font-size: 1.5rem; margin-top: 2rem; color: rgba(255,255,255,0.9); font-style: italic;">
+                            The key isn't finding perfect people—it's finding real people
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 5: The Art of Mom Friend Dating -->
+            <section data-background-color="#faf8f5">
+                <div class="container">
+                    <h2 style="text-align: center; margin-bottom: 3rem;">Mom Friend <span class="gradient-text">Dating 101</span></h2>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;">
+                        <div>
+                            <h3 style="color: var(--bloom-sage); margin-bottom: 2rem;">🟢 Green Flags</h3>
+                            <div class="friend-card green-flag fragment fade-in-up">
+                                <p>Laughs about the chaos</p>
+                            </div>
+                            <div class="friend-card green-flag fragment fade-in-up">
+                                <p>Shares struggles honestly</p>
+                            </div>
+                            <div class="friend-card green-flag fragment fade-in-up">
+                                <p>Celebrates small wins</p>
+                            </div>
+                            <div class="friend-card green-flag fragment fade-in-up">
+                                <p>Actually follows through</p>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 style="color: var(--bloom-coral); margin-bottom: 2rem;">🔴 Red Flags</h3>
+                            <div class="friend-card red-flag fragment fade-in-up">
+                                <p>Makes you feel inadequate</p>
+                            </div>
+                            <div class="friend-card red-flag fragment fade-in-up">
+                                <p>Only takes, never gives</p>
+                            </div>
+                            <div class="friend-card red-flag fragment fade-in-up">
+                                <p>Judges your choices</p>
+                            </div>
+                            <div class="friend-card red-flag fragment fade-in-up">
+                                <p>Thrives on drama</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="background: white; padding: 2rem; border-radius: 15px; margin-top: 3rem; box-shadow: var(--shadow-large);" class="fragment fade-in-up">
+                        <p style="text-align: center; font-size: 1.6rem; font-style: italic;">
+                            "Hi, I'm [name]. How old is your baby? Would you want to grab coffee after class next week?"
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 6: Creating Your Own Village -->
+            <section>
+                <div class="magazine-split magazine-split-reverse">
+                    <div class="content-panel">
+                        <h2>Be the Village<br/><span class="gradient-text">Starter</span></h2>
+                        <p style="font-size: 1.6rem; margin: 2rem 0;">Can't find your village? Create it:</p>
+                        <div class="builder-checklist">
+                            <div class="checklist-item fragment fade-in-up">
+                                <div class="checklist-icon">🌳</div>
+                                <div>
+                                    <h4>Weekly Park Meetup</h4>
+                                    <p>Same time, same place, low pressure</p>
+                                </div>
+                            </div>
+                            <div class="checklist-item fragment fade-in-up">
+                                <div class="checklist-icon">🏠</div>
+                                <div>
+                                    <h4>"Messy House Club"</h4>
+                                    <p>Come as you are, no judgment zone</p>
+                                </div>
+                            </div>
+                            <div class="checklist-item fragment fade-in-up">
+                                <div class="checklist-icon">🍲</div>
+                                <div>
+                                    <h4>Rotating Meal Train</h4>
+                                    <p>Cook double, share half</p>
+                                </div>
+                            </div>
+                            <div class="checklist-item fragment fade-in-up">
+                                <div class="checklist-icon">👶</div>
+                                <div>
+                                    <h4>Babysitting Co-op</h4>
+                                    <p>Trade hours, bank time</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="image-panel">
+                        <img src="[MIDJOURNEY: Mother posting a 'Mom Meetup' sign at park, other moms approaching with interest. Style: Photorealistic, community building in action]" alt="Creating your own village">
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 7: Digital Villages -->
+            <section data-background-color="#ffffff">
+                <div class="container">
+                    <h2 style="text-align: center; margin-bottom: 3rem;">When Your Village is <span class="gradient-text">Virtual</span></h2>
+                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem;">
+                        <div class="community-card fragment fade-in-up">
+                            <div style="font-size: 3rem; margin-bottom: 1rem;">💻</div>
+                            <h4 style="color: var(--bloom-support-purple);">Quality Communities</h4>
+                            <p>PSI forums, specific challenge groups</p>
+                        </div>
+                        <div class="community-card fragment fade-in-up">
+                            <div style="font-size: 3rem; margin-bottom: 1rem;">📱</div>
+                            <h4 style="color: var(--bloom-village-orange);">Apps That Connect</h4>
+                            <p>Peanut, local Facebook groups</p>
+                        </div>
+                        <div class="community-card fragment fade-in-up">
+                            <div style="font-size: 3rem; margin-bottom: 1rem;">🌙</div>
+                            <h4 style="color: var(--bloom-connection-teal);">3 AM Support</h4>
+                            <p>Time zone based groups</p>
+                        </div>
+                        <div class="community-card fragment fade-in-up">
+                            <div style="font-size: 3rem; margin-bottom: 1rem;">🎥</div>
+                            <h4 style="color: var(--bloom-modern-pink);">Video > Text</h4>
+                            <p>Face-to-face matters, even virtually</p>
+                        </div>
+                    </div>
+                    <div style="background: var(--bloom-cream); padding: 3rem; border-radius: 15px; margin-top: 3rem;" class="fragment fade-in-up">
+                        <h3 style="color: var(--bloom-sage); text-align: center; margin-bottom: 2rem;">Online Boundaries</h3>
+                        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; text-align: center;">
+                            <p>✓ Mute comparison triggers</p>
+                            <p>✓ Fact-check advice</p>
+                            <p>✓ Limit scroll time</p>
+                            <p>✓ Choose uplifting spaces</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 8: Professional Support -->
+            <section>
+                <div class="hero-image-slide">
+                    <img src="[MIDJOURNEY: Postpartum doula supporting mother, lactation consultant helping, therapist listening - collage showing professional support. Style: Photorealistic, warm professional care]" alt="Professional support as village members">
+                    <div class="floating-card floating-card-bottom text-protection-light">
+                        <h2 style="text-align: center; margin-bottom: 2rem;">Professional Support<br/>= <span class="gradient-text">Modern Village Wisdom</span></h2>
+                        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-bottom: 2rem;">
+                            <div class="support-badge fragment fade-in-up">Postpartum Doulas</div>
+                            <div class="support-badge fragment fade-in-up">Lactation Consultants</div>
+                            <div class="support-badge fragment fade-in-up">Perinatal Therapists</div>
+                            <div class="support-badge fragment fade-in-up">Parent Coaches</div>
+                            <div class="support-badge fragment fade-in-up">Cleaning Services</div>
+                            <div class="support-badge fragment fade-in-up">Meal Delivery</div>
+                        </div>
+                        <p style="text-align: center; font-size: 1.8rem; margin-top: 2rem; color: var(--bloom-sage); font-weight: 600;">
+                            "Investing in support isn't luxury—it's healthcare"
+                        </p>
+                        <p style="text-align: center; font-size: 1.5rem; margin-top: 1rem; font-style: italic;">
+                            Budget for support like you would any medical need
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 9: Creating Reciprocal Systems -->
+            <section data-background-color="#faf8f5">
+                <div class="container">
+                    <h2 style="text-align: center; margin-bottom: 3rem;">Villages Run on <span class="gradient-text">Reciprocity</span></h2>
+                    <div class="reciprocity-wheel">
+                        <div class="reciprocity-item fragment fade-in-up">
+                            <h3 style="color: var(--bloom-modern-pink);">Meal Train Evolution</h3>
+                            <p>Rotating dinner clubs where families cook double batches</p>
+                        </div>
+                        <div class="reciprocity-item fragment fade-in-up">
+                            <h3 style="color: var(--bloom-village-orange);">Babysitting Co-ops</h3>
+                            <p>Trade hours using point system during nap times</p>
+                        </div>
+                        <div class="reciprocity-item fragment fade-in-up">
+                            <h3 style="color: var(--bloom-connection-teal);">Skill Swapping</h3>
+                            <p>Can't cook? Organize. Trade skills based on capacity</p>
+                        </div>
+                        <div class="reciprocity-item fragment fade-in-up">
+                            <h3 style="color: var(--bloom-support-purple);">Crisis Response Teams</h3>
+                            <p>Group text for emergencies: "Who can grab diapers?"</p>
+                        </div>
+                    </div>
+                    <p class="fragment fade-in" style="text-align: center; font-size: 1.8rem; margin-top: 3rem; color: var(--bloom-sage); font-style: italic;">
+                        Even in your depleted state, you have something to offer—<br/>even if it's just solidarity and understanding
+                    </p>
+                </div>
+            </section>
+            
+            <!-- SLIDE 10: Your Village Map -->
+            <section>
+                <div class="magazine-split">
+                    <div class="content-panel content-panel-gradient">
+                        <h2>Map Your <span class="gradient-text">Village</span></h2>
+                        <p style="font-size: 1.6rem; margin: 2rem 0;">Different people meet different needs:</p>
+                        <div class="village-map" style="max-width: 500px; margin: 2rem auto;">
+                            <div class="village-member fragment fade-in-up">
+                                <div style="font-size: 2rem;">💝</div>
+                                <p><strong>The Validator</strong><br/>Gets your struggles</p>
+                            </div>
+                            <div class="village-member fragment fade-in-up">
+                                <div style="font-size: 2rem;">🛠️</div>
+                                <p><strong>The Helper</strong><br/>Shows up with food</p>
+                            </div>
+                            <div class="village-member fragment fade-in-up">
+                                <div style="font-size: 2rem;">😂</div>
+                                <p><strong>The Lightener</strong><br/>Makes you laugh</p>
+                            </div>
+                            <div class="village-member fragment fade-in-up">
+                                <div style="font-size: 2rem;">🧠</div>
+                                <p><strong>The Wise One</strong><br/>Shares experience</p>
+                            </div>
+                            <div class="village-member fragment fade-in-up">
+                                <div style="font-size: 2rem;">🌟</div>
+                                <p><strong>The Cheerleader</strong><br/>Celebrates wins</p>
+                            </div>
+                            <div class="village-member fragment fade-in-up">
+                                <div style="font-size: 2rem;">🤝</div>
+                                <p><strong>The Partner</strong><br/>In it together</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="image-panel">
+                        <img src="[MIDJOURNEY: Visual representation of support network - woman at center with different types of support radiating out. Style: Illustrated, warm, connected web of support]" alt="Your village ecosystem">
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 11: Maintaining Your Village -->
+            <section>
+                <div class="hero-image-slide">
+                    <img src="[MIDJOURNEY: Regular mom group gathering in park - some with babies, laughing, supporting, routine visible. Style: Photorealistic, ongoing connection and ritual]" alt="Maintaining village connections">
+                    <div class="floating-card floating-card-bottom floating-card-dark">
+                        <h2 style="text-align: center; margin-bottom: 2rem; color: white;">Keeping Your Village <span class="gradient-text">Alive</span></h2>
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; max-width: 900px; margin: 0 auto;">
+                            <div class="fragment fade-in-up" style="text-align: center;">
+                                <div style="font-size: 3rem; margin-bottom: 1rem;">🗓️</div>
+                                <h4 style="color: var(--bloom-village-orange);">Regular Rituals</h4>
+                                <p style="color: rgba(255,255,255,0.9);">Weekly walks, monthly potlucks</p>
+                            </div>
+                            <div class="fragment fade-in-up" style="text-align: center;">
+                                <div style="font-size: 3rem; margin-bottom: 1rem;">🌈</div>
+                                <h4 style="color: var(--bloom-connection-teal);">Low Pressure</h4>
+                                <p style="color: rgba(255,255,255,0.9);">"Come as you are" is the dress code</p>
+                            </div>
+                            <div class="fragment fade-in-up" style="text-align: center;">
+                                <div style="font-size: 3rem; margin-bottom: 1rem;">🎉</div>
+                                <h4 style="color: var(--bloom-support-purple);">Celebrate Everything</h4>
+                                <p style="color: rgba(255,255,255,0.9);">First laughs to surviving Monday</p>
+                            </div>
+                        </div>
+                        <p class="fragment fade-in" style="text-align: center; font-size: 1.6rem; margin-top: 3rem; color: rgba(255,255,255,0.9); font-style: italic;">
+                            "Today was hard but knowing you exist made it easier"<br/>
+                            <span style="font-size: 1.3rem;">—Text this to strengthen village bonds</span>
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 12: Your First Step -->
+            <section data-background-gradient="linear-gradient(135deg, #FFA500 0%, #20B2AA 50%, #9370DB 100%)">
+                <div class="container">
+                    <div style="text-align: center;">
+                        <h2 style="color: white; margin-bottom: 3rem;">This Week's <span style="color: var(--bloom-cream);">Village Challenge</span></h2>
+                        <div style="background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); padding: 3rem; border-radius: 20px; max-width: 800px; margin: 0 auto;">
+                            <p style="font-size: 2.5rem; color: white; margin-bottom: 3rem; font-weight: 600;">
+                                Make ONE Move
+                            </p>
+                            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; text-align: left;">
+                                <div class="fragment fade-in-up" style="background: rgba(255,255,255,0.9); padding: 1.5rem; border-radius: 10px;">
+                                    <p style="font-size: 1.3rem;">📱 Send that text to a potential friend</p>
+                                </div>
+                                <div class="fragment fade-in-up" style="background: rgba(255,255,255,0.9); padding: 1.5rem; border-radius: 10px;">
+                                    <p style="font-size: 1.3rem;">👥 Show up to that mom group</p>
+                                </div>
+                                <div class="fragment fade-in-up" style="background: rgba(255,255,255,0.9); padding: 1.5rem; border-radius: 10px;">
+                                    <p style="font-size: 1.3rem;">💬 Post in that online forum</p>
+                                </div>
+                                <div class="fragment fade-in-up" style="background: rgba(255,255,255,0.9); padding: 1.5rem; border-radius: 10px;">
+                                    <p style="font-size: 1.3rem;">🌟 Start that weekly meetup</p>
+                                </div>
+                            </div>
+                            <p class="fragment fade-in" style="font-size: 1.6rem; color: white; margin-top: 2rem; font-style: italic;">
+                                Start small. Be patient. Stay open.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 13: Closing -->
+            <section>
+                <div class="hero-image-slide">
+                    <img src="[MIDJOURNEY: Wide shot of diverse modern village - moms of different backgrounds supporting each other in urban park, babies playing, genuine connection and joy. Style: Photorealistic, golden hour, hope and community]" alt="Your village awaits">
+                    <div class="hero-scrim"></div>
+                    <div class="text-protection" style="text-align: center;">
+                        <h1 class="fragment fade-in-up" style="color: white;">Your People Are Out There</h1>
+                        <p class="fragment fade-in-up" style="font-size: 2rem; margin-top: 2rem; color: rgba(255,255,255,0.95);">
+                            Also looking for you
+                        </p>
+                        <p class="fragment fade-in-up" style="font-size: 1.8rem; margin-top: 3rem; color: rgba(255,255,255,0.85);">
+                            You don't need a perfect village.<br/>
+                            You need a real one.
+                        </p>
+                        <p class="fragment fade-in-up" style="font-size: 1.6rem; margin-top: 3rem; color: rgba(255,255,255,0.8); font-style: italic;">
+                            They need you as much as you need them.<br/>
+                            <strong>Go find each other.</strong>
+                        </p>
+                        <div style="margin-top: 4rem; font-size: 1.3rem; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.1em;">
+                            Bloom Psychology
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/notes/notes.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/markdown/markdown.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/highlight/highlight.js"></script>
+    
+    <script>
+        Reveal.initialize({
+            hash: true,
+            controls: true,
+            progress: true,
+            center: false,
+            transition: 'fade',
+            transitionSpeed: 'slow',
+            backgroundTransition: 'fade',
+            
+            // View options
+            width: 1920,
+            height: 1080,
+            margin: 0,
+            minScale: 0.2,
+            maxScale: 2.0,
+            
+            // UI options
+            controlsTutorial: false,
+            controlsLayout: 'bottom-right',
+            controlsBackArrows: 'faded',
+            slideNumber: 'c/t',
+            showSlideNumber: 'all',
+            
+            // Features
+            history: true,
+            keyboard: true,
+            overview: true,
+            loop: false,
+            touch: true,
+            
+            // PDF export
+            pdfMaxPagesPerSlide: 1,
+            pdfSeparateFragments: false,
+            
+            plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+        });
+    </script>
+</body>
+</html>

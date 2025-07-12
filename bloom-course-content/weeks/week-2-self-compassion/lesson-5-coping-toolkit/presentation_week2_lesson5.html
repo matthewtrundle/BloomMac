@@ -1,0 +1,1361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>Creating Your Personalized Coping Toolkit | Bloom Psychology</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reset.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+    
+    <style>
+        /* Import Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        /* Full Design System Variables */
+        :root {
+            /* Sophisticated color palette */
+            --bloom-charcoal: #1a1a1a;
+            --bloom-warm-gray: #4a4a4a;
+            --bloom-light-gray: #f7f7f7;
+            --bloom-sage: #8B9A82;
+            --bloom-sage-muted: #a3b199;
+            --bloom-coral: #FF6B6B;
+            --bloom-golden: #FFCB77;
+            --bloom-lavender: #C589E8;
+            --bloom-mint: #95E1D3;
+            --bloom-rose: #FFA8C5;
+            --bloom-blush: #e8d5d5;
+            --bloom-cream: #faf8f5;
+            --bloom-white: #ffffff;
+            
+            /* Toolkit-specific colors */
+            --bloom-toolkit-blue: #A8DADC;
+            --bloom-emergency-red: #E63946;
+            --bloom-practice-green: #52B788;
+            --bloom-custom-purple: #B5838D;
+            
+            /* Typography scale */
+            --font-display: 'Cormorant Garamond', serif;
+            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            
+            /* Responsive Typography */
+            --text-display: clamp(3.5rem, 7vw, 6rem);
+            --text-heading: clamp(2.5rem, 5vw, 4rem);
+            --text-subheading: clamp(1.8rem, 3vw, 2.5rem);
+            --text-body: clamp(1rem, 2vw, 1.3rem);
+            --text-small: clamp(0.9rem, 1.5vw, 1.1rem);
+            
+            /* Spacing */
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 2rem;
+            --space-lg: 4rem;
+            --space-xl: 6rem;
+            --space-2xl: 8rem;
+            
+            /* Shadows */
+            --shadow-subtle: 0 2px 8px rgba(0,0,0,0.08);
+            --shadow-medium: 0 8px 24px rgba(0,0,0,0.12);
+            --shadow-large: 0 20px 60px rgba(0,0,0,0.16);
+            --shadow-glass: 0 8px 32px rgba(0,0,0,0.12);
+        }
+        
+        /* Reset and base styles */
+        .reveal-viewport {
+            background: var(--bloom-white);
+        }
+        
+        .reveal {
+            font-family: var(--font-body);
+            font-size: 20px;
+            font-weight: 400;
+            color: var(--bloom-charcoal);
+            line-height: 1.6;
+            letter-spacing: -0.02em;
+        }
+        
+        .reveal .slides {
+            text-align: left;
+        }
+        
+        .reveal .slides section {
+            padding: 0;
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        /* Typography */
+        .reveal h1 {
+            font-family: var(--font-display);
+            font-size: var(--text-display);
+            font-weight: 300;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            color: var(--bloom-charcoal);
+            margin-bottom: var(--space-md);
+        }
+        
+        .reveal h2 {
+            font-family: var(--font-display);
+            font-size: var(--text-heading);
+            font-weight: 400;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            color: var(--bloom-charcoal);
+            margin-bottom: var(--space-md);
+        }
+        
+        .reveal h3 {
+            font-family: var(--font-body);
+            font-size: var(--text-subheading);
+            font-weight: 500;
+            line-height: 1.3;
+            color: var(--bloom-warm-gray);
+            margin-bottom: var(--space-sm);
+        }
+        
+        .reveal h4 {
+            font-family: var(--font-body);
+            font-size: var(--text-body);
+            font-weight: 600;
+            line-height: 1.4;
+            color: var(--bloom-charcoal);
+            margin-bottom: var(--space-sm);
+        }
+        
+        .reveal p {
+            font-size: var(--text-body);
+            line-height: 1.8;
+            color: var(--bloom-warm-gray);
+            margin-bottom: var(--space-md);
+            max-width: 36em;
+        }
+        
+        .reveal em {
+            font-style: italic;
+            color: var(--bloom-sage);
+        }
+        
+        .reveal strong {
+            font-weight: 600;
+            color: var(--bloom-charcoal);
+        }
+        
+        .reveal ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .reveal li {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: var(--space-sm);
+            font-size: var(--text-body);
+        }
+        
+        .reveal li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.8rem;
+            width: 8px;
+            height: 2px;
+            background: var(--bloom-sage);
+        }
+        
+        /* Gradient Text Effects */
+        .gradient-text {
+            background: linear-gradient(135deg, var(--bloom-coral) 0%, var(--bloom-rose) 50%, var(--bloom-golden) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: inline-block;
+        }
+        
+        /* Layout Components */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: var(--space-xl) var(--space-lg);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        /* Hero Image Slides */
+        .hero-image-slide {
+            position: relative;
+            height: 100vh;
+            width: 100%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .hero-image-slide img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+        
+        .hero-scrim {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(26,26,26,0.7) 0%, rgba(26,26,26,0.4) 100%);
+            z-index: 2;
+        }
+        
+        .text-protection {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            color: white;
+            max-width: 800px;
+            padding: var(--space-lg);
+        }
+        
+        .text-protection h1 {
+            color: white;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+        
+        .text-protection p {
+            color: rgba(255,255,255,0.9);
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        .text-protection-light {
+            position: relative;
+            z-index: 3;
+            color: var(--bloom-charcoal);
+            padding: var(--space-lg);
+        }
+        
+        /* Magazine Split Layouts */
+        .magazine-split {
+            display: grid;
+            grid-template-columns: 3fr 2fr;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .magazine-split-reverse {
+            grid-template-columns: 2fr 3fr;
+        }
+        
+        .content-panel {
+            padding: var(--space-xl);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: var(--bloom-white);
+        }
+        
+        .content-panel-gradient {
+            background: linear-gradient(135deg, var(--bloom-cream) 0%, var(--bloom-white) 100%);
+        }
+        
+        .image-panel {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .image-panel img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Image with Floating Card */
+        .image-with-card {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .image-with-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Floating Cards with Glass Morphism */
+        .floating-card {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-glass);
+            max-width: 500px;
+            transition: all 0.3s ease;
+        }
+        
+        .floating-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 80px rgba(0,0,0,0.2);
+        }
+        
+        .floating-card-left {
+            top: 50%;
+            left: var(--space-xl);
+            transform: translateY(-50%);
+        }
+        
+        .floating-card-right {
+            top: 50%;
+            right: var(--space-xl);
+            transform: translateY(-50%);
+        }
+        
+        .floating-card-bottom {
+            bottom: var(--space-xl);
+            left: 50%;
+            transform: translateX(-50%);
+            max-width: 900px;
+        }
+        
+        /* Gradient Mesh Backgrounds */
+        .gradient-mesh {
+            background: radial-gradient(circle at 20% 20%, rgba(255, 203, 119, 0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(197, 137, 232, 0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 40%, rgba(149, 225, 211, 0.2) 0%, transparent 50%);
+        }
+        
+        /* Fragment Animations */
+        .reveal .fragment.fade-in-up {
+            transform: translateY(20px);
+            opacity: 0;
+        }
+        
+        .reveal .fragment.fade-in-up.visible {
+            transform: translateY(0);
+            opacity: 1;
+            transition: all 0.6s ease-out;
+        }
+        
+        .reveal .fragment.scale-in {
+            transform: scale(0.8);
+            opacity: 0;
+        }
+        
+        .reveal .fragment.scale-in.visible {
+            transform: scale(1);
+            opacity: 1;
+            transition: all 0.6s ease-out;
+        }
+        
+        /* Toolkit-specific styles */
+        --bloom-toolkit-blue: #A8DADC;
+        --bloom-emergency-red: #E63946;
+        --bloom-practice-green: #52B788;
+        --bloom-custom-purple: #B5838D;
+        
+        /* Toolkit visualization */
+        .toolkit-box {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(139, 154, 130, 0.3);
+            border-radius: 20px;
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-glass);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .toolkit-box:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-large);
+            border-color: var(--bloom-sage);
+        }
+        
+        .toolkit-box::before {
+            content: '🧰';
+            position: absolute;
+            top: -30px;
+            right: -30px;
+            font-size: 120px;
+            opacity: 0.08;
+            transform: rotate(-15deg);
+        }
+        
+        .toolkit-box h3 {
+            font-family: var(--font-display);
+            font-size: var(--text-subheading);
+            color: var(--bloom-sage);
+            margin-bottom: var(--space-md);
+        }
+        
+        .toolkit-box ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .toolkit-box li {
+            padding-left: 0;
+            margin-bottom: var(--space-sm);
+            font-size: var(--text-body);
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+        
+        .toolkit-box li::before {
+            display: none;
+        }
+        
+        /* Daily Five Cards */
+        .daily-five-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: var(--space-md);
+            margin: var(--space-lg) 0;
+        }
+        
+        .daily-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: var(--space-lg);
+            border-radius: 20px;
+            text-align: center;
+            border: 2px solid rgba(139, 154, 130, 0.2);
+            box-shadow: var(--shadow-glass);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .daily-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--bloom-sage) 0%, var(--bloom-mint) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .daily-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--bloom-sage);
+            box-shadow: var(--shadow-large);
+        }
+        
+        .daily-card:hover::before {
+            opacity: 1;
+        }
+        
+        .daily-card-icon {
+            font-size: 3rem;
+            margin-bottom: var(--space-sm);
+            display: block;
+        }
+        
+        .daily-card h4 {
+            font-family: var(--font-display);
+            font-size: var(--text-body);
+            margin-bottom: var(--space-xs);
+            color: var(--bloom-charcoal);
+        }
+        
+        .daily-card p {
+            font-size: var(--text-small);
+            color: var(--bloom-warm-gray);
+            margin: 0;
+        }
+        
+        /* Quick Relief Menu */
+        .relief-menu {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-lg);
+            margin: var(--space-lg) 0;
+        }
+        
+        .relief-card {
+            padding: var(--space-lg);
+            border-radius: 20px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-medium);
+        }
+        
+        .relief-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: var(--shadow-large);
+        }
+        
+        .relief-card h3 {
+            font-family: var(--font-display);
+            font-size: var(--text-subheading);
+            color: white;
+            margin-bottom: var(--space-md);
+        }
+        
+        .relief-card ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .relief-card li {
+            padding-left: 0;
+            margin-bottom: var(--space-sm);
+            color: rgba(255,255,255,0.95);
+            font-size: var(--text-body);
+        }
+        
+        .relief-card li::before {
+            content: '→';
+            margin-right: var(--space-sm);
+            font-weight: 600;
+        }
+        
+        .relief-anxious {
+            background: linear-gradient(135deg, var(--bloom-coral) 0%, rgba(255, 107, 107, 0.9) 100%);
+        }
+        
+        .relief-rage {
+            background: linear-gradient(135deg, var(--bloom-emergency-red) 0%, rgba(230, 57, 70, 0.9) 100%);
+        }
+        
+        .relief-numb {
+            background: linear-gradient(135deg, var(--bloom-toolkit-blue) 0%, rgba(168, 218, 220, 0.9) 100%);
+            color: var(--bloom-charcoal);
+        }
+        
+        .relief-numb h3,
+        .relief-numb li {
+            color: var(--bloom-charcoal);
+        }
+        
+        .relief-overwhelm {
+            background: linear-gradient(135deg, var(--bloom-lavender) 0%, rgba(197, 137, 232, 0.9) 100%);
+        }
+        
+        /* Crisis Card */
+        .crisis-card {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            border: 3px solid var(--bloom-emergency-red);
+            border-radius: 20px;
+            padding: var(--space-lg);
+            box-shadow: 0 20px 60px rgba(230, 57, 70, 0.25);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .crisis-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 80px rgba(230, 57, 70, 0.35);
+        }
+        
+        .crisis-card::before {
+            content: '🆘';
+            position: absolute;
+            top: var(--space-md);
+            right: var(--space-md);
+            font-size: 2.5rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+        
+        .crisis-card h3 {
+            color: var(--bloom-emergency-red);
+            font-family: var(--font-display);
+            font-size: var(--text-subheading);
+            margin-bottom: var(--space-md);
+        }
+        
+        .crisis-card p {
+            font-size: var(--text-body);
+            line-height: 1.8;
+            color: var(--bloom-charcoal);
+        }
+        
+        .crisis-number {
+            display: inline-block;
+            background: var(--bloom-emergency-red);
+            color: white;
+            padding: var(--space-sm) var(--space-md);
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: var(--text-body);
+            margin: var(--space-xs) 0;
+        }
+        
+        /* Practice Tracker */
+        .practice-tracker {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: var(--space-sm);
+            margin: var(--space-lg) 0;
+            padding: var(--space-lg);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: var(--shadow-glass);
+        }
+        
+        .practice-day {
+            aspect-ratio: 1;
+            background: var(--bloom-light-gray);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--text-small);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .practice-day:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-medium);
+        }
+        
+        .practice-day.completed {
+            background: linear-gradient(135deg, var(--bloom-practice-green) 0%, rgba(82, 183, 136, 0.9) 100%);
+            color: white;
+            box-shadow: 0 5px 20px rgba(82, 183, 136, 0.3);
+        }
+        
+        .practice-day.completed::after {
+            content: '✓';
+            font-size: 2rem;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .practice-day span {
+            display: block;
+            font-size: var(--text-small);
+            font-weight: 500;
+            margin-top: var(--space-xs);
+        }
+        
+        .practice-week-label {
+            grid-column: span 7;
+            text-align: center;
+            font-size: var(--text-body);
+            color: var(--bloom-warm-gray);
+            margin-bottom: var(--space-sm);
+            font-weight: 500;
+        }
+        
+        /* Customization options */
+        .custom-option {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: var(--space-md);
+            border-radius: 15px;
+            margin: var(--space-sm) 0;
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            border: 2px solid transparent;
+            box-shadow: var(--shadow-subtle);
+            transition: all 0.3s ease;
+        }
+        
+        .custom-option:hover {
+            border-color: var(--bloom-sage);
+            transform: translateX(10px);
+            box-shadow: var(--shadow-medium);
+        }
+        
+        .custom-icon {
+            font-size: 2.5rem;
+            min-width: 3rem;
+        }
+        
+        .custom-option h4 {
+            margin: 0;
+            font-family: var(--font-display);
+            font-size: var(--text-body);
+            color: var(--bloom-charcoal);
+        }
+        
+        .custom-option p {
+            margin: 0;
+            font-size: var(--text-small);
+            color: var(--bloom-warm-gray);
+        }
+        
+        /* Toolkit Categories */
+        .toolkit-categories {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-lg);
+            margin: var(--space-lg) 0;
+        }
+        
+        .category-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: var(--space-lg);
+            text-align: center;
+            border: 2px solid rgba(139, 154, 130, 0.2);
+            box-shadow: var(--shadow-glass);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .category-card::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--bloom-sage) 0%, var(--bloom-mint) 50%, var(--bloom-golden) 100%);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-large);
+            border-color: var(--bloom-sage);
+        }
+        
+        .category-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .category-icon {
+            font-size: 4rem;
+            margin-bottom: var(--space-md);
+            display: block;
+        }
+        
+        .category-card h3 {
+            font-family: var(--font-display);
+            font-size: var(--text-subheading);
+            color: var(--bloom-charcoal);
+            margin-bottom: var(--space-sm);
+        }
+        
+        .category-card p {
+            font-size: var(--text-body);
+            color: var(--bloom-warm-gray);
+            margin: 0;
+        }
+        
+        /* Personal Plan Template */
+        .personal-plan {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: var(--space-xl);
+            box-shadow: var(--shadow-large);
+            border: 2px solid var(--bloom-sage);
+            margin: var(--space-lg) 0;
+        }
+        
+        .personal-plan h3 {
+            font-family: var(--font-display);
+            font-size: var(--text-heading);
+            color: var(--bloom-sage);
+            text-align: center;
+            margin-bottom: var(--space-lg);
+        }
+        
+        .plan-section {
+            margin: var(--space-lg) 0;
+            padding: var(--space-md);
+            background: rgba(139, 154, 130, 0.05);
+            border-radius: 15px;
+            border: 1px solid rgba(139, 154, 130, 0.2);
+        }
+        
+        .plan-section h4 {
+            font-family: var(--font-display);
+            color: var(--bloom-sage);
+            margin-bottom: var(--space-md);
+        }
+        
+        .plan-input {
+            width: 100%;
+            padding: var(--space-sm);
+            border: 1px solid rgba(139, 154, 130, 0.3);
+            border-radius: 8px;
+            font-family: var(--font-body);
+            font-size: var(--text-body);
+            line-height: 1.6;
+            resize: vertical;
+            min-height: 80px;
+        }
+        
+        .plan-input:focus {
+            outline: none;
+            border-color: var(--bloom-sage);
+            box-shadow: 0 0 0 3px rgba(139, 154, 130, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- SLIDE 1: Hero Opening -->
+            <section data-background-color="#1a1a1a">
+                <div class="hero-image-slide">
+                    <img src="../Week2images/biff01_Overhead_flat_lay_of_personalized_coping_items_arrange_ef9c80f0-231c-4d23-8e3a-86001cdd05fc_1.png" alt="Mother creating her personalized coping toolkit">
+                    <div class="hero-scrim"></div>
+                    <div class="text-protection">
+                        <h1 class="fragment fade-in-up">Creating Your<br/><span class="gradient-text">Personalized Coping Toolkit</span></h1>
+                        <p class="fragment fade-in-up" style="font-size: 2rem; margin-top: 2rem; color: rgba(255,255,255,0.95);">
+                            Practical Strategies That Actually Work for YOUR Life
+                        </p>
+                        <p class="fragment fade-in-up" style="font-size: 1.3rem; margin-top: 3rem; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.1em;">
+                            Bloom Psychology • Week 2 • Lesson 5
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 2: What Is a Coping Toolkit -->
+            <section>
+                <div class="magazine-split">
+                    <div class="content-panel content-panel-gradient">
+                        <h1 class="fragment fade-in-up">Your Mental Health<br/><span class="gradient-text">First Aid Kit</span></h1>
+                        <p class="fragment fade-in-up" style="margin-top: 2rem; font-size: 1.8rem;">
+                            Just as you keep band-aids for cuts and ice packs for bumps, you need ready strategies for the inevitable challenges of motherhood.
+                        </p>
+                        <div class="toolkit-box fragment fade-in-up" style="margin-top: 2rem;">
+                            <h3 style="color: var(--bloom-sage); margin-bottom: 1rem;">Your Toolkit Includes:</h3>
+                            <ul style="list-style: none; padding: 0;">
+                                <li>⚡ Quick techniques for immediate relief</li>
+                                <li>🌱 Daily practices for resilience</li>
+                                <li>🚨 Emergency plans for crisis moments</li>
+                                <li>💚 Resources for ongoing support</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="image-panel">
+                        <img src="../Week2images/biff01_Overhead_flat_lay_of_personalized_coping_items_arrange_ef9c80f0-231c-4d23-8e3a-86001cdd05fc_1.png" alt="Organizing a personal coping toolkit">
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 3: The Daily Five Foundation -->
+            <section data-background-color="#faf8f5" class="gradient-mesh">
+                <div class="container">
+                    <h2 style="text-align: center; margin-bottom: var(--space-lg);">The <span class="gradient-text">Daily Five</span> Foundation</h2>
+                    <p style="text-align: center; font-size: var(--text-body); margin-bottom: var(--space-xl); color: var(--bloom-sage); font-style: italic;">
+                        Pick one from each category - like brushing teeth for mental health
+                    </p>
+                    <div class="daily-five-grid">
+                        <div class="daily-card fragment fade-in-up">
+                            <span class="daily-card-icon">🌅</span>
+                            <h4>Morning Anchor</h4>
+                            <p>2-5 minutes</p>
+                            <ul style="list-style: none; padding: 0; font-size: var(--text-small); margin-top: var(--space-sm);">
+                                <li>• Stretch in bed</li>
+                                <li>• 3 gratitudes</li>
+                                <li>• Mirror affirmation</li>
+                            </ul>
+                        </div>
+                        <div class="daily-card fragment fade-in-up" data-fragment-index="2">
+                            <span class="daily-card-icon">☀️</span>
+                            <h4>Midday Reset</h4>
+                            <p>30 sec - 2 min</p>
+                            <ul style="list-style: none; padding: 0; font-size: var(--text-small); margin-top: var(--space-sm);">
+                                <li>• Quick breath</li>
+                                <li>• Body scan</li>
+                                <li>• Fresh air</li>
+                            </ul>
+                        </div>
+                        <div class="daily-card fragment fade-in-up" data-fragment-index="3">
+                            <span class="daily-card-icon">💃</span>
+                            <h4>Movement</h4>
+                            <p>5-10 minutes</p>
+                            <ul style="list-style: none; padding: 0; font-size: var(--text-small); margin-top: var(--space-sm);">
+                                <li>• Walk with baby</li>
+                                <li>• Kitchen dance</li>
+                                <li>• Gentle yoga</li>
+                            </ul>
+                        </div>
+                        <div class="daily-card fragment fade-in-up" data-fragment-index="4">
+                            <span class="daily-card-icon">💝</span>
+                            <h4>Connection</h4>
+                            <p>Varies</p>
+                            <ul style="list-style: none; padding: 0; font-size: var(--text-small); margin-top: var(--space-sm);">
+                                <li>• Voice message</li>
+                                <li>• Video call</li>
+                                <li>• 20-sec hug</li>
+                            </ul>
+                        </div>
+                        <div class="daily-card fragment fade-in-up" data-fragment-index="5">
+                            <span class="daily-card-icon">🌙</span>
+                            <h4>Evening Wind-Down</h4>
+                            <p>5-10 minutes</p>
+                            <ul style="list-style: none; padding: 0; font-size: var(--text-small); margin-top: var(--space-sm);">
+                                <li>• Journal 3 lines</li>
+                                <li>• Mindful bath</li>
+                                <li>• Muscle relax</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <p class="fragment fade-in" style="text-align: center; font-size: var(--text-body); margin-top: var(--space-lg); color: var(--bloom-warm-gray); font-style: italic;">
+                        Start with just one. Success breeds success.
+                    </p>
+                </div>
+            </section>
+            
+            <!-- SLIDE 4: Quick Relief Menu -->
+            <section>
+                <div class="hero-image-slide">
+                    <img src="../Week2images/biff01_Mother_enjoying_quick_self-care_while_baby_naps_-_face_fd1c8d90-a6ea-4ecf-b2fb-0833b254b54b_1.png" alt="Quick relief techniques in action">
+                    <div class="floating-card floating-card-bottom text-protection-light">
+                        <h2 style="text-align: center; margin-bottom: 2rem;">Your <span class="gradient-text">Quick Relief Menu</span></h2>
+                        <p style="text-align: center; font-size: 1.5rem; margin-bottom: 2rem;">For immediate relief in 30 seconds to 3 minutes</p>
+                        <div class="relief-menu">
+                            <div class="relief-card relief-anxious fragment fade-in-up">
+                                <h3>When Anxious/Panicked</h3>
+                                <ul>
+                                    <li>4-7-8 breathing</li>
+                                    <li>Ice cube on wrist</li>
+                                    <li>Name 5 blue things</li>
+                                    <li>Shake for 30 seconds</li>
+                                </ul>
+                            </div>
+                            <div class="relief-card relief-rage fragment fade-in-up" data-fragment-index="2">
+                                <h3>When Rageful/Frustrated</h3>
+                                <ul>
+                                    <li>Push wall hard (10 sec)</li>
+                                    <li>Scream into pillow</li>
+                                    <li>Rip up paper</li>
+                                    <li>Stomp feet 20 times</li>
+                                </ul>
+                            </div>
+                            <div class="relief-card relief-numb fragment fade-in-up" data-fragment-index="3">
+                                <h3>When Numb/Disconnected</h3>
+                                <ul>
+                                    <li>Smell peppermint oil</li>
+                                    <li>Cold water on face</li>
+                                    <li>10 jumping jacks</li>
+                                    <li>Call for a voice</li>
+                                </ul>
+                            </div>
+                            <div class="relief-card relief-overwhelm fragment fade-in-up" data-fragment-index="4">
+                                <h3>When Overwhelmed/Crying</h3>
+                                <ul>
+                                    <li>Hand on heart</li>
+                                    <li>Wrap in blanket</li>
+                                    <li>Rock yourself</li>
+                                    <li>Let tears flow</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <p class="fragment fade-in" style="text-align: center; font-size: 1.3rem; margin-top: 2rem; color: var(--bloom-warm-gray); font-style: italic;">
+                            Write these on index cards. Put them everywhere.
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 5: Emergency Plan -->
+            <section data-background-color="#ffffff">
+                <div class="container">
+                    <h2 style="text-align: center; margin-bottom: var(--space-lg);">Your <span style="color: var(--bloom-emergency-red);">Emergency Plan</span></h2>
+                    <p style="text-align: center; font-size: var(--text-body); margin-bottom: var(--space-lg); color: var(--bloom-warm-gray); font-style: italic;">
+                        Having this plan isn't pessimistic. It's protective.
+                    </p>
+                    <div class="crisis-card fragment fade-in-up">
+                        <h3>Crisis Card</h3>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-lg);">
+                            <div>
+                                <h4 style="color: var(--bloom-charcoal); font-family: var(--font-display);">Safe Person to Call:</h4>
+                                <p>Name: _________________<br/>
+                                Number: _________________<br/>
+                                Backup: _________________</p>
+                                
+                                <h4 style="margin-top: var(--space-md); color: var(--bloom-charcoal); font-family: var(--font-display);">Professional Support:</h4>
+                                <p>Therapist: _________________<br/>
+                                <span class="crisis-number">Postpartum Line: 1-800-944-4773</span><br/>
+                                <span class="crisis-number">Crisis Line: 988</span><br/>
+                                OB/Midwife: _________________</p>
+                            </div>
+                            <div>
+                                <h4 style="color: var(--bloom-charcoal); font-family: var(--font-display);">Immediate Safety Steps:</h4>
+                                <ol style="padding-left: 1.5rem; line-height: 2;">
+                                    <li>Put baby in safe place (crib)</li>
+                                    <li>Step into another room</li>
+                                    <li>Call someone</li>
+                                    <li>Use cold water/ice</li>
+                                    <li>"This feeling will pass"</li>
+                                </ol>
+                                
+                                <h4 style="margin-top: var(--space-md); color: var(--bloom-charcoal); font-family: var(--font-display);">After-Crisis Care:</h4>
+                                <ul style="list-style: none; padding: 0; line-height: 2;">
+                                    <li>✓ No shame or judgment</li>
+                                    <li>✓ Extra rest</li>
+                                    <li>✓ Gentle nutrition</li>
+                                    <li>✓ Follow-up support</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="fragment fade-in" style="text-align: center; font-size: var(--text-body); margin-top: var(--space-lg); color: var(--bloom-sage); font-weight: 600;">
+                        Screenshot this. Save it. Share it with your partner.
+                    </p>
+                </div>
+            </section>
+            
+            <!-- SLIDE 6: Customizing Your Toolkit -->
+            <section>
+                <div class="magazine-split magazine-split-reverse">
+                    <div class="content-panel">
+                        <h2>Customize for <span class="gradient-text">YOUR Reality</span></h2>
+                        <p style="font-size: 1.6rem; margin: 2rem 0;">Your toolkit works when it fits your actual life, not your ideal life.</p>
+                        
+                        <div class="custom-option fragment fade-in-up">
+                            <div class="custom-icon">⏰</div>
+                            <div>
+                                <h4>No time?</h4>
+                                <p>30-second techniques only</p>
+                            </div>
+                        </div>
+                        <div class="custom-option fragment fade-in-up">
+                            <div class="custom-icon">🏠</div>
+                            <div>
+                                <h4>No space?</h4>
+                                <p>Bathroom strategies work</p>
+                            </div>
+                        </div>
+                        <div class="custom-option fragment fade-in-up">
+                            <div class="custom-icon">👥</div>
+                            <div>
+                                <h4>No support?</h4>
+                                <p>Online resources count</p>
+                            </div>
+                        </div>
+                        <div class="custom-option fragment fade-in-up">
+                            <div class="custom-icon">🔋</div>
+                            <div>
+                                <h4>No energy?</h4>
+                                <p>Lowest-effort options</p>
+                            </div>
+                        </div>
+                        <div class="custom-option fragment fade-in-up">
+                            <div class="custom-icon">💰</div>
+                            <div>
+                                <h4>No money?</h4>
+                                <p>Free resources only</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="image-panel">
+                        <img src="../Week2images/biff01_Mother_peacefully_using_meditation_app_while_nursing_m_04b5a977-1b1a-4e5f-825d-2b2f87b935ed_0.png" alt="Adapting coping techniques to real life">
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 7: Match Tools to Moments -->
+            <section data-background-color="#f7f7f7" class="gradient-mesh">
+                <div class="container">
+                    <h2 style="text-align: center; margin-bottom: var(--space-lg);">Match Tools to <span class="gradient-text">Your Moments</span></h2>
+                    <div class="toolkit-categories">
+                        <div class="category-card fragment fade-in-up">
+                            <span class="category-icon">🤱</span>
+                            <h3>While Nursing</h3>
+                            <p>Breathing • Visualization • Music • Podcasts • Gratitude practice</p>
+                        </div>
+                        <div class="category-card fragment fade-in-up">
+                            <span class="category-icon">😴</span>
+                            <h3>Baby Sleeps</h3>
+                            <p>Bath • Journal • Yoga • Meal prep • Quick nap</p>
+                        </div>
+                        <div class="category-card fragment fade-in-up">
+                            <span class="category-icon">🎯</span>
+                            <h3>Baby Plays</h3>
+                            <p>Movement • Stretches • Phone calls • Floor time together</p>
+                        </div>
+                        <div class="category-card fragment fade-in-up">
+                            <span class="category-icon">🍼</span>
+                            <h3>While Pumping</h3>
+                            <p>Meditation • Reading • TV show • Work tasks • Rest</p>
+                        </div>
+                        <div class="category-card fragment fade-in-up">
+                            <span class="category-icon">🚶‍♀️</span>
+                            <h3>While Walking</h3>
+                            <p>Mindfulness • Podcasts • Music • Phone calls • Silence</p>
+                        </div>
+                        <div class="category-card fragment fade-in-up">
+                            <span class="category-icon">📱</span>
+                            <h3>Track Simply</h3>
+                            <p>Calendar marks • Phone notes • Habit app • Journal • Stickers</p>
+                        </div>
+                    </div>
+                    <p class="fragment fade-in" style="text-align: center; font-size: var(--text-body); margin-top: var(--space-lg); color: var(--bloom-sage); font-style: italic;">
+                        Your coping can happen alongside life, not separate from it
+                    </p>
+                </div>
+            </section>
+            
+            <!-- SLIDE 8: Making It Stick -->
+            <section>
+                <div class="magazine-split">
+                    <div class="content-panel content-panel-gradient">
+                        <h2>Making It <span class="gradient-text">Actually Stick</span></h2>
+                        <p style="font-size: 1.6rem; margin: 2rem 0;">The best toolkit is the one you actually use.</p>
+                        
+                        <div style="margin: 2rem 0;">
+                            <h3 style="color: var(--bloom-sage); margin-bottom: 1rem;">Start Tiny</h3>
+                            <ul class="feature-list">
+                                <li class="fragment fade-in-up">Pick ONE daily practice</li>
+                                <li class="fragment fade-in-up">Do it for one week</li>
+                                <li class="fragment fade-in-up">Then add another</li>
+                                <li class="fragment fade-in-up">Build slowly</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="practice-tracker fragment fade-in-up">
+                            <div class="practice-week-label">Week 1: One Daily Practice</div>
+                            <div class="practice-day completed"><span>M</span></div>
+                            <div class="practice-day completed"><span>T</span></div>
+                            <div class="practice-day completed"><span>W</span></div>
+                            <div class="practice-day"><span>T</span></div>
+                            <div class="practice-day"><span>F</span></div>
+                            <div class="practice-day"><span>S</span></div>
+                            <div class="practice-day"><span>S</span></div>
+                        </div>
+                        
+                        <p class="fragment fade-in" style="font-size: 1.4rem; margin-top: 2rem; font-style: italic;">
+                            Celebrate small wins. Normalize struggles. Toolkits evolve.
+                        </p>
+                    </div>
+                    <div class="image-panel">
+                        <img src="../Week2images/biff01_Three-stage_progression_showing_hope_throughout_overwh_d45de4e8-cf7c-4867-bb20-e5c1431447d8_0.png" alt="Celebrating small wins in self-care">
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 9: Stack Habits -->
+            <section data-background-color="#faf8f5" class="gradient-mesh">
+                <div class="container">
+                    <h2 style="text-align: center; margin-bottom: var(--space-lg);">The Power of <span class="gradient-text">Habit Stacking</span></h2>
+                    <p style="text-align: center; font-size: var(--text-body); margin-bottom: var(--space-xl); color: var(--bloom-sage); font-style: italic;">
+                        Link new habits to existing routines
+                    </p>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-lg); max-width: 1200px; margin: 0 auto;">
+                        <div style="background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-glass); transition: all 0.3s ease;" class="fragment fade-in-up">
+                            <img src="../Week2images/biff01_Close-up_profile_of_mother_taking_deep_breath_visible__6c9c71d6-53c7-4cc1-b725-e20973782ac8_1.png" alt="Breathing while coffee brews" style="width: 100%; height: 200px; object-fit: cover;">
+                            <div style="padding: var(--space-md); text-align: center;">
+                                <div style="font-size: 3rem; margin-bottom: var(--space-sm);">☕</div>
+                                <h3 style="font-family: var(--font-display); color: var(--bloom-charcoal); margin-bottom: var(--space-sm);">While Coffee Brews</h3>
+                                <p style="font-size: var(--text-body); color: var(--bloom-warm-gray); margin: 0;">Add 3 deep breaths or morning gratitudes</p>
+                            </div>
+                        </div>
+                        <div style="background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-glass); transition: all 0.3s ease;" class="fragment fade-in-up">
+                            <img src="../Week2images/biff01_Mother_peacefully_using_meditation_app_while_nursing_m_04b5a977-1b1a-4e5f-825d-2b2f87b935ed_0.png" alt="Stretching during tummy time" style="width: 100%; height: 200px; object-fit: cover;">
+                            <div style="padding: var(--space-md); text-align: center;">
+                                <div style="font-size: 3rem; margin-bottom: var(--space-sm);">👶</div>
+                                <h3 style="font-family: var(--font-display); color: var(--bloom-charcoal); margin-bottom: var(--space-sm);">During Tummy Time</h3>
+                                <p style="font-size: var(--text-body); color: var(--bloom-warm-gray); margin: 0;">Add gentle stretches or shoulder rolls</p>
+                            </div>
+                        </div>
+                        <div style="background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-glass); transition: all 0.3s ease;" class="fragment fade-in-up">
+                            <img src="../Week2images/biff01_Mother_peacefully_reading_on_couch_with_cup_of_tea_cle_4ad62c65-43ff-4645-a2bb-aa9595775997_1.png" alt="Gratitude during feeding" style="width: 100%; height: 200px; object-fit: cover;">
+                            <div style="padding: var(--space-md); text-align: center;">
+                                <div style="font-size: 3rem; margin-bottom: var(--space-sm);">🍼</div>
+                                <h3 style="font-family: var(--font-display); color: var(--bloom-charcoal); margin-bottom: var(--space-sm);">First Morning Feeding</h3>
+                                <p style="font-size: var(--text-body); color: var(--bloom-warm-gray); margin: 0;">Add gratitude practice or affirmations</p>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="fragment fade-in" style="text-align: center; font-size: var(--text-body); margin-top: var(--space-lg); color: var(--bloom-warm-gray); font-style: italic;">
+                        The routine you already have becomes the trigger for self-care
+                    </p>
+                </div>
+            </section>
+            
+            <!-- SLIDE 10: The Power of Practice -->
+            <section data-background-gradient="linear-gradient(135deg, #8B9A82 0%, #95E1D3 50%, #C589E8 100%)">
+                <div class="container">
+                    <div style="text-align: center; max-width: 900px; margin: 0 auto;">
+                        <h2 style="color: white; margin-bottom: var(--space-xl); font-size: var(--text-display);">The Secret to <span style="color: var(--bloom-golden);">Success</span></h2>
+                        <div style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); padding: var(--space-xl); border-radius: 30px; border: 1px solid rgba(255,255,255,0.2);">
+                            <p style="color: white; font-size: var(--text-heading); font-family: var(--font-display); line-height: 1.3; margin-bottom: var(--space-lg);">
+                                <span class="fragment fade-in-up">Practice when calm,</span><br/>
+                                <span class="fragment fade-in-up">so it's automatic</span><br/>
+                                <span class="fragment fade-in-up">when you're not.</span>
+                            </p>
+                            <p class="fragment fade-in" style="color: rgba(255,255,255,0.9); font-size: var(--text-body); margin-top: var(--space-lg);">
+                                Like fire drills—practice when there's no fire<br/>
+                                so your body knows what to do when there is one.
+                            </p>
+                            <div class="fragment fade-in" style="margin-top: var(--space-lg); padding: var(--space-md); background: rgba(255,255,255,0.15); border-radius: 15px;">
+                                <p style="color: rgba(255,255,255,0.95); font-size: var(--text-body); margin: 0; font-style: italic;">
+                                    Even 2 minutes daily builds the neural pathways you need.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 11: This Week's Actions -->
+            <section>
+                <div class="hero-image-slide">
+                    <img src="../Week2images/biff01_Close-up_of_hands_crossing_out_unrealistic_to-do_list__482d4c84-2e85-46e0-ac01-93dfce589cf0_2.png" alt="Creating personalized coping plan">
+                    <div class="floating-card floating-card-bottom text-protection-light" style="max-width: 800px;">
+                        <h2 style="text-align: center; margin-bottom: var(--space-lg);">This Week's <span class="gradient-text">Action Steps</span></h2>
+                        <div class="personal-plan">
+                            <ol style="font-size: var(--text-body); line-height: 2.2; padding-left: var(--space-md);">
+                                <li class="fragment fade-in-up">Choose <strong style="color: var(--bloom-sage);">ONE</strong> daily practice</li>
+                                <li class="fragment fade-in-up">Write your crisis card</li>
+                                <li class="fragment fade-in-up">Try <strong style="color: var(--bloom-sage);">ONE</strong> quick relief technique</li>
+                                <li class="fragment fade-in-up">Put reminder cards in 3 places</li>
+                                <li class="fragment fade-in-up">Tell someone your plan</li>
+                            </ol>
+                            <div class="fragment fade-in" style="text-align: center; margin-top: var(--space-lg); padding: var(--space-md); background: linear-gradient(135deg, rgba(139, 154, 130, 0.1) 0%, rgba(149, 225, 211, 0.1) 100%); border-radius: 15px;">
+                                <p style="font-size: var(--text-body); color: var(--bloom-sage); font-weight: 600; margin: 0; font-family: var(--font-display);">
+                                    Small steps lead to big changes
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 12: Remember -->
+            <section>
+                <div class="magazine-split">
+                    <div class="content-panel">
+                        <h2>Remember This <span class="gradient-text">Truth</span></h2>
+                        <p style="font-size: 2rem; margin: 2rem 0; font-family: var(--font-display);">
+                            Your coping toolkit isn't about becoming a different person.
+                        </p>
+                        <p style="font-size: 1.8rem; margin: 2rem 0; color: var(--bloom-sage);">
+                            It's about supporting the person you are through an incredibly challenging time.
+                        </p>
+                        <p class="fragment fade-in" style="font-size: 1.6rem; margin: 2rem 0;">
+                            Some days you'll use every tool.<br/>
+                            Some days you'll forget they exist.<br/>
+                            <strong>Both are okay.</strong>
+                        </p>
+                        <p class="fragment fade-in" style="font-size: 1.4rem; margin-top: 2rem; font-style: italic;">
+                            The toolkit is there when you need it, judgment-free and ready.
+                        </p>
+                    </div>
+                    <div class="image-panel">
+                        <img src="../Week2images/biff01_Three-stage_progression_showing_hope_throughout_overwh_d45de4e8-cf7c-4867-bb20-e5c1431447d8_0.png" alt="Mother empowered with her coping toolkit">
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 13: Closing -->
+            <section>
+                <div class="hero-image-slide">
+                    <img src="../Week2images/biff01_Mother_and_baby_finding_synchronized_peace_together_bo_15666422-101d-4f71-8e78-41241ac09752_0.png" alt="Mother embracing her strength and resilience">
+                    <div class="hero-scrim"></div>
+                    <div class="text-protection" style="text-align: center;">
+                        <h1 class="fragment fade-in-up" style="color: white; font-size: var(--text-display);">You Have <span class="gradient-text">Everything You Need</span></h1>
+                        <p class="fragment fade-in-up" style="font-size: var(--text-subheading); margin-top: var(--space-lg); color: rgba(255,255,255,0.95); font-family: var(--font-display);">
+                            The strength. The tools. The resilience.
+                        </p>
+                        <div class="fragment fade-in-up" style="margin-top: var(--space-lg); background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); padding: var(--space-lg); border-radius: 20px; border: 1px solid rgba(255,255,255,0.2); max-width: 600px; margin-left: auto; margin-right: auto;">
+                            <p style="font-size: var(--text-body); color: rgba(255,255,255,0.9); margin-bottom: var(--space-sm);">You've completed Week 2:</p>
+                            <p style="font-size: var(--text-body); color: rgba(255,255,255,0.95); line-height: 1.8; margin: 0;">
+                                ✓ Cultivated self-compassion<br/>
+                                ✓ Released perfectionism<br/>
+                                ✓ Managed stress<br/>
+                                ✓ Regulated emotions<br/>
+                                ✓ Built your toolkit
+                            </p>
+                        </div>
+                        <p class="fragment fade-in-up" style="font-size: var(--text-body); margin-top: var(--space-lg); color: rgba(255,255,255,0.85); font-style: italic;">
+                            Next week: Building Your Support Ecosystem<br/>
+                            <span style="font-size: var(--text-small); color: rgba(255,255,255,0.7);">Because healing happens in connection.</span>
+                        </p>
+                        <div class="fragment fade-in" style="margin-top: var(--space-xl); padding: var(--space-lg); background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border-radius: 15px; border: 1px solid rgba(255,255,255,0.2); max-width: 400px; margin-left: auto; margin-right: auto;">
+                            <div style="font-size: var(--text-small); color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: var(--space-xs);">
+                                Dr. Jana Rundle
+                            </div>
+                            <div style="font-size: var(--text-body); color: rgba(255,255,255,0.9); font-family: var(--font-display);">
+                                Bloom Psychology
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/notes/notes.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/markdown/markdown.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/highlight/highlight.js"></script>
+    
+    <script>
+        Reveal.initialize({
+            hash: true,
+            controls: true,
+            progress: true,
+            center: false,
+            transition: 'fade',
+            transitionSpeed: 'slow',
+            backgroundTransition: 'fade',
+            
+            // View options
+            width: 1920,
+            height: 1080,
+            margin: 0,
+            minScale: 0.2,
+            maxScale: 2.0,
+            
+            // UI options
+            controlsTutorial: false,
+            controlsLayout: 'bottom-right',
+            controlsBackArrows: 'faded',
+            slideNumber: 'c/t',
+            showSlideNumber: 'all',
+            
+            // Features
+            history: true,
+            keyboard: true,
+            overview: true,
+            loop: false,
+            touch: true,
+            
+            // PDF export
+            pdfMaxPagesPerSlide: 1,
+            pdfSeparateFragments: false,
+            
+            plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+        });
+    </script>
+</body>
+</html>

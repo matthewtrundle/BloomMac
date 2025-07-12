@@ -1,0 +1,156 @@
+{
+  "tables": {
+    "user_profiles": {
+      "exists": true,
+      "rowCount": 6,
+      "columns": [
+        "id",
+        "first_name",
+        "last_name",
+        "phone",
+        "bio",
+        "status",
+        "preferences",
+        "metadata",
+        "created_at",
+        "updated_at",
+        "avatar_url",
+        "baby_due_date",
+        "postpartum_date",
+        "number_of_children",
+        "emergency_contact_name",
+        "emergency_contact_phone",
+        "emergency_contact_relationship",
+        "timezone",
+        "marketing_consent",
+        "role",
+        "stripe_customer_id",
+        "last_login_at"
+      ]
+    },
+    "user_achievements": {
+      "exists": true,
+      "rowCount": 2,
+      "columns": [
+        "id",
+        "user_id",
+        "achievement_id",
+        "earned_at",
+        "created_at",
+        "type",
+        "name",
+        "description",
+        "icon",
+        "points"
+      ]
+    },
+    "admin_activity_log": {
+      "exists": true,
+      "rowCount": 9,
+      "columns": [
+        "id",
+        "action",
+        "entity_type",
+        "entity_id",
+        "details",
+        "ip_address",
+        "user_agent",
+        "created_at"
+      ]
+    },
+    "contact_submissions": {
+      "exists": true,
+      "rowCount": 24,
+      "columns": [
+        "id",
+        "name",
+        "email",
+        "phone",
+        "service",
+        "message",
+        "status",
+        "source",
+        "ip_address",
+        "user_agent",
+        "created_at",
+        "updated_at",
+        "metadata"
+      ]
+    },
+    "subscribers": {
+      "exists": true,
+      "rowCount": 46,
+      "columns": [
+        "id",
+        "email",
+        "first_name",
+        "last_name",
+        "status",
+        "tags",
+        "signup_source",
+        "interests",
+        "metadata",
+        "ip_address",
+        "user_agent",
+        "referrer",
+        "confirmed",
+        "created_at",
+        "updated_at",
+        "source",
+        "unsubscribe_reason"
+      ]
+    },
+    "analytics_events": {
+      "exists": true,
+      "rowCount": 4488,
+      "columns": [
+        "id",
+        "type",
+        "page",
+        "session_id",
+        "user_id",
+        "data",
+        "timestamp",
+        "created_at"
+      ]
+    },
+    "user_preferences": {
+      "exists": true,
+      "rowCount": 4,
+      "columns": [
+        "id",
+        "user_id",
+        "privacy_settings",
+        "reminder_settings",
+        "theme_preference",
+        "language",
+        "timezone",
+        "created_at",
+        "updated_at",
+        "notification_preferences",
+        "security_settings",
+        "communication_preferences",
+        "quiet_hours"
+      ]
+    },
+    "user_activity_log": {
+      "exists": true,
+      "rowCount": 0,
+      "columns": []
+    }
+  },
+  "rpcs": {
+    "get_user_dashboard_data": {
+      "exists": true
+    },
+    "get_all_courses_with_user_progress": {
+      "exists": true
+    },
+    "get_user_course_stats": {
+      "exists": true
+    }
+  },
+  "issues": [
+    "Table 'user_activity_log' is missing columns: user_id, action, ip_address, metadata, created_at"
+  ]
+}

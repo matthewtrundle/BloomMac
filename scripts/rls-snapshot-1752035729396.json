@@ -1,0 +1,377 @@
+[
+  {
+    "tablename": "achievements",
+    "rowsecurity": false,
+    "policy_count": 0
+  },
+  {
+    "tablename": "admin_activity_log",
+    "rowsecurity": true,
+    "policy_count": 3
+  },
+  {
+    "tablename": "admin_sessions",
+    "rowsecurity": false,
+    "policy_count": 0
+  },
+  {
+    "tablename": "analytics_events",
+    "rowsecurity": false,
+    "policy_count": 4
+  },
+  {
+    "tablename": "appointment_payments",
+    "rowsecurity": true,
+    "policy_count": 5
+  },
+  {
+    "tablename": "appointment_types",
+    "rowsecurity": true,
+    "policy_count": 1
+  },
+  {
+    "tablename": "blog_images_metadata",
+    "rowsecurity": true,
+    "policy_count": 1
+  },
+  {
+    "tablename": "blog_post_images",
+    "rowsecurity": true,
+    "policy_count": 2
+  },
+  {
+    "tablename": "blog_posts",
+    "rowsecurity": false,
+    "policy_count": 2
+  },
+  {
+    "tablename": "bookings",
+    "rowsecurity": true,
+    "policy_count": 1
+  },
+  {
+    "tablename": "calendly_webhook_events",
+    "rowsecurity": true,
+    "policy_count": 1
+  },
+  {
+    "tablename": "career_applications",
+    "rowsecurity": false,
+    "policy_count": 3
+  },
+  {
+    "tablename": "chat_conversations",
+    "rowsecurity": true,
+    "policy_count": 1
+  },
+  {
+    "tablename": "chatbot_interactions",
+    "rowsecurity": true,
+    "policy_count": 2
+  },
+  {
+    "tablename": "click_heatmap",
+    "rowsecurity": false,
+    "policy_count": 0
+  },
+  {
+    "tablename": "contact_submissions",
+    "rowsecurity": false,
+    "policy_count": 4
+  },
+  {
+    "tablename": "conversion_events",
+    "rowsecurity": true,
+    "policy_count": 2
+  },
+  {
+    "tablename": "course_activity_logs",
+    "rowsecurity": true,
+    "policy_count": 4
+  },
+  {
+    "tablename": "course_announcements",
+    "rowsecurity": true,
+    "policy_count": 2
+  },
+  {
+    "tablename": "course_certificates",
+    "rowsecurity": true,
+    "policy_count": 5
+  },
+  {
+    "tablename": "course_discount_codes",
+    "rowsecurity": true,
+    "policy_count": 3
+  },
+  {
+    "tablename": "course_discussions",
+    "rowsecurity": true,
+    "policy_count": 3
+  },
+  {
+    "tablename": "course_enrollments",
+    "rowsecurity": true,
+    "policy_count": 5
+  },
+  {
+    "tablename": "course_lessons",
+    "rowsecurity": true,
+    "policy_count": 4
+  },
+  {
+    "tablename": "course_modules",
+    "rowsecurity": true,
+    "policy_count": 4
+  },
+  {
+    "tablename": "course_progress",
+    "rowsecurity": true,
+    "policy_count": 7
+  },
+  {
+    "tablename": "course_purchases",
+    "rowsecurity": false,
+    "policy_count": 0
+  },
+  {
+    "tablename": "course_resources",
+    "rowsecurity": true,
+    "policy_count": 2
+  },
+  {
+    "tablename": "courses",
+    "rowsecurity": false,
+    "policy_count": 4
+  },
+  {
+    "tablename": "email_analytics",
+    "rowsecurity": true,
+    "policy_count": 1
+  },
+  {
+    "tablename": "email_automation_errors",
+    "rowsecurity": false,
+    "policy_count": 0
+  },
+  {
+    "tablename": "email_automation_logs",
+    "rowsecurity": true,
+    "policy_count": 2
+  },
+  {
+    "tablename": "email_automation_rules",
+    "rowsecurity": true,
+    "policy_count": 1
+  },
+  {
+    "tablename": "email_automation_triggers",
+    "rowsecurity": true,
+    "policy_count": 2
+  },
+  {
+    "tablename": "email_campaign_metrics",
+    "rowsecurity": true,
+    "policy_count": 2
+  },
+  {
+    "tablename": "email_logs",
+    "rowsecurity": true,
+    "policy_count": 1
+  },
+  {
+    "tablename": "email_queue",
+    "rowsecurity": false,
+    "policy_count": 4
+  },
+  {
+    "tablename": "email_sends",
+    "rowsecurity": true,
+    "policy_count": 1
+  },
+  {
+    "tablename": "email_sequences",
+    "rowsecurity": true,
+    "policy_count": 2
+  },
+  {
+    "tablename": "email_templates",
+    "rowsecurity": false,
+    "policy_count": 3
+  },
+  {
+    "tablename": "email_templates_custom",
+    "rowsecurity": true,
+    "policy_count": 0
+  },
+  {
+    "tablename": "email_templates_history",
+    "rowsecurity": false,
+    "policy_count": 0
+  },
+  {
+    "tablename": "email_unsubscribes",
+    "rowsecurity": true,
+    "policy_count": 4
+  },
+  {
+    "tablename": "lesson_completion_details",
+    "rowsecurity": true,
+    "policy_count": 1
+  },
+  {
+    "tablename": "newsletter_sends",
+    "rowsecurity": true,
+    "policy_count": 2
+  },
+  {
+    "tablename": "notification_preferences",
+    "rowsecurity": true,
+    "policy_count": 2
+  },
+  {
+    "tablename": "payment_methods_audit",
+    "rowsecurity": true,
+    "policy_count": 3
+  },
+  {
+    "tablename": "profiles_backup_2025_01_06",
+    "rowsecurity": false,
+    "policy_count": 0
+  },
+  {
+    "tablename": "push_notifications",
+    "rowsecurity": true,
+    "policy_count": 3
+  },
+  {
+    "tablename": "refund_requests",
+    "rowsecurity": true,
+    "policy_count": 3
+  },
+  {
+    "tablename": "reminder_rules",
+    "rowsecurity": false,
+    "policy_count": 0
+  },
+  {
+    "tablename": "sequence_email_sends",
+    "rowsecurity": false,
+    "policy_count": 0
+  },
+  {
+    "tablename": "sequence_emails",
+    "rowsecurity": true,
+    "policy_count": 2
+  },
+  {
+    "tablename": "sequence_enrollments",
+    "rowsecurity": false,
+    "policy_count": 0
+  },
+  {
+    "tablename": "sms_messages",
+    "rowsecurity": true,
+    "policy_count": 3
+  },
+  {
+    "tablename": "stripe_webhook_events",
+    "rowsecurity": true,
+    "policy_count": 2
+  },
+  {
+    "tablename": "subscribers",
+    "rowsecurity": false,
+    "policy_count": 5
+  },
+  {
+    "tablename": "system_settings",
+    "rowsecurity": false,
+    "policy_count": 0
+  },
+  {
+    "tablename": "therapist_profiles",
+    "rowsecurity": true,
+    "policy_count": 2
+  },
+  {
+    "tablename": "user_achievements",
+    "rowsecurity": true,
+    "policy_count": 2
+  },
+  {
+    "tablename": "user_activity_log",
+    "rowsecurity": true,
+    "policy_count": 2
+  },
+  {
+    "tablename": "user_consents",
+    "rowsecurity": true,
+    "policy_count": 1
+  },
+  {
+    "tablename": "user_course_access",
+    "rowsecurity": false,
+    "policy_count": 0
+  },
+  {
+    "tablename": "user_lesson_progress",
+    "rowsecurity": true,
+    "policy_count": 2
+  },
+  {
+    "tablename": "user_notifications",
+    "rowsecurity": true,
+    "policy_count": 4
+  },
+  {
+    "tablename": "user_payment_methods",
+    "rowsecurity": true,
+    "policy_count": 4
+  },
+  {
+    "tablename": "user_preferences",
+    "rowsecurity": true,
+    "policy_count": 3
+  },
+  {
+    "tablename": "user_profiles",
+    "rowsecurity": true,
+    "policy_count": 3
+  },
+  {
+    "tablename": "user_progress",
+    "rowsecurity": true,
+    "policy_count": 2
+  },
+  {
+    "tablename": "wellness_entries",
+    "rowsecurity": true,
+    "policy_count": 4
+  },
+  {
+    "tablename": "workbook_questions",
+    "rowsecurity": true,
+    "policy_count": 1
+  },
+  {
+    "tablename": "workbook_responses",
+    "rowsecurity": true,
+    "policy_count": 1
+  },
+  {
+    "tablename": "workshop_attendance",
+    "rowsecurity": true,
+    "policy_count": 1
+  },
+  {
+    "tablename": "workshop_feedback",
+    "rowsecurity": true,
+    "policy_count": 2
+  },
+  {
+    "tablename": "workshop_registrations",
+    "rowsecurity": true,
+    "policy_count": 3
+  }
+]

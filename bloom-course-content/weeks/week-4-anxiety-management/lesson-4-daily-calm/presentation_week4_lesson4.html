@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>Creating Calm in Daily Life | Bloom Psychology</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reset.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+    <link rel="stylesheet" href="../../../public/presentations/week1/assets/css/bloom-professional.css">
+    
+    <style>
+        /* Lesson-specific enhancements */
+        :root {
+            --bloom-calm-blue: #B0E0E6;
+            --bloom-sanctuary-purple: #DDA0DD;
+            --bloom-energy-gold: #F0E68C;
+            --bloom-routine-green: #90EE90;
+        }
+        
+        /* Environment modification cards */
+        .environment-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            margin: 1rem;
+            border-top: 5px solid var(--bloom-sanctuary-purple);
+            transition: transform 0.3s ease;
+        }
+        
+        .environment-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .environment-card h3 {
+            color: var(--bloom-sanctuary-purple);
+            margin-bottom: 1rem;
+        }
+        
+        /* Sanctuary space visualization */
+        .sanctuary-space {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1rem;
+            margin: 3rem 0;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(221, 160, 221, 0.1) 0%, rgba(221, 160, 221, 0.05) 100%);
+            border-radius: 15px;
+            border: 2px solid var(--bloom-sanctuary-purple);
+        }
+        
+        .sanctuary-element {
+            text-align: center;
+            padding: 1rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        /* Micro-practice cards */
+        .micro-practice {
+            background: linear-gradient(135deg, rgba(176, 224, 230, 0.1) 0%, rgba(176, 224, 230, 0.05) 100%);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 2px solid var(--bloom-calm-blue);
+            margin: 1rem;
+            text-align: center;
+        }
+        
+        .micro-practice h3 {
+            color: var(--bloom-calm-blue);
+            margin-bottom: 1rem;
+        }
+        
+        /* Energy audit visualization */
+        .energy-audit {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .energy-column {
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            color: white;
+        }
+        
+        .energizing {
+            background: linear-gradient(135deg, #32CD32 0%, #228B22 100%);
+        }
+        
+        .neutral {
+            background: linear-gradient(135deg, #808080 0%, #696969 100%);
+        }
+        
+        .draining {
+            background: linear-gradient(135deg, #FF6347 0%, #DC143C 100%);
+        }
+        
+        /* Protocol timeline */
+        .protocol-timeline {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 3rem 0;
+            position: relative;
+        }
+        
+        .protocol-timeline::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--bloom-routine-green);
+            z-index: -1;
+        }
+        
+        .protocol-stage {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            border: 4px solid var(--bloom-routine-green);
+        }
+        
+        .protocol-stage h3 {
+            color: var(--bloom-routine-green);
+            margin-bottom: 1rem;
+        }
+        
+        /* Crisis protocol steps */
+        .crisis-protocol {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .crisis-step {
+            background: linear-gradient(135deg, var(--bloom-energy-gold) 0%, #DAA520 100%);
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            color: var(--bloom-charcoal);
+            position: relative;
+            font-weight: 600;
+        }
+        
+        .crisis-step::before {
+            content: attr(data-step);
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--bloom-charcoal);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+        
+        /* Routine modification icons */
+        .routine-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .routine-item {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            border-bottom: 5px solid var(--bloom-routine-green);
+        }
+        
+        /* Clutter container visualization */
+        .clutter-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 3rem;
+            margin: 3rem 0;
+        }
+        
+        .chaos-side {
+            text-align: center;
+            padding: 2rem;
+            border-radius: 15px;
+            background: linear-gradient(135deg, rgba(255, 99, 71, 0.1) 0%, rgba(255, 99, 71, 0.05) 100%);
+            border: 2px solid #FF6347;
+        }
+        
+        .calm-side {
+            text-align: center;
+            padding: 2rem;
+            border-radius: 15px;
+            background: linear-gradient(135deg, rgba(144, 238, 144, 0.1) 0%, rgba(144, 238, 144, 0.05) 100%);
+            border: 2px solid var(--bloom-routine-green);
+        }
+        
+        /* Integration principles */
+        .integration-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .integration-card {
+            background: var(--bloom-cream);
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            border: 2px solid var(--bloom-sage);
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- SLIDE 1: Hero Opening -->
+            <section data-background-color="#1a1a1a">
+                <div class="hero-image-slide">
+                    <img src="[MIDJOURNEY: Mother creating peaceful corner in her home - soft lighting, comfortable chair, organized space with baby nearby. Style: Photorealistic, domestic tranquility, intentional calm spaces]" alt="Mother creating calm environment at home">
+                    <div class="hero-scrim"></div>
+                    <div class="text-protection">
+                        <h1 class="fragment fade-in-up">Creating Calm<br/>in <span class="gradient-text">Daily Life</span></h1>
+                        <p class="fragment fade-in-up" style="font-size: 2rem; margin-top: 2rem; color: rgba(255,255,255,0.95);">
+                            Making Peace Your Default, Not Exception
+                        </p>
+                        <p class="fragment fade-in-up" style="font-size: 1.3rem; margin-top: 3rem; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.1em;">
+                            Bloom Psychology • Week 4 • Lesson 4
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 2: Beyond Crisis Management -->
+            <section>
+                <div class="magazine-split">
+                    <div class="content-panel content-panel-gradient">
+                        <h1 class="fragment fade-in-up">Beyond Crisis<br/><span class="gradient-text">Management</span></h1>
+                        <p class="fragment fade-in-up" style="margin-top: 2rem; font-size: 1.8rem;">
+                            Anxiety management isn't just about the hard moments
+                        </p>
+                        <p class="fragment fade-in-up" style="font-size: 1.6rem; margin-top: 2rem; color: var(--bloom-coral);">
+                            It's about creating an environment and routine<br/>
+                            that supports your nervous system all day long
+                        </p>
+                        <p class="fragment fade-in-up" style="font-size: 1.8rem; margin-top: 2rem; font-weight: 600; color: var(--bloom-sage);">
+                            Weave calm into the chaos<br/>
+                            Make peace your default
+                        </p>
+                    </div>
+                    <div class="image-panel">
+                        <img src="[MIDJOURNEY: Split day view - chaotic morning transitioning to calm, organized evening through intentional environment design. Style: Before/after composition, daily transformation]" alt="Daily life transformation through intentional calm">
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 3: Sensory Sanctuary Space -->
+            <section data-background-color="#ffffff">
+                <div class="container">
+                    <h2 style="text-align: center; margin-bottom: 3rem;">Create Your <span class="gradient-text">Sensory Sanctuary</span></h2>
+                    <p style="text-align: center; font-size: 1.6rem; margin-bottom: 3rem; color: var(--bloom-warm-gray);">
+                        One calm corner in your home—your reset space when overwhelm hits
+                    </p>
+                    <div class="sanctuary-space">
+                        <div class="sanctuary-element fragment fade-in-up">
+                            <div style="font-size: 3rem; margin-bottom: 1rem;">💡</div>
+                            <h4>Soft Lighting</h4>
+                            <p>Lamp instead of overhead lights</p>
+                        </div>
+                        <div class="sanctuary-element fragment fade-in-up">
+                            <div style="font-size: 3rem; margin-bottom: 1rem;">🪑</div>
+                            <h4>Comfort</h4>
+                            <p>Cozy seating for feeding</p>
+                        </div>
+                        <div class="sanctuary-element fragment fade-in-up">
+                            <div style="font-size: 3rem; margin-bottom: 1rem;">🌸</div>
+                            <h4>Calming Scents</h4>
+                            <p>Lavender roller nearby</p>
+                        </div>
+                        <div class="sanctuary-element fragment fade-in-up">
+                            <div style="font-size: 3rem; margin-bottom: 1rem;">🧸</div>
+                            <h4>Soft Textures</h4>
+                            <p>Cozy blanket ready</p>
+                        </div>
+                        <div class="sanctuary-element fragment fade-in-up">
+                            <div style="font-size: 3rem; margin-bottom: 1rem;">✨</div>
+                            <h4>Minimal Clutter</h4>
+                            <p>Clear visual space</p>
+                        </div>
+                    </div>
+                    <p class="fragment fade-in" style="text-align: center; font-size: 1.6rem; margin-top: 2rem; color: var(--bloom-sanctuary-purple); font-weight: 600;">
+                        Your environment should serve your nervous system, not stress it
+                    </p>
+                </div>
+            </section>
+            
+            <!-- SLIDE 4: Environment Modifications -->
+            <section>
+                <div class="magazine-split magazine-split-reverse">
+                    <div class="content-panel">
+                        <h2>Environment <span class="gradient-text">Modifications</span></h2>
+                        <p style="font-size: 1.6rem; margin: 2rem 0;">Small changes, big nervous system shifts:</p>
+                    </div>
+                    <div class="image-panel">
+                        <img src="[MIDJOURNEY: Home environment optimized for calm - organized spaces, soft lighting, sound management, clutter containers visible. Style: Interior design photography, calm optimization visible]" alt="Calm-optimized home environment">
+                    </div>
+                </div>
+                <div class="container" style="margin-top: -5rem;">
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem;">
+                        <div class="environment-card fragment fade-in-up">
+                            <h3>🔊 Sound Management</h3>
+                            <p>White noise buffers • Calming playlists ready • TV volume low • Phone on silent except emergencies</p>
+                        </div>
+                        <div class="environment-card fragment fade-in-up">
+                            <h3>💡 Light Optimization</h3>
+                            <p>Morning natural light • Warm afternoon lighting • Dim evening signals • Red night feeding bulb</p>
+                        </div>
+                        <div class="environment-card fragment fade-in-up">
+                            <h3>🧺 Clutter Containers</h3>
+                            <p>Basket in each room • "Good enough" standards • One clear surface per room</p>
+                        </div>
+                        <div class="environment-card fragment fade-in-up">
+                            <h3>🌡️ Temperature Comfort</h3>
+                            <p>Consistent comfort zones • Cozy layers available • Fresh air circulation</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 5: Clutter Containment -->
+            <section data-background-color="#faf8f5">
+                <div class="container">
+                    <h2 style="text-align: center; margin-bottom: 3rem;">Contain the <span class="gradient-text">Chaos</span></h2>
+                    <div class="clutter-visual">
+                        <div class="chaos-side fragment fade-in-up">
+                            <div style="font-size: 4rem; margin-bottom: 1rem;">😵‍💫</div>
+                            <h3 style="color: #FF6347;">Perfect is Impossible</h3>
+                            <p>Constant mess creates constant stress</p>
+                        </div>
+                        <div style="font-size: 3rem;">→</div>
+                        <div class="calm-side fragment fade-in-up">
+                            <div style="font-size: 4rem; margin-bottom: 1rem;">😌</div>
+                            <h3 style="color: var(--bloom-routine-green);">Contained is Possible</h3>
+                            <p>Strategic organization reduces overwhelm</p>
+                        </div>
+                    </div>
+                    <div style="background: white; padding: 3rem; border-radius: 15px; box-shadow: var(--shadow-large); margin-top: 3rem;" class="fragment fade-in-up">
+                        <p style="text-align: center; font-size: 1.8rem; color: var(--bloom-sanctuary-purple); font-weight: 600;">
+                            You can't maintain perfection, but you can contain chaos
+                        </p>
+                        <p style="text-align: center; font-size: 1.5rem; margin-top: 1rem; font-style: italic;">
+                            One basket per room • "Good enough" standards • One clear surface for visual calm
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 6: Routine Modifications -->
+            <section>
+                <div class="hero-image-slide">
+                    <img src="[MIDJOURNEY: Mother following calming morning routine - opening curtains, breathing, gentle start to day with baby. Style: Photorealistic, peaceful morning ritual, structured calm]" alt="Mother following calming daily routine">
+                    <div class="floating-card floating-card-bottom floating-card-dark">
+                        <h2 style="text-align: center; margin-bottom: 2rem; color: white;">Routine <span class="gradient-text">Modifications</span></h2>
+                        <p style="text-align: center; font-size: 1.6rem; color: rgba(255,255,255,0.9); margin-bottom: 2rem;">
+                            Predictability calms the anxious brain—create flexible structure
+                        </p>
+                        <div class="routine-grid">
+                            <div class="routine-item fragment fade-in-up">
+                                <div style="font-size: 3rem; margin-bottom: 1rem;">🌅</div>
+                                <h4>Morning Anchor</h4>
+                                <p>Same first action daily</p>
+                            </div>
+                            <div class="routine-item fragment fade-in-up">
+                                <div style="font-size: 3rem; margin-bottom: 1rem;">🔄</div>
+                                <h4>Transition Rituals</h4>
+                                <p>3 breaths between activities</p>
+                            </div>
+                            <div class="routine-item fragment fade-in-up">
+                                <div style="font-size: 3rem; margin-bottom: 1rem;">🤱</div>
+                                <h4>Feeding Meditations</h4>
+                                <p>Transform care into calm</p>
+                            </div>
+                            <div class="routine-item fragment fade-in-up">
+                                <div style="font-size: 3rem; margin-bottom: 1rem;">🌙</div>
+                                <h4>Evening Wind-Down</h4>
+                                <p>Signal rest to nervous system</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 7: Micro-Practices -->
+            <section data-background-color="#ffffff">
+                <div class="container">
+                    <h2 style="text-align: center; margin-bottom: 3rem;">Micro-Practices for <span class="gradient-text">Busy Mothers</span></h2>
+                    <p style="text-align: center; font-size: 1.6rem; margin-bottom: 3rem; color: var(--bloom-warm-gray);">
+                        You don't have time for hour-long meditation—but you have time for these
+                    </p>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
+                        <div class="micro-practice fragment fade-in-up">
+                            <h3>🍼 Diaper Change Reset</h3>
+                            <p>Feel feet on floor • Notice breath • Send love to baby • 30 seconds presence</p>
+                        </div>
+                        <div class="micro-practice fragment fade-in-up">
+                            <h3>🚦 Red Light Practice</h3>
+                            <p>Drop shoulders • Unclench jaw • Three deep breaths • Arrive calmer</p>
+                        </div>
+                        <div class="micro-practice fragment fade-in-up">
+                            <h3>🤱 Feeding Breath</h3>
+                            <p>Match breathing to baby's rhythm • Co-regulation calms both</p>
+                        </div>
+                        <div class="micro-practice fragment fade-in-up">
+                            <h3>☕ Mindful Sip</h3>
+                            <p>First sip notice: temperature • taste • body sensation • 10 seconds pleasure</p>
+                        </div>
+                        <div class="micro-practice fragment fade-in-up">
+                            <h3>❤️ Transition Touch</h3>
+                            <p>Hand on heart between activities • Three seconds self-compassion</p>
+                        </div>
+                        <div class="micro-practice fragment fade-in-up">
+                            <h3>⏸️ Sacred Pause</h3>
+                            <p>One deep breath before picking up crying baby • Changes entire approach</p>
+                        </div>
+                    </div>
+                    <p class="fragment fade-in" style="text-align: center; font-size: 1.6rem; margin-top: 2rem; color: var(--bloom-calm-blue); font-weight: 600;">
+                        These micro-practices add up to major nervous system support
+                    </p>
+                </div>
+            </section>
+            
+            <!-- SLIDE 8: Energy Management -->
+            <section>
+                <div class="magazine-split">
+                    <div class="content-panel content-panel-gradient">
+                        <h2>Energy <span class="gradient-text">Management</span></h2>
+                        <p style="font-size: 1.6rem; margin: 2rem 0;">Anxiety drains energy—protect what you have</p>
+                        <div style="background: var(--bloom-cream); padding: 2rem; border-radius: 15px; margin: 2rem 0;">
+                            <h3 style="color: var(--bloom-energy-gold); margin-bottom: 1rem;">The One Thing Rule</h3>
+                            <p style="font-size: 1.4rem;">Each day, identify ONE priority. Everything else is bonus. Prevents overwhelm from unrealistic expectations.</p>
+                        </div>
+                        <div style="background: white; padding: 2rem; border-radius: 15px;">
+                            <h3 style="color: var(--bloom-sage); margin-bottom: 1rem;">Boundary Phrases</h3>
+                            <p>"Let me check and get back to you"<br/>
+                            "That doesn't work for us right now"<br/>
+                            "We're keeping things simple this week"</p>
+                        </div>
+                    </div>
+                    <div class="image-panel">
+                        <img src="[MIDJOURNEY: Woman managing her energy wisely - saying no to draining activities, choosing energizing ones. Style: Metaphorical energy visualization, wise choices visible]" alt="Woman practicing energy management">
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 9: Energy Audit -->
+            <section data-background-color="#faf8f5">
+                <div class="container">
+                    <h2 style="text-align: center; margin-bottom: 3rem;">The <span class="gradient-text">Energy Audit</span></h2>
+                    <p style="text-align: center; font-size: 1.6rem; margin-bottom: 3rem; color: var(--bloom-warm-gray);">
+                        Mark your daily activities: minimize drains, maximize energizers
+                    </p>
+                    <div class="energy-audit">
+                        <div class="energy-column energizing fragment fade-in-up">
+                            <h3>Energizing (+)</h3>
+                            <ul style="list-style: none; padding: 0;">
+                                <li>✓ Texting supportive friend</li>
+                                <li>✓ Looking at baby photos</li>
+                                <li>✓ "Good enough" standards</li>
+                                <li>✓ Honoring your limits</li>
+                                <li>✓ Nature breaks</li>
+                            </ul>
+                        </div>
+                        <div class="energy-column neutral fragment fade-in-up">
+                            <h3>Neutral (0)</h3>
+                            <ul style="list-style: none; padding: 0;">
+                                <li>• Routine tasks</li>
+                                <li>• Basic care</li>
+                                <li>• Necessary errands</li>
+                                <li>• Moderate exercise</li>
+                                <li>• Simple meals</li>
+                            </ul>
+                        </div>
+                        <div class="energy-column draining fragment fade-in-up">
+                            <h3>Draining (-)</h3>
+                            <ul style="list-style: none; padding: 0;">
+                                <li>✗ Scrolling social media</li>
+                                <li>✗ Comparing to others</li>
+                                <li>✗ Perfectionist standards</li>
+                                <li>✗ Saying yes when mean no</li>
+                                <li>✗ Negative self-talk</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 10: Your Daily Calm Protocol -->
+            <section>
+                <div class="hero-image-slide">
+                    <img src="[MIDJOURNEY: Timeline visualization of a calm day - morning stretch, midday reset, evening wind-down with mother and baby. Style: Day-in-the-life photography, structured calm visible]" alt="Daily calm protocol timeline">
+                    <div class="floating-card floating-card-bottom text-protection-light">
+                        <h2 style="text-align: center; margin-bottom: 2rem;">Your Personalized <span class="gradient-text">Calm Protocol</span></h2>
+                        <div class="protocol-timeline">
+                            <div class="protocol-stage fragment fade-in-up">
+                                <h3>Morning (5 min)</h3>
+                                <p>Stretch in bed (1 min)<br/>
+                                Breathing practice (2 min)<br/>
+                                Intention setting (1 min)<br/>
+                                Hydrate (1 min)</p>
+                            </div>
+                            <div class="protocol-stage fragment fade-in-up">
+                                <h3>Midday Reset (3 min)</h3>
+                                <p>Notice current state<br/>
+                                Use chosen calming technique<br/>
+                                Adjust environment if needed</p>
+                            </div>
+                            <div class="protocol-stage fragment fade-in-up">
+                                <h3>Evening Wind-Down (10 min)</h3>
+                                <p>Dim lights<br/>
+                                Journal three sentences<br/>
+                                Tomorrow's ONE priority<br/>
+                                Gratitude practice</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 11: Crisis Protocol -->
+            <section data-background-color="#ffffff">
+                <div class="container">
+                    <h2 style="text-align: center; margin-bottom: 3rem;">Crisis <span class="gradient-text">Protocol</span></h2>
+                    <p style="text-align: center; font-size: 1.6rem; margin-bottom: 3rem; color: var(--bloom-warm-gray);">
+                        When anxiety spikes—your 5-step emergency plan
+                    </p>
+                    <div class="crisis-protocol">
+                        <div class="crisis-step fragment fade-in-up" data-step="1">
+                            <div style="font-size: 2rem; margin-bottom: 0.5rem;">🛑</div>
+                            <h4>STOP</h4>
+                            <p>What you're doing</p>
+                        </div>
+                        <div class="crisis-step fragment fade-in-up" data-step="2">
+                            <div style="font-size: 2rem; margin-bottom: 0.5rem;">🌬️</div>
+                            <h4>BREATHE</h4>
+                            <p>4-7-8 technique</p>
+                        </div>
+                        <div class="crisis-step fragment fade-in-up" data-step="3">
+                            <div style="font-size: 2rem; margin-bottom: 0.5rem;">⚓</div>
+                            <h4>GROUND</h4>
+                            <p>5-4-3-2-1 senses</p>
+                        </div>
+                        <div class="crisis-step fragment fade-in-up" data-step="4">
+                            <div style="font-size: 2rem; margin-bottom: 0.5rem;">🚶</div>
+                            <h4>MOVE</h4>
+                            <p>Shake or walk</p>
+                        </div>
+                        <div class="crisis-step fragment fade-in-up" data-step="5">
+                            <div style="font-size: 2rem; margin-bottom: 0.5rem;">🤝</div>
+                            <h4>CONNECT</h4>
+                            <p>Text friend/partner</p>
+                        </div>
+                    </div>
+                    <div style="background: var(--bloom-energy-gold); padding: 2rem; border-radius: 15px; margin-top: 3rem;" class="fragment fade-in-up">
+                        <p style="text-align: center; font-size: 1.8rem; color: var(--bloom-charcoal); font-weight: 600;">
+                            Write this down. Post it where you'll see it.
+                        </p>
+                        <p style="text-align: center; font-size: 1.4rem; margin-top: 1rem; font-style: italic;">
+                            Having a plan reduces anxiety about having anxiety
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 12: Integration & Sustainability -->
+            <section>
+                <div class="magazine-split magazine-split-reverse">
+                    <div class="content-panel">
+                        <h2>Integration & <span class="gradient-text">Sustainability</span></h2>
+                        <p style="font-size: 1.6rem; margin: 2rem 0;">Creating calm isn't about perfection:</p>
+                        <div class="integration-grid">
+                            <div class="integration-card fragment fade-in-up">
+                                <div style="font-size: 2rem; margin-bottom: 1rem;">🛠️</div>
+                                <p><strong>Having tools ready</strong></p>
+                            </div>
+                            <div class="integration-card fragment fade-in-up">
+                                <div style="font-size: 2rem; margin-bottom: 1rem;">🎯</div>
+                                <p><strong>Using imperfectly but consistently</strong></p>
+                            </div>
+                            <div class="integration-card fragment fade-in-up">
+                                <div style="font-size: 2rem; margin-bottom: 1rem;">⚙️</div>
+                                <p><strong>Adjusting as needed</strong></p>
+                            </div>
+                            <div class="integration-card fragment fade-in-up">
+                                <div style="font-size: 2rem; margin-bottom: 1rem;">🌱</div>
+                                <p><strong>Being patient with process</strong></p>
+                            </div>
+                        </div>
+                        <p style="font-size: 1.8rem; margin-top: 2rem; font-weight: 600; color: var(--bloom-sage);">
+                            Start with ONE change. Master it for a week. Then add another.
+                        </p>
+                    </div>
+                    <div class="image-panel">
+                        <img src="[MIDJOURNEY: Mother gradually building calm habits - small steps leading to major transformation, progress not perfection. Style: Growth progression, sustainable change visible]" alt="Sustainable integration of calm practices">
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 13: Closing -->
+            <section>
+                <div class="hero-image-slide">
+                    <img src="[MIDJOURNEY: Mother and baby in peaceful environment she's created - calm islands in the ocean of daily life, regulated nervous system visible. Style: Photorealistic, achieved calm, sustainable peace]" alt="Mother and baby in created calm environment">
+                    <div class="hero-scrim"></div>
+                    <div class="text-protection" style="text-align: center;">
+                        <h1 class="fragment fade-in-up" style="color: white;">Your Regulated Nervous System</h1>
+                        <p class="fragment fade-in-up" style="font-size: 2rem; margin-top: 2rem; color: rgba(255,255,255,0.95);">
+                            Is the greatest gift you can give your child
+                        </p>
+                        <p class="fragment fade-in-up" style="font-size: 1.8rem; margin-top: 3rem; color: rgba(255,255,255,0.85);">
+                            Every calm moment you create benefits both of you.<br/>
+                            Your peace becomes their safety.
+                        </p>
+                        <p class="fragment fade-in-up" style="font-size: 1.6rem; margin-top: 3rem; color: rgba(255,255,255,0.8); font-style: italic;">
+                            Anxiety isn't your enemy—it's your overprotective friend.<br/>
+                            Now you have the tools to turn down its volume.
+                        </p>
+                        <div style="margin-top: 4rem; font-size: 1.3rem; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.1em;">
+                            Bloom Psychology
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/notes/notes.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/markdown/markdown.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/highlight/highlight.js"></script>
+    
+    <script>
+        Reveal.initialize({
+            hash: true,
+            controls: true,
+            progress: true,
+            center: false,
+            transition: 'fade',
+            transitionSpeed: 'slow',
+            backgroundTransition: 'fade',
+            
+            // View options
+            width: 1920,
+            height: 1080,
+            margin: 0,
+            minScale: 0.2,
+            maxScale: 2.0,
+            
+            // UI options
+            controlsTutorial: false,
+            controlsLayout: 'bottom-right',
+            controlsBackArrows: 'faded',
+            slideNumber: 'c/t',
+            showSlideNumber: 'all',
+            
+            // Features
+            history: true,
+            keyboard: true,
+            overview: true,
+            loop: false,
+            touch: true,
+            
+            // PDF export
+            pdfMaxPagesPerSlide: 1,
+            pdfSeparateFragments: false,
+            
+            plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+        });
+    </script>
+</body>
+</html>

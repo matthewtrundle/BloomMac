@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>The Anxious Postpartum Brain | Bloom Psychology</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reset.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+    <link rel="stylesheet" href="../../../public/presentations/week1/assets/css/bloom-professional.css">
+    
+    <style>
+        /* Lesson-specific enhancements */
+        :root {
+            --bloom-anxiety-red: #DC143C;
+            --bloom-calm-blue: #4682B4;
+            --bloom-brain-purple: #8B7AB8;
+            --bloom-hope-gold: #FFD700;
+        }
+        
+        /* Brain visualization */
+        .brain-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 3rem 0;
+            position: relative;
+        }
+        
+        .brain-region {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            margin: 0 2rem;
+        }
+        
+        .amygdala {
+            background: radial-gradient(circle, var(--bloom-anxiety-red) 0%, rgba(220, 20, 60, 0.3) 100%);
+            animation: pulse-anxiety 2s infinite;
+        }
+        
+        .prefrontal {
+            background: radial-gradient(circle, var(--bloom-calm-blue) 0%, rgba(70, 130, 180, 0.3) 100%);
+            opacity: 0.6;
+        }
+        
+        @keyframes pulse-anxiety {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Anxiety manifestation cards */
+        .manifestation-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            margin: 1rem;
+            border-top: 5px solid var(--bloom-anxiety-red);
+            transition: transform 0.3s ease;
+        }
+        
+        .manifestation-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .manifestation-card h3 {
+            color: var(--bloom-anxiety-red);
+            margin-bottom: 1rem;
+        }
+        
+        /* Intrusive thoughts visualization */
+        .thought-bubble {
+            background: linear-gradient(135deg, rgba(220, 20, 60, 0.1) 0%, rgba(220, 20, 60, 0.05) 100%);
+            padding: 1.5rem;
+            border-radius: 20px;
+            margin: 1rem;
+            position: relative;
+            border: 2px dashed var(--bloom-anxiety-red);
+            font-style: italic;
+            color: var(--bloom-warm-gray);
+        }
+        
+        .thought-bubble::before {
+            content: "Intrusive Thought:";
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            background: white;
+            padding: 0 10px;
+            font-size: 0.9rem;
+            color: var(--bloom-anxiety-red);
+            font-weight: 600;
+        }
+        
+        /* Evolution timeline */
+        .evolution-timeline {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 3rem 0;
+            position: relative;
+        }
+        
+        .evolution-timeline::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--bloom-brain-purple);
+            z-index: -1;
+        }
+        
+        .evolution-point {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            border: 4px solid var(--bloom-brain-purple);
+        }
+        
+        /* Hope cards */
+        .hope-card {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(255, 215, 0, 0.05) 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 2px solid var(--bloom-hope-gold);
+            text-align: center;
+            margin: 1rem;
+        }
+        
+        .hope-card h3 {
+            color: var(--bloom-hope-gold);
+            margin-bottom: 1rem;
+        }
+        
+        /* Anxiety vs normal comparison */
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .comparison-column {
+            padding: 2rem;
+            border-radius: 15px;
+        }
+        
+        .normal-column {
+            background: linear-gradient(135deg, rgba(139, 154, 130, 0.1) 0%, rgba(139, 154, 130, 0.05) 100%);
+            border: 2px solid var(--bloom-sage);
+        }
+        
+        .disorder-column {
+            background: linear-gradient(135deg, rgba(220, 20, 60, 0.1) 0%, rgba(220, 20, 60, 0.05) 100%);
+            border: 2px solid var(--bloom-anxiety-red);
+        }
+        
+        /* Paradox visualization */
+        .paradox-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 3rem;
+            margin: 3rem 0;
+        }
+        
+        .paradox-side {
+            text-align: center;
+            padding: 2rem;
+            border-radius: 15px;
+            background: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- SLIDE 1: Hero Opening -->
+            <section data-background-color="#1a1a1a">
+                <div class="hero-image-slide">
+                    <img src="[MIDJOURNEY: Mother sitting on edge of bed at 3am, baby sleeping peacefully, but mother's face shows worry and racing thoughts visualized around her head. Style: Photorealistic, moody lighting, anxiety made visible]" alt="Mother experiencing postpartum anxiety">
+                    <div class="hero-scrim"></div>
+                    <div class="text-protection">
+                        <h1 class="fragment fade-in-up">The Anxious<br/><span class="gradient-text">Postpartum Brain</span></h1>
+                        <p class="fragment fade-in-up" style="font-size: 2rem; margin-top: 2rem; color: rgba(255,255,255,0.95);">
+                            When Protection Becomes Prison
+                        </p>
+                        <p class="fragment fade-in-up" style="font-size: 1.3rem; margin-top: 3rem; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.1em;">
+                            Bloom Psychology • Week 4 • Lesson 1
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 2: You're Not Alone -->
+            <section>
+                <div class="magazine-split">
+                    <div class="content-panel content-panel-gradient">
+                        <h1 class="fragment fade-in-up">1 in 5<br/><span class="gradient-text">New Mothers</span></h1>
+                        <p class="fragment fade-in-up" style="margin-top: 2rem; font-size: 1.8rem;">
+                            Experience postpartum anxiety
+                        </p>
+                        <p class="fragment fade-in-up" style="font-size: 1.6rem; margin-top: 2rem; color: var(--bloom-coral);">
+                            Yet 85% never report it
+                        </p>
+                        <p class="fragment fade-in-up" style="font-size: 1.5rem; margin-top: 2rem;">
+                            If your mind races with worst-case scenarios...<br/>
+                            If you can't sleep even when baby does...<br/>
+                            If you're constantly waiting for disaster...
+                        </p>
+                        <p class="fragment fade-in-up" style="font-size: 1.8rem; margin-top: 2rem; font-weight: 600; color: var(--bloom-sage);">
+                            You're not crazy.<br/>You're not alone.<br/>You can heal.
+                        </p>
+                    </div>
+                    <div class="image-panel">
+                        <img src="[MIDJOURNEY: Split image showing many mothers in their homes at night, all awake with worry, connected by subtle light threads showing shared experience. Style: Photorealistic, artistic composition showing connection in isolation]" alt="Many mothers experiencing anxiety together">
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 3: What's Happening in Your Brain -->
+            <section data-background-color="#ffffff">
+                <div class="container">
+                    <h2 style="text-align: center; margin-bottom: 3rem;">Your Brain on <span class="gradient-text">High Alert</span></h2>
+                    <div class="brain-visual">
+                        <div class="brain-region amygdala">
+                            <div>
+                                <h3 style="color: white;">Amygdala</h3>
+                                <p style="color: white; font-size: 1.2rem;">OVERACTIVE</p>
+                                <p style="color: white; font-size: 1rem;">Alarm system in overdrive</p>
+                            </div>
+                        </div>
+                        <div style="font-size: 3rem;">⚡</div>
+                        <div class="brain-region prefrontal">
+                            <div>
+                                <h3 style="color: white;">Prefrontal Cortex</h3>
+                                <p style="color: white; font-size: 1.2rem;">IMPAIRED</p>
+                                <p style="color: white; font-size: 1rem;">Rational thinking offline</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="background: var(--bloom-cream); padding: 2rem; border-radius: 15px; margin-top: 3rem;" class="fragment fade-in-up">
+                        <p style="text-align: center; font-size: 1.8rem; color: var(--bloom-brain-purple);">
+                            It's like having a smoke alarm that goes off every time you make toast
+                        </p>
+                        <p style="text-align: center; font-size: 1.5rem; margin-top: 1rem; font-style: italic;">
+                            The alarm works too well, creating danger signals when there's no actual danger
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 4: Anxiety is NOT -->
+            <section>
+                <div class="hero-image-slide">
+                    <img src="[MIDJOURNEY: Woman looking at herself in mirror with compassion, reflection shows her anxious thoughts dissolving. Style: Photorealistic, self-compassion visible, transformation]" alt="Woman showing self-compassion about anxiety">
+                    <div class="floating-card floating-card-bottom floating-card-dark">
+                        <h2 style="text-align: center; margin-bottom: 3rem; color: white;">Postpartum Anxiety is <span class="gradient-text">NOT</span></h2>
+                        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; max-width: 1000px; margin: 0 auto;">
+                            <div class="fragment fade-in-up" style="text-align: center;">
+                                <div style="font-size: 3rem; margin-bottom: 1rem;">❌</div>
+                                <p style="font-size: 1.5rem; color: white;">A character flaw</p>
+                            </div>
+                            <div class="fragment fade-in-up" style="text-align: center;">
+                                <div style="font-size: 3rem; margin-bottom: 1rem;">❌</div>
+                                <p style="font-size: 1.5rem; color: white;">A sign of weakness</p>
+                            </div>
+                            <div class="fragment fade-in-up" style="text-align: center;">
+                                <div style="font-size: 3rem; margin-bottom: 1rem;">❌</div>
+                                <p style="font-size: 1.5rem; color: white;">Something to "snap out of"</p>
+                            </div>
+                            <div class="fragment fade-in-up" style="text-align: center;">
+                                <div style="font-size: 3rem; margin-bottom: 1rem;">❌</div>
+                                <p style="font-size: 1.5rem; color: white;">Your fault</p>
+                            </div>
+                        </div>
+                        <h3 style="text-align: center; margin: 3rem 0; color: white;">Postpartum Anxiety <span class="gradient-text">IS</span></h3>
+                        <p style="text-align: center; font-size: 1.6rem; color: rgba(255,255,255,0.9);" class="fragment fade-in">
+                            A common response to massive change • Your brain protecting your baby<br/>
+                            Rooted in biology • Highly treatable with support
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 5: The Evolutionary Purpose -->
+            <section data-background-color="#faf8f5">
+                <div class="container">
+                    <h2 style="text-align: center; margin-bottom: 3rem;">Your Ancient <span class="gradient-text">Protection System</span></h2>
+                    <div class="evolution-timeline">
+                        <div class="evolution-point fragment fade-in-up">
+                            <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🦁</div>
+                            <p><strong>Then</strong></p>
+                            <p style="font-size: 0.9rem;">Real predators</p>
+                        </div>
+                        <div class="evolution-point fragment fade-in-up">
+                            <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">👁️</div>
+                            <p><strong>Vigilance</strong></p>
+                            <p style="font-size: 0.9rem;">= Survival</p>
+                        </div>
+                        <div class="evolution-point fragment fade-in-up">
+                            <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🧬</div>
+                            <p><strong>Genes</strong></p>
+                            <p style="font-size: 0.9rem;">Passed on</p>
+                        </div>
+                        <div class="evolution-point fragment fade-in-up">
+                            <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">📱</div>
+                            <p><strong>Now</strong></p>
+                            <p style="font-size: 0.9rem;">News = Tiger?</p>
+                        </div>
+                    </div>
+                    <div style="background: white; padding: 3rem; border-radius: 15px; box-shadow: var(--shadow-large); margin-top: 3rem;" class="fragment fade-in-up">
+                        <p style="text-align: center; font-size: 1.8rem; color: var(--bloom-brain-purple); font-weight: 600;">
+                            Your anxious brain is not broken—<br/>it's doing exactly what it evolved to do
+                        </p>
+                        <p style="text-align: center; font-size: 1.5rem; margin-top: 1rem; font-style: italic; color: var(--bloom-warm-gray);">
+                            The problem: It can't tell the difference between a saber-toothed tiger and a news headline
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 6: How Anxiety Shows Up -->
+            <section>
+                <div class="magazine-split">
+                    <div class="content-panel content-panel-gradient">
+                        <h2>Recognize <span class="gradient-text">Yourself?</span></h2>
+                        <p style="font-size: 1.6rem; margin: 2rem 0;">Anxiety wears many masks:</p>
+                    </div>
+                    <div class="image-panel">
+                        <img src="[MIDJOURNEY: Collage showing different manifestations - woman checking baby repeatedly, woman googling frantically, woman organizing obsessively. Style: Photorealistic montage, anxiety behaviors visible]" alt="Different ways anxiety manifests">
+                    </div>
+                </div>
+                <div class="container" style="margin-top: -5rem;">
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+                        <div class="manifestation-card fragment fade-in-up">
+                            <h3>The Checker</h3>
+                            <p>Constantly monitoring breathing, can't relax even when baby is safe</p>
+                        </div>
+                        <div class="manifestation-card fragment fade-in-up">
+                            <h3>The Catastrophizer</h3>
+                            <p>Every rash = serious illness, every cry = disaster</p>
+                        </div>
+                        <div class="manifestation-card fragment fade-in-up">
+                            <h3>The Controller</h3>
+                            <p>Rigid routines, panic when plans change</p>
+                        </div>
+                        <div class="manifestation-card fragment fade-in-up">
+                            <h3>The Researcher</h3>
+                            <p>Endless googling, never enough information</p>
+                        </div>
+                        <div class="manifestation-card fragment fade-in-up">
+                            <h3>The Physical Responder</h3>
+                            <p>Racing heart, sweating, stomach issues</p>
+                        </div>
+                        <div class="manifestation-card fragment fade-in-up">
+                            <h3>The Insomniac</h3>
+                            <p>Can't sleep even when exhausted</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 7: Intrusive Thoughts -->
+            <section data-background-color="#ffffff">
+                <div class="container">
+                    <h2 style="text-align: center; margin-bottom: 3rem;">The Secret <span class="gradient-text">Shame</span></h2>
+                    <div style="max-width: 800px; margin: 0 auto;">
+                        <div class="thought-bubble fragment fade-in-up">
+                            "What if I drop the baby down the stairs?"
+                        </div>
+                        <div class="thought-bubble fragment fade-in-up">
+                            "What if something terrible happens while I'm sleeping?"
+                        </div>
+                        <div class="thought-bubble fragment fade-in-up">
+                            "What if I'm not cut out to be a mother?"
+                        </div>
+                    </div>
+                    <div style="background: var(--bloom-cream); padding: 3rem; border-radius: 15px; margin-top: 3rem;" class="fragment fade-in-up">
+                        <h3 style="text-align: center; color: var(--bloom-brain-purple); margin-bottom: 2rem;">
+                            91% of new mothers experience intrusive thoughts
+                        </h3>
+                        <p style="text-align: center; font-size: 1.6rem;">
+                            These thoughts are NOT:<br/>
+                            ❌ Desires ❌ Predictions ❌ Reflections of who you are
+                        </p>
+                        <p style="text-align: center; font-size: 1.8rem; margin-top: 2rem; color: var(--bloom-sage); font-weight: 600;">
+                            Think of them like spam email—<br/>you didn't ask for them, they don't reflect your interests
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 8: Your Horror = Your Love -->
+            <section>
+                <div class="hero-image-slide">
+                    <img src="[MIDJOURNEY: Mother holding baby protectively, thought bubbles showing scary thoughts but her face shows deep love and protection. Style: Photorealistic, contrast between thoughts and reality]" alt="Mother's protective love despite intrusive thoughts">
+                    <div class="floating-card floating-card-bottom text-protection-light">
+                        <h2 style="text-align: center; margin-bottom: 2rem;">Your Horror at These Thoughts<br/>= <span class="gradient-text">Evidence of Your Love</span></h2>
+                        <p style="text-align: center; font-size: 2rem; margin: 2rem 0;">
+                            The mothers who struggle most with intrusive thoughts<br/>
+                            are those who care most deeply
+                        </p>
+                        <p style="text-align: center; font-size: 1.8rem; font-style: italic; color: var(--bloom-sage);">
+                            Your distress proves what a good, protective mother you are
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 9: When to Seek Help -->
+            <section data-background-color="#faf8f5">
+                <div class="container">
+                    <h2 style="text-align: center; margin-bottom: 3rem;">When Anxiety Crosses <span class="gradient-text">The Line</span></h2>
+                    <div class="comparison-grid">
+                        <div class="comparison-column normal-column">
+                            <h3 style="color: var(--bloom-sage); text-align: center; margin-bottom: 2rem;">Normal Anxiety</h3>
+                            <ul style="font-size: 1.4rem; line-height: 2;">
+                                <li>Worry that comes and goes</li>
+                                <li>Can be distracted from it</li>
+                                <li>Sleep when baby sleeps (mostly)</li>
+                                <li>Function despite worry</li>
+                                <li>Responsive to reassurance</li>
+                            </ul>
+                        </div>
+                        <div class="comparison-column disorder-column">
+                            <h3 style="color: var(--bloom-anxiety-red); text-align: center; margin-bottom: 2rem;">Time for Help</h3>
+                            <ul style="font-size: 1.4rem; line-height: 2;">
+                                <li>Can't eat or sleep due to worry</li>
+                                <li>Avoiding normal activities</li>
+                                <li>Physical symptoms impacting health</li>
+                                <li>Panic attacks</li>
+                                <li>Not improving after 2-3 weeks</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div style="background: white; padding: 2rem; border-radius: 15px; box-shadow: var(--shadow-large); margin-top: 3rem;" class="fragment fade-in-up">
+                        <p style="text-align: center; font-size: 1.8rem; color: var(--bloom-brain-purple); font-weight: 600;">
+                            Seeking help isn't admitting defeat—it's choosing recovery
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 10: The Anxiety Paradox -->
+            <section>
+                <div class="magazine-split magazine-split-reverse">
+                    <div class="content-panel">
+                        <h2>The Anxiety <span class="gradient-text">Paradox</span></h2>
+                        <div class="paradox-visual">
+                            <div class="paradox-side fragment fade-in-up">
+                                <h3 style="color: var(--bloom-anxiety-red);">Fighting It</h3>
+                                <p style="font-size: 3rem;">💪</p>
+                                <p>"I shouldn't feel this way!"</p>
+                                <p style="font-size: 1.2rem; margin-top: 1rem;">= More anxiety</p>
+                            </div>
+                            <div style="font-size: 2rem;">vs</div>
+                            <div class="paradox-side fragment fade-in-up">
+                                <h3 style="color: var(--bloom-calm-blue);">Accepting It</h3>
+                                <p style="font-size: 3rem;">🌊</p>
+                                <p>"Anxiety is here, that's okay"</p>
+                                <p style="font-size: 1.2rem; margin-top: 1rem;">= Less power</p>
+                            </div>
+                        </div>
+                        <div style="background: var(--bloom-cream); padding: 2rem; border-radius: 15px; margin-top: 2rem;" class="fragment fade-in-up">
+                            <p style="font-style: italic; font-size: 1.5rem;">
+                                "I notice anxiety is here. My protective system is active. This is uncomfortable but not dangerous."
+                            </p>
+                        </div>
+                    </div>
+                    <div class="image-panel">
+                        <img src="[MIDJOURNEY: Woman in quicksand metaphor - struggling makes her sink vs. staying calm allows floating. Style: Artistic metaphorical image]" alt="Fighting anxiety like quicksand">
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 11: Hope and Healing -->
+            <section data-background-color="#ffffff">
+                <div class="container">
+                    <h2 style="text-align: center; margin-bottom: 3rem;">Recovery is <span class="gradient-text">Possible</span></h2>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; max-width: 900px; margin: 0 auto;">
+                        <div class="hope-card fragment fade-in-up">
+                            <h3>Recovery Looks Like:</h3>
+                            <p>Still having anxious thoughts but not being controlled by them</p>
+                        </div>
+                        <div class="hope-card fragment fade-in-up">
+                            <h3>Recovery Feels Like:</h3>
+                            <p>Feeling worry but also feeling joy—they can coexist</p>
+                        </div>
+                        <div class="hope-card fragment fade-in-up">
+                            <h3>Recovery Means:</h3>
+                            <p>Being protective without being paralyzed</p>
+                        </div>
+                        <div class="hope-card fragment fade-in-up">
+                            <h3>Recovery Includes:</h3>
+                            <p>Trusting yourself even when uncertain</p>
+                        </div>
+                    </div>
+                    <div style="background: var(--bloom-brain-purple); color: white; padding: 3rem; border-radius: 15px; margin-top: 3rem; text-align: center;" class="fragment fade-in-up">
+                        <p style="font-size: 2rem; font-weight: 600;">
+                            Most mothers see significant improvement<br/>within 6-12 weeks with proper support
+                        </p>
+                        <p style="font-size: 1.6rem; margin-top: 1rem;">
+                            The anxious brain can learn to calm.<br/>The alarm system can be recalibrated.
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 12: This Week's Practice -->
+            <section>
+                <div class="hero-image-slide">
+                    <img src="[MIDJOURNEY: Mother placing hand on heart in self-compassion gesture, peaceful expression, soft lighting. Style: Photorealistic, self-compassion and acceptance visible]" alt="Mother practicing self-compassion">
+                    <div class="floating-card floating-card-bottom text-protection-light">
+                        <h2 style="text-align: center; margin-bottom: 2rem;">This Week's <span class="gradient-text">Practice</span></h2>
+                        <div style="background: white; padding: 3rem; border-radius: 15px; box-shadow: var(--shadow-large); max-width: 800px; margin: 0 auto;">
+                            <p style="text-align: center; font-size: 1.8rem; margin-bottom: 2rem;">
+                                Notice your anxiety with compassion rather than judgment
+                            </p>
+                            <div style="background: var(--bloom-cream); padding: 2rem; border-radius: 10px;">
+                                <p style="text-align: center; font-size: 1.6rem; font-style: italic;">
+                                    Place your hand on your heart and say:
+                                </p>
+                                <p style="text-align: center; font-size: 2rem; margin-top: 1rem; color: var(--bloom-brain-purple); font-weight: 600;">
+                                    "This anxiety is trying to protect my baby.<br/>
+                                    I can acknowledge it without being ruled by it."
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 13: Closing -->
+            <section>
+                <div class="hero-image-slide">
+                    <img src="[MIDJOURNEY: Mother looking hopeful, sunrise in background, baby peaceful, visual metaphor for new beginning and hope. Style: Photorealistic, dawn light, transformation visible]" alt="Hope for healing from anxiety">
+                    <div class="hero-scrim"></div>
+                    <div class="text-protection" style="text-align: center;">
+                        <h1 class="fragment fade-in-up" style="color: white;">Your Anxiety Doesn't Make You<br/>a <span class="gradient-text">Bad Mother</span></h1>
+                        <p class="fragment fade-in-up" style="font-size: 2rem; margin-top: 2rem; color: rgba(255,255,255,0.95);">
+                            It makes you a protective mother
+                        </p>
+                        <p class="fragment fade-in-up" style="font-size: 1.8rem; margin-top: 3rem; color: rgba(255,255,255,0.85);">
+                            whose alarm system needs gentle recalibration
+                        </p>
+                        <p class="fragment fade-in-up" style="font-size: 1.6rem; margin-top: 3rem; color: rgba(255,255,255,0.8); font-style: italic;">
+                            Next lesson: Specific techniques for calming your nervous system<br/>
+                            You don't have to white-knuckle through motherhood.
+                        </p>
+                        <div style="margin-top: 4rem; font-size: 1.3rem; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.1em;">
+                            Bloom Psychology
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/notes/notes.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/markdown/markdown.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/highlight/highlight.js"></script>
+    
+    <script>
+        Reveal.initialize({
+            hash: true,
+            controls: true,
+            progress: true,
+            center: false,
+            transition: 'fade',
+            transitionSpeed: 'slow',
+            backgroundTransition: 'fade',
+            
+            // View options
+            width: 1920,
+            height: 1080,
+            margin: 0,
+            minScale: 0.2,
+            maxScale: 2.0,
+            
+            // UI options
+            controlsTutorial: false,
+            controlsLayout: 'bottom-right',
+            controlsBackArrows: 'faded',
+            slideNumber: 'c/t',
+            showSlideNumber: 'all',
+            
+            // Features
+            history: true,
+            keyboard: true,
+            overview: true,
+            loop: false,
+            touch: true,
+            
+            // PDF export
+            pdfMaxPagesPerSlide: 1,
+            pdfSeparateFragments: false,
+            
+            plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+        });
+    </script>
+</body>
+</html>

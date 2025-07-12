@@ -1,5 +1,7 @@
+#\!/usr/bin/env node
+
 const { createClient } = require('@supabase/supabase-js');
-require('dotenv').config();
+require('dotenv').config({ path: '.env.local' });
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -7,93 +9,84 @@ const supabase = createClient(
 );
 
 async function checkCourseTables() {
-  console.log('📋 Checking Course Tables Structure...\n');
+  console.log('🎓 Checking Course-Related Tables...\n');
 
-  const tables = ['courses', 'course_modules', 'course_lessons'];
+  const courseTables = [
+    'courses',
+    'course_modules',
+    'course_lessons',
+    'course_purchases',
+    'user_course_access',
+    'course_progress',
+    'course_enrollments'
+  ];
 
-  for (const table of tables) {
-    console.log(`\n🔍 Table: ${table}`);
+  for (const table of courseTables) {
+    console.log(`\n📊 Checking ${table}:`);
+    
     try {
-      const { data, error } = await supabase
+      const { count, error } = await supabase
         .from(table)
-        .select('*')
-        .limit(1);
-      
+        .select('*', { count: 'exact', head: true });
+
       if (error) {
-        console.log(`  ❌ Error: ${error.message}`);
-      } else if (data && data.length > 0) {
-        const columns = Object.keys(data[0]);
-        console.log(`  ✅ Columns:`, columns);
-        
-        // Show sample data structure
-        console.log(`  📄 Sample row structure:`);
-        for (const [key, value] of Object.entries(data[0])) {
-          const valueType = typeof value;
-          const valuePreview = valueType === 'string' && value.length > 50 
-            ? value.substring(0, 50) + '...' 
-            : value;
-          console.log(`     - ${key}: ${valueType} (${valuePreview})`);
+        if (error.code === '42P01') {
+          console.log(`  ❌ Table does not exist`);
+        } else {
+          console.log(`  ⚠️  Error: ${error.message}`);
         }
       } else {
-        console.log(`  ⚠️  Table exists but is empty`);
+        console.log(`  ✅ Table exists with ${count} rows`);
+        
+        // Get sample data
+        const { data: sample } = await supabase
+          .from(table)
+          .select('*')
+          .limit(2);
+          
+        if (sample && sample.length > 0) {
+          console.log('  Sample record:');
+          console.log('  ', JSON.stringify(sample[0], null, 2).split('\n').join('\n  '));
+        }
       }
-    } catch (err) {
-      console.log(`  ❌ Error: ${err.message}`);
+    } catch (e) {
+      console.log(`  ❌ Error checking table: ${e.message}`);
     }
   }
 
-  // Now let's check relationships
-  console.log('\n\n📊 Checking Relationships:');
+  // Check for specific course data
+  console.log('\n\n🔍 Checking Course Data:');
   
   try {
-    // Get course
-    const { data: course } = await supabase
+    const { data: courses } = await supabase
       .from('courses')
-      .select('id, title, slug')
-      .eq('slug', 'postpartum-wellness-foundations')
-      .single();
-    
-    if (course) {
-      console.log(`\n✅ Found course: ${course.title} (${course.id})`);
+      .select('*');
       
-      // Get modules
-      const { data: modules } = await supabase
-        .from('course_modules')
-        .select('id, week_number, title')
-        .eq('course_id', course.id)
-        .order('week_number');
-      
-      if (modules) {
-        console.log(`\n✅ Found ${modules.length} modules`);
-        
-        // Check first module's lessons
-        if (modules.length > 0) {
-          const firstModule = modules[0];
-          console.log(`\n📁 Checking lessons for Week ${firstModule.week_number}: ${firstModule.title}`);
-          
-          // Try different column names
-          const possibleColumns = ['course_module_id', 'module_id', 'course_modules_id'];
-          
-          for (const colName of possibleColumns) {
-            const { data: lessons, error } = await supabase
-              .from('course_lessons')
-              .select('id, lesson_number, title')
-              .eq(colName, firstModule.id)
-              .order('lesson_number');
-            
-            if (!error && lessons) {
-              console.log(`  ✅ Found ${lessons.length} lessons using column: ${colName}`);
-              break;
-            } else if (error) {
-              console.log(`  ❌ Column ${colName} error: ${error.message}`);
-            }
-          }
-        }
-      }
+    if (courses) {
+      console.log(`\nFound ${courses.length} courses:`);
+      courses.forEach(course => {
+        console.log(`  - ${course.title} (${course.slug}): $${course.price}`);
+      });
     }
-  } catch (err) {
-    console.log(`\n❌ Relationship check error: ${err.message}`);
+  } catch (e) {
+    console.log('Could not fetch courses');
+  }
+
+  try {
+    const { data: access } = await supabase
+      .from('user_course_access')
+      .select('*');
+      
+    if (access && access.length > 0) {
+      console.log(`\n\nFound ${access.length} course access records:`);
+      access.forEach(record => {
+        console.log(`  - ${record.customer_email} has access to ${record.course_id}`);
+      });
+    }
+  } catch (e) {
+    console.log('Could not fetch course access');
   }
 }
 
 checkCourseTables().catch(console.error);
+EOF < /dev/null

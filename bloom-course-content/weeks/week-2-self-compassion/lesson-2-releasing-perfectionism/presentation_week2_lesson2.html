@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>Releasing Perfectionism & Embracing "Good Enough" | Bloom Psychology</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reset.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+    
+    <style>
+        /* Import Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        /* Full Design System Variables */
+        :root {
+            /* Sophisticated color palette */
+            --bloom-charcoal: #1a1a1a;
+            --bloom-warm-gray: #4a4a4a;
+            --bloom-light-gray: #f7f7f7;
+            --bloom-sage: #8B9A82;
+            --bloom-sage-muted: #a3b199;
+            --bloom-coral: #FF6B6B;
+            --bloom-golden: #FFCB77;
+            --bloom-lavender: #C589E8;
+            --bloom-mint: #95E1D3;
+            --bloom-rose: #FFA8C5;
+            --bloom-blush: #e8d5d5;
+            --bloom-cream: #faf8f5;
+            --bloom-white: #ffffff;
+            
+            /* Typography scale */
+            --font-display: 'Cormorant Garamond', serif;
+            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            
+            /* Responsive Typography */
+            --text-display: clamp(3.5rem, 7vw, 6rem);
+            --text-heading: clamp(2.5rem, 5vw, 4rem);
+            --text-subheading: clamp(1.8rem, 3vw, 2.5rem);
+            --text-body: clamp(1rem, 2vw, 1.3rem);
+            --text-small: clamp(0.9rem, 1.5vw, 1.1rem);
+            
+            /* Spacing */
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 2rem;
+            --space-lg: 4rem;
+            --space-xl: 6rem;
+            --space-2xl: 8rem;
+            
+            /* Shadows */
+            --shadow-subtle: 0 2px 8px rgba(0,0,0,0.08);
+            --shadow-medium: 0 8px 24px rgba(0,0,0,0.12);
+            --shadow-large: 0 20px 60px rgba(0,0,0,0.16);
+            --shadow-glass: 0 8px 32px rgba(0,0,0,0.12);
+        }
+        
+        /* Reset and base styles */
+        .reveal-viewport {
+            background: var(--bloom-white);
+        }
+        
+        .reveal {
+            font-family: var(--font-body);
+            font-size: 20px;
+            font-weight: 400;
+            color: var(--bloom-charcoal);
+            line-height: 1.6;
+            letter-spacing: -0.02em;
+        }
+        
+        .reveal .slides {
+            text-align: left;
+        }
+        
+        .reveal .slides section {
+            padding: 0;
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        /* Typography */
+        .reveal h1 {
+            font-family: var(--font-display);
+            font-size: var(--text-display);
+            font-weight: 300;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            color: var(--bloom-charcoal);
+            margin-bottom: var(--space-md);
+        }
+        
+        .reveal h2 {
+            font-family: var(--font-display);
+            font-size: var(--text-heading);
+            font-weight: 400;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            color: var(--bloom-charcoal);
+            margin-bottom: var(--space-md);
+        }
+        
+        .reveal h3 {
+            font-family: var(--font-body);
+            font-size: var(--text-subheading);
+            font-weight: 500;
+            line-height: 1.3;
+            color: var(--bloom-warm-gray);
+            margin-bottom: var(--space-sm);
+        }
+        
+        .reveal p {
+            font-size: var(--text-body);
+            line-height: 1.8;
+            color: var(--bloom-warm-gray);
+            margin-bottom: var(--space-md);
+            max-width: 36em;
+        }
+        
+        .reveal em {
+            font-style: italic;
+            color: var(--bloom-sage);
+        }
+        
+        .reveal strong {
+            font-weight: 600;
+            color: var(--bloom-charcoal);
+        }
+        
+        .reveal ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .reveal li {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: var(--space-sm);
+            font-size: var(--text-body);
+        }
+        
+        .reveal li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.8rem;
+            width: 8px;
+            height: 2px;
+            background: var(--bloom-sage);
+        }
+        
+        /* Gradient Text Effects */
+        .gradient-text {
+            background: linear-gradient(135deg, var(--bloom-coral) 0%, var(--bloom-rose) 50%, var(--bloom-golden) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: inline-block;
+        }
+        
+        /* Layout Components */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: var(--space-xl) var(--space-lg);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        /* Hero Image Slides */
+        .hero-image-slide {
+            position: relative;
+            height: 100vh;
+            width: 100%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .hero-image-slide img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+        
+        .hero-scrim {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(26,26,26,0.7) 0%, rgba(26,26,26,0.4) 100%);
+            z-index: 2;
+        }
+        
+        .text-protection {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            color: white;
+            max-width: 800px;
+            padding: var(--space-lg);
+        }
+        
+        .text-protection h1 {
+            color: white;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+        
+        .text-protection p {
+            color: rgba(255,255,255,0.9);
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        .text-protection-light {
+            position: relative;
+            z-index: 3;
+            color: var(--bloom-charcoal);
+            padding: var(--space-lg);
+        }
+        
+        /* Magazine Split Layouts */
+        .magazine-split {
+            display: grid;
+            grid-template-columns: 3fr 2fr;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .magazine-split-reverse {
+            grid-template-columns: 2fr 3fr;
+        }
+        
+        .content-panel {
+            padding: var(--space-xl);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: var(--bloom-white);
+        }
+        
+        .content-panel-gradient {
+            background: linear-gradient(135deg, var(--bloom-cream) 0%, var(--bloom-white) 100%);
+        }
+        
+        .image-panel {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .image-panel img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Image with Floating Card */
+        .image-with-card {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .image-with-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Floating Cards with Glass Morphism */
+        .floating-card {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-glass);
+            max-width: 500px;
+            transition: all 0.3s ease;
+        }
+        
+        .floating-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 80px rgba(0,0,0,0.2);
+        }
+        
+        .floating-card-left {
+            top: 50%;
+            left: var(--space-xl);
+            transform: translateY(-50%);
+        }
+        
+        .floating-card-right {
+            top: 50%;
+            right: var(--space-xl);
+            transform: translateY(-50%);
+        }
+        
+        .floating-card-bottom {
+            bottom: var(--space-xl);
+            left: 50%;
+            transform: translateX(-50%);
+            max-width: 900px;
+        }
+        
+        .floating-card-dark {
+            background: rgba(26, 26, 26, 0.9);
+            color: white;
+        }
+        
+        /* Image Grid with Statistics */
+        .image-grid {
+            display: grid;
+            gap: var(--space-md);
+            height: 80vh;
+            padding: var(--space-lg);
+        }
+        
+        .image-grid-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+        }
+        
+        .image-grid-item:hover {
+            transform: scale(1.02);
+        }
+        
+        .image-grid-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .image-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: white;
+            padding: var(--space-md);
+            text-align: center;
+        }
+        
+        .image-caption h3 {
+            color: white;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .image-caption p {
+            color: rgba(255,255,255,0.9);
+            font-size: var(--text-small);
+        }
+        
+        /* Stat Cards */
+        .stat-image-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-image-card:hover {
+            transform: scale(1.05);
+        }
+        
+        .stat-image-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .stat-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: var(--space-md);
+        }
+        
+        .stat-overlay h3 {
+            font-family: var(--font-display);
+            font-size: var(--text-heading);
+            font-weight: 300;
+            color: white;
+            margin-bottom: var(--space-sm);
+            text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+        
+        .stat-overlay p {
+            font-size: var(--text-body);
+            color: rgba(255,255,255,0.95);
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            font-weight: 500;
+        }
+        
+        /* Visual Lists */
+        .visual-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .visual-list li {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: var(--space-md);
+            font-size: var(--text-body);
+            line-height: 1.6;
+            padding-left: 0;
+        }
+        
+        .visual-list li::before {
+            display: none;
+        }
+        
+        .visual-list-icon {
+            font-size: 2rem;
+            margin-right: var(--space-sm);
+            margin-top: 0.2rem;
+        }
+        
+        /* Quote with Image */
+        .quote-with-image {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: var(--space-xl);
+            align-items: center;
+            padding: var(--space-xl);
+        }
+        
+        .quote-portrait {
+            position: relative;
+        }
+        
+        .quote-portrait img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 15px;
+            box-shadow: var(--shadow-large);
+        }
+        
+        /* Gradient Mesh Backgrounds */
+        .gradient-mesh {
+            background: radial-gradient(circle at 20% 20%, rgba(255, 203, 119, 0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(197, 137, 232, 0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 40%, rgba(149, 225, 211, 0.2) 0%, transparent 50%);
+        }
+        
+        /* Perfectionism-Specific Components */
+        .perfect-vs-real {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-lg);
+            margin: var(--space-lg) 0;
+        }
+        
+        .perfect-side, .real-side {
+            padding: var(--space-lg);
+            border-radius: 20px;
+            text-align: left;
+        }
+        
+        .perfect-side {
+            background: linear-gradient(135deg, rgba(200, 200, 200, 0.3) 0%, rgba(180, 180, 180, 0.5) 100%);
+            border: 2px solid rgba(200, 200, 200, 0.5);
+        }
+        
+        .real-side {
+            background: linear-gradient(135deg, rgba(255, 168, 197, 0.2) 0%, rgba(255, 203, 119, 0.3) 100%);
+            border: 2px solid var(--bloom-rose);
+        }
+        
+        .transformation-arrow {
+            text-align: center;
+            font-size: 2rem;
+            color: var(--bloom-sage);
+            margin: var(--space-md) 0;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        /* Cost Cards */
+        .cost-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: var(--space-lg);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: var(--shadow-glass);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .cost-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-large);
+        }
+        
+        .cost-icon {
+            font-size: 3rem;
+            margin-bottom: var(--space-sm);
+            display: block;
+        }
+        
+        .cost-card h3 {
+            margin-bottom: var(--space-sm);
+        }
+        
+        /* Good Enough Badge */
+        .good-enough-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--bloom-sage) 0%, var(--bloom-mint) 100%);
+            color: white;
+            padding: var(--space-sm) var(--space-lg);
+            border-radius: 50px;
+            font-size: var(--text-body);
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(139, 154, 130, 0.3);
+            text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        
+        /* Journey Cards */
+        .journey-card {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: var(--space-lg);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-glass);
+            transition: all 0.3s ease;
+        }
+        
+        .journey-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-large);
+        }
+        
+        .journey-image {
+            position: relative;
+        }
+        
+        .journey-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .journey-number-overlay {
+            position: absolute;
+            top: var(--space-sm);
+            left: var(--space-sm);
+            width: 40px;
+            height: 40px;
+            background: var(--bloom-coral);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .journey-content-panel {
+            padding: var(--space-lg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .journey-content-panel h3 {
+            color: var(--bloom-charcoal);
+            margin-bottom: var(--space-sm);
+        }
+        
+        /* Fragment Animations */
+        .reveal .fragment.fade-in-up {
+            transform: translateY(20px);
+            opacity: 0;
+        }
+        
+        .reveal .fragment.fade-in-up.visible {
+            transform: translateY(0);
+            opacity: 1;
+            transition: all 0.6s ease-out;
+        }
+        
+        .reveal .fragment.scale-in {
+            transform: scale(0.8);
+            opacity: 0;
+        }
+        
+        .reveal .fragment.scale-in.visible {
+            transform: scale(1);
+            opacity: 1;
+            transition: all 0.6s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- SLIDE 1: Hero Opening -->
+            <section data-background-color="#1a1a1a">
+                <div class="hero-image-slide">
+                    <img src="../Week2images/biff01_Happy_mother_laughing_joyfully_while_holding_baby_in_l_7a10ad71-e3e2-4883-aaf4-1171955b1396_3.png" alt="Contrast between perfectionism and embracing imperfection">
+                    <div class="hero-scrim"></div>
+                    <div class="text-protection">
+                        <h1 class="fragment fade-in-up">Releasing Perfectionism<br/><span class="gradient-text">Embracing "Good Enough"</span></h1>
+                        <p class="fragment fade-in-up" style="font-size: 2rem; margin-top: 2rem; color: rgba(255,255,255,0.95);">
+                            Permission to Be Beautifully Imperfect
+                        </p>
+                        <p class="fragment fade-in-up" style="font-size: 1.3rem; margin-top: 3rem; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.1em;">
+                            Bloom Psychology • Week 2 • Lesson 2
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 2: The Before Picture -->
+            <section>
+                <div class="magazine-split">
+                    <div class="content-panel content-panel-gradient">
+                        <h1 class="fragment fade-in-up">Remember When You<br/><span class="gradient-text">Had It Together?</span></h1>
+                        <ul class="feature-list" style="margin-top: 2rem;">
+                            <li class="fragment fade-in-up">Spotless home</li>
+                            <li class="fragment fade-in-up">Excelled at work</li>
+                            <li class="fragment fade-in-up">Never missed commitments</li>
+                            <li class="fragment fade-in-up">Systems for everything</li>
+                            <li class="fragment fade-in-up">Made it look easy</li>
+                        </ul>
+                        <p class="fragment fade-in-up" style="font-size: 1.4rem; color: var(--bloom-coral); margin-top: 2rem; font-style: italic;">
+                            "Then baby arrived, and suddenly you can't even shower regularly..."
+                        </p>
+                    </div>
+                    <div class="image-panel">
+                        <img src="../Week2images/biff01_Mother_in_comfortable_pajamas_at_2pm_looking_amused_ra_56a36901-6a32-4205-81ae-249c690ec8a6_3.png" alt="Woman who had everything together before motherhood">
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 3: The Truth About Perfectionism -->
+            <section class="gradient-mesh">
+                <div class="magazine-split">
+                    <div class="content-panel content-panel-gradient">
+                        <h2>What Perfectionism <span class="gradient-text">Really Is</span></h2>
+                        <blockquote style="font-family: var(--font-display); font-size: var(--text-subheading); color: var(--bloom-coral); font-style: italic; margin: var(--space-lg) 0; padding-left: var(--space-md); border-left: 4px solid var(--bloom-coral);">
+                            "Perfectionism isn't about healthy achievement. It's about fear."
+                            <cite style="display: block; font-size: var(--text-body); color: var(--bloom-sage); margin-top: var(--space-sm); font-style: normal;">— Dr. Brené Brown</cite>
+                        </blockquote>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-md); margin-top: var(--space-lg);">
+                            <div class="fragment fade-in-up" style="text-align: center; padding: var(--space-md);">
+                                <div style="font-size: 3rem; margin-bottom: var(--space-sm); color: var(--bloom-coral);">😰</div>
+                                <h3 style="color: var(--bloom-coral); margin-bottom: var(--space-sm);">Fear of Judgment</h3>
+                                <p>"What will they think if I don't have it all together?"</p>
+                            </div>
+                            <div class="fragment fade-in-up" style="text-align: center; padding: var(--space-md);">
+                                <div style="font-size: 3rem; margin-bottom: var(--space-sm); color: var(--bloom-sage);">💔</div>
+                                <h3 style="color: var(--bloom-sage); margin-bottom: var(--space-sm);">Fear of Not Being Enough</h3>
+                                <p>"Everyone else seems to do this better than me"</p>
+                            </div>
+                            <div class="fragment fade-in-up" style="text-align: center; padding: var(--space-md);">
+                                <div style="font-size: 3rem; margin-bottom: var(--space-sm); color: var(--bloom-lavender);">🌀</div>
+                                <h3 style="color: var(--bloom-lavender); margin-bottom: var(--space-sm);">Fear of Losing Control</h3>
+                                <p>"If I can't control this, everything will fall apart"</p>
+                            </div>
+                            <div class="fragment fade-in-up" style="text-align: center; padding: var(--space-md);">
+                                <div style="font-size: 3rem; margin-bottom: var(--space-sm); color: var(--bloom-golden);">⏰</div>
+                                <h3 style="color: var(--bloom-golden); margin-bottom: var(--space-sm);">Missing the Moment</h3>
+                                <p>"Too focused on doing it 'right' to enjoy it"</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="image-panel">
+                        <img src="../Week2images/biff01_Mother_in_comfortable_pajamas_at_2pm_looking_amused_ra_56a36901-6a32-4205-81ae-249c690ec8a6_3.png" alt="Mother in pajamas at 2pm - embracing imperfection">
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 4: The Research Reality -->
+            <section>
+                <div class="image-with-card">
+                    <img src="../Week2images/biff01_Woman_joyfully_releasing_papers_perfect_to-do_lists_in_8af88434-8970-45b6-86a9-f4dd1da9a21e_0.png" alt="Mother releasing perfectionism">
+                    <div class="floating-card floating-card-left text-protection-light">
+                        <h2 style="color: var(--bloom-coral); margin-bottom: 2rem;">The Cruel Irony</h2>
+                        <p style="font-size: 1.6rem; margin-bottom: 2rem;">
+                            Perfectionism doesn't make you a better mother. Studies show perfectionist mothers report:
+                        </p>
+                        <ul class="visual-list">
+                            <li class="fragment fade-in-up">
+                                <div class="visual-list-icon">📈</div>
+                                Higher anxiety levels
+                            </li>
+                            <li class="fragment fade-in-up">
+                                <div class="visual-list-icon">💔</div>
+                                More difficulty bonding with babies
+                            </li>
+                            <li class="fragment fade-in-up">
+                                <div class="visual-list-icon">🌧️</div>
+                                Increased risk of postpartum depression
+                            </li>
+                            <li class="fragment fade-in-up">
+                                <div class="visual-list-icon">😔</div>
+                                Less satisfaction in motherhood
+                            </li>
+                        </ul>
+                        <p class="fragment fade-in" style="font-size: 1.3rem; margin-top: 2rem; font-style: italic; color: var(--bloom-warm-gray);">
+                            Perfectionism promises protection but delivers pain
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 5: Impossible Standards -->
+            <section data-background-color="#f7f7f7">
+                <div class="container">
+                    <h2 style="text-align: center; margin-bottom: var(--space-md);">Society's <span class="gradient-text">Impossible Standards</span></h2>
+                    <p style="text-align: center; font-size: var(--text-body); color: var(--bloom-sage); margin-bottom: var(--space-xl);">Every "rule" comes with its contradiction</p>
+                    <div class="image-grid" style="grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 300px);">
+                        <div class="stat-image-card fragment fade-in-up" data-fragment-index="1">
+                            <img src="../Week2images/biff01_Mother_peacefully_reading_on_couch_with_cup_of_tea_cle_4ad62c65-43ff-4645-a2bb-aa9595775997_1.png" alt="Mother trying to balance feeding expectations">
+                            <div class="stat-overlay" style="background: linear-gradient(135deg, rgba(255, 107, 107, 0.85) 0%, rgba(255, 180, 162, 0.95) 100%);">
+                                <h3>Feed Perfectly</h3>
+                                <p>"Breastfeed exclusively (but not too long)"</p>
+                            </div>
+                        </div>
+                        <div class="stat-image-card fragment fade-in-up" data-fragment-index="2">
+                            <img src="../Week2images/biff01_Happy_mother_laughing_joyfully_while_holding_baby_in_l_7a10ad71-e3e2-4883-aaf4-1171955b1396_3.png" alt="Mother dealing with body image pressure">
+                            <div class="stat-overlay" style="background: linear-gradient(135deg, rgba(149, 225, 211, 0.85) 0%, rgba(139, 154, 130, 0.95) 100%);">
+                                <h3>Look Perfect</h3>
+                                <p>"Lose baby weight (but don't diet)"</p>
+                            </div>
+                        </div>
+                        <div class="stat-image-card fragment fade-in-up" data-fragment-index="3">
+                            <img src="../Week2images/biff01_Close-up_of_hands_crossing_out_unrealistic_to-do_list__482d4c84-2e85-46e0-ac01-93dfce589cf0_2.png" alt="Sleep training confusion">
+                            <div class="stat-overlay" style="background: linear-gradient(135deg, rgba(197, 137, 232, 0.85) 0%, rgba(255, 168, 197, 0.95) 100%);">
+                                <h3>Sleep Train Perfectly</h3>
+                                <p>"Sleep train (but respond to every cry)"</p>
+                            </div>
+                        </div>
+                        <div class="stat-image-card fragment fade-in-up" data-fragment-index="4">
+                            <img src="../Week2images/biff01_Woman_joyfully_releasing_papers_perfect_to-do_lists_in_8af88434-8970-45b6-86a9-f4dd1da9a21e_0.png" alt="Development pressure overload">
+                            <div class="stat-overlay" style="background: linear-gradient(135deg, rgba(255, 203, 119, 0.85) 0%, rgba(255, 180, 162, 0.95) 100%);">
+                                <h3>Stimulate Perfectly</h3>
+                                <p>"Develop their brain (but don't overschedule)"</p>
+                            </div>
+                        </div>
+                        <div class="stat-image-card fragment fade-in-up" data-fragment-index="5">
+                            <img src="../Week2images/biff01_Mother_in_comfortable_pajamas_at_2pm_looking_amused_ra_56a36901-6a32-4205-81ae-249c690ec8a6_3.png" alt="Forcing enjoyment while exhausted">
+                            <div class="stat-overlay" style="background: linear-gradient(135deg, rgba(116, 192, 252, 0.85) 0%, rgba(149, 225, 211, 0.95) 100%);">
+                                <h3>Enjoy Perfectly</h3>
+                                <p>"Cherish every moment (while exhausted)"</p>
+                            </div>
+                        </div>
+                        <div class="stat-image-card fragment fade-in-up" data-fragment-index="6">
+                            <img src="../Week2images/biff01_Happy_mother_laughing_joyfully_while_holding_baby_in_l_7a10ad71-e3e2-4883-aaf4-1171955b1396_3.png" alt="Freedom from impossible standards">
+                            <div class="stat-overlay" style="background: linear-gradient(135deg, rgba(255, 168, 197, 0.85) 0%, rgba(197, 137, 232, 0.95) 100%);">
+                                <h3>78% of Mothers</h3>
+                                <p>Feel constantly falling short of these contradictions</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 6: The Cost of Perfect -->
+            <section>
+                <div class="container">
+                    <h2 style="text-align: center; margin-bottom: 3rem;">The True <span class="gradient-text">Cost of Perfect</span></h2>
+                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem;">
+                        <div class="cost-card fragment fade-in-up">
+                            <span class="cost-icon">💔</span>
+                            <h3 style="color: var(--bloom-coral);">Physical Cost</h3>
+                            <p>Chronic stress keeps cortisol elevated, slowing healing and depleting energy</p>
+                        </div>
+                        <div class="cost-card fragment fade-in-up">
+                            <span class="cost-icon">😢</span>
+                            <h3 style="color: var(--bloom-sage);">Emotional Cost</h3>
+                            <p>Not just tired—tired AND guilty about being tired</p>
+                        </div>
+                        <div class="cost-card fragment fade-in-up">
+                            <span class="cost-icon">🚪</span>
+                            <h3 style="color: var(--bloom-lavender);">Relational Cost</h3>
+                            <p>Can't be authentic when performing, can't receive help when pretending</p>
+                        </div>
+                        <div class="cost-card fragment fade-in-up">
+                            <span class="cost-icon">👶</span>
+                            <h3 style="color: var(--bloom-golden);">Maternal Cost</h3>
+                            <p>Missing the messy, beautiful reality while chasing impossible standards</p>
+                        </div>
+                    </div>
+                    <p class="fragment fade-in" style="text-align: center; font-size: 1.8rem; margin-top: 3rem; color: var(--bloom-warm-gray); font-style: italic;">
+                        "The mess didn't hurt her. My anxiety about the mess did."
+                    </p>
+                </div>
+            </section>
+            
+            <!-- SLIDE 7: Good Enough Mother Concept -->
+            <section data-background-gradient="linear-gradient(135deg, #8B9A82 0%, #95E1D3 50%, #C589E8 100%)">
+                <div class="container">
+                    <div class="quote-with-image">
+                        <div class="quote-portrait">
+                            <img src="[MIDJOURNEY: Warm, wise-looking older woman (representing Winnicott's wisdom), gentle smile. Style: Photorealistic portrait, timeless quality]" alt="Wisdom of good enough mothering">
+                        </div>
+                        <div>
+                            <h2 style="color: white; margin-bottom: 2rem;">The Revolutionary Truth</h2>
+                            <blockquote style="color: white; font-size: 2.8rem; margin: 0;">
+                                <span class="fragment fade-in-up">Mothers only need to be attuned to their babies</span><br/>
+                                <span class="fragment fade-in-up" style="font-weight: 600; font-size: 4rem; color: var(--bloom-golden);">30%</span><br/>
+                                <span class="fragment fade-in-up">of the time for healthy attachment</span>
+                            </blockquote>
+                            <p class="fragment fade-in" style="color: rgba(255,255,255,0.8); font-size: 1.6rem; margin-top: 2.5rem;">
+                                You can get it wrong more than half the time<br/>and still be exactly what your baby needs
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 8: Why Good Enough Works -->
+            <section class="gradient-mesh" data-background-color="#faf8f5">
+                <div class="container">
+                    <h2 style="text-align: center; margin-bottom: var(--space-md);">Why "Good Enough" <span class="gradient-text">Is Actually Best</span></h2>
+                    <p style="text-align: center; font-size: var(--text-body); margin-bottom: var(--space-xl); color: var(--bloom-sage);">
+                        Perfect attunement actually hinders development. Babies need imperfect mothers because that's how they learn:
+                    </p>
+                    <div style="display: grid; gap: var(--space-lg);">
+                        <div class="journey-card fragment fade-in-up">
+                            <div class="journey-image">
+                                <img src="../Week2images/biff01_Happy_mother_laughing_joyfully_while_holding_baby_in_l_7a10ad71-e3e2-4883-aaf4-1171955b1396_3.png" alt="Baby learning through gentle challenges">
+                                <div class="journey-number-overlay">1</div>
+                            </div>
+                            <div class="journey-content-panel">
+                                <h3>Frustration Tolerance</h3>
+                                <p>When you don't respond instantly, babies learn they can handle waiting and develop self-soothing skills</p>
+                            </div>
+                        </div>
+                        <div class="journey-card fragment fade-in-up">
+                            <div class="journey-image">
+                                <img src="../Week2images/biff01_Mother_peacefully_reading_on_couch_with_cup_of_tea_cle_4ad62c65-43ff-4645-a2bb-aa9595775997_1.png" alt="Mother and baby reconnecting">
+                                <div class="journey-number-overlay">2</div>
+                            </div>
+                            <div class="journey-content-panel">
+                                <h3>Repair Is Possible</h3>
+                                <p>When things go wrong and you reconnect, babies learn that disruptions can be healed and relationships can be mended</p>
+                            </div>
+                        </div>
+                        <div class="journey-card fragment fade-in-up">
+                            <div class="journey-image">
+                                <img src="../Week2images/biff01_Woman_joyfully_releasing_papers_perfect_to-do_lists_in_8af88434-8970-45b6-86a9-f4dd1da9a21e_0.png" alt="Baby developing independence">
+                                <div class="journey-number-overlay">3</div>
+                            </div>
+                            <div class="journey-content-panel">
+                                <h3>Separate Beings</h3>
+                                <p>Your imperfections help them understand they are individuals with their own agency and capabilities</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 9: Releasing the Grip -->
+            <section>
+                <div class="magazine-split magazine-split-reverse">
+                    <div class="content-panel content-panel-gradient">
+                        <h2>Transform Your <span class="gradient-text">"Shoulds"</span></h2>
+                        <p style="font-size: var(--text-body); margin-bottom: var(--space-lg); color: var(--bloom-sage);">Notice how the pressure changes when we shift the language:</p>
+                        <div class="perfect-vs-real">
+                            <div class="perfect-side">
+                                <h3 style="color: var(--bloom-coral); margin-bottom: var(--space-md);">Perfectionist Shoulds:</h3>
+                                <div class="fragment fade-in-up" style="margin-bottom: var(--space-sm);">
+                                    <p style="font-size: var(--text-body); text-decoration: line-through; color: var(--bloom-warm-gray);">"I should make homemade baby food"</p>
+                                </div>
+                                <div class="fragment fade-in-up" style="margin-bottom: var(--space-sm);">
+                                    <p style="font-size: var(--text-body); text-decoration: line-through; color: var(--bloom-warm-gray);">"I should have a spotless house"</p>
+                                </div>
+                                <div class="fragment fade-in-up" style="margin-bottom: var(--space-sm);">
+                                    <p style="font-size: var(--text-body); text-decoration: line-through; color: var(--bloom-warm-gray);">"I should bounce back immediately"</p>
+                                </div>
+                            </div>
+                            <div class="real-side">
+                                <h3 style="color: var(--bloom-sage); margin-bottom: var(--space-md);">Good Enough Reality:</h3>
+                                <div class="fragment fade-in-up" style="margin-bottom: var(--space-sm);">
+                                    <p style="font-size: var(--text-body); color: var(--bloom-charcoal);">"My baby will get nutritious food"</p>
+                                </div>
+                                <div class="fragment fade-in-up" style="margin-bottom: var(--space-sm);">
+                                    <p style="font-size: var(--text-body); color: var(--bloom-charcoal);">"We'll have a safe, livable space"</p>
+                                </div>
+                                <div class="fragment fade-in-up" style="margin-bottom: var(--space-sm);">
+                                    <p style="font-size: var(--text-body); color: var(--bloom-charcoal);">"I'll heal at my body's own pace"</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="transformation-arrow fragment fade-in">⬇️</div>
+                        <div style="text-align: center; margin-top: var(--space-lg);">
+                            <span class="good-enough-badge fragment scale-in">Good Enough IS Good Enough</span>
+                        </div>
+                    </div>
+                    <div class="image-panel">
+                        <img src="../Week2images/biff01_Mother_peacefully_reading_on_couch_with_cup_of_tea_cle_4ad62c65-43ff-4645-a2bb-aa9595775997_1.png" alt="Mother embracing good enough parenting">
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 10: Practice Imperfection -->
+            <section>
+                <div class="hero-image-slide">
+                    <img src="../Week2images/biff01_Happy_mother_laughing_joyfully_while_holding_baby_in_l_7a10ad71-e3e2-4883-aaf4-1171955b1396_3.png" alt="Joyful mother in imperfect setting">
+                    <div class="floating-card floating-card-bottom text-protection-light">
+                        <h2 style="text-align: center; margin-bottom: 2rem;">Practice <span class="gradient-text">Imperfection</span></h2>
+                        <p style="font-size: 1.7rem; text-align: center; color: var(--bloom-warm-gray); margin-bottom: 2rem;">
+                            Deliberately do something imperfectly this week:
+                        </p>
+                        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; text-align: center;">
+                            <div class="fragment fade-in-up">
+                                <div style="font-size: 3rem; margin-bottom: 1rem;">📱</div>
+                                <p>Send a text with a typo</p>
+                            </div>
+                            <div class="fragment fade-in-up">
+                                <div style="font-size: 3rem; margin-bottom: 1rem;">🍽️</div>
+                                <p>Leave dishes in the sink</p>
+                            </div>
+                            <div class="fragment fade-in-up">
+                                <div style="font-size: 3rem; margin-bottom: 1rem;">👕</div>
+                                <p>Wear the shirt with spit-up</p>
+                            </div>
+                            <div class="fragment fade-in-up">
+                                <div style="font-size: 3rem; margin-bottom: 1rem;">🥡</div>
+                                <p>Order takeout guilt-free</p>
+                            </div>
+                        </div>
+                        <p class="fragment fade-in" style="text-align: center; font-size: 1.5rem; margin-top: 2rem; color: var(--bloom-sage); font-style: italic;">
+                            Notice: Did the world end? Then maybe perfect isn't necessary.
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 11: A New Standard -->
+            <section>
+                <div class="magazine-split">
+                    <div class="content-panel content-panel-gradient">
+                        <h2>A New Definition of <span class="gradient-text">Success</span></h2>
+                        <p style="font-size: 1.8rem; margin: 2rem 0;">What if instead of perfect, we aimed for:</p>
+                        <ul class="feature-list" style="font-size: 1.6rem;">
+                            <li class="fragment fade-in-up">Present over polished</li>
+                            <li class="fragment fade-in-up">Connected over correct</li>
+                            <li class="fragment fade-in-up">Flexible over flawless</li>
+                            <li class="fragment fade-in-up">Real over right</li>
+                        </ul>
+                        <p style="font-size: 1.8rem; margin: 2rem 0;">What if success meant:</p>
+                        <ul class="feature-list" style="font-size: 1.6rem;">
+                            <li class="fragment fade-in-up">Everyone was fed (however)</li>
+                            <li class="fragment fade-in-up">Everyone was loved (messily)</li>
+                            <li class="fragment fade-in-up">Everyone survived (barely counts!)</li>
+                        </ul>
+                    </div>
+                    <div class="image-panel">
+                        <img src="../Week2images/biff01_Close-up_of_hands_crossing_out_unrealistic_to-do_list__482d4c84-2e85-46e0-ac01-93dfce589cf0_2.png" alt="Real connection over perfection">
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 12: This Week's Practice -->
+            <section data-background-gradient="linear-gradient(135deg, #8B9A82 0%, #95E1D3 50%, #FFCB77 100%)">
+                <div class="container">
+                    <div style="text-align: center; color: white;">
+                        <h2 style="color: white; margin-bottom: var(--space-lg);">This Week's <span style="color: var(--bloom-golden);">Practice</span></h2>
+                        <div style="background: rgba(255,255,255,0.15); backdrop-filter: blur(20px); border-radius: 20px; padding: var(--space-xl); margin: var(--space-lg) auto; max-width: 800px; border: 1px solid rgba(255,255,255,0.2);">
+                            <ol style="font-size: var(--text-body); line-height: 2; text-align: left; color: white; padding-left: var(--space-lg);">
+                                <li class="fragment fade-in-up" style="margin-bottom: var(--space-md);">Notice your "shoulds" - write them down</li>
+                                <li class="fragment fade-in-up" style="margin-bottom: var(--space-md);">Transform them into "good enough" versions</li>
+                                <li class="fragment fade-in-up" style="margin-bottom: var(--space-md);">Practice one small imperfection daily</li>
+                                <li class="fragment fade-in-up" style="margin-bottom: var(--space-md);">When you mess up, say "I'm learning to be human"</li>
+                            </ol>
+                        </div>
+                        <h1 style="font-family: var(--font-display); font-size: var(--text-heading); color: white; margin: var(--space-lg) 0; text-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+                            "Choose connection over perfection"
+                        </h1>
+                        <div class="fragment fade-in" style="margin-top: var(--space-xl);">
+                            <img src="../Week2images/biff01_Close-up_of_hands_crossing_out_unrealistic_to-do_list__482d4c84-2e85-46e0-ac01-93dfce589cf0_2.png" alt="Crossing out perfectionist expectations" style="border-radius: 15px; box-shadow: var(--shadow-large); max-width: 500px; width: 100%;">
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 13: Closing -->
+            <section>
+                <div class="hero-image-slide">
+                    <img src="../Week2images/biff01_Happy_mother_laughing_joyfully_while_holding_baby_in_l_7a10ad71-e3e2-4883-aaf4-1171955b1396_3.png" alt="Joyful mother and baby embracing imperfection">
+                    <div class="hero-scrim"></div>
+                    <div class="text-protection" style="text-align: center;">
+                        <h1 class="fragment fade-in-up" style="color: white; font-size: var(--text-display);">Your Baby Doesn't Need <span class="gradient-text">Perfect</span></h1>
+                        <p class="fragment fade-in-up" style="font-size: var(--text-subheading); margin-top: var(--space-lg); color: rgba(255,255,255,0.95); font-family: var(--font-display);">
+                            Your baby needs YOU
+                        </p>
+                        <p class="fragment fade-in-up" style="font-size: var(--text-body); margin-top: var(--space-lg); color: rgba(255,255,255,0.85);">
+                            Tired, trying, tender, true you.
+                        </p>
+                        <p class="fragment fade-in-up" style="font-size: var(--text-body); margin-top: var(--space-lg); color: rgba(255,255,255,0.8); font-style: italic; font-family: var(--font-display);">
+                            Embrace the beautiful mess.<br/>
+                            <span style="color: var(--bloom-golden);">You're exactly the mother your baby needs.</span>
+                        </p>
+                        <div class="fragment fade-in" style="margin-top: var(--space-xl); padding: var(--space-lg); background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border-radius: 15px; border: 1px solid rgba(255,255,255,0.2); max-width: 400px; margin-left: auto; margin-right: auto;">
+                            <div style="font-size: var(--text-small); color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: var(--space-xs);">
+                                Dr. Jana Rundle
+                            </div>
+                            <div style="font-size: var(--text-body); color: rgba(255,255,255,0.9); font-family: var(--font-display);">
+                                Bloom Psychology
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/notes/notes.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/markdown/markdown.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/highlight/highlight.js"></script>
+    
+    <script>
+        Reveal.initialize({
+            hash: true,
+            controls: true,
+            progress: true,
+            center: false,
+            transition: 'fade',
+            transitionSpeed: 'slow',
+            backgroundTransition: 'fade',
+            
+            // View options
+            width: 1920,
+            height: 1080,
+            margin: 0,
+            minScale: 0.2,
+            maxScale: 2.0,
+            
+            // UI options
+            controlsTutorial: false,
+            controlsLayout: 'bottom-right',
+            controlsBackArrows: 'faded',
+            slideNumber: 'c/t',
+            showSlideNumber: 'all',
+            
+            // Features
+            history: true,
+            keyboard: true,
+            overview: true,
+            loop: false,
+            touch: true,
+            
+            // PDF export
+            pdfMaxPagesPerSlide: 1,
+            pdfSeparateFragments: false,
+            
+            plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+        });
+    </script>
+</body>
+</html>

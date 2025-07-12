@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>Calming Your Nervous System | Bloom Psychology</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reset.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+    <link rel="stylesheet" href="../../../public/presentations/week1/assets/css/bloom-professional.css">
+    
+    <style>
+        /* Lesson-specific enhancements */
+        :root {
+            --bloom-calm-blue: #4682B4;
+            --bloom-nervous-red: #FF6B6B;
+            --bloom-balance-green: #90EE90;
+            --bloom-breath-cyan: #40E0D0;
+        }
+        
+        /* Nervous system states visualization */
+        .nervous-system-states {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .state-card {
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ventral-state {
+            background: linear-gradient(135deg, var(--bloom-balance-green) 0%, #32CD32 100%);
+        }
+        
+        .sympathetic-state {
+            background: linear-gradient(135deg, var(--bloom-nervous-red) 0%, #DC143C 100%);
+            animation: anxiety-pulse 2s infinite;
+        }
+        
+        .dorsal-state {
+            background: linear-gradient(135deg, #708090 0%, #2F4F4F 100%);
+        }
+        
+        @keyframes anxiety-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        /* Breathing technique cards */
+        .breathing-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            margin: 1rem;
+            border-top: 5px solid var(--bloom-breath-cyan);
+        }
+        
+        .breathing-steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .breathing-step {
+            background: var(--bloom-cream);
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            border: 2px solid var(--bloom-breath-cyan);
+        }
+        
+        /* Vagus nerve techniques */
+        .technique-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .technique-card {
+            background: linear-gradient(135deg, rgba(70, 130, 180, 0.1) 0%, rgba(70, 130, 180, 0.05) 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 2px solid var(--bloom-calm-blue);
+            text-align: center;
+        }
+        
+        .technique-card h3 {
+            color: var(--bloom-calm-blue);
+            margin-bottom: 1rem;
+        }
+        
+        /* Movement exercises */
+        .movement-demo {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin: 1rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .movement-demo:hover {
+            transform: translateY(-5px);
+        }
+        
+        /* Calm kit visualization */
+        .calm-kit {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .kit-category {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            border-bottom: 5px solid var(--bloom-balance-green);
+        }
+        
+        /* 3-3-3 Practice */
+        .grounding-practice {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            margin: 3rem 0;
+        }
+        
+        .grounding-step {
+            background: linear-gradient(135deg, var(--bloom-breath-cyan) 0%, rgba(64, 224, 208, 0.8) 100%);
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        
+        .grounding-number {
+            font-size: 4rem;
+            font-weight: 700;
+            position: absolute;
+            top: -20px;
+            right: 20px;
+            opacity: 0.3;
+        }
+        
+        /* Interactive breathing visual */
+        .breath-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 3rem 0;
+        }
+        
+        .breath-circle {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--bloom-breath-cyan) 0%, rgba(64, 224, 208, 0.3) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: breath-rhythm 8s infinite;
+            color: white;
+            font-size: 2rem;
+            font-weight: 600;
+        }
+        
+        @keyframes breath-rhythm {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.2); }
+            75% { transform: scale(0.8); }
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- SLIDE 1: Hero Opening -->
+            <section data-background-color="#1a1a1a">
+                <div class="hero-image-slide">
+                    <img src="[MIDJOURNEY: Woman taking deep, conscious breath with visible relaxation in her body, soft lighting showing nervous system calming. Style: Photorealistic, peaceful transformation, breath visible as light]" alt="Woman calming her nervous system through breath">
+                    <div class="hero-scrim"></div>
+                    <div class="text-protection">
+                        <h1 class="fragment fade-in-up">Calming Your<br/><span class="gradient-text">Nervous System</span></h1>
+                        <p class="fragment fade-in-up" style="font-size: 2rem; margin-top: 2rem; color: rgba(255,255,255,0.95);">
+                            Speaking Your Body's Language
+                        </p>
+                        <p class="fragment fade-in-up" style="font-size: 1.3rem; margin-top: 3rem; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.1em;">
+                            Bloom Psychology • Week 4 • Lesson 2
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 2: Beyond Thinking -->
+            <section>
+                <div class="magazine-split">
+                    <div class="content-panel content-panel-gradient">
+                        <h1 class="fragment fade-in-up">You Can't<br/><span class="gradient-text">Think</span> Your Way Out</h1>
+                        <p class="fragment fade-in-up" style="margin-top: 2rem; font-size: 1.8rem;">
+                            Anxiety lives in your body, not just your mind
+                        </p>
+                        <p class="fragment fade-in-up" style="font-size: 1.6rem; margin-top: 2rem; color: var(--bloom-coral);">
+                            Today you'll learn to speak directly to your nervous system
+                        </p>
+                        <p class="fragment fade-in-up" style="font-size: 1.5rem; margin-top: 2rem;">
+                            in a language it understands—through your body
+                        </p>
+                        <p class="fragment fade-in-up" style="font-size: 1.8rem; margin-top: 2rem; font-weight: 600; color: var(--bloom-sage);">
+                            Shift your state in seconds to minutes
+                        </p>
+                    </div>
+                    <div class="image-panel">
+                        <img src="[MIDJOURNEY: Visual representation of nervous system pathways in body, showing connections from brain to heart, lungs, gut. Style: Medical illustration meets artistic visualization]" alt="Nervous system pathways visualization">
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 3: Meet Your Vagus Nerve -->
+            <section data-background-color="#ffffff">
+                <div class="container">
+                    <h2 style="text-align: center; margin-bottom: 3rem;">Meet Your <span class="gradient-text">Vagus Nerve</span></h2>
+                    <div style="text-align: center; margin-bottom: 3rem;">
+                        <p style="font-size: 1.8rem; color: var(--bloom-calm-blue);">
+                            The longest nerve in your body—your body's superhighway to calm
+                        </p>
+                    </div>
+                    <div class="nervous-system-states">
+                        <div class="state-card ventral-state fragment fade-in-up">
+                            <h3>Ventral Vagal</h3>
+                            <p style="font-size: 3rem;">😌</p>
+                            <p><strong>Safe & Social</strong></p>
+                            <p>Calm, connected, capable</p>
+                            <p style="font-size: 1.2rem; margin-top: 1rem;">Where we want to be</p>
+                        </div>
+                        <div class="state-card sympathetic-state fragment fade-in-up">
+                            <h3>Sympathetic</h3>
+                            <p style="font-size: 3rem;">😰</p>
+                            <p><strong>Fight or Flight</strong></p>
+                            <p>Racing heart, tense muscles</p>
+                            <p style="font-size: 1.2rem; margin-top: 1rem;">Where anxiety lives</p>
+                        </div>
+                        <div class="state-card dorsal-state fragment fade-in-up">
+                            <h3>Dorsal Vagal</h3>
+                            <p style="font-size: 3rem;">😴</p>
+                            <p><strong>Freeze & Shutdown</strong></p>
+                            <p>Numb, disconnected, collapsed</p>
+                            <p style="font-size: 1.2rem; margin-top: 1rem;">Overwhelm's hideout</p>
+                        </div>
+                    </div>
+                    <p class="fragment fade-in" style="text-align: center; font-size: 1.6rem; margin-top: 2rem; color: var(--bloom-calm-blue); font-weight: 600;">
+                        Good news: You can directly influence which state you're in
+                    </p>
+                </div>
+            </section>
+            
+            <!-- SLIDE 4: Your Breath = Remote Control -->
+            <section>
+                <div class="hero-image-slide">
+                    <img src="[MIDJOURNEY: Close-up of woman's face as she breathes deeply, with visual representation of calm spreading through her body like gentle waves. Style: Photorealistic, breath visualization, peace visible]" alt="Breath as nervous system remote control">
+                    <div class="floating-card floating-card-bottom floating-card-dark">
+                        <h2 style="text-align: center; margin-bottom: 2rem; color: white;">Your Breath is the <span class="gradient-text">Remote Control</span></h2>
+                        <div class="breath-visual">
+                            <div class="breath-circle">
+                                Breathe with me
+                            </div>
+                        </div>
+                        <p style="text-align: center; font-size: 1.6rem; color: rgba(255,255,255,0.9); margin-top: 2rem;">
+                            It's the only automatic function you can consciously control—<br/>
+                            your direct line to calm
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 5: Three Power Breathing Techniques -->
+            <section data-background-color="#faf8f5">
+                <div class="container">
+                    <h2 style="text-align: center; margin-bottom: 3rem;">Three Power <span class="gradient-text">Breathing Techniques</span></h2>
+                    <div style="display: grid; gap: 2rem;">
+                        <div class="breathing-card fragment fade-in-up">
+                            <h3 style="color: var(--bloom-breath-cyan);">4-7-8 Breath (Dr. Andrew Weil)</h3>
+                            <p style="margin: 1rem 0;">The extended exhale activates your parasympathetic nervous system</p>
+                            <div class="breathing-steps">
+                                <div class="breathing-step">
+                                    <div style="font-size: 2rem;">👃</div>
+                                    <p><strong>Inhale</strong><br/>4 counts</p>
+                                </div>
+                                <div class="breathing-step">
+                                    <div style="font-size: 2rem;">⏸️</div>
+                                    <p><strong>Hold</strong><br/>7 counts</p>
+                                </div>
+                                <div class="breathing-step">
+                                    <div style="font-size: 2rem;">👄</div>
+                                    <p><strong>Exhale</strong><br/>8 counts</p>
+                                </div>
+                                <div class="breathing-step">
+                                    <div style="font-size: 2rem;">🔄</div>
+                                    <p><strong>Repeat</strong><br/>3-4 times</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="breathing-card fragment fade-in-up">
+                            <h3 style="color: var(--bloom-breath-cyan);">Physiological Sigh (Dr. Andrew Huberman)</h3>
+                            <p style="margin: 1rem 0;">The fastest way to calm—mimics what your body does after crying</p>
+                            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 2rem;">
+                                <div class="breathing-step">
+                                    <div style="font-size: 2rem;">🌬️</div>
+                                    <p><strong>First inhale</strong><br/>Normal breath</p>
+                                </div>
+                                <div class="breathing-step">
+                                    <div style="font-size: 2rem;">➕</div>
+                                    <p><strong>Second inhale</strong><br/>Small sip on top</p>
+                                </div>
+                                <div class="breathing-step">
+                                    <div style="font-size: 2rem;">💨</div>
+                                    <p><strong>Long exhale</strong><br/>Through mouth</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="breathing-card fragment fade-in-up">
+                            <h3 style="color: var(--bloom-breath-cyan);">Box Breathing (Navy SEALs)</h3>
+                            <p style="margin: 1rem 0;">Creates rhythm and predictability—your nervous system loves patterns</p>
+                            <div class="breathing-steps">
+                                <div class="breathing-step">
+                                    <div style="font-size: 2rem;">⬆️</div>
+                                    <p><strong>Inhale</strong><br/>4 counts</p>
+                                </div>
+                                <div class="breathing-step">
+                                    <div style="font-size: 2rem;">⏸️</div>
+                                    <p><strong>Hold</strong><br/>4 counts</p>
+                                </div>
+                                <div class="breathing-step">
+                                    <div style="font-size: 2rem;">⬇️</div>
+                                    <p><strong>Exhale</strong><br/>4 counts</p>
+                                </div>
+                                <div class="breathing-step">
+                                    <div style="font-size: 2rem;">⏸️</div>
+                                    <p><strong>Hold empty</strong><br/>4 counts</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 6: Vagus Nerve Hacks -->
+            <section>
+                <div class="magazine-split">
+                    <div class="content-panel content-panel-gradient">
+                        <h2>Vagus Nerve <span class="gradient-text">Hacks</span></h2>
+                        <p style="font-size: 1.6rem; margin: 2rem 0;">Direct stimulation techniques:</p>
+                    </div>
+                    <div class="image-panel">
+                        <img src="[MIDJOURNEY: Woman using various vagus nerve techniques - humming, cold water on face, neck stretches. Style: Educational illustration, multiple techniques shown]" alt="Vagus nerve stimulation techniques">
+                    </div>
+                </div>
+                <div class="container" style="margin-top: -5rem;">
+                    <div class="technique-grid">
+                        <div class="technique-card fragment fade-in-up">
+                            <h3>❄️ Cold Water Therapy</h3>
+                            <p>Splash cold water on face or hold ice on temples. Activates dive response, immediately slows heart rate.</p>
+                        </div>
+                        <div class="technique-card fragment fade-in-up">
+                            <h3>🎵 Humming & Singing</h3>
+                            <p>Hum lullabies or sing to baby. Vibrations stimulate the vagus nerve through your throat.</p>
+                        </div>
+                        <div class="technique-card fragment fade-in-up">
+                            <h3>🌙 Gentle Neck Stretches</h3>
+                            <p>Slow head turns and rolls. The vagus nerve runs through your neck—stretching releases tension.</p>
+                        </div>
+                        <div class="technique-card fragment fade-in-up">
+                            <h3>🤗 Loving Touch</h3>
+                            <p>Hand on heart or self-hug. Touch releases oxytocin, your body's natural anti-anxiety hormone.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 7: Movement = Anxiety Release -->
+            <section data-background-color="#ffffff">
+                <div class="container">
+                    <h2 style="text-align: center; margin-bottom: 3rem;">Movement for <span class="gradient-text">Anxiety Release</span></h2>
+                    <p style="text-align: center; font-size: 1.6rem; margin-bottom: 3rem; color: var(--bloom-warm-gray);">
+                        Anxiety is energy that needs somewhere to go—discharge it through movement
+                    </p>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem;">
+                        <div class="movement-demo fragment fade-in-up">
+                            <h3 style="color: var(--bloom-balance-green);">🤸 Shaking Practice</h3>
+                            <p>Shake your whole body vigorously for 30 seconds. Stop and notice the calm. Animals do this naturally after stress.</p>
+                        </div>
+                        <div class="movement-demo fragment fade-in-up">
+                            <h3 style="color: var(--bloom-balance-green);">💪 Wall Push-Ups</h3>
+                            <p>Push hard against wall for 10 seconds. Gives your fight-or-flight energy something productive to do.</p>
+                        </div>
+                        <div class="movement-demo fragment fade-in-up">
+                            <h3 style="color: var(--bloom-balance-green);">🧘 Legs Up the Wall</h3>
+                            <p>Lie with legs up wall for 5-10 minutes. This posture tells your nervous system "no running needed here."</p>
+                        </div>
+                        <div class="movement-demo fragment fade-in-up">
+                            <h3 style="color: var(--bloom-balance-green);">💃 Dance It Out</h3>
+                            <p>One song, move however feels good. Movement with music is double nervous system medicine.</p>
+                        </div>
+                    </div>
+                    <p class="fragment fade-in" style="text-align: center; font-size: 1.6rem; margin-top: 3rem; color: var(--bloom-balance-green); font-weight: 600;">
+                        Instead of letting anxiety spiral in your mind, discharge it through your body
+                    </p>
+                </div>
+            </section>
+            
+            <!-- SLIDE 8: Your Calm Kit -->
+            <section>
+                <div class="hero-image-slide">
+                    <img src="[MIDJOURNEY: Organized calm kit with essential oils, soft fabrics, stress ball, headphones, ice pack laid out beautifully. Style: Flat lay photography, calming colors, accessible tools]" alt="Physical calm kit for anxiety">
+                    <div class="floating-card floating-card-bottom text-protection-light">
+                        <h2 style="text-align: center; margin-bottom: 2rem;">Create Your <span class="gradient-text">Calm Kit</span></h2>
+                        <div class="calm-kit">
+                            <div class="kit-category fragment fade-in-up">
+                                <div style="font-size: 3rem; margin-bottom: 1rem;">👃</div>
+                                <h4>Sensory</h4>
+                                <p>Lavender oil, soft fabric, stress ball, mints</p>
+                            </div>
+                            <div class="kit-category fragment fade-in-up">
+                                <div style="font-size: 3rem; margin-bottom: 1rem;">🌡️</div>
+                                <h4>Temperature</h4>
+                                <p>Ice pack, heating pad, cold water bottle</p>
+                            </div>
+                            <div class="kit-category fragment fade-in-up">
+                                <div style="font-size: 3rem; margin-bottom: 1rem;">🎧</div>
+                                <h4>Audio</h4>
+                                <p>Calm playlist, meditation app, nature sounds</p>
+                            </div>
+                            <div class="kit-category fragment fade-in-up">
+                                <div style="font-size: 3rem; margin-bottom: 1rem;">📷</div>
+                                <h4>Visual</h4>
+                                <p>Joy photos, calming images, affirmations</p>
+                            </div>
+                        </div>
+                        <p style="text-align: center; font-size: 1.5rem; margin-top: 2rem; font-style: italic;">
+                            Keep versions everywhere—diaper bag, car, bedside, kitchen
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 9: The 3-3-3 Practice -->
+            <section data-background-color="#faf8f5">
+                <div class="container">
+                    <h2 style="text-align: center; margin-bottom: 3rem;">The <span class="gradient-text">3-3-3</span> Practice</h2>
+                    <p style="text-align: center; font-size: 1.6rem; margin-bottom: 3rem; color: var(--bloom-warm-gray);">
+                        For immediate grounding—works anywhere, anytime
+                    </p>
+                    <div class="grounding-practice">
+                        <div class="grounding-step fragment fade-in-up">
+                            <div class="grounding-number">3</div>
+                            <div style="font-size: 3rem; margin-bottom: 1rem;">👀</div>
+                            <h3>SEE 3 Things</h3>
+                            <p>Name three things you can see right now</p>
+                        </div>
+                        <div class="grounding-step fragment fade-in-up">
+                            <div class="grounding-number">3</div>
+                            <div style="font-size: 3rem; margin-bottom: 1rem;">👂</div>
+                            <h3>HEAR 3 Things</h3>
+                            <p>Identify three sounds in your environment</p>
+                        </div>
+                        <div class="grounding-step fragment fade-in-up">
+                            <div class="grounding-number">3</div>
+                            <div style="font-size: 3rem; margin-bottom: 1rem;">🤲</div>
+                            <h3>MOVE 3 Parts</h3>
+                            <p>Move three parts of your body</p>
+                        </div>
+                    </div>
+                    <div style="background: white; padding: 2rem; border-radius: 15px; box-shadow: var(--shadow-large); margin-top: 3rem;" class="fragment fade-in-up">
+                        <p style="text-align: center; font-size: 1.8rem; color: var(--bloom-breath-cyan); font-weight: 600;">
+                            This interrupts the anxiety spiral by bringing you into the present moment
+                        </p>
+                        <p style="text-align: center; font-size: 1.5rem; margin-top: 1rem; font-style: italic;">
+                            Anxiety lives in future "what-ifs"—not in the present moment
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 10: Stanley Rosenberg's Basic Exercise -->
+            <section>
+                <div class="magazine-split magazine-split-reverse">
+                    <div class="content-panel">
+                        <h2>The Basic Exercise<br/><span class="gradient-text">(Stanley Rosenberg)</span></h2>
+                        <p style="font-size: 1.6rem; margin: 2rem 0;">Resets your nervous system through eye movements:</p>
+                        <div style="background: var(--bloom-cream); padding: 2rem; border-radius: 15px;">
+                            <ol style="font-size: 1.4rem; line-height: 2;">
+                                <li class="fragment fade-in-up">Lie on your back comfortably</li>
+                                <li class="fragment fade-in-up">Interlace fingers behind your head</li>
+                                <li class="fragment fade-in-up">Look right with eyes only (not head) for 30 seconds</li>
+                                <li class="fragment fade-in-up">Return eyes to center</li>
+                                <li class="fragment fade-in-up">Look left with eyes only for 30 seconds</li>
+                                <li class="fragment fade-in-up">Return to center and rest</li>
+                            </ol>
+                        </div>
+                        <p class="fragment fade-in" style="font-size: 1.4rem; margin-top: 2rem; font-style: italic; color: var(--bloom-calm-blue);">
+                            This simple exercise can shift your entire nervous system state
+                        </p>
+                    </div>
+                    <div class="image-panel">
+                        <img src="[MIDJOURNEY: Woman lying peacefully on bed doing the basic exercise, eyes looking to side while head stays still. Style: Calm instructional photo, relaxed positioning]" alt="Woman doing Stanley Rosenberg's basic exercise">
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 11: Practice Makes Automatic -->
+            <section>
+                <div class="hero-image-slide">
+                    <img src="[MIDJOURNEY: Split scene - woman practicing breathing when calm during day, then using same technique during nighttime anxiety. Style: Before/after composition, skill transfer visible]" alt="Practicing when calm to use when anxious">
+                    <div class="floating-card floating-card-bottom floating-card-dark">
+                        <h2 style="text-align: center; margin-bottom: 2rem; color: white;">Practice When <span class="gradient-text">Calm</span></h2>
+                        <div style="max-width: 800px; margin: 0 auto;">
+                            <p style="text-align: center; font-size: 2rem; color: white; margin-bottom: 2rem;">
+                                So it's automatic when anxious
+                            </p>
+                            <div style="display: grid; grid-template-columns: 1fr auto 1fr; gap: 2rem; align-items: center;">
+                                <div style="text-align: center;">
+                                    <div style="font-size: 3rem; margin-bottom: 1rem;">☀️</div>
+                                    <p style="color: rgba(255,255,255,0.9);">Practice during calm moments</p>
+                                </div>
+                                <div style="font-size: 2rem; color: var(--bloom-breath-cyan);">→</div>
+                                <div style="text-align: center;">
+                                    <div style="font-size: 3rem; margin-bottom: 1rem;">🌙</div>
+                                    <p style="color: rgba(255,255,255,0.9);">Available during anxiety</p>
+                                </div>
+                            </div>
+                            <p style="text-align: center; font-size: 1.6rem; color: rgba(255,255,255,0.8); margin-top: 2rem; font-style: italic;">
+                                You can't learn to drive during a tornado—<br/>practice when the weather is calm
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 12: This Week's Assignment -->
+            <section data-background-gradient="linear-gradient(135deg, #4682B4 0%, #40E0D0 50%, #90EE90 100%)">
+                <div class="container">
+                    <div style="text-align: center;">
+                        <h2 style="color: white; margin-bottom: 3rem;">This Week's <span style="color: var(--bloom-cream);">Practice</span></h2>
+                        <div style="background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); padding: 3rem; border-radius: 20px; max-width: 800px; margin: 0 auto;">
+                            <p style="font-size: 2rem; color: white; margin-bottom: 3rem; font-weight: 600;">
+                                Choose TWO techniques from today
+                            </p>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; text-align: left;">
+                                <div class="fragment fade-in-up" style="background: rgba(255,255,255,0.9); padding: 1.5rem; border-radius: 10px;">
+                                    <p style="font-size: 1.3rem;">🌞 Practice when calm</p>
+                                </div>
+                                <div class="fragment fade-in-up" style="background: rgba(255,255,255,0.9); padding: 1.5rem; border-radius: 10px;">
+                                    <p style="font-size: 1.3rem;">⚡ Use when anxious</p>
+                                </div>
+                                <div class="fragment fade-in-up" style="background: rgba(255,255,255,0.9); padding: 1.5rem; border-radius: 10px;">
+                                    <p style="font-size: 1.3rem;">👀 Notice what shifts</p>
+                                </div>
+                                <div class="fragment fade-in-up" style="background: rgba(255,255,255,0.9); padding: 1.5rem; border-radius: 10px;">
+                                    <p style="font-size: 1.3rem;">📝 Track what works</p>
+                                </div>
+                            </div>
+                            <p class="fragment fade-in" style="font-size: 1.6rem; color: white; margin-top: 2rem; font-style: italic;">
+                                Your nervous system is always listening
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 13: Closing -->
+            <section>
+                <div class="hero-image-slide">
+                    <img src="[MIDJOURNEY: Woman in peaceful state, hands on heart, surrounded by subtle visual representations of all the techniques - breath, movement, calm. Style: Photorealistic, integrated healing, hope visible]" alt="Woman embodying nervous system calm">
+                    <div class="hero-scrim"></div>
+                    <div class="text-protection" style="text-align: center;">
+                        <h1 class="fragment fade-in-up" style="color: white;">Your Body Knows<br/>How to Be <span class="gradient-text">Peaceful</span></h1>
+                        <p class="fragment fade-in-up" style="font-size: 2rem; margin-top: 2rem; color: rgba(255,255,255,0.95);">
+                            Sometimes it just needs reminders
+                        </p>
+                        <p class="fragment fade-in-up" style="font-size: 1.8rem; margin-top: 3rem; color: rgba(255,255,255,0.85);">
+                            Calming your nervous system isn't about never feeling anxious—<br/>
+                            it's about having tools to return to calm
+                        </p>
+                        <p class="fragment fade-in-up" style="font-size: 1.6rem; margin-top: 3rem; color: rgba(255,255,255,0.8); font-style: italic;">
+                            Next lesson: Working with racing thoughts<br/>
+                            For now, breathe. Your nervous system is listening.
+                        </p>
+                        <div style="margin-top: 4rem; font-size: 1.3rem; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.1em;">
+                            Bloom Psychology
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/notes/notes.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/markdown/markdown.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/highlight/highlight.js"></script>
+    
+    <script>
+        Reveal.initialize({
+            hash: true,
+            controls: true,
+            progress: true,
+            center: false,
+            transition: 'fade',
+            transitionSpeed: 'slow',
+            backgroundTransition: 'fade',
+            
+            // View options
+            width: 1920,
+            height: 1080,
+            margin: 0,
+            minScale: 0.2,
+            maxScale: 2.0,
+            
+            // UI options
+            controlsTutorial: false,
+            controlsLayout: 'bottom-right',
+            controlsBackArrows: 'faded',
+            slideNumber: 'c/t',
+            showSlideNumber: 'all',
+            
+            // Features
+            history: true,
+            keyboard: true,
+            overview: true,
+            loop: false,
+            touch: true,
+            
+            // PDF export
+            pdfMaxPagesPerSlide: 1,
+            pdfSeparateFragments: false,
+            
+            plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+        });
+    </script>
+</body>
+</html>

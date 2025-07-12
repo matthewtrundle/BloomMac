@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>The Power of Self-Compassion | Bloom Psychology</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reset.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+    
+    <style>
+        /* Import Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        /* Full Design System Variables */
+        :root {
+            /* Sophisticated color palette */
+            --bloom-charcoal: #1a1a1a;
+            --bloom-warm-gray: #4a4a4a;
+            --bloom-light-gray: #f7f7f7;
+            --bloom-sage: #8B9A82;
+            --bloom-sage-muted: #a3b199;
+            --bloom-coral: #FF6B6B;
+            --bloom-golden: #FFCB77;
+            --bloom-lavender: #C589E8;
+            --bloom-mint: #95E1D3;
+            --bloom-rose: #FFA8C5;
+            --bloom-blush: #e8d5d5;
+            --bloom-cream: #faf8f5;
+            --bloom-white: #ffffff;
+            
+            /* Typography scale */
+            --font-display: 'Cormorant Garamond', serif;
+            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            
+            /* Responsive Typography */
+            --text-display: clamp(3.5rem, 7vw, 6rem);
+            --text-heading: clamp(2.5rem, 5vw, 4rem);
+            --text-subheading: clamp(1.8rem, 3vw, 2.5rem);
+            --text-body: clamp(1rem, 2vw, 1.3rem);
+            --text-small: clamp(0.9rem, 1.5vw, 1.1rem);
+            
+            /* Spacing */
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 2rem;
+            --space-lg: 4rem;
+            --space-xl: 6rem;
+            --space-2xl: 8rem;
+            
+            /* Shadows */
+            --shadow-subtle: 0 2px 8px rgba(0,0,0,0.08);
+            --shadow-medium: 0 8px 24px rgba(0,0,0,0.12);
+            --shadow-large: 0 20px 60px rgba(0,0,0,0.16);
+            --shadow-glass: 0 8px 32px rgba(0,0,0,0.12);
+        }
+        
+        /* Reset and base styles */
+        .reveal-viewport {
+            background: var(--bloom-white);
+        }
+        
+        .reveal {
+            font-family: var(--font-body);
+            font-size: 20px;
+            font-weight: 400;
+            color: var(--bloom-charcoal);
+            line-height: 1.6;
+            letter-spacing: -0.02em;
+        }
+        
+        .reveal .slides {
+            text-align: left;
+        }
+        
+        .reveal .slides section {
+            padding: 0;
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        /* Typography */
+        .reveal h1 {
+            font-family: var(--font-display);
+            font-size: var(--text-display);
+            font-weight: 300;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            color: var(--bloom-charcoal);
+            margin-bottom: var(--space-md);
+        }
+        
+        .reveal h2 {
+            font-family: var(--font-display);
+            font-size: var(--text-heading);
+            font-weight: 400;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            color: var(--bloom-charcoal);
+            margin-bottom: var(--space-md);
+        }
+        
+        .reveal h3 {
+            font-family: var(--font-body);
+            font-size: var(--text-subheading);
+            font-weight: 500;
+            line-height: 1.3;
+            color: var(--bloom-warm-gray);
+            margin-bottom: var(--space-sm);
+        }
+        
+        .reveal p {
+            font-size: var(--text-body);
+            line-height: 1.8;
+            color: var(--bloom-warm-gray);
+            margin-bottom: var(--space-md);
+            max-width: 36em;
+        }
+        
+        .reveal em {
+            font-style: italic;
+            color: var(--bloom-sage);
+        }
+        
+        .reveal strong {
+            font-weight: 600;
+            color: var(--bloom-charcoal);
+        }
+        
+        /* Gradient Text Effects */
+        .gradient-text {
+            background: linear-gradient(135deg, var(--bloom-coral) 0%, var(--bloom-rose) 50%, var(--bloom-golden) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: inline-block;
+        }
+        
+        /* Layout Components */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: var(--space-xl) var(--space-lg);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        /* Hero Image Slides */
+        .hero-image-slide {
+            position: relative;
+            height: 100vh;
+            width: 100%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .hero-image-slide img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+        
+        .hero-scrim {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(26,26,26,0.7) 0%, rgba(26,26,26,0.4) 100%);
+            z-index: 2;
+        }
+        
+        .text-protection {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            color: white;
+            max-width: 800px;
+            padding: var(--space-lg);
+        }
+        
+        .text-protection h1 {
+            color: white;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+        
+        .text-protection p {
+            color: rgba(255,255,255,0.9);
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        .text-protection-light {
+            position: relative;
+            z-index: 3;
+            color: var(--bloom-charcoal);
+            padding: var(--space-lg);
+        }
+        
+        /* Magazine Split Layouts */
+        .magazine-split {
+            display: grid;
+            grid-template-columns: 3fr 2fr;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .magazine-split-reverse {
+            grid-template-columns: 2fr 3fr;
+        }
+        
+        .content-panel {
+            padding: var(--space-xl);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: var(--bloom-white);
+        }
+        
+        .content-panel-gradient {
+            background: linear-gradient(135deg, var(--bloom-cream) 0%, var(--bloom-white) 100%);
+        }
+        
+        .image-panel {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .image-panel img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Image with Floating Card */
+        .image-with-card {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .image-with-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Floating Cards with Glass Morphism */
+        .floating-card {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-glass);
+            max-width: 500px;
+        }
+        
+        .floating-card-left {
+            top: 50%;
+            left: var(--space-xl);
+            transform: translateY(-50%);
+        }
+        
+        .floating-card-right {
+            top: 50%;
+            right: var(--space-xl);
+            transform: translateY(-50%);
+        }
+        
+        .floating-card-bottom {
+            bottom: var(--space-xl);
+            left: 50%;
+            transform: translateX(-50%);
+            max-width: 900px;
+        }
+        
+        .floating-card-dark {
+            background: rgba(26, 26, 26, 0.9);
+            color: white;
+        }
+        
+        /* Image Grid with Statistics */
+        .image-grid {
+            display: grid;
+            gap: var(--space-md);
+            height: 80vh;
+            padding: var(--space-lg);
+        }
+        
+        .image-grid-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+        }
+        
+        .image-grid-item:hover {
+            transform: scale(1.02);
+        }
+        
+        .image-grid-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .image-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: white;
+            padding: var(--space-md);
+            text-align: center;
+        }
+        
+        .image-caption h3 {
+            color: white;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .image-caption p {
+            color: rgba(255,255,255,0.9);
+            font-size: var(--text-small);
+        }
+        
+        /* Stat Cards */
+        .stat-image-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-image-card:hover {
+            transform: scale(1.05);
+        }
+        
+        .stat-image-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .stat-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: var(--space-md);
+        }
+        
+        .stat-overlay h3 {
+            font-family: var(--font-display);
+            font-size: 4rem;
+            font-weight: 300;
+            color: white;
+            margin-bottom: var(--space-sm);
+            text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+        
+        .stat-overlay p {
+            font-size: var(--text-body);
+            color: rgba(255,255,255,0.95);
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            font-weight: 500;
+        }
+        
+        /* Visual Lists */
+        .visual-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .visual-list li {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: var(--space-md);
+            font-size: var(--text-body);
+            line-height: 1.6;
+        }
+        
+        .visual-list-icon {
+            font-size: 2rem;
+            margin-right: var(--space-sm);
+            margin-top: 0.2rem;
+        }
+        
+        /* Quote with Image */
+        .quote-with-image {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: var(--space-xl);
+            align-items: center;
+            padding: var(--space-xl);
+        }
+        
+        .quote-portrait {
+            position: relative;
+        }
+        
+        .quote-portrait img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 15px;
+            box-shadow: var(--shadow-large);
+        }
+        
+        /* Gradient Mesh Backgrounds */
+        .gradient-mesh {
+            background: radial-gradient(circle at 20% 20%, rgba(255, 203, 119, 0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(197, 137, 232, 0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 40%, rgba(149, 225, 211, 0.2) 0%, transparent 50%);
+        }
+        
+        /* Enhanced Components for Self-Compassion Theme */
+        .compassion-quote {
+            position: relative;
+            padding: var(--space-lg);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            box-shadow: var(--shadow-glass);
+            border: 1px solid rgba(255, 168, 197, 0.2);
+        }
+        
+        .compassion-quote::before {
+            content: '"';
+            position: absolute;
+            top: -1rem;
+            left: 2rem;
+            font-size: 6rem;
+            font-family: var(--font-display);
+            color: var(--bloom-coral);
+            opacity: 0.3;
+        }
+        
+        .kindness-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--bloom-coral) 0%, var(--bloom-rose) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+            margin: 0 auto 2rem;
+            box-shadow: 0 15px 40px rgba(255,107,107,0.3);
+            transition: transform 0.3s ease;
+        }
+        
+        .kindness-circle:hover {
+            transform: scale(1.1);
+        }
+        
+        .practice-steps {
+            background: linear-gradient(135deg, rgba(255, 168, 197, 0.1) 0%, rgba(250, 248, 245, 0.8) 100%);
+            padding: var(--space-lg);
+            border-radius: 20px;
+            margin: var(--space-md) 0;
+            border: 1px solid rgba(255, 168, 197, 0.2);
+        }
+        
+        .practice-steps .step {
+            font-size: var(--text-body);
+            margin: var(--space-md) 0;
+            padding-left: 3rem;
+            position: relative;
+            color: var(--bloom-charcoal);
+            line-height: 1.6;
+        }
+        
+        .practice-steps .step::before {
+            content: '♥';
+            position: absolute;
+            left: 0;
+            color: var(--bloom-coral);
+            font-size: 1.5rem;
+            top: 0.1rem;
+        }
+        
+        /* Hover Effects */
+        .floating-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 80px rgba(0,0,0,0.2);
+        }
+        
+        /* Fragment Animations */
+        .reveal .fragment.fade-in-up {
+            transform: translateY(20px);
+            opacity: 0;
+        }
+        
+        .reveal .fragment.fade-in-up.visible {
+            transform: translateY(0);
+            opacity: 1;
+            transition: all 0.6s ease-out;
+        }
+        
+        .reveal .fragment.scale-in {
+            transform: scale(0.8);
+            opacity: 0;
+        }
+        
+        .reveal .fragment.scale-in.visible {
+            transform: scale(1);
+            opacity: 1;
+            transition: all 0.6s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- SLIDE 1: Hero Opening -->
+            <section data-background-color="#1a1a1a">
+                <div class="hero-image-slide">
+                    <img src="../Week2images/biff01_Mother_placing_both_hands_over_her_heart_in_genuine_se_14b2f68d-274b-48c6-af76-b45af4e43c64_0.png" alt="Mother practicing self-compassion with hand on heart">
+                    <div class="hero-scrim"></div>
+                    <div class="text-protection">
+                        <h1 class="fragment fade-in-up">The Power of<br/><span class="gradient-text">Self-Compassion</span></h1>
+                        <p class="fragment fade-in-up" style="font-size: 2rem; margin-top: 2rem; color: rgba(255,255,255,0.95);">
+                            Treating Yourself with the Kindness You Deserve
+                        </p>
+                        <p class="fragment fade-in-up" style="font-size: 1.3rem; margin-top: 3rem; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.1em;">
+                            Bloom Psychology • Week 2 • Lesson 1
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 2: Welcome/Acknowledgment -->
+            <section>
+                <div class="magazine-split">
+                    <div class="content-panel content-panel-gradient">
+                        <h1 class="fragment fade-in-up">You Made It to<br/><span class="gradient-text">Week Two</span></h1>
+                        <p class="fragment fade-in-up" style="margin-top: 2rem; font-size: 1.8rem;">
+                            Last week, we talked about honoring your experience. This week, we're going deeper—into how you treat yourself during this profound transition.
+                        </p>
+                        <p class="fragment fade-in-up" style="font-size: 1.4rem; color: var(--bloom-sage); margin-top: 2rem; font-style: italic;">
+                            "If your best friend called you at 3 AM, exhausted and crying, what would you say to her?"
+                        </p>
+                    </div>
+                    <div class="image-panel">
+                        <img src="../Week2images/biff01_Friend_arriving_with_healthy_meal_and_warm_hug_both_wo_62fbdc0d-7a39-47ca-9e83-e33934b07c87_3.png" alt="Women supporting each other with compassion">
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 3: What Self-Compassion Is NOT -->
+            <section>
+                <div class="magazine-split">
+                    <div class="content-panel content-panel-gradient">
+                        <h2>What Self-Compassion <span class="gradient-text">Is NOT</span></h2>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-lg); margin-top: var(--space-lg);">
+                            <div class="fragment fade-in-up" style="text-align: center; padding: var(--space-md);">
+                                <div style="font-size: 3rem; margin-bottom: var(--space-sm); color: var(--bloom-coral);">🫥</div>
+                                <h3 style="color: var(--bloom-coral); margin-bottom: var(--space-sm);">Not Self-Pity</h3>
+                                <p>It's acknowledgment, not wallowing in your struggles</p>
+                            </div>
+                            <div class="fragment fade-in-up" style="text-align: center; padding: var(--space-md);">
+                                <div style="font-size: 3rem; margin-bottom: var(--space-sm); color: var(--bloom-sage);">💪</div>
+                                <h3 style="color: var(--bloom-sage); margin-bottom: var(--space-sm);">Not Weakness</h3>
+                                <p>It takes courage to be kind to yourself when you're struggling</p>
+                            </div>
+                            <div class="fragment fade-in-up" style="text-align: center; padding: var(--space-md);">
+                                <div style="font-size: 3rem; margin-bottom: var(--space-sm); color: var(--bloom-lavender);">⚖️</div>
+                                <h3 style="color: var(--bloom-lavender); margin-bottom: var(--space-sm);">Not Letting Go</h3>
+                                <p>You can be compassionate AND responsible</p>
+                            </div>
+                            <div class="fragment fade-in-up" style="text-align: center; padding: var(--space-md);">
+                                <div style="font-size: 3rem; margin-bottom: var(--space-sm); color: var(--bloom-golden);">🌟</div>
+                                <h3 style="color: var(--bloom-golden); margin-bottom: var(--space-sm);">Not Selfish</h3>
+                                <p>Your wellbeing directly impacts your ability to care for others</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="image-panel">
+                        <img src="../Week2images/biff01_Mother_looking_at_reflection_in_bathroom_mirror_initia_1a3e43d5-8524-4e90-89a1-99bc86954fe8_3.png" alt="Mother practicing honest self-reflection">
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 4: The Three Components -->
+            <section>
+                <div class="image-with-card">
+                    <img src="../Week2images/biff01_Triptych_composition_with_warm_light_throughout_left_s_bab39762-5b0f-4d80-b6ca-e08f9803e0a3_2.png" alt="Three components of self-compassion">
+                    <div class="floating-card floating-card-left text-protection-light">
+                        <h2 style="color: var(--bloom-coral); margin-bottom: 2rem;">Three Essential Components</h2>
+                        <ul class="visual-list">
+                            <li class="fragment fade-in-up">
+                                <div class="visual-list-icon">💗</div>
+                                <strong>Self-Kindness:</strong> Actively comforting yourself when struggling
+                            </li>
+                            <li class="fragment fade-in-up">
+                                <div class="visual-list-icon">🤝</div>
+                                <strong>Common Humanity:</strong> You're not alone—85% of mothers feel overwhelmed
+                            </li>
+                            <li class="fragment fade-in-up">
+                                <div class="visual-list-icon">🌊</div>
+                                <strong>Mindfulness:</strong> Observing thoughts without drowning in them
+                            </li>
+                        </ul>
+                        <p class="fragment fade-in" style="font-size: 1.3rem; margin-top: 2rem; font-style: italic; color: var(--bloom-warm-gray);">
+                            Research shows mothers practicing self-kindness have 40% lower depression symptoms
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 5: The Statistics Reality -->
+            <section class="gradient-mesh" data-background-color="#faf8f5">
+                <div class="container">
+                    <h2 style="text-align: center; margin-bottom: 3rem;">You Are <span class="gradient-text">Not Alone</span></h2>
+                    <p style="text-align: center; font-size: var(--text-body); color: var(--bloom-sage); margin-bottom: var(--space-xl);">Research shows the postpartum experience is universal in its challenges</p>
+                    <div class="image-grid" style="grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 300px);">
+                        <div class="stat-image-card fragment fade-in-up" data-fragment-index="1">
+                            <img src="../Week2images/biff01_Four_tired_but_content_mothers_in_their_individual_hom_777738d2-27fd-4ae2-92c9-73e72c0df5fb_3.png" alt="Tired but content mothers">
+                            <div class="stat-overlay" style="background: linear-gradient(135deg, rgba(255, 107, 107, 0.85) 0%, rgba(255, 180, 162, 0.95) 100%);">
+                                <h3>67%</h3>
+                                <p>Report being more self-critical than ever before</p>
+                            </div>
+                        </div>
+                        <div class="stat-image-card fragment fade-in-up" data-fragment-index="2">
+                            <img src="../Week2images/biff01_Mother_and_baby_finding_synchronized_peace_together_bo_15666422-101d-4f71-8e78-41241ac09752_0.png" alt="Mother and baby together">
+                            <div class="stat-overlay" style="background: linear-gradient(135deg, rgba(149, 225, 211, 0.85) 0%, rgba(139, 154, 130, 0.95) 100%);">
+                                <h3>85%</h3>
+                                <p>Feel completely overwhelmed at times</p>
+                            </div>
+                        </div>
+                        <div class="stat-image-card fragment fade-in-up" data-fragment-index="3">
+                            <img src="../Week2images/biff01_Mother_looking_at_reflection_in_bathroom_mirror_initia_1a3e43d5-8524-4e90-89a1-99bc86954fe8_3.png" alt="Mother reflecting">
+                            <div class="stat-overlay" style="background: linear-gradient(135deg, rgba(197, 137, 232, 0.85) 0%, rgba(255, 168, 197, 0.95) 100%);">
+                                <h3>92%</h3>
+                                <p>Doubt their mothering abilities regularly</p>
+                            </div>
+                        </div>
+                        <div class="stat-image-card fragment fade-in-up" data-fragment-index="4">
+                            <img src="../Week2images/biff01_Beforeafter_diptych_left_shows_tense_mother_softening__35ae8c83-830c-4fde-bb59-5da27ab619a3_1.png" alt="Mother's emotional journey">
+                            <div class="stat-overlay" style="background: linear-gradient(135deg, rgba(255, 203, 119, 0.85) 0%, rgba(255, 180, 162, 0.95) 100%);">
+                                <h3>78%</h3>
+                                <p>Have cried from exhaustion this week</p>
+                            </div>
+                        </div>
+                        <div class="stat-image-card fragment fade-in-up" data-fragment-index="5">
+                            <img src="../Week2images/biff01_Friend_arriving_with_healthy_meal_and_warm_hug_both_wo_62fbdc0d-7a39-47ca-9e83-e33934b07c87_3.png" alt="Friends supporting each other">
+                            <div class="stat-overlay" style="background: linear-gradient(135deg, rgba(116, 192, 252, 0.85) 0%, rgba(149, 225, 211, 0.95) 100%);">
+                                <h3>91%</h3>
+                                <p>Feel others have it more together</p>
+                            </div>
+                        </div>
+                        <div class="stat-image-card fragment fade-in-up" data-fragment-index="6">
+                            <img src="../Week2images/biff01_Mother_placing_both_hands_over_her_heart_in_genuine_se_14b2f68d-274b-48c6-af76-b45af4e43c64_0.png" alt="Mother practicing self-compassion">
+                            <div class="stat-overlay" style="background: linear-gradient(135deg, rgba(255, 168, 197, 0.85) 0%, rgba(197, 137, 232, 0.95) 100%);">
+                                <h3>100%</h3>
+                                <p>Of mothers are doing their absolute best</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 6: Research Benefits -->
+            <section>
+                <div class="image-with-card">
+                    <img src="../Week2images/biff01_Mother_and_baby_finding_synchronized_peace_together_bo_15666422-101d-4f71-8e78-41241ac09752_0.png" alt="Mother and baby in synchronized peace">
+                    <div class="floating-card floating-card-bottom floating-card-dark">
+                        <h2 style="text-align: center; margin-bottom: 3rem; color: white;">The Science of <span class="gradient-text">Self-Compassion</span></h2>
+                        <p style="text-align: center; font-size: 1.6rem; color: rgba(255,255,255,0.9); margin-bottom: 3rem;">
+                            Research by Dr. Jessica Hutchens found that self-compassionate mothers experience:
+                        </p>
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; text-align: center;">
+                            <div class="fragment scale-in">
+                                <div class="kindness-circle">🌙</div>
+                                <p style="font-size: 1.5rem; color: rgba(255,255,255,0.9);">Better sleep quality<br/><em style="font-size: 1.2rem;">even with less sleep</em></p>
+                            </div>
+                            <div class="fragment scale-in">
+                                <div class="kindness-circle">💕</div>
+                                <p style="font-size: 1.5rem; color: rgba(255,255,255,0.9);">Stronger bonding<br/><em style="font-size: 1.2rem;">with their babies</em></p>
+                            </div>
+                            <div class="fragment scale-in">
+                                <div class="kindness-circle">🌱</div>
+                                <p style="font-size: 1.5rem; color: rgba(255,255,255,0.9);">Faster recovery<br/><em style="font-size: 1.2rem;">physically & emotionally</em></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 7: The Inner Critic's Lies -->
+            <section data-background-gradient="linear-gradient(135deg, #8B9A82 0%, #95E1D3 50%, #C589E8 100%)">
+                <div class="container">
+                    <div class="quote-with-image">
+                        <div class="quote-portrait">
+                            <img src="../Week2images/biff01_Visual_metaphor_mother_with_harsh_inner_critic_figure__4328f105-ea68-40a4-a507-3321536060e1_0.png" alt="Mother with inner critic visualization">
+                        </div>
+                        <div>
+                            <h2 style="color: white; margin-bottom: 2rem;">Your Inner Critic Lies</h2>
+                            <blockquote style="color: white; font-size: 3rem; margin: 0; line-height: 1.4;">
+                                <span class="fragment fade-in-up">"Good mothers don't feel this way"</span><br/>
+                                <span class="fragment fade-in-up" style="font-weight: 600; color: var(--bloom-golden);">Good mothers have ALL feelings</span><br/><br/>
+                                <span class="fragment fade-in-up">"Everyone else manages better"</span><br/>
+                                <span class="fragment fade-in-up" style="font-weight: 600; color: var(--bloom-coral);">Everyone struggles, most hide it</span>
+                            </blockquote>
+                            <p class="fragment fade-in" style="color: rgba(255,255,255,0.8); font-size: 1.5rem; margin-top: 2.5rem;">
+                                Your baby needs a real human mother, not a perfect robot
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 8: The Practice -->
+            <section>
+                <div class="magazine-split magazine-split-reverse">
+                    <div class="image-panel">
+                        <img src="../Week2images/biff01_Close-up_of_mothers_hand_gently_placed_on_her_chest_fe_f6457520-9292-479e-8831-02066032b190_3.png" alt="Mother practicing self-compassion meditation">
+                    </div>
+                    <div class="content-panel content-panel-gradient">
+                        <h2>A Simple Practice for <span class="gradient-text">Difficult Moments</span></h2>
+                        <div class="practice-steps">
+                            <h3 style="text-align: center; color: var(--bloom-coral); margin-bottom: var(--space-md); font-family: var(--font-display);">Place Your Hand on Your Heart</h3>
+                            <div class="step fragment fade-in-up">
+                                <strong>"This is a moment of struggle"</strong><br/>
+                                <em style="color: var(--bloom-sage);">That's mindfulness—recognizing what's happening</em>
+                            </div>
+                            <div class="step fragment fade-in-up">
+                                <strong>"Struggle is part of being human"</strong><br/>
+                                <em style="color: var(--bloom-sage);">That's common humanity—you're not alone</em>
+                            </div>
+                            <div class="step fragment fade-in-up">
+                                <strong>"May I be kind to myself"</strong><br/>
+                                <em style="color: var(--bloom-sage);">That's self-kindness—the heart of compassion</em>
+                            </div>
+                        </div>
+                        <p class="fragment fade-in" style="font-size: var(--text-body); margin-top: var(--space-lg); font-style: italic; color: var(--bloom-warm-gray); text-align: center;">
+                            Less than a minute that can shift everything
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 9: Alternative Phrases -->
+            <section>
+                <div class="magazine-split magazine-split-reverse">
+                    <div class="content-panel">
+                        <h2>Make It <span class="gradient-text">Your Own</span></h2>
+                        <p style="font-size: 1.9rem; margin: 2.5rem 0; color: var(--bloom-sage);">
+                            The exact words don't matter. What matters is the intention to treat yourself with care.
+                        </p>
+                        <div class="compassion-quote">
+                            <p style="font-size: 1.6rem; line-height: 2;">
+                                "This is really hard right now"<br/>
+                                "Other moms feel this way too"<br/>
+                                "May I give myself the compassion I need"
+                            </p>
+                        </div>
+                        <p class="fragment fade-in" style="font-size: 1.4rem; margin-top: 2rem; font-style: italic;">
+                            Less than a minute, but it can change everything
+                        </p>
+                    </div>
+                    <div class="image-panel">
+                        <img src="../Week2images/biff01_Mother_giving_herself_a_genuine_self-hug_while_sitting_434024d6-4960-43c3-980d-e68cd100361d_0.png" alt="Mother practicing self-acceptance">
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 10: The Ripple Effect -->
+            <section>
+                <div class="image-with-card">
+                    <img src="../Week2images/biff01_Mother_and_baby_finding_synchronized_peace_together_bo_15666422-101d-4f71-8e78-41241ac09752_0.png" alt="Mother and baby in synchronized peace">
+                    <div class="floating-card floating-card-bottom">
+                        <h2 style="text-align: center; margin-bottom: var(--space-md);">The Beautiful <span class="gradient-text">Ripple Effect</span></h2>
+                        <p style="text-align: center; font-size: var(--text-body); color: var(--bloom-sage); margin-bottom: var(--space-lg);">When you treat yourself with compassion, it creates waves of positive change</p>
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-lg);">
+                            <div class="fragment fade-in-up" style="text-align: center;">
+                                <div style="font-size: 3.5rem; margin-bottom: var(--space-sm);">👶</div>
+                                <h3 style="color: var(--bloom-coral); margin-bottom: var(--space-sm);">For Your Baby</h3>
+                                <p style="font-size: var(--text-small);">You model emotional regulation and self-acceptance</p>
+                            </div>
+                            <div class="fragment fade-in-up" style="text-align: center;">
+                                <div style="font-size: 3.5rem; margin-bottom: var(--space-sm);">👥</div>
+                                <h3 style="color: var(--bloom-lavender); margin-bottom: var(--space-sm);">For Others</h3>
+                                <p style="font-size: var(--text-small);">You give permission for imperfection and humanity</p>
+                            </div>
+                            <div class="fragment fade-in-up" style="text-align: center;">
+                                <div style="font-size: 3.5rem; margin-bottom: var(--space-sm);">🌟</div>
+                                <h3 style="color: var(--bloom-golden); margin-bottom: var(--space-sm);">For You</h3>
+                                <p style="font-size: var(--text-small);">You become more present for moments that truly matter</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 11: What Your Baby Needs -->
+            <section>
+                <div class="magazine-split">
+                    <div class="content-panel content-panel-gradient">
+                        <h2>What Your Baby <span class="gradient-text">Really Needs</span></h2>
+                        <p style="font-size: 2.2rem; margin: 2.5rem 0; color: var(--bloom-sage); font-family: var(--font-display);">
+                            Not a perfect mother.
+                        </p>
+                        <p style="font-size: 2.2rem; margin: 2.5rem 0; color: var(--bloom-coral); font-family: var(--font-display);">
+                            A mother who knows how to be kind to herself when things are hard.
+                        </p>
+                        <p class="fragment fade-in" style="font-size: 1.6rem; margin-top: 3rem;">
+                            Because that's the mother who can teach them resilience.
+                        </p>
+                    </div>
+                    <div class="image-panel">
+                        <img src="../Week2images/biff01_Mother_placing_both_hands_over_her_heart_in_genuine_se_14b2f68d-274b-48c6-af76-b45af4e43c64_0.png" alt="Mother demonstrating self-compassion">
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 12: This Week's Practice -->
+            <section data-background-gradient="linear-gradient(135deg, #95E1D3 0%, #FFCB77 50%, #FFA8C5 100%)">
+                <div class="container">
+                    <div style="text-align: center; color: white;">
+                        <h2 style="color: white; margin-bottom: var(--space-lg);">This Week's <span style="color: var(--bloom-golden);">Practice</span></h2>
+                        <p style="font-size: var(--text-subheading); color: rgba(255,255,255,0.9); margin-bottom: var(--space-lg);">
+                            Notice your inner critic. Notice when you're harsh with yourself.
+                        </p>
+                        <div style="background: rgba(255,255,255,0.15); backdrop-filter: blur(20px); border-radius: 20px; padding: var(--space-xl); margin: var(--space-lg) auto; max-width: 800px; border: 1px solid rgba(255,255,255,0.2);">
+                            <h1 style="font-family: var(--font-display); font-size: var(--text-heading); color: white; margin-bottom: var(--space-md); text-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+                                "Place your hand on your heart and offer yourself the kindness you'd give a friend"
+                            </h1>
+                        </div>
+                        <p style="font-size: var(--text-body); color: rgba(255,255,255,0.8); margin-top: var(--space-lg); font-style: italic;">
+                            Self-compassion isn't mastered overnight. It's a practice that gets easier with repetition.
+                        </p>
+                        <div class="fragment fade-in" style="margin-top: var(--space-xl);">
+                            <img src="../Week2images/biff01_Three-stage_progression_showing_hope_throughout_overwh_d45de4e8-cf7c-4867-bb20-e5c1431447d8_0.png" alt="Transformation journey through self-compassion" style="border-radius: 15px; box-shadow: var(--shadow-large); max-width: 600px; width: 100%;">
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SLIDE 13: Closing -->
+            <section>
+                <div class="hero-image-slide">
+                    <img src="../Week2images/biff01_Beforeafter_diptych_left_shows_tense_mother_softening__35ae8c83-830c-4fde-bb59-5da27ab619a3_1.png" alt="Mother's transformation through self-compassion">
+                    <div class="hero-scrim"></div>
+                    <div class="text-protection" style="text-align: center;">
+                        <h1 class="fragment fade-in-up" style="color: white; font-size: var(--text-display);">You Deserve <span class="gradient-text">Kindness</span></h1>
+                        <p class="fragment fade-in-up" style="font-size: var(--text-subheading); margin-top: var(--space-lg); color: rgba(255,255,255,0.95);">
+                            Not when you're perfect. Not when you have it all figured out.
+                        </p>
+                        <p class="fragment fade-in-up" style="font-size: var(--text-body); margin-top: var(--space-lg); color: rgba(255,255,255,0.85); font-family: var(--font-display);">
+                            Right now, exactly as you are.<br/>
+                            <em style="color: var(--bloom-golden);">You're doing better than you know.</em>
+                        </p>
+                        <div class="fragment fade-in" style="margin-top: var(--space-xl); padding: var(--space-lg); background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border-radius: 15px; border: 1px solid rgba(255,255,255,0.2); max-width: 400px; margin-left: auto; margin-right: auto;">
+                            <div style="font-size: var(--text-small); color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: var(--space-xs);">
+                                Dr. Jana Rundle
+                            </div>
+                            <div style="font-size: var(--text-body); color: rgba(255,255,255,0.9); font-family: var(--font-display);">
+                                Bloom Psychology
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/notes/notes.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/markdown/markdown.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/highlight/highlight.js"></script>
+    
+    <script>
+        Reveal.initialize({
+            hash: true,
+            controls: true,
+            progress: true,
+            center: false,
+            transition: 'fade',
+            transitionSpeed: 'slow',
+            backgroundTransition: 'fade',
+            
+            // View options
+            width: 1920,
+            height: 1080,
+            margin: 0,
+            minScale: 0.2,
+            maxScale: 2.0,
+            
+            // UI options
+            controlsTutorial: false,
+            controlsLayout: 'bottom-right',
+            controlsBackArrows: 'faded',
+            slideNumber: 'c/t',
+            showSlideNumber: 'all',
+            
+            // Features
+            history: true,
+            keyboard: true,
+            overview: true,
+            loop: false,
+            touch: true,
+            
+            // PDF export
+            pdfMaxPagesPerSlide: 1,
+            pdfSeparateFragments: false,
+            
+            plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+        });
+    </script>
+</body>
+</html>
