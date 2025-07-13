@@ -49,7 +49,7 @@ export default function MyGrowthStudioPage() {
   const [enrolledCourses, setEnrolledCourses] = useState<CourseProgress[]>([]);
   const [achievements, setAchievements] = useState<Achievement[]>([]);
   const [loading, setLoading] = useState(true);
-  const [activeView, setActiveView] = useState<'overview' | 'courses' | 'resources' | 'achievements'>('overview');
+  const [activeView, setActiveView] = useState<'overview' | 'courses' | 'resources' | 'achievements' | 'settings'>('overview');
 
   useEffect(() => {
     if (user) {
@@ -210,6 +210,16 @@ export default function MyGrowthStudioPage() {
                   }`}
                 >
                   Achievements
+                </button>
+                <button
+                  onClick={() => setActiveView('settings')}
+                  className={`px-6 py-4 font-medium transition-all duration-200 border-b-2 ${
+                    activeView === 'settings'
+                      ? 'text-bloom-sage border-bloom-sage'
+                      : 'text-bloom-dark/60 border-transparent hover:text-bloom-dark'
+                  }`}
+                >
+                  Settings
                 </button>
               </div>
             </div>
@@ -550,6 +560,155 @@ export default function MyGrowthStudioPage() {
                   <p className="text-bloom-dark/70 mt-4">
                     Keep learning and growing to earn more stars and unlock new achievements!
                   </p>
+                </div>
+              </div>
+            )}
+
+            {activeView === 'settings' && (
+              <div className="space-y-6">
+                <div className="bg-white rounded-2xl shadow-lg p-8">
+                  <h2 className="text-2xl font-semibold text-bloom-dark mb-6">Account Settings</h2>
+                  
+                  <div className="grid md:grid-cols-2 gap-6">
+                    {/* Profile Settings */}
+                    <Link
+                      href="/profile/edit"
+                      className="group border border-bloom-sage/20 rounded-lg p-6 hover:border-bloom-sage/40 transition-all hover:shadow-md"
+                    >
+                      <div className="flex items-start gap-4">
+                        <div className="w-12 h-12 bg-gradient-to-br from-bloom-sage/20 to-bloom-sage/10 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                          <svg className="w-6 h-6 text-bloom-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                          </svg>
+                        </div>
+                        <div className="flex-1">
+                          <h3 className="font-semibold text-bloom-dark mb-1">Profile Information</h3>
+                          <p className="text-sm text-bloom-dark/60 mb-2">Update your personal details, postpartum date, and emergency contacts</p>
+                          <div className="text-xs text-bloom-sage">
+                            {profile?.first_name && profile?.last_name ? 
+                              `${profile.first_name} ${profile.last_name}` : 
+                              'Complete your profile →'
+                            }
+                          </div>
+                        </div>
+                      </div>
+                    </Link>
+
+                    {/* General Settings */}
+                    <Link
+                      href="/settings"
+                      className="group border border-bloompink/20 rounded-lg p-6 hover:border-bloompink/40 transition-all hover:shadow-md"
+                    >
+                      <div className="flex items-start gap-4">
+                        <div className="w-12 h-12 bg-gradient-to-br from-bloompink/20 to-bloompink/10 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                          <svg className="w-6 h-6 text-bloompink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                          </svg>
+                        </div>
+                        <div className="flex-1">
+                          <h3 className="font-semibold text-bloom-dark mb-1">Preferences & Privacy</h3>
+                          <p className="text-sm text-bloom-dark/60 mb-2">Notifications, privacy settings, and password management</p>
+                          <div className="text-xs text-bloompink">
+                            Manage your account →
+                          </div>
+                        </div>
+                      </div>
+                    </Link>
+
+                    {/* Newsletter Settings */}
+                    <Link
+                      href="/newsletter"
+                      className="group border border-bloom-accent/20 rounded-lg p-6 hover:border-bloom-accent/40 transition-all hover:shadow-md"
+                    >
+                      <div className="flex items-start gap-4">
+                        <div className="w-12 h-12 bg-gradient-to-br from-bloom-accent/20 to-bloom-accent/10 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                          <svg className="w-6 h-6 text-bloom-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                          </svg>
+                        </div>
+                        <div className="flex-1">
+                          <h3 className="font-semibold text-bloom-dark mb-1">Email Preferences</h3>
+                          <p className="text-sm text-bloom-dark/60 mb-2">Manage newsletter subscriptions and email frequency</p>
+                          <div className="text-xs text-bloom-accent">
+                            Update preferences →
+                          </div>
+                        </div>
+                      </div>
+                    </Link>
+
+                    {/* Payment & Billing (Future) */}
+                    <div className="border border-gray-200 rounded-lg p-6 opacity-50">
+                      <div className="flex items-start gap-4">
+                        <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
+                          <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                          </svg>
+                        </div>
+                        <div className="flex-1">
+                          <h3 className="font-semibold text-gray-600 mb-1">Payment & Billing</h3>
+                          <p className="text-sm text-gray-500 mb-2">Manage payment methods and billing history</p>
+                          <div className="text-xs text-gray-400">
+                            Coming soon...
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Account Actions */}
+                <div className="bg-white rounded-2xl shadow-lg p-8">
+                  <h3 className="text-xl font-semibold text-bloom-dark mb-6">Account Actions</h3>
+                  
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
+                      <div>
+                        <h4 className="font-medium text-bloom-dark">Download Your Data</h4>
+                        <p className="text-sm text-bloom-dark/60">Get a copy of your course progress and achievements</p>
+                      </div>
+                      <button className="px-4 py-2 text-sm font-medium text-bloom-sage border border-bloom-sage rounded-lg hover:bg-bloom-sage-50 transition-colors">
+                        Request Export
+                      </button>
+                    </div>
+
+                    <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
+                      <div>
+                        <h4 className="font-medium text-bloom-dark">Contact Support</h4>
+                        <p className="text-sm text-bloom-dark/60">Get help with your account or courses</p>
+                      </div>
+                      <Link
+                        href="/contact"
+                        className="px-4 py-2 text-sm font-medium text-bloom-sage border border-bloom-sage rounded-lg hover:bg-bloom-sage-50 transition-colors"
+                      >
+                        Contact Us
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Account Overview */}
+                <div className="bg-gradient-to-r from-bloom-sage-50 to-bloompink-50 rounded-2xl p-8">
+                  <h3 className="text-xl font-semibold text-bloom-dark mb-4">Account Summary</h3>
+                  <div className="grid md:grid-cols-3 gap-6">
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-bloom-sage">{enrolledCourses.length}</div>
+                      <div className="text-sm text-bloom-dark/60">Active Courses</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-bloompink">{achievements.length}</div>
+                      <div className="text-sm text-bloom-dark/60">Achievements Earned</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-bloom-accent">{profile?.total_stars || 0}</div>
+                      <div className="text-sm text-bloom-dark/60">Total Stars</div>
+                    </div>
+                  </div>
+                  <div className="mt-6 pt-6 border-t border-bloom-sage/20">
+                    <p className="text-sm text-bloom-dark/70 text-center">
+                      Member since: {user?.created_at ? new Date(user.created_at).toLocaleDateString() : 'Recently'}
+                    </p>
+                  </div>
                 </div>
               </div>
             )}
