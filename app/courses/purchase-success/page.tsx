@@ -186,10 +186,10 @@ function PurchaseSuccessContent() {
                   Use your login credentials to access your personal course portal and start your first lesson.
                 </p>
                 <Link
-                  href="/my-courses"
+                  href="/wellness-hub"
                   className="text-sm px-4 py-2 bg-bloom-sage-50 text-bloom-sage rounded-lg hover:bg-bloom-sage-100 transition-colors inline-block"
                 >
-                  Go to My Courses →
+                  Go to My Growth Studio →
                 </Link>
               </motion.div>
 
@@ -290,8 +290,8 @@ function PurchaseSuccessContent() {
                 <Button href="mailto:jana@bloompsychology.com" variant="white" size="lg">
                   📧 Email Support
                 </Button>
-                <Button href="/my-courses" variant="outline-white" size="lg">
-                  Access My Courses
+                <Button href="/wellness-hub" variant="outline-white" size="lg">
+                  Access My Growth Studio
                 </Button>
               </div>
               </div>
@@ -303,13 +303,13 @@ function PurchaseSuccessContent() {
                 Ready to start your wellness journey?
               </p>
               <Link
-                href="/my-courses"
+                href="/wellness-hub"
                 className="inline-flex items-center gap-2 bg-bloompink text-white px-8 py-4 rounded-lg font-semibold hover:bg-bloom-pink-dark transition-colors"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>
-                Go to My Courses
+                Go to My Growth Studio
               </Link>
             </div>
           </motion.div>

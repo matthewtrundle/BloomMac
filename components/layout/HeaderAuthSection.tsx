@@ -38,14 +38,14 @@ export default function HeaderAuthSection() {
     return (
       <div className="flex items-center gap-3">
         <Link
-          href="/dashboard"
+          href="/wellness-hub"
           className="flex items-center gap-2 px-3 py-1.5 bg-bloom-sage/10 hover:bg-bloom-sage/20 rounded-full transition-all duration-300 group"
         >
           <div className="w-8 h-8 bg-bloom-sage rounded-full flex items-center justify-center text-white font-medium text-sm">
             {user.email!.charAt(0).toUpperCase()}
           </div>
           <span className="text-sm font-medium text-bloom-dark group-hover:text-bloom-sage transition-colors">
-            My Wellness Hub
+            My Growth Studio
           </span>
         </Link>
         <Button 

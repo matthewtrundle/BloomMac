@@ -274,7 +274,7 @@ export default function SimpleDashboardPage() {
       <div className="min-h-screen bg-gradient-to-br from-bloom-sage-50 via-white to-bloom-pink-50 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-bloom-sage mx-auto"></div>
-          <p className="mt-4 text-bloom-dark/60">Loading your wellness hub...</p>
+          <p className="mt-4 text-bloom-dark/60">Loading your Growth Studio...</p>
         </div>
       </div>
     );
@@ -364,7 +364,7 @@ export default function SimpleDashboardPage() {
           <div className="lg:hidden overflow-x-auto pb-2">
             <div className="flex gap-3 min-w-max">
               <a 
-                href="/my-courses"
+                href="/wellness-hub"
                 className="flex flex-col items-center gap-1 px-3 py-2 rounded-lg hover:bg-bloom-sage-50 transition-colors group min-w-20"
               >
                 <div className="w-8 h-8 bg-bloom-sage/10 rounded-lg flex items-center justify-center group-hover:bg-bloom-sage/20 transition-colors">
@@ -416,7 +416,7 @@ export default function SimpleDashboardPage() {
           {/* Desktop vertical navigation */}
           <nav className="space-y-1 hidden lg:block">
             <a 
-              href="/my-courses"
+              href="/wellness-hub"
               className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-bloom-sage-50 transition-colors group"
             >
               <div className="w-8 h-8 bg-bloom-sage/10 rounded-lg flex items-center justify-center group-hover:bg-bloom-sage/20 transition-colors">
@@ -678,7 +678,7 @@ export default function SimpleDashboardPage() {
                             return (
                               <>
                                 <a 
-                                  href="/my-courses" 
+                                  href="/wellness-hub" 
                                   className="flex items-center gap-2 p-3 bg-bloom-sage/10 rounded-lg hover:bg-bloom-sage/20 transition-colors"
                                 >
                                   <svg className="w-4 h-4 text-bloom-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -870,7 +870,7 @@ export default function SimpleDashboardPage() {
                     <div className="ml-4">
                       {course.isEnrolled ? (
                         <a
-                          href="/my-courses"
+                          href="/wellness-hub"
                           className="px-4 py-2 bg-bloom-sage text-white rounded-lg hover:bg-bloom-sage/90 transition-colors text-sm font-medium"
                         >
                           {course.progress === 100 ? 'Review' : 'Continue'}

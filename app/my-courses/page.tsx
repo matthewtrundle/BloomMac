@@ -149,7 +149,7 @@ export default function MyCoursesPage() {
         <div className="min-h-screen bg-gradient-to-br from-bloom-sage-50 via-white to-bloom-pink-50 flex items-center justify-center">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-bloom-sage mx-auto"></div>
-            <p className="mt-4 text-bloom-dark/60">Loading your courses...</p>
+            <p className="mt-4 text-bloom-dark/60">Loading your Growth Studio...</p>
           </div>
         </div>
       </ProtectedRoute>
@@ -164,7 +164,7 @@ export default function MyCoursesPage() {
           <div className="container mx-auto px-6 py-8">
             <div className="max-w-6xl mx-auto">
               <h1 className="text-3xl font-playfair text-bloom-dark mb-2">
-                My Learning Journey
+                My Growth Studio
               </h1>
               <p className="text-lg text-bloom-dark/70">
                 Welcome back, {user?.user_metadata?.first_name || 'Beautiful Mama'}! Continue your wellness education.
