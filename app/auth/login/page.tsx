@@ -23,14 +23,19 @@ export default function LoginPage() {
     e.preventDefault();
     setError('');
     setLoading(true);
+    
+    console.log('[LoginPage] Starting login attempt for:', email);
 
     try {
       if (useMagicLink) {
         await signInWithMagicLink(email);
       } else {
         await signIn(email, password);
+        console.log('[LoginPage] Sign in completed, should redirect to dashboard');
       }
     } catch (err: any) {
+      console.error('[LoginPage] Login error:', err);
+      
       // Handle specific error for non-existent users trying magic link
       if (err.message?.includes('User not found') || err.message?.includes('Invalid login credentials')) {
         if (useMagicLink) {
@@ -40,10 +45,14 @@ export default function LoginPage() {
             router.push(`/auth/signup?email=${encodeURIComponent(email)}`);
           }, 3000);
         } else {
-          setError('Invalid email or password');
+          setError('Invalid email or password. Please check your credentials and try again.');
         }
+      } else if (err.message?.includes('Email not confirmed')) {
+        setError('Please check your email and confirm your account before logging in.');
+      } else if (err.message?.includes('session not established')) {
+        setError('Login was successful but we couldn\'t establish a session. Please try again.');
       } else {
-        setError(err.message || 'An error occurred during login');
+        setError(err.message || 'An error occurred during login. Please try again.');
       }
       setLoading(false);
     }

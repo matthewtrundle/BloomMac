@@ -100,10 +100,33 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     signIn: async (email: string, password: string) => {
       try {
         setLoading(true);
-        await authHelpers.signIn(email, password);
-        // Redirect to dashboard for returning users
-        router.push('/dashboard');
+        console.log('[AuthContext] Starting sign in for:', email);
+        
+        const result = await authHelpers.signIn(email, password);
+        console.log('[AuthContext] Sign in result:', result);
+        
+        // Wait for auth state to update
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        
+        // Get the session to verify it's established
+        const { data: { session }, error } = await supabaseAuth.auth.getSession();
+        console.log('[AuthContext] Session after sign in:', session);
+        console.log('[AuthContext] Session error:', error);
+        
+        if (session?.user) {
+          setUser(session.user);
+          console.log('[AuthContext] User set, redirecting to dashboard');
+          // Ensure loading is false before redirect
+          setLoading(false);
+          // Use replace to prevent back button issues
+          router.replace('/dashboard');
+        } else {
+          console.error('[AuthContext] No session after sign in');
+          setLoading(false);
+          throw new Error('Login successful but session not established');
+        }
       } catch (error) {
+        console.error('[AuthContext] Sign in error:', error);
         setLoading(false);
         throw error;
       }
