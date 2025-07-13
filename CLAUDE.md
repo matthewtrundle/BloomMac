@@ -18,6 +18,7 @@
 - ✅ E-commerce cart system with multi-step checkout
 - ✅ Add-on products and tiered packages
 - ✅ Payment plans and professional upsells
+- ✅ **"My Growth Studio"** - Personalized wellness hub for course access and progress tracking
 
 ### If User Asks About Appointments:
 Direct them to use SimplePractice or Calendly for appointment booking. This platform is now focused on educational content only.
@@ -407,7 +408,8 @@ Uncertain about anything?
 Complete cart and checkout system with professional adaptations of conversion optimization principles. Balances revenue growth with therapeutic credibility.
 
 ### 📚 Key Documentation Hub
-**CART_SYSTEM_DOCUMENTATION.md** - Central reference for all cart functionality
+- **CART_SYSTEM_DOCUMENTATION.md** - Central reference for all cart functionality
+- **docs/WELLNESS_HUB_REDESIGN.md** - "My Growth Studio" redesign documentation
 
 ### Core Components Built:
 1. **Cart System** (`/lib/cart/cart-context.tsx`)
@@ -453,6 +455,36 @@ Complete cart and checkout system with professional adaptations of conversion op
 - ✅ Stripe integration ready
 - ⏳ Pending: Connect to production Stripe
 - ⏳ Pending: Add counselor booking for workbook reviews
+
+## 🌱 MY GROWTH STUDIO (Formerly Wellness Hub)
+
+### Overview
+"My Growth Studio" is the personalized dashboard where users access purchased courses, track progress, and engage with wellness resources. The name change from "Wellness Hub" reflects user feedback that the original felt too clinical.
+
+### Key Features:
+- **Personalized Dashboard** - Custom welcome, progress tracking, achievements
+- **Course Library** - Access purchased courses with visual progress indicators
+- **Resource Center** - Downloadable materials, worksheets, meditations
+- **Progress Tracking** - Visual journey maps, streaks, milestone celebrations
+
+### Implementation Status:
+- ✅ Basic dashboard and course access (`/app/wellness-hub/`)
+- ✅ Progress tracking system
+- ⏳ Pending: Update all UI text from "Wellness Hub" to "My Growth Studio"
+- ⏳ Pending: Enhanced resource library
+- ⏳ Pending: Achievement badges and celebrations
+
+### Related Files:
+- `/app/wellness-hub/` - Main dashboard pages
+- `/components/wellness-hub/` - UI components
+- `/lib/wellness-hub/` - Business logic
+- `docs/WELLNESS_HUB_REDESIGN.md` - Complete redesign documentation
+
+### Database Tables Used:
+- `user_course_access` - Course enrollments
+- `course_progress` - Lesson completion tracking
+- `user_achievements` - Badges and milestones
+- `courses`, `course_modules`, `course_lessons` - Course content
 
 ## 🚨 FINAL REMINDER
 
