@@ -60,6 +60,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         return res.status(404).json({ error: 'Week not found' });
       }
 
+      // Sort lessons by lesson_number to ensure correct order
+      if (module.course_lessons) {
+        module.course_lessons.sort((a: any, b: any) => a.lesson_number - b.lesson_number);
+      }
+
       // If specific lesson requested
       if (lessonNumber) {
         const lesson = module.course_lessons.find(

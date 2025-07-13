@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { PlayCircle, FileText, Headphones, Users } from 'lucide-react';
 import { useCourseContent } from '@/lib/hooks/useCourseContent';
+import MeditationPlayer from '@/components/course/MeditationPlayer';
 
 interface WeekContentProps {
   courseSlug: string;
@@ -12,6 +13,19 @@ interface WeekContentProps {
 
 export default function WeekContent({ courseSlug, weekNumber }: WeekContentProps) {
   const { course, module, loading, error } = useCourseContent(courseSlug, weekNumber);
+
+  // Get meditation details for each week
+  const getMeditationDetails = (weekNum: number) => {
+    const meditations = {
+      1: { title: "Grounding Practice for New Moms", duration: "8:47" },
+      2: { title: "Self-Compassion Break", duration: "10:00" },
+      3: { title: "Loving-Kindness for Connection", duration: "12:00" },
+      4: { title: "Anxiety Relief Body Scan", duration: "10:00" },
+      5: { title: "Identity Integration Meditation", duration: "11:00" },
+      6: { title: "Gratitude & Growth Celebration", duration: "10:00" }
+    };
+    return meditations[weekNum as keyof typeof meditations] || { title: "Weekly Meditation", duration: "10:00" };
+  };
 
   if (loading) {
     return (
@@ -36,26 +50,154 @@ export default function WeekContent({ courseSlug, weekNumber }: WeekContentProps
 
   const lessons = module.course_lessons || [];
 
-  const resources = [
-    {
-      icon: FileText,
-      title: `Week ${weekNumber} Workbook`,
-      description: 'Printable exercises and reflections',
-      link: `/resources/week${weekNumber}-workbook.pdf`
-    },
-    {
-      icon: Headphones,
-      title: 'Guided Meditation',
-      description: '10-minute grounding practice',
-      link: `/resources/week${weekNumber}-meditation.mp3`
-    },
-    {
-      icon: Users,
-      title: 'Community Forum',
-      description: 'Connect with other moms',
-      link: `/community/week${weekNumber}`
-    }
-  ];
+  // Week-specific resources based on master course document
+  const getWeekResources = (weekNum: number) => {
+    const weekResources: Record<number, any[]> = {
+      1: [
+        {
+          icon: FileText,
+          title: 'Week 1 Workbook',
+          description: 'Emotional Awareness Journal & "Normal vs. Concerning" Checklist',
+          link: '/resources/week1-workbook.pdf'
+        },
+        {
+          icon: Headphones,
+          title: 'Grounding Meditation',
+          description: 'Grounding Meditation for New Moms (8 min)',
+          link: '/resources/week1-meditation.mp3'
+        },
+        {
+          icon: Users,
+          title: 'Community Forum',
+          description: 'Connect with other moms in Week 1',
+          link: '/community/week1'
+        }
+      ],
+      2: [
+        {
+          icon: FileText,
+          title: 'Week 2 Workbook',
+          description: 'Self-Compassion Exercises & Personalized Coping Cards',
+          link: '/resources/week2-workbook.pdf'
+        },
+        {
+          icon: Headphones,
+          title: 'Self-Compassion Break Meditation',
+          description: 'Dr. Kristin Neff\'s self-compassion protocol for mothers (10 min)',
+          link: '/resources/week2-meditation.mp3'
+        },
+        {
+          icon: Users,
+          title: 'Community Forum',
+          description: 'Share your self-compassion journey',
+          link: '/community/week2'
+        }
+      ],
+      3: [
+        {
+          icon: FileText,
+          title: 'Week 3 Workbook',
+          description: 'Support Network Mapping & Communication Scripts',
+          link: '/resources/week3-workbook.pdf'
+        },
+        {
+          icon: Headphones,
+          title: 'Connection Meditation',
+          description: 'Loving-Kindness Meditation for Connection (12 min)',
+          link: '/resources/week3-meditation.mp3'
+        },
+        {
+          icon: Users,
+          title: 'Community Forum',
+          description: 'Building your support ecosystem',
+          link: '/community/week3'
+        }
+      ],
+      4: [
+        {
+          icon: FileText,
+          title: 'Week 4 Workbook',
+          description: 'Anxiety Trigger Log & Calm-Down Strategy Cards',
+          link: '/resources/week4-workbook.pdf'
+        },
+        {
+          icon: Headphones,
+          title: 'Anxiety Relief Meditation',
+          description: 'Anxiety Relief Body Scan (10 min)',
+          link: '/resources/week4-meditation.mp3'
+        },
+        {
+          icon: Users,
+          title: 'Community Forum',
+          description: 'Managing anxiety together',
+          link: '/community/week4'
+        }
+      ],
+      5: [
+        {
+          icon: FileText,
+          title: 'Week 5 Workbook',
+          description: 'Identity Mapping & Values Clarification Worksheet',
+          link: '/resources/week5-workbook.pdf'
+        },
+        {
+          icon: Headphones,
+          title: 'Identity Integration Meditation',
+          description: 'Identity Integration Meditation (11 min)',
+          link: '/resources/week5-meditation.mp3'
+        },
+        {
+          icon: Users,
+          title: 'Community Forum',
+          description: 'Exploring identity and matrescence',
+          link: '/community/week5'
+        }
+      ],
+      6: [
+        {
+          icon: FileText,
+          title: 'Week 6 Workbook',
+          description: 'Wellness Plan Template & Letter to Future Self',
+          link: '/resources/week6-workbook.pdf'
+        },
+        {
+          icon: Headphones,
+          title: 'Gratitude & Growth Meditation',
+          description: 'Gratitude & Growth Meditation (10 min)',
+          link: '/resources/week6-meditation.mp3'
+        },
+        {
+          icon: Users,
+          title: 'Community Forum',
+          description: 'Celebrating your journey',
+          link: '/community/week6'
+        }
+      ]
+    };
+    
+    return weekResources[weekNum] || [
+      {
+        icon: FileText,
+        title: `Week ${weekNum} Workbook`,
+        description: 'Course materials and exercises',
+        link: `/resources/week${weekNum}-workbook.pdf`
+      },
+      {
+        icon: Headphones,
+        title: 'Guided Meditation',
+        description: 'Weekly meditation practice',
+        link: `/resources/week${weekNum}-meditation.mp3`
+      },
+      {
+        icon: Users,
+        title: 'Community Forum',
+        description: 'Connect with other moms',
+        link: `/community/week${weekNum}`
+      }
+    ];
+  };
+  
+  const resources = getWeekResources(weekNumber);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-bloom-pink-50 relative overflow-hidden">
@@ -191,20 +333,29 @@ export default function WeekContent({ courseSlug, weekNumber }: WeekContentProps
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.1 }}
                 >
-                  <Link
-                    href={resource.link}
-                    className="block bg-white border border-gray-200 rounded-xl shadow-sm p-6 hover:shadow-lg hover:-translate-y-1 hover:border-blue-200 transition-all duration-300 group"
-                  >
-                    <div className="flex items-start gap-4">
-                      <div className="p-3 bg-bloom-pink-light rounded-full group-hover:bg-bloom-pink/20 transition-colors">
-                        <resource.icon className="w-6 h-6 text-bloom-pink group-hover:text-bloom-pink-dark transition-colors" />
+                  {resource.title === 'Guided Meditation' ? (
+                    <MeditationPlayer
+                      audioUrl={`https://utetcmirepwdxbtrcczv.supabase.co/storage/v1/object/public/meditations/week${weekNumber}-meditation.mp3`}
+                      title={getMeditationDetails(weekNumber).title}
+                      duration={getMeditationDetails(weekNumber).duration}
+                      weekNumber={weekNumber}
+                    />
+                  ) : (
+                    <Link
+                      href={resource.link}
+                      className="block bg-white border border-gray-200 rounded-xl shadow-sm p-6 hover:shadow-lg hover:-translate-y-1 hover:border-blue-200 transition-all duration-300 group"
+                    >
+                      <div className="flex items-start gap-4">
+                        <div className="p-3 bg-bloom-pink-light rounded-full group-hover:bg-bloom-pink/20 transition-colors">
+                          <resource.icon className="w-6 h-6 text-bloom-pink group-hover:text-bloom-pink-dark transition-colors" />
+                        </div>
+                        <div>
+                          <h3 className="font-semibold mb-1">{resource.title}</h3>
+                          <p className="text-sm text-bloom-dark/70">{resource.description}</p>
+                        </div>
                       </div>
-                      <div>
-                        <h3 className="font-semibold mb-1">{resource.title}</h3>
-                        <p className="text-sm text-bloom-dark/70">{resource.description}</p>
-                      </div>
-                    </div>
-                  </Link>
+                    </Link>
+                  )}
                 </motion.div>
               ))}
             </div>

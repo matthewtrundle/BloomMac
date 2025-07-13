@@ -209,6 +209,23 @@ node scripts/test-sequence-processor.js
 
 **Status**: Week 1 complete, Week 2 scripts complete, Weeks 3-6 planned.
 
+### 🎯 DR. JANA'S VOICE & SCRIPT DEVELOPMENT
+
+**CRITICAL**: For ALL script development (meditation scripts, course content, video scripts), you MUST reference:
+
+**`DR-JANA-VOICE-TRANSCRIPT-ANALYSIS.md`** - Comprehensive analysis of Dr. Jana's authentic speaking patterns, language choices, and therapeutic approach
+
+This document contains:
+- Permission-giving language patterns ("You have the right to...")
+- Validation and normalization techniques
+- Both/and thinking integration
+- Scientific explanation style
+- Biological wisdom framing
+- ElevenLabs voice engineering tags
+- Week-specific voice guidance for meditation scripts
+
+**NEVER create scripts without first consulting this analysis document to ensure authentic Dr. Jana voice alignment.**
+
 ### 🎨 COMPREHENSIVE DESIGN SYSTEM & STANDARDS
 
 **THIS IS NOT OPTIONAL** - All Bloom course presentations MUST follow sophisticated, magazine-quality design that creates emotionally intelligent educational experiences.
