@@ -105,26 +105,26 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         const result = await authHelpers.signIn(email, password);
         console.log('[AuthContext] Sign in result:', result);
         
-        // Wait for auth state to update
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        
-        // Get the session to verify it's established
-        const { data: { session }, error } = await supabaseAuth.auth.getSession();
-        console.log('[AuthContext] Session after sign in:', session);
-        console.log('[AuthContext] Session error:', error);
-        
-        if (session?.user) {
-          setUser(session.user);
-          console.log('[AuthContext] User set, redirecting to dashboard');
-          // Ensure loading is false before redirect
-          setLoading(false);
-          // Use replace to prevent back button issues
-          router.replace('/dashboard');
-        } else {
-          console.error('[AuthContext] No session after sign in');
+        if (!result?.session) {
+          console.error('[AuthContext] No session in sign in result');
           setLoading(false);
           throw new Error('Login successful but session not established');
         }
+        
+        // Set the user immediately from the result
+        setUser(result.user);
+        console.log('[AuthContext] User set from result:', result.user);
+        
+        // Force a session refresh to ensure cookies are set
+        await supabaseAuth.auth.refreshSession();
+        
+        // Small delay to ensure everything is processed
+        await new Promise(resolve => setTimeout(resolve, 500));
+        
+        console.log('[AuthContext] Redirecting to dashboard');
+        setLoading(false);
+        // Use replace to prevent back button issues
+        router.replace('/dashboard');
       } catch (error) {
         console.error('[AuthContext] Sign in error:', error);
         setLoading(false);

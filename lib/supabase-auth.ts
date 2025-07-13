@@ -1,9 +1,12 @@
 import { createClient } from '@supabase/supabase-js';
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { createBrowserClient } from '@supabase/ssr';
 
 // Client-side Supabase client for auth
 export const supabaseAuth = typeof window !== 'undefined' 
-  ? createClientComponentClient() 
+  ? createBrowserClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    )
   : null as any;
 
 // Types for user data

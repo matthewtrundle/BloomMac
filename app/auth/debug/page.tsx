@@ -47,6 +47,32 @@ export default function AuthDebugPage() {
     }
   };
 
+  const handleApiTestLogin = async () => {
+    try {
+      const response = await fetch('/api/auth/test-login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: 'matthewtrundle@gmail.com',
+          password: 'BloomAdmin2025!'
+        })
+      });
+      
+      const result = await response.json();
+      console.log('API test login result:', result);
+      
+      if (result.success) {
+        alert('Login successful! Check console for details. Refreshing page in 2 seconds...');
+        setTimeout(() => window.location.reload(), 2000);
+      } else {
+        alert(`Login failed: ${result.error}`);
+      }
+    } catch (err) {
+      console.error('API test login error:', err);
+      alert(`Error: ${err.message}`);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 p-8">
       <div className="max-w-4xl mx-auto">
@@ -76,13 +102,32 @@ export default function AuthDebugPage() {
 
           <div className="bg-white p-6 rounded-lg shadow">
             <h2 className="text-lg font-semibold mb-4">Test Direct Login</h2>
-            <button
-              onClick={handleTestLogin}
-              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-            >
-              Test Login with matthewtrundle@gmail.com
-            </button>
-            <p className="text-sm text-gray-600 mt-2">
+            <div className="space-y-4">
+              <div>
+                <button
+                  onClick={handleTestLogin}
+                  className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+                >
+                  Test Direct Supabase Login
+                </button>
+                <p className="text-sm text-gray-600 mt-1">
+                  Uses Supabase client directly
+                </p>
+              </div>
+              
+              <div>
+                <button
+                  onClick={handleApiTestLogin}
+                  className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+                >
+                  Test API Login (with manual cookie setting)
+                </button>
+                <p className="text-sm text-gray-600 mt-1">
+                  Uses API route that manually sets cookies
+                </p>
+              </div>
+            </div>
+            <p className="text-sm text-gray-600 mt-4">
               Check browser console for detailed results
             </p>
           </div>
