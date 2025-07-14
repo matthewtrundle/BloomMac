@@ -1,181 +1,263 @@
-# Stripe Payment Integration Setup Guide
+# Stripe Integration Setup Guide
 
-## Current Status ✅
+## Overview
+The Bloom Psychology platform has Stripe integration code ready but not activated. This guide walks through the steps to enable and test payment processing.
 
-Your Stripe integration is fully built and ready! Here's what's implemented:
+## Current Status
+- ✅ Stripe SDK installed (`@stripe/stripe-js` and `stripe`)
+- ✅ Client and server Stripe initialization in `/lib/stripe.ts`
+- ✅ Checkout session API endpoint at `/pages/api/stripe/create-checkout-session.ts`
+- ✅ Cart system integrated with AddToCartButton component
+- ✅ Checkout page ready at `/app/checkout/page.tsx`
+- ❌ Missing environment variables
+- ❌ No Stripe products created
+- ❌ Webhook endpoints not configured
 
-### 1. **Complete Payment Flow**
-- ✅ Course purchase buttons with email collection
-- ✅ Checkout session creation API
-- ✅ Webhook handling for payment confirmation
-- ✅ Automatic course access granting
-- ✅ Purchase tracking in database
+## Step 1: Set Environment Variables
 
-### 2. **Test Mode Ready**
-- ✅ Full test mode implementation
-- ✅ Mock checkout page for testing without Stripe account
-- ✅ Test card selection for different scenarios
-- ✅ Database recording of test purchases
+Add these to your `.env.local` file:
 
-### 3. **Database Tables**
-- ✅ `course_purchases` - Track all purchase attempts
-- ✅ `user_course_access` - Manage course access
-- ✅ `user_courses` - User enrollment data
+```env
+# Stripe Keys (get from https://dashboard.stripe.com/apikeys)
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_... # or pk_live_... for production
+STRIPE_SECRET_KEY=sk_test_... # or sk_live_... for production
 
-## 🧪 Testing Without Stripe Account
+# Course Price IDs (create in Stripe Dashboard first)
+STRIPE_PRICE_POSTPARTUM_WELLNESS=price_...
+STRIPE_PRICE_ANXIETY_MANAGEMENT=price_...
+STRIPE_PRICE_PARTNER_SUPPORT=price_...
 
-You can test the entire payment flow right now:
-
-1. **Start your dev server**
-   ```bash
-   npm run dev
-   ```
-
-2. **Visit a course page**
-   - Go to: http://localhost:3011/courses/postpartum-wellness-foundations
-
-3. **Click "Buy Now"**
-   - Enter any email address
-   - You'll be redirected to the test checkout page
-
-4. **Complete test purchase**
-   - Select a test card (default is successful payment)
-   - Click "Pay"
-   - You'll be redirected to success page
-
-5. **Verify in database**
-   - Check `course_purchases` table for the transaction
-   - Check `user_course_access` table for granted access
-
-## 🚀 When You're Ready for Real Stripe
-
-### Step 1: Create Stripe Account
-1. Go to https://stripe.com
-2. Sign up for an account
-3. Complete business verification
-
-### Step 2: Get Your API Keys
-1. Go to https://dashboard.stripe.com/test/apikeys
-2. Copy your keys to `.env.local`:
-   ```bash
-   STRIPE_SECRET_KEY=sk_test_YOUR_KEY_HERE
-   NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_YOUR_KEY_HERE
-   ```
-
-### Step 3: Create Products in Stripe
-1. Go to https://dashboard.stripe.com/test/products
-2. Create 3 products:
-
-   **Product 1: Postpartum Wellness Foundations**
-   - Price: $197.00 (one-time)
-   - Copy the price ID
-
-   **Product 2: Anxiety Management for New Moms**
-   - Price: $127.00 (one-time)
-   - Copy the price ID
-
-   **Product 3: Partner Support Bootcamp**
-   - Price: $97.00 (one-time)
-   - Copy the price ID
-
-3. Add price IDs to `.env.local`:
-   ```bash
-   STRIPE_PRICE_POSTPARTUM_WELLNESS=price_YOUR_ID_HERE
-   STRIPE_PRICE_ANXIETY_MANAGEMENT=price_YOUR_ID_HERE
-   STRIPE_PRICE_PARTNER_SUPPORT=price_YOUR_ID_HERE
-   ```
-
-### Step 4: Set Up Webhook
-1. Go to https://dashboard.stripe.com/test/webhooks
-2. Click "Add endpoint"
-3. Endpoint URL: `https://your-domain.com/api/stripe/webhook`
-4. Select events:
-   - `checkout.session.completed`
-   - `checkout.session.expired`
-   - `payment_intent.payment_failed`
-5. Copy the signing secret to `.env.local`:
-   ```bash
-   STRIPE_WEBHOOK_SECRET=whsec_YOUR_SECRET_HERE
-   ```
-
-### Step 5: Test with Real Stripe
-1. Use test card: `4242 4242 4242 4242`
-2. Any future expiry date
-3. Any 3-digit CVC
-4. Any billing ZIP code
-
-## 📊 Monitoring Purchases
-
-### View Purchase History
-```sql
--- See all purchases
-SELECT * FROM course_purchases ORDER BY created_at DESC;
-
--- See successful purchases
-SELECT * FROM course_purchases WHERE status = 'completed';
-
--- See who has access to courses
-SELECT * FROM user_course_access WHERE payment_status = 'paid';
+# Enable courses
+COURSES_ENABLED=true
 ```
 
-### Test Mode vs Production
-- Test mode purchases have `status = 'test_mode'`
-- Real purchases have `status = 'completed'`
-- Access table uses `payment_status = 'test_paid'` vs `'paid'`
+## Step 2: Create Products in Stripe Dashboard
 
-## 🔧 Customization Options
+1. Go to [Stripe Dashboard > Products](https://dashboard.stripe.com/products)
+2. Create these products:
 
-### 1. **Modify Prices**
-Edit `/lib/stripe.ts`:
+### Postpartum Wellness Foundations
+- **Name**: Postpartum Wellness Foundations
+- **Description**: 6-week comprehensive self-paced program for postpartum emotional wellness
+- **Price**: $197.00 (one-time)
+- **Image**: Upload course image
+- Save the Price ID for environment variables
+
+### Anxiety Management for New Moms
+- **Name**: Anxiety Management for New Moms
+- **Description**: 4-week evidence-based program for managing postpartum anxiety
+- **Price**: $127.00 (one-time)
+- **Image**: Upload course image
+- Save the Price ID for environment variables
+
+### Partner Support Bootcamp
+- **Name**: Partner Support Bootcamp
+- **Description**: 2-week intensive program for partners to provide meaningful support
+- **Price**: $97.00 (one-time)
+- **Image**: Upload course image
+- Save the Price ID for environment variables
+
+## Step 3: Test in Development Mode
+
+### Test Card Numbers
+Use these test cards in Stripe's test mode:
+- **Success**: 4242 4242 4242 4242
+- **Requires Authentication**: 4000 0025 0000 3155
+- **Declined**: 4000 0000 0000 9995
+
+### Testing Flow:
+1. Start the development server: `npm run dev`
+2. Navigate to `/courses`
+3. Click "Add to Cart" on any course
+4. Go to checkout
+5. Fill in email and name
+6. Click "Complete Purchase"
+7. Use a test card number
+8. Verify redirect to success page
+
+## Step 4: Configure Webhooks (For Production)
+
+1. Go to [Stripe Dashboard > Webhooks](https://dashboard.stripe.com/webhooks)
+2. Add endpoint: `https://yourdomain.com/api/stripe/webhook`
+3. Select events:
+   - `checkout.session.completed`
+   - `payment_intent.succeeded`
+   - `payment_intent.payment_failed`
+4. Copy the webhook signing secret
+5. Add to environment: `STRIPE_WEBHOOK_SECRET=whsec_...`
+
+## Step 5: Create Webhook Handler
+
+Create `/pages/api/stripe/webhook.ts`:
+
 ```typescript
-export const COURSE_PRICES = {
-  'postpartum-wellness-foundations': {
-    amount: 19700, // $197.00 in cents
-    // ...
+import { NextApiRequest, NextApiResponse } from 'next';
+import { stripe } from '../../../lib/stripe';
+import { buffer } from 'micro';
+import { supabase } from '../../../lib/supabase';
+
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
+
+  const sig = req.headers['stripe-signature']!;
+  const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
+
+  let event;
+
+  try {
+    const buf = await buffer(req);
+    event = stripe.webhooks.constructEvent(buf, sig, webhookSecret);
+  } catch (err) {
+    console.error('Webhook signature verification failed:', err);
+    return res.status(400).json({ error: 'Webhook signature verification failed' });
+  }
+
+  // Handle the event
+  switch (event.type) {
+    case 'checkout.session.completed':
+      const session = event.data.object;
+      
+      // Grant course access
+      await supabase.from('user_course_access').insert({
+        user_id: session.metadata.userId,
+        course_id: session.metadata.courseId,
+        payment_status: 'completed',
+        stripe_session_id: session.id,
+      });
+      
+      // Update purchase record
+      await supabase.from('course_purchases').update({
+        status: 'completed',
+        completed_at: new Date().toISOString()
+      }).eq('stripe_checkout_session_id', session.id);
+      
+      break;
+      
+    default:
+      console.log(`Unhandled event type: ${event.type}`);
+  }
+
+  res.status(200).json({ received: true });
+}
+```
+
+## Step 6: Update Checkout Integration
+
+The `/app/checkout/page.tsx` needs to be updated to actually create Stripe checkout sessions. Currently it shows a placeholder. Here's the key change needed:
+
+```typescript
+const handleCheckout = async () => {
+  if (!customerEmail.trim()) {
+    alert('Please enter your email address');
+    return;
+  }
+
+  setIsLoading(true);
+
+  try {
+    // Create checkout session for all cart items
+    const response = await fetch('/api/stripe/create-checkout-session', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        courseId: items[0].metadata?.courseId, // For single course
+        customerEmail,
+        customerName,
+      }),
+    });
+
+    const { sessionId, url } = await response.json();
+    
+    if (url) {
+      // Redirect to Stripe Checkout
+      window.location.href = url;
+    }
+  } catch (error) {
+    console.error('Checkout error:', error);
+    alert('There was an error processing your checkout. Please try again.');
+  } finally {
+    setIsLoading(false);
   }
 };
 ```
 
-### 2. **Add Discount Codes**
-Already enabled in checkout session:
-```typescript
-allow_promotion_codes: true,
+## Step 7: Database Tables Needed
+
+These tables should already exist, but verify they're present:
+
+```sql
+-- Course purchases tracking
+CREATE TABLE IF NOT EXISTS course_purchases (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  customer_email VARCHAR(255),
+  customer_name VARCHAR(255),
+  course_id VARCHAR(255),
+  stripe_checkout_session_id VARCHAR(255),
+  amount INTEGER,
+  currency VARCHAR(3),
+  status VARCHAR(50),
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  completed_at TIMESTAMP WITH TIME ZONE
+);
+
+-- User course access
+CREATE TABLE IF NOT EXISTS user_course_access (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  user_id UUID REFERENCES auth.users(id),
+  course_id VARCHAR(255),
+  payment_status VARCHAR(50),
+  stripe_session_id VARCHAR(255),
+  granted_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
 ```
 
-### 3. **Add Subscription Plans**
-Template included in `.env.stripe.example` for monthly/annual plans
+## Testing Checklist
 
-### 4. **Customize Success Page**
-Edit `/app/courses/purchase-success/page.tsx`
+- [ ] Environment variables added
+- [ ] Products created in Stripe Dashboard
+- [ ] Test mode enabled in Stripe
+- [ ] Can add courses to cart
+- [ ] Can proceed to checkout
+- [ ] Test payment completes successfully
+- [ ] Success page shows after payment
+- [ ] Database records created
 
-### 5. **Add Email Receipts**
-Uncomment in webhook handler:
-```typescript
-// await sendCourseWelcomeEmail(customerEmail, courseId);
-```
+## Common Issues
 
-## 🚨 Important Security Notes
+### "Missing NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY"
+- Ensure the env variable starts with `NEXT_PUBLIC_`
+- Restart the dev server after adding env variables
 
-1. **Never commit real API keys** - Use environment variables
-2. **Always verify webhook signatures** - Already implemented
-3. **Use HTTPS in production** - Required for webhooks
-4. **Enable Stripe fraud protection** - In Stripe dashboard
-5. **Set up tax collection** - Already enabled with `automatic_tax`
+### Checkout session fails
+- Check that COURSES_ENABLED=true
+- Verify Price IDs match environment variables
+- Check Stripe API keys are correct
 
-## 📱 What Your Customers See
+### Webhook failures
+- Verify webhook endpoint URL is correct
+- Check webhook signing secret matches
+- Ensure bodyParser is disabled for webhook route
 
-1. **Clean purchase flow** - Email collection inline
-2. **Secure checkout** - Hosted by Stripe
-3. **Trust badges** - SSL, instant access, lifetime access
-4. **Mobile optimized** - Responsive design
-5. **Clear pricing** - Shows savings on original price
+## Going Live Checklist
 
-## 🎯 Next Steps After Stripe Setup
+1. [ ] Switch to live Stripe API keys
+2. [ ] Update webhook endpoints to production URL
+3. [ ] Test with real payment method
+4. [ ] Enable Stripe tax if needed
+5. [ ] Configure email receipts in Stripe
+6. [ ] Set up fraud prevention rules
+7. [ ] Enable customer portal for refunds
 
-1. **Connect to email system** - Send purchase confirmations
-2. **Add course access checks** - Protect course content
-3. **Build admin dashboard** - View sales analytics
-4. **Set up refund handling** - Process through Stripe
-5. **Add upsells** - Offer additional courses after purchase
+## Support
 
-The payment system is production-ready once you add your Stripe credentials!
+- Stripe Documentation: https://stripe.com/docs
+- Stripe Support: https://support.stripe.com
+- Test Cards: https://stripe.com/docs/testing
