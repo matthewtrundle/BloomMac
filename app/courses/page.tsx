@@ -7,10 +7,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Button from '@/components/ui/Button';
 import CourseWaitlist from '@/components/ui/CourseWaitlist';
 import CoursePurchaseButton from '@/components/ui/CoursePurchaseButton';
+import AddToCartButton from '@/components/ui/AddToCartButton';
 import { PartyPopper } from 'lucide-react';
 
 // Course purchases are currently disabled - coming soon
-const COURSES_ENABLED = false;
+const COURSES_ENABLED = true; // Enable for testing
 const LAUNCH_DATE = 'July 2025';
 
 const courses = [
@@ -352,11 +353,12 @@ export default function CoursesPage() {
                         </div>
                       ) : COURSES_ENABLED ? (
                         <div className="space-y-3">
-                          <CoursePurchaseButton
+                          <AddToCartButton
                             courseId={course.id}
                             courseName={course.title}
                             price={course.price * 100}
-                            originalPrice={course.originalPrice ? course.originalPrice * 100 : undefined}
+                            description={course.description}
+                            image={course.image}
                             size="md"
                             variant={course.highlighted ? 'primary' : 'secondary'}
                           />
@@ -568,11 +570,12 @@ export default function CoursesPage() {
                   
                   <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
                     {COURSES_ENABLED ? (
-                      <CoursePurchaseButton
+                      <AddToCartButton
                         courseId="postpartum-wellness-foundations"
                         courseName="Postpartum Wellness Foundations"
                         price={19700}
-                        originalPrice={29700}
+                        description="A comprehensive self-paced program designed to help new mothers navigate the emotional challenges of postpartum life with confidence and clarity."
+                        image="/images/optimized/biff01_imagine_new_mother_holding_baby_peaceful_nursery_soft__1c12cc3c-cebd-47e2-ad9b-66b9bbca6480_0.webp"
                         size="lg"
                         variant="primary"
                       />

@@ -6,6 +6,7 @@ import './globals.css';
 import LayoutWrapper from '@/components/layout/LayoutWrapper';
 import { AnalyticsProvider } from '@/components/AnalyticsProvider';
 import { AuthProvider } from '@/contexts/AuthContext';
+import { CartProvider } from '@/lib/cart/cart-context';
 import DarkModeToggle from '@/components/ui/DarkModeToggle';
 import LoadingScreenProvider from '@/components/ui/LoadingScreenProvider';
 import GoogleAnalytics from '@/components/GoogleAnalytics';
@@ -151,14 +152,16 @@ export default function RootLayout({
       >
         <LoadingScreenProvider>
           <AuthProvider>
-            <AnalyticsProvider>
-              <LayoutWrapper>
-                {children}
-              </LayoutWrapper>
-              <StickyCTA />
-              <DarkModeToggle />
-              {process.env.NODE_ENV === 'development' && <AuthDebug />}
-            </AnalyticsProvider>
+            <CartProvider>
+              <AnalyticsProvider>
+                <LayoutWrapper>
+                  {children}
+                </LayoutWrapper>
+                <StickyCTA />
+                <DarkModeToggle />
+                {process.env.NODE_ENV === 'development' && <AuthDebug />}
+              </AnalyticsProvider>
+            </CartProvider>
           </AuthProvider>
         </LoadingScreenProvider>
       </body>

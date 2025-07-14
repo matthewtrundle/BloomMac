@@ -6,6 +6,7 @@ import {
   ShoppingCart, Loader2, CreditCard, Lock, 
   Check, Star, Clock 
 } from 'lucide-react';
+import { useCart } from '@/lib/cart/cart-context';
 
 interface CoursePurchaseButtonProps {
   courseId: string;
@@ -27,9 +28,8 @@ export default function CoursePurchaseButton({
   variant = 'primary'
 }: CoursePurchaseButtonProps) {
   const [isLoading, setIsLoading] = useState(false);
-  const [customerEmail, setCustomerEmail] = useState('');
-  const [customerName, setCustomerName] = useState('');
-  const [showForm, setShowForm] = useState(false);
+  const [isAdded, setIsAdded] = useState(false);
+  const { addItem, toggleCart } = useCart();
 
   const sizeClasses = {
     sm: 'px-4 py-2 text-sm',
