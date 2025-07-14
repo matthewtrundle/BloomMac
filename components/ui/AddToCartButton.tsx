@@ -36,8 +36,8 @@ export default function AddToCartButton({
   };
 
   const variantClasses = {
-    primary: 'bg-gradient-to-r from-bloom-pink to-bloom-pink-dark text-white hover:from-bloom-pink-dark hover:to-bloom-pink shadow-lg hover:shadow-xl',
-    secondary: 'bg-white border-2 border-bloom-pink text-bloom-pink hover:bg-bloom-pink hover:text-white'
+    primary: 'bg-gradient-to-r from-bloom-pink-500 to-bloom-pink-700 text-white hover:from-bloom-pink-600 hover:to-bloom-pink-800 shadow-lg hover:shadow-xl',
+    secondary: 'bg-white border-2 border-bloom-pink-500 text-bloom-pink-600 hover:bg-bloom-pink-500 hover:text-white'
   };
 
   const handleAddToCart = () => {
