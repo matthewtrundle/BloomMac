@@ -6,6 +6,8 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useAuth } from '@/contexts/AuthContext';
 import ProtectedRoute from '@/components/auth/ProtectedRoute';
+import { useCart } from '@/lib/cart/cart-context';
+import AddToCartButton from '@/components/ui/AddToCartButton';
 
 interface UserProfile {
   id: string;
@@ -140,6 +142,48 @@ export default function MyGrowthStudioPage() {
   const courseToContinue = enrolledCourses
     .filter(course => course.progress < 100 && course.lastActivity)
     .sort((a, b) => new Date(b.lastActivity!).getTime() - new Date(a.lastActivity!).getTime())[0];
+
+  // Available courses data
+  const availableCourses = [
+    {
+      id: 'postpartum-wellness-foundations',
+      title: 'Postpartum Wellness Foundations',
+      subtitle: 'Your 6-Week Journey to Emotional Balance',
+      description: 'A comprehensive self-paced program designed to help new mothers navigate the emotional challenges of postpartum life.',
+      duration: '6 weeks',
+      lessons: 25,
+      price: 197,
+      originalPrice: 297,
+      image: '/images/optimized/biff01_imagine_new_mother_holding_baby_peaceful_nursery_soft__1c12cc3c-cebd-47e2-ad9b-66b9bbca6480_0.webp',
+      color: 'blue'
+    },
+    {
+      id: 'anxiety-management-new-moms',
+      title: 'Anxiety Management for New Moms',
+      subtitle: 'Practical Tools for Peace of Mind',
+      description: 'Learn evidence-based techniques to manage postpartum anxiety and worry.',
+      duration: '4 weeks',
+      lessons: 16,
+      price: 127,
+      image: '/images/optimized/biff01_imagine_woman_in_meditation_pose_serene_environment_br_1f66e17b-a951-4d9f-b895-127fabc89208_1.webp',
+      color: 'purple'
+    },
+    {
+      id: 'partner-support-bootcamp',
+      title: 'Partner Support Bootcamp',
+      subtitle: 'For Partners Who Want to Help',
+      description: 'Equip partners with the knowledge and skills to provide meaningful support.',
+      duration: '2 weeks',
+      lessons: 8,
+      price: 97,
+      image: '/images/optimized/biff01_imagine_mixed-race_parents_with_newborn_tender_family__1caa7f06-30ca-47c7-a1cd-038dc0cea487_1.webp',
+      color: 'green'
+    }
+  ];
+
+  // Filter out already enrolled courses
+  const enrolledCourseIds = enrolledCourses.map(c => c.id);
+  const notEnrolledCourses = availableCourses.filter(c => !enrolledCourseIds.includes(c.id));
 
   return (
     <ProtectedRoute>
@@ -512,59 +556,159 @@ export default function MyGrowthStudioPage() {
                   </motion.div>
                 )}
 
+                {/* Available Courses Section - More Prominent */}
+                {notEnrolledCourses.length > 0 && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: 0.6 }}
+                    className="space-y-6"
+                  >
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <h2 className="text-2xl font-semibold text-bloom-dark">Expand Your Journey</h2>
+                        <p className="text-bloom-dark/60 mt-1">Discover courses designed for your wellness journey</p>
+                      </div>
+                      <Link 
+                        href="/courses"
+                        className="text-blue-600 hover:text-blue-700 font-medium flex items-center gap-1"
+                      >
+                        View All Courses
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                      </Link>
+                    </div>
+
+                    <div className="grid md:grid-cols-3 gap-6">
+                      {notEnrolledCourses.map((course, index) => (
+                        <motion.div
+                          key={course.id}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.4, delay: 0.7 + index * 0.1 }}
+                          className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden group"
+                        >
+                          <div className="relative h-48 overflow-hidden">
+                            <Image
+                              src={course.image}
+                              alt={course.title}
+                              width={400}
+                              height={200}
+                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                            <div className="absolute bottom-4 left-4 right-4">
+                              <span className="text-white/90 text-sm">{course.duration} • {course.lessons} lessons</span>
+                            </div>
+                          </div>
+                          
+                          <div className="p-6">
+                            <h3 className="text-xl font-semibold text-bloom-dark mb-2">{course.title}</h3>
+                            <p className="text-sm text-bloom-dark/70 mb-4 line-clamp-2">{course.description}</p>
+                            
+                            <div className="flex items-center justify-between mb-4">
+                              <div className="flex items-baseline gap-2">
+                                <span className="text-2xl font-bold text-bloom-pink">${course.price}</span>
+                                {course.originalPrice && (
+                                  <span className="text-sm text-bloom-dark/40 line-through">${course.originalPrice}</span>
+                                )}
+                              </div>
+                              {course.originalPrice && (
+                                <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">
+                                  Save ${course.originalPrice - course.price}
+                                </span>
+                              )}
+                            </div>
+
+                            <div className="space-y-2">
+                              <AddToCartButton
+                                courseId={course.id}
+                                courseName={course.title}
+                                price={course.price * 100}
+                                description={course.description}
+                                image={course.image}
+                                size="sm"
+                                variant="primary"
+                                className="w-full"
+                              />
+                              <Link
+                                href={`/courses/${course.id}`}
+                                className="w-full block text-center px-3 py-2 text-blue-600 hover:text-blue-700 text-sm font-medium transition-colors"
+                              >
+                                View Details →
+                              </Link>
+                            </div>
+                          </div>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+
                 {/* Quick Actions */}
-                <div className="grid md:grid-cols-3 gap-4">
-                  <Link
-                    href="/courses"
-                    className="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition-shadow group"
-                  >
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center group-hover:bg-blue-200 transition-colors">
-                        <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                        </svg>
+                <motion.div 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.8 }}
+                  className="space-y-4"
+                >
+                  <h2 className="text-xl font-semibold text-bloom-dark">Quick Links</h2>
+                  <div className="grid md:grid-cols-3 gap-4">
+                    <a
+                      href="https://discord.gg/bloommoms"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition-shadow group"
+                    >
+                      <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center group-hover:bg-purple-200 transition-colors">
+                          <svg className="w-6 h-6 text-purple-600" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515a.074.074 0 0 0-.079.037c-.21.375-.444.865-.608 1.25a18.27 18.27 0 0 0-5.487 0a12.64 12.64 0 0 0-.617-1.25a.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057a19.9 19.9 0 0 0 5.993 3.03a.078.078 0 0 0 .084-.028a14.09 14.09 0 0 0 1.226-1.994a.076.076 0 0 0-.041-.106a13.107 13.107 0 0 1-1.872-.892a.077.077 0 0 1-.008-.128a10.2 10.2 0 0 0 .372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127a12.299 12.299 0 0 1-1.873.892a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028a19.839 19.839 0 0 0 6.002-3.03a.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.956-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.955-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.946 2.418-2.157 2.418z"/>
+                          </svg>
+                        </div>
+                        <div>
+                          <h3 className="font-semibold text-bloom-dark">Join Our Community</h3>
+                          <p className="text-sm text-bloom-dark/60">Connect on Discord</p>
+                        </div>
                       </div>
-                      <div>
-                        <h3 className="font-semibold text-bloom-dark">Browse Courses</h3>
-                        <p className="text-sm text-bloom-dark/60">Explore new learning paths</p>
-                      </div>
-                    </div>
-                  </Link>
+                    </a>
 
-                  <Link
-                    href="/resources"
-                    className="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition-shadow group"
-                  >
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 bg-bloom-pink-light rounded-lg flex items-center justify-center group-hover:bg-bloom-pink/20 transition-colors">
-                        <svg className="w-6 h-6 text-bloom-pink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                        </svg>
+                    <Link
+                      href="/resources"
+                      className="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition-shadow group"
+                    >
+                      <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 bg-bloom-pink-light rounded-lg flex items-center justify-center group-hover:bg-bloom-pink/20 transition-colors">
+                          <svg className="w-6 h-6 text-bloom-pink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                          </svg>
+                        </div>
+                        <div>
+                          <h3 className="font-semibold text-bloom-dark">Free Resources</h3>
+                          <p className="text-sm text-bloom-dark/60">Downloads & worksheets</p>
+                        </div>
                       </div>
-                      <div>
-                        <h3 className="font-semibold text-bloom-dark">Free Resources</h3>
-                        <p className="text-sm text-bloom-dark/60">Guides, worksheets & tools</p>
-                      </div>
-                    </div>
-                  </Link>
+                    </Link>
 
-                  <Link
-                    href="/community"
-                    className="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition-shadow group"
-                  >
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center group-hover:bg-purple-200 transition-colors">
-                        <svg className="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                        </svg>
+                    <Link
+                      href="/book"
+                      className="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition-shadow group"
+                    >
+                      <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center group-hover:bg-green-200 transition-colors">
+                          <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                          </svg>
+                        </div>
+                        <div>
+                          <h3 className="font-semibold text-bloom-dark">Book 1-on-1 Session</h3>
+                          <p className="text-sm text-bloom-dark/60">Personal support</p>
+                        </div>
                       </div>
-                      <div>
-                        <h3 className="font-semibold text-bloom-dark">Community</h3>
-                        <p className="text-sm text-bloom-dark/60">Connect with other moms</p>
-                      </div>
-                    </div>
-                  </Link>
-                </div>
+                    </Link>
+                  </div>
+                </motion.div>
               </div>
             )}
 
