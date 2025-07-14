@@ -1065,18 +1065,22 @@ export default function MyGrowthStudioPage() {
                 </p>
                 <div className="grid md:grid-cols-2 gap-6">
                   <Link
+                    href="/wellness-hub/resources/fourth-trimester-guide"
+                    className="border border-bloom-sage/30 rounded-lg p-6 hover:border-bloom-sage transition-colors bg-gradient-to-br from-bloom-sage-50/20 to-white"
+                  >
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="text-bloom-sage">📚</span>
+                      <h3 className="font-semibold text-bloom-dark">4th Trimester Resource Guide</h3>
+                    </div>
+                    <p className="text-sm text-bloom-dark/60">Curated books, apps, podcasts & professional support</p>
+                    <span className="inline-block mt-2 text-xs bg-bloom-sage-50 text-bloom-sage px-2 py-1 rounded-full">Course Exclusive</span>
+                  </Link>
+                  <Link
                     href="/resources"
                     className="border border-blue-200 rounded-lg p-6 hover:border-blue-400 transition-colors"
                   >
-                    <h3 className="font-semibold text-bloom-dark mb-2">Free Resources</h3>
+                    <h3 className="font-semibold text-bloom-dark mb-2">Free Public Resources</h3>
                     <p className="text-sm text-bloom-dark/60">Access our library of guides and worksheets</p>
-                  </Link>
-                  <Link
-                    href="/resources/meditations"
-                    className="border border-bloom-pink-light rounded-lg p-6 hover:border-bloom-pink transition-colors"
-                  >
-                    <h3 className="font-semibold text-bloom-dark mb-2">Guided Meditations</h3>
-                    <p className="text-sm text-bloom-dark/60">Calming audio sessions for new mothers</p>
                   </Link>
                 </div>
               </div>

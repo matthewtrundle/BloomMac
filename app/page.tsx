@@ -313,7 +313,7 @@ export default function Home() {
                     </div>
                     <div className="flex-1">
                       <h3 className="font-semibold text-[#1e3a5f] mb-1">Individual Therapy</h3>
-                      <p className="text-sm text-gray-600">One-on-one support for anxiety, depression, life transitions, and personal growth</p>
+                      <p className="text-sm text-gray-600">One-on-one support for burnout, postpartum depression, mom anxiety, and personal growth</p>
                     </div>
                   </div>
                 </div>

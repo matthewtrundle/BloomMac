@@ -3,6 +3,65 @@ import { supabaseAdmin } from '@/lib/supabase';
 import { getResendClient } from '@/lib/resend-client';
 import { enrollmentManager } from '@/lib/email-automation/enrollment-manager';
 
+// Send survival guide email to new subscriber
+async function sendSurvivalGuideEmail(subscriber: any) {
+  const firstName = subscriber.first_name || 'Friend';
+  
+  try {
+    // Validate email before attempting to send
+    if (!subscriber.email || typeof subscriber.email !== 'string' || !subscriber.email.includes('@')) {
+      console.error('Invalid subscriber email:', subscriber.email);
+      return;
+    }
+    
+    // Get the survival guide email template from database
+    const { data: template, error: templateError } = await supabaseAdmin
+      .from('email_templates')
+      .select('*')
+      .eq('name', 'New Mom Survival Guide Download')
+      .single();
+    
+    if (templateError || !template) {
+      console.error('Failed to fetch New Mom Survival Guide Download template:', templateError);
+      // Fall back to regular welcome email if template not found
+      await sendWelcomeEmail(subscriber, false);
+      return;
+    }
+    
+    // Replace variables in the template
+    let emailContent = template.content;
+    let emailSubject = template.subject;
+    
+    // Replace {{firstName}} and {{first_name}} with actual value
+    emailContent = emailContent.replace(/\{\{firstName\}\}/g, firstName);
+    emailContent = emailContent.replace(/\{\{first_name\}\}/g, firstName);
+    emailSubject = emailSubject.replace(/\{\{firstName\}\}/g, firstName);
+    emailSubject = emailSubject.replace(/\{\{first_name\}\}/g, firstName);
+    
+    const resend = getResendClient();
+    if (!resend) {
+      console.error('Resend client not initialized - skipping survival guide email');
+      return;
+    }
+    
+    await resend.emails.send({
+      from: 'Dr. Jana Rundle <jana@bloompsychologynorthaustin.com>',
+      to: subscriber.email,
+      subject: emailSubject,
+      html: emailContent,
+      tags: [
+        { name: 'sequence', value: 'resource_download' },
+        { name: 'step', value: 'survival_guide' },
+        { name: 'template_id', value: template.id }
+      ]
+    });
+    console.log('Survival guide email sent to:', subscriber.email);
+  } catch (error) {
+    console.error('Failed to send survival guide email:', error);
+    // Don't throw - we still want to save the subscriber even if email fails
+  }
+}
+
 // Send welcome email to new subscriber
 async function sendWelcomeEmail(subscriber: any, isReactivated: boolean = false) {
   const firstName = subscriber.first_name || 'Friend';
@@ -62,7 +121,7 @@ async function sendWelcomeEmail(subscriber: any, isReactivated: boolean = false)
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { email, firstName, lastName } = body;
+    const { email, firstName, lastName, source, metadata } = body;
 
     // Validate email
     if (!email || !email.includes('@')) {
@@ -101,14 +160,20 @@ export async function POST(request: NextRequest) {
           throw reactivateError;
         }
         
-        // Send welcome back email for reactivated subscribers
-        await sendWelcomeEmail(reactivated, true);
+        // Check if this is a survival guide download request
+        if (source === 'new_mom_guide_download') {
+          // Send the survival guide email immediately
+          await sendSurvivalGuideEmail(reactivated);
+        } else {
+          // Send welcome back email for reactivated subscribers
+          await sendWelcomeEmail(reactivated, true);
+        }
         
         // Enroll in email sequences
         await enrollmentManager.enrollSubscriber({
           subscriberId: reactivated.id,
           trigger: 'newsletter_signup',
-          source: 'profile_settings_reactivation',
+          source: source || 'profile_settings_reactivation',
           metadata: {
             reactivated: true,
             previous_status: existingSubscriber.status
@@ -131,7 +196,7 @@ export async function POST(request: NextRequest) {
         first_name: firstName,
         last_name: lastName,
         status: 'active',
-        signup_source: 'profile_settings',
+        signup_source: source || 'profile_settings',
         confirmed: true
       })
       .select()
@@ -141,14 +206,20 @@ export async function POST(request: NextRequest) {
       throw insertError;
     }
 
-    // Send welcome email for new subscribers
-    await sendWelcomeEmail(subscriber, false);
+    // Check if this is a survival guide download request
+    if (source === 'new_mom_guide_download') {
+      // Send the survival guide email immediately
+      await sendSurvivalGuideEmail(subscriber);
+    } else {
+      // Send regular welcome email for new subscribers
+      await sendWelcomeEmail(subscriber, false);
+    }
 
     // Enroll in email sequences
     await enrollmentManager.enrollSubscriber({
       subscriberId: subscriber.id,
       trigger: 'newsletter_signup',
-      source: 'profile_settings',
+      source: source || 'profile_settings',
       metadata: {
         new_subscriber: true
       }
