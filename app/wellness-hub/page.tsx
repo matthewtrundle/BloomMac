@@ -194,7 +194,7 @@ export default function MyGrowthStudioPage() {
       description: 'Connect with Dr. Jana to discuss your needs and explore how we can support your wellness journey.',
       price: 0,
       duration: '15 minutes',
-      image: '/images/optimized/biff01_counseling_session_warm_therapy_office_natural_light_co_6f0f8f67-2ad2-4c02-8c0f-d0f088c73c4f_2.webp',
+      image: '/images/optimized/biff01_imagine_warm_modern_therapy_office_two_women_in_conver_1b19f253-c5eb-4b43-b05c-cabfbbf7c66b_3.webp',
       buttonText: 'Book Free Call',
       href: '/book',
       color: 'green'
@@ -207,7 +207,7 @@ export default function MyGrowthStudioPage() {
       price: 175,
       duration: '60 minutes',
       image: '/images/optimized/Team/Jana Rundle.webp',
-      buttonText: 'Schedule Session',
+      buttonText: 'Book a Session',
       href: '/book',
       color: 'blue'
     },
@@ -218,8 +218,8 @@ export default function MyGrowthStudioPage() {
       description: 'Review your course workbook with Dr. Jana and get personalized feedback and guidance.',
       price: 97,
       duration: '30 minutes',
-      image: '/images/optimized/biff01_online_education_laptop_woman_studying_modern_home_wa_c991ba6e-df5f-418e-9e03-e74c5e8d2ff6_0.webp',
-      buttonText: 'Book Review',
+      image: '/images/optimized/biff01_imagine_woman_writing_in_journal_therapy_workbook_peac_7f6a2636-e20e-44c3-9edf-8de89e48ffc7_2.webp',
+      buttonText: 'Book Review Session',
       href: '/book',
       color: 'purple'
     }
@@ -877,6 +877,7 @@ export default function MyGrowthStudioPage() {
                           <p className="text-sm text-bloom-pink font-medium mb-3">{service.subtitle}</p>
                           <p className="text-sm text-bloom-dark/70 mb-4 line-clamp-3">{service.description}</p>
                           
+                          {/* Services link to booking page, not cart - these are scheduled appointments */}
                           <Link
                             href={service.href}
                             className={`
