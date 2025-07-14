@@ -354,7 +354,7 @@ export const services: Service[] = [
   {
     id: 'postpartum-depression-support',
     slug: 'postpartum-depression-support',
-    title: 'Postpartum Depression Support',
+    title: 'Postpartum Depression\nSupport',
     tagline: 'You\'re not alone in this',
     keyBenefits: ['Judgment-free support', 'In-home options', 'Partner involvement'],
     category: 'Mental Health',

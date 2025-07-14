@@ -101,8 +101,8 @@ export default function ServicePage({
       >
         
         <div className="container mx-auto px-6 py-24 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-            <div className="order-2 lg:order-1 w-full">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-start">
+            <div className="order-2 lg:order-1 w-full mt-6 lg:mt-0">
               <SmartTitle 
                 title={service?.title}
                 as="h1" 
