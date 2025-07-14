@@ -20,7 +20,8 @@ const Header = () => {
   const [mounted, setMounted] = useState(false);
   const headerRef = useRef<HTMLDivElement>(null);
   const { user, signOut, loading: authLoading } = useAuth();
-  const { items, toggleCart } = useCart();
+  const { state, toggleCart } = useCart();
+  const items = state?.items || [];
   
   // Handle client-side mounting
   useEffect(() => {
@@ -333,7 +334,7 @@ const Header = () => {
                 aria-label="Open cart"
               >
                 <ShoppingCart className="w-6 h-6" />
-                {items.length > 0 && (
+                {items && items.length > 0 && (
                   <span className="absolute -top-1 -right-1 bg-bloom-pink text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-medium">
                     {items.reduce((sum, item) => sum + item.quantity, 0)}
                   </span>

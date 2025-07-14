@@ -214,20 +214,24 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   // Load cart from localStorage on mount
   useEffect(() => {
-    const savedCart = localStorage.getItem(CART_STORAGE_KEY);
-    if (savedCart) {
-      try {
-        const parsedCart = JSON.parse(savedCart);
-        dispatch({ type: 'LOAD_CART', payload: parsedCart });
-      } catch (error) {
-        console.error('Failed to load cart from storage:', error);
+    if (typeof window !== 'undefined') {
+      const savedCart = localStorage.getItem(CART_STORAGE_KEY);
+      if (savedCart) {
+        try {
+          const parsedCart = JSON.parse(savedCart);
+          dispatch({ type: 'LOAD_CART', payload: parsedCart });
+        } catch (error) {
+          console.error('Failed to load cart from storage:', error);
+        }
       }
     }
   }, []);
 
   // Save cart to localStorage whenever it changes
   useEffect(() => {
-    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(state));
+    if (typeof window !== 'undefined') {
+      localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(state));
+    }
   }, [state]);
 
   // Context value
@@ -258,8 +262,8 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     toggleCart: () => {
       dispatch({ type: 'TOGGLE_CART' });
     },
-    hasPhysicalItems: state.items.some(item => item.metadata?.shippingRequired),
-    hasServiceItems: state.items.some(item => item.type === 'service'),
+    hasPhysicalItems: state.items?.some(item => item.metadata?.shippingRequired) || false,
+    hasServiceItems: state.items?.some(item => item.type === 'service') || false,
   };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
