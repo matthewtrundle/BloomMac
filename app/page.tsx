@@ -652,6 +652,26 @@ export default function Home() {
                 </div>
                 <p className="text-sm text-gray-500 mb-4">4-week program</p>
                 <p className="text-gray-600 mb-6">Learn evidence-based techniques to manage anxiety and calm your mind</p>
+                
+                {/* Watch Lesson 1 Button - Coming Soon */}
+                <div className="mb-6">
+                  <div className="w-full bg-gray-50 border border-gray-200 rounded-xl p-4 opacity-75">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className="w-12 h-12 bg-white rounded-full shadow-md flex items-center justify-center">
+                          <svg className="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
+                          </svg>
+                        </div>
+                        <div className="text-left">
+                          <p className="font-semibold text-gray-600">Watch First Lesson</p>
+                          <p className="text-xs text-gray-500">Coming Soon</p>
+                        </div>
+                      </div>
+                      <span className="text-xs bg-gray-200 text-gray-600 px-3 py-1 rounded-full">Preview</span>
+                    </div>
+                  </div>
+                </div>
                 <ul className="space-y-2 mb-6">
                   <li className="flex items-center gap-2">
                     <div className="w-1 h-1 bg-[#f8b5c4] rounded-full"></div>
@@ -687,6 +707,26 @@ export default function Home() {
                 </div>
                 <p className="text-sm text-gray-500 mb-4">3-week program</p>
                 <p className="text-gray-600 mb-6">Strengthen your relationship with communication tools and mutual support strategies</p>
+                
+                {/* Watch Lesson 1 Button - Coming Soon */}
+                <div className="mb-6">
+                  <div className="w-full bg-gray-50 border border-gray-200 rounded-xl p-4 opacity-75">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className="w-12 h-12 bg-white rounded-full shadow-md flex items-center justify-center">
+                          <svg className="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
+                          </svg>
+                        </div>
+                        <div className="text-left">
+                          <p className="font-semibold text-gray-600">Watch First Lesson</p>
+                          <p className="text-xs text-gray-500">Coming Soon</p>
+                        </div>
+                      </div>
+                      <span className="text-xs bg-gray-200 text-gray-600 px-3 py-1 rounded-full">Preview</span>
+                    </div>
+                  </div>
+                </div>
                 <ul className="space-y-2 mb-6">
                   <li className="flex items-center gap-2">
                     <div className="w-1 h-1 bg-[#f8b5c4] rounded-full"></div>
