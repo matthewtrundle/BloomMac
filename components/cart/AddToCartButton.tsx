@@ -73,16 +73,16 @@ export default function AddToCartButton({
 
   // Variant classes
   const variantClasses = {
-    primary: 'bg-purple-600 text-white hover:bg-purple-700 border-purple-600',
+    primary: 'bg-gradient-to-r from-bloom-pink to-bloom-pink-dark text-white hover:from-bloom-pink-dark hover:to-bloom-pink border-bloom-pink',
     secondary: 'bg-gray-600 text-white hover:bg-gray-700 border-gray-600',
-    outline: 'bg-transparent text-purple-600 border-purple-600 hover:bg-purple-50',
+    outline: 'bg-transparent text-bloom-pink border-bloom-pink hover:bg-bloom-pink/10',
   };
 
   const baseClasses = `
     inline-flex items-center justify-center gap-2 
     font-medium rounded-lg border transition-all duration-200
     disabled:opacity-50 disabled:cursor-not-allowed
-    focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500
+    focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-bloom-pink
     ${sizeClasses[size]}
     ${variantClasses[variant]}
     ${className}
