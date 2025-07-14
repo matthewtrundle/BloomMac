@@ -391,6 +391,67 @@ export default function CoursesPage() {
         </div>
       </section>
 
+      {/* Package Promo Section */}
+      <section className="py-20 bg-gradient-to-br from-bloom-dark to-bloom-sage text-white">
+        <div className="container mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="max-w-4xl mx-auto text-center"
+          >
+            <div className="inline-flex items-center gap-2 bg-white/20 text-white px-4 py-2 rounded-full text-sm font-medium mb-6">
+              <PartyPopper className="w-4 h-4" />
+              Save up to $1,203 with packages
+            </div>
+            
+            <h2 className="text-4xl font-playfair mb-6">
+              Want More Than Just Courses?
+            </h2>
+            <p className="text-xl mb-8 opacity-90">
+              Our comprehensive packages combine courses with 1:1 support, workbook reviews, 
+              and premium add-ons to accelerate your transformation.
+            </p>
+            
+            <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto mb-8">
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 text-left">
+                <h3 className="font-semibold text-lg mb-3">Silver Package - Most Popular</h3>
+                <p className="text-white/80 mb-3">Everything you need for complete postpartum support</p>
+                <div className="text-2xl font-bold mb-2">$1,297 <span className="text-base text-white/60 line-through">$1,618</span></div>
+                <p className="text-sm text-white/70">Save $321 + payment plans available</p>
+              </div>
+              
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 text-left">
+                <h3 className="font-semibold text-lg mb-3">Gold Package - Best Value</h3>
+                <p className="text-white/80 mb-3">All 3 courses plus mini program with Dr. Jana</p>
+                <div className="text-2xl font-bold mb-2">$1,897 <span className="text-base text-white/60 line-through">$2,415</span></div>
+                <p className="text-sm text-white/70">Save $518 + priority booking included</p>
+              </div>
+            </div>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link
+                href="/packages"
+                className="inline-flex items-center px-8 py-4 bg-white text-bloom-dark rounded-lg hover:bg-gray-100 transition-colors font-medium shadow-lg"
+              >
+                Explore All Packages
+                <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </Link>
+              
+              <Link
+                href="/book"
+                className="inline-flex items-center px-8 py-4 bg-white/10 border-2 border-white rounded-lg hover:bg-white/20 transition-colors font-medium"
+              >
+                Book Free Consultation
+              </Link>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Waitlist Section - Only show when courses are disabled */}
       {!COURSES_ENABLED && (
         <section className="py-20 bg-white/80 backdrop-blur-sm">

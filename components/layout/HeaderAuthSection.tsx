@@ -39,13 +39,13 @@ export default function HeaderAuthSection() {
       <div className="flex items-center gap-3">
         <Link
           href="/wellness-hub"
-          className="flex items-center gap-2 px-3 py-1.5 bg-bloom-sage/10 hover:bg-bloom-sage/20 rounded-full transition-all duration-300 group"
+          className="flex items-center gap-2 px-3 py-1.5 bg-blue-50 hover:bg-blue-100 rounded-full transition-all duration-300 group"
         >
-          <div className="w-8 h-8 bg-bloom-sage rounded-full flex items-center justify-center text-white font-medium text-sm">
+          <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white font-medium text-sm">
             {user.email!.charAt(0).toUpperCase()}
           </div>
-          <span className="text-sm font-medium text-bloom-dark group-hover:text-bloom-sage transition-colors">
-            My Growth Studio
+          <span className="text-sm font-medium text-blue-700 group-hover:text-blue-800 transition-colors">
+            Growth Studio
           </span>
         </Link>
         <Button 

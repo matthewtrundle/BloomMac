@@ -185,7 +185,7 @@ const Header = () => {
             {/* Centered Navigation Container */}
             <div className="flex items-center justify-center w-full">
               {/* Center Nav Items with tighter spacing */}
-              <nav className="flex items-center gap-6 mr-16">
+              <nav className="flex items-center gap-5 mr-20">
                 <Link href="/about" className="text-bloom font-medium hover:text-bloom-blush transition-all duration-300 text-sm tracking-wider">
                   ABOUT
                 </Link>
@@ -236,6 +236,16 @@ const Header = () => {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                       </svg>
                       Browse All Courses
+                    </Link>
+                    
+                    <Link 
+                      href="/packages"
+                      className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-bloom transition duration-200 flex items-center font-medium"
+                    >
+                      <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                      </svg>
+                      View Packages
                     </Link>
                     
                     {/* Portfolio/Course Catalog - temporarily hidden
@@ -292,7 +302,7 @@ const Header = () => {
                           <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                           </svg>
-                          My Growth Studio
+                          Growth Studio
                         </Link>
                       </>
                     ) : (
@@ -308,6 +318,10 @@ const Header = () => {
                     )}
                   </div>
                 </div>
+                
+                <Link href="/packages" className="text-bloom font-medium hover:text-bloom-blush transition-all duration-300 text-sm tracking-wider">
+                  PACKAGES
+                </Link>
                 
                 <div className="w-px h-4 bg-gray-300"></div>
                 
@@ -326,16 +340,16 @@ const Header = () => {
             </div>
             
             {/* Right Actions - Absolute positioned with more margin */}
-            <div className="absolute right-0 flex items-center gap-3">
-              {/* Cart Icon */}
+            <div className="absolute right-0 flex items-center gap-4">
+              {/* Cart Icon - Now with blue color and better spacing */}
               <button
                 onClick={toggleCart}
-                className="relative p-2 text-bloom-dark hover:text-bloom-sage transition-colors"
+                className="relative p-2 text-blue-600 hover:text-blue-700 transition-colors mr-2"
                 aria-label="Open cart"
               >
-                <ShoppingCart className="w-6 h-6" />
+                <ShoppingCart className="w-5 h-5" />
                 {items && items.length > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-bloom-pink text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-medium">
+                  <span className="absolute -top-1 -right-1 bg-blue-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-medium">
                     {items.reduce((sum, item) => sum + item.quantity, 0)}
                   </span>
                 )}
@@ -474,6 +488,14 @@ const Header = () => {
                 className="px-4 py-3 text-lg font-medium text-bloom hover:text-bloom-blush transition duration-300 hover:bg-gray-50 rounded-lg"
               >
                 Online Courses
+              </Link>
+              
+              <Link 
+                href="/packages"
+                onClick={() => setIsMenuOpen(false)}
+                className="px-4 py-3 text-lg font-medium text-bloom hover:text-bloom-blush transition duration-300 hover:bg-gray-50 rounded-lg"
+              >
+                Course Packages
               </Link>
               
               <Link 

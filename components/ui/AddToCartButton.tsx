@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ShoppingCart, Check } from 'lucide-react';
 import { useCart } from '@/lib/cart/cart-context';
+import { useAuth } from '@/contexts/AuthContext';
+import { useRouter } from 'next/navigation';
 
 interface AddToCartButtonProps {
   courseId: string;
@@ -28,6 +30,8 @@ export default function AddToCartButton({
 }: AddToCartButtonProps) {
   const [isAdded, setIsAdded] = useState(false);
   const { addItem, toggleCart } = useCart();
+  const { user } = useAuth();
+  const router = useRouter();
 
   const sizeClasses = {
     sm: 'px-4 py-2 text-sm',
@@ -41,6 +45,20 @@ export default function AddToCartButton({
   };
 
   const handleAddToCart = () => {
+    // Check if user is authenticated
+    if (!user) {
+      // Store the intended product in sessionStorage
+      sessionStorage.setItem('intendedProduct', JSON.stringify({
+        courseId,
+        courseName,
+        price,
+        description,
+        image
+      }));
+      // Redirect to sign up
+      router.push('/auth/signup?redirect=/courses&requireAccount=true');
+      return;
+    }
     addItem({
       id: `course-${courseId}`,
       type: 'course',

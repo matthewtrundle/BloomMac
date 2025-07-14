@@ -1,17 +1,21 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Mail, Lock, User, Loader2, Eye, EyeOff, AlertCircle, CheckCircle } from 'lucide-react';
+import { Mail, Lock, User, Loader2, Eye, EyeOff, AlertCircle, CheckCircle, ShoppingCart, Package } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { useCart } from '@/lib/cart/cart-context';
 
 export default function SignUpPage() {
   const router = useRouter();
+  const { addItem } = useCart();
   const searchParams = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '');
   const emailFromUrl = searchParams.get('email') || '';
+  const redirect = searchParams.get('redirect') || '/wellness-hub';
+  const requireAccount = searchParams.get('requireAccount') === 'true';
   
   const [email, setEmail] = useState(emailFromUrl);
   const [password, setPassword] = useState('');
@@ -21,8 +25,25 @@ export default function SignUpPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [acceptTerms, setAcceptTerms] = useState(false);
+  const [intendedProduct, setIntendedProduct] = useState<any>(null);
+  const [intendedPackage, setIntendedPackage] = useState<any>(null);
   
   const { signUp } = useAuth();
+
+  // Check for intended products/packages
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const product = sessionStorage.getItem('intendedProduct');
+      const pkg = sessionStorage.getItem('intendedPackage');
+      
+      if (product) {
+        setIntendedProduct(JSON.parse(product));
+      }
+      if (pkg) {
+        setIntendedPackage(JSON.parse(pkg));
+      }
+    }
+  }, []);
 
   const passwordRequirements = [
     { met: password.length >= 8, text: 'At least 8 characters' },
@@ -56,6 +77,37 @@ export default function SignUpPage() {
 
     try {
       await signUp(email, password, fullName);
+      
+      // Add intended product to cart if present
+      if (intendedProduct) {
+        addItem({
+          id: `course-${intendedProduct.courseId}`,
+          type: 'course',
+          productId: intendedProduct.courseId,
+          name: intendedProduct.courseName,
+          description: intendedProduct.description,
+          price: intendedProduct.price / 100,
+          quantity: 1,
+          image: intendedProduct.image,
+          metadata: {
+            courseId: intendedProduct.courseId
+          }
+        });
+        sessionStorage.removeItem('intendedProduct');
+      }
+      
+      // Clear intended package (would need to navigate to packages page)
+      if (intendedPackage) {
+        sessionStorage.removeItem('intendedPackage');
+      }
+      
+      // Clear checkout redirect flag
+      if (sessionStorage.getItem('checkout_redirect')) {
+        sessionStorage.removeItem('checkout_redirect');
+      }
+      
+      // Redirect to intended page
+      router.push(redirect);
     } catch (err: any) {
       setError(err.message || 'An error occurred during signup');
       setLoading(false);
@@ -85,25 +137,50 @@ export default function SignUpPage() {
             <p className="text-bloom-dark/60 mt-2">Start your wellness journey today</p>
           </div>
 
+          {/* Show intended purchase if present */}
+          {(intendedProduct || intendedPackage) && (
+            <div className="bg-bloom-pink-50 rounded-lg p-4 mb-6 border border-bloom-pink/20">
+              <div className="flex items-start gap-3">
+                {intendedProduct ? (
+                  <ShoppingCart className="w-5 h-5 text-bloom-pink flex-shrink-0 mt-0.5" />
+                ) : (
+                  <Package className="w-5 h-5 text-bloom-pink flex-shrink-0 mt-0.5" />
+                )}
+                <div>
+                  <h3 className="font-semibold text-bloom-dark text-sm mb-1">
+                    Create an account to complete your purchase
+                  </h3>
+                  <p className="text-xs text-bloom-dark/70">
+                    {intendedProduct ? (
+                      <>Adding to cart: <span className="font-medium">{intendedProduct.courseName}</span></>
+                    ) : intendedPackage ? (
+                      <>Selected package: <span className="font-medium">{intendedPackage.name}</span></>
+                    ) : null}
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* Value Proposition */}
           <div className="bg-bloom-sage-50 rounded-lg p-4 mb-6 border border-bloom-sage/20">
             <h3 className="font-semibold text-bloom-dark mb-2 text-sm">Your free account includes:</h3>
             <ul className="space-y-1.5 text-sm text-bloom-dark/70">
               <li className="flex items-start gap-2">
                 <CheckCircle className="w-4 h-4 text-bloom-sage flex-shrink-0 mt-0.5" />
-                <span>Access to wellness resources and self-care guides</span>
+                <span>Access to all purchased courses and materials</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle className="w-4 h-4 text-bloom-sage flex-shrink-0 mt-0.5" />
-                <span>Personalized dashboard to track your progress</span>
+                <span>Track your progress through wellness programs</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle className="w-4 h-4 text-bloom-sage flex-shrink-0 mt-0.5" />
-                <span>Easy appointment booking and management</span>
+                <span>Save your cart and wishlist for later</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle className="w-4 h-4 text-bloom-sage flex-shrink-0 mt-0.5" />
-                <span>Exclusive course discounts and early access</span>
+                <span>Exclusive member discounts and early access</span>
               </li>
             </ul>
           </div>

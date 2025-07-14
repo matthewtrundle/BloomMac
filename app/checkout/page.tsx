@@ -2,21 +2,56 @@
 
 import { useCart } from '@/lib/cart/cart-context';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import CartSummary from '@/components/cart/CartSummary';
-import { ArrowLeft, CreditCard, ShieldCheck } from 'lucide-react';
+import { ArrowLeft, CreditCard, ShieldCheck, User } from 'lucide-react';
 import Link from 'next/link';
+import { useAuth } from '@/contexts/AuthContext';
 
 export default function CheckoutPage() {
   const { state } = useCart();
   const router = useRouter();
+  const { user, loading: authLoading } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [customerEmail, setCustomerEmail] = useState('');
   const [customerName, setCustomerName] = useState('');
 
   const items = state?.items || [];
   const total = state?.total || 0;
+
+  // Redirect to sign up if not authenticated
+  useEffect(() => {
+    if (!authLoading && !user) {
+      // Save cart state before redirect
+      sessionStorage.setItem('checkout_redirect', 'true');
+      router.push('/auth/signup?redirect=/checkout&requireAccount=true');
+    }
+  }, [user, authLoading, router]);
+
+  // Pre-fill user email if authenticated
+  useEffect(() => {
+    if (user?.email) {
+      setCustomerEmail(user.email);
+    }
+  }, [user]);
+
+  // Show loading state while checking auth
+  if (authLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-bloom-sage-50 via-white to-bloom-pink-50 py-20">
+        <div className="container mx-auto px-6 max-w-4xl text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-bloom-pink mx-auto"></div>
+          <p className="text-bloom-dark/70 mt-4">Loading checkout...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Don't render checkout if user is not authenticated (they'll be redirected)
+  if (!user) {
+    return null;
+  }
 
   // Redirect if cart is empty
   if (items.length === 0) {
@@ -92,6 +127,15 @@ export default function CheckoutPage() {
 
               <form onSubmit={(e) => { e.preventDefault(); handleCheckout(); }}>
                 <div className="space-y-6">
+                  {/* Account Status */}
+                  <div className="bg-green-50 border border-green-200 rounded-lg p-4 flex items-center gap-3">
+                    <User className="w-5 h-5 text-green-600" />
+                    <div>
+                      <p className="text-sm font-medium text-green-800">You're signed in as {user.email}</p>
+                      <p className="text-xs text-green-600">Your courses will be linked to this account</p>
+                    </div>
+                  </div>
+
                   {/* Contact Information */}
                   <div>
                     <h3 className="text-lg font-medium mb-4">Contact Information</h3>
