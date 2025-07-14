@@ -337,9 +337,7 @@
     
     <div class="reveal">
         <!-- Excellence: Progress Indicator -->
-        <div class="progress-indicator" style="position: fixed; bottom: 20px; right: 20px; z-index: 100; background: rgba(255,255,255,0.9); padding: 10px 20px; border-radius: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); font-size: 14px; color: var(--bloom-charcoal);">
-            <span class="current-slide">1</span> / <span class="total-slides">12</span>
-        </div>
+        
         
         <div class="slides">
             <section data-background-image="../../../shared-assets/images/biff01_Mother_holding_newborn_by_large_window_with_soft_morni_f16d5b33-2dc7-4aa7-86a1-34d018871ed7_3.png"
@@ -368,14 +366,8 @@
             </section>
             
             <!-- Slide 2: You Belong Here -->
-            <section data-background="linear-gradient(135deg, #FFF9F0 0%, #E8F5F0 50%, #FFF5E6 100%)" style="position: relative;">
-                <div class="gradient-mesh" style="position: absolute; inset: 0; z-index: 0; background: linear-gradient(135deg, #FFF9F0 0%, #F0F9F7 50%, #FFFEF5 100%);">
-                    <div style="position: absolute; width: 900px; height: 900px; background: radial-gradient(circle at center, rgba(255,203,119,0.35) 0%, rgba(255,203,119,0.1) 40%, transparent 70%); top: -20%; right: -10%; mix-blend-mode: multiply;"></div>
-                    <div style="position: absolute; width: 700px; height: 700px; background: radial-gradient(circle at center, rgba(149,225,211,0.3) 0%, rgba(149,225,211,0.1) 40%, transparent 70%); bottom: -10%; left: -5%; mix-blend-mode: multiply;"></div>
-                    <div style="position: absolute; width: 600px; height: 600px; background: radial-gradient(circle at center, rgba(139,154,130,0.25) 0%, transparent 60%); top: 40%; left: 25%; mix-blend-mode: multiply;"></div>
-                    <div style="position: absolute; width: 400px; height: 400px; background: radial-gradient(circle at center, rgba(116,192,252,0.2) 0%, transparent 60%); top: 10%; left: 50%; mix-blend-mode: screen;"></div>
-                </div>
-                <div class="asymmetric-grid" style="padding: 0 6%; min-height: 100vh; position: relative; z-index: 1;">
+            <section data-background-color="#FFFFFF">
+                <div class="asymmetric-grid" style="padding: 0 6%; min-height: 100vh;">
                     <div class="content-panel">
                         <p class="subtitle-caps" style="color: var(--bloom-sage); margin-bottom: 2rem;">A Message of Hope</p>
                         <h2 class="display-serif" style="font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.1; margin-bottom: 2rem;">
@@ -412,7 +404,7 @@
                     </div>
                     <div class="image-panel" style="position: relative; min-height: 600px; box-shadow: 0 40px 100px rgba(0,0,0,0.15);">
                         <img src="../../../shared-assets/images/biff01_Woman_recognizing_she_needs_help_while_looking_at_slee_53bf119b-9a43-4f7e-8a5b-eff2727a4beb_0.png" alt="Mother seeking support" style="border-radius: 2px;" loading="eager">
-                        <div style="position: absolute; bottom: -20px; right: -20px; width: 150px; height: 150px; background: var(--bloom-mint); opacity: 0.15; border-radius: 50%;"></div>
+                        <div style="position: absolute; bottom: -20px; right: -20px; width: 150px; height: 150px; background: var(--bloom-peach); opacity: 0.2; border-radius: 50%;"></div>
                     </div>
                 </div>
             </section>
@@ -1074,10 +1066,8 @@
         const updateProgress = () => {
             const current = Reveal.getIndices().h + 1;
             const total = Reveal.getTotalSlides();
-            const currentSlideEl = document.querySelector('.current-slide');
-            const totalSlidesEl = document.querySelector('.total-slides');
-            if (currentSlideEl) currentSlideEl.textContent = current;
-            if (totalSlidesEl) totalSlidesEl.textContent = total;
+            document.querySelector('.current-slide').textContent = current;
+            document.querySelector('.total-slides').textContent = total;
         };
         
         // Initialize progress

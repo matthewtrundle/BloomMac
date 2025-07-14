@@ -9,11 +9,14 @@ import { ArrowLeft, CreditCard, ShieldCheck } from 'lucide-react';
 import Link from 'next/link';
 
 export default function CheckoutPage() {
-  const { items, total } = useCart();
+  const { state } = useCart();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [customerEmail, setCustomerEmail] = useState('');
   const [customerName, setCustomerName] = useState('');
+
+  const items = state?.items || [];
+  const total = state?.total || 0;
 
   // Redirect if cart is empty
   if (items.length === 0) {

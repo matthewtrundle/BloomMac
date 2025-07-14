@@ -3,7 +3,11 @@
 import React from 'react';
 import { useCart } from '@/lib/cart/cart-context';
 
-export default function CartSummary() {
+interface CartSummaryProps {
+  showCheckoutButton?: boolean;
+}
+
+export default function CartSummary({ showCheckoutButton = true }: CartSummaryProps) {
   const { state } = useCart();
 
   const formatPrice = (price: number) => {
@@ -13,28 +17,34 @@ export default function CartSummary() {
     }).format(price / 100);
   };
 
+  // Default values if state is not available
+  const subtotal = state?.subtotal || 0;
+  const discounts = state?.discounts || [];
+  const items = state?.items || [];
+  const total = state?.total || 0;
+
   return (
     <div className="p-4 space-y-3">
       {/* Subtotal */}
       <div className="flex justify-between text-sm">
         <span className="text-gray-600">Subtotal</span>
-        <span className="font-medium">{formatPrice(state.subtotal)}</span>
+        <span className="font-medium">{formatPrice(subtotal)}</span>
       </div>
 
       {/* Discounts */}
-      {state.discounts.map((discount) => (
+      {discounts.map((discount) => (
         <div key={discount.id} className="flex justify-between text-sm">
           <span className="text-green-600">
             {discount.description}
           </span>
           <span className="text-green-600 font-medium">
-            -{formatPrice(discount.type === 'fixed' ? discount.amount : (state.subtotal * discount.amount / 100))}
+            -{formatPrice(discount.type === 'fixed' ? discount.amount : (subtotal * discount.amount / 100))}
           </span>
         </div>
       ))}
 
       {/* Shipping note for physical items */}
-      {state.items.some(item => item.metadata?.shippingRequired) && (
+      {items.some(item => item.metadata?.shippingRequired) && (
         <div className="flex justify-between text-sm">
           <span className="text-gray-600">Shipping</span>
           <span className="text-gray-600">Calculated at checkout</span>
@@ -45,7 +55,7 @@ export default function CartSummary() {
       <div className="border-t pt-3">
         <div className="flex justify-between text-lg font-semibold">
           <span>Total</span>
-          <span>{formatPrice(state.total)}</span>
+          <span>{formatPrice(total)}</span>
         </div>
         
         {/* Payment info */}
