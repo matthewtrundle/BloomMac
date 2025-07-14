@@ -382,7 +382,7 @@ export default function Home() {
         </div>
       </section>
       
-      {/* Personal Message Video Section - temporarily hidden for re-recording
+      {/* Personal Message Video Section */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto">
@@ -430,7 +430,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-      */}
       
       {/* Team Showcase Section - Professional Photography */}
       <section className="py-20 bg-gray-50">

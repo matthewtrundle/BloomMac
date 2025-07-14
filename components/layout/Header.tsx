@@ -182,19 +182,19 @@ const Header = () => {
               </div>
             </Link>
 
-            {/* Three-column layout */}
+            {/* Three-column layout with sophisticated spacing */}
             <div className="flex items-center justify-between w-full">
-              {/* Left spacer to balance layout */}
-              <div className="w-0 xl:w-96"></div>
+              {/* Left spacer - adjusted for better balance */}
+              <div className="w-0 xl:w-80 2xl:w-96"></div>
               
-              {/* Center Nav Items */}
-              <nav className="flex items-center gap-5">
-                <Link href="/about" className="text-bloom font-medium hover:text-bloom-blush transition-all duration-300 text-sm tracking-wider">
+              {/* Center Nav Items - tighter spacing for better fit */}
+              <nav className="flex items-center gap-3 lg:gap-4">
+                <Link href="/about" className="text-bloom font-medium hover:text-bloom-blush transition-all duration-300 text-xs lg:text-sm tracking-wide">
                   ABOUT
                 </Link>
                 
                 <div className="relative group">
-                  <button className="text-bloom font-medium hover:text-bloom-blush transition-all duration-300 flex items-center text-sm tracking-wider">
+                  <button className="text-bloom font-medium hover:text-bloom-blush transition-all duration-300 flex items-center text-xs lg:text-sm tracking-wide">
                     SERVICES
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5 ml-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -224,7 +224,7 @@ const Header = () => {
                 </div>
                 
                 <div className="relative group">
-                  <button className="text-bloom font-medium hover:text-bloom-blush transition-all duration-300 flex items-center text-sm tracking-wider">
+                  <button className="text-bloom font-medium hover:text-bloom-blush transition-all duration-300 flex items-center text-xs lg:text-sm tracking-wide">
                     COURSES
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5 ml-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -324,21 +324,21 @@ const Header = () => {
                 
                 <div className="w-px h-4 bg-gray-300"></div>
                 
-                <Link href="/contact" className="text-bloom font-medium hover:text-bloom-blush transition-all duration-300 text-sm tracking-wider">
+                <Link href="/contact" className="text-bloom font-medium hover:text-bloom-blush transition-all duration-300 text-xs lg:text-sm tracking-wide">
                   CONTACT
                 </Link>
                 
-                <Link href="/faq" className="text-bloom font-medium hover:text-bloom-blush transition-all duration-300 text-sm tracking-wider">
+                <Link href="/faq" className="text-bloom font-medium hover:text-bloom-blush transition-all duration-300 text-xs lg:text-sm tracking-wide">
                   FAQ
                 </Link>
                 
-                <Link href="/blog" className="text-bloom font-medium hover:text-bloom-blush transition-all duration-300 text-sm tracking-wider">
+                <Link href="/blog" className="text-bloom font-medium hover:text-bloom-blush transition-all duration-300 text-xs lg:text-sm tracking-wide">
                   BLOG
                 </Link>
               </nav>
               
-              {/* Right Actions - Fixed width container to prevent overlap */}
-              <div className="flex items-center gap-3 w-96 justify-end">
+              {/* Right Actions - Responsive width container */}
+              <div className="flex items-center gap-2 lg:gap-3 w-auto lg:w-96 justify-end">
                 <ClientOnly
                   fallback={
                     <div className="flex items-center gap-3">
@@ -356,7 +356,7 @@ const Header = () => {
                         size="md"
                         className="shadow-sm hover:shadow-md"
                       >
-                        Book Free Consultation
+                        Book Consultation
                       </Button>
                     </div>
                   }
