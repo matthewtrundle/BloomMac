@@ -5,18 +5,43 @@ import { v4 as uuidv4 } from 'uuid';
 export async function GET(request: NextRequest) {
   try {
     const supabase = createSupabaseServiceClient();
+    let images: string[] = [];
     
-    const { data, error } = await supabase.storage.from('blog-images').list();
+    // Try to get images from Supabase storage
+    try {
+      const { data, error } = await supabase.storage.from('blog-images').list();
 
-    if (error) {
-      console.error('Error listing images:', error);
-      throw error;
+      if (!error && data) {
+        const supabaseImages = data.map(file => {
+          const { data: { publicUrl } } = supabase.storage.from('blog-images').getPublicUrl(file.name);
+          return publicUrl;
+        });
+        images = [...images, ...supabaseImages];
+      }
+    } catch (storageError) {
+      console.warn('Could not access Supabase storage:', storageError);
     }
 
-    const images = data.map(file => {
-      const { data: { publicUrl } } = supabase.storage.from('blog-images').getPublicUrl(file.name);
-      return publicUrl;
-    });
+    // Add local images from public folder as fallback
+    const localImages = [
+      '/images/optimized/Home/Confident Women.webp',
+      '/images/optimized/Home/herooptimzed.webp',
+      '/images/optimized/Services/Experienced Parents.webp',
+      '/images/optimized/Services/AnxietyManagement1.webp',
+      '/images/optimized/Services/AnxietyManagement2.webp',
+      '/images/optimized/Services/Symbolic Shoes.webp',
+      '/images/optimized/Services/Hopeful Hands.webp',
+      '/images/optimized/Services/Walking through fields.webp',
+      '/images/optimized/Hero/hero-bloom.webp',
+      '/images/Team/Jana Rundle.jpg',
+      '/images/blog/mental-health-awareness.jpg',
+      '/images/blog/self-care-tips.jpg',
+      '/images/blog/postpartum-support.jpg',
+      '/images/blog/parenting-journey.jpg',
+      '/images/blog/mindfulness-practice.jpg',
+    ];
+
+    images = [...images, ...localImages];
 
     return NextResponse.json({ images });
   } catch (error) {

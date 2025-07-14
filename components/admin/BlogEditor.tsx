@@ -391,8 +391,6 @@ export default function BlogEditor({ post, isEditing = false }: BlogEditorProps)
                                   console.error('Failed to load image:', img);
                                   setFailedImages(prev => new Set(prev).add(img));
                                 }}
-                                placeholder="blur"
-                                blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBmaWxsPSIjZTVlN2ViIi8+PC9zdmc+"
                               />
                             )}
                             <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all">
