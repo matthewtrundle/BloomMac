@@ -188,7 +188,7 @@ export default function FourthTrimesterGuidePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-bloom-sage-50 via-white to-bloom-pink-50">
+    <div className="min-h-screen bg-gradient-to-br from-bloom-sage-50/50 via-white to-bloom-pink-50/50">
       {/* Header */}
       <div className="bg-white border-b border-gray-100 sticky top-0 z-10">
         <div className="container mx-auto px-6 py-4">
@@ -202,24 +202,41 @@ export default function FourthTrimesterGuidePage() {
         </div>
       </div>
 
-      {/* Hero Section */}
-      <section className="py-16 px-6">
-        <div className="container mx-auto max-w-4xl">
+      {/* Hero Section - Enhanced Bloom Branding */}
+      <section className="relative py-16 px-6 overflow-hidden">
+        {/* Background decorative elements */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-bloom-accent/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3"></div>
+          <div className="absolute bottom-0 left-0 w-80 h-80 bg-bloompink/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/3"></div>
+          <div className="absolute top-1/3 left-1/4 w-64 h-64 bg-bloom-sage/5 rounded-full blur-2xl"></div>
+        </div>
+        
+        <div className="container mx-auto max-w-4xl relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="text-center"
           >
-            <div className="inline-flex items-center gap-2 bg-bloom-pink-50 text-bloom-pink-dark px-4 py-2 rounded-full text-sm font-medium mb-6">
+            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-bloom-pink-50 to-bloom-accent/10 text-bloom-pink-dark px-5 py-2.5 rounded-full text-sm font-medium mb-6 shadow-sm">
               <Heart className="w-4 h-4" />
               Course Participant Exclusive
             </div>
             
-            <h1 className="text-4xl md:text-5xl font-playfair text-bloom-dark mb-6">
-              Your 4th Trimester <span className="text-bloompink">Resource Guide</span>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-playfair text-bloom-dark mb-4">
+              Your 4th Trimester 
             </h1>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-playfair text-transparent bg-clip-text bg-gradient-to-r from-bloompink to-bloom-accent mb-6">
+              Resource Guide
+            </h2>
             
-            <p className="text-xl text-bloom-dark/80 max-w-3xl mx-auto mb-8">
+            {/* Decorative divider */}
+            <div className="flex items-center justify-center gap-4 mb-8">
+              <div className="h-px w-16 bg-gradient-to-r from-transparent to-bloom-accent/30"></div>
+              <div className="w-2 h-2 rounded-full bg-bloom-accent/30"></div>
+              <div className="h-px w-16 bg-gradient-to-l from-transparent to-bloom-accent/30"></div>
+            </div>
+            
+            <p className="text-xl text-bloom-dark/80 max-w-3xl mx-auto mb-8 leading-relaxed">
               Carefully curated resources to support your continued growth and healing 
               beyond our course. Each recommendation has been selected for its evidence-based 
               approach and alignment with our therapeutic philosophy.
@@ -252,9 +269,12 @@ export default function FourthTrimesterGuidePage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
                   viewport={{ once: true }}
-                  className="bg-white rounded-xl p-6 shadow-soft hover:shadow-lg transition-shadow"
+                  className="bg-white rounded-xl p-6 shadow-soft hover:shadow-lg transition-all duration-300 border border-gray-100 hover:border-bloom-accent/20 relative overflow-hidden group"
                 >
-                  <h3 className="font-semibold text-bloom-dark mb-1">{book.title}</h3>
+                  {/* Hover accent */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-bloom-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+                  <div className="relative z-10">
+                  <h3 className="font-semibold text-bloom-dark mb-1 group-hover:text-bloom-accent transition-colors">{book.title}</h3>
                   <p className="text-sm text-bloom-sage mb-3">by {book.author}</p>
                   <p className="text-bloom-dark/70 mb-4">{book.description}</p>
                   <a 
@@ -266,6 +286,7 @@ export default function FourthTrimesterGuidePage() {
                     View on Amazon
                     <ExternalLink className="w-3 h-3 ml-1" />
                   </a>
+                  </div>
                 </motion.div>
               ))}
             </div>
@@ -283,7 +304,7 @@ export default function FourthTrimesterGuidePage() {
             className="mb-12"
           >
             <div className="flex items-center gap-3 mb-8">
-              <div className="w-12 h-12 bg-bloom-pink-100 rounded-xl flex items-center justify-center">
+              <div className="w-12 h-12 bg-gradient-to-br from-bloom-pink-100 to-bloompink/20 rounded-xl flex items-center justify-center shadow-sm">
                 <Smartphone className="w-6 h-6 text-bloompink" />
               </div>
               <h2 className="text-3xl font-playfair text-bloom-dark">Apps for Daily Support</h2>
@@ -329,8 +350,8 @@ export default function FourthTrimesterGuidePage() {
             className="mb-12"
           >
             <div className="flex items-center gap-3 mb-8">
-              <div className="w-12 h-12 bg-bloom-cream-100 rounded-xl flex items-center justify-center">
-                <Globe className="w-6 h-6 text-bloom-cream-dark" />
+              <div className="w-12 h-12 bg-gradient-to-br from-bloom-accent/20 to-bloom-accent/10 rounded-xl flex items-center justify-center shadow-sm">
+                <Globe className="w-6 h-6 text-bloom-accent" />
               </div>
               <h2 className="text-3xl font-playfair text-bloom-dark">Websites & Online Resources</h2>
             </div>
@@ -450,26 +471,49 @@ export default function FourthTrimesterGuidePage() {
         </div>
       </section>
 
-      {/* Footer CTA */}
-      <section className="py-16 px-6 bg-gradient-to-r from-bloom-pink-100 to-bloom-sage-100">
-        <div className="container mx-auto max-w-4xl text-center">
+      {/* Footer CTA - Enhanced Bloom Branding */}
+      <section className="py-16 px-6 relative overflow-hidden">
+        {/* Background with Bloom gradient */}
+        <div className="absolute inset-0 bg-gradient-to-br from-bloom-pink-100/50 via-white to-bloom-sage-100/50"></div>
+        <div className="absolute inset-0 bg-white/60"></div>
+        
+        {/* Decorative elements */}
+        <div className="absolute top-0 right-0 w-64 h-64 bg-bloom-accent/5 rounded-full blur-2xl"></div>
+        <div className="absolute bottom-0 left-0 w-48 h-48 bg-bloompink/5 rounded-full blur-xl"></div>
+        
+        <div className="container mx-auto max-w-4xl text-center relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
+            className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 border border-bloom-accent/10 shadow-lg"
           >
+            <div className="inline-flex items-center gap-2 text-bloom-accent mb-4">
+              <Heart className="w-5 h-5" />
+              <span className="text-sm font-medium tracking-wide">From Dr. Jana</span>
+            </div>
+            
             <h2 className="text-3xl font-playfair text-bloom-dark mb-4">
               Remember, You're Not Alone
             </h2>
-            <p className="text-lg text-bloom-dark/80 mb-8 max-w-2xl mx-auto">
+            
+            {/* Elegant divider */}
+            <div className="flex items-center justify-center gap-3 mb-6">
+              <div className="w-8 h-px bg-bloom-accent/30"></div>
+              <div className="w-1.5 h-1.5 rounded-full bg-bloom-accent/40"></div>
+              <div className="w-8 h-px bg-bloom-accent/30"></div>
+            </div>
+            
+            <p className="text-lg text-bloom-dark/80 mb-8 max-w-2xl mx-auto leading-relaxed">
               These resources are here to supplement your journey. If you need immediate support 
               or have questions about your course materials, please reach out to me directly.
             </p>
+            
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button href="/wellness-hub" variant="pink">
+              <Button href="/wellness-hub" variant="pink" className="shadow-sm hover:shadow-md transition-all duration-300">
                 Return to Growth Studio
               </Button>
-              <Button href="mailto:jana@bloompsychology.com" variant="outline">
+              <Button href="mailto:jana@bloompsychology.com" variant="outline" className="border-bloom-accent/30 text-bloom-dark hover:bg-bloom-accent/5 transition-all duration-300">
                 Email Dr. Jana
               </Button>
             </div>
