@@ -185,6 +185,46 @@ export default function MyGrowthStudioPage() {
   const enrolledCourseIds = enrolledCourses.map(c => c.id);
   const notEnrolledCourses = availableCourses.filter(c => !enrolledCourseIds.includes(c.id));
 
+  // Service offerings
+  const serviceOfferings = [
+    {
+      id: 'free-consultation',
+      title: 'Free 15-Minute Consultation',
+      subtitle: 'Get Started with a Complimentary Call',
+      description: 'Connect with Dr. Jana to discuss your needs and explore how we can support your wellness journey.',
+      price: 0,
+      duration: '15 minutes',
+      image: '/images/optimized/biff01_counseling_session_warm_therapy_office_natural_light_co_6f0f8f67-2ad2-4c02-8c0f-d0f088c73c4f_2.webp',
+      buttonText: 'Book Free Call',
+      href: '/book',
+      color: 'green'
+    },
+    {
+      id: 'one-hour-session',
+      title: '1-Hour Session with Dr. Jana',
+      subtitle: 'Personalized Therapeutic Support',
+      description: 'Deep dive into your specific challenges with expert guidance tailored to your unique situation.',
+      price: 175,
+      duration: '60 minutes',
+      image: '/images/optimized/Team/Jana Rundle.webp',
+      buttonText: 'Schedule Session',
+      href: '/book',
+      color: 'blue'
+    },
+    {
+      id: 'workbook-review',
+      title: 'Workbook Review & Follow-Up',
+      subtitle: 'Personalized Course Support',
+      description: 'Review your course workbook with Dr. Jana and get personalized feedback and guidance.',
+      price: 97,
+      duration: '30 minutes',
+      image: '/images/optimized/biff01_online_education_laptop_woman_studying_modern_home_wa_c991ba6e-df5f-418e-9e03-e74c5e8d2ff6_0.webp',
+      buttonText: 'Book Review',
+      href: '/book',
+      color: 'purple'
+    }
+  ];
+
   return (
     <ProtectedRoute>
       <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-bloom-pink-50 relative overflow-hidden">
@@ -646,11 +686,87 @@ export default function MyGrowthStudioPage() {
                   </motion.div>
                 )}
 
+                {/* Personal Support Services */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.8 }}
+                  className="space-y-6"
+                >
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h2 className="text-2xl font-semibold text-bloom-dark">Personal Support Options</h2>
+                      <p className="text-bloom-dark/60 mt-1">Get personalized guidance with Dr. Jana</p>
+                    </div>
+                  </div>
+
+                  <div className="grid md:grid-cols-3 gap-6">
+                    {serviceOfferings.map((service, index) => (
+                      <motion.div
+                        key={service.id}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.4, delay: 0.9 + index * 0.1 }}
+                        className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden group"
+                      >
+                        <div className="relative h-48 overflow-hidden">
+                          <Image
+                            src={service.image}
+                            alt={service.title}
+                            width={400}
+                            height={200}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                          <div className="absolute top-4 right-4">
+                            {service.price === 0 ? (
+                              <span className="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-medium">
+                                FREE
+                              </span>
+                            ) : (
+                              <span className="bg-white/90 backdrop-blur-sm text-bloom-dark px-3 py-1 rounded-full text-sm font-medium">
+                                ${service.price}
+                              </span>
+                            )}
+                          </div>
+                          <div className="absolute bottom-4 left-4 right-4">
+                            <span className="text-white/90 text-sm">
+                              <svg className="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                              </svg>
+                              {service.duration}
+                            </span>
+                          </div>
+                        </div>
+                        
+                        <div className="p-6">
+                          <h3 className="text-xl font-semibold text-bloom-dark mb-1">{service.title}</h3>
+                          <p className="text-sm text-bloom-pink font-medium mb-3">{service.subtitle}</p>
+                          <p className="text-sm text-bloom-dark/70 mb-4 line-clamp-3">{service.description}</p>
+                          
+                          <Link
+                            href={service.href}
+                            className={`
+                              w-full block text-center px-4 py-3 rounded-lg font-medium transition-all duration-300
+                              ${service.price === 0 
+                                ? 'bg-gradient-to-r from-green-500 to-green-600 text-white hover:from-green-600 hover:to-green-700' 
+                                : 'bg-gradient-to-r from-blue-500 to-blue-600 text-white hover:from-blue-600 hover:to-blue-700'
+                              }
+                            `}
+                          >
+                            {service.buttonText}
+                          </Link>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                </motion.div>
+
                 {/* Quick Actions */}
                 <motion.div 
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: 0.8 }}
+                  transition={{ duration: 0.4, delay: 1.2 }}
                   className="space-y-4"
                 >
                   <h2 className="text-xl font-semibold text-bloom-dark">Quick Links</h2>
