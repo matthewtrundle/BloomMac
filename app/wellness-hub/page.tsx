@@ -686,11 +686,144 @@ export default function MyGrowthStudioPage() {
                   </motion.div>
                 )}
 
-                {/* Personal Support Services */}
+                {/* New Mom Program - Flagship Offering */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4, delay: 0.8 }}
+                  className="mb-12"
+                >
+                  <div className="bg-gradient-to-br from-purple-50 via-bloom-pink-50 to-blue-50 rounded-3xl p-8 shadow-xl border border-purple-100/50">
+                    <div className="grid lg:grid-cols-2 gap-8 items-center">
+                      <div>
+                        <div className="flex items-center gap-3 mb-4">
+                          <span className="inline-block px-4 py-2 bg-purple-600 text-white rounded-full text-sm font-bold">
+                            SIGNATURE PROGRAM
+                          </span>
+                          <span className="text-sm text-purple-600 font-medium">Limited Spots Available</span>
+                        </div>
+                        
+                        <h2 className="text-3xl md:text-4xl font-playfair text-bloom-dark mb-4">
+                          New Mom Program: Transform Your Fourth Trimester
+                        </h2>
+                        
+                        <p className="text-lg text-bloom-dark/80 mb-6 leading-relaxed">
+                          An intensive 8-week journey combining group support, expert guidance, and personalized care. 
+                          This is our most comprehensive program designed to help you thrive, not just survive, in early motherhood.
+                        </p>
+
+                        <div className="grid grid-cols-2 gap-4 mb-8">
+                          <div className="bg-white/70 backdrop-blur-sm rounded-lg p-4">
+                            <div className="flex items-center gap-2 mb-2">
+                              <svg className="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                              </svg>
+                              <h4 className="font-semibold text-bloom-dark">Small Group Sessions</h4>
+                            </div>
+                            <p className="text-sm text-bloom-dark/70">Weekly 90-minute sessions with 6-8 moms</p>
+                          </div>
+
+                          <div className="bg-white/70 backdrop-blur-sm rounded-lg p-4">
+                            <div className="flex items-center gap-2 mb-2">
+                              <svg className="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                              </svg>
+                              <h4 className="font-semibold text-bloom-dark">Expert-Led Curriculum</h4>
+                            </div>
+                            <p className="text-sm text-bloom-dark/70">Evidence-based content by Dr. Jana</p>
+                          </div>
+
+                          <div className="bg-white/70 backdrop-blur-sm rounded-lg p-4">
+                            <div className="flex items-center gap-2 mb-2">
+                              <svg className="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+                              </svg>
+                              <h4 className="font-semibold text-bloom-dark">24/7 Community Access</h4>
+                            </div>
+                            <p className="text-sm text-bloom-dark/70">Private group chat & support</p>
+                          </div>
+
+                          <div className="bg-white/70 backdrop-blur-sm rounded-lg p-4">
+                            <div className="flex items-center gap-2 mb-2">
+                              <svg className="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                              </svg>
+                              <h4 className="font-semibold text-bloom-dark">Personal Check-ins</h4>
+                            </div>
+                            <p className="text-sm text-bloom-dark/70">1-on-1 support as needed</p>
+                          </div>
+                        </div>
+
+                        <div className="flex items-center justify-between mb-6">
+                          <div>
+                            <div className="text-3xl font-bold text-purple-600">$697</div>
+                            <p className="text-sm text-bloom-dark/60">or 3 payments of $249</p>
+                          </div>
+                          <div className="text-right">
+                            <p className="text-sm font-medium text-bloom-dark">Next Cohort Starts:</p>
+                            <p className="text-lg font-semibold text-purple-600">February 3rd, 2025</p>
+                          </div>
+                        </div>
+
+                        <div className="flex flex-col sm:flex-row gap-4">
+                          <Link
+                            href="/new-mom-program"
+                            className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-purple-600 to-purple-700 text-white rounded-full hover:from-purple-700 hover:to-purple-800 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                          >
+                            Learn More & Apply
+                            <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                            </svg>
+                          </Link>
+                          <Link
+                            href="/book"
+                            className="inline-flex items-center justify-center px-6 py-4 border-2 border-purple-600 text-purple-600 rounded-full hover:bg-purple-50 transition-all duration-300 font-medium"
+                          >
+                            <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                            Schedule Free Consultation
+                          </Link>
+                        </div>
+                      </div>
+
+                      <div className="relative">
+                        <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+                          <Image
+                            src="/images/optimized/biff01_group_of_diverse_new_mothers_sitting_in_circle_bright__88c91e19-68f5-4739-ba2e-6c28f487bb0f_3.webp"
+                            alt="New Mom Program group session"
+                            width={600}
+                            height={400}
+                            className="w-full h-full object-cover"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-purple-900/40 to-transparent"></div>
+                          <div className="absolute bottom-6 left-6 right-6">
+                            <div className="bg-white/90 backdrop-blur-sm rounded-lg p-4">
+                              <p className="text-sm font-medium text-bloom-dark mb-1">What Moms Are Saying:</p>
+                              <p className="text-sm text-bloom-dark/80 italic">
+                                "This program saved my sanity. Having a group who truly understood what I was going through made all the difference."
+                              </p>
+                              <p className="text-xs text-bloom-dark/60 mt-2">- Sarah, Mom of 2</p>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Decorative badges */}
+                        <div className="absolute -top-4 -right-4 bg-yellow-400 text-yellow-900 rounded-full p-3 shadow-lg animate-pulse">
+                          <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+
+                {/* Personal Support Services */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.9 }}
                   className="space-y-6"
                 >
                   <div className="flex items-center justify-between">

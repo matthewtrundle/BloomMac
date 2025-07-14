@@ -337,7 +337,9 @@
     
     <div class="reveal">
         <!-- Excellence: Progress Indicator -->
-        
+        <div class="progress-indicator" style="position: fixed; bottom: 20px; right: 20px; z-index: 100; background: rgba(255,255,255,0.9); padding: 10px 20px; border-radius: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); font-size: 14px; color: var(--bloom-charcoal);">
+            <span class="current-slide">1</span> / <span class="total-slides">12</span>
+        </div>
         
         <div class="slides">
             <section data-background-image="../../../shared-assets/images/biff01_Mother_holding_newborn_by_large_window_with_soft_morni_f16d5b33-2dc7-4aa7-86a1-34d018871ed7_3.png"
@@ -366,7 +368,7 @@
             </section>
             
             <!-- Slide 2: You Belong Here -->
-            <section>
+            <section data-background="linear-gradient(135deg, #FFF9F0 0%, #E8F5F0 50%, #FFF5E6 100%)" style="position: relative;">
                 <div class="gradient-mesh" style="position: absolute; inset: 0; z-index: 0; background: linear-gradient(135deg, #FFF9F0 0%, #F0F9F7 50%, #FFFEF5 100%);">
                     <div style="position: absolute; width: 900px; height: 900px; background: radial-gradient(circle at center, rgba(255,203,119,0.35) 0%, rgba(255,203,119,0.1) 40%, transparent 70%); top: -20%; right: -10%; mix-blend-mode: multiply;"></div>
                     <div style="position: absolute; width: 700px; height: 700px; background: radial-gradient(circle at center, rgba(149,225,211,0.3) 0%, rgba(149,225,211,0.1) 40%, transparent 70%); bottom: -10%; left: -5%; mix-blend-mode: multiply;"></div>
@@ -1072,8 +1074,10 @@
         const updateProgress = () => {
             const current = Reveal.getIndices().h + 1;
             const total = Reveal.getTotalSlides();
-            document.querySelector('.current-slide').textContent = current;
-            document.querySelector('.total-slides').textContent = total;
+            const currentSlideEl = document.querySelector('.current-slide');
+            const totalSlidesEl = document.querySelector('.total-slides');
+            if (currentSlideEl) currentSlideEl.textContent = current;
+            if (totalSlidesEl) totalSlidesEl.textContent = total;
         };
         
         // Initialize progress
