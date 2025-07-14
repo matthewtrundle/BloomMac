@@ -383,9 +383,9 @@ const Header = () => {
           
           {/* Mobile Navigation */}
           <div className="flex md:hidden items-center justify-between py-3">
-            {/* Logo - Improved mobile version */}
+            {/* Logo - Improved mobile version with better sizing */}
             <Link href="/" className="flex items-center mobile-header-logo">
-              <div className="relative h-14 w-44 mr-2">
+              <div className="relative h-16 sm:h-20 w-48 sm:w-56 mr-2">
                 <Image 
                   src="/images/Logo/BLOOM-LOGO.png" 
                   alt="Bloom Psychology" 
