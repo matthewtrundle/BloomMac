@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
+import { Heart, Sparkles } from 'lucide-react';
 import Button from '@/components/ui/Button';
 
 // Course data
@@ -258,23 +259,23 @@ function PurchaseSuccessContent() {
               </div>
             </div>
 
-            {/* Support Section with Garden Theme */}
+            {/* Support Section */}
             <div className="bg-gradient-to-r from-bloompink to-pink-400 rounded-xl p-8 text-white text-center relative overflow-hidden">
-              {/* Floating garden elements */}
+              {/* Floating wellness elements */}
               <div className="absolute inset-0 pointer-events-none">
                 <motion.div
-                  animate={{ scale: [1, 1.1, 1], rotate: [0, 180, 360] }}
+                  animate={{ scale: [1, 1.1, 1], opacity: [0.1, 0.2, 0.1] }}
                   transition={{ duration: 20, repeat: Infinity }}
-                  className="absolute top-4 right-6 text-3xl opacity-20"
+                  className="absolute top-4 right-6"
                 >
-                  🌸
+                  <Heart className="w-8 h-8 text-white/20" />
                 </motion.div>
                 <motion.div
-                  animate={{ scale: [1, 1.2, 1] }}
+                  animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.2, 0.1] }}
                   transition={{ duration: 15, repeat: Infinity, delay: 5 }}
-                  className="absolute bottom-4 left-6 text-2xl opacity-20"
+                  className="absolute bottom-4 left-6"
                 >
-                  🌿
+                  <Sparkles className="w-6 h-6 text-white/20" />
                 </motion.div>
               </div>
               

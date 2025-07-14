@@ -215,7 +215,7 @@ export default function ResourcesPage() {
               transition={{ duration: 0.6, delay: 0.2 }}
             >
               Evidence-based tools and guides to support your mental health journey. 
-              Download free resources created by licensed mental health professionals.
+              Free resources created by licensed mental health professionals.
             </motion.p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -306,8 +306,8 @@ export default function ResourcesPage() {
                           {resource.description}
                         </p>
                         <div className="flex items-center text-bloom-sage font-medium group">
-                          <Download className="w-4 h-4 mr-2" />
-                          <span>Download</span>
+                          <BookOpen className="w-4 h-4 mr-2" />
+                          <span>View Resource</span>
                           <ChevronRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                         </div>
                       </div>
@@ -351,7 +351,7 @@ export default function ResourcesPage() {
                 Our most popular resource
               </p>
               <Button href="/resources/postpartum-checklist" variant="outline" size="sm">
-                Download Free
+                View Checklist
               </Button>
             </motion.div>
 

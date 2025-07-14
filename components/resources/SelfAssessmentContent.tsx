@@ -16,11 +16,11 @@ export default function SelfAssessmentContent() {
         <div className="absolute inset-0 opacity-5">
           <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
             <defs>
-              <pattern id="assessment-lattice" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
+              <pattern id="assessment-grid" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
                 <path d="M0,5 L10,5 M5,0 L5,10" stroke="currentColor" strokeWidth="0.5" className="text-bloom-sage"/>
               </pattern>
             </defs>
-            <rect width="100" height="100" fill="url(#assessment-lattice)" />
+            <rect width="100" height="100" fill="url(#assessment-grid)" />
           </svg>
         </div>
         
@@ -100,11 +100,11 @@ export default function SelfAssessmentContent() {
       <section className="px-4 py-16 bg-white relative">
         <div className="absolute inset-0 opacity-[0.02]">
           <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-            <pattern id="intro-garden" x="0" y="0" width="4" height="4" patternUnits="userSpaceOnUse">
-              <circle cx="1" cy="1" r="0.5" fill="#7A8B7F" />
-              <circle cx="3" cy="3" r="0.3" fill="#8B7355" />
+            <pattern id="intro-dots" x="0" y="0" width="4" height="4" patternUnits="userSpaceOnUse">
+              <circle cx="1" cy="1" r="0.5" fill="var(--bloom-sage)" opacity="0.3" />
+              <circle cx="3" cy="3" r="0.3" fill="var(--bloom-pink)" opacity="0.3" />
             </pattern>
-            <rect width="100" height="100" fill="url(#intro-garden)" />
+            <rect width="100" height="100" fill="url(#intro-dots)" />
           </svg>
         </div>
         
@@ -273,7 +273,7 @@ export default function SelfAssessmentContent() {
                   transition={{ type: "spring", stiffness: 300 }}
                 >
                   <h3 className="font-semibold text-lg mb-3 text-green-800 flex items-center gap-2">
-                    <span>🌱</span>
+                    <span>💚</span>
                     If you checked a few boxes:
                   </h3>
                   <p className="text-green-700">
@@ -288,7 +288,7 @@ export default function SelfAssessmentContent() {
                   transition={{ type: "spring", stiffness: 300 }}
                 >
                   <h3 className="font-semibold text-lg mb-3 text-orange-800 flex items-center gap-2">
-                    <span>🌻</span>
+                    <span>💛</span>
                     If you checked several boxes:
                   </h3>
                   <p className="text-orange-700">
@@ -338,14 +338,14 @@ export default function SelfAssessmentContent() {
             transition={{ duration: 20, repeat: Infinity }}
             className="absolute top-10 right-10 text-6xl opacity-10"
           >
-            🌻
+            ✨
           </motion.div>
           <motion.div
             animate={{ scale: [1, 1.1, 1] }}
             transition={{ duration: 15, repeat: Infinity, delay: 5 }}
             className="absolute bottom-20 left-20 text-5xl opacity-10"
           >
-            🌿
+            💫
           </motion.div>
         </div>
         
