@@ -182,10 +182,13 @@ const Header = () => {
               </div>
             </Link>
 
-            {/* Centered Navigation Container */}
-            <div className="flex items-center justify-center w-full">
-              {/* Center Nav Items with tighter spacing */}
-              <nav className="flex items-center gap-5 mr-20">
+            {/* Three-column layout */}
+            <div className="flex items-center justify-between w-full">
+              {/* Left spacer to balance layout */}
+              <div className="w-0 xl:w-96"></div>
+              
+              {/* Center Nav Items */}
+              <nav className="flex items-center gap-5">
                 <Link href="/about" className="text-bloom font-medium hover:text-bloom-blush transition-all duration-300 text-sm tracking-wider">
                   ABOUT
                 </Link>
@@ -333,48 +336,48 @@ const Header = () => {
                   BLOG
                 </Link>
               </nav>
-            </div>
-            
-            {/* Right Actions - Absolute positioned with more margin */}
-            <div className="absolute right-0 flex items-center gap-4">
-              {/* Cart Icon - Now with blue color and better spacing */}
-              <button
-                onClick={toggleCart}
-                className="relative p-2 text-blue-600 hover:text-blue-700 transition-colors mr-2"
-                aria-label="Open cart"
-              >
-                <ShoppingCart className="w-5 h-5" />
-                {items && items.length > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-blue-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-medium">
-                    {items.reduce((sum, item) => sum + item.quantity, 0)}
-                  </span>
-                )}
-              </button>
               
-              <ClientOnly
-                fallback={
-                  <div className="flex items-center gap-3">
-                    <Button
-                      href="/auth/login"
-                      variant="ghost"
-                      size="sm"
-                      className="text-bloom-dark hover:text-bloom-sage border border-gray-200 hover:border-bloom-sage/30"
-                    >
-                      Login
-                    </Button>
-                    <Button 
-                      href="/book"
-                      variant="pink"
-                      size="md"
-                      className="shadow-sm hover:shadow-md"
-                    >
-                      Book Free Consultation
-                    </Button>
-                  </div>
-                }
-              >
-                <HeaderAuthSection />
-              </ClientOnly>
+              {/* Right Actions - Fixed width container to prevent overlap */}
+              <div className="flex items-center gap-3 w-96 justify-end">
+                <ClientOnly
+                  fallback={
+                    <div className="flex items-center gap-3">
+                      <Button
+                        href="/auth/login"
+                        variant="ghost"
+                        size="sm"
+                        className="text-bloom-dark hover:text-bloom-sage border border-gray-200 hover:border-bloom-sage/30"
+                      >
+                        Login
+                      </Button>
+                      <Button 
+                        href="/book"
+                        variant="pink"
+                        size="md"
+                        className="shadow-sm hover:shadow-md"
+                      >
+                        Book Free Consultation
+                      </Button>
+                    </div>
+                  }
+                >
+                  <HeaderAuthSection />
+                </ClientOnly>
+                
+                {/* Cart Icon - Moved to far right with extra spacing */}
+                <button
+                  onClick={toggleCart}
+                  className="relative p-2 text-blue-600 hover:text-blue-700 transition-colors ml-4"
+                  aria-label="Open cart"
+                >
+                  <ShoppingCart className="w-5 h-5" />
+                  {items && items.length > 0 && (
+                    <span className="absolute -top-1 -right-1 bg-blue-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-medium">
+                      {items.reduce((sum, item) => sum + item.quantity, 0)}
+                    </span>
+                  )}
+                </button>
+              </div>
             </div>
           </div>
           
