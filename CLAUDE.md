@@ -503,6 +503,32 @@ Complete cart and checkout system with professional adaptations of conversion op
 - `user_achievements` - Badges and milestones
 - `courses`, `course_modules`, `course_lessons` - Course content
 
+## 🎧 MEDITATION AUDIO INTEGRATION
+
+### Overview
+Each course week includes a guided meditation with custom audio player integration.
+
+### Key Components:
+- **Storage**: Supabase Storage bucket named 'meditations' (already created)
+- **Player**: `/components/course/MeditationPlayer.tsx` - Custom audio player with visual waveform
+- **Scripts**: `/resources/week[1-6]-meditation-script-elevenlabs.md` - Dr. Jana's voice-aligned scripts
+- **Integration**: Automatically appears in course "Week Resources" section
+
+### Audio File Requirements:
+- **Format**: MP3 (audio/mpeg)
+- **Naming**: `week1-meditation.mp3`, `week2-meditation.mp3`, etc.
+- **Upload**: Via Supabase Dashboard → Storage → meditations bucket
+- **URL Pattern**: `https://[project-id].supabase.co/storage/v1/object/public/meditations/week[N]-meditation.mp3`
+
+### Implementation Status:
+- ✅ Audio player component built and integrated
+- ✅ All 6 meditation scripts written with ElevenLabs markup
+- ⏳ Pending: Generate audio files with ElevenLabs
+- ⏳ Pending: Upload MP3 files to Supabase
+
+### Full Documentation:
+See `MEDITATION_AUDIO_INTEGRATION.md` for complete setup and maintenance guide.
+
 ## 🚨 FINAL REMINDER
 
 **YOU ARE AN AI THAT MAKES MISTAKES.** The only way to prevent these mistakes is to TEST EVERYTHING FIRST. The tools exist. USE THEM AUTOMATICALLY. Don't wait to be asked.
