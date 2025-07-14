@@ -319,10 +319,6 @@ const Header = () => {
                   </div>
                 </div>
                 
-                <Link href="/packages" className="text-bloom font-medium hover:text-bloom-blush transition-all duration-300 text-sm tracking-wider">
-                  PACKAGES
-                </Link>
-                
                 <div className="w-px h-4 bg-gray-300"></div>
                 
                 <Link href="/contact" className="text-bloom font-medium hover:text-bloom-blush transition-all duration-300 text-sm tracking-wider">
