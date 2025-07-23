@@ -7,41 +7,62 @@ export async function GET(request: NextRequest) {
     const supabase = createSupabaseServiceClient();
     let images: string[] = [];
     
-    // Try to get images from Supabase storage
+    // Get all images from Supabase storage (now the primary source)
     try {
-      const { data, error } = await supabase.storage.from('blog-images').list();
+      const { data, error } = await supabase.storage.from('blog-images').list('', {
+        limit: 1000,
+        offset: 0
+      });
 
       if (!error && data) {
-        const supabaseImages = data.map(file => {
-          const { data: { publicUrl } } = supabase.storage.from('blog-images').getPublicUrl(file.name);
-          return publicUrl;
+        // List files recursively in subdirectories
+        const getAllFiles = async (path: string = '') => {
+          const { data: files, error } = await supabase.storage
+            .from('blog-images')
+            .list(path, {
+              limit: 1000,
+              offset: 0
+            });
+
+          if (error || !files) return [];
+
+          const allFiles: string[] = [];
+
+          for (const file of files) {
+            if (file.id) {
+              // It's a file
+              const fullPath = path ? `${path}/${file.name}` : file.name;
+              const { data: { publicUrl } } = supabase.storage
+                .from('blog-images')
+                .getPublicUrl(fullPath);
+              allFiles.push(publicUrl);
+            } else {
+              // It's a folder, recurse into it
+              const subPath = path ? `${path}/${file.name}` : file.name;
+              const subFiles = await getAllFiles(subPath);
+              allFiles.push(...subFiles);
+            }
+          }
+
+          return allFiles;
+        };
+
+        images = await getAllFiles();
+        
+        // Sort images by filename for consistent ordering
+        images.sort((a, b) => {
+          const fileNameA = a.split('/').pop() || '';
+          const fileNameB = b.split('/').pop() || '';
+          return fileNameA.localeCompare(fileNameB);
         });
-        images = [...images, ...supabaseImages];
       }
     } catch (storageError) {
-      console.warn('Could not access Supabase storage:', storageError);
+      console.error('Error accessing Supabase storage:', storageError);
+      return NextResponse.json({ 
+        error: 'Failed to access image storage', 
+        details: storageError.message 
+      }, { status: 500 });
     }
-
-    // Add local images from public folder as fallback
-    const localImages = [
-      '/images/optimized/Home/Confident Women.webp',
-      '/images/optimized/Home/herooptimzed.webp',
-      '/images/optimized/Services/Experienced Parents.webp',
-      '/images/optimized/Services/AnxietyManagement1.webp',
-      '/images/optimized/Services/AnxietyManagement2.webp',
-      '/images/optimized/Services/Symbolic Shoes.webp',
-      '/images/optimized/Services/Hopeful Hands.webp',
-      '/images/optimized/Services/Walking through fields.webp',
-      '/images/optimized/Hero/hero-bloom.webp',
-      '/images/Team/Jana Rundle.jpg',
-      '/images/blog/mental-health-awareness.jpg',
-      '/images/blog/self-care-tips.jpg',
-      '/images/blog/postpartum-support.jpg',
-      '/images/blog/parenting-journey.jpg',
-      '/images/blog/mindfulness-practice.jpg',
-    ];
-
-    images = [...images, ...localImages];
 
     return NextResponse.json({ images });
   } catch (error) {
